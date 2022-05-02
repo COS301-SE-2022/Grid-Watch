@@ -1,105 +1,40 @@
-
-
 # GridWatch
 
-This project was generated using [Nx](https://nx.dev).
+### Created by the Denied Access Team of the University of Pretoria COS 301 Module
+* Anru Nel (u20646284)
+* Joshua Young (u20442018)
+* Leonardo Wessels (u17229457)
+* Tshegofatsho Motlatle (u17066736)
+* Thebe Kgaphola (u18371435)
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+Project Description:
+The grid watch system will allow three core interfaces:
 
-🔎 **Smart, Fast and Extensible Build System**
+1. The first interface will allow anyone with access to the application (the public) to report and monitor power failures, potholes, water supply shortages and other issues in each location which need to be investigated and repaired. Locations should receive notifications based on if a problem in their area may affect them. 
+2. The second interface will allow Authorized officials a view of all the publicly created tickets and the option to dispatch a technical team or start a bidding process where third party service providers can obtain the tender to do the work the specific ticket requires. 
+3. The third interface will allow the tech team to report on the ticket information such as the cost of the repair, a detailed description of the problem and how it is going to be fixed with the estimated time it will take to complete these repairs. 
 
-## Quick Start & Documentation
+The system will also make use of predictive analytics powered by AI modules that will predict certain aspects such as potential problems that may be experienced as a result of the weather or ticket repair information based on what similar tickets have costed and the time they took to repair in the past.
 
-[Nx Documentation](https://nx.dev/angular)
+Applications:
+* [GridWatch User Application](www.google.com)
+* [GridWatch Technician Application](www.google.com)
+* [GridWatch Authorized Official Application](www.google.com)
 
-[10-minute video showing all Nx features](https://nx.dev/getting-started/intro)
+Specifications:
 
-[Interactive Tutorial](https://nx.dev/tutorial/01-create-application)
+[Our SRS Documentation](www.google.com)
 
-## Adding capabilities to your workspace
+Project Board:
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+[Our Teams Project Board](www.google.com)
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+FAQ:
 
-Below are our core plugins:
-
-- [Angular](https://angular.io)
-  - `ng add @nrwl/angular`
-- [React](https://reactjs.org)
-  - `ng add @nrwl/react`
-- Web (no framework frontends)
-  - `ng add @nrwl/web`
-- [Nest](https://nestjs.com)
-  - `ng add @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `ng add @nrwl/express`
-- [Node](https://nodejs.org)
-  - `ng add @nrwl/node`
-
-There are also many [community plugins](https://nx.dev/community) you could add.
-
-## Generate an application
-
-Run `ng g @nrwl/angular:app my-app` to generate an application.
-
-> You can use any of the plugins above to generate applications as well.
-
-When using Nx, you can create multiple applications and libraries in the same workspace.
-
-## Generate a library
-
-Run `ng g @nrwl/angular:lib my-lib` to generate a library.
-
-> You can also use any of the plugins above to generate libraries as well.
-
-Libraries are shareable across libraries and applications. They can be imported from `@grid-watch/mylib`.
-
-## Development server
-
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng g component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
+About Us:
+#### Leonardo Wessels
+* Personally: 
+* Professionally: 
 
 
 
-
-
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.

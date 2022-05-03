@@ -1,8 +1,8 @@
 name: Deafult Test
 on:
-  pull_request:
+  push:
     branches: [main, develop]
-    
+
 jobs:
   ci:
     runs-on: ubuntu-latest

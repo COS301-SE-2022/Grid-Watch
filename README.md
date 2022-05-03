@@ -27,7 +27,7 @@ Specifications:
 
 Project Board:
 
-[Our Teams Project Board](www.google.com)
+[Our Teams Project Board](https://github.com/COS301-SE-2022/Grid-Watch/projects)
 
 FAQ:
 

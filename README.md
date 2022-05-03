@@ -36,5 +36,11 @@ About Us:
 * Personally: 
 * Professionally: 
 
+#### Joshua Young
+* Personally:
+* Professionally: https://www.linkedin.com/in/joshua-young-897522239
 
+#### Anru Nel
+* Personally:
+* Professionally: https://www.linkedin.com/in/anru-nel-0a0838b1/
 

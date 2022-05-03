@@ -36,7 +36,7 @@ About Us:
 * Personally: 
 * Professionally: 
 
-#### Josh Young
+#### Joshua Young
 * Personally:
 * Professionally: https://www.linkedin.com/in/joshua-young-897522239
 

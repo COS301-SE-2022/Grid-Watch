@@ -8,7 +8,7 @@ import { TicketBodyComponent } from './ticket-body/ticket-body.component';
     CommonModule,
 
     RouterModule.forChild([
-      /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
+       {path: '', pathMatch: 'full', component: TicketBodyComponent} 
     ]),
   ],
   declarations: [TicketBodyComponent],

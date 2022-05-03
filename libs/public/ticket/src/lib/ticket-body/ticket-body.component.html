@@ -1,24 +1,41 @@
 <div class="container mt-5">
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Name</mat-label>
-            <input matInput>
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-          <mat-label>Select</mat-label>
-          <mat-select>
-            <mat-option value="one">Pothole</mat-option>
-            <mat-option value="two">Second option</mat-option>
-          </mat-select>
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-          <mat-label>Textarea</mat-label>
-          <textarea matInput></textarea>
-        </mat-form-field>
-    </div>
-    
+    <div class="card">
+        <div class="card-body">
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Name</mat-label>
+                    <input matInput>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                  <mat-label>Issue Type</mat-label>
+                  <mat-select>
+                    <mat-option value="one">Pothole</mat-option>
+                    <mat-option value="two">Electicity Outage</mat-option>
+                    <mat-option value="two">Water Outage</mat-option>
+                    <mat-option value="two">Sinkhole</mat-option>
+                  </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                  <mat-label>Description</mat-label>
+                  <textarea matInput></textarea>
+                </mat-form-field>
+            </div>
+            
+            <div>
+                <mat-label class="">Upload image of issue</mat-label><br>
+                <button mat-raised-button color="primary">Choose File</button>
+                <input #uploadFile type='file' style="display:none"/> 
+             </div>
+             
+            <div class="mt-4">
+                <mat-label class="">Pin location of issue</mat-label><br>
+                <button mat-raised-button color="primary">Pin Location</button>
+                <input #uploadFile type='file' style="display:none"/> 
+             </div>
+        </div>
+    </div> 
 </div>

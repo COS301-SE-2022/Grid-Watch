@@ -27,8 +27,7 @@
             
             <div>
                 <mat-label class="">Upload image of issue</mat-label><br>
-                <button mat-raised-button color="primary">Choose File</button>
-                <input #uploadFile type='file' style="display:none"/> 
+                <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" onchange="console.log(event.target.files)">
              </div>
              
             <div class="mt-4">

@@ -6,6 +6,7 @@
     "api-ticket-repository": "libs/api/ticket/repository",
     "api-ticket-service": "libs/api/ticket/service",
     "public": "apps/public",
-    "public-e2e": "apps/public-e2e"
+    "public-e2e": "apps/public-e2e",
+    "public-ticket": "libs/public/ticket"
   }
 }

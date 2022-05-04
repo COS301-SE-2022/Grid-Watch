@@ -19,7 +19,10 @@
       "@grid-watch/api/ticket/repository": [
         "libs/api/ticket/repository/src/index.ts"
       ],
-      "@grid-watch/api/ticket/service": ["libs/api/ticket/service/src/index.ts"]
+      "@grid-watch/api/ticket/service": [
+        "libs/api/ticket/service/src/index.ts"
+      ],
+      "@grid-watch/public/ticket": ["libs/public/ticket/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

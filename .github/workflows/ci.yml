@@ -21,23 +21,23 @@ jobs:
           fetch-depth: 0
           cache: yarn
       - uses: nrwl/nx-set-shas@v2
-      if ${{github.event.pull_request == true }}
+      if:: ${{github.event.pull_request == true }}
       - name: Installing Yarn
       - run: npm install yarn
 
-      if ${{github.event.pull_request == true }}
+      if: ${{github.event.pull_request == true }}
       - name: Installing Dependencies
       - run: yarn install
-      if ${{github.event.pull_request == true }}
+      if: ${{github.event.pull_request == true }}
       - name: Running nx affected lint
       - run: yarn nx affected --target=lint --parallel=3
-      if ${{github.event.pull_request == true }}
+      if: ${{github.event.pull_request == true }}
       - name: Running nx affected test
       - run: yarn nx affected --target=test --parallel=3 --ci --code-coverage
-      if ${{github.event.pull_request == true }}
+      if: ${{github.event.pull_request == true }}
       - name: Running nx affected build
       - run: yarn nx affected --target=build --parallel=3
-      if ${{github.event.pull_request == true }}
+      if: ${{github.event.pull_request == true }}
       - name: Running nx affected e2e
       - run: yarn nx affected --target=e2e 
 

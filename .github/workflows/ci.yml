@@ -6,13 +6,14 @@ env:
 on:
   push: 
     branches:
-      # - main
-      # - develop
+      - main
+      - develop
   pull_request: {}
   workflow_dispatch: {}
 
 jobs:
-  main:
+  Test-Affected:
+    if: ${{ github.event_name == 'pull_request'}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -44,8 +45,39 @@ jobs:
       - name: Running nx affected e2e
         run: yarn nx affected --target=e2e 
 
-      - name: Running nx worskpace-lint
-        run: yarn nx workspace-lint
+jobs:
+  Test-All:
+    if: ${{ github.event_name == 'push'}}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v2
+        with: 
+          node-version: ${{env.node-version}}
+          cache: yarn
+
+      - uses: nrwl/nx-set-shas@v2
+
+      - name: Installing Yarn
+        run: npm install yarn
+
+      - name: Installing Dependencies
+        run: yarn install
+
+      - name: Running nx affected lint
+        run: yarn nx affected --target=lint --parallel=3
+
+      - name: Running nx affected test
+        run: yarn nx affected --target=test --parallel=3 --ci --code-coverage
       
-      - name: Running nx format:check
-        run: yarn nx format:check
+      - name: Running nx affected build
+        run: yarn nx affected --target=build --parallel=3
+
+      - name: Running nx affected e2e
+        run: yarn nx affected --target=e2e 
+      
+      - name: Running nx run-many
+        run: yarn nx run-many --target=build --all=true 

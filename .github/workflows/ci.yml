@@ -45,7 +45,6 @@ jobs:
       - name: Running nx affected e2e
         run: yarn nx affected --target=e2e 
 
-jobs:
   Test-All:
     if: ${{ github.event_name == 'push'}}
     runs-on: ubuntu-latest

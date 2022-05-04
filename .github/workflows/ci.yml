@@ -1,9 +1,17 @@
 name: CI
+
+env:
+  node-version: 16.x
+
 on:
-  push:
+  push: 
     branches:
-      - workflow
-  pull_request:
+      - main
+      - develop
+    types:
+      - opened
+  pull_request: {}
+  workflow_dispatch: {}
 
 jobs:
   main:
@@ -11,12 +19,29 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+          node-version: ${{env.node-version}}
           fetch-depth: 0
+          cache: yarn
       - uses: nrwl/nx-set-shas@v2
+      if ${{github.event.opened == true }}
+      - name: Installing Yarn
       - run: npm install yarn
+
+      if ${{github.event.opened == true }}
+      - name: Installing Dependencies
+      - run: yarn install
+      if ${{github.event.opened == true }}
+      - name: Running nx affected lint
+      - run: yarn nx affected --target=lint --parallel=3
+      if ${{github.event.opened == true }}
+      - name: Running nx affected test
+      - run: yarn nx affected --target=test --parallel=3 --ci --code-coverage
+      if ${{github.event.opened == true }}
+      - name: Running nx affected build
+      - run: yarn nx affected --target=build --parallel=3
+      if ${{github.event.opened == true }}
+      - name: Running nx affected e2e
+      - run: yarn nx affected --target=e2e 
 
       - run: yarn nx workspace-lint
       - run: yarn nx format:check
-      - run: yarn nx affected --target=lint --parallel=3
-      - run: yarn nx affected --target=test --parallel=3 --ci --code-coverage
-      - run: yarn nx affected --target=build --parallel=3

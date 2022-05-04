@@ -1636,6 +1636,13 @@
     optional "0.1.4"
     tslib "2.3.1"
 
+"@ng-bootstrap/ng-bootstrap@^12.1.1":
+  version "12.1.1"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-12.1.1.tgz#57444381b02d2582ab050bbdde1f05564ac587c1"
+  integrity sha512-g0/b+qecgsCDspsctKcr5ihjJgtEAePs3m9l7OfioSSBGkjBiOr1ghbixNMwJx4drSVmVWGHSGZyLjDGmd1Wdg==
+  dependencies:
+    tslib "^2.3.0"
+
 "@ngtools/webpack@13.3.4":
   version "13.3.4"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-13.3.4.tgz#34e21bd9d8b01d4dad0450ac550a92af602ebd02"

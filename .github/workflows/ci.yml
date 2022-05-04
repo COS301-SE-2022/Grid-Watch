@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 0
           cache: yarn
       - uses: nrwl/nx-set-shas@v2
-      if:: ${{github.event.pull_request == true }}
+      if: ${{github.event.pull_request == true }}
       - name: Installing Yarn
       - run: npm install yarn
 

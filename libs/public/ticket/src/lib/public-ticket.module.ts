@@ -9,6 +9,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import { MatButtonModule } from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
 
@@ -21,6 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     MatDividerModule,
     MatButtonModule,
+    MatCardModule,
     RouterModule.forChild([
       {
         path: 'createTicket',

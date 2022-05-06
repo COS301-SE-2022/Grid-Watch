@@ -1,2 +1,22 @@
-<p>ticket-body works!</p>
-<div>testing</div>
+<div class="container mt-5">    
+    <mat-card class="issue_card">
+        <mat-card-header>
+            <div mat-card-avatar>
+                <img src="{{avatar}}" alt="avatar">
+            </div>
+            <mat-card-title>
+                {{name}} {{surname}}
+            </mat-card-title>
+            <mat-card-subtitle>
+                {{issue_type}}
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <img class="uploaded_issue_image" src="{{issue_img}}" alt="uploaded_issue_image">
+        </mat-card-content>
+        <mat-card-footer>
+            <img (click)="IncreaseUpvote()" class="upvote_img m-2" src="assets/circle-up-solid.svg" alt="upvote icon"> {{upvotes}} 
+        </mat-card-footer>
+    </mat-card>
+</div>
+

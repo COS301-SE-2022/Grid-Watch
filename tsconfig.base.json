@@ -22,6 +22,7 @@
       "@grid-watch/api/ticket/service": [
         "libs/api/ticket/service/src/index.ts"
       ],
+      "@grid-watch/public/home-page": ["libs/public/home-page/src/index.ts"],
       "@grid-watch/public/ticket": ["libs/public/ticket/src/index.ts"]
     }
   },

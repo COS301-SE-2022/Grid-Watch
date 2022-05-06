@@ -2,20 +2,20 @@
     <mat-card class="issue_card">
         <mat-card-header>
             <div mat-card-avatar>
-                <img src="assets/user-solid.svg" alt="avatar">
+                <img src="{{avatar}}" alt="avatar">
             </div>
             <mat-card-title>
-                User 2
+                {{name}} {{surname}}
             </mat-card-title>
             <mat-card-subtitle>
-                Pothole
+                {{issue_type}}
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-            <img class="uploaded_issue_image" src="assets/pothole_example.jpg" alt="uploaded_issue_image">
+            <img class="uploaded_issue_image" src="{{issue_img}}" alt="uploaded_issue_image">
         </mat-card-content>
         <mat-card-footer>
-            <img class="upvote_img m-2" src="assets/circle-up-solid.svg" alt="upvote icon"> 0 
+            <img (click)="IncreaseUpvote()" class="upvote_img m-2" src="assets/circle-up-solid.svg" alt="upvote icon"> {{upvotes}} 
         </mat-card-footer>
     </mat-card>
 </div>

@@ -23,8 +23,8 @@ jobs:
 
       - uses: nrwl/nx-set-shas@v2
 
-      - name: Installing Yarn
-        run: npm install yarn
+     # - name: Installing Yarn
+      #  run: npm install yarn
 
       - name: Installing Dependencies
         run: yarn install

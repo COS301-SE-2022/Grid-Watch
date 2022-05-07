@@ -146,7 +146,7 @@ export class ApiTicketRepositoryDataAccess {
        // return "The ticket with id: " + TicketId + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
     }
 
-    async UpdateRepairTime(TicketId: number, RepairTime: string){
+    async UpdateRepairTime(TicketId: number, RepairTime: number){
 
         await this.prisma.ticket.update({
             where:{

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 
 @Component({
@@ -7,10 +7,28 @@ import {MatDialog} from '@angular/material/dialog';
   styleUrls: ['./create-ticket.component.scss'],
 })
 export class CreateTicketComponent{
-  constructor() {}
+
+  
+  default_upload = "";
+
+  // constructor() {
+  // }
 
   ngOnInit(): void {
+    this.default_upload = "assets/upload-solid.svg";
+  }
 
+  fileUploaded(e: any)
+  {
+
+    const file = e.target.files[0];
+
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.default_upload = reader.result as string;
+    }
+    reader.readAsDataURL(file)
   }
 
   // openDialog()

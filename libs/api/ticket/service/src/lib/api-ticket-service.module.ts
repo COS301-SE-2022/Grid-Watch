@@ -4,6 +4,6 @@ import { ApiTicketService } from './api-ticket.service';
 @Module({
   controllers: [],
   providers: [ApiTicketService],
-  exports: [],
+  exports: [ApiTicketService],
 })
 export class ApiTicketServiceModule {}

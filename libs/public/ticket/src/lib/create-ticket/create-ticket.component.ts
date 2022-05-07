@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import { TicketBodyComponent } from '../ticket-body/ticket-body.component';
 
 @Component({
   selector: 'grid-watch-create-ticket',
@@ -8,11 +7,11 @@ import { TicketBodyComponent } from '../ticket-body/ticket-body.component';
   styleUrls: ['./create-ticket.component.scss'],
 })
 export class CreateTicketComponent{
-  // constructor(public dialog : MatDialog) {}
+  constructor() {}
 
-  // ngOnInit(): void {
+  ngOnInit(): void {
 
-  // }
+  }
 
   // openDialog()
   // {

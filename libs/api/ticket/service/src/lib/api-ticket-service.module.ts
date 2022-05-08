@@ -6,14 +6,15 @@ import { GetTicketHandler, GetTicketsHandler } from './queries/api-ticket-quety-
 import { ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
 
 @Module({
-  imports: [CqrsModule,CommandBus],
+  imports: [CqrsModule],
   providers: [ApiTicketService,
     createTicketHandler,
     updateTicketHandler,
     deleteTicketHandler,
     GetTicketHandler,
     GetTicketsHandler,
-    ApiTicketRepositoryDataAccess
+    ApiTicketRepositoryDataAccess,
+    CommandBus
   ],
   exports: [ApiTicketService],
 })

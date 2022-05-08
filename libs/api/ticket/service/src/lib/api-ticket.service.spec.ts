@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiTicketService } from './api-ticket.service';
+import {CommandBus,QueryBus} from '@nestjs/cqrs';
 
 describe('ApiTicketService', () => {
   let service: ApiTicketService;

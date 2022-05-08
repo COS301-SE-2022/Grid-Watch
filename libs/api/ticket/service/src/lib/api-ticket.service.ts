@@ -6,7 +6,6 @@ import { CreateTicketCommand,UpdateTicketCommand, DeleteTicketCommand } from './
 
 @Injectable()
 export class ApiTicketService {
-
     constructor (private commandBus: CommandBus, private queryBus: QueryBus){}
 
     async findAll() {

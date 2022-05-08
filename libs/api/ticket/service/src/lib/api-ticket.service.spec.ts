@@ -7,7 +7,7 @@ describe('ApiTicketService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ApiTicketService],
+      providers: [ApiTicketService,QueryBus,CommandBus],
     }).compile();
 
     service = module.get<ApiTicketService>(ApiTicketService);

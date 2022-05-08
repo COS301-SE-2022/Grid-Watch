@@ -1,1 +1,1 @@
-export * from './lib/api-ticket-service.module';
+export * from './lib/api-ticket.service';

@@ -6,17 +6,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { CreateTicketComponent, PublicTicketModule, TicketBodyComponent } from '@grid-watch/public/ticket';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageBodyComponent } from '@grid-watch/public/home-page';
+import { PublicSharedUiModule } from '@grid-watch/public/shared-ui';
 
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomePageBodyComponent },
   { path: 'tickets', component: TicketBodyComponent },
-  { path: 'createTicket', component: CreateTicketComponent }
+  { path: 'createTicket', component: CreateTicketComponent },
 ];
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [RouterModule.forRoot(routes), BrowserModule, HttpClientModule, PublicTicketModule],
+  imports: [RouterModule.forRoot(routes), BrowserModule, HttpClientModule, PublicTicketModule, PublicSharedUiModule],
   providers: [ ],
   bootstrap: [AppComponent],
 })

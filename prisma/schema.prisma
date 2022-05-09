@@ -9,3 +9,34 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+///////////////////////////////////////////////////////////////////////
+// Ticket
+///////////////////////////////////////////////////////////////////////
+
+// All entities within the database are defined as tickets
+model Ticket {
+ // ticket_id           String    @id @default(cuid()) // Use CUIDs for IDs please
+  ticket_id           Int    @id @default(autoincrement())
+  ticket_status       String
+  ticket_create_date  DateTime
+  ticket_close_date   DateTime?
+  ticket_type         String
+  ticket_city         String?
+  ticket_location     String
+  ticket_cost         Float?
+  ticket_description  String
+  ticket_repair_time  Int?
+  ticket_upvotes      Int
+
+  @@map("ticket")
+}
+
+///////////////////////////////////////////////////////////////////////
+// Picture
+///////////////////////////////////////////////////////////////////////
+
+model Picture{
+  picture_id          String    @id @default(cuid()) 
+  picture_encoded     String
+}

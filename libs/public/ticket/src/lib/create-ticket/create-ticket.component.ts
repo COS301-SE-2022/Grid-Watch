@@ -31,6 +31,11 @@ export class CreateTicketComponent{
     reader.readAsDataURL(file)
   }
 
+  createTicket() : void
+  {
+    console.log("Call create ticket service");
+  }
+
   // openDialog()
   // {
   //   const dialogRef = this.dialog.open(DiscardTicketComponent);

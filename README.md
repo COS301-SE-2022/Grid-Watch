@@ -1,6 +1,7 @@
 # GridWatch
 
 ![Github CI](https://github.com/COS301-SE-2022/Grid-Watch/actions/workflows/ci.yml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/COS301-SE-2022/Grid-Watch/badge.svg?branch=develop)](https://coveralls.io/github/COS301-SE-2022/Grid-Watch?branch=develop)
 
 
 ### Created by the Denied Access Team of the University of Pretoria COS 301 Module

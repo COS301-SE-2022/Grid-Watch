@@ -1,5 +1,8 @@
 # GridWatch
 
+![Github CI](https://github.com/COS301-SE-2022/Grid-Watch/actions/workflows/ci.yml/badge.svg)
+
+
 ### Created by the Denied Access Team of the University of Pretoria COS 301 Module
 * Anru Nel (u20646284)
 * Joshua Young (u20442018)

@@ -12,8 +12,6 @@ export class CreateTicketComponent{
   
   default_upload = "";
 
-  // constructor() {
-  // }
 
   ngOnInit(): void {
     this.default_upload = "assets/upload-solid.svg";

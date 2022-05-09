@@ -11,11 +11,11 @@
                 <div id="issue_field">
                     <mat-form-field appearance="fill">
                       <mat-label>Issue Type</mat-label>
-                      <mat-select>
-                        <mat-option value="one">Pothole</mat-option>
-                        <mat-option value="two">Electicity Outage</mat-option>
-                        <mat-option value="two">Water Outage</mat-option>
-                        <mat-option value="two">Sinkhole</mat-option>
+                      <mat-select id="issue_type_options">
+                        <mat-option value="Pothole">Pothole</mat-option>
+                        <mat-option value="Electicity Outage">Electicity Outage</mat-option>
+                        <mat-option value="Water Outage">Water Outage</mat-option>
+                        <mat-option value="Sinkhole">Sinkhole</mat-option>
                       </mat-select>
                     </mat-form-field>
                 </div>
@@ -28,7 +28,7 @@
                 
                 <div id="upload_image">
                     <mat-label class="">Upload image of issue</mat-label><br>
-                    <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
+                    <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
                  </div>
                  
                 <div class="mt-4 location_pin">
@@ -39,13 +39,13 @@
                  <div class="row mt-5">
                      <div class="col-4">
                          <!-- <a routerLink="/tickets"> -->
-                             <button mat-raised-button color="primary" (click)="createTicket()">Create</button>
+                             <button id="createTicket_button" mat-raised-button color="primary" (click)="createTicket()">Create</button>
                          <!-- </a> -->
                     </div>
                     <div class="col-4"></div>
                     <div class="col-4">
                         <a routerLink="/tickets">
-                            <button mat-raised-button color="primary" >Discard</button>
+                            <button id="discardTicket_button" mat-raised-button color="primary" >Discard</button>
                         </a>
                    </div>                
                  </div>
@@ -53,7 +53,7 @@
         </div> 
         <div class="col-12 col-md-5 border">
             <div class="border align-middle p-5 mt-5">
-                <img src="{{default_upload}}" class="upload_issue_image" alt="upload_image">
+                <img id="image_preview" src="{{default_upload}}" class="upload_issue_image" alt="upload_image">
             </div>
         </div> 
     </div>

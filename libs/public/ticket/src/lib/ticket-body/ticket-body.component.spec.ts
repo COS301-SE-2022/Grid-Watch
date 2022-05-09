@@ -2,6 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TicketBodyComponent } from './ticket-body.component';
 
+import {MatCardHarness} from '@angular/material/card/testing';
+import { MatCardModule } from '@angular/material/card';
+
 describe('TicketBodyComponent', () => {
   let component: TicketBodyComponent;
   let fixture: ComponentFixture<TicketBodyComponent>;
@@ -9,6 +12,7 @@ describe('TicketBodyComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TicketBodyComponent],
+      imports: [MatCardModule]
     }).compileComponents();
   });
 

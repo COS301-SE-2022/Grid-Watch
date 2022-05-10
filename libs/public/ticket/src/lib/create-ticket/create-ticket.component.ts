@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import { TicketBodyComponent } from '../ticket-body/ticket-body.component';
+
 
 @Component({
   selector: 'grid-watch-create-ticket',
@@ -8,11 +8,32 @@ import { TicketBodyComponent } from '../ticket-body/ticket-body.component';
   styleUrls: ['./create-ticket.component.scss'],
 })
 export class CreateTicketComponent{
-  // constructor(public dialog : MatDialog) {}
 
-  // ngOnInit(): void {
+  
+  default_upload = "";
 
-  // }
+
+  ngOnInit(): void {
+    this.default_upload = "assets/upload-solid.svg";
+  }
+
+  fileUploaded(e: any)
+  {
+
+    const file = e.target.files[0];
+
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.default_upload = reader.result as string;
+    }
+    reader.readAsDataURL(file)
+  }
+
+  createTicket() : void
+  {
+    console.log("Call create ticket service");
+  }
 
   // openDialog()
   // {

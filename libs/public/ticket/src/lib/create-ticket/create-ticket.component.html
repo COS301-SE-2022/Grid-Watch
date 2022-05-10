@@ -1,53 +1,61 @@
 <div class="container mt-5">
-    <div class="card">
-        <div class="card-body">
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label>Name</mat-label>
-                    <input matInput>
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field appearance="fill">
-                  <mat-label>Issue Type</mat-label>
-                  <mat-select>
-                    <mat-option value="one">Pothole</mat-option>
-                    <mat-option value="two">Electicity Outage</mat-option>
-                    <mat-option value="two">Water Outage</mat-option>
-                    <mat-option value="two">Sinkhole</mat-option>
-                  </mat-select>
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field appearance="fill">
-                  <mat-label>Description</mat-label>
-                  <textarea matInput></textarea>
-                </mat-form-field>
-            </div>
-            
-            <div>
-                <mat-label class="">Upload image of issue</mat-label><br>
-                <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" onchange="console.log(event.target.files)">
-             </div>
-             
-            <div class="mt-4">
-                <mat-label class="">Pin location of issue</mat-label><br>
-                <button mat-raised-button>Pin Location</button>
-             </div>
-
-             <div class="row mt-5">
-                 <div class="col-4">
-                     <a routerLink="/tickets">
-                         <button mat-raised-button color="primary">Create</button>
-                     </a>
+    <div class="row">
+        <div class="card col-12 col-md-7">
+            <div class="card-body">
+                <div id="name_field">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Name</mat-label>
+                        <input matInput>
+                    </mat-form-field>
                 </div>
-                <div class="col-4"></div>
-                <div class="col-4">
-                    <a routerLink="/tickets">
-                        <button mat-raised-button color="primary" >Discard</button>
-                    </a>
-               </div>                
-             </div>
-        </div>
-    </div> 
+                <div id="issue_field">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Issue Type</mat-label>
+                      <mat-select id="issue_type_options">
+                        <mat-option value="Pothole">Pothole</mat-option>
+                        <mat-option value="Electicity Outage">Electicity Outage</mat-option>
+                        <mat-option value="Water Outage">Water Outage</mat-option>
+                        <mat-option value="Sinkhole">Sinkhole</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                </div>
+                <div id="description_field">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Description</mat-label>
+                      <textarea matInput></textarea>
+                    </mat-form-field>
+                </div>
+                
+                <div id="upload_image">
+                    <mat-label class="">Upload image of issue</mat-label><br>
+                    <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
+                 </div>
+                 
+                <div class="mt-4 location_pin">
+                    <mat-label class="">Pin location of issue</mat-label><br>
+                    <button mat-raised-button>Pin Location</button>
+                 </div>
+    
+                 <div class="row mt-5">
+                     <div class="col-4">
+                         <!-- <a routerLink="/tickets"> -->
+                             <button id="createTicket_button" mat-raised-button color="primary" (click)="createTicket()">Create</button>
+                         <!-- </a> -->
+                    </div>
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <a routerLink="/tickets">
+                            <button id="discardTicket_button" mat-raised-button color="primary" >Discard</button>
+                        </a>
+                   </div>                
+                 </div>
+            </div>
+        </div> 
+        <div class="col-12 col-md-5 border">
+            <div class="border align-middle p-5 mt-5">
+                <img id="image_preview" src="{{default_upload}}" class="upload_issue_image" alt="upload_image">
+            </div>
+        </div> 
+    </div>
+    
 </div>

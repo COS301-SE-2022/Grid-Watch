@@ -1,1 +1,1 @@
-export * from './lib/api-ticket-repository.module';
+export * from './lib/api-ticket-repository-data-access';

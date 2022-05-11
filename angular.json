@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "admin-app-ticket": "libs/admin-app/ticket",
     "api": "apps/api",
     "api-ticket-api": "libs/api/ticket/api",
     "api-ticket-repository": "libs/api/ticket/repository",

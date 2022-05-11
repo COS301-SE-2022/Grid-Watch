@@ -53,3 +53,6 @@ About Us:
 * Personally:
 * Professionally: https://www.linkedin.com/in/tshegofatsho-motlatle-41ab89239/
 
+#### Thebe Kgaphola
+* Personally:
+* Professionally: https://www.linkedin.com/in/thebe-kgaphola-bb6268182/

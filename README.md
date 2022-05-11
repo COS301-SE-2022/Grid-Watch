@@ -48,3 +48,8 @@ About Us:
 * Personally:
 * Professionally: https://www.linkedin.com/in/anru-nel-0a0838b1/
 
+
+#### Tshegofatsho Motlatle
+* Personally:
+* Professionally: https://www.linkedin.com/in/tshegofatsho-motlatle-41ab89239/
+

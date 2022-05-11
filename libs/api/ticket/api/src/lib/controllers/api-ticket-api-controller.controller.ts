@@ -8,14 +8,13 @@ import {
     Put,
   } from '@nestjs/common';
 
-  //import {Ticket} from '@prisma/client';
-  //import { ApiTicketService } from '@grid-watch/api/ticket/service';
+  import { ApiTicketService } from '@grid-watch/api/ticket/service';
   import { TicketDto } from '../dto/ticket.dto';
 
 @Controller('ticket')
 export class TicketController {
 
-    //constructor(private readonly apiTicketService:ApiTicketService){}
+    constructor(private readonly apiTicketService:ApiTicketService){}
 
     //Testing endpoint to test functionality
     @Get()
@@ -26,114 +25,98 @@ export class TicketController {
     //get endpiont to return a specific ticket
     @Get(':id')
     async getTicket(@Param() params){
-        return `This action return a #${params.id}`;
-        //return ApiTicketService.getTicket(params.id);
+        return this.apiTicketService.GetTicket(params.id);
     }
 
     @Get('city/:city')
     async getCity(@Param() params){
-        return `This action return a city: ${params.city}`;
-        //return ApiTicketService.getCityTicket(params.id);
+        return this.apiTicketService.getCityTicket(params.city);
     }
 
     @Get('status/:status')
     async getStatus(@Param() params){
-        return `This action return a status: ${params.status}`;
-        //return ApiTicketService.getCityTicket(params.id);
+        return this.apiTicketService.getStatus(params.status);
     }
 
     //get endpint to return all tickets
     @Get('/all')
     async getAll(){
-        return 'All tickets will be returned';
+        return this.apiTicketService.GetAll();
     }
 
     //creating tickets
     @Post('/create')
-    async CreateTicket(@Body() body: TicketDto):Promise<boolean> {
-        return true;
-        //call createTicket service layer
+    async CreateTicket(@Body() ticket: TicketDto):Promise<boolean> {
+        return this.apiTicketService.createTicket(ticket.ticket_status,ticket.ticket_create_date,ticket.ticket_close_date,ticket.ticket_type,ticket.ticket_city,ticket.ticket_location,ticket.ticket_cost,ticket.ticket_description,ticket.ticket_repair_time,ticket.ticket_upvotes);
     }
 
     //update ticket 
     @Put('/update/:id')
-    async UpdateTicket(@Param() params,@Body() body: TicketDto):Promise<boolean> {
-        return true;
-        //call updateTicket service layer
+    async UpdateTicket(@Param() params,@Body() ticket: TicketDto):Promise<boolean> {
+        return this.apiTicketService.UpdateTicket(params.id,ticket.ticket_status,ticket.ticket_create_date,ticket.ticket_close_date,ticket.ticket_type,ticket.ticket_city,ticket.ticket_location,ticket.ticket_cost,ticket.ticket_description,ticket.ticket_repair_time,ticket.ticket_upvotes);
     }
 
     //update ticket status
     @Put('/update/status/:id')
-    async UpdateTicketStatus(@Param() params,@Body() status: string):Promise<boolean|string> {
-        return status;
-        //call updateTicketStatus service layer
+    async UpdateTicketStatus(@Param() params,@Body() status: string):Promise<boolean> {
+        return this.apiTicketService.updateTicketStatus(params.id,status);
     }
 
     //update ticket createdate
     @Put('/update/createdate/:id')
-    async UpdateTicketCreateDate(@Param() params,@Body() createDate: Date):Promise<boolean|Date>{
-        return createDate;
-        //call updateTicketCreateDate service layer
+    async UpdateTicketCreateDate(@Param() params,@Body() createDate: Date):Promise<boolean>{
+        return this.apiTicketService.updateTicketCreateDate(params.id,createDate);
     }
 
     //update ticket closedate
     @Put('/update/closedate/:id')
-    async UpdateTicketCloseDate(@Param() params,@Body() closeDate: Date):Promise<boolean|Date> {
-        return closeDate;
-        //call updateTicketCloseDate service layer
+    async UpdateTicketCloseDate(@Param() params,@Body() closeDate: Date):Promise<boolean> {
+        return this.apiTicketService.updateTicketCloseDate(params.id,closeDate);
     }
 
     //update ticket type
     @Put('/update/closedate/:id')
-    async UpdateTicketType(@Param() params,@Body() type: string):Promise<boolean|string> {
-        return type;
-        //call updateTicketType service layer
+    async UpdateTicketType(@Param() params,@Body() type: string):Promise<boolean> {
+        return this.apiTicketService.updateTicketType(params.id,type);
     }
   
     //update ticket location
     @Put('/update/location/:id')
-    async UpdateTicketLocation(@Param() params,@Body() location: string):Promise<boolean|string> {
-        return location;
-        //call updateTicketLocation service layer
+    async UpdateTicketLocation(@Param() params,@Body() location: string):Promise<boolean> {
+        return this.apiTicketService.updateTicketLocation(params.id,location);
     }
 
     //update ticket cost
     @Put('/update/cost/:id')
-    async UpdateTicketCost(@Param() params,@Body() cost: number):Promise<boolean|number> {
-        return cost;
-        //call updateTicketCost service layer
+    async UpdateTicketCost(@Param() params,@Body() cost: number):Promise<boolean> {
+        return this.apiTicketService.updateTicketCost(params.id,cost);
     }
 
     //update ticket description
     @Put('/update/description/:id')
-    async UpdateTicketDescription(@Param() params,@Body() description: string):Promise<boolean|string> {
-        return description;
-        //call updateTicketDescription service layer
+    async UpdateTicketDescription(@Param() params,@Body() description: string):Promise<boolean> {
+        return this.apiTicketService.updateTicketDescription(params.id,description);
     }
 
     //update ticket repair
     @Put('/update/repair/:id')
-    async UpdateTicketRepairTime(@Param() params,@Body() repairTime: number):Promise<boolean|number> {
-        return repairTime;
-        //call updateTicketRepairTime service layer
+    async UpdateTicketRepairTime(@Param() params,@Body() repairTime: number):Promise<boolean> {
+        return this.apiTicketService.updateTicketRepairTime(params.id,repairTime);
     }
 
     @Put('/update/upvotes/:id')
-    async UpdateTicketUpvotes(@Param() params,@Body() upvotes: number):Promise<boolean|number> {
-        return upvotes;
-        //call updateTicketUpvotes service layer
+    async UpdateTicketUpvotes(@Param() params,@Body() upvotes: number):Promise<boolean> {
+        return this.apiTicketService.updateTicketRepairTime(params.id,upvotes);
     }
 
     @Post('/close')
-    async CloseTicket(@Body() ticketNum: number):Promise<boolean|number> {
-        return ticketNum;
-        //call closeTicket service layer
+    async CloseTicket(@Body() ticketNum: number):Promise<boolean> {
+        return this.apiTicketService.closeTicket(ticketNum);
     }
 
     @Delete('/delete')
-    async DeleteTicket(@Body() ticketNum: number):Promise<boolean|number> {
-        return ticketNum;
-        //call DeleteTicket service layer
+    async DeleteTicket(@Body() ticketNum: number):Promise<boolean> {
+        return this.apiTicketService.deleteTicket(ticketNum);
     }
 
 

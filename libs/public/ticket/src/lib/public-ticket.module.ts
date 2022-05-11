@@ -9,11 +9,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import { MatButtonModule } from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { TicketSettingsOptionsComponent } from './ticket-settings-options/ticket-settings-options.component';
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
-
 
 @NgModule({
   imports: [
@@ -40,8 +40,12 @@ import {MatCardModule} from '@angular/material/card';
   declarations: [
     TicketBodyComponent,
     CreateTicketComponent,
-    
+    TicketSettingsOptionsComponent,
   ],
-  exports: [TicketBodyComponent, CreateTicketComponent],
+  exports: [
+    TicketBodyComponent,
+    CreateTicketComponent,
+    TicketSettingsOptionsComponent,
+  ],
 })
 export class PublicTicketModule {}

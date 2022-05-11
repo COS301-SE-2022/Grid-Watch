@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { TicketSettingsOptionsComponent } from './ticket-settings-options/ticket-settings-options.component';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
+import { FormsModule } from '@angular/forms';
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
@@ -26,6 +27,7 @@ import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
     MatDividerModule,
     MatButtonModule,
     MatCardModule,
+    FormsModule,
     RouterModule.forChild([
       {
         path: 'createTicket',

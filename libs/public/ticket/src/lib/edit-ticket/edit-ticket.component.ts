@@ -7,23 +7,22 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit-ticket.component.scss'],
 })
 export class EditTicketComponent implements OnInit {
-  default_upload! : string;
+  default_upload! : string | null;
   display_name! : string | null;
   issue_type! : string | null;
 
   constructor(private route: ActivatedRoute) {
-    
-
   }
 
 
   ngOnInit(): void {
-    this.default_upload = "assets/upload-solid.svg";
     let temp = this.route.snapshot.paramMap.get('name');
-    console.log(temp);
     this.display_name = String(temp);
-    temp = this.route.snapshot.paramMap.get('issue');
+    temp = this.route.snapshot.paramMap.get('issue_type');
     this.issue_type = temp;
+    temp = this.route.snapshot.paramMap.get('img_src');
+    this.default_upload = temp;
+    console.log(temp);
   }
 
   fileUploaded(e: any)

@@ -2,16 +2,16 @@
     <div class="row">
         <div class="card col-12 col-md-7">
             <div class="card-body">
-                <div id="name_field">
+                <!-- <div id="name_field">
                     <mat-form-field appearance="fill">
                         <mat-label>Name</mat-label>
                         <input matInput>
                     </mat-form-field>
-                </div>
+                </div> -->
                 <div id="issue_field">
                     <mat-form-field appearance="fill">
                       <mat-label>Issue Type</mat-label>
-                      <mat-select id="issue_type_options">
+                      <mat-select [(ngModel)]="issue_type" id="issue_type_options">
                         <mat-option value="Pothole">Pothole</mat-option>
                         <mat-option value="Electicity Outage">Electicity Outage</mat-option>
                         <mat-option value="Water Outage">Water Outage</mat-option>
@@ -22,19 +22,32 @@
                 <div id="description_field">
                     <mat-form-field appearance="fill">
                       <mat-label>Description</mat-label>
-                      <textarea matInput></textarea>
+                      <textarea [(ngModel)]="description" matInput></textarea>
+                    </mat-form-field>
+                </div>
+                
+                <div id="location_field" class="">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Address</mat-label>
+                        <input [(ngModel)]="address" matInput >
+                    </mat-form-field>
+                </div>
+                
+                <div id="city_field" class="">
+                    <mat-form-field appearance="fill">
+                      <mat-label>City</mat-label>
+                      <input [(ngModel)]="city" matInput>
                     </mat-form-field>
                 </div>
                 
                 <div id="upload_image">
                     <mat-label class="">Upload image of issue</mat-label><br>
                     <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
-                 </div>
-                 
-                <div class="mt-4 location_pin">
+                </div>
+                <!-- <div class="mt-4 location_pin">
                     <mat-label class="">Pin location of issue</mat-label><br>
                     <button mat-raised-button>Pin Location</button>
-                 </div>
+                 </div> -->
     
                  <div class="row mt-5">
                      <div class="col-4">

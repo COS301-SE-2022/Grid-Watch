@@ -11,7 +11,7 @@
                 <div id="issue_field">
                     <mat-form-field appearance="fill">
                       <mat-label>Issue Type</mat-label>
-                      <mat-select value={{issue_type}} id="issue_type_options">
+                      <mat-select value="{{issue_type}}" id="issue_type_options">
                         <mat-option value="Pothole">Pothole</mat-option>
                         <mat-option value="Electicity Outage">Electicity Outage</mat-option>
                         <mat-option value="Water Outage">Water Outage</mat-option>
@@ -30,11 +30,19 @@
                     <mat-label class="">Upload image of issue</mat-label><br>
                     <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
                  </div>
+
                  
-                <div class="mt-4 location_pin">
+                <div id="location_field" class="mt-4">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Location</mat-label>
+                      <input matInput>
+                    </mat-form-field>
+                </div>
+                 
+                <!-- <div class="mt-4 location_pin">
                     <mat-label class="">Pin location of issue</mat-label><br>
                     <button mat-raised-button>Pin Location</button>
-                 </div>
+                 </div> -->
     
                  <div class="row mt-5">
                      <div class="col-4">
@@ -51,8 +59,8 @@
                  </div>
             </div>
         </div> 
-        <div class="col-12 col-md-5 border">
-            <div class="border align-middle p-5 mt-5">
+        <div class="col-12 col-md-5 border ">
+            <div class="align-middle p-5 preview_container">
                 <img id="image_preview" src="{{default_upload}}" class="upload_issue_image" alt="upload_image">
             </div>
         </div> 

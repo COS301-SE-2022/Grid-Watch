@@ -5,8 +5,17 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './ticket-settings-options.component.html',
   styleUrls: ['./ticket-settings-options.component.scss'],
 })
-export class TicketSettingsOptionsComponent implements OnInit {
-  constructor() {}
+export class TicketSettingsOptionsComponent{
 
-  ngOnInit(): void {}
+  // public issue_id : number
+  issue_type! : string
+  
+  // constructor(
+  //   ) {
+
+  //     this.issue_id = 1;
+  //   }
+
+  ngOnInit(): void {
+  }
 }

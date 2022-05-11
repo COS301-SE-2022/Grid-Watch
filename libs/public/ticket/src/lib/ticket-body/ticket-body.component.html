@@ -1,9 +1,9 @@
 <div class="container mt-5 row">   
     <div class="mb-4" id="create_ticket">
-        <button type="button"  routerLink="/createTicket" class="btn btn-outline-dark">Create ticket</button>
+        <button type="button"  routerLink='/createTicket' class="btn btn-outline-dark">Create ticket</button>
     </div> 
     <div class="row">
-        <mat-card class="issue_card col-12">
+        <mat-card class="issue_card col-12 p-4">
             <mat-card-header>
                 <div mat-card-avatar>
                     <img src="{{avatar}}" alt="avatar">
@@ -19,29 +19,17 @@
                 <img class="uploaded_issue_image" src="{{issue_img}}" alt="uploaded_issue_image">
             </mat-card-content>
             <mat-card-footer>
-                <img (click)="IncreaseUpvote()" class="upvote_img m-2" src="assets/circle-up-solid.svg" alt="upvote icon"> {{upvotes}} 
-            </mat-card-footer>
-        </mat-card>
-        <mat-card class="issue_card col-12 ">
-            <mat-card-header>
-                <div mat-card-avatar>
-                    <img src="{{avatar}}" alt="avatar">
+                <div class="row">
+                    <div class="col-10">
+                        <img (click)="IncreaseUpvote()" class="upvote_img m-2" src="assets/circle-up-solid.svg" alt="upvote icon"> {{upvotes}} 
+                    </div>
+                    <div class="col-1">    
+                        <grid-watch-ticket-settings-options></grid-watch-ticket-settings-options>
+                    </div>
                 </div>
-                <mat-card-title>
-                    {{name}} {{surname}}
-                </mat-card-title>
-                <mat-card-subtitle>
-                    {{issue_type}}
-                </mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <img class="uploaded_issue_image" src="{{issue_img}}" alt="uploaded_issue_image">
-            </mat-card-content>
-            <mat-card-footer>
-                <img (click)="IncreaseUpvote()" class="upvote_img m-2" src="assets/circle-up-solid.svg" alt="upvote icon"> {{upvotes}} 
             </mat-card-footer>
         </mat-card>
+        
     </div>
 </div>
-<grid-watch-ticket-settings-options></grid-watch-ticket-settings-options>
 

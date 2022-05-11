@@ -9,10 +9,10 @@ import { HomePageBodyComponent } from '@grid-watch/public/home-page';
 import { PublicSharedUiModule } from '@grid-watch/public/shared-ui';
 
 const routes: Routes = [
-  { path: '**', redirectTo: 'home', pathMatch: 'full' },
+  // { path: '**', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomePageBodyComponent },
-  { path: 'tickets', component: TicketBodyComponent },
-  { path: 'createTicket', component: CreateTicketComponent },
+  // { path: 'tickets', component: TicketBodyComponent },
+  // { path: 'createTicket', component: CreateTicketComponent },
 ];
 
 @NgModule({

@@ -9,41 +9,41 @@ import {  IsDate,
 export class TicketDto {
   @IsString()
   @IsNotEmpty()
-  ticket_status : string;
+  ticket_status! : string;
 
   @IsDate()
   @IsNotEmpty()
-  ticket_create_date : Date;
+  ticket_create_date! : Date;
 
   @IsDate()
   @IsOptional()
-  ticket_close_date : Date;
+  ticket_close_date! : Date;
 
   @IsString()
   @IsNotEmpty()
-  ticket_type : string;
+  ticket_type! : string;
 
   @IsString()
   @IsOptional()
-  ticket_city  : string;
+  ticket_city!  : string;
 
   @IsString()
   @IsNotEmpty()
-  ticket_location : string;
+  ticket_location! : string;
 
   @IsNumber()
   @IsNotEmpty()
-  ticket_cost : number;
+  ticket_cost! : number;
 
   @IsString()
   @IsNotEmpty()
-  ticket_description : string;
+  ticket_description! : string;
 
   @IsNumber()
   @IsOptional()
-  ticket_repair_time : number;
+  ticket_repair_time! : number;
 
   @IsNumber()
   @IsNotEmpty()
-  ticket_upvotes : number;
+  ticket_upvotes! : number;
 }

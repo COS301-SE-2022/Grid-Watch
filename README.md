@@ -1,17 +1,10 @@
-# GridWatch
+#Denied Access
+## GridWatch
 
 ![Github CI](https://github.com/COS301-SE-2022/Grid-Watch/actions/workflows/ci.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/COS301-SE-2022/Grid-Watch/badge.svg?branch=develop)](https://coveralls.io/github/COS301-SE-2022/Grid-Watch?branch=develop)
 
-
-### Created by the Denied Access Team of the University of Pretoria COS 301 Module
-* Anru Nel (u20646284)
-* Joshua Young (u20442018)
-* Leonardo Wessels (u17229457)
-* Tshegofatsho Motlatle (u17066736)
-* Thebe Kgaphola (u18371435)
-
-Project Description:
+### Project Description
 The grid watch system will allow three core interfaces:
 
 1. The first interface will allow anyone with access to the application (the public) to report and monitor power failures, potholes, water supply shortages and other issues in each location which need to be investigated and repaired. Locations should receive notifications based on if a problem in their area may affect them. 
@@ -20,22 +13,23 @@ The grid watch system will allow three core interfaces:
 
 The system will also make use of predictive analytics powered by AI modules that will predict certain aspects such as potential problems that may be experienced as a result of the weather or ticket repair information based on what similar tickets have costed and the time they took to repair in the past.
 
-Applications:
-* [GridWatch User Application](www.google.com)
-* [GridWatch Technician Application](www.google.com)
-* [GridWatch Authorized Official Application](www.google.com)
+### DemoVideo
+[DeniedAccess-Demo1](https://www.youtube.com/watch?v=AoG4Tkd5LDA)
 
-Specifications:
+### Created by the Denied Access Team of the University of Pretoria COS 301 Module
+* Anru Nel (u20646284)
+* Joshua Young (u20442018)
+* Leonardo Wessels (u17229457)
+* Tshegofatsho Motlatle (u17066736)
+* Thebe Kgaphola (u18371435)
 
-[Our SRS Documentation](www.google.com)
+### Specifications:
+[SRS Doc](https://github.com/COS301-SE-2022/Grid-Watch/wiki/SRS-Documentation)
 
-Project Board:
-
+###Project Board
 [Our Teams Project Board](https://github.com/COS301-SE-2022/Grid-Watch/projects)
 
-FAQ:
-
-About Us:
+### About Us
 #### Leonardo Wessels
 * Personally: 
 * Professionally: 

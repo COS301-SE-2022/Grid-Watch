@@ -50,13 +50,13 @@ export class ViewTicketDetailsComponent implements OnInit {
     this.http.get<TicketDto[]>(this.getTicketURL, httpOptions).subscribe(
       (data) => {
         // console.log(data[0]);
-        this.InitialiseTicket(data[0]);
+        this.initialiseTicket(data[0]);
     }
     );
     
   }
 
-  InitialiseTicket(data: TicketDto) {
+  initialiseTicket(data: TicketDto) {
     console.log(data);
     
     this.status = data.ticket_status;

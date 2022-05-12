@@ -22,7 +22,7 @@ export class AdminViewBodyComponent implements OnInit {
       this.http.get<TicketDto[]>(this.getAllURL).subscribe(
         (data) => {
           // console.log(data);
-          this.InitialiseTicket(data);
+          this.initialiseTicket(data);
       }
       );
   }
@@ -35,7 +35,7 @@ export class AdminViewBodyComponent implements OnInit {
   }
 
   
-  InitialiseTicket(data : TicketDto []) : void 
+  initialiseTicket(data : TicketDto []) : void 
   {
     for (let index = 0; index < data.length; index++) 
     {

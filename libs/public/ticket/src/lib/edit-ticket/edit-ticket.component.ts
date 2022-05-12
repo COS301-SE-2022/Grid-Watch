@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { TicketDto } from 'libs/api/ticket/api/src/lib/dto/ticket.dto';
 
@@ -20,7 +20,10 @@ export class EditTicketComponent implements OnInit {
   updateURL = "http://localhost:3333/api/ticket/update/";
   getTicketURL = "http://localhost:3333/api/ticket/";
 
-  constructor(private route: ActivatedRoute, private http : HttpClient) {
+  constructor(
+      private route: ActivatedRoute, 
+      private http : HttpClient,
+      private router : Router) {
   }
 
 
@@ -87,6 +90,7 @@ export class EditTicketComponent implements OnInit {
         console.log("success!");
         
         console.log(data);
+        this.router.navigateByUrl("/tickets")
       }
     )
   }

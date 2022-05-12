@@ -42,7 +42,14 @@ About Us:
 
 #### Joshua Young
 * Personally: I am a third year BSc Computer Science student. I am passionate about coding and always strive to succeed. I will be using my coding experience to help and solve these relevant issues that we all face, together with team Denied Access.
-* Professionally: https://www.linkedin.com/in/joshua-young-897522239
+* Professionally: https://www.linkedin.com/in/joshua-young-897522239 , I have experience in multiple programming languages (Java, Python, C++,
+Assembly, Delphi) that will aid in the development of the software system, e.g. Java can be used to implement an
+AI subsystem or using python to create a search engine. Familiar with Web development languages (HTML, CSS,
+PHP, Javascript, Typescript, Angular) that will aid in the front and backend development. Experience in University
+level mathematics, Artificial Intelligence and LaTeX . Familiar with database manipulation languages such as SQL
+that will be useful when writing queries to manipulate the database. Software Engineering skills such as using
+Design Patterns, Methodologies and Software Architecture to solve given problems. These skills will allow us to
+manage and plan our software development project and effectively complete the project.
 
 #### Anru Nel
 * Personally:

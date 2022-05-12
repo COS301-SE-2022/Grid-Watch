@@ -41,7 +41,7 @@ About Us:
 * Professionally: 
 
 #### Joshua Young
-* Personally:
+* Personally: I am a third year BSc Computer Science student. I am passionate about coding and always strive to succeed. I will be using my coding experience to help and solve these relevant issues that we all face, together with team Denied Access.
 * Professionally: https://www.linkedin.com/in/joshua-young-897522239
 
 #### Anru Nel

@@ -16,7 +16,15 @@
                         <mat-option value="Electricity Outage">Electricity Outage</mat-option>
                         <mat-option value="Water Outage">Water Outage</mat-option>
                         <mat-option value="Sinkhole">Sinkhole</mat-option>
-                      </mat-select>
+                        <mat-option value="Other">Other</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div *ngIf="(issue_type === 'Other')" id="other_field"  >
+                    <mat-form-field appearance="fill">
+                        <mat-label>Other issue details</mat-label>
+                        <input matInput [(ngModel)]="other_details">
                     </mat-form-field>
                 </div>
 

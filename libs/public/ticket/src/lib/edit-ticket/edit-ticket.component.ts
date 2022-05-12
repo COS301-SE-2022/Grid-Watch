@@ -14,6 +14,7 @@ export class EditTicketComponent implements OnInit {
   display_name! : string | null;
   default_upload! : string | null;
   @Input() issue_type! : string;
+  @Input() other_details! : string;
   @Input() description! : string;
   @Input() location! : string;
   @Input() city! : string;
@@ -69,7 +70,10 @@ export class EditTicketComponent implements OnInit {
     ticket.ticket_location = this.location;
     ticket.ticket_city = this.city;
     ticket.ticket_description = this.description;
-    ticket.ticket_type = this.issue_type;
+    if (this.issue_type === "Other")
+      ticket.ticket_type = this.other_details;
+    else
+      ticket.ticket_type = this.issue_type;
     ticket.ticket_status = "Created";
     ticket.ticket_create_date = new Date();
     ticket.ticket_upvotes = 0;
@@ -99,7 +103,15 @@ export class EditTicketComponent implements OnInit {
   {
     console.log(data);
     
-    this.issue_type = data.ticket_type;
+    if ((data.ticket_type === "Pothole") || (data.ticket_type === "Water Outage") ||
+        (data.ticket_type === "Sinkhole")  || (data.ticket_type === "Electricity Outage") ) 
+          this.issue_type = data.ticket_type;
+    else
+    {
+      this.issue_type = "Other"
+      this.other_details = data.ticket_type;
+    }
+
     this.description = data.ticket_description;
     this.location = data.ticket_location;
     this.city = data.ticket_city;

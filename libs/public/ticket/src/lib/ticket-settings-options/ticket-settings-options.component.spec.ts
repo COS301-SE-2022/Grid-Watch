@@ -11,7 +11,7 @@ describe('TicketSettingsOptionsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TicketSettingsOptionsComponent],
-      imports: [RouterModule]
+      imports: []
     }).compileComponents();
   });
 

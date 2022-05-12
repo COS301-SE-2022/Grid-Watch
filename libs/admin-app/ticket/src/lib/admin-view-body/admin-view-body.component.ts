@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Ticket } from '@prisma/client';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { TicketDto } from 'libs/api/ticket/api/src/lib/dto/ticket.dto';
 
 @Component({
@@ -36,7 +37,7 @@ export class AdminViewBodyComponent implements OnInit {
   {
     for (let index = 0; index < data.length; index++) 
     {
-      
+
 
       this.tickets.push(data[index]);
     }

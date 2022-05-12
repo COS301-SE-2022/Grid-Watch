@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import { TicketController } from 'libs/api/ticket/api/src/lib/controllers/api-ticket-api-controller.controller';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { TicketDto } from 'libs/api/ticket/api/src/lib/dto/ticket.dto';
 import { Ticket } from '@prisma/client';
 import { Router } from '@angular/router';

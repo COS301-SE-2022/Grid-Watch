@@ -14,5 +14,8 @@ export class ViewTicketDetailsComponent implements OnInit {
     this.default_upload = "assets/pothole_example.jpg"
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log("working");
+    
+  }
 }

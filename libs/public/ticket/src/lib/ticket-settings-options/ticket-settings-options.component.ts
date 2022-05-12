@@ -17,5 +17,7 @@ export class TicketSettingsOptionsComponent{
   //   }
 
   ngOnInit(): void {
+    console.log("working TicketSettingsOptionsComponent");
+    
   }
 }

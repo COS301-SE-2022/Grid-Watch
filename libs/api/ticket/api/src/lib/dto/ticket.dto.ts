@@ -46,4 +46,8 @@ export class TicketDto {
   @IsNumber()
   @IsNotEmpty()
   ticket_upvotes! : number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  ticket_id! : number;
 }

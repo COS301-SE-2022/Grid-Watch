@@ -22,7 +22,7 @@
                 <div id="description_field">
                     <mat-form-field appearance="fill">
                       <mat-label>Description</mat-label>
-                      <textarea matInput></textarea>
+                      <textarea matInput>{{description}}</textarea>
                     </mat-form-field>
                 </div>
                 
@@ -35,7 +35,7 @@
                 <div id="location_field" class="mt-4">
                     <mat-form-field appearance="fill">
                       <mat-label>Location</mat-label>
-                      <input matInput>
+                      <input matInput value="{{location}}">
                     </mat-form-field>
                 </div>
                  
@@ -47,7 +47,7 @@
                  <div class="row mt-5">
                      <div class="col-4">
                          <!-- <a routerLink="/tickets"> -->
-                             <button id="createTicket_button" mat-raised-button color="primary" >Update</button>
+                             <button id="createTicket_button" mat-raised-button color="primary" (click)="editTicket()" >Update</button>
                          <!-- </a> -->
                     </div>
                     <div class="col-4"></div>

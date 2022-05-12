@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatOption, MatOptionModule } from '@angular/material/core';
 import {  MatFormFieldModule, MatLabel } from '@angular/material/form-field';
@@ -14,7 +15,7 @@ describe('CreateTicketComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CreateTicketComponent],
-      imports: [MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, BrowserAnimationsModule]
+      imports: [HttpClient, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, BrowserAnimationsModule]
     }).compileComponents();
   });
 

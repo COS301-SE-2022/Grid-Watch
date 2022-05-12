@@ -7,6 +7,7 @@ import { CreateTicketComponent, PublicTicketModule, TicketBodyComponent } from '
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageBodyComponent } from '@grid-watch/public/home-page';
 import { PublicSharedUiModule } from '@grid-watch/public/shared-ui';
+import { AdminAppTicketModule } from '@grid-watch/admin-app/ticket';
 
 const routes: Routes = [
   // { path: '**', redirectTo: 'home', pathMatch: 'full' },
@@ -17,7 +18,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [RouterModule.forRoot(routes), BrowserModule, HttpClientModule, PublicTicketModule, PublicSharedUiModule],
+  imports: [RouterModule.forRoot(routes), BrowserModule, HttpClientModule, PublicTicketModule, PublicSharedUiModule, AdminAppTicketModule],
   providers: [ ],
   bootstrap: [AppComponent],
 })

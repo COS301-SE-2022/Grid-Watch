@@ -39,7 +39,7 @@ export class TicketController {
     }
 
     //get endpint to return all tickets
-    @Get('/all')
+    @Get('/tickets/all')
     async getAll(){
         return this.apiTicketService.GetAll();
     }

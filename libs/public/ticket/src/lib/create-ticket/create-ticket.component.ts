@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import { TicketController } from 'libs/api/ticket/api/src/lib/controllers/api-ticket-api-controller.controller';
 import { TicketDto } from 'libs/api/ticket/api/src/lib/dto/ticket.dto';
+import { Ticket } from '@prisma/client';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class CreateTicketComponent{
   @Input() city! : string;
 
   default_upload! : string;
-  createTicketURL! = "localhost/api/ticket/create";
+  createTicketURL = "http://localhost:3333/api/ticket/create";
+  
 
   constructor(private http : HttpClient) {
 
@@ -55,7 +57,26 @@ export class CreateTicketComponent{
     console.log("city: " + ticket.ticket_city);
     console.log("description: " + ticket.ticket_description);
     console.log("issue type: " + ticket.ticket_type);
-    this.http.post<TicketDto>()
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+      })
+    };
+    
+    this.http.post<TicketDto>("http://localhost:3333/api/ticket/create", TicketDto, httpOptions)
+    .subscribe({
+      next: data => {
+          console.log(data);
+          ;
+      },
+      error: error => {
+          console.error('There was an error!', error);
+      }
+  })
+    console.log("WHY");
+    
   }
 
   // openDialog()

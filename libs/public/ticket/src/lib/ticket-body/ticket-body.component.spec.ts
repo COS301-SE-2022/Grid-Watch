@@ -4,6 +4,7 @@ import { TicketBodyComponent } from './ticket-body.component';
 
 import {MatCardHarness} from '@angular/material/card/testing';
 import { MatCardModule } from '@angular/material/card';
+import { HttpClient } from '@angular/common/http';
 
 describe('TicketBodyComponent', () => {
   let component: TicketBodyComponent;
@@ -12,7 +13,7 @@ describe('TicketBodyComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TicketBodyComponent],
-      imports: [MatCardModule]
+      imports: [MatCardModule, HttpClient]
     }).compileComponents();
   });
 

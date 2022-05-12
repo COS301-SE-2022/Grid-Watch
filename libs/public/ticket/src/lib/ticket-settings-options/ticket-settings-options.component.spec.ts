@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterLink } from '@angular/router';
 
 import { TicketSettingsOptionsComponent } from './ticket-settings-options.component';
 
@@ -9,6 +10,7 @@ describe('TicketSettingsOptionsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TicketSettingsOptionsComponent],
+      imports: [RouterLink]
     }).compileComponents();
   });
 

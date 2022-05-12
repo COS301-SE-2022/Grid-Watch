@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 
 import { EditTicketComponent } from './edit-ticket.component';
 
@@ -9,6 +10,7 @@ describe('EditTicketComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [EditTicketComponent],
+      imports: [ActivatedRoute]
     }).compileComponents();
   });
 

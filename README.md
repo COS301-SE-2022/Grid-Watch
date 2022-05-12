@@ -1,17 +1,10 @@
-# GridWatch
+#Denied Access
+## GridWatch
 
 ![Github CI](https://github.com/COS301-SE-2022/Grid-Watch/actions/workflows/ci.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/COS301-SE-2022/Grid-Watch/badge.svg?branch=develop)](https://coveralls.io/github/COS301-SE-2022/Grid-Watch?branch=develop)
 
-
-### Created by the Denied Access Team of the University of Pretoria COS 301 Module
-* Anru Nel (u20646284)
-* Joshua Young (u20442018)
-* Leonardo Wessels (u17229457)
-* Tshegofatsho Motlatle (u17066736)
-* Thebe Kgaphola (u18371435)
-
-Project Description:
+### Project Description
 The grid watch system will allow three core interfaces:
 
 1. The first interface will allow anyone with access to the application (the public) to report and monitor power failures, potholes, water supply shortages and other issues in each location which need to be investigated and repaired. Locations should receive notifications based on if a problem in their area may affect them. 
@@ -20,25 +13,20 @@ The grid watch system will allow three core interfaces:
 
 The system will also make use of predictive analytics powered by AI modules that will predict certain aspects such as potential problems that may be experienced as a result of the weather or ticket repair information based on what similar tickets have costed and the time they took to repair in the past.
 
-Applications:
-* [GridWatch User Application](www.google.com)
-* [GridWatch Technician Application](www.google.com)
-* [GridWatch Authorized Official Application](www.google.com)
+### DemoVideo
+[DeniedAccess-Demo1](https://www.youtube.com/watch?v=AoG4Tkd5LDA)
 
-Specifications:
 
-[Our SRS Documentation](www.google.com)
+### Specifications:
+[SRS Doc](https://github.com/COS301-SE-2022/Grid-Watch/wiki/SRS-Documentation)
 
-Project Board:
-
+### Project Board
 [Our Teams Project Board](https://github.com/COS301-SE-2022/Grid-Watch/projects)
 
-FAQ:
-
-About Us:
+### About Us
 #### Leonardo Wessels
-* Personally: 
-* Professionally: 
+* Personally: I'm Leo and I'm trying to get finish my last year of my BSc Comp Sci degree. I enjoy gaming and coding as a past time and I'm looking forward to working on this project. I fully see this being a solution to a lot of peoples annoyances and I'm already enjoying seeing aspects of the project coming together
+* Professionally: I have multiple years of experince in C++, Java, Php, HTML and Java. I have begun learning many standardised Node modules and Angular in an attempt to keep up to date with modern technologies. I have co-run a business that deals with website and web-app development. More info about me can be found on my [LinkedIn](https://www.linkedin.com/in/leonardo-wessels-b4b473a4/)
 
 #### Joshua Young
 * Personally: I am a third year BSc Computer Science student. I am passionate about coding and always strive to succeed. I will be using my coding experience to help and solve these relevant issues that we all face, together with team Denied Access.
@@ -51,7 +39,6 @@ Design Patterns, Methodologies and Software Architecture to solve given problems
 * Personally:
 * Professionally: https://www.linkedin.com/in/anru-nel-0a0838b1/
 
-
 #### Tshegofatsho Motlatle
 * Personally: I am  third Year B.IT student with a passion for gaming and computing, i have experience in both Web development and programming lanugaes and im always eager to learn more. With this project we will be addressing a very present and real problem that most people in south africa can say they have faced. I will bring value to the development of the system by using the skills i have acquired over the years to not only add vaulable inputs to the system as a whole but also my fellow team mates. I am excited to see what this system has in store for the relationship between local government and the public. Bringing people a step closer to the change they need and want
 * Professionally: https://www.linkedin.com/in/tshegofatsho-motlatle-41ab89239/
@@ -59,3 +46,11 @@ Design Patterns, Methodologies and Software Architecture to solve given problems
 #### Thebe Kgaphola
 * Personally:
 * Professionally: https://www.linkedin.com/in/thebe-kgaphola-bb6268182/
+
+### Created by the Denied Access Team of the University of Pretoria COS 301 Module
+* Anru Nel (u20646284)
+* Joshua Young (u20442018)
+* Leonardo Wessels (u17229457)
+* Tshegofatsho Motlatle (u17066736)
+* Thebe Kgaphola (u18371435)
+

@@ -16,12 +16,6 @@ The system will also make use of predictive analytics powered by AI modules that
 ### DemoVideo
 [DeniedAccess-Demo1](https://www.youtube.com/watch?v=AoG4Tkd5LDA)
 
-### Created by the Denied Access Team of the University of Pretoria COS 301 Module
-* Anru Nel (u20646284)
-* Joshua Young (u20442018)
-* Leonardo Wessels (u17229457)
-* Tshegofatsho Motlatle (u17066736)
-* Thebe Kgaphola (u18371435)
 
 ### Specifications:
 [SRS Doc](https://github.com/COS301-SE-2022/Grid-Watch/wiki/SRS-Documentation)
@@ -31,8 +25,8 @@ The system will also make use of predictive analytics powered by AI modules that
 
 ### About Us
 #### Leonardo Wessels
-* Personally: 
-* Professionally: 
+* Personally: I'm Leo and I'm trying to get finish my last year of my BSc Comp Sci degree. I enjoy gaming and coding as a past time and I'm looking forward to working on this project. I fully see this being a solution to a lot of peoples annoyances and I'm already enjoying seeing aspects of the project coming together
+* Professionally: I have multiple years of experince in C++, Java, Php, HTML and Java. I have begun learning many standardised Node modules and Angular in an attempt to keep up to date with modern technologies. I have co-run a business that deals with website and web-app development. More info about me can be found on my [LinkedIn](https://www.linkedin.com/in/leonardo-wessels-b4b473a4/)
 
 #### Joshua Young
 * Personally: I am a third year BSc Computer Science student. I am passionate about coding and always strive to succeed. I will be using my coding experience to help and solve these relevant issues that we all face, together with team Denied Access.
@@ -45,7 +39,6 @@ Design Patterns, Methodologies and Software Architecture to solve given problems
 * Personally:
 * Professionally: https://www.linkedin.com/in/anru-nel-0a0838b1/
 
-
 #### Tshegofatsho Motlatle
 * Personally: I am  third Year B.IT student with a passion for gaming and computing, i have experience in both Web development and programming lanugaes and im always eager to learn more. With this project we will be addressing a very present and real problem that most people in south africa can say they have faced. I will bring value to the development of the system by using the skills i have acquired over the years to not only add vaulable inputs to the system as a whole but also my fellow team mates. I am excited to see what this system has in store for the relationship between local government and the public. Bringing people a step closer to the change they need and want
 * Professionally: https://www.linkedin.com/in/tshegofatsho-motlatle-41ab89239/
@@ -53,3 +46,11 @@ Design Patterns, Methodologies and Software Architecture to solve given problems
 #### Thebe Kgaphola
 * Personally:
 * Professionally: https://www.linkedin.com/in/thebe-kgaphola-bb6268182/
+
+### Created by the Denied Access Team of the University of Pretoria COS 301 Module
+* Anru Nel (u20646284)
+* Joshua Young (u20442018)
+* Leonardo Wessels (u17229457)
+* Tshegofatsho Motlatle (u17066736)
+* Thebe Kgaphola (u18371435)
+

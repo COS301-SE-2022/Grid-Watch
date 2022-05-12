@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-ticket.component.scss'],
 })
 export class CreateTicketComponent{
-
+  @Input() other! :boolean;
   @Input() issue_type! : string;
   @Input() description! : string;
   @Input() address! : string;
@@ -30,6 +30,7 @@ export class CreateTicketComponent{
 
   ngOnInit(): void {
     this.default_upload = "assets/upload-solid.svg";
+    this.other = false;
   }
 
   fileUploaded(e: any)
@@ -77,6 +78,12 @@ export class CreateTicketComponent{
 
   })
     
+  }
+
+  showInput()
+  {
+    if (this.issue_type == "Other")
+      this.other = true;
   }
 
   // openDialog()

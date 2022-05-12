@@ -10,6 +10,7 @@ import { TicketDto } from 'libs/api/ticket/api/src/lib/dto/ticket.dto';
   styleUrls: ['./edit-ticket.component.scss'],
 })
 export class EditTicketComponent implements OnInit {
+
   display_name! : string | null;
   default_upload! : string | null;
   @Input() issue_type! : string;
@@ -92,7 +93,7 @@ export class EditTicketComponent implements OnInit {
 
   initialiseFields(data : TicketDto)
   {
-    // console.log(data);
+    console.log(data);
     
     this.issue_type = data.ticket_type;
     this.description = data.ticket_description;

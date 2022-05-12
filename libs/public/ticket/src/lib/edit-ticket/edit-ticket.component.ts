@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { TicketDto } from 'libs/api/ticket/api/src/lib/dto/ticket.dto';
 
 @Component({

@@ -10,7 +10,6 @@ import {
 
   import { ApiTicketService } from '@grid-watch/api/ticket/service';
   import { TicketDto } from '../dto/ticket.dto';
-import { json } from 'stream/consumers';
 
 @Controller('ticket')
 export class TicketController {
@@ -40,7 +39,7 @@ export class TicketController {
     }
 
     //get endpint to return all tickets
-    @Get('/all')
+    @Get('/all/tickets')
     async getAll(){
         return this.apiTicketService.GetAll();
     }
@@ -107,7 +106,7 @@ export class TicketController {
 
     @Put('/update/upvotes/:id')
     async UpdateTicketUpvotes(@Param() params,@Body() upvotes: string):Promise<boolean> {
-        return this.apiTicketService.updateTicketRepairTime(parseInt(params.id),upvotes["upvotes"]);
+        return this.apiTicketService.updateTicketUpVotes(parseInt(params.id),upvotes["upvotes"]);
     }
 
     @Post('/close')

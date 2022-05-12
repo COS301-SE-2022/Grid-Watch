@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@grid-watch/admin-app/ticket": ["libs/admin-app/ticket/src/index.ts"],
       "@grid-watch/api/ticket/api": ["libs/api/ticket/api/src/index.ts"],
       "@grid-watch/api/ticket/repository": [
         "libs/api/ticket/repository/src/index.ts"

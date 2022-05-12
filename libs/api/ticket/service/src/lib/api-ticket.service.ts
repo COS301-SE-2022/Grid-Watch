@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 //import {Ticket,PrismaClient} from '@prisma/client';
 import {QueryBus,CommandBus} from '@nestjs/cqrs';
 import { GetTicketQuery, GetTicketsQuery,GetCityTicketQuery,GetStatusQuery,CloseTicketQuery } from './queries/api-ticket-query.query';
@@ -36,6 +36,7 @@ export class ApiTicketService {
     }
 
     async createTicket(Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number){
+        Logger.log("Part 1 passed");
         return await this.commandBus.execute(new CreateTicketCommand(Status, createDate, closeDate, Type, City, Location, Cost, Description, RepairTime, Upvotes))
     }
 

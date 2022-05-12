@@ -1,0 +1,9 @@
+<div class="settings_icon_container">
+    <button type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        <img  class="settings_icon" src="assets/ellipsis-vertical-solid.svg" alt="settings_icon">
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" [routerLink]="['/editTicket', {name:'John Doe',issue_type:'Pothole',img_src:'assets/pothole_example.jpg'}]">Edit </a></li>
+        <li><a class="dropdown-item" href="#">Report</a></li>
+    </ul>
+</div>

@@ -20,7 +20,7 @@ The system will also make use of predictive analytics powered by AI modules that
 ### Specifications:
 [SRS Doc](https://github.com/COS301-SE-2022/Grid-Watch/wiki/SRS-Documentation)
 
-###Project Board
+### Project Board
 [Our Teams Project Board](https://github.com/COS301-SE-2022/Grid-Watch/projects)
 
 ### About Us

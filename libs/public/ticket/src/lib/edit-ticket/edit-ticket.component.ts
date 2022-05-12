@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { TicketDto } from 'libs/api/ticket/api/src/lib/dto/ticket.dto';
@@ -12,10 +12,11 @@ import { TicketDto } from 'libs/api/ticket/api/src/lib/dto/ticket.dto';
 export class EditTicketComponent implements OnInit {
   display_name! : string | null;
   default_upload! : string | null;
-  issue_type! : string | null;
-  description! : string | null;
-  location! : string | null;
-  updateURL = "http://localhost:3333/api/ticket/update";
+  @Input() issue_type! : string;
+  @Input() description! : string;
+  @Input() location! : string;
+  @Input() city! : string;
+  updateURL = "http://localhost:3333/api/ticket/update/";
   getTicketURL = "http://localhost:3333/api/ticket/";
 
   constructor(private route: ActivatedRoute, private http : HttpClient) {
@@ -27,6 +28,7 @@ export class EditTicketComponent implements OnInit {
     this.display_name = "John Doe";
     const temp = this.route.snapshot.paramMap.get('id');
     this.getTicketURL = this.getTicketURL + temp
+    this.updateURL = this.updateURL + temp
     console.log(this.getTicketURL);
 
     const httpOptions = {
@@ -59,7 +61,33 @@ export class EditTicketComponent implements OnInit {
 
   editTicket() : void
   {
-    // this.http.put<TicketDto>(updateURL,)
+    const ticket = new TicketDto();
+    ticket.ticket_location = this.location;
+    ticket.ticket_city = this.city;
+    ticket.ticket_description = this.description;
+    ticket.ticket_type = this.issue_type;
+    ticket.ticket_status = "Created";
+    ticket.ticket_create_date = new Date();
+    ticket.ticket_upvotes = 0;
+
+    console.log("issue_type: " + this.issue_type);
+    console.log("description : " + this.description);
+    console.log("location: " + this.location);
+    console.log("city: " + this.city);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    
+    this.http.put<TicketDto>(this.updateURL, ticket, httpOptions).subscribe(
+      (data) => {
+        console.log("success!");
+        
+        console.log(data);
+      }
+    )
   }
 
   initialiseFields(data : TicketDto)
@@ -69,5 +97,15 @@ export class EditTicketComponent implements OnInit {
     this.issue_type = data.ticket_type;
     this.description = data.ticket_description;
     this.location = data.ticket_location;
+    this.city = data.ticket_city;
+
+    if (data.ticket_type === "Pothole")
+        this.default_upload = "assets/pothole_example.jpg"
+      else if (data.ticket_type === "Water Outage")
+        this.default_upload = "assets/Water_example.jpg";
+      else if (data.ticket_type === "Sinkhole")
+        this.default_upload = "assets/sinkhole_example.jpg";
+      else if (data.ticket_type === "Electricity Outage")
+        this.default_upload = "assets/electricity_example.jpg";
   }
 }

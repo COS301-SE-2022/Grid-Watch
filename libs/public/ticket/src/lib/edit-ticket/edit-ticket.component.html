@@ -11,7 +11,7 @@
                 <div id="issue_field">
                     <mat-form-field appearance="fill">
                       <mat-label>Issue Type</mat-label>
-                      <mat-select value="{{issue_type}}" id="issue_type_options">
+                      <mat-select value="{{issue_type}}" [(ngModel)]="issue_type"  id="issue_type_options">
                         <mat-option value="Pothole">Pothole</mat-option>
                         <mat-option value="Electicity Outage">Electicity Outage</mat-option>
                         <mat-option value="Water Outage">Water Outage</mat-option>
@@ -22,7 +22,22 @@
                 <div id="description_field">
                     <mat-form-field appearance="fill">
                       <mat-label>Description</mat-label>
-                      <textarea matInput>{{description}}</textarea>
+                      <textarea  matInput [(ngModel)]="description">{{description}}</textarea>
+                    </mat-form-field>
+                </div>
+                
+                
+                <div id="location_field" class="">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Location</mat-label>
+                      <input matInput value="{{location}}" [(ngModel)]="location">
+                    </mat-form-field>
+                </div>
+                 
+                <div id="city_field" class="">
+                    <mat-form-field appearance="fill">
+                        <mat-label>City</mat-label>
+                        <input matInput value="{{city}}" [(ngModel)]="city">
                     </mat-form-field>
                 </div>
                 
@@ -30,15 +45,7 @@
                     <mat-label class="">Upload image of issue</mat-label><br>
                     <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
                  </div>
-
-                 
-                <div id="location_field" class="mt-4">
-                    <mat-form-field appearance="fill">
-                      <mat-label>Location</mat-label>
-                      <input matInput value="{{location}}">
-                    </mat-form-field>
-                </div>
-                 
+                
                 <!-- <div class="mt-4 location_pin">
                     <mat-label class="">Pin location of issue</mat-label><br>
                     <button mat-raised-button>Pin Location</button>

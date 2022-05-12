@@ -23,7 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       },
       {
         path: 'adminViewTicketDetails',
-        pathMatch: 'full',
+        pathMatch: 'prefix',
         component: ViewTicketDetailsComponent,
       },
     ]),

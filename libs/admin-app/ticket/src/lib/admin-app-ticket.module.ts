@@ -15,13 +15,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [    
     RouterModule,
     CommonModule,
-    BrowserAnimationsModule,
-    MatInputModule,
-    MatSelectModule,
-    MatDividerModule,
-    MatButtonModule,
-    MatCardModule,
-    FormsModule,
     RouterModule.forChild([
       {
         path: 'adminViewTicket',

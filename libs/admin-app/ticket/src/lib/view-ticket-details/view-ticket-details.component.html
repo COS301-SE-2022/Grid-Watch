@@ -2,58 +2,59 @@
     <div class="row">
         <div class="card col-12 col-md-7">
             <div class="card-body">
-                <div id="name_field">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Name</mat-label>
-                        <input matInput disabled="" value="{{display_name}}">
-                    </mat-form-field>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_id" class="form-label">Ticket ID:</label>
+                    <input type="text" class="form-control" id="ticket_id" name="ticket_id">
                 </div>
-                <div id="issue_field">
-                    <mat-form-field appearance="fill">
-                      <mat-label>Issue Type</mat-label>
-                      <mat-select value="{{issue_type}}" id="issue_type_options">
-                        <mat-option value="Pothole">Pothole</mat-option>
-                        <mat-option value="Electicity Outage">Electicity Outage</mat-option>
-                        <mat-option value="Water Outage">Water Outage</mat-option>
-                        <mat-option value="Sinkhole">Sinkhole</mat-option>
-                      </mat-select>
-                    </mat-form-field>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_status" class="form-label">Ticket Status:</label>
+                    <input type="text" class="form-control" id="ticket_status" name="ticket_status">
                 </div>
-                <div id="description_field">
-                    <mat-form-field appearance="fill">
-                      <mat-label>Description</mat-label>
-                      <textarea matInput></textarea>
-                    </mat-form-field>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_date_created" class="form-label">Date created:</label>
+                    <input type="date" class="form-control" id="ticket_date_created" name="ticket_date_created">
                 </div>
-                
-                <div id="upload_image">
-                    <mat-label class="">Upload image of issue</mat-label><br>
-                    <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
-                 </div>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_date_closed" class="form-label">Date closed:</label>
+                    <input type="date" class="form-control" id="ticket_date_closed" name="ticket_date_closed">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_type" class="form-label">Ticket type:</label>
+                    <input type="text" class="form-control" id="ticket_type" name="ticket_type">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_city" class="form-label">Ticket city:</label>
+                    <input type="text" class="form-control" id="ticket_city" name="ticket_city">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_location" class="form-label">Ticket location:</label>
+                    <input type="text" class="form-control" id="ticket_location" name="ticket_location">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_description" class="form-label">Ticket description:</label>
+                    <input type="text" class="form-control" id="ticket_description" name="ticket_description">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_repair_time" class="form-label">Ticket repair time:</label>
+                    <input type="text" class="form-control" id="ticket_repair_time" name="ticket_repair_time">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_upvotes" class="form-label">Ticket upvotes:</label>
+                    <input type="number" class="form-control" id="ticket_upvotes" name="ticket_upvotes">
+                </div>
 
-                 
-                <div id="location_field" class="mt-4">
-                    <mat-form-field appearance="fill">
-                      <mat-label>Location</mat-label>
-                      <input matInput>
-                    </mat-form-field>
-                </div>
-                 
-                <!-- <div class="mt-4 location_pin">
-                    <mat-label class="">Pin location of issue</mat-label><br>
-                    <button mat-raised-button>Pin Location</button>
-                 </div> -->
+
+                
+                
     
                  <div class="row mt-5">
                      <div class="col-4">
-                         <!-- <a routerLink="/tickets"> -->
-                             <button id="createTicket_button" mat-raised-button color="primary" >Update</button>
-                         <!-- </a> -->
+                        <button id="createTicket_button">Dispatch</button>
                     </div>
                     <div class="col-4"></div>
                     <div class="col-4">
                         <a routerLink="/tickets">
-                            <button id="discardTicket_button" mat-raised-button color="primary" >Discard</button>
+                            <button id="discardTicket_button">Discard</button>
                         </a>
                    </div>                
                  </div>

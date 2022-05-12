@@ -7,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewTicketDetailsComponent implements OnInit {
 
-  display_name! : string;
-  issue_type! : string;
+  issue_id! : string;
+  default_upload! : string;
 
-  constructor() {}
+  constructor() {
+    this.default_upload = "assets/pothole_example.jpg"
+  }
 
   ngOnInit(): void {}
 }

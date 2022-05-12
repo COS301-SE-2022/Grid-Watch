@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import { TicketController } from 'libs/api/ticket/api/src/lib/controllers/api-ticket-api-controller.controller';
 import { TicketDto } from 'libs/api/ticket/api/src/lib/dto/ticket.dto';
 import { Ticket } from '@prisma/client';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class CreateTicketComponent{
   createTicketURL = "http://localhost:3333/api/ticket/create";
   
 
-  constructor(private http : HttpClient) {
+  constructor(private http : HttpClient, private router: Router) {
 
   }
 
@@ -59,23 +60,21 @@ export class CreateTicketComponent{
     console.log("issue type: " + ticket.ticket_type);
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+        'Content-Type':  'application/json'
       })
     };
     
-    this.http.post<TicketDto>("http://localhost:3333/api/ticket/create", TicketDto, httpOptions)
+    this.http.post<TicketDto>(this.createTicketURL, ticket, httpOptions)
     .subscribe({
       next: data => {
           console.log(data);
-          ;
+          this.router.navigateByUrl("/tickets");
       },
       error: error => {
           console.error('There was an error!', error);
       }
+
   })
-    console.log("WHY");
     
   }
 

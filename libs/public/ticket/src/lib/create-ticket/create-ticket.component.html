@@ -24,7 +24,7 @@
                 <div *ngIf="(issue_type === 'Other')" id="other_field"  >
                     <mat-form-field appearance="fill">
                         <mat-label>Other issue details</mat-label>
-                        <input matInput>
+                        <input matInput [(ngModel)]="other_details">
                     </mat-form-field>
                 </div>
 

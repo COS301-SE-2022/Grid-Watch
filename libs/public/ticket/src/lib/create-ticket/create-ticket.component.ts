@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class CreateTicketComponent{
   @Input() other! :boolean;
+  @Input() other_details! :string;
   @Input() issue_type! : string;
   @Input() description! : string;
   @Input() address! : string;
@@ -29,6 +30,7 @@ export class CreateTicketComponent{
   ngOnInit(): void {
     this.default_upload = "assets/upload-solid.svg";
     this.other = false;
+    this.other_details = ""
   }
 
   fileUploaded(e: any) : void
@@ -50,7 +52,10 @@ export class CreateTicketComponent{
     ticket.ticket_location = this.address;
     ticket.ticket_city = this.city;
     ticket.ticket_description = this.description;
-    ticket.ticket_type = this.issue_type;
+    if (this.issue_type === "Other")
+      ticket.ticket_type = this.other_details;
+    else
+      ticket.ticket_type = this.issue_type;
     ticket.ticket_status = "Created";
     ticket.ticket_create_date = new Date();
     ticket.ticket_upvotes = 0;

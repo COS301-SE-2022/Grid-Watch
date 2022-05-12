@@ -86,5 +86,8 @@ export class ViewTicketDetailsComponent implements OnInit {
         this.default_upload = "assets/sinkhole_example.jpg";
       else if (data.ticket_type === "Electricity Outage")
         this.default_upload = "assets/electricity_example.jpg";
+      else
+        this.default_upload = "assets/solid_example.png";
+
   }
 }

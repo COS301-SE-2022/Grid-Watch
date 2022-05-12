@@ -50,7 +50,7 @@ About Us:
 
 
 #### Tshegofatsho Motlatle
-* Personally:
+* Personally: I am  third Year B.IT student with a passion for gaming and computing, i have experience in both Web development and programming lanugaes and im always eager to learn more. With this project we will be addressing a very present and real problem that most people in south africa can say they have faced. I will bring value to the development of the system by using the skills i have acquired over the years to not only add vaulable inputs to the system as a whole but also my fellow team mates. I am excited to see what this system has in store for the relationship between local government and the public. Bringing people a step closer to the change they need and want
 * Professionally: https://www.linkedin.com/in/tshegofatsho-motlatle-41ab89239/
 
 #### Thebe Kgaphola

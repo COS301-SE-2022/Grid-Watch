@@ -10,13 +10,14 @@
           </tr>
         </thead>
         <tbody>
-                <tr (click)="viewTicket()" *ngFor="let ticket of tickets" >
-                  <td>{{ticket.ticket_create_date}}</td>
-                  <td>{{ticket.ticket_type}}</td>
-                  <td>{{ticket.ticket_location}}</td>
-                  <td>{{ticket.ticket_city}}</td>
-                  <td>{{ticket.ticket_status}}</td>
-                </tr>
+          <tr  *ngFor="let ticket of tickets" (click)="viewTicket(ticket.ticket_id)" >
+            <div class="d-none"></div>
+            <td>{{ticket.ticket_create_date}}</td>
+            <td>{{ticket.ticket_type}}</td>
+            <td>{{ticket.ticket_location}}</td>
+            <td>{{ticket.ticket_city}}</td>
+            <td>{{ticket.ticket_status}}</td>
+          </tr>
         </tbody>
       </table>
 </div>

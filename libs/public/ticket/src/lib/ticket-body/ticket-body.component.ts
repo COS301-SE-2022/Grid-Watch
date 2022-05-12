@@ -15,7 +15,7 @@ export class TicketBodyComponent implements OnInit {
   public avatar : string;
   public issue_img : string;
   public upvotes : number;
-  getAllURL = "http://localhost:3333/api/ticket/tickets/all"
+  getAllURL = "http://localhost:3333/api/ticket/all/tickets"
   tickets : Array<TicketDto> = [];
 
   constructor( private http: HttpClient) {

@@ -3,7 +3,7 @@
         <button type="button"  routerLink='/createTicket' class="btn btn-outline-dark">Create ticket</button>
     </div> 
     <div class="row">
-        <mat-card class="issue_card col-12 p-4" >
+        <mat-card class="issue_card col-12 p-4" *ngFor="let ticket of tickets, index as i">
             <mat-card-header>
                 <div mat-card-avatar>
                     <img src="{{avatar}}" alt="avatar">
@@ -12,11 +12,12 @@
                     {{name}} {{surname}}
                 </mat-card-title>
                 <mat-card-subtitle>
-                    {{issue_type}}
+                    {{ticket.ticket_type}}
                 </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
                 <img class="uploaded_issue_image" src="{{issue_img}}" alt="uploaded_issue_image">
+                <p>{{ticket.ticket_description}}</p>
             </mat-card-content>
             <mat-card-footer>
                 <div class="row">

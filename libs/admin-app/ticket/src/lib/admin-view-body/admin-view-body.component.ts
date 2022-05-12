@@ -11,7 +11,7 @@ import { TicketDto } from 'libs/api/ticket/api/src/lib/dto/ticket.dto';
 })
 export class AdminViewBodyComponent implements OnInit {
 
-  getAllURL = "http://localhost:3333/api/ticket/tickets/all"
+  getAllURL = "http://localhost:3333/api/ticket/all/tickets"
   tickets : Array<TicketDto> = [];
 
   constructor(private router : Router, private http: HttpClient) {}
@@ -36,6 +36,8 @@ export class AdminViewBodyComponent implements OnInit {
   {
     for (let index = 0; index < data.length; index++) 
     {
+      
+
       this.tickets.push(data[index]);
     }
     console.log(this.tickets);

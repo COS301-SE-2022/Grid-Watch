@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'grid-watch-ticket-settings-options',
@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class TicketSettingsOptionsComponent{
 
   // public issue_id : number
-  issue_type! : string
+  // issue_type! : string
   
   // constructor(
   //   ) {
@@ -16,8 +16,8 @@ export class TicketSettingsOptionsComponent{
   //     this.issue_id = 1;
   //   }
 
-  ngOnInit(): void {
-    console.log("working TicketSettingsOptionsComponent");
+  // ngOnInit(): void {
+  //   console.log("working TicketSettingsOptionsComponent");
     
-  }
+  // }
 }

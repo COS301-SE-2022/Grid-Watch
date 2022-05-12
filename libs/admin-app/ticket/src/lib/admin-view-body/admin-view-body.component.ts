@@ -18,22 +18,24 @@ export class AdminViewBodyComponent implements OnInit {
   constructor(private router : Router, private http: HttpClient) {}
 
   ngOnInit(): void {
-    console.log(
+    
       this.http.get<TicketDto[]>(this.getAllURL).subscribe(
         (data) => {
           // console.log(data);
-          this.InitialiseTicket(data);
+          this.initialiseTicket(data);
       }
-      ));
+      );
   }
 
-  viewTicket() : void {
+  viewTicket(id : number) : void {
     console.log("GO to ticket view admin");
-    this.router.navigateByUrl("/adminViewTicketDetails");
+    const url = "/adminViewTicketDetails";
+    console.log(url);
+    this.router.navigate([url, {"id":id}]);
   }
 
   
-  InitialiseTicket(data : TicketDto []) : void 
+  initialiseTicket(data : TicketDto []) : void 
   {
     for (let index = 0; index < data.length; index++) 
     {

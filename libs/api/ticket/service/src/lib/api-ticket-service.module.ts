@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { CommandBus, CqrsModule } from '@nestjs/cqrs';
+import { CqrsModule } from '@nestjs/cqrs';
 import { ApiTicketService } from './api-ticket.service';
-import { createTicketHandler, deleteTicketHandler, updateTicketHandler } from './commands/api-ticket-command-handler.handler';
-import { GetTicketHandler, GetTicketsHandler } from './queries/api-ticket-quety-handler.handler';
+import { createTicketHandler, deleteTicketHandler, updateTicketHandler, updateTicketDescriptionHandler,updateTicketCloseDateHandler,updateTicketCostHandler,updateTicketCreateDateHandler,updateTicketLocationHandler,updateTicketRepairTimeHandler,updateTicketStatusHandler,updateTicketTypeHandler,updateTicketUpVotesHandler } from './commands/api-ticket-command-handler.handler';
+import { GetTicketHandler, GetTicketsHandler, GetCityHandler,CloseTicketHandler,GetStatusHandler } from './queries/api-ticket-quety-handler.handler';
 import { ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
 
 @Module({
@@ -10,11 +10,22 @@ import { ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository'
   providers: [ApiTicketService,
     createTicketHandler,
     updateTicketHandler,
+    updateTicketDescriptionHandler,
     deleteTicketHandler,
     GetTicketHandler,
     GetTicketsHandler,
+    GetCityHandler,
     ApiTicketRepositoryDataAccess,
-    CommandBus
+    CloseTicketHandler,
+    GetStatusHandler,
+    updateTicketCloseDateHandler,
+    updateTicketCostHandler,
+    updateTicketCreateDateHandler,
+    updateTicketLocationHandler,
+    updateTicketRepairTimeHandler,
+    updateTicketStatusHandler,
+    updateTicketTypeHandler,
+    updateTicketUpVotesHandler
   ],
   exports: [ApiTicketService],
 })

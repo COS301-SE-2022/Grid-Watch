@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { RouterModule } from '@nestjs/core';
 
 import { EditTicketComponent } from './edit-ticket.component';
 
@@ -10,7 +11,7 @@ describe('EditTicketComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [EditTicketComponent],
-      imports: [ActivatedRoute]
+      imports: [RouterModule]
     }).compileComponents();
   });
 

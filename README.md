@@ -37,8 +37,8 @@ that will be useful when writing queries to manipulate the database. Software En
 Design Patterns, Methodologies and Software Architecture to solve given problems.
 
 #### Anru Nel
-* Personally:
-* Professionally: https://www.linkedin.com/in/anru-nel-0a0838b1/
+* Personally: I am a third year BSc Computer Science student. I am very passionate about coding and computers and I am always eager to learn new skills. I enjoy using the skills that I have learned to help create solutions to real world problems faced by communities.
+* Professionally: https://www.linkedin.com/in/anru-nel-0a0838b1/, I have extensive programming knowledge regarding the frontend and backend. This will allow me to help develop software that meets the needs of the given project. Being familiar with university level Mathematics and Artificial Intelligence will give me insight with regards to the project and will also allow me to make meaningful contributions. I also have experience working with databases.
 
 #### Tshegofatsho Motlatle
 * Personally: I am  third Year B.IT student with a passion for gaming and computing. With this project we will be addressing a very present and real problem that most people in south africa can say they have faced. I will bring value to the development of the system by using the skills i have acquired over the years to not only add vaulable inputs to the system as a whole but also my fellow team mates. I am excited to see what this system has in store for the relationship between local government and the public. Bringing people a step closer to the change they need and want

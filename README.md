@@ -52,8 +52,8 @@ Design Patterns, Methodologies and Software Architecture to solve given problems
    i have experience in both Web development such as PHP, Javascript, Jquery, HTML, CSS, Bootstrap, Angular, XML, DTD and also skilled in a number of programming languages such as JAVA, C++, Assembly, Python and Delphi. I have designed websites for clients in the past and im always eager to start and deliver a new project to a new client. Programming is the bond between machine and people and i like to consider myself the mediator between these two powerful machines. 
 
 #### Thebe Kgaphola
-* Personally:
-* Professionally: https://www.linkedin.com/in/thebe-kgaphola-bb6268182/
+* Personally: I am a third year Bsc Computer Science student, I love coding and learning new things. I am gonna use my skills to help the team implement the project.
+* Professionally: https://www.linkedin.com/in/thebe-kgaphola-bb6268182/, I have experience in programming languages(Java, C++, Assembly), web development(HTML,CSS, JavaScript,PHP) and some back-end frameworks(NestJs).
 
 ### Created by the Denied Access Team of the University of Pretoria COS 301 Module
 * Anru Nel (u20646284)

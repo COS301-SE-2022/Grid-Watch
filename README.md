@@ -1,11 +1,16 @@
-# Denied Access
+#Denied Access
 ## GridWatch
 
 ![Github CI](https://github.com/COS301-SE-2022/Grid-Watch/actions/workflows/ci.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/COS301-SE-2022/Grid-Watch/badge.svg?branch=develop)](https://coveralls.io/github/COS301-SE-2022/Grid-Watch?branch=develop)
+![Repo Size](https://img.shields.io/github/repo-size/COS301-SE-2022/Grid-Watch)
+
 ![Issues Open](https://img.shields.io/github/issues/COS301-SE-2022/Grid-Watch)
 ![Pull Requests](https://img.shields.io/github/issues-pr/COS301-SE-2022/Grid-Watch)
-![Repo Size](https://img.shields.io/github/repo-size/COS301-SE-2022/Grid-Watch)
+![Weekly Commits](https://img.shields.io/github/commit-activity/w/COS301-SE-2022/Grid-Watch)
+
+![Contributors](https://img.shields.io/github/contributors/COS301-SE-2022/Grid-Watch)
+![Dependency](https://img.shields.io/librariesio/github/COS301-SE-2022/Grid-Watch)
 ### Project Description
 The grid watch system will allow three core interfaces:
 

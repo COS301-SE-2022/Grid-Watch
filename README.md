@@ -1,4 +1,4 @@
-#Denied Access
+# Denied Access
 ## GridWatch
 
 ![Github CI](https://github.com/COS301-SE-2022/Grid-Watch/actions/workflows/ci.yml/badge.svg)

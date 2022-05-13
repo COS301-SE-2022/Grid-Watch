@@ -40,8 +40,9 @@ Design Patterns, Methodologies and Software Architecture to solve given problems
 * Professionally: https://www.linkedin.com/in/anru-nel-0a0838b1/
 
 #### Tshegofatsho Motlatle
-* Personally: I am  third Year B.IT student with a passion for gaming and computing, i have experience in both Web development and programming lanugaes and im always eager to learn more. With this project we will be addressing a very present and real problem that most people in south africa can say they have faced. I will bring value to the development of the system by using the skills i have acquired over the years to not only add vaulable inputs to the system as a whole but also my fellow team mates. I am excited to see what this system has in store for the relationship between local government and the public. Bringing people a step closer to the change they need and want
+* Personally: I am  third Year B.IT student with a passion for gaming and computing. With this project we will be addressing a very present and real problem that most people in south africa can say they have faced. I will bring value to the development of the system by using the skills i have acquired over the years to not only add vaulable inputs to the system as a whole but also my fellow team mates. I am excited to see what this system has in store for the relationship between local government and the public. Bringing people a step closer to the change they need and want
 * Professionally: https://www.linkedin.com/in/tshegofatsho-motlatle-41ab89239/
+   i have experience in both Web development such as PHP, Javascript, Jquery, HTML, CSS, Bootstrap, Angular, XML, DTD and also skilled in a number of programming languages such as JAVA, C++, Assembly, Python and Delphi. I have designed websites for clients in the past and im always eager to start and deliver a new project to a new client. Programming is the bond between machine and people and i like to consider myself the mediator between these two powerful machines. 
 
 #### Thebe Kgaphola
 * Personally:

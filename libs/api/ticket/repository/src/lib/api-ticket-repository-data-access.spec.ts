@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { TicketDto } from 'libs/api/ticket/api/src/lib/dto/ticket.dto';
+import { TicketDto } from './dto/ticket-dto';
 import { ApiTicketRepositoryDataAccess } from './api-ticket-repository-data-access';
 
 describe('ApiTicketRepositoryDataAccess', () => {

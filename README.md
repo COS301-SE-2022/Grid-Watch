@@ -4,6 +4,7 @@
 ![Github CI](https://github.com/COS301-SE-2022/Grid-Watch/actions/workflows/ci.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/COS301-SE-2022/Grid-Watch/badge.svg?branch=develop)](https://coveralls.io/github/COS301-SE-2022/Grid-Watch?branch=develop)
 ![Issues Open](https://img.shields.io/github/issues/COS301-SE-2022/Grid-Watch)
+![Pull Requests](https://img.shields.io/github/issues-pr/COS301-SE-2022/Grid-Watch)
 
 ### Project Description
 The grid watch system will allow three core interfaces:

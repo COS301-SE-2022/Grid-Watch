@@ -255,7 +255,7 @@ describe('ApiTicketRepositoryDataAccess', () => {
   //getAllTickets endpoint
     describe('getAllTickets',()=>{
     const arrayOfTickets = [ticketDtoMock];
-    it('should return all tickes',async ()=>{
+    it('should return all tickets',async ()=>{
       jest
       .spyOn(provider,'getAllTickets')
       .mockImplementation(():Promise<TicketDto[]> => Promise.resolve(arrayOfTickets));
@@ -295,7 +295,7 @@ describe('ApiTicketRepositoryDataAccess', () => {
     //getCityTicket endpoint
     describe('getCityTicket',()=>{
     const arrayOfTickets = [ticketDtoMock];
-    it('should return a ticket',async ()=>{
+    it('should return tickets',async ()=>{
       jest
       .spyOn(provider,'getCityTicket')
       .mockImplementation(():Promise<TicketDto[]> => Promise.resolve(arrayOfTickets));
@@ -315,7 +315,7 @@ describe('ApiTicketRepositoryDataAccess', () => {
     //getStatus endpoint
     describe('getStatus',()=>{
     const arrayOfTickets = [ticketDtoMock];
-    it('should return a ticket',async ()=>{
+    it('should return tickets',async ()=>{
       jest
       .spyOn(provider,'getStatus')
       .mockImplementation(():Promise<TicketDto[]> => Promise.resolve(arrayOfTickets));

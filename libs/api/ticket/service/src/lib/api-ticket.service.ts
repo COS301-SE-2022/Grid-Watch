@@ -36,7 +36,6 @@ export class ApiTicketService {
     }
 
     async createTicket(Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number){
-        Logger.log("Part 1 passed");
         return await this.commandBus.execute(new CreateTicketCommand(Status, createDate, closeDate, Type, City, Location, Cost, Description, RepairTime, Upvotes))
     }
 

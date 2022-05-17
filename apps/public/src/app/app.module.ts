@@ -10,7 +10,7 @@ import { PublicSharedUiModule } from '@grid-watch/public/shared-ui';
 import { AdminAppTicketModule } from '@grid-watch/admin-app/ticket';
 
 const routes: Routes = [
-  // { path: '**', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomePageBodyComponent },
   // { path: 'tickets', component: TicketBodyComponent },
   // { path: 'createTicket', component: CreateTicketComponent },

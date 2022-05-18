@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CreateTicketComponent, PublicTicketModule, TicketBodyComponent } from '@grid-watch/public/ticket';
+import { PublicTicketModule, TicketBodyComponent } from '@grid-watch/public/ticket';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageBodyComponent } from '@grid-watch/public/home-page';
 import { PublicSharedUiModule } from '@grid-watch/public/shared-ui';
@@ -18,7 +18,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [RouterModule.forRoot(routes), BrowserModule, HttpClientModule, PublicTicketModule, PublicSharedUiModule, AdminAppTicketModule],
+  imports: [RouterModule.forRoot(routes), 
+    BrowserModule, 
+    HttpClientModule, 
+    PublicTicketModule, 
+    PublicSharedUiModule, 
+    AdminAppTicketModule],
   providers: [ ],
   bootstrap: [AppComponent],
 })

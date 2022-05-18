@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'grid-watch-login-page',
@@ -6,7 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
-  constructor() {}
 
-  ngOnInit(): void {}
+  application_type! : string | undefined | null;
+  
+  constructor(private route : ActivatedRoute) {}
+
+  ngOnInit(): void {
+    const application_type = this.route.snapshot.paramMap.get('app');
+    this.application_type = application_type;
+    // this.application_type = this.application_type?.charAt(0).toUpperCase();
+  }
 }

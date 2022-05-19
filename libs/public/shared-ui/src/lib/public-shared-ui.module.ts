@@ -4,6 +4,7 @@ import { RouterModule, Route } from '@angular/router';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
+import { FormsModule } from '@angular/forms';
 
 export const publicSharedUiRoutes: Route[] = [
   { path: 'login', pathMatch: 'full', component: LoginPageComponent },
@@ -15,6 +16,7 @@ export const publicSharedUiRoutes: Route[] = [
     CommonModule,
     RouterModule,
     RouterModule.forChild(publicSharedUiRoutes),
+    FormsModule,
   ],
   declarations: [NavBarComponent, LoginPageComponent, RegisterPageComponent],
   exports: [NavBarComponent, LoginPageComponent, RegisterPageComponent],

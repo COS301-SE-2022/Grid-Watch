@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -9,6 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LoginPageComponent implements OnInit {
 
   application_type! : string | undefined | null;
+  @Input() email! : string;
+  @Input() password! : string;
   
   constructor(private route : ActivatedRoute) {}
 
@@ -16,5 +18,11 @@ export class LoginPageComponent implements OnInit {
     const application_type = this.route.snapshot.paramMap.get('app');
     this.application_type = application_type;
     // this.application_type = this.application_type?.charAt(0).toUpperCase();
+  }
+
+  login() : void
+  {
+    console.log("Email: " + this.email);
+    console.log("Password: " + this.password);
   }
 }

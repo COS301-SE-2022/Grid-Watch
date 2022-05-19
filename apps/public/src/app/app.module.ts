@@ -24,8 +24,9 @@ const routes: Routes = [
     HttpClientModule, 
     PublicTicketModule, 
     PublicSharedUiModule,
-    SharedUiModule, 
-    AdminAppTicketModule],
+    AdminAppTicketModule,
+    SharedUiModule
+    ],
   providers: [ ],
   bootstrap: [AppComponent],
 })

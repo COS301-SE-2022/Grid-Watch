@@ -11,8 +11,8 @@
     "public": "apps/public",
     "public-e2e": "apps/public-e2e",
     "public-home-page": "libs/public/home-page",
-    "public-shared-ui": "libs/public/shared-ui",
     "public-ticket": "libs/public/ticket",
+    "public-user-profile": "libs/public/user-profile",
     "shared-ui": "libs/shared-ui"
   }
 }

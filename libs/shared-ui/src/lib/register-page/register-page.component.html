@@ -5,26 +5,26 @@
         </div>
         <div class="card-body">
             <div class="mb-3 mt-1">
-                <label for="name" class="form-label">Firstname:</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                <label for="firstname" class="form-label">Firstname:</label>
+                <input type="text" class="form-control" id="firstname" placeholder="Enter name" name="firstname" [(ngModel)]="first_name">
             </div>
             <div class="mb-3 mt-1">
-                <label for="name" class="form-label">Lastname:</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                <label for="lastname" class="form-label">Lastname:</label>
+                <input type="text" class="form-control" id="lastname" placeholder="Enter name" name="lastname" [(ngModel)]="last_name">
             </div>
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" [(ngModel)]="email">
             </div>
             <div class="mb-3 mt-3">
                 <label for="password" class="form-label">Password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
+                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" [(ngModel)]="password">
             </div>
             <div class="mb-3 mt-3">
                 <label for="confirm_password" class="form-label">Confirm Password:</label>
-                <input type="password" class="form-control" id="confirm_password" placeholder="Enter password" name="confirm_password">
+                <input type="password" class="form-control" id="confirm_password" placeholder="Enter password" name="confirm_password" [(ngModel)]="confirm_password">
             </div>
-            <div class="mb-1 mt-4">
+            <div class="mb-1 mt-4" (click)="register()">
                 <button class="btn btn-outline-dark">
                     Register
                 </button>

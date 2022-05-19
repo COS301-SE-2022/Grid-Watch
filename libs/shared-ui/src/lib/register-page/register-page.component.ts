@@ -18,4 +18,14 @@ export class RegisterPageComponent {  //implements OnInit {
   // ngOnInit(): void {
 
   // }
+
+  register() : void
+  {
+    console.log(this.first_name);
+    console.log(this.last_name);
+    console.log(this.email);
+    console.log(this.password);
+    console.log(this.confirm_password);
+    
+  }
 }

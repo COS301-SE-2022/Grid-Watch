@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './register-page.component.html',
   styleUrls: ['./register-page.component.scss'],
 })
-export class RegisterPageComponent implements OnInit {
+export class RegisterPageComponent {  //implements OnInit {
   
   @Input() first_name! : string;
   @Input() last_name! : string;
@@ -13,9 +13,9 @@ export class RegisterPageComponent implements OnInit {
   @Input() password! : string;
   @Input() confirm_password! : string;
 
-  constructor() {}
+  // constructor() {}
 
-  ngOnInit(): void {
+  // ngOnInit(): void {
 
-  }
+  // }
 }

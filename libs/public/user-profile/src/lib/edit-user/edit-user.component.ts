@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-user.component.scss'],
 })
 export class EditUserComponent implements OnInit {
+
+  provinces = ["Limpopo", "Gauteng", "Mpumalanga","North West", "Western Cape",
+                      "Eastern Cape", "Northern Cape", "KwaZulu-Natal"]
+
   constructor() {}
 
   ngOnInit(): void {}

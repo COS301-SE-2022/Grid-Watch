@@ -4,16 +4,19 @@ import { RouterModule } from '@angular/router';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { FormsModule } from '@angular/forms';
+import { RegisterPageComponent } from './register-page/register-page.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     RouterModule.forChild([
-      /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
+      { path: 'login', pathMatch: 'full', component: LoginPageComponent },
+      { path: 'register', pathMatch: 'full', component: RegisterPageComponent },
+
     ]),
   ],
-  declarations: [NavBarComponent, LoginPageComponent],
-  exports: [NavBarComponent, LoginPageComponent],
+  declarations: [NavBarComponent, LoginPageComponent, RegisterPageComponent],
+  exports: [NavBarComponent, LoginPageComponent, RegisterPageComponent],
 })
 export class SharedUiModule {}

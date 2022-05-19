@@ -28,7 +28,8 @@
       ],
       "@grid-watch/public/home-page": ["libs/public/home-page/src/index.ts"],
       "@grid-watch/public/shared-ui": ["libs/public/shared-ui/src/index.ts"],
-      "@grid-watch/public/ticket": ["libs/public/ticket/src/index.ts"]
+      "@grid-watch/public/ticket": ["libs/public/ticket/src/index.ts"],
+      "@grid-watch/shared-ui": ["libs/shared-ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

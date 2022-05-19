@@ -12,6 +12,7 @@
     "public-e2e": "apps/public-e2e",
     "public-home-page": "libs/public/home-page",
     "public-shared-ui": "libs/public/shared-ui",
-    "public-ticket": "libs/public/ticket"
+    "public-ticket": "libs/public/ticket",
+    "shared-ui": "libs/shared-ui"
   }
 }

@@ -8,6 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomePageBodyComponent } from '@grid-watch/public/home-page';
 import { PublicSharedUiModule } from '@grid-watch/public/shared-ui';
 import { AdminAppTicketModule } from '@grid-watch/admin-app/ticket';
+import { SharedUiModule } from '@grid-watch/shared-ui';
 
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
@@ -22,7 +23,8 @@ const routes: Routes = [
     BrowserModule, 
     HttpClientModule, 
     PublicTicketModule, 
-    PublicSharedUiModule, 
+    PublicSharedUiModule,
+    SharedUiModule, 
     AdminAppTicketModule],
   providers: [ ],
   bootstrap: [AppComponent],

@@ -30,7 +30,7 @@ export class CreateTicketComponent{
   ngOnInit(): void {
     this.default_upload = "assets/upload-solid.svg";
     this.other = false;
-    this.other_details = ""
+    this.other_details = "";
   }
 
   fileUploaded(e: any) : void

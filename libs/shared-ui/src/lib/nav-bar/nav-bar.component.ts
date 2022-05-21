@@ -30,7 +30,7 @@ export class NavBarComponent implements OnInit{
       this.options.push("Tech team")
       this.router_options.push("/techTeam")
     }
-    else //if (this.application_type === "public")
+    else if (this.application_type === "public")
     {
       console.log("public");
       this.options.push("Tickets")
@@ -38,6 +38,16 @@ export class NavBarComponent implements OnInit{
       
       this.options.push("option 2")
       this.router_options.push("/option2")
+    }
+    else
+    {
+      console.log("tech-team");
+      this.options.push("Tickets")
+      this.router_options.push("/tickets")
+      
+      this.options.push("option 2")
+      this.router_options.push("/option2")
+
     }
   }
 }

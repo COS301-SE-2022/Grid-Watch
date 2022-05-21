@@ -16,6 +16,6 @@
     "shared-ui": "libs/shared-ui",
     "tech-team": "apps/tech-team",
     "tech-team-e2e": "apps/tech-team-e2e",
-    "tech-team-ticket-view": "libs/tech-team/ticket-view"
+    "tech-team-ticket": "libs/tech-team/ticket"
   }
 }

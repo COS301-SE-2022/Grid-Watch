@@ -15,6 +15,7 @@
     "public-user-profile": "libs/public/user-profile",
     "shared-ui": "libs/shared-ui",
     "tech-team": "apps/tech-team",
+    "tech-team-app": "libs/tech-team-app",
     "tech-team-e2e": "apps/tech-team-e2e"
   }
 }

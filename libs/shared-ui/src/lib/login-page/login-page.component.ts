@@ -17,7 +17,6 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
     const application_type = this.route.snapshot.paramMap.get('app');
     this.application_type = application_type;
-    // this.application_type = this.application_type?.charAt(0).toUpperCase();
   }
 
   login() : void

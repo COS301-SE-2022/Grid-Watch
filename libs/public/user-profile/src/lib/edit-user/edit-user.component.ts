@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'grid-watch-edit-user',
@@ -10,7 +10,20 @@ export class EditUserComponent implements OnInit {
   provinces = ["Limpopo", "Gauteng", "Mpumalanga","North West", "Western Cape",
                       "Eastern Cape", "Northern Cape", "KwaZulu-Natal"]
 
-  constructor() {}
+  @Input() first_name! :string;
+  @Input() last_name! :string;
+  @Input() mobile_number! :string;
+  @Input() email! :string;
+  @Input() address! :string;
+  @Input() city_town! :string;
+  @Input() postcode! :string;
+  @Input() province! :string;
+  @Input() country! :string;
 
-  ngOnInit(): void {}
+  // constructor() {}
+
+  ngOnInit(): void {
+    console.log("User_edit");
+    
+  }
 }

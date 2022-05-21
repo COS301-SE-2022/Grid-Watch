@@ -18,49 +18,64 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label class="labels">Name</label>
-                        <input type="text" class="form-control" value="">
+                        <label class="labels">First Name</label>
+                        <input type="text" class="form-control" [(ngModel)]="first_name">
                     </div>
                     <div class="col-md-6">
-                        <label class="labels">Surname</label>
-                        <input type="text" class="form-control" value="">
+                        <label class="labels">Last name</label>
+                        <input type="text" class="form-control" value="" [(ngModel)]="last_name">
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-12">
                         <label class="labels">Mobile Number</label>
-                        <input type="text" class="form-control" value="">
+                        <input type="text" class="form-control" value="" [(ngModel)]="mobile_number">
                     </div>
                     <div class="col-md-12 mt-2">
                         <label class="labels">Email</label>
-                        <input type="text" class="form-control"  value="">
+                        <input type="text" class="form-control"  value="" [(ngModel)]="email">
                     </div>
                     <div class="col-md-12 mt-2">
                         <label class="labels">Street address</label>
-                        <input type="text" class="form-control" value="">
+                        <input type="text" class="form-control" value="" [(ngModel)]="address">
                     </div>
                     <div class="col-md-12 mt-2">
                         <label class="labels">City/Town</label>
-                        <input type="text" class="form-control" value="">
+                        <input type="text" class="form-control" value="" [(ngModel)]="city_town">
                     </div>
                     <div class="col-md-12 mt-2">
                         <label class="labels">Postcode</label>
-                        <input type="text" class="form-control" value="">
+                        <input type="text" class="form-control" value="" [(ngModel)]="postcode">
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
                         <label class="labels">Province</label>
-                        <select class="form-select" >
+                        <select class="form-select" [(ngModel)]="province">
+                            <option selected></option>
                             <option *ngFor="let province of provinces">{{province}}</option>
                         </select>
                     </div>
                     <div class="col-md-6">
                         <label class="labels">Country</label>
-                        <input type="text" class="form-control" value="">
+                        <input type="text" class="form-control" value="" [(ngModel)]="country">
                     </div>
                 </div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+                <div class="row mt-4">
+                    <div class="col-2">
+                        <button class="btn btn-primary profile-button" type="button">
+                            Apply
+                        </button>
+                    </div>
+                    <div class="col-8">
+                        
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-primary profile-button" type="button">
+                            Discard
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

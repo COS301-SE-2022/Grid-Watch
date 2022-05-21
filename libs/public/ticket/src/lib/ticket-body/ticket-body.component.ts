@@ -52,7 +52,7 @@ export class TicketBodyComponent implements OnInit {
 
   InitialiseTicket(data : TicketDto []) : void 
   {
-    for (let index = 0; index < data.length; index++) 
+    for (let index = 0; index < 5; index++) 
     {
       if (data[index].ticket_type === "Pothole")
         this.imgs.push("assets/pothole_example.jpg");

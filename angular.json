@@ -13,6 +13,8 @@
     "public-home-page": "libs/public/home-page",
     "public-ticket": "libs/public/ticket",
     "public-user-profile": "libs/public/user-profile",
-    "shared-ui": "libs/shared-ui"
+    "shared-ui": "libs/shared-ui",
+    "tech-team": "apps/tech-team",
+    "tech-team-e2e": "apps/tech-team-e2e"
   }
 }

@@ -203,6 +203,16 @@ export class ApiTicketRepositoryDataAccess {
         return await this.prisma.ticket.findMany()
     }
 
+    async getAllTicketsDispatched(){
+        return await this.prisma.ticket.findMany({
+            
+            where:{
+                ticket_status: "Dispatched",
+            },
+            
+        })
+    }
+
     async getTicket(TicketId: number){
 
         const ticket = await this.prisma.ticket.findMany({

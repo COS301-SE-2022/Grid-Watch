@@ -32,7 +32,10 @@
         "libs/public/user-profile/src/index.ts"
       ],
       "@grid-watch/shared-ui": ["libs/shared-ui/src/index.ts"],
-      "@grid-watch/tech-team-app": ["libs/tech-team-app/src/index.ts"]
+      "@grid-watch/tech-team-app": ["libs/tech-team-app/src/index.ts"],
+      "@grid-watch/tech-team/ticket-view": [
+        "libs/tech-team/ticket-view/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

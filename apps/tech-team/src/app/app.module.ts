@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedUiModule } from '@grid-watch/shared-ui';
 import { HomePageBodyComponent } from '@grid-watch/public/home-page';
+import { TechTeamTicketModule } from 'libs/tech-team/ticket/src';
 
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
@@ -16,9 +17,10 @@ const routes: Routes = [
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    RouterModule.forRoot(routes),
     BrowserModule,
     SharedUiModule,
+    TechTeamTicketModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent],

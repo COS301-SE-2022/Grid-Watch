@@ -27,9 +27,9 @@ export class TicketViewPageComponent implements OnInit {
 
   viewTicket(id : number) : void {
     console.log("GO to ticket view admin");
-    const url = "/adminViewTicketDetails";
-    console.log(url);
-    this.router.navigate([url, {"id":id}]);
+    // const url = "/adminViewTicketDetails";
+    // console.log(url);
+    // this.router.navigate([url, {"id":id}]);
   }
 
   

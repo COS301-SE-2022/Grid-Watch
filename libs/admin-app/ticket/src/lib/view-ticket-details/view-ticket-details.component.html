@@ -49,12 +49,12 @@
     
                  <div class="row mt-5">
                      <div class="col-4">
-                        <button id="createTicket_button">Dispatch</button>
+                        <button id="createTicket_button" class="btn btn-outline-dark" (click)="dispatch()">Dispatch</button>
                     </div>
                     <div class="col-4"></div>
                     <div class="col-4">
                         <a routerLink="/tickets">
-                            <button id="discardTicket_button">Discard</button>
+                            <button id="discardTicket_button" class="btn btn-outline-dark" (click)="back()">Back</button>
                         </a>
                    </div>                
                  </div>

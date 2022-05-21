@@ -37,7 +37,7 @@ export class AdminViewBodyComponent implements OnInit {
   
   initialiseTicket(data : TicketDto []) : void 
   {
-    for (let index = 0; index < 5; index++) 
+    for (let index = 0; index < data.length; index++) 
     {
       this.tickets.push(data[index]);
     }

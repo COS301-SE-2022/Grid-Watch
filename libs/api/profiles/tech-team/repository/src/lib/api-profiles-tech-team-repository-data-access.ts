@@ -20,7 +20,17 @@ prisma = new PrismaClient();
             });
     }
 
-    async UpdateTicket(TechTeamId: number, Name: string, Email: string,Specialisation: string, ContactNr: number){
+    async DeleteTechTeam(TechTeamId: number){
+
+        await this.prisma.techTeam.delete({
+            where:
+            {
+                id : TechTeamId,
+            },
+        })
+    }
+
+    async UpdateTechTeam(TechTeamId: number, Name: string, Email: string,Specialisation: string, ContactNr: number){
 
         await this.prisma.techTeam.update({
             where:{

@@ -49,7 +49,7 @@ model TechTeam {
   name                 String 
   email                String?   @unique
   specialisation       String
-  contact_number       Int       @unique
+  contact_number       String    @db.VarChar(10) @unique
   nr_jobs_completed    Int?
   rating_of_jobs       Float?
 
@@ -64,6 +64,6 @@ model AuthorizedOfficials {
   id                  Int       @id @default(autoincrement())
   name                String 
   email               String    @unique
-  contact_number      Int       @unique
+  contact_number      String    @db.VarChar(10) @unique
   cities_represented  String
 }

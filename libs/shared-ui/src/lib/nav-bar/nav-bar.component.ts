@@ -39,7 +39,7 @@ export class NavBarComponent implements OnInit{
       this.router_options.push("/tickets");
       
       this.options.push("Accepted Tickets");
-      this.router_options.push("/option2");
+      this.router_options.push("/acceptedTickets");
     }
     else
     {

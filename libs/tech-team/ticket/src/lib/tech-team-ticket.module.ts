@@ -22,6 +22,11 @@ import { AcceptedTicketViewComponent } from './accepted-ticket-view/accepted-tic
         pathMatch: 'full',
         component: TicketViewDetailsComponent,
       },
+      {
+        path: 'acceptedTickets',
+        pathMatch: 'full',
+        component: AcceptedTicketViewComponent,
+      },
     ]),
   ],
   declarations: [

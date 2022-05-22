@@ -1,1 +1,23 @@
-<p>accepted-ticket-view works!</p>
+<div class="container">
+    <table class="table table-hover mt-5">
+        <thead>
+          <tr>
+            <th>Date Created</th>
+            <th>Issue Type</th>
+            <th>Location</th>
+            <th>city</th>
+            <th>status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let ticket of tickets" (click)="viewTicket(ticket.ticket_id)" >
+            <div class="d-none"></div>
+            <td>{{ticket.ticket_create_date}}</td>
+            <td>{{ticket.ticket_type}}</td>
+            <td>{{ticket.ticket_location}}</td>
+            <td>{{ticket.ticket_city}}</td>
+            <td>{{ticket.ticket_status}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>

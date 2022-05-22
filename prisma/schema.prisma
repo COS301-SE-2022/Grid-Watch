@@ -46,11 +46,10 @@ model Picture{
 ///////////////////////////////////////////////////////////////////////
 
 model TechTeam {
- // ticket_id           String    @id @default(cuid()) // Use CUIDs for IDs please
-  id                Int       @id @default(autoincrement())
-  name              String 
-  email             String?   @unique
-  contact_number    Int       @db.Integer
+  id                  Int       @id @default(autoincrement())
+  name                String 
+  email               String?   @unique
+  contact_number      Int       
   number_jobs_completed    Int?
-  rating_of_jobs    Float?
+  rating_of_jobs      Float?
 }

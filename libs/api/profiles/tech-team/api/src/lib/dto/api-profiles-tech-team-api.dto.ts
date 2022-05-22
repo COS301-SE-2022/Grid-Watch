@@ -19,9 +19,9 @@ email! : string;
 @IsNotEmpty()
 specialisation! : string;
 
-@IsNumber()
+@IsString()
 @IsNotEmpty()
-contact_number!  : number;
+contact_number!  : string;
 
 @IsNumber()
 @IsOptional()

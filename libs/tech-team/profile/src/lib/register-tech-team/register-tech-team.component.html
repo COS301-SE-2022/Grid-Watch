@@ -1,1 +1,51 @@
-<p>register-tech-team works!</p>
+<div class="container">
+    <div class="card mt-4">
+        <div class="card-header ">
+            Register New User
+        </div>
+        <div class="card-body">
+            <div class="mb-3 mt-1">
+                <label for="company_name" class="form-label">Company name:</label>
+                <input type="text" class="form-control" id="company_name" placeholder="Enter company name" name="company_name" [(ngModel)]="company_name">
+            </div>
+            <div class="mb-3 mt-1">
+                <label for="issue_types" class="form-label">Issue types:</label>
+                <div class="row form-check" *ngFor="let options of issue_options">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" value="">{{options}}
+                    </label>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" [(ngModel)]="email">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="contact_number" class="form-label">Contact Number:</label>
+                <input type="text" class="form-control" id="contact_number" placeholder="Enter contact number" name="contact_number" [(ngModel)]="contact_number">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" [(ngModel)]="password">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="confirm_password" class="form-label">Confirm Password:</label>
+                <input type="password" class="form-control" id="confirm_password" placeholder="Confirm password" name="confirm_password" [(ngModel)]="confirm_password">
+            </div>
+            <div class="row">
+                <div class="col-3 mb-1 mt-4" (click)="register()">
+                    <button class="btn btn-outline-dark">
+                        Register
+                    </button>
+                </div>
+                <div class="col-6"></div>
+                <div class="col-3 mb-1 mt-4" (click)="back()">
+                    <button class="btn btn-outline-dark">
+                        Back
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

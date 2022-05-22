@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedUiModule } from '@grid-watch/shared-ui';
 import { HomePageBodyComponent } from '@grid-watch/public/home-page';
 import { TechTeamTicketModule } from 'libs/tech-team/ticket/src';
+import { TechTeamProfileModule } from '@grid-watch/tech-team/profile';
 
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const routes: Routes = [
     BrowserModule,
     SharedUiModule,
     TechTeamTicketModule,
+    TechTeamProfileModule,
     RouterModule.forRoot(routes),
   ],
   providers: [],

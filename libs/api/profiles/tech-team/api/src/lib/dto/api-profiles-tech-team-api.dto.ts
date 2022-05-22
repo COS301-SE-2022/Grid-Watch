@@ -6,9 +6,6 @@ import {
 } from 'class-validator';
 
 export class ApiProfilesTechTeamApiDto {
-@IsNumber()
-@IsNotEmpty()
-id! : number;
 
 @IsString()
 @IsNotEmpty()

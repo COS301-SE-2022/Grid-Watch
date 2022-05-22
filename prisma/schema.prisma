@@ -52,6 +52,8 @@ model TechTeam {
   contact_number       Int
   nr_jobs_completed    Int?
   rating_of_jobs       Float?
+
+  @@map("techteam")
 }
 
 ///////////////////////////////////////////////////////////////////////

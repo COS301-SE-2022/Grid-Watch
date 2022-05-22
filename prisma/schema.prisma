@@ -54,3 +54,15 @@ model TechTeam {
   nr_jobs_completed    Int?
   rating_of_jobs       Float?
 }
+
+///////////////////////////////////////////////////////////////////////
+// CityOfficials
+///////////////////////////////////////////////////////////////////////
+
+model CityOfficals {
+  id                  Int       @id @default(autoincrement())
+  name                String 
+  email               String    @unique
+  contact_number      Int       @db.Integer
+  cities_represented  String
+}

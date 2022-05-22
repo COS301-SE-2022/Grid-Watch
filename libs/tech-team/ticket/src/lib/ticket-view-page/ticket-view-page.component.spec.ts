@@ -1,5 +1,6 @@
-import { HttpClient} from '@angular/common/http';
+import {  HttpClientModule} from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing'
 
 import { TicketViewPageComponent } from './ticket-view-page.component';
 
@@ -9,7 +10,8 @@ describe('TicketViewPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TicketViewPageComponent ],
+      declarations: [TicketViewPageComponent, ],
+      imports: [RouterTestingModule, HttpClientModule ],
     }).compileComponents();
   });
 

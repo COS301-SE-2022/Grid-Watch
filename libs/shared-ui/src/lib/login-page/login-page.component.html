@@ -21,7 +21,10 @@
               Submit
             </button>
             <div class="mt-2" *ngIf="application_type === 'public'">
-              Dont have an account? <a routerLink="/register">Register here</a>
+              Dont have an account? <a [routerLink]="['/register', {app:application_type}]">Register here</a>
+            </div>
+            <div class="mt-2" *ngIf="application_type === 'tech-team'">
+              Dont have an account? <a [routerLink]="['/registerTechTeam']">Register here</a>
             </div>
         </div>
     </div>

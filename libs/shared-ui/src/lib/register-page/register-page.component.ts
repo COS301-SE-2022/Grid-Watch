@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'grid-watch-register-page',
@@ -13,7 +14,9 @@ export class RegisterPageComponent {  //implements OnInit {
   @Input() password! : string;
   @Input() confirm_password! : string;
 
-  // constructor() {}
+  constructor(
+    private router : Router
+  ) {}
 
   // ngOnInit(): void {
 
@@ -27,5 +30,9 @@ export class RegisterPageComponent {  //implements OnInit {
     console.log(this.password);
     console.log(this.confirm_password);
     
+  }
+
+  back() : void {
+    this.router.navigate(["/login",{app:"tech-team"}]);
   }
 }

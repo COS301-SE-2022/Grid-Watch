@@ -24,11 +24,20 @@
                 <label for="confirm_password" class="form-label">Confirm Password:</label>
                 <input type="password" class="form-control" id="confirm_password" placeholder="Confirm password" name="confirm_password" [(ngModel)]="confirm_password">
             </div>
-            <div class="mb-1 mt-4" (click)="register()">
-                <button class="btn btn-outline-dark">
-                    Register
-                </button>
+            <div class="row">
+                <div class="col-3 mb-1 mt-4" (click)="register()">
+                    <button class="btn btn-outline-dark">
+                        Register
+                    </button>
+                </div>
+                <div class="col-6"></div>
+                <div class="col-3 mb-1 mt-4" (click)="back()">
+                    <button class="btn btn-outline-dark">
+                        Back
+                    </button>
+                </div>
             </div>
+
         </div>
     </div>
 </div>

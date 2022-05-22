@@ -33,6 +33,7 @@
       ],
       "@grid-watch/shared-ui": ["libs/shared-ui/src/index.ts"],
       "@grid-watch/tech-team-app": ["libs/tech-team-app/src/index.ts"],
+      "@grid-watch/tech-team/profile": ["libs/tech-team/profile/src/index.ts"],
       "@grid-watch/tech-team/ticket": ["libs/tech-team/ticket/src/index.ts"],
       "@grid-watch/tech-team/ticket-view": [
         "libs/tech-team/ticket-view/src/index.ts"

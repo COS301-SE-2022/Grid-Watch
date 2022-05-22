@@ -8,7 +8,7 @@ import {
     Put,
   } from '@nestjs/common';
   import { ApiProfilesTechTeamApiDto } from '../dto/api-profiles-tech-team-api.dto';
-@Controller('techTeam')
+@Controller('techteam')
 export class ApiProfilesTechTeamApiControllerController {
     //constructor(private readonly apiTechTeamService:ApiTechTeamService){}
 

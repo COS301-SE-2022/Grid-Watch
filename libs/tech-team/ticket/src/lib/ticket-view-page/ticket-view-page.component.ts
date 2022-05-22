@@ -10,7 +10,7 @@ import { TicketDto } from '@grid-watch/api/ticket/ticketDto';
 })
 export class TicketViewPageComponent implements OnInit {
   
-  getAllURL = "http://localhost:3333/api/ticket/all/tickets"
+  getAllURL = "http://localhost:3333/api/ticket/all/tickets/dispatched"
   tickets : Array<TicketDto> = [];
 
   constructor(private router : Router, private http: HttpClient) {}

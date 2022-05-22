@@ -1,1 +1,63 @@
-<p>edit-accepted-ticket works!</p>
+<div class="container">
+    <div class="card mt-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="display-6 text-center">{{issue_type}}</div>
+                    <div class="ticket_image">
+                        <img src="assets/image-solid.svg" alt="issue_image">
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="ticket_description">
+                        <b>
+                            Description : <br>
+                        </b>
+                        {{description}}
+                    </div>
+                    <div class="ticket_create_date mt-1">
+                        <b>Create date :</b>  {{create_date}}
+                    </div>
+                    <div class="ticket_address mt-1">
+                        <b>Address :</b> {{address}}
+                    </div>
+                    <div class="ticket_city mt-1">
+                        <b> City:</b> {{city}}
+                    </div>
+                    <div class="ticket_repair_time mt-3">
+                        <label for="repair_time" class="form-label">Estimated Repair Time:</label>
+                        <input type="text" class="form-control" id="repair_time" placeholder="Enter repair time" name="repair_time"  [(ngModel)]="repair_time">
+                    </div>
+                    <div class="ticket_status mt-1">
+                        <label for="status" class="form-label">Status:</label>
+                        <select class="form-select" name="status" [(ngModel)]="status" (change)="showCloseButton()">
+                            <option value="Accepted">Accepted</option>
+                            <option value="Awaiting Material">Awaiting material</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Finishing up">Finishing up</option>
+                            <option value="Finished">Finished</option>
+                          </select> 
+                    </div>
+                    <div class="ticket_status mt-1 mb-3">
+                        <label for="repair_time" class="form-label">Estimated Cost:</label>
+                        <input type="text" class="form-control" id="repair_time" placeholder="Enter repair time" name="repair_time" [(ngModel)]="cost" > 
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3 text-center">
+                    <button type="button" class="btn btn-outline-dark" (click)="update()" id="update_button">
+                        <div *ngIf="status === 'Finished'; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock>Close</ng-template>
+                        <ng-template #elseBlock>Update</ng-template>
+                    </button>
+                </div>
+                <div class="col-6">
+                </div>
+                <div class="col-3 text-center">
+                    <button type="button" class="btn btn-outline-dark" (click)="back()">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

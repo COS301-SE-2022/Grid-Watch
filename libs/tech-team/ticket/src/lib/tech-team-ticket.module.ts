@@ -6,11 +6,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { TicketViewDetailsComponent } from './ticket-view-details/ticket-view-details.component';
 import { AcceptedTicketViewComponent } from './accepted-ticket-view/accepted-ticket-view.component';
 import { EditAcceptedTicketComponent } from './edit-accepted-ticket/edit-accepted-ticket.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
+    FormsModule,
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
       {
@@ -27,6 +29,11 @@ import { EditAcceptedTicketComponent } from './edit-accepted-ticket/edit-accepte
         path: 'acceptedTickets',
         pathMatch: 'full',
         component: AcceptedTicketViewComponent,
+      },
+      {
+        path: 'editTicketDetails',
+        pathMatch: 'full',
+        component: EditAcceptedTicketComponent,
       },
     ]),
   ],

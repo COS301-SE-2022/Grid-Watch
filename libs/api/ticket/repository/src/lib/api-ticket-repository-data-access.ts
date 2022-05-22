@@ -174,6 +174,22 @@ export class ApiTicketRepositoryDataAccess {
        // return "The ticket with id: " + TicketId + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
     }
 
+    async IncUpvotes(TicketId: number){
+
+        await this.prisma.ticket.update({
+            where:{
+                ticket_id: TicketId,
+            },
+            data:
+            {
+                ticket_upvotes :{
+                    increment: 1,
+                } 
+            },
+        });
+
+    }
+
     async closeTicket(TicketId: number){
 
         await this.prisma.ticket.update({
@@ -201,6 +217,16 @@ export class ApiTicketRepositoryDataAccess {
 
     async getAllTickets(){
         return await this.prisma.ticket.findMany()
+    }
+
+    async getAllTicketsDispatched(){
+        return await this.prisma.ticket.findMany({
+            
+            where:{
+                ticket_status: "Dispatched",
+            },
+            
+        })
     }
 
     async getTicket(TicketId: number){

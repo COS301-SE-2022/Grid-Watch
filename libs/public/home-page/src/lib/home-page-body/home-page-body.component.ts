@@ -5,6 +5,12 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home-page-body.component.html',
   styleUrls: ['./home-page-body.component.scss'],
 })
-export class HomePageBodyComponent{
+export class HomePageBodyComponent implements OnInit{
 
+  application_type! : string | undefined;
+
+  ngOnInit() : void {
+    const temp = document.getElementById("application_type");
+    this.application_type = temp?.innerHTML;
+  }
 }

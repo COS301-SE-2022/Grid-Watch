@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="card mt-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="display-6 text-center">{{issue_type}}</div>
+                    <div class="ticket_image">
+                        <img src="assets/image-solid.svg" alt="issue_image">
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="ticket_description">
+                        <b>
+                            Description : <br>
+                        </b>
+                        {{description}}
+                    </div>
+                    <div class="ticket_create_date mt-1">
+                        <b>Create date :</b>  {{create_date}}
+                    </div>
+                    <div class="ticket_address mt-1">
+                        <b>Address :</b> {{address}}
+                    </div>
+                    <div class="ticket_city mt-1">
+                        <b> City:</b> {{city}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3 text-center">
+                    <button type="button" class="btn btn-outline-dark" (click)="accept()">Accept</button>
+                </div>
+                <div class="col-6">
+                </div>
+                <div class="col-3 text-center">
+                    <button type="button" class="btn btn-outline-dark" (click)="back()">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

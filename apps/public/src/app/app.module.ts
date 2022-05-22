@@ -6,8 +6,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { PublicTicketModule, TicketBodyComponent } from '@grid-watch/public/ticket';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageBodyComponent } from '@grid-watch/public/home-page';
-import { PublicSharedUiModule } from '@grid-watch/public/shared-ui';
 import { AdminAppTicketModule } from '@grid-watch/admin-app/ticket';
+import { SharedUiModule } from '@grid-watch/shared-ui';
+import { profile } from 'console';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { PublicUserProfileModule } from 'libs/public/user-profile/src';
 
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
@@ -21,9 +24,11 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes), 
     BrowserModule, 
     HttpClientModule, 
-    PublicTicketModule, 
-    PublicSharedUiModule, 
-    AdminAppTicketModule],
+    PublicTicketModule,
+    AdminAppTicketModule,
+    SharedUiModule,
+    PublicUserProfileModule,
+    ],
   providers: [ ],
   bootstrap: [AppComponent],
 })

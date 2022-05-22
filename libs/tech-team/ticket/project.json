@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/tech-team/ticket",
+  "sourceRoot": "libs/tech-team/ticket/src",
+  "prefix": "grid-watch",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/tech-team/ticket"],
+      "options": {
+        "jestConfig": "libs/tech-team/ticket/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/tech-team/ticket/**/*.ts",
+          "libs/tech-team/ticket/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

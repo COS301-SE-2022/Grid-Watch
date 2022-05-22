@@ -16,7 +16,6 @@ datasource db {
 
 // All entities within the database are defined as tickets
 model Ticket {
- // ticket_id           String    @id @default(cuid()) // Use CUIDs for IDs please
   ticket_id           Int    @id @default(autoincrement())
   ticket_status       String
   ticket_create_date  DateTime
@@ -39,4 +38,34 @@ model Ticket {
 model Picture{
   picture_id          String    @id @default(cuid()) 
   picture_encoded     String
+}
+
+///////////////////////////////////////////////////////////////////////
+// TechTeam
+///////////////////////////////////////////////////////////////////////
+
+model TechTeam {
+  id                   Int       @id @default(autoincrement())
+  name                 String 
+  email                String?   @unique
+  specialisation       String
+  contact_number       String    @db.VarChar(10) @unique
+  nr_jobs_completed    Int?
+  rating_of_jobs       Float?
+
+  @@map("techteam")
+}
+
+///////////////////////////////////////////////////////////////////////
+// AuthorizedOfficials
+///////////////////////////////////////////////////////////////////////
+
+model AuthorizedOfficials {
+  id                  Int       @id @default(autoincrement())
+  name                String 
+  email               String    @unique
+  contact_number      String    @db.VarChar(10) @unique
+  cities              String
+
+  @@map("authorizedofficials")
 }

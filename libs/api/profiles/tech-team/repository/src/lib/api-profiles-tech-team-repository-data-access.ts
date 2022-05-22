@@ -7,7 +7,7 @@ export class ApiProfilesTechTeamRepositoryDataAccess {
 
 prisma = new PrismaClient();
 
-    async createTechTeam(Name: string, Email: string,Specialisation: string, ContactNr: number, NrJobs : number, RatingJobs : number ){
+    async createTechTeam(Name: string, Email: string,Specialisation: string, ContactNr: number ){
 
             await this.prisma.techTeam.create({
                 data:
@@ -16,13 +16,11 @@ prisma = new PrismaClient();
                     email :                 Email,
                     specialisation :        Specialisation,
                     contact_number :        ContactNr,
-                    nr_jobs_completed :     NrJobs,
-                    rating_of_jobs :        RatingJobs,  
                 },
             });
     }
 
-    async UpdateTicket(TechTeamId: number, Name: string, Email: string,Specialisation: string, ContactNr: number, NrJobs : number, RatingJobs : number ){
+    async UpdateTicket(TechTeamId: number, Name: string, Email: string,Specialisation: string, ContactNr: number){
 
         await this.prisma.techTeam.update({
             where:{
@@ -34,11 +32,9 @@ prisma = new PrismaClient();
                 email :                 Email,
                 specialisation :        Specialisation,
                 contact_number :        ContactNr,
-                nr_jobs_completed :     NrJobs,
-                rating_of_jobs :        RatingJobs,  
             },
         });
-}
+    }
     
     async UpdateTechTeamName(TechTeamId: number, Name: string){
 

@@ -7,7 +7,7 @@ export class ApiProfilesTechTeamRepositoryDataAccess {
 
 prisma = new PrismaClient();
 
-    async createTechTeam(Name: string, Email: string,Specialisation: string, ContactNr: number ){
+    async createTechTeam(Name: string, Email: string,Specialisation: string, ContactNr: string ){
 
             await this.prisma.techTeam.create({
                 data:
@@ -30,7 +30,7 @@ prisma = new PrismaClient();
         })
     }
 
-    async UpdateTechTeam(TechTeamId: number, Name: string, Email: string,Specialisation: string, ContactNr: number){
+    async UpdateTechTeam(TechTeamId: number, Name: string, Email: string,Specialisation: string, ContactNr: string){
 
         await this.prisma.techTeam.update({
             where:{
@@ -88,7 +88,7 @@ prisma = new PrismaClient();
 
     }
 
-    async UpdateTechTeamContactNr(TechTeamId: number, Contact: number){
+    async UpdateTechTeamContactNr(TechTeamId: number, Contact: string){
 
         await this.prisma.techTeam.update({
             where:{

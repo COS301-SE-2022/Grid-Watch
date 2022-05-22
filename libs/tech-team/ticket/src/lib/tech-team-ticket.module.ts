@@ -5,6 +5,7 @@ import { TicketViewPageComponent } from './ticket-view-page/ticket-view-page.com
 import { HttpClientModule } from '@angular/common/http';
 import { TicketViewDetailsComponent } from './ticket-view-details/ticket-view-details.component';
 import { AcceptedTicketViewComponent } from './accepted-ticket-view/accepted-ticket-view.component';
+import { EditAcceptedTicketComponent } from './edit-accepted-ticket/edit-accepted-ticket.component';
 
 @NgModule({
   imports: [
@@ -33,11 +34,13 @@ import { AcceptedTicketViewComponent } from './accepted-ticket-view/accepted-tic
     TicketViewPageComponent,
     TicketViewDetailsComponent,
     AcceptedTicketViewComponent,
+    EditAcceptedTicketComponent,
   ],
   exports: [
     TicketViewPageComponent,
     TicketViewDetailsComponent,
     AcceptedTicketViewComponent,
+    EditAcceptedTicketComponent,
   ],
 })
 export class TechTeamTicketModule {}

@@ -5,8 +5,8 @@ import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedUiModule } from '@grid-watch/shared-ui';
 import { HomePageBodyComponent } from '@grid-watch/public/home-page';
-import { TechTeamTicketModule } from 'libs/tech-team/ticket/src';
 import { TechTeamProfileModule } from '@grid-watch/tech-team/profile';
+import { TechTeamTicketModule } from '@grid-watch/tech-team/ticket';
 
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },

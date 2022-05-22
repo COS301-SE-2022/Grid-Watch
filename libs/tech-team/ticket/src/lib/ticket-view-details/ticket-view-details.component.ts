@@ -51,7 +51,7 @@ export class TicketViewDetailsComponent implements OnInit {
         'Content-Type':  'application/json'
       })
     };
-    const temp = {status: "Accept"}
+    const temp = {status: "Accepted"}
     this.http.put<string>(this.UpdateStatusURL, temp ,httpOptions).subscribe(
       (data) => {
         console.log(data);

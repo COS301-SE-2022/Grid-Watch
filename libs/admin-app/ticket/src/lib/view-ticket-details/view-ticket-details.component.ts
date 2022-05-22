@@ -1,10 +1,8 @@
 import { formatDate } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
-import { createDecipheriv } from 'crypto';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { TicketDto } from 'libs/api/ticket/api/src/lib/dto/ticket.dto';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TicketDto } from '@grid-watch/api/ticket/ticketDto';
 
 @Component({
   selector: 'grid-watch-view-ticket-details',

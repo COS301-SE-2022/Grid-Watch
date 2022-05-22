@@ -56,10 +56,10 @@ model TechTeam {
 }
 
 ///////////////////////////////////////////////////////////////////////
-// CityOfficials
+// AuthorizedOfficials
 ///////////////////////////////////////////////////////////////////////
 
-model CityOfficals {
+model AuthorizedOfficials {
   id                  Int       @id @default(autoincrement())
   name                String 
   email               String    @unique

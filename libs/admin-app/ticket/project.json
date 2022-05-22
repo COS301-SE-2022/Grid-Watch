@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/admin-app/ticket",
+  "sourceRoot": "libs/admin-app/ticket/src",
+  "prefix": "grid-watch",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/admin-app/ticket"],
+      "options": {
+        "jestConfig": "libs/admin-app/ticket/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/admin-app/ticket/**/*.ts",
+          "libs/admin-app/ticket/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,71 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="card col-12 col-md-7">
+            <div class="card-body">
+                <div class="mb-3 mt-3">
+                    <label for="ticket_id" class="form-label">Ticket ID:</label>
+                    <input type="text" class="form-control" id="ticket_id" name="ticket_id" value="{{issue_id}}">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_status" class="form-label">Ticket Status:</label>
+                    <input type="text" class="form-control" id="ticket_status" name="ticket_status" value="{{status}}">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_date_created" class="form-label">Date created:</label>
+                    <input type="date" class="form-control" id="ticket_date_created" name="ticket_date_created" value="{{date_created}}">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_date_closed" class="form-label">Date closed:</label>
+                    <input type="date" class="form-control" id="ticket_date_closed" name="ticket_date_closed" value="{{date_closed}}">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_type" class="form-label">Ticket type:</label>
+                    <input type="text" class="form-control" id="ticket_type" name="ticket_type" value="{{ticket_type}}">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_city" class="form-label">Ticket city:</label>
+                    <input type="text" class="form-control" id="ticket_city" name="ticket_city" value="{{ticket_city}}">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_location" class="form-label">Ticket location:</label>
+                    <input type="text" class="form-control" id="ticket_location" name="ticket_location" value="{{ticket_location}}">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_description" class="form-label">Ticket description:</label>
+                    <input type="text" class="form-control" id="ticket_description" name="ticket_description" value="{{ticket_description}}">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_repair_time" class="form-label">Ticket repair time:</label>
+                    <input type="text" class="form-control" id="ticket_repair_time" name="ticket_repair_time" value="{{ticket_repair_time}}">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="ticket_upvotes" class="form-label">Ticket upvotes:</label>
+                    <input type="number" class="form-control" id="ticket_upvotes" name="ticket_upvotes" value="{{ticket_upvotes}}">
+                </div>
+
+
+                
+                
+    
+                 <div class="row mt-5">
+                     <div class="col-4">
+                        <button id="createTicket_button">Dispatch</button>
+                    </div>
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <a routerLink="/tickets">
+                            <button id="discardTicket_button">Discard</button>
+                        </a>
+                   </div>                
+                 </div>
+            </div>
+        </div> 
+        <div class="col-12 col-md-5 border ">
+            <div class="align-middle p-5 preview_container">
+                <img id="image_preview" src="{{default_upload}}" class="upload_issue_image" alt="upload_image">
+            </div>
+        </div> 
+    </div>
+    
+</div>
+

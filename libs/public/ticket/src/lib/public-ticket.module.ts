@@ -9,14 +9,17 @@ import { MatDividerModule } from '@angular/material/divider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import { MatButtonModule } from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { TicketSettingsOptionsComponent } from './ticket-settings-options/ticket-settings-options.component';
+import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
+import { FormsModule } from '@angular/forms';
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
 
-
 @NgModule({
   imports: [
+    RouterModule,
     CommonModule,
     BrowserAnimationsModule,
     MatInputModule,
@@ -24,6 +27,7 @@ import {MatCardModule} from '@angular/material/card';
     MatDividerModule,
     MatButtonModule,
     MatCardModule,
+    FormsModule,
     RouterModule.forChild([
       {
         path: 'createTicket',
@@ -35,13 +39,24 @@ import {MatCardModule} from '@angular/material/card';
         pathMatch: 'full',
         component: TicketBodyComponent,
       },
+      {
+        path: 'editTicket',
+        pathMatch: 'prefix',
+        component: EditTicketComponent,
+      },
     ]),
   ],
   declarations: [
     TicketBodyComponent,
     CreateTicketComponent,
-    
+    TicketSettingsOptionsComponent,
+    EditTicketComponent,
   ],
-  exports: [TicketBodyComponent, CreateTicketComponent],
+  exports: [
+    TicketBodyComponent,
+    CreateTicketComponent,
+    TicketSettingsOptionsComponent,
+    EditTicketComponent,
+  ],
 })
 export class PublicTicketModule {}

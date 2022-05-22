@@ -1,0 +1,22 @@
+{
+  "root": "libs/api/profiles/admin/api",
+  "sourceRoot": "libs/api/profiles/admin/api/src",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/profiles/admin/api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/profiles/admin/api"],
+      "options": {
+        "jestConfig": "libs/api/profiles/admin/api/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

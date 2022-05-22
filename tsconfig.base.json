@@ -15,12 +15,43 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@grid-watch/admin-app/ticket": ["libs/admin-app/ticket/src/index.ts"],
+      "@grid-watch/api/profiles/admin/api": [
+        "libs/api/profiles/admin/api/src/index.ts"
+      ],
+      "@grid-watch/api/profiles/admin/repository": [
+        "libs/api/profiles/admin/repository/src/index.ts"
+      ],
+      "@grid-watch/api/profiles/admin/service": [
+        "libs/api/profiles/admin/service/src/index.ts"
+      ],
+      "@grid-watch/api/profiles/public/api": [
+        "libs/api/profiles/public/api/src/index.ts"
+      ],
+      "@grid-watch/api/profiles/public/repository": [
+        "libs/api/profiles/public/repository/src/index.ts"
+      ],
+      "@grid-watch/api/profiles/public/service": [
+        "libs/api/profiles/public/service/src/index.ts"
+      ],
+      "@grid-watch/api/profiles/tech-team/api": [
+        "libs/api/profiles/tech-team/api/src/index.ts"
+      ],
+      "@grid-watch/api/profiles/tech-team/repository": [
+        "libs/api/profiles/tech-team/repository/src/index.ts"
+      ],
+      "@grid-watch/api/profiles/tech-team/service": [
+        "libs/api/profiles/tech-team/service/src/index.ts"
+      ],
       "@grid-watch/api/ticket/api": ["libs/api/ticket/api/src/index.ts"],
       "@grid-watch/api/ticket/repository": [
         "libs/api/ticket/repository/src/index.ts"
       ],
       "@grid-watch/api/ticket/service": [
         "libs/api/ticket/service/src/index.ts"
+      ],
+      "@grid-watch/api/ticket/ticketDto": [
+        "libs/api/ticket/api/src/lib/dto/ticket.dto.ts"
       ],
       "@grid-watch/public/home-page": ["libs/public/home-page/src/index.ts"],
       "@grid-watch/public/shared-ui": ["libs/public/shared-ui/src/index.ts"],

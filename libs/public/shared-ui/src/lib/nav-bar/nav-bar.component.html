@@ -6,20 +6,16 @@
         </button>
         <div class="collapse navbar-collapse row" id="collapsibleNavbar">
             <div class="col-10">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/tickets">Tickets</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" >Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" >Link</a>
+                <ul class="navbar-nav" >
+                    <li class="nav-item" *ngFor="let option of options, index as i">
+                        <a class="nav-link" routerLink="{{router_options[i]}}">{{option}}</a>
                     </li>
                 </ul>
             </div>
             <div class="navbar-brand col">
-                <img src="assets/user-regular.svg" class="rounded-circle border user_profile_navbar float-right" alt="user_profile_navbar">
+                <a [routerLink]="['/login', {app:application_type}]">
+                    <img src="assets/user-regular.svg" class="rounded-circle border user_profile_navbar float-right" alt="user_profile_navbar">
+                </a>
             </div>
         </div>
     </div>

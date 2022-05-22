@@ -62,18 +62,15 @@ jobs:
 
       - name: Installing Dependencies
         run: yarn install
-
-      - name: Running nx affected lint
-        run: yarn nx affected --target=lint --parallel=3
-
-      - name: Running nx affected test
-        run: yarn nx affected --target=test --parallel=3 --ci --code-coverage
       
-      - name: Running nx affected build
-        run: yarn nx affected --target=build --parallel=3
-
-      - name: Running nx affected e2e
-        run: yarn nx affected --target=e2e 
+      - name: Running nx run-many build
+        run: yarn nx run-many --target=build --all=true --parallel
       
-      - name: Running nx run-many
-        run: yarn nx run-many --target=build --all=true 
+      - name: Running nx run-many test
+        run: yarn nx run-many --target=test --all=true --parallel
+      
+      - name: Running nx run-many lint
+        run: yarn nx run-many --target=lint --all=true --parallel
+      
+      - name: Running nx run-many lint
+        run: yarn nx run-many --target=e2e --all=true --parallel

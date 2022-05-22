@@ -1,46 +1,47 @@
 <div class="container mt-5 row">   
     <div class="mb-4" id="create_ticket">
-        <button type="button"  routerLink="/createTicket" class="btn btn-outline-dark">Create ticket</button>
+        <button type="button"  routerLink='/createTicket' class="btn btn-outline-dark">Create ticket</button>
     </div> 
     <div class="row">
-        <mat-card class="issue_card col-12">
-            <mat-card-header>
-                <div mat-card-avatar>
+        <mat-card class="issue_card col-12 p-4" *ngFor="let ticket of tickets, index as i">
+            <mat-card-header >
+                <div mat-card-avatar class="">
                     <img src="{{avatar}}" alt="avatar">
+                </div>
+                <div class="d-none">
+                    {{ticket.ticket_id}}
                 </div>
                 <mat-card-title>
                     {{name}} {{surname}}
                 </mat-card-title>
                 <mat-card-subtitle>
-                    {{issue_type}}
+                    {{ticket.ticket_type}}
                 </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-                <img class="uploaded_issue_image" src="{{issue_img}}" alt="uploaded_issue_image">
+                <img class="uploaded_issue_image" src="{{imgs[i]}}" alt="uploaded_issue_image">
+                <p>{{ticket.ticket_description}}</p>
             </mat-card-content>
             <mat-card-footer>
-                <img (click)="IncreaseUpvote()" class="upvote_img m-2" src="assets/circle-up-solid.svg" alt="upvote icon"> {{upvotes}} 
-            </mat-card-footer>
-        </mat-card>
-        <mat-card class="issue_card col-12 ">
-            <mat-card-header>
-                <div mat-card-avatar>
-                    <img src="{{avatar}}" alt="avatar">
+                <div class="row">
+                    <div class="col-10">
+                        <img (click)="IncreaseUpvote()" class="upvote_img m-2" src="assets/circle-up-solid.svg" alt="upvote icon"> {{upvotes}} 
+                    </div>
+                    <div class="col-1">    
+                        <div class="settings_icon_container">
+                            <button type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img  class="settings_icon" src="assets/ellipsis-vertical-solid.svg" alt="settings_icon">
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" [routerLink]="['/editTicket', {id:ticket.ticket_id}]">Edit </a></li>
+                                <li><a class="dropdown-item" >Report</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <mat-card-title>
-                    {{name}} {{surname}}
-                </mat-card-title>
-                <mat-card-subtitle>
-                    {{issue_type}}
-                </mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <img class="uploaded_issue_image" src="{{issue_img}}" alt="uploaded_issue_image">
-            </mat-card-content>
-            <mat-card-footer>
-                <img (click)="IncreaseUpvote()" class="upvote_img m-2" src="assets/circle-up-solid.svg" alt="upvote icon"> {{upvotes}} 
             </mat-card-footer>
         </mat-card>
+        
     </div>
 </div>
 

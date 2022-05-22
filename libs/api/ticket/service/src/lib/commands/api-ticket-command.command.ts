@@ -1,3 +1,5 @@
+import { Logger } from "@nestjs/common";
+
 export class CreateTicketCommand{
     constructor(
         public readonly status,
@@ -12,7 +14,9 @@ export class CreateTicketCommand{
         public readonly upVotes
         
         
-        ){}
+        ){
+            Logger.log("Part 2 passed");
+        }
 
 }
 

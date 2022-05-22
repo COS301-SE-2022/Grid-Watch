@@ -1,14 +1,15 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
 import {DeleteTicketCommand, CreateTicketCommand, UpdateTicketCommand, UpdateTicketStatusCommand, UpdateTicketCreateDateCommand, UpdateTicketTypeCommand, UpdateTicketCloseDateCommand, UpdateTicketLocationCommand, UpdateTicketCostCommand, UpdateTicketDescriptionCommand, UpdateTicketRepairTimeCommand, UpdateTicketUpVotesCommand} from './api-ticket-command.command';
+import { Logger } from '@nestjs/common';
 
 @CommandHandler(CreateTicketCommand)
 export class createTicketHandler implements ICommandHandler<CreateTicketCommand>{
-
     constructor (private readonly repository:ApiTicketRepositoryDataAccess){
-
+        
     }
     async execute(command: CreateTicketCommand) {
+        Logger.log("Part 3 passed");
         const{ status,description,createDate,closeDate,cost,location,city,repairTime,upVotes,type}= command;
         return this.repository.createTicket(status,createDate,closeDate,type,city,location,cost,description,repairTime,upVotes);
     }

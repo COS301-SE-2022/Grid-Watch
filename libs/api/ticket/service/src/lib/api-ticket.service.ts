@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 //import {Ticket,PrismaClient} from '@prisma/client';
 import {QueryBus,CommandBus} from '@nestjs/cqrs';
 import { GetTicketQuery, GetTicketsQuery,GetCityTicketQuery,GetStatusQuery,CloseTicketQuery } from './queries/api-ticket-query.query';

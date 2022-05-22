@@ -1,10 +1,8 @@
 import { formatDate } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
-import { createDecipheriv } from 'crypto';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { TicketDto } from 'libs/api/ticket/api/src/lib/dto/ticket.dto';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TicketDto } from '@grid-watch/api/ticket/ticketDto';
 
 @Component({
   selector: 'grid-watch-view-ticket-details',
@@ -25,12 +23,12 @@ export class ViewTicketDetailsComponent implements OnInit {
   ticket_upvotes! : number;
   default_upload! : string;
   getTicketURL = "http://localhost:3333/api/ticket/";
+  UpdateStatusURL = "http://localhost:3333/api/ticket/update/status/";
 
 
-  constructor(private http : HttpClient, private route: ActivatedRoute) {
-
-    // this.default_upload = "assets/pothole_example.jpg"
-  }
+  constructor(private http : HttpClient, 
+              private route: ActivatedRoute,
+              private router: Router) {}
 
   ngOnInit(): void {
 
@@ -89,5 +87,28 @@ export class ViewTicketDetailsComponent implements OnInit {
       else
         this.default_upload = "assets/solid_example.png";
 
+  }
+
+  back() : void
+  {
+    this.router.navigateByUrl("/tickets")
+  }
+
+  dispatch() : void 
+  {
+    this.UpdateStatusURL += this.issue_id;
+    // console.log(this.UpdateStatusURL);
+    
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    const temp = {status: "Dispatched"}
+    this.http.put<string>(this.UpdateStatusURL, temp ,httpOptions).subscribe(
+      (data) => {
+        console.log(data);
+    }
+    );
   }
 }

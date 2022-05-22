@@ -44,6 +44,11 @@ export class TicketController {
     async getAll(){
         return this.apiTicketService.GetAll();
     }
+    //get endpint to return all tickets
+    @Get('/all/tickets/dispatched')
+    async getAllDispatched(){
+        return this.apiTicketService.GetAllDispatched();
+    }
 
     //creating tickets
     @Post('/create')

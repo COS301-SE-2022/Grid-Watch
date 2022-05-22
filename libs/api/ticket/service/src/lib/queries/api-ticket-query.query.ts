@@ -6,6 +6,10 @@ export class GetTicketsQuery{
 
 }
 
+export class GetTicketsDispatchedQuery{
+
+}
+
 export class GetStatusQuery{
     constructor(public readonly Status){}
 }

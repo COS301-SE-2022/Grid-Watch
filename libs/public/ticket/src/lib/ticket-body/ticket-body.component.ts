@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { TicketDto } from 'libs/api/ticket/api/src/lib/dto/ticket.dto';
+import { TicketDto } from '@grid-watch/api/ticket/ticketDto';
+
 
 @Component({
   selector: 'grid-watch-ticket-body',

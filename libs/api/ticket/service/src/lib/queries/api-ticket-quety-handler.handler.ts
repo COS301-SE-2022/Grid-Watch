@@ -1,5 +1,5 @@
 import {IQueryHandler, QueryHandler} from '@nestjs/cqrs';
-import {CloseTicketQuery, GetCityTicketQuery, GetStatusQuery, GetTicketQuery,GetTicketsQuery } from './api-ticket-query.query';
+import {CloseTicketQuery, GetCityTicketQuery, GetStatusQuery, GetTicketQuery,GetTicketsDispatchedQuery,GetTicketsQuery } from './api-ticket-query.query';
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
 
 @QueryHandler(GetTicketQuery)
@@ -21,6 +21,16 @@ export class GetTicketsHandler implements IQueryHandler<GetTicketsQuery>{
 
     async execute(){
         return this.repository.getAllTickets();
+    }
+}
+
+
+@QueryHandler(GetTicketsDispatchedQuery)
+export class GetTicketsDispatchedHandler implements IQueryHandler<GetTicketsDispatchedQuery>{
+    constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
+
+    async execute(){
+        return this.repository.getAllTicketsDispatched();
     }
 }
 

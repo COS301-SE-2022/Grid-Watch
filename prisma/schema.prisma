@@ -65,5 +65,7 @@ model AuthorizedOfficials {
   name                String 
   email               String    @unique
   contact_number      String    @db.VarChar(10) @unique
-  cities_represented  String
+  cities              String
+
+  @@map("authorizedofficials")
 }

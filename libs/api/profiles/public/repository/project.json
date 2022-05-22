@@ -1,0 +1,22 @@
+{
+  "root": "libs/api/profiles/public/repository",
+  "sourceRoot": "libs/api/profiles/public/repository/src",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/profiles/public/repository/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/profiles/public/repository"],
+      "options": {
+        "jestConfig": "libs/api/profiles/public/repository/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

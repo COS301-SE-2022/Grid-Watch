@@ -109,7 +109,8 @@ export class TicketController {
     async UpdateTicketRepairTime(@Param() params,@Body() repairTime: string):Promise<boolean> {
         return this.apiTicketService.updateTicketRepairTime(parseInt(params.id),repairTime["repairTime"]);
     }
-
+    
+    //update ticket upvotes
     @Put('/update/upvotes/:id')
     async UpdateTicketUpvotes(@Param() params,@Body() upvotes: string):Promise<boolean> {
         return this.apiTicketService.updateTicketUpVotes(parseInt(params.id),upvotes["upvotes"]);

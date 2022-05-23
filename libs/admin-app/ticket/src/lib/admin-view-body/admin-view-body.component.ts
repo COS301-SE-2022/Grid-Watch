@@ -12,11 +12,15 @@ import { LOADIPHLPAPI } from 'dns';
 })
 export class AdminViewBodyComponent implements OnInit {
 
-  getAllURL = "http://localhost:3333/api/ticket/all/tickets"
-  getSortUrl = "http://localhost:3333/api/ticket/status/"
+  getAllURL = "http://localhost:3333/api/ticket/all/tickets";
+  getSortUrl = "http://localhost:3333/api/ticket/status/";
+  getCityURL = "http://localhost:3333/api/ticket/city/";
+  getTypeURL = "http://localhost:3333/api/ticket/status/";
+  options = ["Pothole", "Electricity Outage", "Water Outage", "Sinkhole", "Other"]
   tickets : Array<TicketDto> = [];
   statuses : string [] = [];
   cities : string [] = [];
+  filterValue = "hi";
 
   constructor(private router : Router, private http: HttpClient) {}
 
@@ -66,7 +70,8 @@ export class AdminViewBodyComponent implements OnInit {
     console.log(this.tickets);
   }
 
-  filterByStatus(status : string) : void{
+  filterByStatus(status : string) : void
+  {
     // this.getSortUrl += status;
     // console.log(this.getSortUrl);
     // this.http.get<TicketDto[]>(this.getSortUrl).subscribe(
@@ -105,10 +110,6 @@ export class AdminViewBodyComponent implements OnInit {
         result3 = this.tickets.filter(this.checkStatusAccepted)
       }
       this.tickets = [];
-      console.log(result1);
-      console.log(result2);
-      console.log(result3);
-      
       this.tickets.push(...result1);
       this.tickets.push(...result2);
       this.tickets.push(...result3);
@@ -137,4 +138,51 @@ export class AdminViewBodyComponent implements OnInit {
     return (ticket.ticket_status === "Accepted")
     
   }
+
+  filterByCity(id : string, value : string)
+  {
+    const temp = document.getElementById(id) as HTMLInputElement;
+    if (!temp.checked){
+      this.tickets = [];
+      this.getDatabaseData(false);
+    }
+    else
+    {
+      const tempURL = this.getCityURL;
+      // this.filterValue = value;
+      this.getCityURL += value;
+      console.log(this.getCityURL);
+      this.http.get<TicketDto[]>(this.getCityURL).subscribe(
+        (data) => {
+          console.log(data);
+          this.tickets = data;
+        }
+      );
+      this.getCityURL = tempURL;
+    }
+  }
+
+  filterByType(id : string, value : string)
+  {
+    const temp = document.getElementById(id) as HTMLInputElement;
+    if (!temp.checked){
+      this.tickets = [];
+      this.getDatabaseData(false);
+    }
+    else
+    {
+      const tempURL = this.getTypeURL;
+      // this.filterValue = value;
+      this.getTypeURL += value;
+      console.log(this.getTypeURL);
+      this.http.get<TicketDto[]>(this.getTypeURL).subscribe(
+        (data) => {
+          console.log(data);
+          this.tickets = data;
+        }
+      );
+      this.getTypeURL = tempURL;
+    }
+  }
+
 }

@@ -39,6 +39,11 @@ export class TicketController {
         return this.apiTicketService.getStatus(params.status);
     }
 
+    @Get('issue/:issue')
+    async getIssue(@Param() params){
+        return this.apiTicketService.getIssue(params.issue);
+    }
+
     //get endpint to return all tickets
     @Get('/all/tickets')
     async getAll(){

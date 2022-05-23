@@ -25,31 +25,15 @@
     <div class="row mt-2">
       <div class="col-4">
         <b>Issue Type</b>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="Pothole">
-          <label class="form-check-label">Pothole</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="Electricity Outage">
-          <label class="form-check-label">Electricity Outage</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="Water Outage">
-          <label class="form-check-label">Water Outage</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="Sinkhole">
-          <label class="form-check-label">Sinkhole</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="Other">
-          <label class="form-check-label">Other</label>
+        <div class="form-check" *ngFor="let option of options, index as i">
+          <input class="form-check-input" type="checkbox" id="issue_filter{{i}}" value="{{option}}" (click)="filterByType('issue_filter' + i, option)">
+          <label class="form-check-label">{{option}}</label>
         </div>
       </div>
       <div class="col-4">
         <b>City</b>
-        <div class="form-check" *ngFor="let city of cities">
-          <input class="form-check-input" type="checkbox" value="Pothole">
+        <div class="form-check" *ngFor="let city of cities, index as i">
+          <input class="form-check-input" type="checkbox" id="city_filter{{i}}" value="{{city}}" (click)="filterByCity('city_filter' + i, city)">
           <label class="form-check-label">{{city}}</label>
         </div>
       </div>

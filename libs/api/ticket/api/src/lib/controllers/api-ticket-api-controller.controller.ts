@@ -3,6 +3,7 @@ import {
     Controller,
     Delete,
     Get,
+    Logger,
     Param,
     Post,
     Put,
@@ -49,7 +50,14 @@ export class TicketController {
     async getAll(){
         return this.apiTicketService.GetAll();
     }
-    //get endpint to return all tickets
+
+    //get endpint to return all tickets sort by Date
+    @Get('/all/tickets/Date')
+    async getAllSortByDate(){
+        return this.apiTicketService.GetAllSortByDate();
+    }
+
+    //get endpint to return all tickets dispatched
     @Get('/all/tickets/dispatched')
     async getAllDispatched(){
         return this.apiTicketService.GetAllDispatched();

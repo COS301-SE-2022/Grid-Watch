@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import {PrismaClient} from '@prisma/client';
 
 @Injectable()
@@ -295,6 +295,19 @@ export class ApiTicketRepositoryDataAccess {
             },
             orderBy: {
                 ticket_upvotes: "desc",
+            },
+
+        })
+
+        return tickets
+
+    }
+
+    async getTicketsFilterDate(){
+
+        const tickets = await this.prisma.ticket.findMany({
+            orderBy: {
+                ticket_create_date: "asc",
             },
 
         })

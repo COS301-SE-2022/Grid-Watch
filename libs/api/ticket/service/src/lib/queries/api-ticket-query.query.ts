@@ -6,6 +6,10 @@ export class GetTicketsQuery{
 
 }
 
+export class GetTicketsSortByDateQuery{
+
+}
+
 export class GetTicketsDispatchedQuery{
 
 }

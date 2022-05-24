@@ -25,7 +25,7 @@
     <div class="row mt-2">
       <div class="col-4">
         <b>Issue Type</b>
-        <div class="form-check" *ngFor="let option of options, index as i">
+        <div class="form-check" *ngFor="let option of issues, index as i">
           <input class="form-check-input" type="checkbox" id="issue_filter{{i}}" value="{{option}}" (click)="filterByType('issue_filter' + i, option)">
           <label class="form-check-label">{{option}}</label>
         </div>

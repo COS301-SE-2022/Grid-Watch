@@ -15,10 +15,10 @@ export class AdminViewBodyComponent implements OnInit {
   getAllURL = "http://localhost:3333/api/ticket/all/tickets";
   getSortUrl = "http://localhost:3333/api/ticket/status/";
   getCityURL = "http://localhost:3333/api/ticket/city/";
-  getTypeURL = "http://localhost:3333/api/ticket/status/";
-  options = ["Pothole", "Electricity Outage", "Water Outage", "Sinkhole", "Other"]
+  getTypeURL = "http://localhost:3333/api/ticket/issue/";
   tickets : Array<TicketDto> = [];
   statuses : string [] = [];
+  issues : string [] = [];
   cities : string [] = [];
   filterValue = "hi";
 
@@ -46,9 +46,11 @@ export class AdminViewBodyComponent implements OnInit {
     { 
       this.statuses.push(this.tickets[index].ticket_status);
       this.cities.push(this.tickets[index].ticket_city);
+      this.issues.push(this.tickets[index].ticket_type);
     }
     this.statuses = [...new Set(this.statuses)];
     this.cities = [...new Set(this.cities)];
+    this.issues = [...new Set(this.issues)];
     console.log(this.statuses);
     console.log(this.cities);
   }

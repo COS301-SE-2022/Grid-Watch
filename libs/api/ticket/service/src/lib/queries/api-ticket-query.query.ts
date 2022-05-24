@@ -10,6 +10,10 @@ export class GetTicketsSortByDateQuery{
 
 }
 
+export class GetTicketsSortByIssueQuery{
+
+}
+
 export class GetTicketsDispatchedQuery{
 
 }

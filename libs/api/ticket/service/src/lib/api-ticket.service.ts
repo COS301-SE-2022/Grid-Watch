@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 //import {Ticket,PrismaClient} from '@prisma/client';
 import {QueryBus,CommandBus} from '@nestjs/cqrs';
-import { GetTicketQuery, GetIssueQuery, GetTicketsQuery,GetCityTicketQuery,GetStatusQuery,CloseTicketQuery, GetTicketsDispatchedQuery, GetTicketsSortByDateQuery } from './queries/api-ticket-query.query';
+import { GetTicketQuery, GetIssueQuery, GetTicketsQuery,GetCityTicketQuery,GetStatusQuery,CloseTicketQuery, GetTicketsDispatchedQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery } from './queries/api-ticket-query.query';
 import { CreateTicketCommand,
     UpdateTicketCommand, 
     DeleteTicketCommand, 
@@ -25,6 +25,10 @@ export class ApiTicketService {
 
     async GetAllSortByDate() {
         return await this.queryBus.execute(new GetTicketsSortByDateQuery())
+    }
+
+    async GetAllSortByIssue() {
+        return await this.queryBus.execute(new GetTicketsSortByIssueQuery())
     }
 
     async GetAllDispatched() {

@@ -20,6 +20,7 @@ export class AdminViewBodyComponent implements OnInit {
   statuses : string [] = [];
   issues : string [] = [];
   cities : string [] = [];
+  dates : Date [] = [];
   filterValue = "hi";
 
   constructor(private router : Router, private http: HttpClient) {}
@@ -47,12 +48,13 @@ export class AdminViewBodyComponent implements OnInit {
       this.statuses.push(this.tickets[index].ticket_status);
       this.cities.push(this.tickets[index].ticket_city);
       this.issues.push(this.tickets[index].ticket_type);
+      this.dates.push(new Date(this.tickets[index].ticket_create_date));
     }
     this.statuses = [...new Set(this.statuses)];
     this.cities = [...new Set(this.cities)];
     this.issues = [...new Set(this.issues)];
-    console.log(this.statuses);
-    console.log(this.cities);
+    console.log(this.dates);
+    // console.log(this.cities);
   }
 
   viewTicket(id : number) : void {

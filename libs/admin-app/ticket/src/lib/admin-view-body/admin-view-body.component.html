@@ -58,9 +58,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let ticket of tickets" (click)="viewTicket(ticket.ticket_id)" >
+      <tr *ngFor="let ticket of tickets, index as i" (click)="viewTicket(ticket.ticket_id)" >
         <div class="d-none"></div>
-        <td>{{ticket.ticket_create_date}}</td>
+        <td>{{dates[i].toLocaleString()}}</td>
         <td>{{ticket.ticket_type}}</td>
         <td>{{ticket.ticket_location}}</td>
         <td>{{ticket.ticket_city}}</td>

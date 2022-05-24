@@ -285,4 +285,21 @@ export class ApiTicketRepositoryDataAccess {
         return tickets
 
     }
+
+    async getIssue(issue: string){
+
+        const tickets = await this.prisma.ticket.findMany({
+
+            where:{
+                ticket_type: issue,
+            },
+            orderBy: {
+                ticket_upvotes: "desc",
+            },
+
+        })
+
+        return tickets
+
+    }
 }

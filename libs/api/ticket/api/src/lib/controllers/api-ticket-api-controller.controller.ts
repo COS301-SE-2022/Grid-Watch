@@ -39,6 +39,11 @@ export class TicketController {
         return this.apiTicketService.getStatus(params.status);
     }
 
+    @Get('issue/:issue')
+    async getIssue(@Param() params){
+        return this.apiTicketService.getIssue(params.issue);
+    }
+
     //get endpint to return all tickets
     @Get('/all/tickets')
     async getAll(){
@@ -109,7 +114,8 @@ export class TicketController {
     async UpdateTicketRepairTime(@Param() params,@Body() repairTime: string):Promise<boolean> {
         return this.apiTicketService.updateTicketRepairTime(parseInt(params.id),repairTime["repairTime"]);
     }
-
+    
+    //update ticket upvotes
     @Put('/update/upvotes/:id')
     async UpdateTicketUpvotes(@Param() params,@Body() upvotes: string):Promise<boolean> {
         return this.apiTicketService.updateTicketUpVotes(parseInt(params.id),upvotes["upvotes"]);

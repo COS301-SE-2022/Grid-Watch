@@ -1,23 +1,71 @@
 <div class="container">
-    <table class="table table-hover mt-5">
-        <thead>
-          <tr>
-            <th>Date Created</th>
-            <th>Issue Type</th>
-            <th>Location</th>
-            <th>city</th>
-            <th>status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr  *ngFor="let ticket of tickets" (click)="viewTicket(ticket.ticket_id)" >
-            <div class="d-none"></div>
-            <td>{{ticket.ticket_create_date}}</td>
-            <td>{{ticket.ticket_type}}</td>
-            <td>{{ticket.ticket_location}}</td>
-            <td>{{ticket.ticket_city}}</td>
-            <td>{{ticket.ticket_status}}</td>
-          </tr>
-        </tbody>
-      </table>
+
+  <div class="row mt-3">
+    <div class="col-4">
+      <button data-bs-toggle="collapse" data-bs-target="#filter_options" class="btn btn-outline-dark btn-block">
+        Filter
+      </button>
+    </div>
+    <div class="col-4">
+      
+    </div>
+    <div class="col-4">
+      <select class="form-select">
+        <option>Sort</option>
+        <option>Date</option>
+        <option>Issue</option>
+        <option>Location</option>
+        <option>City</option>
+        <option>Status</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="filter_options" class="collapse">
+    <div class="row mt-2">
+      <div class="col-4">
+        <b>Issue Type</b>
+        <div class="form-check" *ngFor="let option of issues, index as i">
+          <input class="form-check-input" type="checkbox" id="issue_filter{{i}}" value="{{option}}" (click)="filterByType('issue_filter' + i, option)">
+          <label class="form-check-label">{{option}}</label>
+        </div>
+      </div>
+      <div class="col-4">
+        <b>City</b>
+        <div class="form-check" *ngFor="let city of cities, index as i">
+          <input class="form-check-input" type="checkbox" id="city_filter{{i}}" value="{{city}}" (click)="filterByCity('city_filter' + i, city)">
+          <label class="form-check-label">{{city}}</label>
+        </div>
+      </div>
+      <div class="col-4">
+        <b>Status</b>
+        <div class="form-check" *ngFor="let status of statuses, index as i">
+          <input class="form-check-input status_inputs" type="checkbox" id="status_input_filter{{i}}" value="{{status}}" (click)="filterByStatus('status_input_filter' + i)">
+          <label class="form-check-label">{{status}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-hover mt-2">
+    <thead>
+      <tr>
+        <th>Date Created</th>
+        <th>Issue Type</th>
+        <th>Location</th>
+        <th>city</th>
+        <th>status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ticket of tickets" (click)="viewTicket(ticket.ticket_id)" >
+        <div class="d-none"></div>
+        <td>{{ticket.ticket_create_date}}</td>
+        <td>{{ticket.ticket_type}}</td>
+        <td>{{ticket.ticket_location}}</td>
+        <td>{{ticket.ticket_city}}</td>
+        <td>{{ticket.ticket_status}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

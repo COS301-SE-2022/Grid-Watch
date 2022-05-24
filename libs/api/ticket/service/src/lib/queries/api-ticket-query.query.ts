@@ -14,6 +14,10 @@ export class GetStatusQuery{
     constructor(public readonly Status){}
 }
 
+export class GetIssueQuery{
+    constructor(public readonly issue){}
+}
+
 export class GetCityTicketQuery{
     constructor(public readonly City){}
 }

@@ -328,4 +328,17 @@ export class ApiTicketRepositoryDataAccess {
         return tickets
 
     }
+
+    async getTicketsFilterLocation(){
+
+        const tickets = await this.prisma.ticket.findMany({
+            orderBy: {
+                ticket_location: "asc",
+            },
+
+        })
+
+        return tickets
+
+    }
 }

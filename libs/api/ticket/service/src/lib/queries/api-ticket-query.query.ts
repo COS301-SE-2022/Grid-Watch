@@ -14,6 +14,10 @@ export class GetTicketsSortByIssueQuery{
 
 }
 
+export class GetTicketsSortByLocationQuery{
+
+}
+
 export class GetTicketsDispatchedQuery{
 
 }

@@ -62,6 +62,11 @@ export class TicketController {
         return this.apiTicketService.GetAllSortByIssue();
     }
 
+    @Get('/all/tickets/Location')
+    async getAllSortByLocation(){
+        return this.apiTicketService.GetAllSortByLocation();
+    }
+
     //get endpint to return all tickets dispatched
     @Get('/all/tickets/dispatched')
     async getAllDispatched(){

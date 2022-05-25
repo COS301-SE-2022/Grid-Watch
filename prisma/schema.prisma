@@ -27,6 +27,7 @@ model Ticket {
   ticket_description  String
   ticket_repair_time  Int?
   ticket_upvotes      Int
+  ticket_img          String @unique
 
   @@map("ticket")
 }

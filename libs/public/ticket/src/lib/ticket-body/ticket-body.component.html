@@ -2,7 +2,6 @@
     <div class="mb-4" id="create_ticket">
         <button type="button"  routerLink='/createTicket' class="btn btn-outline-dark">Create ticket</button>
     </div> 
-    <img src="/assets/48234f650dc57d6e3325a176f425ebae.png" alt="">
     <div class="row">
         <mat-card class="issue_card col-12 p-4 ms-3" *ngFor="let ticket of tickets, index as i">
             <mat-card-header >
@@ -20,7 +19,7 @@
                 </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-                <img  class="uploaded_issue_image h-75" src="{{imgs[i]}}" alt="uploaded_issue_image">
+                <img  class="uploaded_issue_image h-75" src="assets/{{ticket.ticket_img}}" onerror="this.src='assets/solid_example.png'">
                 <p class = "mt-3">{{ticket.ticket_description}}</p>
             </mat-card-content>
             <mat-card-footer>

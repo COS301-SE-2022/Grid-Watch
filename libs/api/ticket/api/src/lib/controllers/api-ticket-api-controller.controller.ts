@@ -191,7 +191,7 @@ export class TicketController {
         const response = {
             
             originalname: file.originalname,
-            filename: `test.jpg` ,
+            filename: file.filename,
         };
         return response;
         

@@ -14,12 +14,9 @@ import { Multer } from 'multer';
   styleUrls: ['./create-ticket.component.scss'],
 })
 export class CreateTicketComponent{
-  @Input() other! :boolean;
-  @Input() other_details! :string;
-  @Input() issue_type! : string;
-  @Input() description! : string;
-  @Input() address! : string;
-  @Input() city! : string;
+  @Input() ticket : TicketDto = new TicketDto();
+
+  file! : File;
 
   default_upload! : string;
   createTicketURL = "http://localhost:3333/api/ticket/create";
@@ -29,6 +26,8 @@ export class CreateTicketComponent{
       'Content-Type':  'application/json'
     })
   };
+  other!: boolean;
+  other_details!: string;
   
 
   constructor(private http : HttpClient, private router: Router) {
@@ -44,51 +43,59 @@ export class CreateTicketComponent{
   fileUploaded(e: any) : void
   {
 
-    const file = e.target.files[0];
+    this.file = e.target.files[0];
 
 
     const reader = new FileReader();
     reader.onload = () => {
       this.default_upload = reader.result as string;
     }
-    reader.readAsDataURL(file)
+    reader.readAsDataURL(this.file)
     
-    console.log(file);
-    const formData = new FormData();
-    formData.append("photo", file, file.name);
-
-    this.http.post<Express.Multer.File>(this.uploadURL, formData)
-    .subscribe({
-      next: data => {
-          console.log(data);
-          // this.router.navigateByUrl("/tickets");
-      },
-      error: error => {
-          console.error('There was an error!', error);
-      }
-  })
+    
   }
 
   createTicket() : void
   {
-    const ticket = new TicketDto();
-    ticket.ticket_location = this.address;
-    ticket.ticket_city = this.city;
-    ticket.ticket_description = this.description;
-    if (this.issue_type === "Other")
-      ticket.ticket_type = this.other_details;
-    else
-      ticket.ticket_type = this.issue_type;
-    ticket.ticket_status = "Created";
-    ticket.ticket_create_date = new Date();
-    ticket.ticket_upvotes = 0;
-    console.log("location: " + ticket.ticket_location);
-    console.log("city: " + ticket.ticket_city);
-    console.log("description: " + ticket.ticket_description);
-    console.log("issue type: " + ticket.ticket_type);
+    this.ticket.ticket_status = "Created";
+    this.ticket.ticket_create_date = new Date();
+    this.ticket.ticket_upvotes = 0;
+    console.log(this.ticket);
+    
+      const formData = new FormData();
+        formData.append("photo", this.file, this.file.name);
+    
+        this.http.post<Express.Multer.File>(this.uploadURL, formData)
+        .subscribe({
+          next: data => {
+              console.log(data.filename);
+              // this.router.navigateByUrl("/tickets");
+              this.ticket.ticket_img = data.filename
+              this.uploadTicket();
+          },
+          error: error => {
+              console.error('There was an error!', error);
+          }
+      })
+    
+
+  //   this.http.post<TicketDto>(this.createTicketURL, this.ticket, this.httpOptions)
+  //   .subscribe({
+  //     next: data => {
+  //         console.log(data);
+  //         this.router.navigateByUrl("/tickets");
+  //     },
+  //     error: error => {
+  //         console.error('There was an error!', error);
+  //     }
+  // })
     
     
-    this.http.post<TicketDto>(this.createTicketURL, ticket, this.httpOptions)
+  }
+
+  uploadTicket() {
+
+      this.http.post<TicketDto>(this.createTicketURL, this.ticket, this.httpOptions)
     .subscribe({
       next: data => {
           console.log(data);
@@ -98,11 +105,7 @@ export class CreateTicketComponent{
           console.error('There was an error!', error);
       }
   })
-
-    
-    
   }
-
   // openDialog()
   // {
   //   const dialogRef = this.dialog.open(DiscardTicketComponent);
@@ -112,3 +115,4 @@ export class CreateTicketComponent{
   //   });
   // }
 }
+

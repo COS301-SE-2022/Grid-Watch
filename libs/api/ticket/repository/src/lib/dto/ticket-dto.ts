@@ -50,4 +50,8 @@ ticket_upvotes! : number;
 @IsNumber()
 @IsNotEmpty()
 ticket_id! : number;
+
+@IsString()
+@IsNotEmpty()
+ticket_img! : string;
 }

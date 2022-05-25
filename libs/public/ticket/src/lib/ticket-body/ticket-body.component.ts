@@ -65,17 +65,7 @@ export class TicketBodyComponent implements OnInit {
   {
     for (let index = 0; index < data.length; index++) 
     {
-      if (data[index].ticket_type === "Pothole")
-        this.imgs.push("assets/pothole_example.jpg");
-      else if (data[index].ticket_type === "Water Outage")
-        this.imgs.push("assets/Water_example.jpg");
-      else if (data[index].ticket_type === "Sinkhole")
-        this.imgs.push("assets/sinkhole_example.jpg");
-      else if (data[index].ticket_type === "Electricity Outage")
-        this.imgs.push("assets/electricity_example.jpg");
-      else
-        this.imgs.push("assets/solid_example.png");
-      
+      if (data[index].ticket_img)  
       this.tickets.push(data[index]);
     }
     console.log(this.tickets);

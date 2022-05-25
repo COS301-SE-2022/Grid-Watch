@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {CommandBus,QueryBus} from '@nestjs/cqrs';
+import {CommandBus} from '@nestjs/cqrs';
 import {CreateTechTeamCommand,
     UpdateTechTeamCommand,
     UpdateTechTeamNameCommand,
@@ -13,7 +13,7 @@ import {CreateTechTeamCommand,
 
 @Injectable()
 export class ApiProfilesTechTeamServiceService {
-    constructor(private commandBus: CommandBus, private queryBus: QueryBus){}
+    constructor(private commandBus: CommandBus){}
 
     async createTechTeam(Name: string, Email: string, Specialisation: string, ContactNr: string){
             return await this.commandBus.execute(new CreateTechTeamCommand(Name,Email,Specialisation,ContactNr))

@@ -1,1 +1,1 @@
-export * from './lib/api-profiles-tech-team-repository.module';
+export * from './lib/api-profiles-tech-team-repository-data-access';

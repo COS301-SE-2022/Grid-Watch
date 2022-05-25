@@ -6,6 +6,18 @@ export class GetTicketsQuery{
 
 }
 
+export class GetTicketsSortByDateQuery{
+
+}
+
+export class GetTicketsSortByIssueQuery{
+
+}
+
+export class GetTicketsSortByLocationQuery{
+
+}
+
 export class GetTicketsDispatchedQuery{
 
 }

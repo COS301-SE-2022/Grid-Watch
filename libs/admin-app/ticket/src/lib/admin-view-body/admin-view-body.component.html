@@ -10,13 +10,8 @@
       
     </div>
     <div class="col-4">
-      <select class="form-select">
-        <option>Sort</option>
-        <option>Date</option>
-        <option>Issue</option>
-        <option>Location</option>
-        <option>City</option>
-        <option>Status</option>
+      <select class="form-select" (change)="sort()" id="sort_select" [(ngModel)]="selected_option">
+        <option *ngFor="let option of sort_options" value="{{option}}">{{option}}</option>
       </select>
     </div>
   </div>
@@ -58,9 +53,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let ticket of tickets" (click)="viewTicket(ticket.ticket_id)" >
+      <tr *ngFor="let ticket of tickets, index as i" (click)="viewTicket(ticket.ticket_id)" >
         <div class="d-none"></div>
-        <td>{{ticket.ticket_create_date}}</td>
+        <td>{{dates[i].toLocaleString()}}</td>
         <td>{{ticket.ticket_type}}</td>
         <td>{{ticket.ticket_location}}</td>
         <td>{{ticket.ticket_city}}</td>

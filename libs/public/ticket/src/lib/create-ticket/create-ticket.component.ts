@@ -3,6 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import { TicketController } from 'libs/api/ticket/api/src/lib/controllers/api-ticket-api-controller.controller';
 import { Router } from '@angular/router';
 import { TicketDto } from '@grid-watch/api/ticket/ticketDto';
+import { Express } from 'express';
+import { Multer } from 'multer';
+
 
 
 @Component({
@@ -20,6 +23,12 @@ export class CreateTicketComponent{
 
   default_upload! : string;
   createTicketURL = "http://localhost:3333/api/ticket/create";
+  uploadURL = "http://localhost:3333/api/ticket/upload";
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
   
 
   constructor(private http : HttpClient, private router: Router) {
@@ -43,6 +52,21 @@ export class CreateTicketComponent{
       this.default_upload = reader.result as string;
     }
     reader.readAsDataURL(file)
+    
+    console.log(file);
+    const formData = new FormData();
+    formData.append("photo", file, file.name);
+
+    this.http.post<Express.Multer.File>(this.uploadURL, formData)
+    .subscribe({
+      next: data => {
+          console.log(data);
+          // this.router.navigateByUrl("/tickets");
+      },
+      error: error => {
+          console.error('There was an error!', error);
+      }
+  })
   }
 
   createTicket() : void
@@ -62,13 +86,9 @@ export class CreateTicketComponent{
     console.log("city: " + ticket.ticket_city);
     console.log("description: " + ticket.ticket_description);
     console.log("issue type: " + ticket.ticket_type);
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    };
     
-    this.http.post<TicketDto>(this.createTicketURL, ticket, httpOptions)
+    
+    this.http.post<TicketDto>(this.createTicketURL, ticket, this.httpOptions)
     .subscribe({
       next: data => {
           console.log(data);
@@ -77,8 +97,9 @@ export class CreateTicketComponent{
       error: error => {
           console.error('There was an error!', error);
       }
-
   })
+
+    
     
   }
 

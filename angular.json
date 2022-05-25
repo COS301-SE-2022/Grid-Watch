@@ -22,6 +22,7 @@
     "public-home-page": "libs/public/home-page",
     "public-ticket": "libs/public/ticket",
     "public-user-profile": "libs/public/user-profile",
+    "shared-assets": "libs/shared-assets",
     "shared-ui": "libs/shared-ui",
     "tech-team": "apps/tech-team",
     "tech-team-e2e": "apps/tech-team-e2e",

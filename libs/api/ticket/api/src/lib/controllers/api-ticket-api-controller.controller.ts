@@ -7,10 +7,17 @@ import {
     Param,
     Post,
     Put,
-  } from '@nestjs/common';
+    UploadedFile,
+    UseInterceptors,
+} from '@nestjs/common';
 
-  import { ApiTicketService } from '@grid-watch/api/ticket/service';
-  import { TicketDto } from '../dto/ticket.dto';
+import { ApiTicketService } from '@grid-watch/api/ticket/service';
+import { TicketDto } from '../dto/ticket.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Express } from 'express';
+import { diskStorage, Multer } from 'multer';
+import { extname } from 'path';
+import { Helper } from './helper';
 
 @Controller('ticket')
 export class TicketController {
@@ -170,6 +177,25 @@ export class TicketController {
     
     }
 
+    @Post('/upload')
+    @UseInterceptors(
+        FileInterceptor('photo', {
+            storage : diskStorage(
+                {
+                    destination: Helper.destinationPath,
+                    filename : Helper.customFileName
+                }
+            )
+        }))
+    uploadFile(@UploadedFile() file: Express.Multer.File){
+        const response = {
+            
+            originalname: file.originalname,
+            filename: `test.jpg` ,
+        };
+        return response;
+        
+    }
 
 
 }

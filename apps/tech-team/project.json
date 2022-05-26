@@ -9,6 +9,9 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/tech-team",
+        "allowedCommonJsDependencies": [
+          "validator"
+        ],
         "index": "apps/tech-team/src/index.html",
         "main": "apps/tech-team/src/main.ts",
         "polyfills": "apps/tech-team/src/polyfills.ts",
@@ -16,7 +19,17 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/tech-team/src/favicon.ico",
-          "apps/tech-team/src/assets"
+          "apps/tech-team/src/assets",
+          {
+            "input": "libs/shared-assets/src/lib/uploadedFiles",
+            "glob": "**.*",
+            "output": "assets"
+          },
+          {
+            "input": "libs/shared-assets/src/lib/shared-images",
+            "glob": "**.*",
+            "output": "assets"
+          }
         ],
         "styles": ["apps/tech-team/src/styles.scss"],
         "scripts": []

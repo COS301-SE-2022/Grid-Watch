@@ -19,11 +19,16 @@
         "inlineStyleLanguage": "scss",
         "assets": ["apps/public/src/favicon.ico",
                    "apps/public/src/assets",
-                    {
-                      "input": "libs/shared-assets/src/lib/uploadedFiles",
-                      "glob": "*.png",
-                      "output": "assets"
-                    }
+                   {
+                     "input": "libs/shared-assets/src/lib/uploadedFiles",
+                     "glob": "**.*",
+                     "output": "assets"
+                   },
+                   {
+                     "input": "libs/shared-assets/src/lib/shared-images",
+                     "glob": "**.*",
+                     "output": "assets"
+                   }
                   ],
         "styles": ["apps/public/src/styles.scss"],
         "scripts": []

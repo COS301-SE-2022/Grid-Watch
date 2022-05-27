@@ -46,14 +46,14 @@ describe('ApiTicketRepositoryDataAccess', () => {
 
       const createDate = new Date();
       const closeDate = new Date();
-      expect(await provider.createTicket("urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20)).toBeUndefined()
+      expect(await provider.createTicket("urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20, "test1.jpg")).toBeUndefined()
     });
 
     it('should return null', async () => {
       jest.spyOn(provider, 'createTicket').mockResolvedValue(null);
       const createDate = new Date();
       const closeDate = new Date();
-      expect(await provider.createTicket("urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20)).toEqual(null);
+      expect(await provider.createTicket("urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20, "test1.jpg")).toEqual(null);
     });
   })
 
@@ -66,14 +66,14 @@ describe('ApiTicketRepositoryDataAccess', () => {
 
       const createDate = new Date();
       const closeDate = new Date();
-      expect(await provider.UpdateTicket(1,"urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20)).toBeUndefined()
+      expect(await provider.UpdateTicket(1,"urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20, "test1.jpg")).toBeUndefined()
     });
 
     it('should return null', async () => {
       jest.spyOn(provider, 'UpdateTicket').mockResolvedValue(null);
       const createDate = new Date();
       const closeDate = new Date();
-      expect(await provider.UpdateTicket(1,"urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20)).toEqual(null);
+      expect(await provider.UpdateTicket(1,"urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20, "test1.jpg")).toEqual(null);
     });
   })
 

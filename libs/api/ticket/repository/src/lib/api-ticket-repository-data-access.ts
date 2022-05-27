@@ -26,7 +26,7 @@ export class ApiTicketRepositoryDataAccess {
            // return "The ticket with id: " + ticket_id + " has been created."
     }
 
-    async UpdateTicket(TicketId: number, Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number){
+    async UpdateTicket(TicketId: number, Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number, image_link : string){
 
         await this.prisma.ticket.update({
             where:{
@@ -44,6 +44,7 @@ export class ApiTicketRepositoryDataAccess {
                 ticket_description :    Description,
                 ticket_repair_time :    RepairTime, 
                 ticket_upvotes :        Upvotes,
+                ticket_img:             image_link
             },
         });
        // return "The ticket with id: " + ticket_id + " has been created."

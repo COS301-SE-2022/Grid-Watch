@@ -39,7 +39,7 @@ export class UpdateTechTeamContactNrCommand{
 export class UpdateTechTeamSpecialisationCommand{
     constructor(
         public readonly TechTeamId, 
-        public readonly Specialisation,
+        public readonly Specialisation
         ){}
 }
 

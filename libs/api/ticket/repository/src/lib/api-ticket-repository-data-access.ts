@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import {PrismaClient} from '@prisma/client';
 
 @Injectable()
@@ -278,6 +278,62 @@ export class ApiTicketRepositoryDataAccess {
             },
             orderBy: {
                 ticket_upvotes: "desc",
+            },
+
+        })
+
+        return tickets
+
+    }
+
+    async getIssue(issue: string){
+
+        const tickets = await this.prisma.ticket.findMany({
+
+            where:{
+                ticket_type: issue,
+            },
+            orderBy: {
+                ticket_upvotes: "desc",
+            },
+
+        })
+
+        return tickets
+
+    }
+
+    async getTicketsFilterDate(){
+
+        const tickets = await this.prisma.ticket.findMany({
+            orderBy: {
+                ticket_create_date: "asc",
+            },
+
+        })
+
+        return tickets
+
+    }
+
+    async getTicketsFilterIssue(){
+
+        const tickets = await this.prisma.ticket.findMany({
+            orderBy: {
+                ticket_type: "asc",
+            },
+
+        })
+
+        return tickets
+
+    }
+
+    async getTicketsFilterLocation(){
+
+        const tickets = await this.prisma.ticket.findMany({
+            orderBy: {
+                ticket_location: "asc",
             },
 
         })

@@ -3,6 +3,7 @@ import {
     Controller,
     Delete,
     Get,
+    Logger,
     Param,
     Post,
     Put,
@@ -39,12 +40,34 @@ export class TicketController {
         return this.apiTicketService.getStatus(params.status);
     }
 
+    @Get('issue/:issue')
+    async getIssue(@Param() params){
+        return this.apiTicketService.getIssue(params.issue);
+    }
+
     //get endpint to return all tickets
     @Get('/all/tickets')
     async getAll(){
         return this.apiTicketService.GetAll();
     }
-    //get endpint to return all tickets
+
+    //get endpint to return all tickets sort by Date
+    @Get('/all/tickets/Date')
+    async getAllSortByDate(){
+        return this.apiTicketService.GetAllSortByDate();
+    }
+
+    @Get('/all/tickets/Issue')
+    async getAllSortByIssue(){
+        return this.apiTicketService.GetAllSortByIssue();
+    }
+
+    @Get('/all/tickets/Location')
+    async getAllSortByLocation(){
+        return this.apiTicketService.GetAllSortByLocation();
+    }
+
+    //get endpint to return all tickets dispatched
     @Get('/all/tickets/dispatched')
     async getAllDispatched(){
         return this.apiTicketService.GetAllDispatched();
@@ -109,7 +132,8 @@ export class TicketController {
     async UpdateTicketRepairTime(@Param() params,@Body() repairTime: string):Promise<boolean> {
         return this.apiTicketService.updateTicketRepairTime(parseInt(params.id),repairTime["repairTime"]);
     }
-
+    
+    //update ticket upvotes
     @Put('/update/upvotes/:id')
     async UpdateTicketUpvotes(@Param() params,@Body() upvotes: string):Promise<boolean> {
         return this.apiTicketService.updateTicketUpVotes(parseInt(params.id),upvotes["upvotes"]);

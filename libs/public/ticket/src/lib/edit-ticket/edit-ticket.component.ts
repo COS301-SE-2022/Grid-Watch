@@ -93,7 +93,7 @@ export class EditTicketComponent implements OnInit {
         
         this.updateTicket(data.filename);
         this.showSuccessMessage();
-        // this.router.navigateByUrl("/tickets")
+        this.router.navigateByUrl("/tickets")
       },
       error: error => {
         this.showErrorMessage();

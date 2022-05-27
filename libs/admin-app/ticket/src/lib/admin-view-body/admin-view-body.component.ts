@@ -22,7 +22,7 @@ export class AdminViewBodyComponent implements OnInit {
   issues : string [] = [];
   cities : string [] = [];
   dates : Date [] = [];
-  sort_options : string [] = ["Sort", "Date", "Issue", "Location", "City", "Status", "Upvotes"];
+  sort_options : string [] = ["Original", "Date", "Issue", "Location", "City", "Status", "Upvotes"];
   selected_option! :string;
 
   constructor(private router : Router, private http: HttpClient) {}
@@ -202,7 +202,7 @@ export class AdminViewBodyComponent implements OnInit {
 
   sort() : void
   {
-    if (this.selected_option === "Sort")
+    if (this.selected_option === "Original")
     {
       this.tickets = [];
       this.getDatabaseData(false);

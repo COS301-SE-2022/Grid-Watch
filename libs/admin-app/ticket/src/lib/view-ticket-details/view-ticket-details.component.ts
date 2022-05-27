@@ -13,7 +13,7 @@ export class ViewTicketDetailsComponent implements OnInit {
 
   issue_id! : string | undefined;
   default_upload! : string;
-  ticket!: TicketDto;
+  ticket: TicketDto = new TicketDto();
   date_created! : string;
   getTicketURL = "http://localhost:3333/api/ticket/";
   UpdateStatusURL = "http://localhost:3333/api/ticket/update/status/";
@@ -26,7 +26,7 @@ export class ViewTicketDetailsComponent implements OnInit {
   ngOnInit(): void {
 
     
-
+    this.ticket.ticket_img = "image-solid.svg";
     const temp = this.route.snapshot.paramMap.get('id');
     this.issue_id = temp?.toString();
     

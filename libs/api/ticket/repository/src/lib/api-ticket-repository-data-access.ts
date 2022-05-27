@@ -303,7 +303,7 @@ export class ApiTicketRepositoryDataAccess {
 
     }
 
-    async getTicketsFilterDate(){
+    async getTicketsSortDate(){
 
         const tickets = await this.prisma.ticket.findMany({
             orderBy: {
@@ -316,7 +316,7 @@ export class ApiTicketRepositoryDataAccess {
 
     }
 
-    async getTicketsFilterIssue(){
+    async getTicketsSortIssue(){
 
         const tickets = await this.prisma.ticket.findMany({
             orderBy: {
@@ -329,11 +329,50 @@ export class ApiTicketRepositoryDataAccess {
 
     }
 
-    async getTicketsFilterLocation(){
+    async getTicketsSortLocation(){
 
         const tickets = await this.prisma.ticket.findMany({
             orderBy: {
                 ticket_location: "asc",
+            },
+
+        })
+
+        return tickets
+
+    }
+
+    async getTicketsSortCity(){
+
+        const tickets = await this.prisma.ticket.findMany({
+            orderBy: {
+                ticket_city: "asc",
+            },
+
+        })
+
+        return tickets
+
+    }
+
+    async getTicketsSortStatus(){
+
+        const tickets = await this.prisma.ticket.findMany({
+            orderBy: {
+                ticket_status: "asc",
+            },
+
+        })
+
+        return tickets
+
+    }
+
+    async getTicketsSortUpvotes(){
+
+        const tickets = await this.prisma.ticket.findMany({
+            orderBy: {
+                ticket_upvotes: "desc",
             },
 
         })

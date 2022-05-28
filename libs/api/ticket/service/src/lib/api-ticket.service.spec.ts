@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiTicketService } from './api-ticket.service';
 import {CommandBus,QueryBus} from '@nestjs/cqrs';
-import { TicketDto} from './dto/ticket.dto';
+import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 
 const ticketDtoMock: jest.Mocked<TicketDto> = new TicketDto() as TicketDto;
 

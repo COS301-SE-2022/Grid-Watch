@@ -1,0 +1,27 @@
+{
+  "root": "libs/api/profiles/tech-team/api/shared/techteamdto",
+  "sourceRoot": "libs/api/profiles/tech-team/api/shared/techteamdto/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/api/profiles/tech-team/api/shared/techteamdto/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/libs/api/profiles/tech-team/api/shared/techteamdto"
+      ],
+      "options": {
+        "jestConfig": "libs/api/profiles/tech-team/api/shared/techteamdto/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

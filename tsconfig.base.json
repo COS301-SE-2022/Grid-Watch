@@ -37,6 +37,9 @@
       "@grid-watch/api/profiles/tech-team/api": [
         "libs/api/profiles/tech-team/api/src/index.ts"
       ],
+      "@grid-watch/api/profiles/tech-team/api/shared/techteamdto": [
+        "libs/api/profiles/tech-team/api/shared/techteamdto/src/index.ts"
+      ],
       "@grid-watch/api/profiles/tech-team/repository": [
         "libs/api/profiles/tech-team/repository/src/index.ts"
       ],

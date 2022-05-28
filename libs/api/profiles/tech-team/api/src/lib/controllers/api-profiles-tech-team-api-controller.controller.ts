@@ -1,16 +1,18 @@
 import {
     Body,
     Controller,
-    Delete,
     Get,
     Param,
     Post,
     Put,
   } from '@nestjs/common';
   import { ApiProfilesTechTeamApiDto } from '../dto/api-profiles-tech-team-api.dto';
+  import {ApiProfilesTechTeamServiceService} from '@grid-watch/api/profiles/tech-team/service'
+  
+  //import { ApiProfilesTechTeamServiceService } from '@grid-watch/api/profiles/tech-team/service';
 @Controller('techteam')
 export class ApiProfilesTechTeamApiControllerController {
-    //constructor(private readonly apiTechTeamService:ApiTechTeamService){}
+    constructor(private readonly apiTechTeamService:ApiProfilesTechTeamServiceService){}
 
     //Testing endpoint to test functionality
     @Get()
@@ -21,14 +23,13 @@ export class ApiProfilesTechTeamApiControllerController {
     //create Tech Team endpoint
     @Post('/create')
     async CreateTechTeam(@Body() techTeam: ApiProfilesTechTeamApiDto){
-        //return this.apiTechTeamService.createTechTeam(techTeam);
+        return this.apiTechTeamService.createTechTeam(techTeam.name,techTeam.email,techTeam.specialisation,techTeam.contact_number);
     }
 
     //update Teach Team endpoint 
     @Put('/update/:id')
     async UpdateTechTeam(@Param() params,@Body() techTeam: ApiProfilesTechTeamApiDto):Promise<boolean> {
-        //return this.apiTechTeamService.updateTechTeam(parseInt(params.id),techTeam);
-        return true;
+        return this.apiTechTeamService.updateTechTeam(parseInt(params.id),techTeam.name,techTeam.email,techTeam.specialisation,techTeam.contact_number);
     }
 
     //update Tech Team Name endpoint

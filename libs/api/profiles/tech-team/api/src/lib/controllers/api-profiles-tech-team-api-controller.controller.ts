@@ -6,7 +6,7 @@ import {
     Post,
     Put,
   } from '@nestjs/common';
-  import { ApiProfilesTechTeamApiDto } from '../dto/api-profiles-tech-team-api.dto';
+  import { techTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
   import {ApiProfilesTechTeamServiceService} from '@grid-watch/api/profiles/tech-team/service'
   
   //import { ApiProfilesTechTeamServiceService } from '@grid-watch/api/profiles/tech-team/service';
@@ -22,13 +22,13 @@ export class ApiProfilesTechTeamApiControllerController {
 
     //create Tech Team endpoint
     @Post('/create')
-    async CreateTechTeam(@Body() techTeam: ApiProfilesTechTeamApiDto){
+    async CreateTechTeam(@Body() techTeam: techTeamDto){
         return this.apiTechTeamService.createTechTeam(techTeam.name,techTeam.email,techTeam.specialisation,techTeam.contact_number);
     }
 
     //update Teach Team endpoint 
     @Put('/update/:id')
-    async UpdateTechTeam(@Param() params,@Body() techTeam: ApiProfilesTechTeamApiDto):Promise<boolean> {
+    async UpdateTechTeam(@Param() params,@Body() techTeam: techTeamDto):Promise<boolean> {
         return this.apiTechTeamService.updateTechTeam(parseInt(params.id),techTeam.name,techTeam.email,techTeam.specialisation,techTeam.contact_number);
     }
 

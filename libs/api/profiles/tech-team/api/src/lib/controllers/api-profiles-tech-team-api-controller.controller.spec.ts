@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiProfilesTechTeamApiControllerController } from './api-profiles-tech-team-api-controller.controller';
+import { techTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 
 describe('ApiProfilesTechTeamApiControllerController', () => {
   let controller: ApiProfilesTechTeamApiControllerController;

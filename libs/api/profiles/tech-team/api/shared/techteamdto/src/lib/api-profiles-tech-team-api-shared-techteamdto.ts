@@ -5,7 +5,7 @@ import {
   IsString, 
 } from 'class-validator';
 
-export class ApiProfilesTechTeamApiDto {
+export class techTeamDto {
 
 @IsString()
 @IsNotEmpty()

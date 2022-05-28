@@ -1,0 +1,23 @@
+{
+  "root": "libs/api/ticket/api/shared/ticketdto",
+  "sourceRoot": "libs/api/ticket/api/shared/ticketdto/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/ticket/api/shared/ticketdto/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/ticket/api/shared/ticketdto"],
+      "options": {
+        "jestConfig": "libs/api/ticket/api/shared/ticketdto/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

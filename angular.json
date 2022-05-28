@@ -15,6 +15,7 @@
     "api-profiles-tech-team-repository": "libs/api/profiles/tech-team/repository",
     "api-profiles-tech-team-service": "libs/api/profiles/tech-team/service",
     "api-ticket-api": "libs/api/ticket/api",
+    "api-ticket-api-shared-ticketdto": "libs/api/ticket/api/shared/ticketdto",
     "api-ticket-repository": "libs/api/ticket/repository",
     "api-ticket-service": "libs/api/ticket/service",
     "public": "apps/public",

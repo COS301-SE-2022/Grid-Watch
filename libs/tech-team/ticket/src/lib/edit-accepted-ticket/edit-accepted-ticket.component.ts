@@ -13,13 +13,16 @@ export class EditAcceptedTicketComponent implements OnInit {
 
   getAllURL = "http://localhost:3333/api/ticket/"
   UpdateStatusURL = "http://localhost:3333/api/ticket/update/status/";
-  issue_type! : string;
-  img_link! : string;
-  description! : string;
-  create_date! : Date;
-  address! : string;
-  city! : string;
+  UpdateRepairURL = "http://localhost:3333/api/ticket/update/repair/";
+  UpdateCostURL = "http://localhost:3333/api/ticket/update/cost/";
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
+
   issue_id! : string | null;
+  ticket : TicketDto = new TicketDto();
 
   @Input() cost! : number;
   @Input() repair_time! : number;
@@ -29,65 +32,112 @@ export class EditAcceptedTicketComponent implements OnInit {
     private router : Router,
     private http : HttpClient,
     private route : ActivatedRoute
-  ) {}
-
-  ngOnInit(): void {
+    ) {}
+    
+    ngOnInit(): void {
+    // this.ticket = new TicketDto;
     this.issue_id = this.route.snapshot.paramMap.get('id');
     this.getAllURL += this.issue_id;
+    this.UpdateStatusURL += this.issue_id;
+    this.UpdateRepairURL += this.issue_id;
+    this.UpdateCostURL += this.issue_id;
     this.http.get<TicketDto[]>(this.getAllURL).subscribe(
       (data) => {
-        this.initialiseTicket(data[0]);
+        this.ticket = data[0];
+        this.status = this.ticket.ticket_status
+        this.repair_time = this.ticket.ticket_repair_time
+        this.cost = this.ticket.ticket_cost
       }
     );
   }
 
   back() : void
   {
-    this.router.navigateByUrl("/tickets");
+    this.router.navigateByUrl("/acceptedTickets");
   }
 
   update() : void
   {
-    this.UpdateStatusURL += this.issue_id;
-    // console.log(this.UpdateStatusURL);
-    
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    };
-    const temp = {status: "Accepted"}
-    this.http.put<string>(this.UpdateStatusURL, temp ,httpOptions).subscribe(
-      (data) => {
-        console.log(data);
-        this.showSuccessMessage();
-    },
-    () =>
+    let output_message= "";
+    let error = "";
+    if (this.ticket.ticket_cost != this.cost)
     {
-      this.showErrorMessage()
+      if (this.updateCost())
+      {
+        output_message += "Cost ";
+      }
+      else
+      {
+        error += "Cost ";
+      }
     }
-    );
+    if (this.ticket.ticket_repair_time != this.repair_time)
+    {
+      if (this.updateRepairTime())
+      {
+        output_message += "Repair time ";
+      }
+      else
+      {
+        error += "Repair Time ";
+      }
+    }
+    if (this.ticket.ticket_status != this.status)
+    {
+      if (this.updateStatus())
+      {
+        output_message += "Status";
+      }
+      else
+      {
+        error += "Status";
+      }
+    }
+
+    if (error != "")
+      this.showErrorMessage(error)
+    if (output_message != "")
+      this.showSuccessMessage(output_message);
+
   }
-  
-  initialiseTicket( data : TicketDto) {
-    this.issue_type = data.ticket_type;
-    this.description = data.ticket_description;
-    this.create_date = data.ticket_create_date;
-    this.address = data.ticket_location;
-    this.city = data.ticket_city;
-    this.repair_time = data.ticket_repair_time;
-    this.status = data.ticket_status;
-    this.cost = data.ticket_cost;
-    // this.img_link = 
-  }
-  
-  showErrorMessage() : void {
-    alert("Something went wrong accepting this ticket")
-  }
-  
-  showSuccessMessage() : void {
+
+  updateRepairTime() : boolean
+  {
+    const temp = '{"repairTime": ' + this.repair_time + '}';
+    this.http.put<JSON>(this.UpdateRepairURL, JSON.parse(temp) ,this.httpOptions).subscribe(
+      () => {return true},
+      () => {return false}
+      );
+      return false;
+    }
     
-    alert("Successfully accepted the ticket")
+  updateStatus() : boolean
+  {
+    const temp = '{"status": ' + this.status + '}';
+    this.http.put<JSON>(this.UpdateStatusURL, JSON.parse(temp) ,this.httpOptions).subscribe(
+      () => {return true},
+      () => {return false}
+      );
+      return false;
+    }
+    
+  updateCost() : boolean
+  {
+    const temp = '{"cost": ' + this.cost + '}';
+    this.http.put<JSON>(this.UpdateCostURL, JSON.parse(temp) ,this.httpOptions).subscribe(
+      () => {return true},
+      () => {return false}
+    );
+      return false;
+  }
+  
+  showErrorMessage(edits :string) : void {
+    alert("Updated " + edits);
+  }
+  
+  showSuccessMessage(errors :string) : void {
+    
+    alert("The Following updates encountered problems" + errors);
   }
 
   showCloseButton() : void {

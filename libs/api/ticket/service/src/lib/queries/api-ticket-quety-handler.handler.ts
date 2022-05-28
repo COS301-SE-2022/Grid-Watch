@@ -1,6 +1,7 @@
 import {IQueryHandler, QueryHandler} from '@nestjs/cqrs';
-import {CloseTicketQuery, GetCityTicketQuery, GetStatusQuery, GetTicketQuery,GetTicketsDispatchedQuery,GetTicketsQuery } from './api-ticket-query.query';
+import {CloseTicketQuery, GetCityTicketQuery, GetStatusQuery, GetTicketQuery,GetTicketsDispatchedQuery,GetTicketsQuery, GetIssueQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByLocationQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery } from './api-ticket-query.query';
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
+import { Logger } from '@nestjs/common';
 
 @QueryHandler(GetTicketQuery)
 export class GetTicketHandler implements IQueryHandler<GetTicketQuery>{
@@ -24,6 +25,60 @@ export class GetTicketsHandler implements IQueryHandler<GetTicketsQuery>{
     }
 }
 
+@QueryHandler(GetTicketsSortByDateQuery)
+export class GetTicketsSortByDateHandler implements IQueryHandler<GetTicketsSortByDateQuery>{
+    constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
+
+    async execute(){
+        return this.repository.getTicketsSortDate();
+    }
+}
+
+@QueryHandler(GetTicketsSortByIssueQuery)
+export class GetTicketsSortByIssueHandler implements IQueryHandler<GetTicketsSortByIssueQuery>{
+    constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
+
+    async execute(){
+        return this.repository.getTicketsSortIssue();
+    }
+}
+
+@QueryHandler(GetTicketsSortByLocationQuery)
+export class GetTicketsSortByLocationHandler implements IQueryHandler<GetTicketsSortByLocationQuery>{
+    constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
+
+    async execute(){
+        return this.repository.getTicketsSortLocation();
+    }
+}
+
+@QueryHandler(GetTicketsSortByCityQuery)
+export class GetTicketsSortByCityHandler implements IQueryHandler<GetTicketsSortByCityQuery>{
+    constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
+
+    async execute(){
+        return this.repository.getTicketsSortCity();
+    }
+}
+
+@QueryHandler(GetTicketsSortByStatusQuery)
+export class GetTicketsSortByStatusHandler implements IQueryHandler<GetTicketsSortByStatusQuery>{
+    constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
+
+    async execute(){
+        return this.repository.getTicketsSortStatus();
+    }
+}
+
+@QueryHandler(GetTicketsSortByUpvotesQuery)
+export class GetTicketsSortByUpvotesHandler implements IQueryHandler<GetTicketsSortByUpvotesQuery>{
+    constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
+
+    async execute(){
+        return this.repository.getTicketsSortUpvotes();
+    }
+}
+
 
 @QueryHandler(GetTicketsDispatchedQuery)
 export class GetTicketsDispatchedHandler implements IQueryHandler<GetTicketsDispatchedQuery>{
@@ -41,6 +96,16 @@ export class GetStatusHandler implements IQueryHandler<GetStatusQuery>{
     async execute(query: GetStatusQuery){
         const{Status} = query;
         return this.repository.getStatus(Status);
+    }
+}
+
+@QueryHandler(GetIssueQuery)
+export class GetIssueHandler implements IQueryHandler<GetIssueQuery>{
+    constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
+
+    async execute(query: GetIssueQuery){
+        const{issue} = query;
+        return this.repository.getIssue(issue);
     }
 }
 

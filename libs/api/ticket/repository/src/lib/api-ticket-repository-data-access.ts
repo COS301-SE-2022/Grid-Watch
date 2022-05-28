@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import {PrismaClient} from '@prisma/client';
 
 @Injectable()
@@ -276,6 +276,101 @@ export class ApiTicketRepositoryDataAccess {
             where:{
                 ticket_status: Status,
             },
+            orderBy: {
+                ticket_upvotes: "desc",
+            },
+
+        })
+
+        return tickets
+
+    }
+
+    async getIssue(issue: string){
+
+        const tickets = await this.prisma.ticket.findMany({
+
+            where:{
+                ticket_type: issue,
+            },
+            orderBy: {
+                ticket_upvotes: "desc",
+            },
+
+        })
+
+        return tickets
+
+    }
+
+    async getTicketsSortDate(){
+
+        const tickets = await this.prisma.ticket.findMany({
+            orderBy: {
+                ticket_create_date: "asc",
+            },
+
+        })
+
+        return tickets
+
+    }
+
+    async getTicketsSortIssue(){
+
+        const tickets = await this.prisma.ticket.findMany({
+            orderBy: {
+                ticket_type: "asc",
+            },
+
+        })
+
+        return tickets
+
+    }
+
+    async getTicketsSortLocation(){
+
+        const tickets = await this.prisma.ticket.findMany({
+            orderBy: {
+                ticket_location: "asc",
+            },
+
+        })
+
+        return tickets
+
+    }
+
+    async getTicketsSortCity(){
+
+        const tickets = await this.prisma.ticket.findMany({
+            orderBy: {
+                ticket_city: "asc",
+            },
+
+        })
+
+        return tickets
+
+    }
+
+    async getTicketsSortStatus(){
+
+        const tickets = await this.prisma.ticket.findMany({
+            orderBy: {
+                ticket_status: "asc",
+            },
+
+        })
+
+        return tickets
+
+    }
+
+    async getTicketsSortUpvotes(){
+
+        const tickets = await this.prisma.ticket.findMany({
             orderBy: {
                 ticket_upvotes: "desc",
             },

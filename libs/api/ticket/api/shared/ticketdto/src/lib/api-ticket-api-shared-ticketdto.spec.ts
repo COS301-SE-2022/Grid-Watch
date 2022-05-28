@@ -5,3 +5,4 @@ describe('ApiTicketApiTicketDto', () => {
     expect(new TicketDto()).toBeDefined();
   });
 });
+

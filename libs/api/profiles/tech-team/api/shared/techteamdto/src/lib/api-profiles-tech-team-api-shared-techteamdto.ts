@@ -31,4 +31,3 @@ nr_jobs_completed! : number;
 @IsOptional()
 rating_of_jobs! : number;
 }
-

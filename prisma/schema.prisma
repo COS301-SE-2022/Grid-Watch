@@ -16,28 +16,35 @@ datasource db {
 
 // All entities within the database are defined as tickets
 model Ticket {
-  ticket_id           Int    @id @default(autoincrement())
-  ticket_status       String
-  ticket_create_date  DateTime
-  ticket_close_date   DateTime?
-  ticket_type         String
-  ticket_city         String?
-  ticket_location     String
-  ticket_cost         Float?
-  ticket_description  String
-  ticket_repair_time  Int?
-  ticket_upvotes      Int
+  ticket_id          Int       @id @default(autoincrement())
+  ticket_status      String
+  ticket_create_date DateTime
+  ticket_close_date  DateTime?
+  ticket_type        String
+  ticket_city        String?
+  ticket_location    String
+  ticket_cost        Float?
+  ticket_description String
+  ticket_repair_time Int?
+  ticket_upvotes     Int
 
+  Picture            Picture[]
+  
   @@map("ticket")
+  
 }
 
 ///////////////////////////////////////////////////////////////////////
 // Picture
 ///////////////////////////////////////////////////////////////////////
 
-model Picture{
-  picture_id          String    @id @default(cuid()) 
-  picture_encoded     String
+model Picture {
+  picture_id      Int    @id @default(autoincrement())
+  picture_encoded String
+  ticket          Ticket @relation(fields: [ticket_ID], references: [ticket_id])
+  ticket_ID       Int
+
+  @@map("picture")
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -45,13 +52,13 @@ model Picture{
 ///////////////////////////////////////////////////////////////////////
 
 model TechTeam {
-  id                   Int       @id @default(autoincrement())
-  name                 String 
-  email                String?   @unique
-  specialisation       String
-  contact_number       String    @db.VarChar(10) @unique
-  nr_jobs_completed    Int?
-  rating_of_jobs       Float?
+  id                Int     @id @default(autoincrement())
+  name              String
+  email             String? @unique
+  specialisation    String
+  contact_number    String  @unique @db.VarChar(10)
+  nr_jobs_completed Int?
+  rating_of_jobs    Float?
 
   @@map("techteam")
 }
@@ -61,11 +68,11 @@ model TechTeam {
 ///////////////////////////////////////////////////////////////////////
 
 model AuthorizedOfficials {
-  id                  Int       @id @default(autoincrement())
-  name                String 
-  email               String    @unique
-  contact_number      String    @db.VarChar(10) @unique
-  cities              String
+  id             Int    @id @default(autoincrement())
+  name           String
+  email          String @unique
+  contact_number String @unique @db.VarChar(10)
+  cities         String
 
   @@map("authorizedofficials")
 }

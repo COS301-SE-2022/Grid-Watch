@@ -2,25 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { ApiTicketRepositoryDataAccess } from './api-ticket-repository-data-access';
 
-describe('ApiTicketRepositoryDataAccess', () => {
-  let provider: ApiTicketRepositoryDataAccess;
+  const ticketDtoMock: jest.Mocked<TicketDto> = new TicketDto() as TicketDto;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [ApiTicketRepositoryDataAccess],
-    }).compile();
-
-    provider = module.get<ApiTicketRepositoryDataAccess>(
-      ApiTicketRepositoryDataAccess
-    );
-  });
-
-  it('should be defined', () => {
-    expect(provider).toBeDefined();
-  });
-
-const ticketDtoMock: jest.Mocked<TicketDto> = new TicketDto() as TicketDto;
-describe('ApiTicketRepositoryDataAccess', () => {
+  describe('ApiTicketRepositoryDataAccess', () => {
   let provider: ApiTicketRepositoryDataAccess;
 
   beforeEach(async () => {
@@ -332,5 +316,4 @@ describe('ApiTicketRepositoryDataAccess', () => {
     });
   })
 
-});
 });

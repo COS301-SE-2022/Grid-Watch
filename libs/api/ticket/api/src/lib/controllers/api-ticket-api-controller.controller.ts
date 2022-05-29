@@ -3,14 +3,13 @@ import {
     Controller,
     Delete,
     Get,
-    Logger,
     Param,
     Post,
     Put,
   } from '@nestjs/common';
 
   import { ApiTicketService } from '@grid-watch/api/ticket/service';
-  import { TicketDto } from '../dto/ticket.dto';
+  import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 
 @Controller('ticket')
 export class TicketController {

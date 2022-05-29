@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TicketDto } from '@grid-watch/api/ticket/ticketDto';
+import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { Ticket } from '@prisma/client';
 import { LOADIPHLPAPI } from 'dns';
 

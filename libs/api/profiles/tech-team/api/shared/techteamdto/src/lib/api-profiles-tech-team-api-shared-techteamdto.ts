@@ -1,11 +1,11 @@
 import {
-    IsNotEmpty,
-    IsNumber, 
-    IsOptional, 
-    IsString, 
+  IsNotEmpty,
+  IsNumber, 
+  IsOptional, 
+  IsString, 
 } from 'class-validator';
 
-export class ApiProfilesTechTeamApiDto {
+export class techTeamDto {
 
 @IsString()
 @IsNotEmpty()

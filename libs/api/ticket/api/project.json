@@ -2,17 +2,6 @@
   "root": "libs/api/ticket/api",
   "sourceRoot": "libs/api/ticket/api/src",
   "targets": {
-    "build": {
-      "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/api/ticket/api",
-        "tsConfig": "libs/api/ticket/api/tsconfig.lib.json",
-        "packageJson": "libs/api/ticket/api/package.json",
-        "main": "libs/api/ticket/api/src/index.ts",
-        "assets": ["libs/api/ticket/api/*.md"]
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

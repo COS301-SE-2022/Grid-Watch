@@ -1,9 +1,8 @@
-
 import {  IsDate, 
-    IsNotEmpty,
-    IsNumber, 
-    IsOptional, 
-    IsString, 
+  IsNotEmpty,
+  IsNumber, 
+  IsOptional, 
+  IsString, 
 } from 'class-validator';
 
 export class TicketDto {

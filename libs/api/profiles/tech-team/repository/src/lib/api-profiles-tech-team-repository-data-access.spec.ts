@@ -158,7 +158,7 @@ const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto
       });
     })
 
-    //deleteTicket
+    //DeleteTechTeam
     describe('DeleteTechTeam',()=>{
       it('should return void',async ()=>{
         jest

@@ -41,7 +41,7 @@ model Ticket {
 model Picture {
   picture_id      Int    @id @default(autoincrement())
   picture_encoded String
-  ticket          Ticket @relation(fields: [ticket_ID], references: [ticket_id])
+  ticket          Ticket @relation(fields: [ticket_ID], references: [ticket_id], onDelete: Cascade)
   ticket_ID       Int
 
   @@map("picture")

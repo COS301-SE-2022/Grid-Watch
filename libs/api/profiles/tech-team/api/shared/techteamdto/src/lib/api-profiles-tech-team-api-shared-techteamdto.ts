@@ -3,6 +3,9 @@ import {
   IsNumber, 
   IsOptional, 
   IsString, 
+  IsEmail,
+  IsPhoneNumber,
+  IsAlphanumeric,
 } from 'class-validator';
 
 export class techTeamDto {
@@ -11,7 +14,7 @@ export class techTeamDto {
 @IsNotEmpty()
 name! : string;
 
-@IsString()
+@IsEmail()
 @IsOptional()
 email! : string;
 
@@ -19,7 +22,7 @@ email! : string;
 @IsNotEmpty()
 specialisation! : string;
 
-@IsString()
+@IsPhoneNumber()
 @IsNotEmpty()
 contact_number!  : string;
 
@@ -30,4 +33,9 @@ nr_jobs_completed! : number;
 @IsNumber()
 @IsOptional()
 rating_of_jobs! : number;
+
+@IsAlphanumeric()
+@IsNotEmpty()
+password! : string;
+
 }

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import { TicketController } from 'libs/api/ticket/api/src/lib/controllers/api-ticket-api-controller.controller';
 import { Router } from '@angular/router';
-import { TicketDto } from '@grid-watch/api/ticket/ticketDto';
+import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 
 
 @Component({

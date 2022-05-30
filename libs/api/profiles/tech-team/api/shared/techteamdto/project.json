@@ -1,0 +1,37 @@
+{
+  "root": "libs/api/profiles/tech-team/api/shared/techteamdto",
+  "sourceRoot": "libs/api/profiles/tech-team/api/shared/techteamdto/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/profiles/tech-team/api/shared/techteamdto",
+        "main": "libs/api/profiles/tech-team/api/shared/techteamdto/src/index.ts",
+        "tsConfig": "libs/api/profiles/tech-team/api/shared/techteamdto/tsconfig.lib.json",
+        "assets": ["libs/api/profiles/tech-team/api/shared/techteamdto/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/api/profiles/tech-team/api/shared/techteamdto/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/libs/api/profiles/tech-team/api/shared/techteamdto"
+      ],
+      "options": {
+        "jestConfig": "libs/api/profiles/tech-team/api/shared/techteamdto/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

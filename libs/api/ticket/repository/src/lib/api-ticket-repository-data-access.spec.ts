@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { TicketDto } from './dto/ticket-dto';
+import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { ApiTicketRepositoryDataAccess } from './api-ticket-repository-data-access';
 
 describe('ApiTicketRepositoryDataAccess', () => {

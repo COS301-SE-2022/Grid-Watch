@@ -3,14 +3,13 @@ import {
     Controller,
     Delete,
     Get,
-    Logger,
     Param,
     Post,
     Put,
   } from '@nestjs/common';
 
   import { ApiTicketService } from '@grid-watch/api/ticket/service';
-  import { TicketDto } from '../dto/ticket.dto';
+  import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 
 @Controller('ticket')
 export class TicketController {
@@ -56,15 +55,35 @@ export class TicketController {
     async getAllSortByDate(){
         return this.apiTicketService.GetAllSortByDate();
     }
-
+    
+    //get endpint to return all tickets sort by Issue
     @Get('/all/tickets/Issue')
     async getAllSortByIssue(){
         return this.apiTicketService.GetAllSortByIssue();
     }
-
+    
+    //get endpint to return all tickets sort by Location
     @Get('/all/tickets/Location')
     async getAllSortByLocation(){
         return this.apiTicketService.GetAllSortByLocation();
+    }
+    
+    //get endpint to return all tickets sort by Location
+    @Get('/all/tickets/City')
+    async getAllSortByCity(){
+        return this.apiTicketService.GetAllSortByCity();
+    }
+    
+    //get endpint to return all tickets sort by Location
+    @Get('/all/tickets/Status')
+    async getAllSortByStatus(){
+        return this.apiTicketService.GetAllSortBystatus();
+    }
+    
+    //get endpint to return all tickets sort by Location
+    @Get('/all/tickets/Upvotes')
+    async getAllSortByUpvotes(){
+        return this.apiTicketService.GetAllSortByUpvotes();
     }
 
     //get endpint to return all tickets dispatched

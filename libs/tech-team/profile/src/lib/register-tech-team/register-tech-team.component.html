@@ -6,7 +6,7 @@
         <div class="card-body">
             <div class="mb-3 mt-1">
                 <label for="company_name" class="form-label">Company name:</label>
-                <input type="text" class="form-control" id="company_name" placeholder="Enter company name" name="company_name" [(ngModel)]="tech_profile.name">
+                <input type="text" class="form-control" id="company_name" placeholder="Enter company name" name="company_name" [(ngModel)]="name">
             </div>
             <!-- <div class="mb-3 mt-1">
                 <label for="issue_types" class="form-label">Issue types:</label>
@@ -17,20 +17,20 @@
                 </div>
             </div> -->
             <label for="specialisation_selection" class="form-label">Specialisation:</label>
-            <select class="form-select" name="specialisation_selection" id="specialisation_selection" [(ngModel)]="tech_profile.specialisation">
+            <select class="form-select" name="specialisation_selection" id="specialisation_selection" [(ngModel)]="specialisation">
                 <option *ngFor="let options of issue_options" value="{{options}}">{{options}}</option>
             </select>
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" [(ngModel)]="tech_profile.email">
+                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" [(ngModel)]="email">
             </div>
             <div class="mb-3 mt-3">
                 <label for="contact_number" class="form-label">Contact Number:</label>
-                <input type="text" class="form-control" id="contact_number" placeholder="Enter contact number" name="contact_number" [(ngModel)]="tech_profile.contact_number">
+                <input type="text" class="form-control" id="contact_number" placeholder="Enter contact number" name="contact_number" [(ngModel)]="contact_number">
             </div>
             <div class="mb-3 mt-3">
                 <label for="password" class="form-label">Password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" [(ngModel)]="tech_profile.password">
+                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" [(ngModel)]="password">
             </div>
             <div class="mb-3 mt-3">
                 <label for="confirm_password" class="form-label">Confirm Password:</label>

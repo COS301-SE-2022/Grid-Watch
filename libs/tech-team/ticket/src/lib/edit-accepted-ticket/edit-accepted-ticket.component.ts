@@ -113,7 +113,7 @@ export class EditAcceptedTicketComponent implements OnInit {
     
   updateStatus() : boolean
   {
-    const temp = '{"status": ' + this.status + '}';
+    const temp = '{"status": "' + this.status + '"}';
     this.http.put<JSON>(this.UpdateStatusURL, JSON.parse(temp) ,this.httpOptions).subscribe(
       () => {return true},
       () => {return false}
@@ -140,13 +140,4 @@ export class EditAcceptedTicketComponent implements OnInit {
     alert("The Following updates encountered problems" + errors);
   }
 
-  showCloseButton() : void {
-    if (this.status === "Finished")
-    {
-      // const button = document.getElementById("update_button");
-      // button?.set
-      // console.log(button);
-      
-    }
-  }
 }

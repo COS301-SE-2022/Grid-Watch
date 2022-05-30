@@ -4,8 +4,8 @@
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="display-6 text-center">{{ticket.ticket_type}}</div>
-                    <div class="ticket_image">
-                        <img src="assets/image-solid.svg" alt="issue_image">
+                    <div class="ticket_image p-4 border mt-3">
+                        <img src="assets/{{ticket.ticket_img}}" alt="issue_image">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -30,7 +30,7 @@
                     </div>
                     <div class="ticket_status mt-1">
                         <label for="status" class="form-label">Status:</label>
-                        <select class="form-select" name="status" [(ngModel)]="status" (change)="showCloseButton()">
+                        <select class="form-select" name="status" [(ngModel)]="status">
                             <option value="Accepted">Accepted</option>
                             <option value="Awaiting Material">Awaiting material</option>
                             <option value="In Progress">In Progress</option>

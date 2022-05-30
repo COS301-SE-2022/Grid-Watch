@@ -9,12 +9,26 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/admin",
+        "allowedCommonJsDependencies": [
+          "validator"
+        ],
         "index": "apps/admin/src/index.html",
         "main": "apps/admin/src/main.ts",
         "polyfills": "apps/admin/src/polyfills.ts",
         "tsConfig": "apps/admin/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
+        "assets": ["apps/admin/src/favicon.ico", 
+                    "apps/admin/src/assets",
+                    {
+                      "input": "libs/shared-assets/src/lib/uploadedFiles",
+                      "glob": "**.*",
+                      "output": "assets"
+                    },
+                    {
+                      "input": "libs/shared-assets/src/lib/shared-images",
+                      "glob": "**.*",
+                      "output": "assets"
+                    }],
         "styles": ["apps/admin/src/styles.scss"],
         "scripts": []
       },

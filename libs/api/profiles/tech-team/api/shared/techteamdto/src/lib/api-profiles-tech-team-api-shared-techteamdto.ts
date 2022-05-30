@@ -1,15 +1,14 @@
 import {
-    IsAlphanumeric,
-    IsEmail,
-    isNotEmpty,
-    IsNotEmpty,
-    IsNumber, 
-    IsOptional, 
-    IsPhoneNumber, 
-    IsString, 
+  IsNotEmpty,
+  IsNumber, 
+  IsOptional, 
+  IsString, 
+  IsEmail,
+  IsPhoneNumber,
+  IsAlphanumeric,
 } from 'class-validator';
 
-export class ApiProfilesTechTeamApiDto {
+export class techTeamDto {
 
 @IsString()
 @IsNotEmpty()

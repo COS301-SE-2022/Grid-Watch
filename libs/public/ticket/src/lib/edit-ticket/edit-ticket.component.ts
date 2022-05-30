@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TicketDto } from '@grid-watch/api/ticket/ticketDto';
 import { Express } from 'express';
 import { Multer } from 'multer';
+import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 
 @Component({
   selector: 'grid-watch-edit-ticket',

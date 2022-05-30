@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { TicketDto } from '@grid-watch/api/ticket/ticketDto';
+import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 
 
 @Component({

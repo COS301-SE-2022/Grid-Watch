@@ -1,0 +1,33 @@
+{
+  "root": "libs/api/ticket/api/shared/ticketdto",
+  "sourceRoot": "libs/api/ticket/api/shared/ticketdto/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/ticket/api/shared/ticketdto",
+        "main": "libs/api/ticket/api/shared/ticketdto/src/index.ts",
+        "tsConfig": "libs/api/ticket/api/shared/ticketdto/tsconfig.lib.json",
+        "assets": ["libs/api/ticket/api/shared/ticketdto/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/ticket/api/shared/ticketdto/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/ticket/api/shared/ticketdto"],
+      "options": {
+        "jestConfig": "libs/api/ticket/api/shared/ticketdto/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

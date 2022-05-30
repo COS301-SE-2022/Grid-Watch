@@ -1,7 +1,11 @@
 import {
+    IsAlphanumeric,
+    IsEmail,
+    isNotEmpty,
     IsNotEmpty,
     IsNumber, 
     IsOptional, 
+    IsPhoneNumber, 
     IsString, 
 } from 'class-validator';
 
@@ -11,7 +15,7 @@ export class ApiProfilesTechTeamApiDto {
 @IsNotEmpty()
 name! : string;
 
-@IsString()
+@IsEmail()
 @IsOptional()
 email! : string;
 
@@ -19,7 +23,7 @@ email! : string;
 @IsNotEmpty()
 specialisation! : string;
 
-@IsString()
+@IsPhoneNumber()
 @IsNotEmpty()
 contact_number!  : string;
 
@@ -30,4 +34,9 @@ nr_jobs_completed! : number;
 @IsNumber()
 @IsOptional()
 rating_of_jobs! : number;
+
+@IsAlphanumeric()
+@IsNotEmpty()
+password! : string;
+
 }

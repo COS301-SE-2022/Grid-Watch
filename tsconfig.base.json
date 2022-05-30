@@ -68,7 +68,9 @@
       "@grid-watch/tech-team/ticket": ["libs/tech-team/ticket/src/index.ts"],
       "@grid-watch/tech-team/ticket-view": [
         "libs/tech-team/ticket-view/src/index.ts"
-      ]
+      ],
+      "@grid-watch/tech-team/profile/tech-team-dto" : ["/libs/api/profiles/tech-team/api/src/lib/dto/api-profiles-tech-team-api.dto.ts"]
+
     }
   },
   "exclude": ["node_modules", "tmp"]

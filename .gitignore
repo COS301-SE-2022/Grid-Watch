@@ -40,5 +40,8 @@ Thumbs.db
 
 .angular
 
+#sensitive environmnet variables
+.env
+
 #Uploaded Files
 libs/shared-assets/src/lib/uploadedFiles

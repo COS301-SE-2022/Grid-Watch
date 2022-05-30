@@ -3,9 +3,9 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <div class="display-6 text-center">{{issue_type}}</div>
-                    <div class="ticket_image">
-                        <img src="assets/image-solid.svg" alt="issue_image">
+                    <div class="display-6 text-center">{{ticket.ticket_type}}</div>
+                    <div class="ticket_image p-3 border mt-2 mb-4">
+                        <img src="assets/{{ticket.ticket_img}}" alt="issue_image">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -13,16 +13,16 @@
                         <b>
                             Description : <br>
                         </b>
-                        {{description}}
+                        {{ticket.ticket_description}}
                     </div>
                     <div class="ticket_create_date mt-1">
-                        <b>Create date :</b>  {{create_date}}
+                        <b>Create date :</b>  {{ticket.ticket_create_date}}
                     </div>
                     <div class="ticket_address mt-1">
-                        <b>Address :</b> {{address}}
+                        <b>Address :</b> {{ticket.ticket_location}}
                     </div>
                     <div class="ticket_city mt-1">
-                        <b> City:</b> {{city}}
+                        <b> City:</b> {{ticket.ticket_city}}
                     </div>
                 </div>
             </div>

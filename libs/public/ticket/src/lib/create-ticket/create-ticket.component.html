@@ -11,7 +11,7 @@
                 <div id="issue_field">
                     <mat-form-field appearance="fill">
                       <mat-label>Issue Type</mat-label>
-                      <mat-select [(ngModel)]="issue_type" id="issue_type_options" >
+                      <mat-select [(ngModel)]="ticket.ticket_type" id="issue_type_options" >
                         <mat-option value="Pothole">Pothole</mat-option>
                         <mat-option value="Electricity Outage">Electicity Outage</mat-option>
                         <mat-option value="Water Outage">Water Outage</mat-option>
@@ -21,7 +21,7 @@
                     </mat-form-field>
                 </div>
 
-                <div *ngIf="(issue_type === 'Other')" id="other_field"  >
+                <div *ngIf="(ticket.ticket_type === 'Other')" id="other_field"  >
                     <mat-form-field appearance="fill">
                         <mat-label>Other issue details</mat-label>
                         <input matInput [(ngModel)]="other_details">
@@ -31,21 +31,21 @@
                 <div id="description_field">
                     <mat-form-field appearance="fill">
                       <mat-label>Description</mat-label>
-                      <textarea [(ngModel)]="description" matInput></textarea>
+                      <textarea [(ngModel)]="ticket.ticket_description" matInput></textarea>
                     </mat-form-field>
                 </div>
                 
                 <div id="location_field" class="">
                     <mat-form-field appearance="fill">
                         <mat-label>Address</mat-label>
-                        <input [(ngModel)]="address" matInput >
+                        <input [(ngModel)]="ticket.ticket_location" matInput >
                     </mat-form-field>
                 </div>
                 
                 <div id="city_field" class="">
                     <mat-form-field appearance="fill">
                       <mat-label>City</mat-label>
-                      <input [(ngModel)]="city" matInput>
+                      <input [(ngModel)]="ticket.ticket_city" matInput>
                     </mat-form-field>
                 </div>
                 

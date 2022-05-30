@@ -6,10 +6,18 @@ import {
     Param,
     Post,
     Put,
-  } from '@nestjs/common';
+    UploadedFile,
+    UseInterceptors,
+} from '@nestjs/common';
 
-  import { ApiTicketService } from '@grid-watch/api/ticket/service';
-  import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
+import { ApiTicketService } from '@grid-watch/api/ticket/service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Express } from 'express';
+import { diskStorage, Multer } from 'multer';
+import { extname } from 'path';
+import { Helper } from './helper';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 
 @Controller('ticket')
 export class TicketController {
@@ -95,13 +103,13 @@ export class TicketController {
     //creating tickets
     @Post('/create')
     async CreateTicket(@Body() ticket: TicketDto){
-        return this.apiTicketService.createTicket(ticket.ticket_status,ticket.ticket_create_date,ticket.ticket_close_date,ticket.ticket_type,ticket.ticket_city,ticket.ticket_location,ticket.ticket_cost,ticket.ticket_description,ticket.ticket_repair_time,ticket.ticket_upvotes);
+        return this.apiTicketService.createTicket(ticket.ticket_status,ticket.ticket_create_date,ticket.ticket_close_date,ticket.ticket_type,ticket.ticket_city,ticket.ticket_location,ticket.ticket_cost,ticket.ticket_description,ticket.ticket_repair_time,ticket.ticket_upvotes, ticket.ticket_img);
     }
 
     //update ticket 
     @Put('/update/:id')
     async UpdateTicket(@Param() params,@Body() ticket: TicketDto):Promise<boolean> {
-        return this.apiTicketService.UpdateTicket(parseInt(params.id),ticket.ticket_status,ticket.ticket_create_date,ticket.ticket_close_date,ticket.ticket_type,ticket.ticket_city,ticket.ticket_location,ticket.ticket_cost,ticket.ticket_description,ticket.ticket_repair_time,ticket.ticket_upvotes);
+        return this.apiTicketService.UpdateTicket(parseInt(params.id),ticket.ticket_status,ticket.ticket_create_date,ticket.ticket_close_date,ticket.ticket_type,ticket.ticket_city,ticket.ticket_location,ticket.ticket_cost,ticket.ticket_description,ticket.ticket_repair_time,ticket.ticket_upvotes, ticket.ticket_img);
     }
 
     //update ticket status
@@ -169,6 +177,25 @@ export class TicketController {
     
     }
 
+    @Post('/upload')
+    @UseInterceptors(
+        FileInterceptor('photo', {
+            storage : diskStorage(
+                {
+                    destination: Helper.destinationPath,
+                    filename : Helper.customFileName
+                }
+            )
+        }))
+    uploadFile(@UploadedFile() file: Express.Multer.File){
+        const response = {
+            
+            originalname: file.originalname,
+            filename: file.filename,
+        };
+        return response;
+        
+    }
 
 
 }

@@ -1,5 +1,7 @@
 import { Component, Input} from '@angular/core';
 import { Router } from '@angular/router';
+// import { ApiProfilesTechTeamApiDto } from '/libs/api/profiles/tech-team/api/shared/techteamdto/src/lib/api-profiles-tech-team-api-shared-techteamdto';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 
 @Component({
   selector: 'grid-watch-register-tech-team',
@@ -8,13 +10,17 @@ import { Router } from '@angular/router';
 })
 export class RegisterTechTeamComponent {
 
-  @Input() company_name! : string;
-  @Input() issue_types! : string[];
+  @Input() name! : string;
+  @Input() specialisation! : string[];
   @Input() email! : string;
   @Input() contact_number! : string;
   @Input() password! : string;
   @Input() confirm_password! : string;
+
+  // tech_profile : ApiProfilesTechTeamApiDto = new ApiProfilesTechTeamApiDto();
+
   issue_options = ["Pothole", "Sinkhole", "Water Outage", "Electricity Outage", "Other"];
+  
   constructor(
     private router : Router
   ) {}
@@ -22,6 +28,8 @@ export class RegisterTechTeamComponent {
 
   register() : void {
     console.log("register");
+    // console.log(this.tech_profile);
+    
     
   }
 

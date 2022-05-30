@@ -9,9 +9,8 @@ export class createTicketHandler implements ICommandHandler<CreateTicketCommand>
         
     }
     async execute(command: CreateTicketCommand) {
-        Logger.log("Part 3 passed");
-        const{ status,description,createDate,closeDate,cost,location,city,repairTime,upVotes,type}= command;
-        return this.repository.createTicket(status,createDate,closeDate,type,city,location,cost,description,repairTime,upVotes);
+        const{ status,description,createDate,closeDate,cost,location,city,repairTime,upVotes,type, image_link}= command;
+        return this.repository.createTicket(status,createDate,closeDate,type,city,location,cost,description,repairTime,upVotes,image_link);
     }
 }
 
@@ -22,8 +21,8 @@ export class updateTicketHandler implements ICommandHandler<UpdateTicketCommand>
 
     }
     async execute(command: UpdateTicketCommand) {
-        const{ticketId, status,description,createDate,closeDate,cost,location,city,repairTime,upVotes,type}= command;
-        return this.repository.UpdateTicket(ticketId,status,createDate,closeDate,type,city,location,cost,description,repairTime,upVotes)
+        const{ticketId, status,description,createDate,closeDate,cost,location,city,repairTime,upVotes,type,image_link}= command;
+        return this.repository.UpdateTicket(ticketId,status,createDate,closeDate,type,city,location,cost,description,repairTime,upVotes, image_link)
     }
 }
 

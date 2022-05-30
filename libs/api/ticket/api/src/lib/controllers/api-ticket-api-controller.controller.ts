@@ -16,7 +16,8 @@ import { Express } from 'express';
 import { diskStorage, Multer } from 'multer';
 import { extname } from 'path';
 import { Helper } from './helper';
-import { TicketDto } from '../../../shared/ticketdto/src/lib/api-ticket-api-shared-ticketdto';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 
 @Controller('ticket')
 export class TicketController {

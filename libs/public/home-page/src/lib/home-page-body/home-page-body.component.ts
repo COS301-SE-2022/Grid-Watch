@@ -35,7 +35,7 @@ initMap(): void {
   locationButton.textContent = "Pan to Current Location";
   locationButton.classList.add("custom-map-control-button");
 
-  this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+  this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(locationButton);
 
   locationButton.addEventListener("click", () => {
     // Try HTML5 geolocation.
@@ -47,10 +47,16 @@ initMap(): void {
               lng: position.coords.longitude,
             };
 
-            this.infoWindow.setPosition(pos);
-            this.infoWindow.setContent("Location found.");
-            this.infoWindow.open(this.map);
-            this.map.setCenter(pos);
+            // this.infoWindow.setPosition(pos);
+            // this.infoWindow.setContent("Location found.");
+            // this.infoWindow.open(this.map);
+            // this.map.setCenter(pos);
+
+            new google.maps.Marker({
+              position : pos,
+              map: this.map,
+              title: "test"
+            });
           },
           () => {
             // this.handleLocationError(true, this.infoWindow, this.map.getCenter()!);
@@ -62,6 +68,8 @@ initMap(): void {
         this.handleLocationError(false, this.infoWindow, this.map.getCenter()!);
       }
     });
+
+    
   }
 
   handleLocationError(

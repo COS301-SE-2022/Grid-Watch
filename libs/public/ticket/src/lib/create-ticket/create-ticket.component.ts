@@ -20,7 +20,7 @@ export class CreateTicketComponent{
   file! : File;
 
   autocomplete!: google.maps.places.Autocomplete;
-  marker_position!: google.maps.LatLng
+  marker_position!: google.maps.LatLng | google.maps.LatLngLiteral
 
   zoom! : number;
   center! : google.maps.LatLngLiteral | google.maps.LatLng;
@@ -145,6 +145,24 @@ export class CreateTicketComponent{
       const place = this.autocomplete.getPlace()
       this.createMapMarker(place)
     })
+  }
+
+  getCurrentLocation()
+  {
+    if (navigator.geolocation)
+    {
+      navigator.geolocation.getCurrentPosition(
+        (position : GeolocationPosition) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          this.marker_position = pos;
+          this.center = pos;
+          this.zoom = 12;
+        }
+      )
+    }
   }
 
   uploadTicket() {

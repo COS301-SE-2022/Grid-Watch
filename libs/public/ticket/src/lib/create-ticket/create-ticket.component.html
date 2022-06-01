@@ -51,6 +51,9 @@
                 <div class="mt-2location_pin">
                     <label class="">Pin location of issue</label><br>
                     <input  class="form-control" id="pac-input" type="text" placeholder="Search a location" />
+                    <button class="mt-2 btn btn-outline-dark" (click)="getCurrentLocation()">
+                        Use Current Location
+                    </button>
                 </div>
                 <div class="mt-2 border ">
                     <google-map
@@ -71,13 +74,13 @@
                  <div class="row mt-5">
                      <div class="col-4">
                          <!-- <a routerLink="/tickets"> -->
-                             <button id="createTicket_button" mat-raised-button color="primary" (click)="createTicket()">Create</button>
+                             <button class="btn btn-outline-dark" id="createTicket_button" color="primary" (click)="createTicket()">Create</button>
                          <!-- </a> -->
                     </div>
                     <div class="col-6"></div>
                     <div class="col-2">
                         <a routerLink="/tickets">
-                            <button id="discardTicket_button" mat-raised-button color="primary" >Discard</button>
+                            <button class="btn btn-outline-dark" id="discardTicket_button" color="primary" >Discard</button>
                         </a>
                    </div>                
                  </div>

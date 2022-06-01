@@ -69,7 +69,6 @@ initMap(): void {
       }
     });
 
-    
   }
 
   handleLocationError(

@@ -4,60 +4,70 @@
             <div class="card-body">
                 <!-- <div id="name_field">
                     <mat-form-field appearance="fill">
-                        <mat-label>Name</mat-label>
+                        <label>Name</label>
                         <input matInput>
                     </mat-form-field>
                 </div> -->
-                <div id="issue_field">
-                    <mat-form-field appearance="fill">
-                      <mat-label>Issue Type</mat-label>
-                      <mat-select [(ngModel)]="ticket.ticket_type" id="issue_type_options" >
-                        <mat-option value="Pothole">Pothole</mat-option>
-                        <mat-option value="Electricity Outage">Electicity Outage</mat-option>
-                        <mat-option value="Water Outage">Water Outage</mat-option>
-                        <mat-option value="Sinkhole">Sinkhole</mat-option>
-                        <mat-option value="Other">Other</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                </div>
-
-                <div *ngIf="(ticket.ticket_type === 'Other')" id="other_field"  >
-                    <mat-form-field appearance="fill">
-                        <mat-label>Other issue details</mat-label>
-                        <input matInput [(ngModel)]="other_details">
-                    </mat-form-field>
-                </div>
-
-                <div id="description_field">
-                    <mat-form-field appearance="fill">
-                      <mat-label>Description</mat-label>
-                      <textarea [(ngModel)]="ticket.ticket_description" matInput></textarea>
-                    </mat-form-field>
+                <div class="mt-2 " id="issue_field">
+                      <label>Issue Type</label> <br>
+                      <select class="form-select" [(ngModel)]="ticket.ticket_type" id="issue_type_options" >
+                        <option value="Pothole">Pothole</option>
+                        <option value="Electricity Outage">Electicity Outage</option>
+                        <option value="Water Outage">Water Outage</option>
+                        <option value="Sinkhole">Sinkhole</option>
+                        <option value="Other">Other</option>
+                      </select>
                 </div>
                 
+                <div class="mt-2 " *ngIf="(ticket.ticket_type === 'Other')" id="other_field"  >
+                        <label>Other issue details</label>
+                        <input class="form-control" [(ngModel)]="other_details">
+                </div>
+
+                <div class="mt-2 " id="description_field">
+                      <label>Description</label>
+                      <textarea  class="form-control" [(ngModel)]="ticket.ticket_description"></textarea>
+                </div>
+<!--                 
                 <div id="location_field" class="">
                     <mat-form-field appearance="fill">
-                        <mat-label>Address</mat-label>
+                        <label>Address</label>
                         <input [(ngModel)]="ticket.ticket_location" matInput >
                     </mat-form-field>
                 </div>
                 
                 <div id="city_field" class="">
                     <mat-form-field appearance="fill">
-                      <mat-label>City</mat-label>
+                      <label>City</label>
                       <input [(ngModel)]="ticket.ticket_city" matInput>
                     </mat-form-field>
+                </div> -->
+                
+                <div class="mt-2 " id="upload_image">
+                    <label class="">Upload image of issue</label><br>
+                    <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
                 </div>
                 
-                <div id="upload_image">
-                    <mat-label class="">Upload image of issue</mat-label><br>
-                    <input class = "mt-3" type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
+                <div class="mt-2location_pin">
+                    <label class="">Pin location of issue</label><br>
+                    <input  class="form-control" id="pac-input" type="text" placeholder="Search a location" />
                 </div>
-                <!-- <div class="mt-4 location_pin">
-                    <mat-label class="">Pin location of issue</mat-label><br>
-                    <button mat-raised-button>Pin Location</button>
-                 </div> -->
-    
+                <div class="mt-2 border ">
+                    <google-map
+                        height="500px"
+                        width="100%"
+                        [zoom]="zoom"
+                        [center]="center"
+                        [options]="options">
+                        <map-marker
+                            [position]="marker_position"
+                            [title]="ticket.ticket_type"
+                        >
+                        </map-marker>
+                    </google-map>
+                </div>
+
+                <!-- BUTTONS -->
                  <div class="row mt-5">
                      <div class="col-4">
                          <!-- <a routerLink="/tickets"> -->

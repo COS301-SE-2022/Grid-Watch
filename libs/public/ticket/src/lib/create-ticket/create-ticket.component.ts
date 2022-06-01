@@ -169,16 +169,16 @@ export class CreateTicketComponent{
 
     console.log(this.ticket);
     
-  //     this.http.post<TicketDto>(this.createTicketURL, this.ticket, this.httpOptions)
-  //   .subscribe({
-  //     next: data => {
-  //         console.log(data);
-  //         this.router.navigateByUrl("/tickets");
-  //     },
-  //     error: error => {
-  //         console.error('There was an error!', error);
-  //     }
-  // })
+      this.http.post<TicketDto>(this.createTicketURL, this.ticket, this.httpOptions)
+    .subscribe({
+      next: data => {
+          console.log(data);
+          this.router.navigateByUrl("/tickets");
+      },
+      error: error => {
+          console.error('There was an error!', error);
+      }
+  })
   }
 
   createMapMarker(place: google.maps.places.PlaceResult) : void

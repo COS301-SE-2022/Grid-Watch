@@ -10,11 +10,12 @@ import { BrowserModule } from '@angular/platform-browser';
   imports: [
     CommonModule,
 
+    BrowserModule,
+    GoogleMapsModule,
     RouterModule.forChild([
        {path: 'home', pathMatch: 'full', component: HomePageBodyComponent} 
     ]),
-    BrowserModule,
-    GoogleMapsModule
+    
   ],
   declarations: [HomePageBodyComponent],
   exports: [HomePageBodyComponent],

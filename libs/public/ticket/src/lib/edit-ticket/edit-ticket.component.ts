@@ -12,6 +12,13 @@ import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 })
 export class EditTicketComponent implements OnInit {
 
+  autocomplete!: google.maps.places.Autocomplete;
+  marker_position!: google.maps.LatLng | google.maps.LatLngLiteral
+
+  zoom! : number;
+  center! : google.maps.LatLngLiteral | google.maps.LatLng;
+  options!: google.maps.MapOptions;
+
   display_name! : string | null;
   default_upload! : string | null;
   @Input() issue_type! : string;
@@ -40,6 +47,17 @@ export class EditTicketComponent implements OnInit {
   ngOnInit(): void {
     this.ticket = new TicketDto();
 
+    
+    this.zoom = 5.5;
+    this.center =  {
+      lat: -30.5595,
+      lng: 22.9375,
+    };
+    this.options = {
+      zoomControl: true,
+      scrollwheel: false,
+    }
+
     //User Data
     this.default_upload = "assets/upload-solid.svg"
     this.display_name = "John Doe";
@@ -56,6 +74,7 @@ export class EditTicketComponent implements OnInit {
       {
         this.ticket = data[0];
         this.initialiseFields(data[0]);
+        this.initMap();
       }
     )
   }
@@ -139,5 +158,52 @@ export class EditTicketComponent implements OnInit {
       this.issue_type = "Other"
       this.other_details = data.ticket_type;
     }
+  }
+
+  
+  initMap() : void
+  {
+    const input = document.getElementById("pac-input") as HTMLInputElement;
+    const options = {
+      componentRestrictions: { country: ["za"] },
+      fields: ["address_components", "geometry"],
+      types: ["address"],
+    };
+    this.autocomplete = new google.maps.places.Autocomplete(input, options);
+    google.maps.event.addListener(this.autocomplete, "place_changed" , () =>{
+      const place = this.autocomplete.getPlace()
+      this.createMapMarker(place)
+    })
+  }
+
+  getCurrentLocation() : void
+  {
+    if (navigator.geolocation)
+    {
+      navigator.geolocation.getCurrentPosition(
+        (position : GeolocationPosition) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          this.marker_position = pos;
+          this.center = pos;
+          this.zoom = 12;
+        }
+      )
+    }
+  }
+
+  createMapMarker(place: google.maps.places.PlaceResult) : void
+  {
+    // this.marker_position =
+    if (place.geometry?.location !== undefined)
+    {
+      this.marker_position = place.geometry?.location;
+      this.zoom = 12;
+      this.center = place.geometry?.location;
+    }
+    console.log(place.geometry?.location);
+    document.getElementById("pac-input")?.focus();
   }
 }

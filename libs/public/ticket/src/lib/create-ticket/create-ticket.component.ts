@@ -22,6 +22,7 @@ export class CreateTicketComponent{
   autocomplete!: google.maps.places.Autocomplete;
   marker_position!: google.maps.LatLng | google.maps.LatLngLiteral
 
+  getAddressUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=";
   zoom! : number;
   center! : google.maps.LatLngLiteral | google.maps.LatLng;
   options!: google.maps.MapOptions;
@@ -29,6 +30,8 @@ export class CreateTicketComponent{
   default_upload! : string;
   createTicketURL = "http://localhost:3333/api/ticket/create";
   uploadURL = "http://localhost:3333/api/ticket/upload";
+  
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json'
@@ -147,7 +150,7 @@ export class CreateTicketComponent{
     })
   }
 
-  getCurrentLocation()
+  getCurrentLocation() : void
   {
     if (navigator.geolocation)
     {
@@ -160,6 +163,15 @@ export class CreateTicketComponent{
           this.marker_position = pos;
           this.center = pos;
           this.zoom = 12;
+          this.getAddressUrl += pos.lat;
+          this.getAddressUrl += "," + pos.lng;
+          this.getAddressUrl += "&key=AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE";
+
+          this.http.get<JSON>(this.getAddressUrl).subscribe(
+            (data) =>{
+              console.log(data);
+            }
+          );
         }
       )
     }

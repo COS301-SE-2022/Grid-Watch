@@ -2,58 +2,72 @@
     <div class="row">
         <div class="card col-12 col-md-7">
             <div class="card-body">
-                <div id="name_field">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Name</mat-label>
-                        <input matInput disabled="" value="{{display_name}}">
-                    </mat-form-field>
+                <div class="mt-2 "  id="name_field">
+                        <label>Name</label>
+                        <input class="form-control" [value]="display_name" disabled>
                 </div>
-                <div id="issue_field">
-                    <mat-form-field appearance="fill">
-                      <mat-label>Issue Type</mat-label>
-                      <mat-select value="{{issue_type}}" [(ngModel)]="issue_type"  id="issue_type_options">
-                        <mat-option value="Pothole">Pothole</mat-option>
-                        <mat-option value="Electricity Outage">Electricity Outage</mat-option>
-                        <mat-option value="Water Outage">Water Outage</mat-option>
-                        <mat-option value="Sinkhole">Sinkhole</mat-option>
-                        <mat-option value="Other">Other</mat-option>
-                    </mat-select>
-                    </mat-form-field>
+                <div id="issue_field" class="mt-2">
+                    <label>Issue Type</label> <br>
+                    <select  class="form-select" value="{{issue_type}}" [(ngModel)]="issue_type"  id="issue_type_options">
+                        <option value="Pothole">Pothole</option>
+                        <option value="Electricity Outage">Electricity Outage</option>
+                        <option value="Water Outage">Water Outage</option>
+                        <option value="Sinkhole">Sinkhole</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
 
-                <div *ngIf="(issue_type === 'Other')" id="other_field"  >
-                    <mat-form-field appearance="fill">
-                        <mat-label>Other issue details</mat-label>
-                        <input matInput [(ngModel)]="other_details">
-                    </mat-form-field>
+                <div *ngIf="(issue_type === 'Other')" id="other_field"  class="mt-2" >
+                    <label>Other issue details</label>
+                    <input  class="form-control" [(ngModel)]="other_details">
                 </div>
 
-                <div id="description_field">
-                    <mat-form-field appearance="fill">
+                <div id="description_field" class="mt-2">
                       <mat-label>Description</mat-label>
-                      <textarea  matInput [(ngModel)]="ticket.ticket_description">{{ticket.ticket_description}}</textarea>
-                    </mat-form-field>
+                      <textarea class="form-control"  [(ngModel)]="ticket.ticket_description">{{ticket.ticket_description}}</textarea>
                 </div>
-                
+<!--                 
                 
                 <div id="location_field" class="">
                     <mat-form-field appearance="fill">
                         <mat-label>Location</mat-label>
                       <input matInput value="{{ticket.ticket_location}}" [(ngModel)]="ticket.ticket_location">
                     </mat-form-field>
-                </div>
-                 
+                </div> -->
+<!--                  
                 <div id="city_field" class="">
                     <mat-form-field appearance="fill">
                         <mat-label>City</mat-label>
                         <input matInput value="{{ticket.ticket_city}}" [(ngModel)]="ticket.ticket_city">
                     </mat-form-field>
-                </div>
+                </div> -->
                 
                 <div id="upload_image">
-                    <mat-label class="">Upload image of issue</mat-label><br>
+                    <label class="">Upload image of issue</label><br>
                     <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
                  </div>
+
+                 <div class="mt-2location_pin">
+                    <label class="">Pin location of issue</label><br>
+                    <input  class="form-control" id="pac-input" type="text" placeholder="Search a location" />
+                    <button class="mt-2 btn btn-outline-dark" (click)="getCurrentLocation()">
+                        Use Current Location
+                    </button>
+                </div>
+                <div class="mt-2 border ">
+                    <google-map
+                        height="500px"
+                        width="100%"
+                        [zoom]="zoom"
+                        [center]="center"
+                        [options]="options">
+                        <map-marker
+                            [position]="marker_position"
+                            [title]="ticket.ticket_type"
+                        >
+                        </map-marker>
+                    </google-map>
+                </div>
                 
                 <!-- <div class="mt-4 location_pin">
                     <mat-label class="">Pin location of issue</mat-label><br>

@@ -17,17 +17,18 @@ datasource db {
 
 // All entities within the database are defined as tickets
 model Ticket {
-  ticket_id          Int       @id @default(autoincrement())
-  ticket_status      String
-  ticket_create_date DateTime
-  ticket_close_date  DateTime?
-  ticket_type        String
-  ticket_city        String?
-  ticket_location    String
-  ticket_cost        Float?
-  ticket_description String
-  ticket_repair_time Int?
-  ticket_upvotes     Int
+  ticket_id           Int    @id @default(autoincrement())
+  ticket_status       String
+  ticket_create_date  DateTime
+  ticket_close_date   DateTime?
+  ticket_type         String
+  ticket_city         String?
+  ticket_location     String
+  ticket_cost         Float?
+  ticket_description  String
+  ticket_repair_time  Int?
+  ticket_upvotes      Int
+  ticket_img          String @unique
 
   Picture            Picture[]
   

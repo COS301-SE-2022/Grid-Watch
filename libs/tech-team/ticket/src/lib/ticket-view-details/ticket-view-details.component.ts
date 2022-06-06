@@ -12,12 +12,8 @@ export class TicketViewDetailsComponent implements OnInit {
 
   getAllURL = "http://localhost:3333/api/ticket/"
   UpdateStatusURL = "http://localhost:3333/api/ticket/update/status/";
-  issue_type! : string;
-  img_link! : string;
-  description! : string;
-  create_date! : Date;
-  address! : string;
-  city! : string;
+
+  ticket! : TicketDto;
   issue_id! : string | null;
 
   constructor(
@@ -27,11 +23,12 @@ export class TicketViewDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.ticket = new TicketDto();
     this.issue_id = this.route.snapshot.paramMap.get('id');
     this.getAllURL += this.issue_id;
     this.http.get<TicketDto[]>(this.getAllURL).subscribe(
       (data) => {
-        this.initialiseTicket(data[0]);
+        this.ticket = data[0];
       }
     );
   }
@@ -56,6 +53,7 @@ export class TicketViewDetailsComponent implements OnInit {
       (data) => {
         console.log(data);
         this.showSuccessMessage();
+        this.router.navigateByUrl("/tickets");
     },
     () =>
     {
@@ -63,15 +61,7 @@ export class TicketViewDetailsComponent implements OnInit {
     }
     );
   }
-  
-  initialiseTicket( data : TicketDto) {
-    this.issue_type = data.ticket_type;
-    this.description = data.ticket_description;
-    this.create_date = data.ticket_create_date;
-    this.address = data.ticket_location;
-    this.city = data.ticket_city;
-    // this.img_link = 
-  }
+
   
   showErrorMessage() : void {
     alert("Something went wrong accepting this ticket")

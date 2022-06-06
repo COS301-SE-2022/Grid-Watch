@@ -11,7 +11,8 @@ export class CreateTicketCommand{
         public readonly cost,
         public readonly description,
         public readonly repairTime,
-        public readonly upVotes
+        public readonly upVotes,
+        public readonly image_link
         
         
         ){
@@ -32,7 +33,8 @@ export class UpdateTicketCommand{
         public readonly cost,
         public readonly description,
         public readonly repairTime,
-        public readonly upVotes
+        public readonly upVotes,
+        public readonly image_link
         
         
         ){}

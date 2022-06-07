@@ -49,7 +49,7 @@
 
                  <div class="mt-2location_pin">
                     <label class="">Pin location of issue</label><br>
-                    <input  class="form-control" id="pac-input" type="text" placeholder="Search a location" />
+                    <input  class="form-control" id="pac-input" type="text" placeholder="Search a location" [(ngModel)]="ticket.ticket_location"/>
                     <button class="mt-2 btn btn-outline-dark" (click)="getCurrentLocation()">
                         Use Current Location
                     </button>

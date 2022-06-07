@@ -1,5 +1,5 @@
 import {IQueryHandler, QueryHandler} from '@nestjs/cqrs';
-import {CloseTicketQuery, GetCityTicketQuery, GetStatusQuery, GetTicketQuery,GetTicketsDispatchedQuery,GetTicketsQuery, GetIssueQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByLocationQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery } from './api-ticket-query.query';
+import {CloseTicketQuery, GetCityTicketQuery, GetStatusQuery, GetTicketQuery,GetTicketsDispatchedQuery,GetTicketsQuery, GetIssueQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery } from './api-ticket-query.query';
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
 import { Logger } from '@nestjs/common';
 
@@ -43,15 +43,6 @@ export class GetTicketsSortByIssueHandler implements IQueryHandler<GetTicketsSor
     }
 }
 
-@QueryHandler(GetTicketsSortByLocationQuery)
-export class GetTicketsSortByLocationHandler implements IQueryHandler<GetTicketsSortByLocationQuery>{
-    constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
-
-    async execute(){
-        return this.repository.getTicketsSortLocation();
-    }
-}
-
 @QueryHandler(GetTicketsSortByCityQuery)
 export class GetTicketsSortByCityHandler implements IQueryHandler<GetTicketsSortByCityQuery>{
     constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
@@ -78,7 +69,6 @@ export class GetTicketsSortByUpvotesHandler implements IQueryHandler<GetTicketsS
         return this.repository.getTicketsSortUpvotes();
     }
 }
-
 
 @QueryHandler(GetTicketsDispatchedQuery)
 export class GetTicketsDispatchedHandler implements IQueryHandler<GetTicketsDispatchedQuery>{

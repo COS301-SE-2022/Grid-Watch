@@ -71,12 +71,6 @@ export class TicketController {
     }
     
     //get endpint to return all tickets sort by Location
-    @Get('/all/tickets/Location')
-    async getAllSortByLocation(){
-        return this.apiTicketService.GetAllSortByLocation();
-    }
-    
-    //get endpint to return all tickets sort by Location
     @Get('/all/tickets/City')
     async getAllSortByCity(){
         return this.apiTicketService.GetAllSortByCity();
@@ -103,13 +97,13 @@ export class TicketController {
     //creating tickets
     @Post('/create')
     async CreateTicket(@Body() ticket: TicketDto){
-        return this.apiTicketService.createTicket(ticket.ticket_status,ticket.ticket_create_date,ticket.ticket_close_date,ticket.ticket_type,ticket.ticket_city,ticket.ticket_location,ticket.ticket_cost,ticket.ticket_description,ticket.ticket_repair_time,ticket.ticket_upvotes, ticket.ticket_img);
+        return this.apiTicketService.createTicket(ticket.ticket_status,ticket.ticket_create_date,ticket.ticket_close_date,ticket.ticket_type,ticket.ticket_city,ticket.ticket_location,ticket.ticket_cost,ticket.ticket_description,ticket.ticket_repair_time,ticket.ticket_upvotes);
     }
 
     //update ticket 
     @Put('/update/:id')
     async UpdateTicket(@Param() params,@Body() ticket: TicketDto):Promise<boolean> {
-        return this.apiTicketService.UpdateTicket(parseInt(params.id),ticket.ticket_status,ticket.ticket_create_date,ticket.ticket_close_date,ticket.ticket_type,ticket.ticket_city,ticket.ticket_location,ticket.ticket_cost,ticket.ticket_description,ticket.ticket_repair_time,ticket.ticket_upvotes, ticket.ticket_img);
+        return this.apiTicketService.UpdateTicket(parseInt(params.id),ticket.ticket_status,ticket.ticket_create_date,ticket.ticket_close_date,ticket.ticket_type,ticket.ticket_city,ticket.ticket_location,ticket.ticket_cost,ticket.ticket_description,ticket.ticket_repair_time,ticket.ticket_upvotes);
     }
 
     //update ticket status

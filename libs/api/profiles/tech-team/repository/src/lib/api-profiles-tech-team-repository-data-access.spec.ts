@@ -27,12 +27,12 @@ const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto
       jest
       .spyOn(provider,'createTechTeam')
       .mockImplementation(():Promise<void> => Promise.resolve());
-      expect(await provider.createTechTeam("Sparky", "sparky@gmail.com", "Electricity","0119873322")).toBeUndefined()
+      expect(await provider.createTechTeam("Sparky", "sparkyy@gmail.com", "Electricity","0119874322")).toBeUndefined()
     });
 
     it('should return null', async () => {
       jest.spyOn(provider, 'createTechTeam').mockResolvedValue(null);
-      expect(await provider.createTechTeam("Sparkyyy", "sparkyyy@gmail.com", "Electricity","0119873322")).toBeUndefined()
+      expect(await provider.createTechTeam("Sparky", "sparky@gmail.com", "Electricity","0119843322")).toEqual(null)
     });
   })
 
@@ -42,12 +42,12 @@ const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto
       jest
       .spyOn(provider,'UpdateTechTeam')
       .mockImplementation(():Promise<void> => Promise.resolve());
-      expect(await provider.createTechTeam("Sparkles", "sparkyyy@gmail.com", "Electricity","0119873322")).toBeUndefined()
+      expect(await provider.UpdateTechTeam(2,"Sparky", "sparky1@gmail.com", "Electricity","0119873322")).toBeUndefined()
     });
 
     it('should return null', async () => {
       jest.spyOn(provider, 'UpdateTechTeam').mockResolvedValue(null);
-      expect(await provider.createTechTeam("Sparkles", "sparkyyy@gmail.com", "Electricity","0119873322")).toBeUndefined()
+      expect(await provider.UpdateTechTeam(2,"Sparky", "sparkyy3@gmail.com", "Electricity","0119873323")).toEqual(null)
     });
   })
 

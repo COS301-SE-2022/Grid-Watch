@@ -94,13 +94,13 @@ describe('ApiTicketService', () => {
       .spyOn(service,'createTicket')
       .mockImplementation((): Promise<TicketDto> => Promise.resolve(ticketDtoMock));
 
-      expect(await service.createTicket('status',new Date,new Date,'type','city','location',21,'description',21,21, "test1.jpg")).toMatchObject(ticketDtoMock)
+      expect(await service.createTicket('status',new Date,new Date,'type','city','location',21,'description',21,21)).toMatchObject(ticketDtoMock)
     });
 
     it('should return null',async()=>{
       jest.spyOn(service,'createTicket').mockResolvedValue(null);
 
-      expect(await service.createTicket('status',new Date,new Date,'type','city','location',21,'description',21,21, "test1.jpg")).toEqual(null);
+      expect(await service.createTicket('status',new Date,new Date,'type','city','location',21,'description',21,21)).toEqual(null);
     });
   })
 
@@ -112,13 +112,13 @@ describe('ApiTicketService', () => {
       .spyOn(service,'UpdateTicket')
       .mockImplementation((): Promise<TicketDto> => Promise.resolve(ticketDtoMock));
 
-      expect(await service.UpdateTicket(1,'status',new Date,new Date,'type','city','location',21,'description',21,21, "test1.jpg")).toMatchObject(ticketDtoMock)
+      expect(await service.UpdateTicket(1,'status',new Date,new Date,'type','city','location',21,'description',21,21)).toMatchObject(ticketDtoMock)
     });
 
     it('should return null',async()=>{
       jest.spyOn(service,'UpdateTicket').mockResolvedValue(null);
 
-      expect(await service.UpdateTicket(1,'status',new Date,new Date,'type','city','location',21,'description',21,21, "test1.jpg")).toEqual(null);
+      expect(await service.UpdateTicket(1,'status',new Date,new Date,'type','city','location',21,'description',21,21)).toEqual(null);
     });
   })
 

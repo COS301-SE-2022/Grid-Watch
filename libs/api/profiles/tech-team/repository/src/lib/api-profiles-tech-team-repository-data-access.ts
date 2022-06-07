@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import {PrismaClient} from '@prisma/client';
-
 @Injectable()
 
 export class ApiProfilesTechTeamRepositoryDataAccess {
@@ -20,14 +19,68 @@ prisma = new PrismaClient();
             });
     }
 
-    async DeleteTechTeam(TechTeamId: number){
+    async getTechTeams(){
+        return await this.prisma.techTeam.findMany()
+    }
 
-        await this.prisma.techTeam.delete({
-            where:
-            {
-                id : TechTeamId,
+    async getTechTeamId(ID: number){
+
+        const techteam = await this.prisma.techTeam.findMany({
+
+            where:{
+                id : ID,
             },
+
         })
+
+        if (techteam) {
+            return techteam;
+        }
+        else{
+            return "Techteam id = " + ID + " not found!";
+        }
+        
+    }
+
+    async getTechTeamName(Name: string){
+
+        const techteam = await this.prisma.techTeam.findMany({
+
+            where:{
+                name : Name,
+            },
+
+        })
+
+        if (techteam) {
+            return techteam;
+        }
+        else{
+            return "Techteam " + Name + " not found!";
+        }
+        
+    }
+
+    
+    async getTechTeamSpecialisation(specs: string){
+
+        const techteam = await this.prisma.techTeam.findMany({
+
+            where:{
+                specialisation: {
+                   // search: string
+                },
+            },
+
+        })
+
+        if (techteam) {
+            return techteam;
+        }
+        else{
+            return "Techteam with specialisation " + specs + " not found!";
+        }
+
     }
 
     async UpdateTechTeam(TechTeamId: number, Name: string, Email: string,Specialisation: string, ContactNr: string){
@@ -144,6 +197,16 @@ prisma = new PrismaClient();
             },
         });
 
+    }
+
+    async DeleteTechTeam(TechTeamId: number){
+
+        await this.prisma.techTeam.delete({
+            where:
+            {
+                id : TechTeamId,
+            },
+        })
     }
 }
 

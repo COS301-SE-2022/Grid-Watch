@@ -15,7 +15,6 @@ datasource db {
 // Ticket
 ///////////////////////////////////////////////////////////////////////
 
-// All entities within the database are defined as tickets
 model Ticket {
   ticket_id           Int    @id @default(autoincrement())
   ticket_status       String
@@ -23,15 +22,13 @@ model Ticket {
   ticket_close_date   DateTime?
   ticket_type         String
   ticket_city         String?
-  ticket_location     String
+  ticket_location     String    //place-id
   ticket_cost         Float?
   ticket_description  String
   ticket_repair_time  Int?
   ticket_upvotes      Int
-  ticket_img          String @unique
 
-  Picture            Picture[]
-  
+  Picture             Picture[]
   @@map("ticket")
   
 }
@@ -42,9 +39,9 @@ model Ticket {
 
 model Picture {
   picture_id      Int    @id @default(autoincrement())
-  picture_encoded String
-  ticket          Ticket @relation(fields: [ticket_ID], references: [ticket_id], onDelete: Cascade)
-  ticket_ID       Int
+  picture_link    String
+  ticket          Ticket @relation(fields: [ticket_id], references: [ticket_id], onDelete: Cascade)
+  ticket_id       Int
 
   @@map("picture")
 }
@@ -63,6 +60,18 @@ model TechTeam {
   rating_of_jobs    Float?
 
   @@map("techteam")
+}
+
+///////////////////////////////////////////////////////////////////////
+// TechTeamTicket
+///////////////////////////////////////////////////////////////////////
+
+model TechTeamTicket {
+  id                Int     @id @default(autoincrement())
+  techteam_ID       Int
+  ticket_ID         Int     
+
+  @@map("techteamticket")
 }
 
 ///////////////////////////////////////////////////////////////////////

@@ -5,7 +5,7 @@ import {PrismaClient} from '@prisma/client';
 export class ApiTicketRepositoryDataAccess {
     prisma = new PrismaClient();
 
-    async createTicket(Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number, image_link : string){
+    async createTicket(Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number){
 
             await this.prisma.ticket.create({
                 data:
@@ -168,19 +168,19 @@ export class ApiTicketRepositoryDataAccess {
 
     }
 
-    async getTicketsSortLocation(){
+    // async getTicketsSortLocation(){
 
-        const tickets = await this.prisma.ticket.findMany({
-            orderBy: 
-            {
-                ticket_location: "asc",
-            },
+    //     const tickets = await this.prisma.ticket.findMany({
+    //         orderBy: 
+    //         {
+    //             ticket_location: "asc",
+    //         },
 
-        })
+    //     })
 
-        return tickets
+    //     return tickets
 
-    }
+    // }
 
     async getTicketsSortCity(){
 
@@ -223,7 +223,7 @@ export class ApiTicketRepositoryDataAccess {
         return tickets
     }
 
-    async UpdateTicket(TicketId: number, Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number, image_link : string){
+    async UpdateTicket(TicketId: number, Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number){
 
         await this.prisma.ticket.update({
             where:

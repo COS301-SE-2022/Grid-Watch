@@ -5,8 +5,6 @@ import { Router } from '@angular/router';
 import { Express } from 'express';
 import { Multer } from 'multer';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { ThisReceiver } from '@angular/compiler';
-import { NgPluralCase } from '@angular/common';
 
 
 @Component({
@@ -45,7 +43,7 @@ export class CreateTicketComponent{
 
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.zoom = 5.5;
     this.center =  {
       lat: -30.5595,
@@ -84,31 +82,34 @@ export class CreateTicketComponent{
 
   createTicket() : void
   {
-    if (this.autocomplete.getPlace() === undefined)
+    if ( this.ticket.ticket_location == "")
     {
       this.showErrorMessage("Location not found")
       return;
     }
-    const place = this.autocomplete.getPlace().address_components;
+    if (this.autocomplete.getPlace() !== undefined)
+    {
+      const place = this.autocomplete.getPlace().address_components;
+      // console.log(place);
+      // const temp = document.getElementById("pac-input") as HTMLInputElement;
+      this.ticket.ticket_location = "";
+      
+      if (place)
+      {
+        for (let k = 0; k < 3; k++)
+        {
+          
+          this.ticket.ticket_location += place[k].long_name + " ";
+        }
+      }
+      
+      if (place)
+      this.ticket.ticket_city = place[3].long_name
+    }
+    
     this.ticket.ticket_status = "Created";
     this.ticket.ticket_create_date = new Date();
     this.ticket.ticket_upvotes = 0;
-    // console.log(place);
-    // const temp = document.getElementById("pac-input") as HTMLInputElement;
-    this.ticket.ticket_location = "";
-    
-    if (place)
-    {
-      for (let k = 0; k < 3; k++)
-      {
-
-        this.ticket.ticket_location += place[k].long_name + " ";
-      }
-    }
-
-    if (place)
-      this.ticket.ticket_city = place[3].long_name
-
     // console.log(this.ticket);
     if (this.file)
     {
@@ -163,15 +164,20 @@ export class CreateTicketComponent{
           this.marker_position = pos;
           this.center = pos;
           this.zoom = 12;
-          this.getAddressUrl += pos.lat;
-          this.getAddressUrl += "," + pos.lng;
-          this.getAddressUrl += "&key=AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE";
-
-          this.http.get<JSON>(this.getAddressUrl).subscribe(
-            (data) =>{
-              console.log(data);
+          const geocoder: google.maps.Geocoder = new google.maps.Geocoder;
+          geocoder.geocode({location: pos}).then((response) =>
+          {
+            if (response.results[0]) 
+            {
+              this.ticket.ticket_location = "";
+              for (let k = 0 ; k < 3; k++)
+                this.ticket.ticket_location += response.results[0].address_components[k].long_name + " ";
+              this.ticket.ticket_city = response.results[0].address_components[3].long_name;
+                console.log(this.ticket.ticket_location);
+              console.log(this.ticket.ticket_city);
             }
-          );
+
+          });
         }
       )
     }

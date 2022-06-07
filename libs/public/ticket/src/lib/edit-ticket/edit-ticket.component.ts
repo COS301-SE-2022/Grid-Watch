@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Express } from 'express';
 import { Multer } from 'multer';
+import { GoogleMap } from '@angular/google-maps';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 
 @Component({
@@ -76,7 +77,7 @@ export class EditTicketComponent implements OnInit {
         this.initialiseFields(data[0]);
         this.initMap();
       }
-    )
+      )
   }
 
   fileUploaded(e: any)
@@ -222,14 +223,15 @@ export class EditTicketComponent implements OnInit {
           this.center = pos;
           this.zoom = 12;
           const geocoder: google.maps.Geocoder = new google.maps.Geocoder;
-          geocoder.geocode({location: pos}).then((response) =>
+          geocoder.geocode({location: pos},(response) =>
           {
-            if (response.results[0]) 
+            
+            if (response != null) 
             {
               this.ticket.ticket_location = "";
-              for (let k = 0 ; k < 3; k++)
-                this.ticket.ticket_location += response.results[0].address_components[k].long_name + " ";
-              this.ticket.ticket_city = response.results[0].address_components[3].long_name;
+              for (let k = 0 ; k < 4; k++)
+                this.ticket.ticket_location += response[0].address_components[k].long_name + " ";
+              this.ticket.ticket_city = response[0].address_components[3].long_name;
                 console.log(this.ticket.ticket_location);
               console.log(this.ticket.ticket_city);
             }

@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import { TicketController } from 'libs/api/ticket/api/src/lib/controllers/api-ticket-api-controller.controller';
 import { Router } from '@angular/router';
 import { Express } from 'express';
 import { Multer } from 'multer';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 
 
@@ -28,6 +29,7 @@ export class CreateTicketComponent{
   default_upload! : string;
   createTicketURL = "http://localhost:3333/api/ticket/create";
   uploadURL = "http://localhost:3333/api/ticket/upload";
+  getTicketURL = "http://localhost:3333/api/ticket/";
   
 
   httpOptions = {
@@ -56,8 +58,14 @@ export class CreateTicketComponent{
     this.default_upload = "assets/upload-solid.svg";
     this.other = false;
     this.other_details = "";
-    this.initMap();
 
+    this.http.get<TicketDto[]>(this.getTicketURL, this.httpOptions).subscribe(
+      () =>
+      {
+        this.initMap();
+      }
+    )
+    // this.initMap();
   }
 
   fileUploaded(e: any) : void
@@ -165,14 +173,15 @@ export class CreateTicketComponent{
           this.center = pos;
           this.zoom = 12;
           const geocoder: google.maps.Geocoder = new google.maps.Geocoder;
-          geocoder.geocode({location: pos}).then((response) =>
+          geocoder.geocode({location: pos},(response) =>
           {
-            if (response.results[0]) 
+            
+            if (response != null) 
             {
               this.ticket.ticket_location = "";
-              for (let k = 0 ; k < 3; k++)
-                this.ticket.ticket_location += response.results[0].address_components[k].long_name + " ";
-              this.ticket.ticket_city = response.results[0].address_components[3].long_name;
+              for (let k = 0 ; k < 4; k++)
+                this.ticket.ticket_location += response[0].address_components[k].long_name + " ";
+              this.ticket.ticket_city = response[0].address_components[3].long_name;
                 console.log(this.ticket.ticket_location);
               console.log(this.ticket.ticket_city);
             }

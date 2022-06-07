@@ -10,7 +10,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { TicketSettingsOptionsComponent } from './ticket-settings-options/ticket-settings-options.component';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 import { FormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps'
@@ -51,13 +50,11 @@ import { GoogleMapsModule } from '@angular/google-maps'
   declarations: [
     TicketBodyComponent,
     CreateTicketComponent,
-    TicketSettingsOptionsComponent,
     EditTicketComponent,
   ],
   exports: [
     TicketBodyComponent,
     CreateTicketComponent,
-    TicketSettingsOptionsComponent,
     EditTicketComponent,
   ],
 })

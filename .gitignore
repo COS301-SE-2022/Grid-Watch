@@ -17,9 +17,6 @@ node_modules
 .settings/
 *.sublime-workspace
 
-#sensitive environmnet variables
-.env
-
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json
@@ -45,3 +42,4 @@ Thumbs.db
 
 #Uploaded Files
 libs/shared-assets/src/lib/uploadedFiles
+.env

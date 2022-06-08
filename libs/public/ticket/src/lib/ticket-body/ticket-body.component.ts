@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
+import { TicketPictureDto } from  "@grid-watch/api/ticket/api/shared/ticket-picture-dto";
 
 
 @Component({
@@ -16,6 +17,7 @@ export class TicketBodyComponent implements OnInit {
     })
   };
   getAllURL = "http://localhost:3333/api/ticket/all/tickets"
+  getPictureURL = "http://localhost:3333/api/ticket/picture/"
   upvoteURL = "http://localhost:3333/api/ticket/update/upvotes/"
 
   public name : string;
@@ -40,10 +42,10 @@ export class TicketBodyComponent implements OnInit {
 
     this.http.get<TicketDto[]>(this.getAllURL).subscribe(
       (data) => {
-        // console.log(data);
         this.InitialiseTicket(data);
     }
     );
+
   }
 
   IncreaseUpvote(id : number, index: number): void
@@ -61,15 +63,30 @@ export class TicketBodyComponent implements OnInit {
   }
   
 
+  
   InitialiseTicket(data : TicketDto []) : void 
   {
+
+    // console.log(data);
+    // console.log(data.length);
+  
     for (let index = 0; index < data.length; index++) 
     {
-      if (data[index].ticket_img)  
+      // if (data[index].ticket_img)  
       this.tickets.push(data[index]);
+      const temp =  this.getPictureURL;
+      this.getPictureURL += this.tickets[index].ticket_id;
+      this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
+        (data) => {
+          console.log(data[0])
+          this.tickets[index].ticket_img = data[0].picture_link;
+      }
+      );
+      this.getPictureURL = temp;
     }
-    console.log(this.tickets);
+    // console.log(this.tickets);
   }
+
   
 
 }

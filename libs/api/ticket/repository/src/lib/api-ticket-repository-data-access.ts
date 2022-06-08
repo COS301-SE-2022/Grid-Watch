@@ -23,7 +23,14 @@ export class ApiTicketRepositoryDataAccess {
            
                 }
             });
-           // return "The ticket with id: " + ticket_id + " has been created."
+            return  await this.prisma.ticket.findMany({
+            
+                where:
+                {
+                    ticket_create_date: createDate,
+                },
+                
+            })
     }
 
     
@@ -438,7 +445,7 @@ export class ApiTicketRepositoryDataAccess {
 
      async getPicture(TicketId : number){
 
-        await this.prisma.picture.findMany({
+         return await this.prisma.picture.findMany({
             where:
             {
                 ticket_id: TicketId,
@@ -450,7 +457,7 @@ export class ApiTicketRepositoryDataAccess {
      // get all pictures of a ticket sorting according to newest picture ( highest picture id number)
      async getAllPictures(TicketId : number){
 
-        await this.prisma.picture.findMany({
+        return await this.prisma.picture.findMany({
             where:
             {
                 ticket_id: TicketId,

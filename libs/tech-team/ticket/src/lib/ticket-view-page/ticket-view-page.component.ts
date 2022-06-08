@@ -38,6 +38,7 @@ export class TicketViewPageComponent implements OnInit {
     for (let index = 0; index < data.length; index++) 
     {
       this.tickets.push(data[index]);
+      this.tickets[index].ticket_create_date = new Date(this.tickets[index].ticket_create_date);
     }
     console.log(this.tickets);
   }

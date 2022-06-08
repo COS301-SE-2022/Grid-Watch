@@ -27,6 +27,78 @@ model User{
 }
 
 ///////////////////////////////////////////////////////////////////////
+// AuthorizedOfficials
+///////////////////////////////////////////////////////////////////////
+
+model AuthorizedOfficials {
+  id             Int    @id @default(autoincrement())
+  name           String
+  email          String @unique
+  contact_number String @unique @db.VarChar(10)
+  cities         String
+
+  @@map("authorizedofficials")
+}
+
+///////////////////////////////////////////////////////////////////////
+// AuhtorizedOfficialUser
+///////////////////////////////////////////////////////////////////////
+
+model AuhtorizedOfficialUser{
+  id           Int        @id @default(autoincrement())
+  email        String     @unique
+  password     String
+  passwordSalt String?    
+  name         String
+  created      DateTime
+
+  @@map("auhtorizedofficialuser")
+}
+
+///////////////////////////////////////////////////////////////////////
+// TechTeam
+///////////////////////////////////////////////////////////////////////
+
+model TechTeam {
+  id                Int     @id @default(autoincrement())
+  name              String
+  email             String? @unique
+  specialisation    String
+  contact_number    String  @unique @db.VarChar(10)
+  nr_jobs_completed Int?
+  rating_of_jobs    Float?
+
+  @@map("techteam")
+}
+
+///////////////////////////////////////////////////////////////////////
+// TechTeamUser
+///////////////////////////////////////////////////////////////////////
+
+model TechTeamUser{
+  id           Int        @id @default(autoincrement())
+  email        String     @unique
+  password     String
+  passwordSalt String?    
+  name         String
+  created      DateTime
+
+  @@map("techteamuser")
+}
+
+///////////////////////////////////////////////////////////////////////
+// TechTeamTicket
+///////////////////////////////////////////////////////////////////////
+
+model TechTeamTicket {
+  id                Int     @id @default(autoincrement())
+  techteam_ID       Int
+  ticket_ID         Int     
+
+  @@map("techteamticket")
+}
+
+///////////////////////////////////////////////////////////////////////
 // Ticket
 ///////////////////////////////////////////////////////////////////////
 
@@ -61,44 +133,5 @@ model Picture {
   @@map("picture")
 }
 
-///////////////////////////////////////////////////////////////////////
-// TechTeam
-///////////////////////////////////////////////////////////////////////
 
-model TechTeam {
-  id                Int     @id @default(autoincrement())
-  name              String
-  email             String? @unique
-  specialisation    String
-  contact_number    String  @unique @db.VarChar(10)
-  nr_jobs_completed Int?
-  rating_of_jobs    Float?
 
-  @@map("techteam")
-}
-
-///////////////////////////////////////////////////////////////////////
-// TechTeamTicket
-///////////////////////////////////////////////////////////////////////
-
-model TechTeamTicket {
-  id                Int     @id @default(autoincrement())
-  techteam_ID       Int
-  ticket_ID         Int     
-
-  @@map("techteamticket")
-}
-
-///////////////////////////////////////////////////////////////////////
-// AuthorizedOfficials
-///////////////////////////////////////////////////////////////////////
-
-model AuthorizedOfficials {
-  id             Int    @id @default(autoincrement())
-  name           String
-  email          String @unique
-  contact_number String @unique @db.VarChar(10)
-  cities         String
-
-  @@map("authorizedofficials")
-}

@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 //import {Ticket,PrismaClient} from '@prisma/client';
 import {QueryBus,CommandBus} from '@nestjs/cqrs';
-import { GetTicketQuery, GetIssueQuery, GetTicketsQuery,GetCityTicketQuery,GetStatusQuery,CloseTicketQuery, GetTicketsDispatchedQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByLocationQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery } from './queries/api-ticket-query.query';
+import { GetTicketQuery, GetIssueQuery, GetTicketsQuery,GetCityTicketQuery,GetStatusQuery,CloseTicketQuery, GetTicketsDispatchedQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery } from './queries/api-ticket-query.query';
 import { CreateTicketCommand,
     UpdateTicketCommand, 
     DeleteTicketCommand, 
@@ -31,10 +31,6 @@ export class ApiTicketService {
         return await this.queryBus.execute(new GetTicketsSortByIssueQuery())
     }
 
-    async GetAllSortByLocation() {
-        return await this.queryBus.execute(new GetTicketsSortByLocationQuery())
-    }
-
     async GetAllSortByCity() {
         return await this.queryBus.execute(new GetTicketsSortByCityQuery())
     }
@@ -55,16 +51,16 @@ export class ApiTicketService {
         return await this.queryBus.execute(new GetTicketQuery(ticketId))
     }
 
-    async UpdateTicket(TicketId: number, Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number, image_link : string){
-        return await this.commandBus.execute(new UpdateTicketCommand(TicketId, Status, createDate, closeDate, Type, City, Location, Cost, Description, RepairTime, Upvotes, image_link))
+    async UpdateTicket(TicketId: number, Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number){
+        return await this.commandBus.execute(new UpdateTicketCommand(TicketId, Status, createDate, closeDate, Type, City, Location, Cost, Description, RepairTime, Upvotes))
     }
 
     async deleteTicket(ticketId:number){
         return await this.commandBus.execute(new DeleteTicketCommand(ticketId))
     }
 
-    async createTicket(Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number, image_link : string){
-        return await this.commandBus.execute(new CreateTicketCommand(Status, createDate, closeDate, Type, City, Location, Cost, Description, RepairTime, Upvotes, image_link))
+    async createTicket(Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number){
+        return await this.commandBus.execute(new CreateTicketCommand(Status, createDate, closeDate, Type, City, Location, Cost, Description, RepairTime, Upvotes))
     }
 
     async getStatus(Status: string){

@@ -49,3 +49,11 @@ export class GetCityTicketQuery{
 export class CloseTicketQuery{
     constructor(public readonly TicketId){}
 }
+
+export class GetAllPicturesQuery{
+    constructor(public readonly TicketId){}
+}
+
+export class GetPictureQuery{
+    constructor(public readonly TicketId){}
+}

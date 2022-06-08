@@ -6,6 +6,7 @@ import {
     Post,
     Put,
   } from '@nestjs/common';
+  // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
   import { techTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
   import {ApiProfilesTechTeamServiceService} from '@grid-watch/api/profiles/tech-team/service'
   

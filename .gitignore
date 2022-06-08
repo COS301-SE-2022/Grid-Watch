@@ -42,3 +42,4 @@ Thumbs.db
 
 #Uploaded Files
 libs/shared-assets/src/lib/uploadedFiles
+.env

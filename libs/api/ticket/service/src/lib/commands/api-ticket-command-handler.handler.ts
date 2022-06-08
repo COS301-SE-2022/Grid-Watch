@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
-import {DeleteTicketCommand, CreateTicketCommand, UpdateTicketCommand, UpdateTicketStatusCommand, UpdateTicketCreateDateCommand, UpdateTicketTypeCommand, UpdateTicketCloseDateCommand, UpdateTicketLocationCommand, UpdateTicketCostCommand, UpdateTicketDescriptionCommand, UpdateTicketRepairTimeCommand, UpdateTicketUpVotesCommand} from './api-ticket-command.command';
+import {DeleteTicketCommand, CreateTicketCommand,CreatePictureCommand, UpdateTicketCommand, UpdateTicketStatusCommand, UpdateTicketCreateDateCommand, UpdateTicketTypeCommand, UpdateTicketCloseDateCommand, UpdateTicketLocationCommand, UpdateTicketCostCommand, UpdateTicketDescriptionCommand, UpdateTicketRepairTimeCommand, UpdateTicketUpVotesCommand, IncUpvotesCommand, UpdatePictureCommand, DeletePictureCommand} from './api-ticket-command.command';
 import { Logger } from '@nestjs/common';
 
 @CommandHandler(CreateTicketCommand)
@@ -9,8 +9,8 @@ export class createTicketHandler implements ICommandHandler<CreateTicketCommand>
         
     }
     async execute(command: CreateTicketCommand) {
-        const{ status,description,createDate,closeDate,cost,location,city,repairTime,upVotes,type, image_link}= command;
-        return this.repository.createTicket(status,createDate,closeDate,type,city,location,cost,description,repairTime,upVotes,image_link);
+        const{ status,description,createDate,closeDate,cost,location,city,repairTime,upVotes,type}= command;
+        return this.repository.createTicket(status,createDate,closeDate,type,city,location,cost,description,repairTime,upVotes);
     }
 }
 
@@ -21,8 +21,8 @@ export class updateTicketHandler implements ICommandHandler<UpdateTicketCommand>
 
     }
     async execute(command: UpdateTicketCommand) {
-        const{ticketId, status,description,createDate,closeDate,cost,location,city,repairTime,upVotes,type,image_link}= command;
-        return this.repository.UpdateTicket(ticketId,status,createDate,closeDate,type,city,location,cost,description,repairTime,upVotes, image_link)
+        const{ticketId, status,description,createDate,closeDate,cost,location,city,repairTime,upVotes,type}= command;
+        return this.repository.UpdateTicket(ticketId,status,createDate,closeDate,type,city,location,cost,description,repairTime,upVotes)
     }
 }
 
@@ -125,5 +125,48 @@ export class updateTicketUpVotesHandler implements ICommandHandler<UpdateTicketU
     async execute(command: UpdateTicketUpVotesCommand){
         const{TicketId,UpVotes} = command;
         return this.repository.UpdateUpvotes(TicketId,UpVotes);
+    }
+}
+
+@CommandHandler(IncUpvotesCommand)
+export class IncUpvotesHandler implements ICommandHandler<IncUpvotesCommand>{
+    constructor(private readonly repository:ApiTicketRepositoryDataAccess){}
+
+    async execute(command: IncUpvotesCommand){
+        const{TicketId} = command;
+        return this.repository.IncUpvotes(TicketId);
+    }
+}
+
+@CommandHandler(CreatePictureCommand)
+export class CreatePictureHandler implements ICommandHandler<CreatePictureCommand>{
+    constructor (private readonly repository:ApiTicketRepositoryDataAccess){
+        
+    }
+    async execute(command: CreatePictureCommand) {
+        const{TicketId,img_link}= command;
+        return this.repository.createPicture(TicketId,img_link);
+    }
+}
+
+@CommandHandler(UpdatePictureCommand)
+export class UpdatePictureHandler implements ICommandHandler<UpdatePictureCommand>{
+
+    constructor (private readonly repository:ApiTicketRepositoryDataAccess){
+
+    }
+    async execute(command: UpdatePictureCommand) {
+        const{PictureId,img_link}= command;
+        return this.repository.updatePicture(PictureId,img_link);
+    }
+}
+
+@CommandHandler(DeletePictureCommand)
+export class DeletePictureHanadler implements ICommandHandler<DeletePictureCommand>{
+    constructor (private readonly repository: ApiTicketRepositoryDataAccess){}
+
+    async execute(command: DeletePictureCommand) {
+        const{PictureId} = command;
+        return this.repository.deletePicture(PictureId);
     }
 }

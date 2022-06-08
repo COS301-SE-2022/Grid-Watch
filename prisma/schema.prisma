@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -11,10 +12,24 @@ datasource db {
 }
 
 ///////////////////////////////////////////////////////////////////////
+// User
+///////////////////////////////////////////////////////////////////////
+
+model User{
+  id           Int        @id @default(autoincrement())
+  email        String     @unique
+  password     String
+  passwordSalt String?    
+  name         String
+  created      DateTime
+
+  @@map("user")
+}
+
+///////////////////////////////////////////////////////////////////////
 // Ticket
 ///////////////////////////////////////////////////////////////////////
 
-// All entities within the database are defined as tickets
 model Ticket {
   ticket_id           Int    @id @default(autoincrement())
   ticket_status       String
@@ -22,23 +37,28 @@ model Ticket {
   ticket_close_date   DateTime?
   ticket_type         String
   ticket_city         String?
-  ticket_location     String
+  ticket_location     String    //place-id
   ticket_cost         Float?
   ticket_description  String
   ticket_repair_time  Int?
   ticket_upvotes      Int
-  ticket_img          String @unique
 
+  Picture             Picture[]
   @@map("ticket")
+  
 }
 
 ///////////////////////////////////////////////////////////////////////
 // Picture
 ///////////////////////////////////////////////////////////////////////
 
-model Picture{
-  picture_id          String    @id @default(cuid()) 
-  picture_encoded     String
+model Picture {
+  picture_id      Int    @id @default(autoincrement())
+  picture_link    String
+  ticket          Ticket @relation(fields: [ticket_id], references: [ticket_id], onDelete: Cascade)
+  ticket_id       Int
+
+  @@map("picture")
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -46,15 +66,27 @@ model Picture{
 ///////////////////////////////////////////////////////////////////////
 
 model TechTeam {
-  id                   Int       @id @default(autoincrement())
-  name                 String 
-  email                String?   @unique
-  specialisation       String
-  contact_number       String    @db.VarChar(10) @unique
-  nr_jobs_completed    Int?
-  rating_of_jobs       Float?
+  id                Int     @id @default(autoincrement())
+  name              String
+  email             String? @unique
+  specialisation    String
+  contact_number    String  @unique @db.VarChar(10)
+  nr_jobs_completed Int?
+  rating_of_jobs    Float?
 
   @@map("techteam")
+}
+
+///////////////////////////////////////////////////////////////////////
+// TechTeamTicket
+///////////////////////////////////////////////////////////////////////
+
+model TechTeamTicket {
+  id                Int     @id @default(autoincrement())
+  techteam_ID       Int
+  ticket_ID         Int     
+
+  @@map("techteamticket")
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -62,11 +94,11 @@ model TechTeam {
 ///////////////////////////////////////////////////////////////////////
 
 model AuthorizedOfficials {
-  id                  Int       @id @default(autoincrement())
-  name                String 
-  email               String    @unique
-  contact_number      String    @db.VarChar(10) @unique
-  cities              String
+  id             Int    @id @default(autoincrement())
+  name           String
+  email          String @unique
+  contact_number String @unique @db.VarChar(10)
+  cities         String
 
   @@map("authorizedofficials")
 }

@@ -1,5 +1,5 @@
 import {IQueryHandler, QueryHandler} from '@nestjs/cqrs';
-import {CloseTicketQuery, GetCityTicketQuery, GetStatusQuery, GetTicketQuery,GetTicketsDispatchedQuery,GetTicketsQuery, GetIssueQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByLocationQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery } from './api-ticket-query.query';
+import {CloseTicketQuery, GetCityTicketQuery, GetStatusQuery, GetTicketQuery,GetTicketsDispatchedQuery,GetTicketsQuery, GetIssueQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery, GetAllPicturesQuery, GetPictureQuery } from './api-ticket-query.query';
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
 import { Logger } from '@nestjs/common';
 
@@ -43,15 +43,6 @@ export class GetTicketsSortByIssueHandler implements IQueryHandler<GetTicketsSor
     }
 }
 
-@QueryHandler(GetTicketsSortByLocationQuery)
-export class GetTicketsSortByLocationHandler implements IQueryHandler<GetTicketsSortByLocationQuery>{
-    constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
-
-    async execute(){
-        return this.repository.getTicketsSortLocation();
-    }
-}
-
 @QueryHandler(GetTicketsSortByCityQuery)
 export class GetTicketsSortByCityHandler implements IQueryHandler<GetTicketsSortByCityQuery>{
     constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
@@ -78,7 +69,6 @@ export class GetTicketsSortByUpvotesHandler implements IQueryHandler<GetTicketsS
         return this.repository.getTicketsSortUpvotes();
     }
 }
-
 
 @QueryHandler(GetTicketsDispatchedQuery)
 export class GetTicketsDispatchedHandler implements IQueryHandler<GetTicketsDispatchedQuery>{
@@ -126,5 +116,26 @@ export class CloseTicketHandler implements IQueryHandler<CloseTicketQuery>{
     async execute(query: CloseTicketQuery){
         const{TicketId} = query;
         return this.repository.closeTicket(TicketId);
+    }
+}
+
+@QueryHandler(GetAllPicturesQuery)
+export class GetAllPicturesHandler implements IQueryHandler<GetAllPicturesQuery>{
+    constructor(private readonly repository: ApiTicketRepositoryDataAccess){
+    }
+
+    async execute(query: GetAllPicturesQuery){
+        const{TicketId} = query;
+        return this.repository.getAllPictures(TicketId);
+    }
+}
+
+@QueryHandler(GetPictureQuery)
+export class GetPictureHandler implements IQueryHandler<GetPictureQuery>{
+    constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
+
+    async execute(query: GetPictureQuery){
+        const{TicketId} = query;
+        return this.repository.getPicture(TicketId);
     }
 }

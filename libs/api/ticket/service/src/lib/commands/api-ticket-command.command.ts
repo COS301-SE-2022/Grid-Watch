@@ -12,7 +12,6 @@ export class CreateTicketCommand{
         public readonly description,
         public readonly repairTime,
         public readonly upVotes,
-        public readonly image_link
         
         
         ){
@@ -34,7 +33,6 @@ export class UpdateTicketCommand{
         public readonly description,
         public readonly repairTime,
         public readonly upVotes,
-        public readonly image_link
         
         
         ){}
@@ -79,4 +77,20 @@ export class UpdateTicketRepairTimeCommand{
 
 export class UpdateTicketUpVotesCommand{
     constructor(public readonly TicketId, public readonly UpVotes){}
+}
+
+export class IncUpvotesCommand{
+    constructor(public readonly TicketId){}
+}
+
+export class CreatePictureCommand{
+    constructor(public readonly TicketId, public readonly img_link){}
+}
+
+export class UpdatePictureCommand{
+    constructor(public readonly PictureId, public readonly img_link){}
+}
+
+export class DeletePictureCommand{
+    constructor(public readonly PictureId){}
 }

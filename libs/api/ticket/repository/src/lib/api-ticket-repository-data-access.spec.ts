@@ -1,26 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { ApiTicketRepositoryDataAccess } from './api-ticket-repository-data-access';
+import { Ticket } from '@prisma/client';
 
-describe('ApiTicketRepositoryDataAccess', () => {
-  let provider: ApiTicketRepositoryDataAccess;
+  const ticketDtoMock: jest.Mocked<TicketDto> = new TicketDto() as TicketDto;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [ApiTicketRepositoryDataAccess],
-    }).compile();
-
-    provider = module.get<ApiTicketRepositoryDataAccess>(
-      ApiTicketRepositoryDataAccess
-    );
-  });
-
-  it('should be defined', () => {
-    expect(provider).toBeDefined();
-  });
-
-const ticketDtoMock: jest.Mocked<TicketDto> = new TicketDto() as TicketDto;
-describe('ApiTicketRepositoryDataAccess', () => {
+  describe('ApiTicketRepositoryDataAccess', () => {
   let provider: ApiTicketRepositoryDataAccess;
 
   beforeEach(async () => {
@@ -39,21 +24,21 @@ describe('ApiTicketRepositoryDataAccess', () => {
 
   //createTicket endpoint
   describe('createTicket',()=>{
-    it('should return void',async ()=>{
-      jest
-      .spyOn(provider,'createTicket')
-      .mockImplementation(():Promise<void> => Promise.resolve());
+    // it('should return void',async ()=>{
+    //   jest
+    //   .spyOn(provider,'createTicket')
+    //   .mockImplementation(():Promise<void> => Promise.resolve());
 
-      const createDate = new Date();
-      const closeDate = new Date();
-      expect(await provider.createTicket("urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20, "test1.jpg")).toBeUndefined()
-    });
+    //   const createDate = new Date();
+    //   const closeDate = new Date();
+    //   expect(await provider.createTicket("urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20)).toBeUndefined()
+    // });
 
     it('should return null', async () => {
       jest.spyOn(provider, 'createTicket').mockResolvedValue(null);
       const createDate = new Date();
       const closeDate = new Date();
-      expect(await provider.createTicket("urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20, "test1.jpg")).toEqual(null);
+      expect(await provider.createTicket("urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20)).toEqual(null);
     });
   })
 
@@ -66,14 +51,14 @@ describe('ApiTicketRepositoryDataAccess', () => {
 
       const createDate = new Date();
       const closeDate = new Date();
-      expect(await provider.UpdateTicket(1,"urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20, "test1.jpg")).toBeUndefined()
+      expect(await provider.UpdateTicket(1,"urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20)).toBeUndefined()
     });
 
     it('should return null', async () => {
       jest.spyOn(provider, 'UpdateTicket').mockResolvedValue(null);
       const createDate = new Date();
       const closeDate = new Date();
-      expect(await provider.UpdateTicket(1,"urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20, "test1.jpg")).toEqual(null);
+      expect(await provider.UpdateTicket(1,"urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20)).toEqual(null);
     });
   })
 
@@ -332,5 +317,4 @@ describe('ApiTicketRepositoryDataAccess', () => {
     });
   })
 
-});
 });

@@ -1,0 +1,35 @@
+{
+  "root": "libs/api/ticket/api/shared/ticket-picture-dto",
+  "sourceRoot": "libs/api/ticket/api/shared/ticket-picture-dto/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/ticket/api/shared/ticket-picture-dto",
+        "main": "libs/api/ticket/api/shared/ticket-picture-dto/src/index.ts",
+        "tsConfig": "libs/api/ticket/api/shared/ticket-picture-dto/tsconfig.lib.json",
+        "assets": ["libs/api/ticket/api/shared/ticket-picture-dto/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/api/ticket/api/shared/ticket-picture-dto/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/ticket/api/shared/ticket-picture-dto"],
+      "options": {
+        "jestConfig": "libs/api/ticket/api/shared/ticket-picture-dto/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

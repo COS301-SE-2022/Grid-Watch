@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 //import {Ticket,PrismaClient} from '@prisma/client';
 import {QueryBus,CommandBus} from '@nestjs/cqrs';
-import { GetTicketQuery, GetIssueQuery, GetTicketsQuery,GetCityTicketQuery,GetStatusQuery,CloseTicketQuery, GetTicketsDispatchedQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByLocationQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery } from './queries/api-ticket-query.query';
+import { GetTicketQuery, GetIssueQuery, GetTicketsQuery,GetCityTicketQuery,GetStatusQuery,CloseTicketQuery, GetTicketsDispatchedQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery, GetAllPicturesQuery, GetPictureQuery } from './queries/api-ticket-query.query';
 import { CreateTicketCommand,
     UpdateTicketCommand, 
     DeleteTicketCommand, 
@@ -13,7 +13,11 @@ import { CreateTicketCommand,
     UpdateTicketDescriptionCommand,
     UpdateTicketLocationCommand,
     UpdateTicketRepairTimeCommand,
-    UpdateTicketUpVotesCommand } from './commands/api-ticket-command.command';
+    CreatePictureCommand,
+    UpdateTicketUpVotesCommand, 
+    IncUpvotesCommand,
+    UpdatePictureCommand,
+    DeletePictureCommand} from './commands/api-ticket-command.command';
 
 @Injectable()
 export class ApiTicketService {
@@ -29,10 +33,6 @@ export class ApiTicketService {
 
     async GetAllSortByIssue() {
         return await this.queryBus.execute(new GetTicketsSortByIssueQuery())
-    }
-
-    async GetAllSortByLocation() {
-        return await this.queryBus.execute(new GetTicketsSortByLocationQuery())
     }
 
     async GetAllSortByCity() {
@@ -55,16 +55,16 @@ export class ApiTicketService {
         return await this.queryBus.execute(new GetTicketQuery(ticketId))
     }
 
-    async UpdateTicket(TicketId: number, Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number, image_link : string){
-        return await this.commandBus.execute(new UpdateTicketCommand(TicketId, Status, createDate, closeDate, Type, City, Location, Cost, Description, RepairTime, Upvotes, image_link))
+    async UpdateTicket(TicketId: number, Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number){
+        return await this.commandBus.execute(new UpdateTicketCommand(TicketId, Status, createDate, closeDate, Type, City, Location, Cost, Description, RepairTime, Upvotes))
     }
 
     async deleteTicket(ticketId:number){
         return await this.commandBus.execute(new DeleteTicketCommand(ticketId))
     }
 
-    async createTicket(Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number, image_link : string){
-        return await this.commandBus.execute(new CreateTicketCommand(Status, createDate, closeDate, Type, City, Location, Cost, Description, RepairTime, Upvotes, image_link))
+    async createTicket(Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number){
+        return await this.commandBus.execute(new CreateTicketCommand(Status, createDate, closeDate, Type, City, Location, Cost, Description, RepairTime, Upvotes))
     }
 
     async getStatus(Status: string){
@@ -119,5 +119,27 @@ export class ApiTicketService {
         return await this.queryBus.execute(new CloseTicketQuery(TicketId))
     }
 
+    async IncUpvotes(TicketId:number){
+        return await this.commandBus.execute(new IncUpvotesCommand(TicketId))
+    }
 
+    async createPicture(TicketId:number,img_link:string){
+        return await this.commandBus.execute(new CreatePictureCommand(TicketId,img_link))
+    }
+
+    async getPicture(TicketId:number){
+        return await this.queryBus.execute(new GetPictureQuery(TicketId))
+    }
+
+    async getAllPictures(TicketId:number){
+        return await this.queryBus.execute(new GetAllPicturesQuery(TicketId))
+    }
+
+    async updatePicture(PictureId:number,img_link:string){
+        return await this.commandBus.execute(new UpdatePictureCommand(PictureId,img_link))
+    }
+
+    async deletePicture(PictureId:number){
+        return await this.commandBus.execute(new DeletePictureCommand(PictureId))
+    }
 }

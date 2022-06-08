@@ -234,11 +234,4 @@ export class TicketController {
         return this.apiTicketService.deletePicture(PictureId["PictureId"]);
     }
 
-    @Get("/picture/:id")
-    async getAllPictures(@Param() params){
-        Logger.log("HERE")
-        return this.apiTicketService.getPicture(parseInt(params.id));
-    }
-
-
 }

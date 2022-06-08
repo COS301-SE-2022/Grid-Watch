@@ -206,8 +206,8 @@ export class CreateTicketComponent{
           this.ticket.ticket_id = data[0].ticket_id
           this.createPictureURL += this.ticket.ticket_id;
           this.uploadPhoto();
-          
-          // this.router.navigateByUrl("/tickets");
+          this.showSuccessMessage();
+          this.router.navigateByUrl("/tickets");
       },
       error: error => {
           console.error('There was an error!', error);
@@ -215,6 +215,11 @@ export class CreateTicketComponent{
 
     })
     
+  }
+
+  showSuccessMessage() : void
+  {
+    alert("Created Ticket successfully");
   }
 
   uploadPhoto() : void

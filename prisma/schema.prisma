@@ -31,27 +31,17 @@ model User{
 ///////////////////////////////////////////////////////////////////////
 
 model AuthorizedOfficials {
-  id             Int    @id @default(autoincrement())
-  name           String
-  email          String @unique
-  contact_number String @unique @db.VarChar(10)
-  cities         String
+  id              Int    @id @default(autoincrement())
+  name            String
+  email           String @unique
+  contact_number  String @unique @db.VarChar(10)
+  cities          String
+
+  password        String
+  passwordSalt    String?    
+  created         DateTime
 
   @@map("authorizedofficials")
-}
-
-///////////////////////////////////////////////////////////////////////
-// AuhtorizedOfficialUser
-///////////////////////////////////////////////////////////////////////
-
-model AuhtorizedOfficialUser{
-  id           Int        @id @default(autoincrement())
-  email        String     @unique
-  password     String
-  passwordSalt String?    
-  created      DateTime
-
-  @@map("authorizedofficialuser")
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -67,21 +57,11 @@ model TechTeam {
   nr_jobs_completed Int?
   rating_of_jobs    Float?
 
+  password          String
+  passwordSalt      String?    
+  created           DateTime
+
   @@map("techteam")
-}
-
-///////////////////////////////////////////////////////////////////////
-// TechTeamUser
-///////////////////////////////////////////////////////////////////////
-
-model TechTeamUser{
-  id           Int        @id @default(autoincrement())
-  email        String     @unique
-  password     String
-  passwordSalt String?    
-  created      DateTime
-
-  @@map("techteamuser")
 }
 
 ///////////////////////////////////////////////////////////////////////

@@ -70,19 +70,19 @@ export class TicketController {
         return this.apiTicketService.GetAllSortByIssue();
     }
     
-    //get endpint to return all tickets sort by Location
+    //get endpint to return all tickets sort by City
     @Get('/all/tickets/City')
     async getAllSortByCity(){
         return this.apiTicketService.GetAllSortByCity();
     }
     
-    //get endpint to return all tickets sort by Location
+    //get endpint to return all tickets sort by Status
     @Get('/all/tickets/Status')
     async getAllSortByStatus(){
         return this.apiTicketService.GetAllSortBystatus();
     }
     
-    //get endpint to return all tickets sort by Location
+    //get endpint to return all tickets sort by Upvotes
     @Get('/all/tickets/Upvotes')
     async getAllSortByUpvotes(){
         return this.apiTicketService.GetAllSortByUpvotes();
@@ -181,6 +181,7 @@ export class TicketController {
                 }
             )
         }))
+        
     uploadFile(@UploadedFile() file: Express.Multer.File){
         const response = {
             

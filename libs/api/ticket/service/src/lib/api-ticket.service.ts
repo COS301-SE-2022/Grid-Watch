@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 //import {Ticket,PrismaClient} from '@prisma/client';
 import {QueryBus,CommandBus} from '@nestjs/cqrs';
-import { GetTicketQuery, GetIssueQuery, GetTicketsQuery,GetCityTicketQuery,GetStatusQuery,CloseTicketQuery, GetTicketsDispatchedQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery } from './queries/api-ticket-query.query';
+import { GetTicketQuery, GetIssueQuery, GetTicketsQuery,GetCityTicketQuery,GetStatusQuery,CloseTicketQuery, GetTicketsDispatchedQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery, GetAllPicturesQuery, GetPictureQuery } from './queries/api-ticket-query.query';
 import { CreateTicketCommand,
     UpdateTicketCommand, 
     DeleteTicketCommand, 
@@ -15,7 +15,9 @@ import { CreateTicketCommand,
     UpdateTicketRepairTimeCommand,
     CreatePictureCommand,
     UpdateTicketUpVotesCommand, 
-    IncUpvotesCommand} from './commands/api-ticket-command.command';
+    IncUpvotesCommand,
+    UpdatePictureCommand,
+    DeletePictureCommand} from './commands/api-ticket-command.command';
 
 @Injectable()
 export class ApiTicketService {
@@ -125,4 +127,19 @@ export class ApiTicketService {
         return await this.commandBus.execute(new CreatePictureCommand(TicketId,img_link))
     }
 
+    async getPicture(TicketId:number){
+        return await this.queryBus.execute(new GetPictureQuery(TicketId))
+    }
+
+    async getAllPictures(TicketId:number){
+        return await this.queryBus.execute(new GetAllPicturesQuery(TicketId))
+    }
+
+    async updatePicture(PictureId:number,img_link:string){
+        return await this.commandBus.execute(new UpdatePictureCommand(PictureId,img_link))
+    }
+
+    async deletePicture(PictureId:number){
+        return await this.commandBus.execute(new DeletePictureCommand(PictureId))
+    }
 }

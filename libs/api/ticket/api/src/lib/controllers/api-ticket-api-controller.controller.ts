@@ -37,6 +37,11 @@ export class TicketController {
         return this.apiTicketService.GetTicket(parseInt(params.id));
     }
 
+    @Get('inc/:id')
+    async incUpvotes(@Param() params){
+        return this.apiTicketService.IncUpvotes(parseInt(params.id));
+    }
+
     @Get('city/:city')
     async getCity(@Param() params){
         return this.apiTicketService.getCityTicket(params.city);

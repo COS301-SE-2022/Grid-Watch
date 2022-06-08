@@ -78,3 +78,7 @@ export class UpdateTicketRepairTimeCommand{
 export class UpdateTicketUpVotesCommand{
     constructor(public readonly TicketId, public readonly UpVotes){}
 }
+
+export class IncUpvotesCommand{
+    constructor(public readonly TicketId){}
+}

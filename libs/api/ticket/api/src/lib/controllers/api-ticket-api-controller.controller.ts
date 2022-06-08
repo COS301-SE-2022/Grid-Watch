@@ -3,6 +3,7 @@ import {
     Controller,
     Delete,
     Get,
+    Logger,
     Param,
     Post,
     Put,
@@ -97,6 +98,7 @@ export class TicketController {
     async getAllDispatched(){
         return this.apiTicketService.GetAllDispatched();
     }
+
 
     //creating tickets
     @Post('/create')

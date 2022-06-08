@@ -12,7 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     FormsModule,
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
-      {path: 'editUser/:id', pathMatch: 'prefix', component: EditUserComponent},
+      {path: 'editUser', pathMatch: 'full', component: EditUserComponent},
     ]),
   ],
   declarations: [EditUserComponent],

@@ -82,3 +82,7 @@ export class UpdateTicketUpVotesCommand{
 export class IncUpvotesCommand{
     constructor(public readonly TicketId){}
 }
+
+export class CreatePictureCommand{
+    constructor(public readonly TicketId, public readonly img_link){}
+}

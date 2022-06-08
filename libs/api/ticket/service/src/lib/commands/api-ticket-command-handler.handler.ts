@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
-import {DeleteTicketCommand, CreateTicketCommand, UpdateTicketCommand, UpdateTicketStatusCommand, UpdateTicketCreateDateCommand, UpdateTicketTypeCommand, UpdateTicketCloseDateCommand, UpdateTicketLocationCommand, UpdateTicketCostCommand, UpdateTicketDescriptionCommand, UpdateTicketRepairTimeCommand, UpdateTicketUpVotesCommand, IncUpvotesCommand} from './api-ticket-command.command';
+import {DeleteTicketCommand, CreateTicketCommand,CreatePictureCommand, UpdateTicketCommand, UpdateTicketStatusCommand, UpdateTicketCreateDateCommand, UpdateTicketTypeCommand, UpdateTicketCloseDateCommand, UpdateTicketLocationCommand, UpdateTicketCostCommand, UpdateTicketDescriptionCommand, UpdateTicketRepairTimeCommand, UpdateTicketUpVotesCommand, IncUpvotesCommand} from './api-ticket-command.command';
 import { Logger } from '@nestjs/common';
 
 @CommandHandler(CreateTicketCommand)
@@ -135,5 +135,16 @@ export class IncUpvotesHandler implements ICommandHandler<IncUpvotesCommand>{
     async execute(command: IncUpvotesCommand){
         const{TicketId} = command;
         return this.repository.IncUpvotes(TicketId);
+    }
+}
+
+@CommandHandler(CreatePictureCommand)
+export class CreatePictureHandler implements ICommandHandler<CreatePictureCommand>{
+    constructor (private readonly repository:ApiTicketRepositoryDataAccess){
+        
+    }
+    async execute(command: CreatePictureCommand) {
+        const{TicketId,img_link}= command;
+        return this.repository.createPicture(TicketId,img_link);
     }
 }

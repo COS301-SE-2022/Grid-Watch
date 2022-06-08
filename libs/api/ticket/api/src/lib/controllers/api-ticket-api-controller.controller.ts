@@ -30,18 +30,19 @@ export class TicketController {
         return  "Testing Tickets";
     }
 
-
     //get endpiont to return a specific ticket
     @Get(':id')
     async getTicket(@Param() params){
         return this.apiTicketService.GetTicket(parseInt(params.id));
     }
 
+    //get endpoint to increment the ticket upvotes
     @Get('inc/:id')
     async incUpvotes(@Param() params){
         return this.apiTicketService.IncUpvotes(parseInt(params.id));
     }
 
+    //get endpoint to return tickets in a specified city
     @Get('city/:city')
     async getCity(@Param() params){
         return this.apiTicketService.getCityTicket(params.city);
@@ -176,6 +177,10 @@ export class TicketController {
     
     }
 
+    /////////////////////////////////////////////////
+    //////////////Picture endpoints//////////////////
+    /////////////////////////////////////////////////
+
     @Post('/upload')
     @UseInterceptors(
         FileInterceptor('photo', {
@@ -194,6 +199,12 @@ export class TicketController {
         };
         return response;
         
+    }
+
+    @Get('/picture/create/:id')
+    async createPicture(@Param() params,@Body() imgLink: string):Promise<boolean> {
+        return this.apiTicketService.createPicture(parseInt(params.id),imgLink["imgLink"]);
+    
     }
 
 

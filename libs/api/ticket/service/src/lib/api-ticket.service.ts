@@ -13,6 +13,7 @@ import { CreateTicketCommand,
     UpdateTicketDescriptionCommand,
     UpdateTicketLocationCommand,
     UpdateTicketRepairTimeCommand,
+    CreatePictureCommand,
     UpdateTicketUpVotesCommand, 
     IncUpvotesCommand} from './commands/api-ticket-command.command';
 
@@ -118,6 +119,10 @@ export class ApiTicketService {
 
     async IncUpvotes(TicketId:number){
         return await this.commandBus.execute(new IncUpvotesCommand(TicketId))
+    }
+
+    async createPicture(TicketId:number,img_link:string){
+        return await this.commandBus.execute(new CreatePictureCommand(TicketId,img_link))
     }
 
 }

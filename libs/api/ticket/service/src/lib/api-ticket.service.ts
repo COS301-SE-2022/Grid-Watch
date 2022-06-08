@@ -13,7 +13,9 @@ import { CreateTicketCommand,
     UpdateTicketDescriptionCommand,
     UpdateTicketLocationCommand,
     UpdateTicketRepairTimeCommand,
-    UpdateTicketUpVotesCommand } from './commands/api-ticket-command.command';
+    CreatePictureCommand,
+    UpdateTicketUpVotesCommand, 
+    IncUpvotesCommand} from './commands/api-ticket-command.command';
 
 @Injectable()
 export class ApiTicketService {
@@ -115,5 +117,12 @@ export class ApiTicketService {
         return await this.queryBus.execute(new CloseTicketQuery(TicketId))
     }
 
+    async IncUpvotes(TicketId:number){
+        return await this.commandBus.execute(new IncUpvotesCommand(TicketId))
+    }
+
+    async createPicture(TicketId:number,img_link:string){
+        return await this.commandBus.execute(new CreatePictureCommand(TicketId,img_link))
+    }
 
 }

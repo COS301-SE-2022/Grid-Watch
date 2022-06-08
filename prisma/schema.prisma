@@ -52,7 +52,7 @@ model AuhtorizedOfficialUser{
   name         String
   created      DateTime
 
-  @@map("auhtorizedofficialuser")
+  @@map("authorizedofficialuser")
 }
 
 ///////////////////////////////////////////////////////////////////////

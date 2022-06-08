@@ -1,14 +1,12 @@
 import { , HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { MatOption, MatOptionModule } from '@angular/material/core';
 import {  MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpTestingController } from '@angular/common/http/testing';
-
-
 import { CreateTicketComponent } from './create-ticket.component';
 
 describe('CreateTicketComponent', () => {
@@ -19,7 +17,7 @@ describe('CreateTicketComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CreateTicketComponent],
-      imports: [RouterTestingModule, HttpClientModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, BrowserAnimationsModule]
+      imports: [RouterTestingModule, HttpClientModule]
     }).compileComponents();
   });
 

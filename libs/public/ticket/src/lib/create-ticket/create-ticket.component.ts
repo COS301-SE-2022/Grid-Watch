@@ -29,7 +29,7 @@ export class CreateTicketComponent{
   default_upload! : string;
   createTicketURL = "http://localhost:3333/api/ticket/create";
   uploadURL = "http://localhost:3333/api/ticket/upload";
-  getTicketURL = "http://localhost:3333/api/ticket/";
+  getTicketURL = "http://localhost:3333/api/ticket/1";
   
 
   httpOptions = {

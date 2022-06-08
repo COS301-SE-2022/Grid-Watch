@@ -201,7 +201,7 @@ export class TicketController {
         
     }
 
-    @Get('/picture/create/:id')
+    @Post('/picture/create/:id')
     async createPicture(@Param() params,@Body() imgLink: string):Promise<boolean> {
         return this.apiTicketService.createPicture(parseInt(params.id),imgLink["imgLink"]);
     

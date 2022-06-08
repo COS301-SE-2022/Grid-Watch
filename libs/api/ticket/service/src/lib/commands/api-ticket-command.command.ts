@@ -86,3 +86,11 @@ export class IncUpvotesCommand{
 export class CreatePictureCommand{
     constructor(public readonly TicketId, public readonly img_link){}
 }
+
+export class UpdatePictureCommand{
+    constructor(public readonly PictureId, public readonly img_link){}
+}
+
+export class DeletePictureCommand{
+    constructor(public readonly PictureId){}
+}

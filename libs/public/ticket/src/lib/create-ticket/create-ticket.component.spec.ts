@@ -1,4 +1,4 @@
-import { , HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatOption, MatOptionModule } from '@angular/material/core';
@@ -12,7 +12,6 @@ import { CreateTicketComponent } from './create-ticket.component';
 describe('CreateTicketComponent', () => {
   let component: CreateTicketComponent;
   let fixture: ComponentFixture<CreateTicketComponent>;
-  let httpMock: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

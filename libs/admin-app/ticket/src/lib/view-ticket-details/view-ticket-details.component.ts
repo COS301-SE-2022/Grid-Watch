@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
+import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
 
 @Component({
   selector: 'grid-watch-view-ticket-details',
@@ -17,7 +18,7 @@ export class ViewTicketDetailsComponent implements OnInit {
   date_created! : string;
   getTicketURL = "http://localhost:3333/api/ticket/";
   UpdateStatusURL = "http://localhost:3333/api/ticket/update/status/";
-
+  getPictureURL = "http://localhost:3333/api/ticket/picture/";
 
   constructor(private http : HttpClient, 
               private route: ActivatedRoute,
@@ -57,6 +58,15 @@ export class ViewTicketDetailsComponent implements OnInit {
       temp = formatDate(data.ticket_close_date, 'yyyy-MM-dd', 'en-US');
     else
       temp = "";
+
+      this.getPictureURL += data.ticket_id;
+      this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
+        (data) => {
+          console.log(data[0])
+          this.ticket.ticket_img = data[0].picture_link
+      }
+      );
+        
   }
 
   back() : void

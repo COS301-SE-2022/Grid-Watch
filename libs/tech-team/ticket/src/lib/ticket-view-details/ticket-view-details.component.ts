@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
+import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
 
 @Component({
   selector: 'grid-watch-ticket-view-details',
@@ -12,6 +13,8 @@ export class TicketViewDetailsComponent implements OnInit {
 
   getAllURL = "http://localhost:3333/api/ticket/"
   UpdateStatusURL = "http://localhost:3333/api/ticket/update/status/";
+  getPictureURL = "http://localhost:3333/api/ticket/picture/";
+
 
   ticket! : TicketDto;
   issue_id! : string | null;
@@ -29,7 +32,21 @@ export class TicketViewDetailsComponent implements OnInit {
     this.http.get<TicketDto[]>(this.getAllURL).subscribe(
       (data) => {
         this.ticket = data[0];
+        this.loadImage();
       }
+      );
+      
+    
+  }
+
+  loadImage() : void 
+  {
+    this.getPictureURL += this.ticket.ticket_id;
+    this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
+      (data) => {
+        console.log(data[0])
+        this.ticket.ticket_img = data[0].picture_link
+    }
     );
   }
 

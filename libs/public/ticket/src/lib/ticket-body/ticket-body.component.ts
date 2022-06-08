@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { stringify } from 'querystring';
+import { TicketPictureDto } from  "@grid-watch/api/ticket/api/shared/ticket-picture-dto";
 
 
 @Component({
@@ -67,12 +67,6 @@ export class TicketBodyComponent implements OnInit {
   InitialiseTicket(data : TicketDto []) : void 
   {
 
-    let pictureObject = {
-      picture_id : "",
-      picture_link : "",
-      ticket_id : 0,
-    }
-
     // console.log(data);
     // console.log(data.length);
   
@@ -82,10 +76,10 @@ export class TicketBodyComponent implements OnInit {
       this.tickets.push(data[index]);
       const temp =  this.getPictureURL;
       this.getPictureURL += this.tickets[index].ticket_id;
-      this.http.get<Object[]>(this.getPictureURL).subscribe(
+      this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
         (data) => {
-          console.log(data[0].picture_id)
-          // this.tickets[index].ticket_img = data[0].picture_link;
+          console.log(data[0])
+          this.tickets[index].ticket_img = data[0].picture_link;
       }
       );
       this.getPictureURL = temp;

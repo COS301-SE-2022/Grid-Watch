@@ -15,6 +15,8 @@ prisma = new PrismaClient();
                     email :                 Email,
                     specialisation :        Specialisation,
                     contact_number :        ContactNr,
+                    rating_of_jobs :        0.0,
+                    nr_jobs_completed :     0
                 },
             });
     }

@@ -1,5 +1,21 @@
 <div style="text-align: center">
     <h1 class="mt-5 display-1">Welcome to Gridwatch!</h1>
     <h1 class = "mt-3">{{application_type}} Application</h1>
-    <div class = "mt-4" ><img src="assets/under-construction.jpg" alt="under_construction"></div>
-  </div>
+    <!-- <div class = "mt-4" ><img src="assets/under-construction.jpg" alt="under_construction"></div> -->
+</div>
+<div class="container mb-4">
+  <google-map 
+    width="100%"
+    [zoom]="zoom"
+    [center]="center"
+    [options]="options">
+    <map-marker
+      *ngFor="let marker of markers"
+      [position]="marker.position"
+      [title]="marker.title"
+      [options]="marker.options"
+      >
+    </map-marker>
+  </google-map>
+</div>
+   

@@ -3,6 +3,7 @@ import {
     Controller,
     Delete,
     Get,
+    Logger,
     Param,
     Post,
     Put,
@@ -206,6 +207,13 @@ export class TicketController {
     async createPicture(@Param() params,@Body() imgLink: string):Promise<boolean> {
         return this.apiTicketService.createPicture(parseInt(params.id),imgLink["imgLink"]);
     
+    }
+
+
+    @Get("/picture/:id")
+    async getAllPictures(@Param() params){
+        Logger.log("HERE")
+        return this.apiTicketService.getPicture(parseInt(params.id));
     }
 
 

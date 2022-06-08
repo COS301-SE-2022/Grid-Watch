@@ -27,6 +27,7 @@ export class CreateTicketComponent{
   options!: google.maps.MapOptions;
 
   default_upload! : string;
+  createPictureURL = "http://localhost:3333/api/ticket/picture/create/";
   createTicketURL = "http://localhost:3333/api/ticket/create";
   uploadURL = "http://localhost:3333/api/ticket/upload";
   getTicketURL = "http://localhost:3333/api/ticket/1";
@@ -129,6 +130,7 @@ export class CreateTicketComponent{
         next: data => {
             // console.log(data.filename);
             // this.router.navigateByUrl("/tickets");
+            
             this.ticket.ticket_img = data.filename
             this.uploadTicket();
           },
@@ -182,8 +184,8 @@ export class CreateTicketComponent{
               for (let k = 0 ; k < 4; k++)
                 this.ticket.ticket_location += response[0].address_components[k].long_name + " ";
               this.ticket.ticket_city = response[0].address_components[3].long_name;
-                console.log(this.ticket.ticket_location);
-              console.log(this.ticket.ticket_city);
+                // console.log(this.ticket.ticket_location);
+              // console.log(this.ticket.ticket_city);
             }
 
           });
@@ -194,18 +196,42 @@ export class CreateTicketComponent{
 
   uploadTicket() {
 
-    console.log(this.ticket);
+    // console.log(this.ticket);
     
-      this.http.post<TicketDto>(this.createTicketURL, this.ticket, this.httpOptions)
+      this.http.post<TicketDto[]>(this.createTicketURL, this.ticket, this.httpOptions)
     .subscribe({
       next: data => {
-          console.log(data);
-          this.router.navigateByUrl("/tickets");
+        console.log("HERE");
+        
+          this.ticket.ticket_id = data[0].ticket_id
+          this.createPictureURL += this.ticket.ticket_id;
+          this.uploadPhoto();
+          
+          // this.router.navigateByUrl("/tickets");
       },
       error: error => {
           console.error('There was an error!', error);
       }
-  })
+
+    })
+    
+  }
+
+  uploadPhoto() : void
+  {
+    const temp = JSON.parse('{ "imgLink" : "' + this.ticket.ticket_img + '"}');
+    this.http.post<string>(this.createPictureURL, temp, this.httpOptions).subscribe(
+      (data) =>
+      {
+
+        console.log(data);
+      },
+      (error) =>
+      {
+        console.log(error);
+        
+      }
+    );
   }
 
   createMapMarker(place: google.maps.places.PlaceResult) : void
@@ -217,7 +243,7 @@ export class CreateTicketComponent{
       this.zoom = 12;
       this.center = place.geometry?.location;
     }
-    console.log(place.geometry?.location);
+    // console.log(place.geometry?.location);
     document.getElementById("pac-input")?.focus();
   }
 }

@@ -17,13 +17,19 @@ export class AcceptedTicketViewComponent implements OnInit {
 
   ngOnInit(): void {
     
-      this.getAllURL += "Accepted"
+    const temp = this.getAllURL;
+    const options = ["Accepted", "In Progress", "Awaiting Material", "Finishing up", "Finished"];
+    for (let k = 0 ; k < options.length; k++)
+    {
+      this.getAllURL += options[k];
       this.http.get<TicketDto[]>(this.getAllURL).subscribe(
         (data) => {
           // console.log(data);
           this.initialiseTicket(data);
       }
       );
+      this.getAllURL = temp;
+    }
   }
 
   viewTicket(id : number) : void {

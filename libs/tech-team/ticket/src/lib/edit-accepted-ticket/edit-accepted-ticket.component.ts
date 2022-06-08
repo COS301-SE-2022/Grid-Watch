@@ -55,7 +55,7 @@ export class EditAcceptedTicketComponent implements OnInit {
   {
     this.router.navigateByUrl("/acceptedTickets");
   }
-
+  
   update() : void
   {
     let output_message= "";
@@ -92,21 +92,23 @@ export class EditAcceptedTicketComponent implements OnInit {
       {
         error += "Status";
       }
+     
     }
-
+    
     if (error != "")
       this.showErrorMessage(error)
-    if (output_message != "")
+      if (output_message != "")
       this.showSuccessMessage(output_message);
-
-  }
-
-  updateRepairTime() : boolean
-  {
-    const temp = '{"repairTime": ' + this.repair_time + '}';
-    this.http.put<JSON>(this.UpdateRepairURL, JSON.parse(temp) ,this.httpOptions).subscribe(
-      () => {return true},
-      () => {return false}
+      
+    this.router.navigateByUrl("/acceptedTickets");
+    }
+    
+    updateRepairTime() : boolean
+    {
+      const temp = '{"repairTime": ' + this.repair_time + '}';
+      this.http.put<JSON>(this.UpdateRepairURL, JSON.parse(temp) ,this.httpOptions).subscribe(
+        () => {return true},
+        () => {return false}
       );
       return false;
     }

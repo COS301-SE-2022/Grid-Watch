@@ -10,12 +10,30 @@
                     <li class="nav-item" *ngFor="let option of options, index as i">
                         <a class="nav-link" routerLink="{{router_options[i]}}">{{option}}</a>
                     </li>
+
                 </ul>
             </div>
-            <div class="navbar-brand col">
-                <a [routerLink]="[login_url, {app:application_type}]" href="">
-                    <img src="assets/user-regular.svg" class="rounded-circle border user_profile_navbar float-right" alt="user_profile_navbar">
-                </a>
+            <div class="navbar-nav brand col ml-auto">
+                <a  class="nav-item nav-link notifications"><img src="assets/bell-solid.svg" alt=""><span class="badge">1</span></a>
+                <div class="nav-item dropdown">
+                    <a data-bs-toggle="dropdown" aria-expanded="false" id="drop-down-toggle" (click)="dropdown()" class="nav-link dropdown-toggle user-action"><img src="assets/user-solid.svg" class="avatar" alt="Avatar"> John Doe <b class="caret"></b></a>
+                    <div class="dropdown-menu" id="profile_dropdown"  aria-labelledby="drop-down-toggle">
+                        <a class="dropdown-item" [routerLink]="['/login', {app:application_type}]">
+                            <img src="assets/user-solid.svg" class="profile_option_img" alt="profile_option_img"  > 
+                            Login
+                        </a>
+                        <a class="dropdown-item" [routerLink]="['/editUser', {id:1}]">
+                            <img src="assets/user-solid.svg" class="profile_option_img" alt="profile_option_img">
+                             User Profile
+                        </a>
+                        <a class="dropdown-item">
+                            <img src="assets/gear-solid.svg" class="profile_option_img" alt="settings_option_img"> 
+                            Settings
+                        </a>
+                        <!-- <div class="dropdown-divider"></div> -->
+                        <!-- <a href="#" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a> -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>

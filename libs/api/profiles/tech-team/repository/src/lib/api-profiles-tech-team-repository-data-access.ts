@@ -210,5 +210,52 @@ prisma = new PrismaClient();
             },
         })
     }
+
+    async createTechTeamTicket(TechTeamID: number, TicketID : number ){
+        await this.prisma.techTeamTicket.create({
+            data:
+            {
+                techteam_ID :   TechTeamID,
+                ticket_ID :     TicketID,
+            },
+        });
+    }
+
+    async getTechTeamTickets(TechTeamID: number){
+
+        const techteam = await this.prisma.techTeamTicket.findMany({
+
+            where:{
+                techteam_ID: TechTeamID
+            },
+
+        })
+
+        if (techteam) {
+            return techteam;
+        }
+        else{
+            return "Techteam " + TechTeamID + " has no tickets!";
+        }
+    }
+
+    async getTechTeamFromTicket(TicketID: number){
+
+        const techteam = await this.prisma.techTeamTicket.findMany({
+
+            where:{
+                id : TicketID
+            },
+
+        })
+
+        if (techteam) {
+            return techteam;
+        }
+        else{
+            return " No Techteam with Ticket ID " + TicketID + "!";
+        }
+    }
+    
 }
 

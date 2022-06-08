@@ -49,17 +49,17 @@ export class TicketViewDetailsComponent implements OnInit {
       })
     };
     const temp = {status: "Accepted"}
-    this.http.put<string>(this.UpdateStatusURL, temp ,httpOptions).subscribe(
-      (data) => {
-        console.log(data);
-        this.showSuccessMessage();
-        this.router.navigateByUrl("/tickets");
-    },
-    () =>
-    {
-      this.showErrorMessage()
-    }
-    );
+    this.router.navigate(["/editTicketDetails", {"id":this.issue_id}])
+    // this.http.put<string>(this.UpdateStatusURL, temp ,httpOptions).subscribe(
+    //   (data) => {
+    //     console.log(data);
+    //     this.showSuccessMessage();
+    // },
+    // () =>
+    // {
+    //   this.showErrorMessage()
+    // }
+    // );
   }
 
   

@@ -40,7 +40,6 @@ export class TicketBodyComponent implements OnInit {
 
     this.http.get<TicketDto[]>(this.getAllURL).subscribe(
       (data) => {
-        // console.log(data);
         this.InitialiseTicket(data);
     }
     );
@@ -63,9 +62,12 @@ export class TicketBodyComponent implements OnInit {
 
   InitialiseTicket(data : TicketDto []) : void 
   {
+    console.log(data);
+    console.log(data.length);
+  
     for (let index = 0; index < data.length; index++) 
     {
-      if (data[index].ticket_img)  
+      // if (data[index].ticket_img)  
       this.tickets.push(data[index]);
     }
     console.log(this.tickets);

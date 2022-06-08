@@ -211,26 +211,25 @@ export class TicketController {
     //get Pictures of specified ticket
     @Get('/picture/:id')
     async getPictures(@Param() params){
-        //return this.apiTicketService.getPicture(parseInt(params.id));
+        return this.apiTicketService.getPicture(parseInt(params.id));
     }
 
     //get Pictrues of specified ticket sorted according to newest picture
     @Get('/picture/sort/:id')
     async getAllPictures(@Param() params){
-        //return this.apiTicketService.getAllPictures(parseInt(params.id));
+        return this.apiTicketService.getAllPictures(parseInt(params.id));
     }
 
     //update Picture endpoint
     @Put('/picture/update/:id')
     async updatePicture(@Param() params, @Body() imgLink : string): Promise<boolean>{
-        //return this.apiTicketService.updatePicture(parseInt(params.id),imgLink["imgLink"]);
+        return this.apiTicketService.updatePicture(parseInt(params.id),imgLink["imgLink"]);
         return true;
     }
 
     @Delete('/picture/delete')
     async deletePicture(@Body() PictureId: number):Promise<boolean> {
-        //return this.apiTicketService.deletePicture(PictureId["PictureId"]);
-        return true;
+        return this.apiTicketService.deletePicture(PictureId["PictureId"]);
     }
 
 }

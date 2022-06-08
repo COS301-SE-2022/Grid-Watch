@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
-import {DeleteTicketCommand, CreateTicketCommand,CreatePictureCommand, UpdateTicketCommand, UpdateTicketStatusCommand, UpdateTicketCreateDateCommand, UpdateTicketTypeCommand, UpdateTicketCloseDateCommand, UpdateTicketLocationCommand, UpdateTicketCostCommand, UpdateTicketDescriptionCommand, UpdateTicketRepairTimeCommand, UpdateTicketUpVotesCommand, IncUpvotesCommand} from './api-ticket-command.command';
+import {DeleteTicketCommand, CreateTicketCommand,CreatePictureCommand, UpdateTicketCommand, UpdateTicketStatusCommand, UpdateTicketCreateDateCommand, UpdateTicketTypeCommand, UpdateTicketCloseDateCommand, UpdateTicketLocationCommand, UpdateTicketCostCommand, UpdateTicketDescriptionCommand, UpdateTicketRepairTimeCommand, UpdateTicketUpVotesCommand, IncUpvotesCommand, UpdatePictureCommand, DeletePictureCommand} from './api-ticket-command.command';
 import { Logger } from '@nestjs/common';
 
 @CommandHandler(CreateTicketCommand)
@@ -146,5 +146,27 @@ export class CreatePictureHandler implements ICommandHandler<CreatePictureComman
     async execute(command: CreatePictureCommand) {
         const{TicketId,img_link}= command;
         return this.repository.createPicture(TicketId,img_link);
+    }
+}
+
+@CommandHandler(UpdatePictureCommand)
+export class UpdatePictureHandler implements ICommandHandler<UpdatePictureCommand>{
+
+    constructor (private readonly repository:ApiTicketRepositoryDataAccess){
+
+    }
+    async execute(command: UpdatePictureCommand) {
+        const{PictureId,img_link}= command;
+        return this.repository.updatePicture(PictureId,img_link);
+    }
+}
+
+@CommandHandler(DeletePictureCommand)
+export class DeletePictureHanadler implements ICommandHandler<DeletePictureCommand>{
+    constructor (private readonly repository: ApiTicketRepositoryDataAccess){}
+
+    async execute(command: DeletePictureCommand) {
+        const{PictureId} = command;
+        return this.repository.deletePicture(PictureId);
     }
 }

@@ -20,9 +20,9 @@ export class TicketViewDetailsComponent implements OnInit {
   issue_id! : string | null;
 
   zoom! : number;
-  center! : google.maps.LatLngLiteral | google.maps.LatLng;
-  options!: google.maps.MapOptions;
-  marker_position!: google.maps.LatLng | google.maps.LatLngLiteral
+  center! : Record<string, unknown>;
+  options!: Record<string, unknown>;
+  marker_position!: Record<string, unknown>;
 
   constructor(
     private router : Router,
@@ -37,7 +37,7 @@ export class TicketViewDetailsComponent implements OnInit {
     this.http.get<TicketDto[]>(this.getAllURL).subscribe(
       (data) => {
         this.ticket = data[0];
-        this.loadImage();
+        // this.loadImage();
       }
       );
 

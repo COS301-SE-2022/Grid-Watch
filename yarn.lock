@@ -1770,10 +1770,10 @@
     optional "0.1.4"
     tslib "2.3.1"
 
-"@ng-bootstrap/ng-bootstrap@^12.1.1":
-  version "12.1.1"
-  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-12.1.1.tgz#57444381b02d2582ab050bbdde1f05564ac587c1"
-  integrity sha512-g0/b+qecgsCDspsctKcr5ihjJgtEAePs3m9l7OfioSSBGkjBiOr1ghbixNMwJx4drSVmVWGHSGZyLjDGmd1Wdg==
+"@ng-bootstrap/ng-bootstrap@^12.1.2":
+  version "12.1.2"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-12.1.2.tgz#19f21313234fe21090ba50a7721046ed5d9928e1"
+  integrity sha512-p27c+mYVdHiJMYrj5hwClVJxLdiZxafAqlbw1sdJh2xJ1rGOe+H/kCf5YDRbhlHqRN+34Gr0RQqIUeD1I2V8hg==
   dependencies:
     tslib "^2.3.0"
 
@@ -3230,6 +3230,16 @@ babel-loader@8.2.3:
   dependencies:
     find-cache-dir "^3.3.1"
     loader-utils "^1.4.0"
+    make-dir "^3.1.0"
+    schema-utils "^2.6.5"
+
+babel-loader@^8.0.2:
+  version "8.2.5"
+  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.2.5.tgz#d45f585e654d5a5d90f5350a779d7647c5ed512e"
+  integrity sha512-OSiFfH89LrEMiWd4pLNqGz4CwJDtbs2ZVc+iGu2HrkRfPxId9F2anQj38IxWpmRfsUY0aBZYi1EFcd3mhtRMLQ==
+  dependencies:
+    find-cache-dir "^3.3.1"
+    loader-utils "^2.0.0"
     make-dir "^3.1.0"
     schema-utils "^2.6.5"
 
@@ -6681,6 +6691,11 @@ jest@27.5.1:
     "@jest/core" "^27.5.1"
     import-local "^3.0.2"
     jest-cli "^27.5.1"
+
+jquery@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
+  integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
 
 js-tokens@^4.0.0:
   version "4.0.0"

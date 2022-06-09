@@ -5,6 +5,7 @@ import { Express } from 'express';
 import { Multer } from 'multer';
 import { GoogleMap } from '@angular/google-maps';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
+import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
 
 @Component({
   selector: 'grid-watch-edit-ticket',
@@ -37,6 +38,7 @@ export class EditTicketComponent implements OnInit {
   updateURL = "http://localhost:3333/api/ticket/update/";
   getTicketURL = "http://localhost:3333/api/ticket/";
   uploadURL = "http://localhost:3333/api/ticket/upload";
+  getPictureURL = "http://localhost:3333/api/ticket/picture/";
 
   constructor(
       private route: ActivatedRoute, 
@@ -180,17 +182,23 @@ export class EditTicketComponent implements OnInit {
 
   initialiseFields(data : TicketDto)
   {
-    
-    if (this.ticket.ticket_img != "")
-        this.default_upload = "assets/" + this.ticket.ticket_img;
-    if ((data.ticket_type === "Pothole") || (data.ticket_type === "Water Outage") ||
-        (data.ticket_type === "Sinkhole")  || (data.ticket_type === "Electricity Outage") ) 
-          this.issue_type = data.ticket_type;
-    else
-    {
-      this.issue_type = "Other"
-      this.other_details = data.ticket_type;
-    }
+    this.getPictureURL += data.ticket_id;
+      this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
+        (datas) => {
+          console.log(datas[0])
+          this.ticket.ticket_img = datas[0].picture_link;
+          if (this.ticket.ticket_img != "")
+              this.default_upload = "assets/" + this.ticket.ticket_img;
+          if ((data.ticket_type === "Pothole") || (data.ticket_type === "Water Outage") ||
+              (data.ticket_type === "Sinkhole")  || (data.ticket_type === "Electricity Outage") ) 
+                this.issue_type = data.ticket_type;
+          else
+          {
+            this.issue_type = "Other"
+            this.other_details = data.ticket_type;
+          }
+      }
+      );
   }
 
   

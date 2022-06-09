@@ -47,6 +47,9 @@
         "libs/api/profiles/tech-team/service/src/index.ts"
       ],
       "@grid-watch/api/ticket/api": ["libs/api/ticket/api/src/index.ts"],
+      "@grid-watch/api/ticket/api/shared/ticket-picture-dto": [
+        "libs/api/ticket/api/shared/ticket-picture-dto/src/index.ts"
+      ],
       "@grid-watch/api/ticket/api/shared/ticketdto": [
         "libs/api/ticket/api/shared/ticketdto/src/index.ts"
       ],
@@ -71,12 +74,13 @@
       "@grid-watch/shared-ui": ["libs/shared-ui/src/index.ts"],
       "@grid-watch/tech-team-app": ["libs/tech-team-app/src/index.ts"],
       "@grid-watch/tech-team/profile": ["libs/tech-team/profile/src/index.ts"],
+      "@grid-watch/tech-team/profile/tech-team-dto": [
+        "/libs/api/profiles/tech-team/api/src/lib/dto/api-profiles-tech-team-api.dto.ts"
+      ],
       "@grid-watch/tech-team/ticket": ["libs/tech-team/ticket/src/index.ts"],
       "@grid-watch/tech-team/ticket-view": [
         "libs/tech-team/ticket-view/src/index.ts"
-      ],
-      "@grid-watch/tech-team/profile/tech-team-dto" : ["/libs/api/profiles/tech-team/api/src/lib/dto/api-profiles-tech-team-api.dto.ts"]
-
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

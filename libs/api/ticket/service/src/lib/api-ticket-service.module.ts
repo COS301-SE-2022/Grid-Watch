@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ApiTicketService } from './api-ticket.service';
-import { createTicketHandler, deleteTicketHandler, updateTicketHandler, updateTicketDescriptionHandler,updateTicketCloseDateHandler,updateTicketCostHandler,updateTicketCreateDateHandler,updateTicketLocationHandler,updateTicketRepairTimeHandler,updateTicketStatusHandler,updateTicketTypeHandler,updateTicketUpVotesHandler } from './commands/api-ticket-command-handler.handler';
-import { GetTicketHandler, GetTicketsHandler, GetCityHandler,CloseTicketHandler,GetStatusHandler, GetTicketsDispatchedHandler, GetIssueHandler, GetTicketsSortByDateHandler, GetTicketsSortByIssueHandler, GetTicketsSortByCityHandler, GetTicketsSortByStatusHandler, GetTicketsSortByUpvotesHandler } from './queries/api-ticket-quety-handler.handler';
+import { createTicketHandler, IncUpvotesHandler,CreatePictureHandler,deleteTicketHandler, updateTicketHandler, updateTicketDescriptionHandler,updateTicketCloseDateHandler,updateTicketCostHandler,updateTicketCreateDateHandler,updateTicketLocationHandler,updateTicketRepairTimeHandler,updateTicketStatusHandler,updateTicketTypeHandler,updateTicketUpVotesHandler } from './commands/api-ticket-command-handler.handler';
+import { GetTicketHandler, GetTicketsHandler, GetCityHandler,CloseTicketHandler,GetStatusHandler, GetTicketsDispatchedHandler, GetIssueHandler, GetTicketsSortByDateHandler, GetTicketsSortByIssueHandler, GetTicketsSortByCityHandler, GetTicketsSortByStatusHandler, GetTicketsSortByUpvotesHandler, GetPictureHandler } from './queries/api-ticket-quety-handler.handler';
 import { ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
 
 @Module({
@@ -10,6 +10,8 @@ import { ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository'
   providers: [ApiTicketService,
     createTicketHandler,
     updateTicketHandler,
+    CreatePictureHandler,
+    IncUpvotesHandler,
     updateTicketDescriptionHandler,
     deleteTicketHandler,
     GetTicketHandler,
@@ -32,7 +34,8 @@ import { ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository'
     updateTicketRepairTimeHandler,
     updateTicketStatusHandler,
     updateTicketTypeHandler,
-    updateTicketUpVotesHandler
+    updateTicketUpVotesHandler,
+    GetPictureHandler,
   ],
   exports: [ApiTicketService],
 })

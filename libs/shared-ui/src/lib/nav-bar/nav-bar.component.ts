@@ -53,4 +53,9 @@ export class NavBarComponent implements OnInit{
 
     }
   }
+
+  dropdown() : void {
+    const temp = document.getElementById("drop-down-toggle") as HTMLInputElement;
+    // temp.dropdown();
+  }
 }

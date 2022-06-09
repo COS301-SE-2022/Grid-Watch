@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
+import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
 
 @Component({
   selector: 'grid-watch-edit-accepted-ticket',
@@ -15,6 +16,8 @@ export class EditAcceptedTicketComponent implements OnInit {
   UpdateStatusURL = "http://localhost:3333/api/ticket/update/status/";
   UpdateRepairURL = "http://localhost:3333/api/ticket/update/repair/";
   UpdateCostURL = "http://localhost:3333/api/ticket/update/cost/";
+  getPictureURL = "http://localhost:3333/api/ticket/picture/";
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json'
@@ -47,6 +50,7 @@ export class EditAcceptedTicketComponent implements OnInit {
         this.status = this.ticket.ticket_status
         this.repair_time = this.ticket.ticket_repair_time
         this.cost = this.ticket.ticket_cost
+        this.loadImage();
       }
     );
   }
@@ -55,7 +59,7 @@ export class EditAcceptedTicketComponent implements OnInit {
   {
     this.router.navigateByUrl("/acceptedTickets");
   }
-
+  
   update() : void
   {
     let output_message= "";
@@ -92,21 +96,23 @@ export class EditAcceptedTicketComponent implements OnInit {
       {
         error += "Status";
       }
+     
     }
-
+    
     if (error != "")
       this.showErrorMessage(error)
-    if (output_message != "")
+      if (output_message != "")
       this.showSuccessMessage(output_message);
-
-  }
-
-  updateRepairTime() : boolean
-  {
-    const temp = '{"repairTime": ' + this.repair_time + '}';
-    this.http.put<JSON>(this.UpdateRepairURL, JSON.parse(temp) ,this.httpOptions).subscribe(
-      () => {return true},
-      () => {return false}
+      
+    this.router.navigateByUrl("/acceptedTickets");
+    }
+    
+    updateRepairTime() : boolean
+    {
+      const temp = '{"repairTime": ' + this.repair_time + '}';
+      this.http.put<JSON>(this.UpdateRepairURL, JSON.parse(temp) ,this.httpOptions).subscribe(
+        () => {return true},
+        () => {return false}
       );
       return false;
     }
@@ -138,6 +144,17 @@ export class EditAcceptedTicketComponent implements OnInit {
   showSuccessMessage(errors :string) : void {
     
     alert("The Following updates encountered problems" + errors);
+  }
+
+  loadImage() : void 
+  {
+    this.getPictureURL += this.ticket.ticket_id;
+    this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
+      (data) => {
+        console.log(data[0])
+        this.ticket.ticket_img = data[0].picture_link
+    }
+    );
   }
 
 }

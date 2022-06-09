@@ -3,6 +3,7 @@ import {
     Controller,
     Delete,
     Get,
+    Logger,
     Param,
     Post,
     Put,
@@ -14,9 +15,7 @@ import { ApiTicketService } from '@grid-watch/api/ticket/service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { diskStorage, Multer } from 'multer';
-import { extname } from 'path';
 import { Helper } from './helper';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 
 @Controller('ticket')
@@ -30,13 +29,19 @@ export class TicketController {
         return  "Testing Tickets";
     }
 
-
     //get endpiont to return a specific ticket
     @Get(':id')
     async getTicket(@Param() params){
         return this.apiTicketService.GetTicket(parseInt(params.id));
     }
 
+    //get endpoint to increment the ticket upvotes
+    @Get('inc/:id')
+    async incUpvotes(@Param() params){
+        return this.apiTicketService.IncUpvotes(parseInt(params.id));
+    }
+
+    //get endpoint to return tickets in a specified city
     @Get('city/:city')
     async getCity(@Param() params){
         return this.apiTicketService.getCityTicket(params.city);
@@ -93,6 +98,7 @@ export class TicketController {
     async getAllDispatched(){
         return this.apiTicketService.GetAllDispatched();
     }
+
 
     //creating tickets
     @Post('/create')
@@ -171,6 +177,11 @@ export class TicketController {
     
     }
 
+
+    /////////////////////////////////////////////////
+    //////////////Picture endpoints//////////////////
+    /////////////////////////////////////////////////
+
     @Post('/upload')
     @UseInterceptors(
         FileInterceptor('photo', {
@@ -192,5 +203,36 @@ export class TicketController {
         
     }
 
+    //Create picture Endpoint
+    //Provide ticket id to be linked
+    @Post('/picture/create/:id')
+    async createPicture(@Param() params,@Body() imgLink: string):Promise<boolean> {
+        return this.apiTicketService.createPicture(parseInt(params.id),imgLink["imgLink"]);
+    
+    }
+
+    //get Pictures of specified ticket
+    @Get('/picture/:id')
+    async getPictures(@Param() params){
+        return this.apiTicketService.getPicture(parseInt(params.id));
+    }
+
+    //get Pictrues of specified ticket sorted according to newest picture
+    @Get('/picture/sort/:id')
+    async getAllPictures(@Param() params){
+        return this.apiTicketService.getAllPictures(parseInt(params.id));
+    }
+
+    //update Picture endpoint
+    @Put('/picture/update/:id')
+    async updatePicture(@Param() params, @Body() imgLink : string): Promise<boolean>{
+        return this.apiTicketService.updatePicture(parseInt(params.id),imgLink["imgLink"]);
+        return true;
+    }
+
+    @Delete('/picture/delete')
+    async deletePicture(@Body() PictureId: number):Promise<boolean> {
+        return this.apiTicketService.deletePicture(PictureId["PictureId"]);
+    }
 
 }

@@ -7,12 +7,14 @@ import { TicketViewDetailsComponent } from './ticket-view-details/ticket-view-de
 import { AcceptedTicketViewComponent } from './accepted-ticket-view/accepted-ticket-view.component';
 import { EditAcceptedTicketComponent } from './edit-accepted-ticket/edit-accepted-ticket.component';
 import { FormsModule } from '@angular/forms';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
     FormsModule,
+    GoogleMapsModule,
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
       {

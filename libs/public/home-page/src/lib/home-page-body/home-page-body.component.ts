@@ -59,17 +59,18 @@ addMarker() : void {
     lat: -25.7479,
     lng: 28.2293,
   };
-  for (let k = 0; k < 10; k++)
+  const titles= ["Pothole","Broken Light", "Broken Robot", "Sinkhole", "Electricity Outage", "Water Outage"];
+  for (let k = 0; k < 20; k++)
   {
     this.markers.push({
       position: {
-        lat: temp.lat + (((Math.random() - 0.5) * 2) / 10),
-        lng: temp.lng + ((Math.random() - 0.5) * 2) / 10,
+        lat: temp.lat + (((Math.random() - 0.5) * 6) / 10),
+        lng: temp.lng + ((Math.random() - 0.5) * 6) / 10,
       },
       label: {
         color: 'red'
       },
-      title: 'Marker title ' + (this.markers.length + 1),
+      title: titles[k % titles.length],
       // options: { animation: google.maps.Animation.BOUNCE },
       options: {},
     });

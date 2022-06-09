@@ -39,6 +39,8 @@ export class EditTicketComponent implements OnInit {
   getTicketURL = "http://localhost:3333/api/ticket/";
   uploadURL = "http://localhost:3333/api/ticket/upload";
   getPictureURL = "http://localhost:3333/api/ticket/picture/";
+  createPictureURL = "http://localhost:3333/api/ticket/picture/create/";
+
 
   constructor(
       private route: ActivatedRoute, 
@@ -129,7 +131,6 @@ export class EditTicketComponent implements OnInit {
       this.ticket.ticket_type = this.issue_type;
     this.ticket.ticket_status = "Created";
     this.ticket.ticket_create_date = new Date();
-    this.ticket.ticket_upvotes = 0;
 
     if (this.file !== undefined)
     {
@@ -159,11 +160,15 @@ export class EditTicketComponent implements OnInit {
   
   updateTicket(link : string) {
     this.ticket.ticket_img = link
-    this.http.put<TicketDto>(this.updateURL, this.ticket, this.httpOptions).subscribe(
+    this.http.put<TicketDto[]>(this.updateURL, this.ticket, this.httpOptions).subscribe(
         () => {
+          this.createPictureURL += this.ticket.ticket_id;
           if (this.file != null)
+            this.uploadPhoto();
+          else{
             this.showSuccessMessage();
-            // this.router.navigateByUrl("/tickets")
+            this.router.navigateByUrl("/tickets")
+          }
         },
         () => {
           this.showErrorMessage("Errror updating ticket");
@@ -186,7 +191,7 @@ export class EditTicketComponent implements OnInit {
       this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
         (datas) => {
           console.log(datas[0])
-          this.ticket.ticket_img = datas[0].picture_link;
+          this.ticket.ticket_img = datas[datas.length -1].picture_link;
           if (this.ticket.ticket_img != "")
               this.default_upload = "assets/" + this.ticket.ticket_img;
           if ((data.ticket_type === "Pothole") || (data.ticket_type === "Water Outage") ||
@@ -261,5 +266,24 @@ export class EditTicketComponent implements OnInit {
     }
     console.log(place.geometry?.location);
     document.getElementById("pac-input")?.focus();
+  }
+
+  uploadPhoto() : void
+  {
+    const temp = JSON.parse('{ "imgLink" : "' + this.ticket.ticket_img + '"}');
+    this.http.post<string>(this.createPictureURL, temp, this.httpOptions).subscribe(
+      (data) =>
+      {
+
+        console.log(data);
+        this.showSuccessMessage();
+        this.router.navigateByUrl("/tickets")
+      },
+      (error) =>
+      {
+        console.log(error);
+        
+      }
+    );
   }
 }

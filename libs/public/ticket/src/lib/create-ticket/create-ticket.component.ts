@@ -98,25 +98,25 @@ export class CreateTicketComponent{
     }
     if (this.autocomplete.getPlace() !== undefined)
     {
-      const place = this.autocomplete.getPlace().formatted_address;
+      const place = this.autocomplete.getPlace().address_components;
       console.log(google.maps.places);
       // const temp = document.getElementById("pac-input") as HTMLInputElement;
-      if (place !== undefined)
-        this.ticket.ticket_location = place;
-        else
-        this.ticket.ticket_location = "";
+      // if (place !== undefined)
+      //   this.ticket.ticket_location = place;
+      //   else
+      //   this.ticket.ticket_location = "";
       
-      // if (place)
-      // {
-      //   for (let k = 0; k < 3; k++)
-      //   {
+      if (place)
+      {
+        for (let k = 0; k < 3; k++)
+        {
           
-      //     this.ticket.ticket_location += place[k].long_name + " ";
-      //   }
-      // }
+          this.ticket.ticket_location += place[k].long_name + " ";
+        }
+      }
       
-      // if (place)
-      // this.ticket.ticket_city = place[3].long_name
+      if (place)
+      this.ticket.ticket_city = place[3].long_name
     }
     
     this.ticket.ticket_status = "Created";
@@ -210,9 +210,8 @@ export class CreateTicketComponent{
           this.createPictureURL += this.ticket.ticket_id;
           this.uploadPhoto();
           this.showSuccessMessage();
-          // this.router.navigateByUrl("/tickets");
-      },
-      error: error => {
+        },
+        error: error => {
           console.error('There was an error!', error);
       }
 
@@ -223,6 +222,7 @@ export class CreateTicketComponent{
   showSuccessMessage() : void
   {
     alert("Created Ticket successfully");
+    this.router.navigateByUrl("/tickets");
   }
 
   uploadPhoto() : void

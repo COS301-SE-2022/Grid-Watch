@@ -25,7 +25,6 @@ export class TicketBodyComponent implements OnInit {
   public avatar : string;
   public issue_img : string;
   tickets : Array<TicketDto> = [];
-  imgs : Array<string> = [];
 
   constructor( private http: HttpClient) {
     this.name = "";
@@ -78,8 +77,8 @@ export class TicketBodyComponent implements OnInit {
       this.getPictureURL += this.tickets[index].ticket_id;
       this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
         (data) => {
-          console.log(data[0])
-          this.tickets[index].ticket_img = data[0].picture_link;
+          console.log(data)
+          this.tickets[index].ticket_img = data[data.length - 1].picture_link;
       }
       );
       this.getPictureURL = temp;

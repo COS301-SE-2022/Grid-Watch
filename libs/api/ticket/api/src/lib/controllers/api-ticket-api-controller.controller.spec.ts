@@ -23,6 +23,25 @@ describe('TicketController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+  
+    //CreateTicket endpoint
+    describe('CreateTicket',()=>{
+      it('should return true ',async ()=>{
+        jest
+        .spyOn(controller,'CreateTicket')
+        .mockImplementation(():Promise<boolean> => Promise.resolve(true));
+  
+        expect(await controller.CreateTicket(ticketDtoMock)).toEqual(
+          true
+        )
+      });
+  
+      it('should return false', async () => {
+        jest.spyOn(controller, 'CreateTicket').mockResolvedValue(false);
+    
+        expect(await controller.CreateTicket(ticketDtoMock)).toEqual(false);
+      });
+    })
 
 //getTicket endpoint
   describe('getTicket',()=>{
@@ -100,25 +119,6 @@ describe('TicketController', () => {
         jest.spyOn(controller, 'getAll').mockResolvedValue(null);
     
         expect(await controller.getAll()).toEqual(null);
-      });
-    })
-
-    //CreateTicket endpoint
-    describe('CreateTicket',()=>{
-      it('should return true ',async ()=>{
-        jest
-        .spyOn(controller,'CreateTicket')
-        .mockImplementation(():Promise<boolean> => Promise.resolve(true));
-  
-        expect(await controller.CreateTicket(ticketDtoMock)).toEqual(
-          true
-        )
-      });
-  
-      it('should return false', async () => {
-        jest.spyOn(controller, 'CreateTicket').mockResolvedValue(false);
-    
-        expect(await controller.CreateTicket(ticketDtoMock)).toEqual(false);
       });
     })
 

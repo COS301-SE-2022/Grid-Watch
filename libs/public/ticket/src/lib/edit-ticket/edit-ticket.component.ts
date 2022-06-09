@@ -129,8 +129,6 @@ export class EditTicketComponent implements OnInit {
       this.ticket.ticket_type = this.other_details;
     else
       this.ticket.ticket_type = this.issue_type;
-    this.ticket.ticket_status = "Created";
-    this.ticket.ticket_create_date = new Date();
 
     if (this.file !== undefined)
     {

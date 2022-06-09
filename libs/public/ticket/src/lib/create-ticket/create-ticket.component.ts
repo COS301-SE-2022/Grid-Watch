@@ -56,7 +56,7 @@ export class CreateTicketComponent{
       zoomControl: true,
       scrollwheel: false,
     }
-    this.default_upload = "assets/upload-solid.svg";
+    this.default_upload = "";
     this.other = false;
     this.other_details = "";
 
@@ -69,16 +69,17 @@ export class CreateTicketComponent{
     // this.initMap();
   }
 
-  fileUploaded(e: any) : void
+  async fileUploaded(e: any) : Promise<void>
   {
 
     this.file = e.target.files[0];
-
-
+    
+    
     const reader = new FileReader();
     reader.onload = () => {
       this.default_upload = reader.result as string;
     }
+    await this.delay(2000)    
     reader.readAsDataURL(this.file)
     
     
@@ -254,5 +255,9 @@ export class CreateTicketComponent{
     // console.log(place.geometry?.location);
     document.getElementById("pac-input")?.focus();
   }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
 }
 

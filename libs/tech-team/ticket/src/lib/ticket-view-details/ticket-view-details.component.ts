@@ -32,12 +32,14 @@ export class TicketViewDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.ticket = new TicketDto();
+    
     this.issue_id = this.route.snapshot.paramMap.get('id');
     this.getAllURL += this.issue_id;
     this.http.get<TicketDto[]>(this.getAllURL).subscribe(
       (data) => {
         this.ticket = data[0];
-        // this.loadImage();
+        this.ticket.ticket_img = "";
+        this.loadImage();
       }
       );
 
@@ -54,8 +56,9 @@ export class TicketViewDetailsComponent implements OnInit {
     
   }
 
-  loadImage() : void 
+  async loadImage() : Promise<void> 
   {
+    await this.delay(3000)
     this.getPictureURL += this.ticket.ticket_id;
     this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
       (data) => {
@@ -103,6 +106,10 @@ export class TicketViewDetailsComponent implements OnInit {
     
     alert("Successfully accepted the ticket")
   }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
 }
 
 

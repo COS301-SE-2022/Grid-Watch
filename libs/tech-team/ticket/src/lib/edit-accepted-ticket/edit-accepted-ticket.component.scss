@@ -1,9 +1,23 @@
-img
-{
-    height: 250px;
-}
+
 
 .ticket_image
 {
     width: 100%;
+}
+
+.picturePreview
+{
+    height: 400px;
+}
+
+img
+{
+    height: 100%;
+    width: 100%;
+}
+
+.centered_element{
+    display: flex;
+    align-items: center;
+    height: 100%;
 }

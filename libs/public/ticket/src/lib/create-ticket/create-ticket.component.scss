@@ -1,7 +1,26 @@
 img.upload_issue_image {
-    height: 250px;
+    height: 100%;
+    width: 100%;
 }
 
 mat-form-field{
     width:100%;
+}
+
+
+.imagePreviewContainer {
+    border: 2px dotted grey;
+    height: 250px;
+}
+
+.picture_text{
+    height: 250px;
+    line-height: 250px;
+    text-align: center;
+}
+
+.centered_element{
+    display: flex;
+    align-items: center;
+    height: 100%;
 }

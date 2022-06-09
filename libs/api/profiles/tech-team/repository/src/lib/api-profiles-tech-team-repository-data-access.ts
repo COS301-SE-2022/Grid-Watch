@@ -45,6 +45,39 @@ prisma = new PrismaClient();
 
     }
 
+    async assignTicket(ticketID : number, techTeamID : number)
+    {
+        // const ticket = await this.prisma.ticket.findUnique({
+        //     where:
+        //     {
+        //         ticket_id : ticketID,
+        //     },
+        // })
+
+        await this.prisma.ticket.update({
+            where:
+            {
+                ticket_id : ticketID,
+            },
+            data:{
+                assigned_TechTeam : techTeamID,
+            },
+        })
+    }
+
+    async getAllAssignedTickets( techTeamID : number)
+    {
+        await this.prisma.techTeam.findUnique({
+            where:
+            {
+                id : techTeamID,
+            },
+            include:{
+                assigned_tickets: true
+            },
+        })
+    }
+
     async verifyPassword(Email:string, password:string)
     {
         const techTeam = await this.prisma.techTeam.findFirst({

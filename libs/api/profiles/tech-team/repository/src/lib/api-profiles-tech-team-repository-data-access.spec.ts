@@ -46,6 +46,14 @@ const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto
 
   // })
 
+   describe('assignTicket',()=>{
+     it('should return true',async ()=>{
+       jest
+       .spyOn(provider,'assignTicket')
+       expect(await provider.assignTicket(2, 1)).toBeUndefined()
+     });
+  })
+
   //UpdateTechTeam
   describe('UpdateTechTeam',()=>{
     it('should return void',async ()=>{

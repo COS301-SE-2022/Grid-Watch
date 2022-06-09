@@ -57,6 +57,8 @@ model TechTeam {
   nr_jobs_completed Int?
   rating_of_jobs    Float?
 
+  assigned_tickets  Ticket[]
+
   password          String
   passwordSalt      String?    
   created           DateTime  @default(now())
@@ -69,7 +71,7 @@ model TechTeam {
 ///////////////////////////////////////////////////////////////////////
 
 model TechTeamTicket {
-  id                Int       @id @default(autoincrement())
+  id                Int        @id @default(autoincrement())
   techteam_ID       Int
   ticket_ID         Int     
 
@@ -81,7 +83,9 @@ model TechTeamTicket {
 ///////////////////////////////////////////////////////////////////////
 
 model Ticket {
-  ticket_id           Int     @id @default(autoincrement())
+  ticket_id           Int       @id @default(autoincrement())
+  techTeam            TechTeam? @relation(fields: [assigned_TechTeam] , references: [id])
+  assigned_TechTeam   Int?
   ticket_status       String
   ticket_create_date  DateTime    // @default(now())
   ticket_close_date   DateTime?

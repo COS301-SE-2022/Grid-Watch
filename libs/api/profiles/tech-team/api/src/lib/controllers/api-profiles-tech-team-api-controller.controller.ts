@@ -24,7 +24,7 @@ export class ApiProfilesTechTeamApiControllerController {
     //create Tech Team endpoint
     @Post('/create')
     async CreateTechTeam(@Body() techTeam: techTeamDto){
-        return this.apiTechTeamService.createTechTeam(techTeam.name,techTeam.email,techTeam.specialisation,techTeam.contact_number);
+        return this.apiTechTeamService.createTechTeam(techTeam.name,techTeam.email,techTeam.specialisation,techTeam.contact_number,techTeam.password);
     }
 
     //update Teach Team endpoint 

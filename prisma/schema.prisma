@@ -16,12 +16,12 @@ datasource db {
 ///////////////////////////////////////////////////////////////////////
 
 model User{
-  id           Int        @id @default(autoincrement())
-  email        String     @unique
+  id           Int          @id @default(autoincrement())
+  email        String       @unique
   password     String
   passwordSalt String?    
   name         String
-  created      DateTime
+  created      DateTime     @default(now())
 
   @@map("user")
 }
@@ -31,15 +31,15 @@ model User{
 ///////////////////////////////////////////////////////////////////////
 
 model AuthorizedOfficials {
-  id              Int    @id @default(autoincrement())
+  id              Int       @id @default(autoincrement())
   name            String
-  email           String @unique
-  contact_number  String @unique @db.VarChar(10)
+  email           String    @unique
+  contact_number  String    @unique @db.VarChar(10)
   cities          String
 
   password        String
   passwordSalt    String?    
-  created         DateTime
+  created         DateTime  @default(now())
 
   @@map("authorizedofficials")
 }
@@ -49,17 +49,17 @@ model AuthorizedOfficials {
 ///////////////////////////////////////////////////////////////////////
 
 model TechTeam {
-  id                Int     @id @default(autoincrement())
+  id                Int       @id @default(autoincrement())
   name              String
-  email             String? @unique
+  email             String?   @unique
   specialisation    String
-  contact_number    String  @unique @db.VarChar(10)
+  contact_number    String    @unique @db.VarChar(10)
   nr_jobs_completed Int?
   rating_of_jobs    Float?
 
   password          String
   passwordSalt      String?    
-  created           DateTime
+  created           DateTime  @default(now())
 
   @@map("techteam")
 }
@@ -69,7 +69,7 @@ model TechTeam {
 ///////////////////////////////////////////////////////////////////////
 
 model TechTeamTicket {
-  id                Int     @id @default(autoincrement())
+  id                Int       @id @default(autoincrement())
   techteam_ID       Int
   ticket_ID         Int     
 
@@ -81,9 +81,9 @@ model TechTeamTicket {
 ///////////////////////////////////////////////////////////////////////
 
 model Ticket {
-  ticket_id           Int    @id @default(autoincrement())
+  ticket_id           Int     @id @default(autoincrement())
   ticket_status       String
-  ticket_create_date  DateTime
+  ticket_create_date  DateTime    // @default(now())
   ticket_close_date   DateTime?
   ticket_type         String
   ticket_city         String?
@@ -103,9 +103,9 @@ model Ticket {
 ///////////////////////////////////////////////////////////////////////
 
 model Picture {
-  picture_id      Int    @id @default(autoincrement())
+  picture_id      Int     @id @default(autoincrement())
   picture_link    String
-  ticket          Ticket @relation(fields: [ticket_id], references: [ticket_id], onDelete: Cascade)
+  ticket          Ticket  @relation(fields: [ticket_id], references: [ticket_id], onDelete: Cascade)
   ticket_id       Int
 
   @@map("picture")

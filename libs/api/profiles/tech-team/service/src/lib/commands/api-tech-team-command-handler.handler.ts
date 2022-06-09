@@ -17,8 +17,8 @@ export class createTechTeamHandler implements ICommandHandler<CreateTechTeamComm
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: CreateTechTeamCommand) {
-        const{Name,Email,Specialisation,ContactNr} = command;
-        return this.repository.createTechTeam(Name,Email,Specialisation,ContactNr);
+        const{Name,Email,Specialisation,ContactNr,Password} = command;
+        return this.repository.createTechTeam(Name,Email,Specialisation,ContactNr,Password);
     }
 }
 

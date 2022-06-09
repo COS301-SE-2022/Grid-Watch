@@ -33,6 +33,7 @@ export class NavBarComponent implements OnInit{
     }
     else if (this.application_type === "tech-team")
     {
+      
       this.login_url = "/login";
       
       this.options.push("Available Tickets");
@@ -48,8 +49,8 @@ export class NavBarComponent implements OnInit{
       this.options.push("Tickets");
       this.router_options.push("/tickets");
       
-      this.options.push("option 2");
-      this.router_options.push("/option2");
+      // this.options.push("option 2");
+      // this.router_options.push("/option2");
 
     }
   }

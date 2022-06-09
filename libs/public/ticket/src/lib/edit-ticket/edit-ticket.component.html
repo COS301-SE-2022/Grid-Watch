@@ -1,6 +1,11 @@
 <div class="container mt-5">
     <div class="row">
-        <div class="card col-12 col-md-7">
+        <div class="col-12 border d-inline d-lg-none">
+            <div class="align-middle p-5 preview_container">
+                <img id="image_preview" src="{{default_upload}}" class="upload_issue_image" alt="upload_image" onerror="this.src='assets/upload-solid.svg'">
+            </div>
+        </div> 
+        <div class="card col-12 col-lg-7">
             <div class="card-body">
                 <div class="mt-2 "  id="name_field">
                         <label>Name</label>
@@ -47,12 +52,19 @@
                     <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
                  </div>
 
-                 <div class="mt-2location_pin">
-                    <label class="">Pin location of issue</label><br>
-                    <input  class="form-control" id="pac-input" type="text" placeholder="Search a location" [(ngModel)]="ticket.ticket_location"/>
-                    <button class="mt-2 btn btn-outline-dark" (click)="getCurrentLocation()">
-                        Use Current Location
-                    </button>
+                 <!-- <div class="fileUploadPreview mt-2">
+                    <img id="image_preview" src="{{default_upload}}" class="upload_issue_image" alt="upload_image" onerror="this.src='assets/upload-solid.svg'">
+                 </div> -->
+
+                 <div class="mt-2 location_pin">
+                     <label class="">Pin location of issue</label><br>
+                     <div class="input-group">
+                        <input  class="form-control" id="pac-input" type="text" placeholder="Search a location" [(ngModel)]="ticket.ticket_location"/>
+                        <button class="getLocationButton btn btn-outline-dark" (click)="getCurrentLocation()">
+                            <!-- <p><img src="assets/map-location-solid.svg" alt=""></p> -->
+                            Current Location
+                        </button>
+                     </div>
                 </div>
                 <div class="mt-2 border ">
                     <google-map
@@ -89,7 +101,7 @@
                  </div>
             </div>
         </div> 
-        <div class="col-12 col-md-5 border ">
+        <div class="col-12 col-lg-5 border d-none d-lg-inline">
             <div class="align-middle p-5 preview_container">
                 <img id="image_preview" src="{{default_upload}}" class="upload_issue_image" alt="upload_image" onerror="this.src='assets/upload-solid.svg'">
             </div>

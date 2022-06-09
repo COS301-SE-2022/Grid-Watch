@@ -98,22 +98,25 @@ export class CreateTicketComponent{
     }
     if (this.autocomplete.getPlace() !== undefined)
     {
-      const place = this.autocomplete.getPlace().address_components;
-      // console.log(place);
+      const place = this.autocomplete.getPlace().formatted_address;
+      console.log(google.maps.places);
       // const temp = document.getElementById("pac-input") as HTMLInputElement;
-      this.ticket.ticket_location = "";
+      if (place !== undefined)
+        this.ticket.ticket_location = place;
+        else
+        this.ticket.ticket_location = "";
       
-      if (place)
-      {
-        for (let k = 0; k < 3; k++)
-        {
+      // if (place)
+      // {
+      //   for (let k = 0; k < 3; k++)
+      //   {
           
-          this.ticket.ticket_location += place[k].long_name + " ";
-        }
-      }
+      //     this.ticket.ticket_location += place[k].long_name + " ";
+      //   }
+      // }
       
-      if (place)
-      this.ticket.ticket_city = place[3].long_name
+      // if (place)
+      // this.ticket.ticket_city = place[3].long_name
     }
     
     this.ticket.ticket_status = "Created";
@@ -201,13 +204,13 @@ export class CreateTicketComponent{
       this.http.post<TicketDto[]>(this.createTicketURL, this.ticket, this.httpOptions)
     .subscribe({
       next: data => {
-        console.log("HERE");
+        // console.log("HERE");
         
           this.ticket.ticket_id = data[0].ticket_id
           this.createPictureURL += this.ticket.ticket_id;
           this.uploadPhoto();
           this.showSuccessMessage();
-          this.router.navigateByUrl("/tickets");
+          // this.router.navigateByUrl("/tickets");
       },
       error: error => {
           console.error('There was an error!', error);

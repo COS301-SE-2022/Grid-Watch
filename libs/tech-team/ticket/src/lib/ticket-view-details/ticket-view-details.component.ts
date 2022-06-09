@@ -19,6 +19,11 @@ export class TicketViewDetailsComponent implements OnInit {
   ticket! : TicketDto;
   issue_id! : string | null;
 
+  zoom! : number;
+  center! : google.maps.LatLngLiteral | google.maps.LatLng;
+  options!: google.maps.MapOptions;
+  marker_position!: google.maps.LatLng | google.maps.LatLngLiteral
+
   constructor(
     private router : Router,
     private http : HttpClient,
@@ -35,6 +40,16 @@ export class TicketViewDetailsComponent implements OnInit {
         this.loadImage();
       }
       );
+
+    this.zoom = 5.5;
+    this.center =  {
+      lat: -30.5595,
+      lng: 22.9375,
+    };
+    this.options = {
+      zoomControl: true,
+      scrollwheel: false,
+    }
       
     
   }

@@ -24,6 +24,22 @@
                     <div class="ticket_city mt-1">
                         <b> City:</b> {{ticket.ticket_city}}
                     </div>
+                    <div class="ticket_map">
+                        <div class="mt-2 border ">
+                            <google-map
+                                height="250px"
+                                width="100%"
+                                [zoom]="zoom"
+                                [center]="center"
+                                [options]="options">
+                                <map-marker
+                                    [position]="marker_position"
+                                    [title]="ticket.ticket_type"
+                                >
+                                </map-marker>
+                            </google-map>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">

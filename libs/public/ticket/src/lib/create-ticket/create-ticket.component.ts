@@ -56,7 +56,7 @@ export class CreateTicketComponent{
       zoomControl: true,
       scrollwheel: false,
     }
-    this.default_upload = "assets/upload-solid.svg";
+    this.default_upload = "";
     this.other = false;
     this.other_details = "";
 
@@ -69,16 +69,17 @@ export class CreateTicketComponent{
     // this.initMap();
   }
 
-  fileUploaded(e: any) : void
+  async fileUploaded(e: any) : Promise<void>
   {
 
     this.file = e.target.files[0];
-
-
+    
+    
     const reader = new FileReader();
     reader.onload = () => {
       this.default_upload = reader.result as string;
     }
+    await this.delay(2000)    
     reader.readAsDataURL(this.file)
     
     
@@ -99,9 +100,12 @@ export class CreateTicketComponent{
     if (this.autocomplete.getPlace() !== undefined)
     {
       const place = this.autocomplete.getPlace().address_components;
-      // console.log(place);
+      console.log(google.maps.places);
       // const temp = document.getElementById("pac-input") as HTMLInputElement;
-      this.ticket.ticket_location = "";
+      // if (place !== undefined)
+      //   this.ticket.ticket_location = place;
+      //   else
+      //   this.ticket.ticket_location = "";
       
       if (place)
       {
@@ -201,15 +205,14 @@ export class CreateTicketComponent{
       this.http.post<TicketDto[]>(this.createTicketURL, this.ticket, this.httpOptions)
     .subscribe({
       next: data => {
-        console.log("HERE");
+        // console.log("HERE");
         
           this.ticket.ticket_id = data[0].ticket_id
           this.createPictureURL += this.ticket.ticket_id;
           this.uploadPhoto();
           this.showSuccessMessage();
-          this.router.navigateByUrl("/tickets");
-      },
-      error: error => {
+        },
+        error: error => {
           console.error('There was an error!', error);
       }
 
@@ -220,6 +223,7 @@ export class CreateTicketComponent{
   showSuccessMessage() : void
   {
     alert("Created Ticket successfully");
+    this.router.navigateByUrl("/tickets");
   }
 
   uploadPhoto() : void
@@ -251,5 +255,9 @@ export class CreateTicketComponent{
     // console.log(place.geometry?.location);
     document.getElementById("pac-input")?.focus();
   }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
 }
 

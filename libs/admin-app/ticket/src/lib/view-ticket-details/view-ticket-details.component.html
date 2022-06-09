@@ -1,8 +1,12 @@
 <div class="container mt-5">
     <div class="row">
-        <div class="col-12-lg border d-lg-none d-inline">
-            <div class="align-middle p-5 preview_container">
-                <img id="image_preview" src="assets/{{ticket.ticket_img}}" onerror="this.src='assets/solid_example.png'" class="upload_issue_image">
+        <div class="col-12-lg border d-lg-none d-inline preview_container">
+            <div class="centered_element d-flex justify-content-center" *ngIf="ticket.ticket_img === ''"> 
+                <div class="spinner-border text-success text-center" >
+                </div>
+            </div>
+            <div class="align-middle p-5 preview_container" *ngIf="ticket.ticket_img !== ''">
+                <img id="image_preview" src="assets/{{ticket.ticket_img}}" class="upload_issue_image" alt="upload_image">
             </div>
         </div> 
         <div class="card col-12 col-lg-7">
@@ -57,18 +61,20 @@
                         <button id="createTicket_button" class="btn btn-outline-dark" (click)="dispatch()">Dispatch</button>
                     </div>
                     <div class="col-4"></div>
-                    <div class="col-4">
-                        <a routerLink="/tickets">
-                            <button id="discardTicket_button" class="btn btn-outline-dark" (click)="back()">Back</button>
-                        </a>
+                    <div class="col-4 discardButton">
+                        <button routerLink="/tickets" id="discardTicket_button" class="btn btn-outline-dark" (click)="back()">Back</button>
                    </div>                
                  </div>
             </div>
         </div> 
         <div class="col-12 col-md-5 border d-none d-lg-inline">
-            <div class="align-middle p-5 preview_container">
-                <img id="image_preview" src="assets/{{ticket.ticket_img}}" onerror="this.src='assets/solid_example.png'" class="upload_issue_image" alt="upload_image">
+            <div class="align-middle p-5 preview_container" *ngIf="ticket.ticket_img !== ''">
+                <img id="image_preview" src="assets/{{ticket.ticket_img}}" class="upload_issue_image" alt="upload_image">
             </div>
+            <!-- <div class="centered_element d-flex justify-content-center" > 
+                <div class="spinner-border text-success text-center" >
+                </div>
+            </div> -->
         </div> 
     </div>
     

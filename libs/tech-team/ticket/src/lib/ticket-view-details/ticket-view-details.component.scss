@@ -1,10 +1,17 @@
-.ticket_image
+.picturePreview
 {
-    height: 300px;
+    height: 400px;
 }
 
 img
 {
+    height: 100%;
+    width: 100%;
+}
+
+.centered_element{
+    display: flex;
+    align-items: center;
     height: 100%;
 }
 

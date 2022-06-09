@@ -7,3 +7,13 @@ img#image_preview {
 {
     height: 500px;
 }
+
+.centered_element{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.col-4.discardButton {
+    text-align: right;
+}

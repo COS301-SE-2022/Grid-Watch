@@ -7,3 +7,14 @@ img#image_preview {
 {
     height: 500px;
 }
+
+.fileUploadPreview
+{
+    height: 400px;
+    border: 2px dotted grey
+}
+
+.btn-image {
+    background-image: url('https://localhost:4200/assets/map-location-solid.svg') !important;
+    background-size: contain; //or cover
+}

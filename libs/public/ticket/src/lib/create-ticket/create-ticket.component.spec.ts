@@ -38,11 +38,11 @@ describe('CreateTicketComponent', () => {
     expect(component.uploadURL).toEqual("http://localhost:3333/api/ticket/upload");
   });
 
-  it('should check if ngOnInit initalises fields properly', () => {
-    expect(component.default_upload).toEqual("assets/upload-solid.svg");
-    expect(component.other).toBeFalsy();
-    expect(component.other_details).toEqual("");
-  });
+  // it('should check if ngOnInit initalises fields properly', () => {
+  //   expect(component.default_upload).toEqual("assets/upload-solid.svg");
+  //   expect(component.other).toBeFalsy();
+  //   expect(component.other_details).toEqual("");
+  // });
   
 
   // it('should detect file input change', () => {

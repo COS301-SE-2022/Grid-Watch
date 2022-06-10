@@ -3,50 +3,50 @@ import {PrismaClient} from '@prisma/client';
 
 @Injectable()
 export class ApiTicketRepositoryDataAccess {
+
     prisma = new PrismaClient();
 
-    async createTicket(Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number){
+    async createTicket(status: string, createDate: Date, closeDate: Date, type: string, city: string, location: string, cost: number, description: string, repairTime: number, upvotes: number){
 
             await this.prisma.ticket.create({
                 data:
                 {
-                    ticket_status :         Status,    
-                    ticket_create_date :    createDate, 
-                    ticket_close_date :     closeDate,
-                    ticket_type :           Type,    
-                    ticket_city :           City,   
-                    ticket_location :       Location,   
-                    ticket_cost :           Cost,
-                    ticket_description :    Description,
-                    ticket_repair_time :    RepairTime, 
-                    ticket_upvotes :        Upvotes,     
-           
+                    ticketStatus :          status,    
+                    ticketCreateDate :      createDate, 
+                    ticketCloseDate :       closeDate,
+                    ticketType :            type,    
+                    ticketCity :            city,   
+                    ticketLocation :        location,   
+                    ticketCost :            cost,
+                    ticketDescription :     description,
+                    ticketRepairTime :      repairTime, 
+                    ticketUpvotes :         upvotes,
                 }
             });
             return  await this.prisma.ticket.findMany({
             
                 where:
                 {
-                    ticket_create_date: createDate,
+                    ticketCreateDate: createDate,
                 },
                 
             })
     }
 
     
-    async closeTicket(TicketId: number){
+    async closeTicket(ticketID: number){
 
         await this.prisma.ticket.update({
             where:
             {
-                ticket_id: TicketId,
+                ticketId: ticketID,
             },
             data:
             {
-                ticket_status : "Closed",    
+                ticketStatus : "Closed",    
             },
         });
-       // return "The ticket with id: " + TicketId + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
+       // return "The ticket with id: " + ticketID + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
     }
 
     async getAllTickets(){
@@ -64,13 +64,13 @@ export class ApiTicketRepositoryDataAccess {
         })
     }
 
-    async getTicket(TicketId: number){
+    async getTicket(ticketID: number){
 
         const ticket = await this.prisma.ticket.findMany({
 
             where:
             {
-                ticket_id: TicketId,
+                ticketId: ticketID,
             },
 
         })
@@ -81,22 +81,22 @@ export class ApiTicketRepositoryDataAccess {
         }
         else
         {
-            return "Ticket " + TicketId + "not found!";
+            return "Ticket " + ticketID + "not found!";
         }
         
     }
 
-    async getCityTicket(City: string){
+    async getCityTicket(city: string){
 
         const ticket = await this.prisma.ticket.findMany({
 
             where:
             {
-                ticket_city: City,
+                ticketCity: city,
             },
             orderBy:
             {
-                ticket_upvotes: "desc",
+                ticketUpvotes: "desc",
             },
         })
 
@@ -104,22 +104,22 @@ export class ApiTicketRepositoryDataAccess {
             return ticket;
         }
         else{
-            return "No tickets for the city " + City + "found!";
+            return "No tickets for the city " + city + "found!";
         }
         
     }
 
-    async getStatus(Status: string){
+    async getStatus(status: string){
 
         const tickets = await this.prisma.ticket.findMany({
 
             where:
             {
-                ticket_status: Status,
+                ticketStatus: status,
             },
             orderBy: 
             {
-                ticket_upvotes: "desc",
+                ticketUpvotes: "desc",
             },
 
         })
@@ -134,11 +134,11 @@ export class ApiTicketRepositoryDataAccess {
 
             where:
             {
-                ticket_type: issue,
+                ticketType: issue,
             },
             orderBy: 
             {
-                ticket_upvotes: "desc",
+                ticketUpvotes: "desc",
             },
 
         })
@@ -152,7 +152,7 @@ export class ApiTicketRepositoryDataAccess {
         const tickets = await this.prisma.ticket.findMany({
             orderBy: 
             {
-                ticket_create_date: "asc",
+                ticketCreateDate: "asc",
             },
 
         })
@@ -166,7 +166,7 @@ export class ApiTicketRepositoryDataAccess {
         const tickets = await this.prisma.ticket.findMany({
             orderBy: 
             {
-                ticket_type: "asc",
+                ticketType: "asc",
             },
 
         })
@@ -194,7 +194,7 @@ export class ApiTicketRepositoryDataAccess {
         const tickets = await this.prisma.ticket.findMany({
             orderBy: 
             {
-                ticket_city: "asc",
+                ticketCity: "asc",
             },
 
         })
@@ -208,7 +208,7 @@ export class ApiTicketRepositoryDataAccess {
         const tickets = await this.prisma.ticket.findMany({
             orderBy: 
             {
-                ticket_status: "asc",
+                ticketStatus: "asc",
             },
 
         })
@@ -222,7 +222,7 @@ export class ApiTicketRepositoryDataAccess {
         const tickets = await this.prisma.ticket.findMany({
             orderBy: 
             {
-                ticket_upvotes: "desc",
+                ticketUpvotes: "desc",
             },
 
         })
@@ -230,175 +230,175 @@ export class ApiTicketRepositoryDataAccess {
         return tickets
     }
 
-    async UpdateTicket(TicketId: number, Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number){
+    async updateTicket(ticketID: number, status: string, createDate: Date, closeDate: Date, type: string, city: string, location: string, cost: number, description: string, repairTime: number, upvotes: number){
 
         await this.prisma.ticket.update({
             where:
             {
-                ticket_id : TicketId,
+                ticketId : ticketID,
             },
             data:
             {
-                ticket_status :         Status,    
-                ticket_create_date :    createDate, 
-                ticket_close_date :     closeDate,
-                ticket_type :           Type,    
-                ticket_city :           City,   
-                ticket_location :       Location,   
-                ticket_cost :           Cost,
-                ticket_description :    Description,
-                ticket_repair_time :    RepairTime, 
-                ticket_upvotes :        Upvotes,
+                ticketStatus :          status,    
+                ticketCreateDate :      createDate, 
+                ticketCloseDate :       closeDate,
+                ticketType :            type,    
+                ticketCity :            city,   
+                ticketLocation :        location,   
+                ticketCost :            cost,
+                ticketDescription :     description,
+                ticketRepairTime :      repairTime, 
+                ticketUpvotes :         upvotes,
             },
         })
-       // return "The ticket with id: " + ticket_id + " has been created."
+       // return "The ticket with id: " + ticketId + " has been created."
 }
     
-    async UpdateStatus(TicketId: number, TicketStatus: string){
+    async updateStatus(ticketID: number, ticketStatus: string){
 
         await this.prisma.ticket.update({
             where:
             {
-                ticket_id: TicketId,
+                ticketId: ticketID,
             },
             data:
             {
-                ticket_status : TicketStatus,    
+                ticketStatus : ticketStatus,    
             },
         });
-       // return "The ticket with id: " + TicketId + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
+       // return "The ticket with id: " + ticketID + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
     }
 
-    async UpdateCreateDate(TicketId: number, CreateDate: Date){
+    async updateCreateDate(ticketID: number, createDate: Date){
 
         await this.prisma.ticket.update({
             where:
             {
-                ticket_id: TicketId,
+                ticketId: ticketID,
             },
             data:
             {
-                ticket_create_date : CreateDate,    
+                ticketCreateDate : createDate,    
             },
         });
-       // return "The ticket with id: " + TicketId + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
+       // return "The ticket with id: " + ticketID + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
     }
 
-    async UpdateCloseDate(TicketId: number, CloseDate: Date){
+    async updateCloseDate(ticketID: number, closeDate: Date){
 
         await this.prisma.ticket.update({
             where:
             {
-                ticket_id: TicketId,
+                ticketId: ticketID,
             },
             data:
             {
-                ticket_close_date : CloseDate,     
+                ticketCloseDate : closeDate,     
             },
         });
-       // return "The ticket with id: " + TicketId + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
+       // return "The ticket with id: " + ticketID + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
     }
 
-    async UpdateType(TicketId: number, Type: string){
+    async updateType(ticketID: number, type: string){
 
         await this.prisma.ticket.update({
             where:
             {
-                ticket_id: TicketId,
+                ticketId: ticketID,
             },
             data:
             {
-                ticket_type : Type,    
+                ticketType : type,    
             },
         });
-       // return "The ticket with id: " + TicketId + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
+       // return "The ticket with id: " + ticketID + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
     }
 
-    async UpdateLocation(TicketId: number, Location: string){
+    async updateLocation(ticketID: number, location: string){
 
         await this.prisma.ticket.update({
             where:
             {
-                ticket_id: TicketId,
+                ticketId: ticketID,
             },
             data:
             {
-                ticket_location : Location,  
+                ticketLocation : location,  
             },
         });
-       // return "The ticket with id: " + TicketId + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
+       // return "The ticket with id: " + ticketID + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
     }
 
-    async UpdateCost(TicketId: number, Cost: number){
+    async updateCost(ticketID: number, cost: number){
 
         await this.prisma.ticket.update({
             where:
             {
-                ticket_id: TicketId,
+                ticketId: ticketID,
             },
             data:
             {
-                ticket_cost : Cost,
+                ticketCost : cost,
             },
         });
-       // return "The ticket with id: " + TicketId + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
+       // return "The ticket with id: " + ticketID + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
     }
 
-    async UpdateDescription(TicketId: number, Description: string){
+    async updateDescription(ticketID: number, description: string){
 
         await this.prisma.ticket.update({
             where:
             {
-                ticket_id: TicketId,
+                ticketId: ticketID,
             },
             data:
             {
-                ticket_description : Description, 
+                ticketDescription : description, 
             },
         });
-       // return "The ticket with id: " + TicketId + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
+       // return "The ticket with id: " + ticketID + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
     }
 
-    async UpdateRepairTime(TicketId: number, RepairTime: number){
+    async updateRepairTime(ticketID: number, repairTime: number){
 
         await this.prisma.ticket.update({
             where:
             {
-                ticket_id: TicketId,
+                ticketId: ticketID,
             },
             data:
             {
-                ticket_repair_time : RepairTime,   
+                ticketRepairTime : repairTime,   
             },
         });
-       // return "The ticket with id: " + TicketId + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
+       // return "The ticket with id: " + ticketID + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
     }
 
-    async UpdateUpvotes(TicketId: number, Upvotes: number){
+    async updateUpvotes(ticketID: number, upvotes: number){
 
         await this.prisma.ticket.update({
             where:
             {
-                ticket_id: TicketId,
+                ticketId: ticketID,
             },
             data:
             {
-                ticket_upvotes : Upvotes,    
+                ticketUpvotes : upvotes,    
             },
         });
-       // return "The ticket with id: " + TicketId + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
+       // return "The ticket with id: " + ticketID + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
     }
 
-    async IncUpvotes(TicketId: number){
+    async incUpvotes(ticketID: number){
 
         await this.prisma.ticket.update({
             where:
             {
-                ticket_id: TicketId,
+                ticketId: ticketID,
             },
             data:
             {
-                ticket_upvotes :
+                ticketUpvotes :
                 {
                     increment: 1,
                 } 
@@ -407,14 +407,14 @@ export class ApiTicketRepositoryDataAccess {
 
     }
 
-    async deleteTicket(TicketId: number){
+    async deleteTicket(ticketID: number){
 
         await this.prisma.ticket.delete({
             where: {
-                ticket_id: TicketId,
+                ticketID: ticketID,
             },
         })
-       // return "The ticket with id: " + TicketId + " has been deleted."
+       // return "The ticket with id: " + ticketID + " has been deleted."
     }
 
 
@@ -423,17 +423,17 @@ export class ApiTicketRepositoryDataAccess {
     //////////////////////////////////
 
     //create and link a picture to a ticket
-    async createPicture(TicketId : number, img_link : string){
+    async createPicture(ticketID : number, imgLink : string){
 
         await this.prisma.picture.create({
              data: 
              {
-                 picture_link : img_link,
+                 pictureLink : imgLink,
 
                  ticket:{
                      connect : 
                      {
-                         ticket_id : TicketId,
+                         ticketID : ticketID,
                      }
                  }
 
@@ -443,53 +443,53 @@ export class ApiTicketRepositoryDataAccess {
  
      }
 
-     async getPicture(TicketId : number){
+     async getPicture(ticketID : number){
 
          return await this.prisma.picture.findMany({
             where:
             {
-                ticket_id: TicketId,
+                ticketId: ticketID,
             },
 
         })
      }
 
      // get all pictures of a ticket sorting according to newest picture ( highest picture id number)
-     async getAllPictures(TicketId : number){
+     async getAllPictures(ticketID : number){
 
         return await this.prisma.picture.findMany({
             where:
             {
-                ticket_id: TicketId,
+                ticketId: ticketID,
             },
             orderBy: 
             {
-                picture_id: "desc",
+                pictureId: "desc",
             },
         })
      }
 
-     async updatePicture(PictureId : number, img_link : string){
+     async updatePicture(pictureID : number, imgLink : string){
 
         await this.prisma.picture.update({
             where: 
             {
-                picture_id : PictureId,
+                picture_id : pictureID,
             },
             data:
             {
-                picture_link : img_link,
+                pictureLink : imgLink,
             },
  
          })
      }
 
-     async deletePicture(PictureId : number){
+     async deletePicture(pictureID : number){
 
         await this.prisma.picture.delete({
             where: 
             {
-                picture_id : PictureId,
+                pictureId : pictureID,
             }
  
          })

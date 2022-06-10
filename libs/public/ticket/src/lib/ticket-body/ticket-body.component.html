@@ -5,8 +5,8 @@
     <div class="row">
         <mat-card class="issue_card col-12 p-4 ms-3" *ngFor="let ticket of tickets, index as i">
             <mat-card-header >
-                <div mat-card-avatar class="">
-                    <img src="{{avatar}}" alt="avatar">
+                <div mat-card-avatar >
+                    <img class="border rounded-circle p-1" src="{{avatar}}" alt="avatar">
                 </div>
                 <div class="d-none">
                     {{ticket.ticket_id}}
@@ -15,7 +15,13 @@
                     {{name}} {{surname}}
                 </mat-card-title>
                 <mat-card-subtitle>
-                    {{ticket.ticket_type}}
+                    <div>
+                        {{ticket.ticket_type}}
+                    </div>
+                    <div>
+                        <img class="pin_location" src="assets/location-pin-solid.svg" alt="">
+                        <span class="location_heading">&ensp;{{ticket.ticket_location}}</span>
+                    </div>
                 </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>

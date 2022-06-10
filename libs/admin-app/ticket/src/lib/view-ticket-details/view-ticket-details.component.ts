@@ -27,7 +27,7 @@ export class ViewTicketDetailsComponent implements OnInit {
   ngOnInit(): void {
 
     
-    this.ticket.ticket_img = "image-solid.svg";
+    this.ticket.ticket_img = "";
     const temp = this.route.snapshot.paramMap.get('id');
     this.issue_id = temp?.toString();
     
@@ -42,7 +42,7 @@ export class ViewTicketDetailsComponent implements OnInit {
     this.http.get<TicketDto[]>(this.getTicketURL, httpOptions).subscribe(
       (data) => {
         this.ticket = data[0];
-        // console.log(data[0]);
+        console.log(data[0]);
         this.initialiseTicket(data[0]);
     }
     );
@@ -62,10 +62,10 @@ export class ViewTicketDetailsComponent implements OnInit {
       this.getPictureURL += data.ticket_id;
       this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
         (data) => {
-          console.log(data[0])
           this.ticket.ticket_img = data[0].picture_link
-      }
-      );
+        }
+        );
+        console.log(this.ticket)
         
   }
 

@@ -43,10 +43,11 @@
                     </mat-form-field>
                 </div> -->
                 
-                <div class="mt-3">
-                    <div class="imagePreviewContainer">
-                        <div class="picture_text" *ngIf="file === undefined">
-                            No Picture uploaded
+                <label class="form-label mt-2 " for="customFile">Upload image of issue</label>
+                <div class="" (click)="initiateFileUpload()">
+                    <div class="imagePreviewContainer d-flex justify-content-center" >
+                        <div class="icon_container " *ngIf="file === undefined">
+                            <div class="add_icon material-icons align-center centered_element">add</div>
                         </div>
                         <div class="centered_element d-flex justify-content-center" *ngIf="default_upload === '' && file !== undefined"> 
                             <div class="spinner-border text-success text-center" >
@@ -58,9 +59,9 @@
                     </div>
                 </div> 
                 
-                <div class="mt-2 " id="upload_image">
-                    <label class="">Upload image of issue</label><br>
-                    <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
+                <div class="mt-2 d-none" id="upload_image">
+                    <label class="form-label" for="customFile">Upload image of issue</label>
+                    <input type="file" id="issue_uploaded_img" class="form-control" accept="image/png, image/jpeg" (change)="fileUploaded($event)"/>
                 </div>
                 
                 <div class="mt-2 location_pin">

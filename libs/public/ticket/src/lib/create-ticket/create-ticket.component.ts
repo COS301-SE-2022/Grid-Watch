@@ -25,6 +25,7 @@ export class CreateTicketComponent{
   zoom! : number;
   center! : google.maps.LatLngLiteral | google.maps.LatLng;
   options!: google.maps.MapOptions;
+  place_id!: string;
 
   default_upload! : string;
   createPictureURL = "http://localhost:3333/api/ticket/picture/create/";
@@ -59,6 +60,8 @@ export class CreateTicketComponent{
     this.default_upload = "";
     this.other = false;
     this.other_details = "";
+    this.ticket.ticket_location = "";
+    this.place_id = "";
 
     this.http.get<TicketDto[]>(this.getTicketURL, this.httpOptions).subscribe(
       () =>
@@ -90,36 +93,83 @@ export class CreateTicketComponent{
     
   }
 
+  getAutocompleteCity(place: any) : string
+  {
+    // console.log(place);
+    if (place !== undefined)
+    {
+      // const place = this.autocomplete.getPlace().address_components;
+     
+      const count = place.length as number
+      // console.log(place);
+      
+      for (let k = 0; k < count ; k++)
+      {
+        let count2 = 0;
+        if (place)
+        {
+          count2 = place[k].types.length as number;
+        }
+        for (let i = 0; i < count2 ; i++)
+        {
+          if (place)
+            if (place[k].types[i] === "locality")
+            {
+              return place[k].long_name
+            }
+            
+        }
+        // if (this.autocomplete.getPlace().address_components[k].types === "")
+        // this.ticket.ticket_city = 
+      }
+     
+      for (let k = 0; k < count ; k++)
+      {
+        let count2 = 0;
+        if (place)
+        {
+          count2 = place[k].types.length as number;
+        }
+        for (let i = 0; i < count2 ; i++)
+        {
+          if (place)
+            if (place[k].types[i] === "sublocality")
+            {
+              return place[k].long_name
+            }
+            
+        }
+        // if (this.autocomplete.getPlace().address_components[k].types === "")
+        // this.ticket.ticket_city = 
+        }
+      
+    }
+    return "";
+  }
+
   createTicket() : void
   {
-    if ( this.ticket.ticket_location == "")
+    if (( this.ticket.ticket_location == ""))
     {
       this.showErrorMessage("Location not found")
       return;
     }
-    if (this.autocomplete.getPlace() !== undefined)
+    // console.log(this.autocomplete.getPlace());
+    // console.log(this.place_id);
+    
+    
+    if ((this.autocomplete.getPlace() === undefined) && (( this.place_id === "")))
     {
-      const place = this.autocomplete.getPlace().address_components;
-      console.log(google.maps.places);
-      // const temp = document.getElementById("pac-input") as HTMLInputElement;
-      // if (place !== undefined)
-      //   this.ticket.ticket_location = place;
-      //   else
-      //   this.ticket.ticket_location = "";
-      
-      if (place)
-      {
-        for (let k = 0; k < 3; k++)
-        {
-          
-          this.ticket.ticket_location += place[k].long_name + " ";
-        }
-      }
-      
-      if (place)
-      this.ticket.ticket_city = place[3].long_name
+      this.showErrorMessage("Location not found")
+      return;
     }
     
+    if (this.place_id == "")
+    {
+      this.place_id = this.autocomplete.getPlace().place_id as string;
+      this.ticket.ticket_city = this.getAutocompleteCity(this.autocomplete.getPlace().address_components);
+    }
+    this.ticket.ticket_location = this.place_id;
     this.ticket.ticket_status = "Created";
     this.ticket.ticket_create_date = new Date();
     this.ticket.ticket_upvotes = 0;
@@ -155,7 +205,7 @@ export class CreateTicketComponent{
     const input = document.getElementById("pac-input") as HTMLInputElement;
     const options = {
       componentRestrictions: { country: ["za"] },
-      fields: ["address_components", "geometry"],
+      fields: ["address_components", "geometry", "place_id"],
       types: ["address"],
     };
     this.autocomplete = new google.maps.places.Autocomplete(input, options);
@@ -184,12 +234,13 @@ export class CreateTicketComponent{
             
             if (response != null) 
             {
-              this.ticket.ticket_location = "";
-              for (let k = 0 ; k < 4; k++)
-                this.ticket.ticket_location += response[0].address_components[k].long_name + " ";
-              this.ticket.ticket_city = response[0].address_components[3].long_name;
-                // console.log(this.ticket.ticket_location);
-              // console.log(this.ticket.ticket_city);
+              // this.ticket.ticket_location = "";
+              // for (let k = 0 ; k < 4; k++)
+              //   this.ticket.ticket_location += response[0].address_components[k].long_name + " ";
+              this.ticket.ticket_location = response[0].formatted_address;
+              this.place_id = response[0].place_id;
+              this.ticket.ticket_city = this.getAutocompleteCity(response[0].address_components)  
+              
             }
 
           });
@@ -233,11 +284,11 @@ export class CreateTicketComponent{
       (data) =>
       {
 
-        console.log(data);
+        // console.log(data);
       },
       (error) =>
       {
-        console.log(error);
+        // console.log(error);
         
       }
     );
@@ -245,19 +296,21 @@ export class CreateTicketComponent{
 
   createMapMarker(place: google.maps.places.PlaceResult) : void
   {
-    // this.marker_position =
     if (place.geometry?.location !== undefined)
     {
       this.marker_position = place.geometry?.location;
       this.zoom = 12;
       this.center = place.geometry?.location;
     }
-    // console.log(place.geometry?.location);
     document.getElementById("pac-input")?.focus();
   }
 
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
-}
+  }
+
+  initiateFileUpload() : void {
+    document.getElementById("issue_uploaded_img")?.click();
+  }
 }
 

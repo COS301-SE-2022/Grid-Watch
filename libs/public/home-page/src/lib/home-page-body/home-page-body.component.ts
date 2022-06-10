@@ -10,6 +10,7 @@ export class HomePageBodyComponent implements OnInit{
 
   application_type! : string | undefined;
 
+  mapHeight! : number;
   zoom! : number;
   center! : google.maps.LatLngLiteral | google.maps.LatLng;
   options!: google.maps.MapOptions;
@@ -27,6 +28,7 @@ export class HomePageBodyComponent implements OnInit{
   
   ngOnInit() : void {
 
+    this.mapHeight = (window.innerHeight - 40 * 3);
     this.markers = [];
     this.zoom = 10;
     this.center =  {

@@ -9,7 +9,7 @@
             <div class="col-lg-10">
                 <ul class="navbar-nav" >
                     <li class="nav-item" *ngFor="let option of options, index as i">
-                        <a class="nav-link" routerLink="{{router_options[i]}}">{{option}}</a>
+                        <a class="nav-link" id="{{option}}" routerLink="{{router_options[i]}}">{{option}}</a>
                     </li>
 
                 </ul>

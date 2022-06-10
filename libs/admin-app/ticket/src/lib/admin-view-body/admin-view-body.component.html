@@ -54,7 +54,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let ticket of tickets, index as i" (click)="viewTicket(ticket.ticket_id)" >
+      <tr *ngFor="let ticket of tickets, index as i" (click)="viewTicket(ticket.ticket_id)" id="row{{i}}">
         <div class="d-none"></div>
         <td>{{dates[i].toLocaleString()}}</td>
         <td>{{ticket.ticket_type}}</td>

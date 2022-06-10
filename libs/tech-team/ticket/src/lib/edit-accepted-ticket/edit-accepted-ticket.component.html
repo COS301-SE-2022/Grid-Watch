@@ -36,7 +36,7 @@
                     </div>
                     <div class="ticket_status mt-1">
                         <label for="status" class="form-label">Status:</label>
-                        <select class="form-select" name="status" [(ngModel)]="status">
+                        <select class="form-select" name="status" [(ngModel)]="status" id="ticketStatus">
                             <option value="Accepted">Accepted</option>
                             <option value="Awaiting Material">Awaiting material</option>
                             <option value="In Progress">In Progress</option>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="ticket_status mt-1 mb-3">
                         <label for="repair_time" class="form-label">Estimated cost:</label>
-                        <input type="text" class="form-control" id="repair_time" placeholder="Enter estimated cost" name="repair_time" [(ngModel)]="cost" > 
+                        <input type="text" class="form-control" id="cost" placeholder="Enter estimated cost" name="repair_time" [(ngModel)]="cost" > 
                     </div>
                 </div>
             </div>

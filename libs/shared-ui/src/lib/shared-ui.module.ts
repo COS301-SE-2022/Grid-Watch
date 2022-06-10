@@ -6,6 +6,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { FormsModule } from '@angular/forms';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { MenuOptionsComponent } from './menu-options/menu-options.component';
+import { AppHeaderComponent } from './app-header/app-header.component';
 
 @NgModule({
   imports: [
@@ -21,12 +22,14 @@ import { MenuOptionsComponent } from './menu-options/menu-options.component';
     LoginPageComponent,
     RegisterPageComponent,
     MenuOptionsComponent,
+    AppHeaderComponent,
   ],
   exports: [
     NavBarComponent,
     LoginPageComponent,
     RegisterPageComponent,
     MenuOptionsComponent,
+    AppHeaderComponent,
   ],
 })
 export class SharedUiModule {}

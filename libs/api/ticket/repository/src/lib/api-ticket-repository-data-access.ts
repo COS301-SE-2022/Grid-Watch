@@ -58,7 +58,7 @@ export class ApiTicketRepositoryDataAccess {
             
             where:
             {
-                ticket_status: "Dispatched",
+                ticketStatus: "Dispatched",
             },
             
         })
@@ -411,7 +411,7 @@ export class ApiTicketRepositoryDataAccess {
 
         await this.prisma.ticket.delete({
             where: {
-                ticketID: ticketID,
+                ticketId: ticketID,
             },
         })
        // return "The ticket with id: " + ticketID + " has been deleted."
@@ -433,7 +433,7 @@ export class ApiTicketRepositoryDataAccess {
                  ticket:{
                      connect : 
                      {
-                         ticketID : ticketID,
+                        ticketId : ticketID,
                      }
                  }
 
@@ -448,7 +448,7 @@ export class ApiTicketRepositoryDataAccess {
          return await this.prisma.picture.findMany({
             where:
             {
-                ticketId: ticketID,
+                Id: ticketID,
             },
 
         })
@@ -460,7 +460,7 @@ export class ApiTicketRepositoryDataAccess {
         return await this.prisma.picture.findMany({
             where:
             {
-                ticketId: ticketID,
+                ticketID: ticketID,
             },
             orderBy: 
             {
@@ -474,7 +474,7 @@ export class ApiTicketRepositoryDataAccess {
         await this.prisma.picture.update({
             where: 
             {
-                picture_id : pictureID,
+                pictureId : pictureID,
             },
             data:
             {

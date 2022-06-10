@@ -34,6 +34,10 @@ The system will also make use of predictive analytics powered by AI modules that
 ### Project Board
 [Our Teams Project Board](https://github.com/COS301-SE-2022/Grid-Watch/projects)
 
+### Coding Standards Document
+
+[Coding Standards Document](https://docs.google.com/document/d/14ZgiOOHuGVIBg7ipPNieu8GqoA4tWqco2OpbXeJmOH0/edit?usp=sharing)
+
 ### User Manual
 [Grid Watch User Manual](https://drive.google.com/file/d/1Uv2K0BQI1hVqUTOibVpMgImo-9ssm-Sp/view?usp=sharing)
 

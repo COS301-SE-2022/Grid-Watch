@@ -6,7 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menu-options.component.scss'],
 })
 export class MenuOptionsComponent implements OnInit {
+
+  applicationType! : string | undefined;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const temp = document.getElementById("application_type");
+    this.applicationType = temp?.innerHTML;
+  }
 }

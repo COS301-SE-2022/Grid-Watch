@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketPictureDto } from  "@grid-watch/api/ticket/api/shared/ticket-picture-dto";
+import { TicketService } from '../../services/ticket.service';
 
 
 @Component({
@@ -20,24 +21,20 @@ export class TicketBodyComponent implements OnInit {
   getPictureURL = "http://localhost:3333/api/ticket/picture/"
   upvoteURL = "http://localhost:3333/api/ticket/update/upvotes/"
 
-  public name : string;
-  public surname : string;
-  public avatar : string;
-  public issue_img : string;
+  public name! : string;
+  public surname! : string;
+  public avatar! : string;
   tickets : Array<TicketDto> = [];
 
-  constructor( private http: HttpClient) {
-    this.name = "";
-    this.surname = "";
-    this.avatar = "";
-    this.issue_img = "";
+  constructor( private http: HttpClient,
+              ticketService: TicketService) {
+
   }
   
   ngOnInit(): void {
     this.name = "John"
     this.surname = "Doe"
     this.avatar = "assets/user-solid.svg";
-    this.issue_img = "assets/pothole_example.jpg";
 
     this.http.get<TicketDto[]>(this.getAllURL).subscribe(
       (data) => {

@@ -57,7 +57,7 @@
                             <div class="spinner-border text-success text-center" >
                             </div>
                         </div>
-                        <div *ngIf="default_upload !== '' && file !== undefined" >
+                        <div *ngIf="default_upload !== '' || file !== undefined" >
                             <img id="image_preview" src="{{default_upload}}" class="upload_issue_image" alt="upload_image">
                         </div>
                     </div>

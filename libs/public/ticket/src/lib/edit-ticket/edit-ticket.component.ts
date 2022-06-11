@@ -189,10 +189,9 @@ export class EditTicketComponent implements OnInit {
     this.getPictureURL += data.ticket_id;
       this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
         (data) => {
-          // console.log(data[0])
+          console.log(data)
           if (data[data.length -1] !== undefined)
           {
-            console.log("I arrive here");
             this.ticket.ticket_img = data[data.length -1].picture_link;
             this.default_upload = "assets/"+ this.ticket.ticket_img;
             this.waiting = false;

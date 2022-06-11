@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketPictureDto } from  "@grid-watch/api/ticket/api/shared/ticket-picture-dto";
-import { TicketService } from '../../services/Ticket/ticket.service';
-import { GoogleMapsService } from '../../services/GoogleMaps/google-maps.service';
+import { TicketService } from '@grid-watch/shared-ui';
+import { GoogleMapsService } from '@grid-watch/shared-ui';
 
 
 @Component({

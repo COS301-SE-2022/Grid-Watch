@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { catchError, Observable, of } from 'rxjs';
+import { Express } from 'express';
+import { Multer } from 'multer';
+import { ImageResponse } from './image-response';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +21,13 @@ export class TicketService {
   private getAllURL = "/api/ticket/all/tickets"
   private upvoteURL = "/api/ticket/update/upvotes/"
   private getPictureURL = "/api/ticket/picture/"
+  private getTicketURL = "/api/ticket/";
+  private uploadURL = "/api/ticket/upload";
+  private updateURL = "/api/ticket/update/";
+  public createPictureURL = "/api/ticket/picture/create/";
+
+
+
 
 
   constructor(private http : HttpClient) {
@@ -34,8 +44,15 @@ export class TicketService {
     return true;
    }
 
-   public updateTicket() : boolean {
-    return true;
+   public updateTicket(ticket : TicketDto) : boolean {
+    const tempURL = this.updateURL + ticket.ticket_id
+      this.http.put<TicketDto[]>(tempURL, ticket, this.httpOptions).subscribe(
+        (response) =>
+        {
+          console.log(response);
+        }
+      ) 
+      return true;
    }
 
    public getTickets() : Observable<TicketDto[]> {
@@ -45,9 +62,28 @@ export class TicketService {
     );
    } 
 
-   public uploadImage() : boolean 
+   public getTicket(ticket_id : string) : Observable<TicketDto[]> {
+    const tempURL = this.getTicketURL + ticket_id
+    return this.http.get<TicketDto[]>(tempURL).pipe(
+      catchError(this.handleError<TicketDto[]>("getTicket", []))
+    );
+   }
+
+   public uploadImage(ticketImg : string, ticketID : number) : void 
    {
-    return true;
+    const tempURL = this.createPictureURL + ticketID;
+    const body = JSON.parse('{ "imgLink" : "' + ticketImg + '"}');
+    this.http.post<string>(tempURL, body, this.httpOptions).subscribe(
+      (data) =>
+      {
+
+        console.log(data);
+      },
+      (error) =>
+      {
+        console.log(error);
+      }
+    );
    }
 
    private handleError<T>(operation = 'operation', result?: T) 
@@ -80,6 +116,15 @@ export class TicketService {
     return this.http.get<TicketPictureDto[]>(tempURL)
     .pipe(     
       catchError(this.handleError<TicketPictureDto[]>('getImages', []))
+    );
+  }
+
+  public postImage(formData : FormData) : Observable<ImageResponse>{
+    // console.log("OVER HERE NOW");
+    
+    return this.http.post<Express.Multer.File>(this.uploadURL, formData)
+    .pipe(
+      catchError(this.handleError<ImageResponse>('postImage', {originalname:"", filename: ""}))
     );
   }
 }

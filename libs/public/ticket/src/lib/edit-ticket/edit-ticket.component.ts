@@ -6,7 +6,7 @@ import { Multer } from 'multer';
 import { GoogleMap } from '@angular/google-maps';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
-import { delay } from 'rxjs';
+import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-edit-ticket',
@@ -16,14 +16,14 @@ import { delay } from 'rxjs';
 export class EditTicketComponent implements OnInit {
 
   autocomplete!: google.maps.places.Autocomplete;
-  marker_position!: google.maps.LatLng | google.maps.LatLngLiteral
+  markerPosition!: google.maps.LatLng | google.maps.LatLngLiteral
 
   zoom! : number;
   center! : google.maps.LatLngLiteral | google.maps.LatLng;
   options!: google.maps.MapOptions;
 
-  display_name! : string | null;
-  default_upload! : string | null;
+  displayName! : string | null;
+  defaultUpload! : string | null;
   @Input() issue_type! : string;
   @Input() other_details! : string;
   file! : File;
@@ -36,27 +36,24 @@ export class EditTicketComponent implements OnInit {
   };
 
 
-  place_id! : string;
+  placeID! : string;
   @Input() ticket! : TicketDto;
-  updateURL = "http://localhost:3333/api/ticket/update/";
-  getTicketURL = "http://localhost:3333/api/ticket/";
-  uploadURL = "http://localhost:3333/api/ticket/upload";
-  getPictureURL = "http://localhost:3333/api/ticket/picture/";
-  createPictureURL = "http://localhost:3333/api/ticket/picture/create/";
 
 
   constructor(
       private route: ActivatedRoute, 
       private http : HttpClient,
-      private router : Router) {
+      private router : Router,
+      private ticketService :TicketService, 
+      private googleMapsService: GoogleMapsService) {
   }
 
 
   async ngOnInit(): Promise<void> {
     this.ticket = new TicketDto();
-    this.default_upload = "";    
+    this.defaultUpload = "";    
     this.waiting = true;
-    await this.delay(2000);
+
     this.zoom = 5.5;
     this.center =  {
       lat: -30.5595,
@@ -68,25 +65,19 @@ export class EditTicketComponent implements OnInit {
     }
 
     //User Data
-    this.display_name = "John Doe";
+    this.displayName = "John Doe";
 
     //Get parameters
-    const temp = this.route.snapshot.paramMap.get('id');
-
-    //Add parameter to URL
-    this.getTicketURL = this.getTicketURL + temp
-    this.updateURL = this.updateURL + temp
-    
-    this.http.get<TicketDto[]>(this.getTicketURL, this.httpOptions).subscribe(
-      (data) =>
-      {
-        this.ticket = data[0];
-        this.initialiseFields(data[0]);
-        this.initMap();
-      }
+    const tempID = this.route.snapshot.paramMap.get('id');
+    if (tempID)
+      this.ticketService.getTicket(tempID).subscribe(
+        (response) => {
+          // console.log("HERE:");
+          console.log(response);
+          this.initialiseFields(response[0]);
+          this.initMap();
+        }
       )
-      // console.log("IMG:" + this.ticket.ticket_img + ",");
-      
   }
 
   async fileUploaded(e: any)
@@ -97,7 +88,7 @@ export class EditTicketComponent implements OnInit {
     await this.delay(2000)
     const reader = new FileReader();
     reader.onload = () => {
-      this.default_upload = reader.result as string;
+      this.defaultUpload = reader.result as string;
       this.waiting = false;
     }
     reader.readAsDataURL(this.file)
@@ -124,7 +115,7 @@ export class EditTicketComponent implements OnInit {
       if (place.place_id !== undefined)
       {
         this.ticket.ticket_location = place.place_id;
-        this.ticket.ticket_city = this.getAutocompleteCity(place.address_components)
+        this.ticket.ticket_city = this.googleMapsService.getAutocompleteCity(place.address_components)
       }
       
     console.log(this.ticket);
@@ -134,21 +125,14 @@ export class EditTicketComponent implements OnInit {
     {
       const formData = new FormData();
       formData.append("photo", this.file, this.file.name);
-  
-      this.http.post<Express.Multer.File>(this.uploadURL, formData)
-      .subscribe({
-        next: (data) => {
-          console.log(data);
-          
-          this.updateTicket(data.filename);
-          this.showSuccessMessage();
-          this.router.navigateByUrl("/tickets")
-        },
-        error: error => {
-          this.showErrorMessage("Error uploading image");
-          this.updateTicket(this.ticket.ticket_img);
+      this.ticketService.postImage(formData).subscribe(
+        (response) =>
+        {
+
+          console.log(response.filename);
+          this.updateTicket(response.filename)
         }
-      }) 
+      );
     }
     else
     {
@@ -157,21 +141,13 @@ export class EditTicketComponent implements OnInit {
   }
   
   updateTicket(link : string) {
-    this.ticket.ticket_img = link
-    this.http.put<TicketDto[]>(this.updateURL, this.ticket, this.httpOptions).subscribe(
-        () => {
-          this.createPictureURL += this.ticket.ticket_id;
-          if (this.file != null)
-            this.uploadPhoto();
-          else{
-            this.showSuccessMessage();
-            this.router.navigateByUrl("/tickets")
-          }
-        },
-        () => {
-          this.showErrorMessage("Errror updating ticket");
-        }
-      ) 
+    this.ticket.ticket_img = link;
+    if (this.ticketService.updateTicket(this.ticket))
+    {
+      this.uploadPhoto();
+    }
+    else
+      this.showErrorMessage("Something went wrong")
   }
 
 
@@ -185,33 +161,45 @@ export class EditTicketComponent implements OnInit {
 
   initialiseFields(data : TicketDto)
   {
+    // console.log(data.ticket_id);
     
-    this.getPictureURL += data.ticket_id;
-      this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
-        (data) => {
-          console.log(data)
-          if (data[data.length -1] !== undefined)
-          {
-            this.ticket.ticket_img = data[data.length -1].picture_link;
-            this.default_upload = "assets/"+ this.ticket.ticket_img;
-            this.waiting = false;
-          }
+    // this.getPictureURL += data.ticket_id;
+    this.ticket = data;
+    this.ticketService.getImages(data.ticket_id).subscribe(
+      (response) => {
+        console.log(response);
+        if (response[response.length - 1])
+        {
+          this.ticket.ticket_img = response[response.length - 1].picture_link;
+          this.defaultUpload = "assets/" + this.ticket.ticket_img;
         }
-        );
+      }
+    );
         
-        //SET TICKET TYPE
-        if ((data.ticket_type === "Pothole") || (data.ticket_type === "Water Outage") ||
-        (data.ticket_type === "Sinkhole")  || (data.ticket_type === "Electricity Outage") ) 
-          this.issue_type = data.ticket_type;
+    //SET TICKET TYPE
+    if (data.ticket_type !== "Other")
+      this.issue_type = data.ticket_type;
     else
     {
       this.issue_type = "Other"
       this.other_details = data.ticket_type;
     }
+
+    //CHange location from PLACE ID to formatted address
+    this.placeID = this.ticket.ticket_location;
+    this.googleMapsService.getLocation(this.ticket.ticket_location).then(
+      (response) =>
+      {
+        this.ticket.ticket_location = response;
+      },
+      (error) =>
+      {
+        console.log(error);
+      }
+    )
     this.waiting = false;
   }
 
-  
   initMap() : void
   {
     const input = document.getElementById("pac-input") as HTMLInputElement;
@@ -223,137 +211,50 @@ export class EditTicketComponent implements OnInit {
     this.autocomplete = new google.maps.places.Autocomplete(input, options);
     google.maps.event.addListener(this.autocomplete, "place_changed" , () =>{
       const place = this.autocomplete.getPlace()
-      this.createMapMarker(place)
+      if (place.geometry?.location !== undefined)
+      {
+        const pos = {
+          lat: place.geometry?.location?.lat(),
+        lng: place.geometry?.location?.lng()
+        }
+        this.createMapMarker(pos)
+      }
     })
   }
 
   getCurrentLocation() : void
   {
-    if (navigator.geolocation)
-    {
-      navigator.geolocation.getCurrentPosition(
-        (position : GeolocationPosition) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          this.marker_position = pos;
-          this.center = pos;
-          this.zoom = 12;
-          const geocoder: google.maps.Geocoder = new google.maps.Geocoder;
-          geocoder.geocode({location: pos},(response) =>
-          {
-            
-            // if (response != null) 
-            // {
-            //   this.ticket.ticket_location = "";
-            //   for (let k = 0 ; k < 4; k++)
-            //     this.ticket.ticket_location += response[0].address_components[k].long_name + " ";
-            //   this.ticket.ticket_city = response[0].address_components[3].long_name;
-            //     console.log(this.ticket.ticket_location);
-            //   console.log(this.ticket.ticket_city);
-            // }
-            if (response != null)
-            {
-              this.place_id = response[0].place_id
-              this.ticket.ticket_city = this.getAutocompleteCity(response[0].address_components)
-            }
-            console.log();
-            
-          });
+    this.googleMapsService.getCurrentLocation().then(
+      (response) =>
+      {
+        console.log(response);
+        const pos = {
+          lat: response.latitude,
+          lng: response.longitude
         }
-      )
-    }
+        this.createMapMarker(pos);
+      }
+    );
   }
 
-  createMapMarker(place: google.maps.places.PlaceResult) : void
+  createMapMarker(place: {lat:number, lng:number}) : void
   {
     // this.marker_position =
-    if (place.geometry?.location !== undefined)
-    {
-      this.marker_position = place.geometry?.location;
-      this.zoom = 12;
-      this.center = place.geometry?.location;
-    }
-    console.log(place.geometry?.location);
+   
+    this.markerPosition = place;
+    this.zoom = 12;
+    this.center = place;
+    console.log(place);
     document.getElementById("pac-input")?.focus();
   }
 
   uploadPhoto() : void
   {
-    const temp = JSON.parse('{ "imgLink" : "' + this.ticket.ticket_img + '"}');
-    this.http.post<string>(this.createPictureURL, temp, this.httpOptions).subscribe(
-      (data) =>
-      {
-
-        console.log(data);
-        this.showSuccessMessage();
-        this.router.navigateByUrl("/tickets")
-      },
-      (error) =>
-      {
-        console.log(error);
-        
-      }
-    );
+    this.ticketService.uploadImage(this.ticket.ticket_img, this.ticket.ticket_id);
   }
 
   initiateFileUpload() : void {
     document.getElementById("issue_uploaded_img")?.click();
-  }
-
-  getAutocompleteCity(place: any) : string
-  {
-    // console.log(place);
-    if (place !== undefined)
-    {
-      // const place = this.autocomplete.getPlace().address_components;
-     
-      const count = place.length as number
-      // console.log(place);
-      
-      for (let k = 0; k < count ; k++)
-      {
-        let count2 = 0;
-        if (place)
-        {
-          count2 = place[k].types.length as number;
-        }
-        for (let i = 0; i < count2 ; i++)
-        {
-          if (place)
-            if (place[k].types[i] === "locality")
-            {
-              return place[k].long_name
-            }
-            
-        }
-        // if (this.autocomplete.getPlace().address_components[k].types === "")
-        // this.ticket.ticket_city = 
-      }
-     
-      for (let k = 0; k < count ; k++)
-      {
-        let count2 = 0;
-        if (place)
-        {
-          count2 = place[k].types.length as number;
-        }
-        for (let i = 0; i < count2 ; i++)
-        {
-          if (place)
-            if (place[k].types[i] === "sublocality")
-            {
-              return place[k].long_name
-            }
-            
-        }
-        // if (this.autocomplete.getPlace().address_components[k].types === "")
-        // this.ticket.ticket_city = 
-        }
-      
-    }
-    return "";
   }
 
   delay(ms: number) {

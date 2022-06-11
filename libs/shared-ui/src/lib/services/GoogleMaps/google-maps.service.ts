@@ -1,4 +1,3 @@
-import { temporaryAllocator } from '@angular/compiler/src/render3/view/util';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class GoogleMapsService {
 
-  constructor() { }
+  // constructor() { }
 
   public async getLocation(placeID : string) : Promise<string>  {
     const geocoder = new google.maps.Geocoder();
@@ -19,7 +18,70 @@ export class GoogleMapsService {
     return temp
 }
 
+public getAutocompleteCity(place: any) : string
+{
+  // console.log(place);
+  if (place !== undefined)
+  {
+    // const place = this.autocomplete.getPlace().address_components;
+   
+    const count = place.length as number
+    // console.log(place);
+    
+    for (let k = 0; k < count ; k++)
+    {
+      let count2 = 0;
+      if (place)
+      {
+        count2 = place[k].types.length as number;
+      }
+      for (let i = 0; i < count2 ; i++)
+      {
+        if (place)
+          if (place[k].types[i] === "locality")
+          {
+            return place[k].long_name
+          }
+          
+      }
+      // if (this.autocomplete.getPlace().address_components[k].types === "")
+      // this.ticket.ticket_city = 
+    }
+   
+    for (let k = 0; k < count ; k++)
+    {
+      let count2 = 0;
+      if (place)
+      {
+        count2 = place[k].types.length as number;
+      }
+      for (let i = 0; i < count2 ; i++)
+      {
+        if (place)
+          if (place[k].types[i] === "sublocality")
+          {
+            return place[k].long_name
+          }
+          
+      }
+      // if (this.autocomplete.getPlace().address_components[k].types === "")
+      // this.ticket.ticket_city = 
+      }
+    
+  }
+  return "";
+}
   
+public async getCurrentLocation() : Promise<GeolocationCoordinates>
+{
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition((position) => { 
+        resolve(position.coords);
+      }, (err) => {
+        reject(err);
+      });
+    });
+    
+}
 
-  
 }

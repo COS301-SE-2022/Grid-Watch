@@ -14,7 +14,35 @@ img#image_preview {
     border: 2px dotted grey
 }
 
-.btn-image {
-    background-image: url('https://localhost:4200/assets/map-location-solid.svg') !important;
-    background-size: contain; //or cover
+.imagePreviewContainer {
+    border: 2px dotted grey;
+    height: 250px;
+}
+
+
+.picture_text{
+    height: 250px;
+    line-height: 250px;
+}
+
+.centered_element{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.rounded-circle
+{
+    border: 1px solid black
+}
+
+#createTicket_button
+{
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.add_icon
+{
+    font-size: 75px;
 }

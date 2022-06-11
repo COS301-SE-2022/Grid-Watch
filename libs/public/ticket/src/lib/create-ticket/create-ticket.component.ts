@@ -260,7 +260,8 @@ export class CreateTicketComponent{
         
           this.ticket.ticket_id = data[0].ticket_id
           this.createPictureURL += this.ticket.ticket_id;
-          this.uploadPhoto();
+          if (this.file !== undefined)
+            this.uploadPhoto();
           this.showSuccessMessage();
         },
         error: error => {

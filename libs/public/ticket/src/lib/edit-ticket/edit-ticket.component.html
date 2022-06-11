@@ -1,10 +1,10 @@
-<div class="container mt-5">
+<div class="container mt-1">
     <div class="row">
-        <div class="col-12 border d-inline d-lg-none">
+        <!-- <div class="col-12 border d-inline d-lg-none">
             <div class="align-middle p-5 preview_container">
                 <img id="image_preview" src="{{default_upload}}" class="upload_issue_image" alt="upload_image" onerror="this.src='assets/upload-solid.svg'">
             </div>
-        </div> 
+        </div>  -->
         <div class="card col-12 col-lg-7">
             <div class="card-body">
                 <div class="mt-2 "  id="name_field">
@@ -46,9 +46,25 @@
                         <input matInput value="{{ticket.ticket_city}}" [(ngModel)]="ticket.ticket_city">
                     </mat-form-field>
                 </div> -->
+
+                <label class="form-label mt-2 " for="customFile">Upload image of issue</label>
+                <div class="" (click)="initiateFileUpload()">
+                    <div class="imagePreviewContainer d-flex justify-content-center" >
+                        <div class="icon_container " *ngIf="(file === undefined && default_upload === '' ) && (waiting !== true)">
+                            <div class="add_icon material-icons align-center centered_element">add</div>
+                        </div>
+                        <div class="centered_element d-flex justify-content-center" *ngIf="waiting === true"> 
+                            <div class="spinner-border text-success text-center" >
+                            </div>
+                        </div>
+                        <div *ngIf="default_upload !== '' && file !== undefined" >
+                            <img id="image_preview" src="{{default_upload}}" class="upload_issue_image" alt="upload_image">
+                        </div>
+                    </div>
+                </div> 
                 
-                <div id="upload_image">
-                    <label class="">Upload image of issue</label><br>
+                <!-- <label class="">Upload image of issue</label><br> -->
+                <div id="upload_image" class="d-none">
                     <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
                  </div>
 
@@ -62,7 +78,7 @@
                         <input  class="form-control" id="pac-input" type="text" placeholder="Search a location" [(ngModel)]="ticket.ticket_location"/>
                         <button class="getLocationButton btn btn-outline-dark" (click)="getCurrentLocation()">
                             <!-- <p><img src="assets/map-location-solid.svg" alt=""></p> -->
-                            Current Location
+                            <span class="material-icons">share_location</span>
                         </button>
                      </div>
                 </div>
@@ -87,18 +103,12 @@
                  </div> -->
     
                  <div class="row mt-5">
-                     <div class="col-4">
-                         <!-- <a routerLink="/tickets"> -->
-                             <button id="createTicket_button" mat-raised-button color="primary" (click)="editTicket()" >Update</button>
-                         <!-- </a> -->
-                    </div>
-                    <div class="col-4"></div>
+                    <div class="col-4"></div>              
                     <div class="col-4">
-                        <a routerLink="/tickets">
-                            <button id="discardTicket_button" mat-raised-button color="primary" >Discard</button>
-                        </a>
-                   </div>                
-                 </div>
+                       <button class="btn btn-outline-dark" id="createTicket_button" color="primary" (click)="editTicket()">Update</button>
+                   </div>
+                   <div class="col-4"></div>              
+                </div>
             </div>
         </div> 
         <div class="col-12 col-lg-5 border d-none d-lg-inline">

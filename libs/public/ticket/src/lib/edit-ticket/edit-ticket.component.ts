@@ -30,13 +30,6 @@ export class EditTicketComponent implements OnInit {
   file! : File;
   waiting! : boolean;
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json'
-    })
-  };
-
-
   placeID! : string;
   @Input() ticket! : TicketDto;
 

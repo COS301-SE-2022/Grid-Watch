@@ -4,6 +4,7 @@ import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-pictu
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { catchError, Observable, of } from 'rxjs';
 import { Express } from 'express';
+import { Multer } from 'multer';
 import { ImageResponse } from './image-response';
 
 @Injectable({
@@ -25,11 +26,6 @@ export class TicketService {
   private updateURL = "/api/ticket/update/";
   private createPictureURL = "/api/ticket/picture/create/";
   private createTicketURL = "/api/ticket/create";
-
-
-
-
-
 
   constructor(private http : HttpClient) {
 

@@ -1,11 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { MatOption, MatOptionModule } from '@angular/material/core';
-import {  MatFormFieldModule, MatLabel } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelect, MatSelectModule } from '@angular/material/select';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CreateTicketComponent } from './create-ticket.component';
 
@@ -16,7 +11,7 @@ describe('CreateTicketComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CreateTicketComponent],
-      imports: [RouterTestingModule, HttpClientModule]
+      imports: [RouterTestingModule, HttpClientModule, GoogleMapsModule]
     }).compileComponents();
   });
 
@@ -27,15 +22,11 @@ describe('CreateTicketComponent', () => {
   });
 
   it('should create CreateTicketComponent component', () => {
+    const script = document.createElement('script');
+    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE&libraries=places";
+    script.async = true;
+
     expect(component).toBeTruthy();
-  });
-
-  it('should check if create Ticket URL is correct', () => {
-    expect(component.createTicketURL).toEqual("http://localhost:3333/api/ticket/create");
-  });
-
-  it('should check if upload image URL is correct', () => {
-    expect(component.uploadURL).toEqual("http://localhost:3333/api/ticket/upload");
   });
 
   // it('should check if ngOnInit initalises fields properly', () => {

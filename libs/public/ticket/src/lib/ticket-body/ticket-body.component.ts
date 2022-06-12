@@ -1,7 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { TicketPictureDto } from  "@grid-watch/api/ticket/api/shared/ticket-picture-dto";
 import { TicketService } from '@grid-watch/shared-ui';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
 

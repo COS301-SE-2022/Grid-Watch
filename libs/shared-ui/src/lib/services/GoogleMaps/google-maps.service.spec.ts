@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-
+import { GoogleMapsModule } from '@angular/google-maps';
 import { GoogleMapsService } from './google-maps.service';
 
 describe('GoogleMapsService', () => {

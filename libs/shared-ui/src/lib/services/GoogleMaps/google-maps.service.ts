@@ -10,13 +10,37 @@ export class GoogleMapsService {
   public async getLocation(placeID : string) : Promise<string>  {
     const geocoder = new google.maps.Geocoder();
     // const output;
+    // console.log(placeID);
     const temp = await geocoder.geocode({placeId : placeID}).then(
       ({results}) => {
         return results[0].formatted_address;
       }
     )
     return temp
-}
+  }
+
+  public async getLocationCoord(pos : {lat:number, lng: number}) : Promise<string>  {
+    const geocoder = new google.maps.Geocoder();
+    // const output;
+    const temp = await geocoder.geocode({location : pos}).then(
+      ({results}) => {
+        return results[0].place_id;
+      }
+      )
+    return temp
+  }
+  
+  public async getCity(placeID : string)
+  {
+    const geocoder = new google.maps.Geocoder();
+    const temp = await geocoder.geocode({placeId : placeID}).then(
+      ({results}) => {
+        console.log(results);
+        return this.getAutocompleteCity(results[0].address_components);
+      }
+    )
+    return temp
+  }
 
 public getAutocompleteCity(place: any) : string
 {
@@ -75,7 +99,7 @@ public getAutocompleteCity(place: any) : string
 public async getCurrentLocation() : Promise<GeolocationCoordinates>
 {
     return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition((position) => { 
+      navigator.geolocation.getCurrentPosition((position) => {         
         resolve(position.coords);
       }, (err) => {
         reject(err);

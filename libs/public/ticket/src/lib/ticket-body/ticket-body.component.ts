@@ -41,7 +41,7 @@ export class TicketBodyComponent implements OnInit {
     this.ticketService.increaseUpvotes(id, ++this.tickets[index].ticket_upvotes)
   }
     
-  InitialiseTicket(data : TicketDto []) : void 
+  async InitialiseTicket(data : TicketDto []) : Promise<void> 
   {
     for (let index = 0; index < data.length; index++) 
     {
@@ -57,6 +57,10 @@ export class TicketBodyComponent implements OnInit {
       this.googleMapsService.getLocation(place_id).then(
         (response) => {
           this.tickets[index].ticket_location = response;
+        },
+        (error) => {
+          console.log(error);
+          
         }
       );
     }

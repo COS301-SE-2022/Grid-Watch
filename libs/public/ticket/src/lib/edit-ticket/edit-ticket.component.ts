@@ -7,6 +7,7 @@ import { GoogleMap } from '@angular/google-maps';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
 import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
+import { auto } from '@popperjs/core';
 
 @Component({
   selector: 'grid-watch-edit-ticket',
@@ -117,6 +118,11 @@ export class EditTicketComponent implements OnInit {
         this.ticket.ticket_location = place.place_id;
         this.ticket.ticket_city = this.googleMapsService.getAutocompleteCity(place.address_components)
       }
+
+      if (this.placeID != "")
+      {
+        this.ticket.ticket_location = this.placeID;
+      }
       
     console.log(this.ticket);
     
@@ -145,6 +151,7 @@ export class EditTicketComponent implements OnInit {
     if (this.ticketService.updateTicket(this.ticket))
     {
       this.uploadPhoto();
+      this.router.navigateByUrl("/tickets")
     }
     else
       this.showErrorMessage("Something went wrong")
@@ -225,7 +232,7 @@ export class EditTicketComponent implements OnInit {
   getCurrentLocation() : void
   {
     this.googleMapsService.getCurrentLocation().then(
-      (response) =>
+      async (response) =>
       {
         console.log(response);
         const pos = {
@@ -233,6 +240,10 @@ export class EditTicketComponent implements OnInit {
           lng: response.longitude
         }
         this.createMapMarker(pos);
+        this.placeID  = await this.googleMapsService.getLocationCoord(pos);
+        this.ticket.ticket_location = await this.googleMapsService.getLocation(this.placeID);
+        this.ticket.ticket_city = await this.googleMapsService.getCity(this.placeID);
+        // this.placeID  
       }
     );
   }
@@ -244,7 +255,8 @@ export class EditTicketComponent implements OnInit {
     this.markerPosition = place;
     this.zoom = 12;
     this.center = place;
-    console.log(place);
+    // console.log("HERE");
+    // console.log(place);
     document.getElementById("pac-input")?.focus();
   }
 
@@ -260,4 +272,5 @@ export class EditTicketComponent implements OnInit {
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
+
 }

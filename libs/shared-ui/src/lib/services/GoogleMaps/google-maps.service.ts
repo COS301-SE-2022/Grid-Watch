@@ -42,7 +42,7 @@ export class GoogleMapsService {
     return temp
   }
 
-public getAutocompleteCity(place: any) : string
+public getAutocompleteCity(place: google.maps.GeocoderAddressComponent [] | undefined) : string
 {
   // console.log(place);
   if (place !== undefined)

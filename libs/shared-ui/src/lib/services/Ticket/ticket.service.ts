@@ -1,10 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { ErrorHandler, Injectable } from '@angular/core';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { catchError, Observable, of } from 'rxjs';
 import { Express } from 'express';
-import { Multer } from 'multer';
 import { ImageResponse } from './image-response';
 
 @Injectable({
@@ -50,7 +49,7 @@ export class TicketService {
    }
 
    public updateTicket(ticket : TicketDto) : boolean {
-    const tempURL = this.updateURL + ticket.ticket_id
+    const tempURL = this.updateURL + ticket.ticket_id ;
       this.http.put<TicketDto[]>(tempURL, ticket, this.httpOptions).subscribe(
         (response) =>
         {
@@ -85,9 +84,10 @@ export class TicketService {
 
    private handleError<T>(operation = 'operation', result?: T) 
    {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (error: any): Observable<T> => {
       console.error(error); 
-      console.log(`${operation} failed: ${error.message}`);
+      console.log(`${operation} failed: ${error.messgae}`);
 
       return of(result as T);
     };

@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'grid-watch-app-header',
   templateUrl: './app-header.component.html',
   styleUrls: ['./app-header.component.scss'],
 })
-export class AppHeaderComponent implements OnInit {
-  constructor() {}
+export class AppHeaderComponent{
+  // constructor() {}
 
-  ngOnInit(): void {}
+  // ngOnInit(): void {}
 }

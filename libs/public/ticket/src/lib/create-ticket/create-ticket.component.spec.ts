@@ -39,7 +39,7 @@ describe('CreateTicketComponent', () => {
   });
 
   // it('should check if ngOnInit initalises fields properly', () => {
-  //   expect(component.default_upload).toEqual("assets/upload-solid.svg");
+  //   expect(component.defaultUpload).toEqual("assets/upload-solid.svg");
   //   expect(component.other).toBeFalsy();
   //   expect(component.other_details).toEqual("");
   // });

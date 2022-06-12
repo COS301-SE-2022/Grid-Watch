@@ -24,7 +24,9 @@ export class TicketService {
   private getTicketURL = "/api/ticket/";
   private uploadURL = "/api/ticket/upload";
   private updateURL = "/api/ticket/update/";
-  public createPictureURL = "/api/ticket/picture/create/";
+  private createPictureURL = "/api/ticket/picture/create/";
+  private createTicketURL = "/api/ticket/create";
+
 
 
 
@@ -40,8 +42,11 @@ export class TicketService {
    }
    
 
-   public createTicket(ticket : TicketDto) : boolean {
-    return true;
+   public createNewTicket(ticket : TicketDto) : Observable<TicketDto[]> {
+    return this.http.post<TicketDto[]>(this.createTicketURL, ticket, this.httpOptions)
+    .pipe(
+      catchError(this.handleError<TicketDto[]>('createNewTickets', []))
+    )
    }
 
    public updateTicket(ticket : TicketDto) : boolean {
@@ -69,21 +74,13 @@ export class TicketService {
     );
    }
 
-   public uploadImage(ticketImg : string, ticketID : number) : void 
+   public uploadImage(ticketImg : string, ticketID : number) : Observable<string> 
    {
     const tempURL = this.createPictureURL + ticketID;
     const body = JSON.parse('{ "imgLink" : "' + ticketImg + '"}');
-    this.http.post<string>(tempURL, body, this.httpOptions).subscribe(
-      (data) =>
-      {
-
-        console.log(data);
-      },
-      (error) =>
-      {
-        console.log(error);
-      }
-    );
+    return this.http.post<string>(tempURL, body, this.httpOptions).pipe(
+      catchError(this.handleError<string>('getTickets', "failed"))
+    )
    }
 
    private handleError<T>(operation = 'operation', result?: T) 

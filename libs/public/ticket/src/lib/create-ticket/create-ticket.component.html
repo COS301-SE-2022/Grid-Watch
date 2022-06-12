@@ -49,12 +49,12 @@
                         <div class="icon_container " *ngIf="file === undefined">
                             <div class="add_icon material-icons align-center centered_element">add</div>
                         </div>
-                        <div class="centered_element d-flex justify-content-center" *ngIf="default_upload === '' && file !== undefined"> 
+                        <div class="centered_element d-flex justify-content-center" *ngIf="defaultUpload === '' && file !== undefined"> 
                             <div class="spinner-border text-success text-center" >
                             </div>
                         </div>
-                        <div  *ngIf="file !== undefined && default_upload !== ''">
-                            <img id="image_preview" src="{{default_upload}}" class="upload_issue_image" alt="upload_image">
+                        <div  *ngIf="file !== undefined && defaultUpload !== ''">
+                            <img id="image_preview" src="{{defaultUpload}}" class="upload_issue_image" alt="upload_image">
                         </div>
                     </div>
                 </div> 
@@ -82,7 +82,7 @@
                         [center]="center"
                         [options]="options">
                         <map-marker
-                            [position]="marker_position"
+                            [position]="markerPosition"
                             [title]="ticket.ticket_type"
                         >
                         </map-marker>
@@ -101,7 +101,7 @@
         </span> 
         <!-- <span class="col-4 col-md-5 border-top border-end border-bottom">
             <div class="border align-middle p-5 mt-5 d-flex justify-content-center">
-                <img id="image_preview" src="{{default_upload}}" class="upload_issue_image" alt="upload_image">
+                <img id="image_preview" src="{{defaultUpload}}" class="upload_issue_image" alt="upload_image">
             </div>
         </span>  -->
     </div>

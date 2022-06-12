@@ -209,13 +209,7 @@ export class EditTicketComponent implements OnInit {
 
   initMap() : void
   {
-    const input = document.getElementById("pac-input") as HTMLInputElement;
-    const options = {
-      componentRestrictions: { country: ["za"] },
-      fields: ["address_components", "geometry", "place_id"],
-      types: ["address"],
-    };
-    this.autocomplete = new google.maps.places.Autocomplete(input, options);
+    this.autocomplete = this.googleMapsService.createAutoCompleteObject("pac-input");
     google.maps.event.addListener(this.autocomplete, "place_changed" , () =>{
       const place = this.autocomplete.getPlace()
       if (place.geometry?.location !== undefined)

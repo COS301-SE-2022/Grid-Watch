@@ -6,6 +6,7 @@ import { Express } from 'express';
 import { Multer } from 'multer';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
+import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
 
 
 @Component({
@@ -19,34 +20,24 @@ export class CreateTicketComponent{
   file! : File;
 
   autocomplete!: google.maps.places.Autocomplete;
-  marker_position!: google.maps.LatLng | google.maps.LatLngLiteral
+  markerPosition!: google.maps.LatLng | google.maps.LatLngLiteral
 
-  getAddressUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=";
   zoom! : number;
   center! : google.maps.LatLngLiteral | google.maps.LatLng;
   options!: google.maps.MapOptions;
   place_id!: string;
 
-  default_upload! : string;
-  createPictureURL = "http://localhost:3333/api/ticket/picture/create/";
-  createTicketURL = "http://localhost:3333/api/ticket/create";
-  uploadURL = "http://localhost:3333/api/ticket/upload";
-  getTicketURL = "http://localhost:3333/api/ticket/1";
-  
-
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json'
-    })
-  };
+  defaultUpload! : string;
   other!: boolean;
   other_details!: string;
   
 
-  constructor(private http : HttpClient, private router: Router) {
-
-  }
-
+  constructor(private http : HttpClient, 
+              private router: Router,
+              private ticketService : TicketService,
+              private googleMapsService: GoogleMapsService) {
+              }
+              
   ngOnInit(): void {    
     this.zoom = 5.5;
     this.center =  {
@@ -57,19 +48,13 @@ export class CreateTicketComponent{
       zoomControl: true,
       scrollwheel: false,
     }
-    this.default_upload = "";
+    this.defaultUpload = "";
     this.other = false;
     this.other_details = "";
     this.ticket.ticket_location = "";
     this.place_id = "";
-
-    this.http.get<TicketDto[]>(this.getTicketURL, this.httpOptions).subscribe(
-      () =>
-      {
-        this.initMap();
-      }
-    )
-    // this.initMap();
+    
+    this.initMap()
   }
 
   async fileUploaded(e: any) : Promise<void>
@@ -80,7 +65,7 @@ export class CreateTicketComponent{
     
     const reader = new FileReader();
     reader.onload = () => {
-      this.default_upload = reader.result as string;
+      this.defaultUpload = reader.result as string;
     }
     await this.delay(2000)    
     reader.readAsDataURL(this.file)
@@ -93,59 +78,6 @@ export class CreateTicketComponent{
     
   }
 
-  getAutocompleteCity(place: any) : string
-  {
-    // console.log(place);
-    if (place !== undefined)
-    {
-      // const place = this.autocomplete.getPlace().address_components;
-     
-      const count = place.length as number
-      // console.log(place);
-      
-      for (let k = 0; k < count ; k++)
-      {
-        let count2 = 0;
-        if (place)
-        {
-          count2 = place[k].types.length as number;
-        }
-        for (let i = 0; i < count2 ; i++)
-        {
-          if (place)
-            if (place[k].types[i] === "locality")
-            {
-              return place[k].long_name
-            }
-            
-        }
-        // if (this.autocomplete.getPlace().address_components[k].types === "")
-        // this.ticket.ticket_city = 
-      }
-     
-      for (let k = 0; k < count ; k++)
-      {
-        let count2 = 0;
-        if (place)
-        {
-          count2 = place[k].types.length as number;
-        }
-        for (let i = 0; i < count2 ; i++)
-        {
-          if (place)
-            if (place[k].types[i] === "sublocality")
-            {
-              return place[k].long_name
-            }
-            
-        }
-        // if (this.autocomplete.getPlace().address_components[k].types === "")
-        // this.ticket.ticket_city = 
-        }
-      
-    }
-    return "";
-  }
 
   createTicket() : void
   {
@@ -154,9 +86,6 @@ export class CreateTicketComponent{
       this.showErrorMessage("Location not found")
       return;
     }
-    // console.log(this.autocomplete.getPlace());
-    // console.log(this.place_id);
-    
     
     if ((this.autocomplete.getPlace() === undefined) && (( this.place_id === "")))
     {
@@ -167,31 +96,26 @@ export class CreateTicketComponent{
     if (this.place_id == "")
     {
       this.place_id = this.autocomplete.getPlace().place_id as string;
-      this.ticket.ticket_city = this.getAutocompleteCity(this.autocomplete.getPlace().address_components);
+      this.ticket.ticket_city = this.googleMapsService.getAutocompleteCity(this.autocomplete.getPlace().address_components);
     }
     this.ticket.ticket_location = this.place_id;
     this.ticket.ticket_status = "Created";
     this.ticket.ticket_create_date = new Date();
     this.ticket.ticket_upvotes = 0;
-    // console.log(this.ticket);
+
+
     if (this.file)
     {
       const formData = new FormData();
       formData.append("photo", this.file, this.file.name);
   
-      this.http.post<Express.Multer.File>(this.uploadURL, formData)
-      .subscribe({
-        next: data => {
-            // console.log(data.filename);
-            // this.router.navigateByUrl("/tickets");
-            
-            this.ticket.ticket_img = data.filename
-            this.uploadTicket();
-          },
-          error: error => {
-            console.error('There was an error!', error);
-          }
-      })  
+      this.ticketService.postImage(formData).subscribe(
+        (response) =>
+        {
+          this.ticket.ticket_img = response.filename
+          this.uploadTicket()
+        }
+      );
     }
     else
     {
@@ -202,74 +126,50 @@ export class CreateTicketComponent{
 
   initMap() : void
   {
-    const input = document.getElementById("pac-input") as HTMLInputElement;
-    const options = {
-      componentRestrictions: { country: ["za"] },
-      fields: ["address_components", "geometry", "place_id"],
-      types: ["address"],
-    };
-    this.autocomplete = new google.maps.places.Autocomplete(input, options);
-    google.maps.event.addListener(this.autocomplete, "place_changed" , () =>{
-      const place = this.autocomplete.getPlace()
-      this.createMapMarker(place)
-    })
+    this.autocomplete = this.googleMapsService.createAutoCompleteObject("pac-input");
+    google.maps.event.addListener(this.autocomplete, "place_changed" , 
+      () =>{
+        const place = this.autocomplete.getPlace()
+        if (place.geometry?.location !== undefined)
+        {
+          const pos = {
+            lat: place.geometry?.location?.lat(),
+          lng: place.geometry?.location?.lng()
+          }
+          this.createMapMarker(pos)
+        }
+      })
   }
 
   getCurrentLocation() : void
   {
-    if (navigator.geolocation)
-    {
-      navigator.geolocation.getCurrentPosition(
-        (position : GeolocationPosition) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          this.marker_position = pos;
-          this.center = pos;
-          this.zoom = 12;
-          const geocoder: google.maps.Geocoder = new google.maps.Geocoder;
-          geocoder.geocode({location: pos},(response) =>
-          {
-            
-            if (response != null) 
-            {
-              // this.ticket.ticket_location = "";
-              // for (let k = 0 ; k < 4; k++)
-              //   this.ticket.ticket_location += response[0].address_components[k].long_name + " ";
-              this.ticket.ticket_location = response[0].formatted_address;
-              this.place_id = response[0].place_id;
-              this.ticket.ticket_city = this.getAutocompleteCity(response[0].address_components)  
-              
-            }
-
-          });
+    this.googleMapsService.getCurrentLocation().then(
+      async (response) =>
+      {
+        console.log(response);
+        const pos = {
+          lat: response.latitude,
+          lng: response.longitude
         }
-      )
-    }
+        this.createMapMarker(pos);
+        this.place_id  = await this.googleMapsService.getLocationCoord(pos);
+        this.ticket.ticket_location = await this.googleMapsService.getLocation(this.place_id);
+        this.ticket.ticket_city = await this.googleMapsService.getCity(this.place_id);
+        // this.placeID  
+      }
+    );
   }
 
   uploadTicket() {
-
-    // console.log(this.ticket);
-    
-      this.http.post<TicketDto[]>(this.createTicketURL, this.ticket, this.httpOptions)
-    .subscribe({
-      next: data => {
-        // console.log("HERE");
-        
-          this.ticket.ticket_id = data[0].ticket_id
-          this.createPictureURL += this.ticket.ticket_id;
-          if (this.file !== undefined)
+    this.ticketService.createNewTicket(this.ticket).subscribe(
+      (response) =>
+      {
+        console.log(response);
+        this.ticket.ticket_id = response[0].ticket_id;
+        if (this.file !== undefined)
             this.uploadPhoto();
-          this.showSuccessMessage();
-        },
-        error: error => {
-          console.error('There was an error!', error);
       }
-
-    })
-    
+    )
   }
 
   showSuccessMessage() : void
@@ -280,29 +180,26 @@ export class CreateTicketComponent{
 
   uploadPhoto() : void
   {
-    const temp = JSON.parse('{ "imgLink" : "' + this.ticket.ticket_img + '"}');
-    this.http.post<string>(this.createPictureURL, temp, this.httpOptions).subscribe(
-      (data) =>
+    this.ticketService.uploadImage(this.ticket.ticket_img, this.ticket.ticket_id).subscribe(
+      () =>
       {
-
-        // console.log(data);
+        this.showSuccessMessage();
+        this.router.navigateByUrl("/tickets")
       },
-      (error) =>
-      {
-        // console.log(error);
-        
+      () => {
+        this.showErrorMessage("Failed to create ticket");
       }
     );
   }
 
-  createMapMarker(place: google.maps.places.PlaceResult) : void
+  createMapMarker(place: {lat:number, lng:number}) : void
   {
-    if (place.geometry?.location !== undefined)
-    {
-      this.marker_position = place.geometry?.location;
-      this.zoom = 12;
-      this.center = place.geometry?.location;
-    }
+   
+    this.markerPosition = place;
+    this.zoom = 12;
+    this.center = place;
+    // console.log("HERE");
+    // console.log(place);
     document.getElementById("pac-input")?.focus();
   }
 

@@ -13,7 +13,7 @@ import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-pictu
 export class ViewTicketDetailsComponent implements OnInit {
 
   issue_id! : string | undefined;
-  default_upload! : string;
+  defaultUpload! : string;
   ticket: TicketDto = new TicketDto();
   date_created! : string;
   getTicketURL = "http://localhost:3333/api/ticket/";

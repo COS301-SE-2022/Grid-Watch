@@ -22,9 +22,6 @@ describe('CreateTicketComponent', () => {
   });
 
   it('should create CreateTicketComponent component', () => {
-    const script = document.createElement('script');
-    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE&libraries=places";
-    script.async = true;
 
     expect(component).toBeTruthy();
   });

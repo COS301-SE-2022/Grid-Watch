@@ -116,9 +116,25 @@ public createAutoCompleteObject(inputID: string) : google.maps.places.Autocomple
       fields: ["address_components", "geometry", "place_id"],
       types: ["address"],
     };
-    return  new google.maps.places.Autocomplete(input, options);
+    return new google.maps.places.Autocomplete(input, options);
 }
 
+public createMapObject(elementID : string, center : google.maps.LatLngLiteral, zoom: number)
+{
+  return new google.maps.Map(document.getElementById("map") as HTMLElement, {
+    center: center,
+    zoom: zoom,
+  });
+}
+
+public createMarkerObject(position: google.maps.LatLngLiteral, map: google.maps.Map, title :string)
+{
+  return new google.maps.Marker({
+    position: position,
+    map: map,
+    title: title
+  });
+}
 
 
 }

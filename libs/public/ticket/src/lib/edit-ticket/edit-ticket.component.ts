@@ -7,7 +7,7 @@ import { GoogleMap } from '@angular/google-maps';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
 import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
-import { auto } from '@popperjs/core';
+import { Loader } from '@googlemaps/js-api-loader';
 
 @Component({
   selector: 'grid-watch-edit-ticket',
@@ -17,11 +17,6 @@ import { auto } from '@popperjs/core';
 export class EditTicketComponent implements OnInit {
 
   autocomplete!: google.maps.places.Autocomplete;
-  markerPosition!: google.maps.LatLng | google.maps.LatLngLiteral
-
-  zoom! : number;
-  center! : google.maps.LatLngLiteral | google.maps.LatLng;
-  options!: google.maps.MapOptions;
 
   displayName! : string | null;
   defaultUpload! : string | null;
@@ -32,7 +27,8 @@ export class EditTicketComponent implements OnInit {
 
   placeID! : string;
   @Input() ticket! : TicketDto;
-
+  map!: google.maps.Map;
+  marker!: google.maps.Marker
 
   constructor(
       private route: ActivatedRoute, 
@@ -44,19 +40,22 @@ export class EditTicketComponent implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
+    const loader = new Loader({
+      apiKey: "AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE",
+      version: "weekly",
+      libraries: ["places"]
+    });
+    
+    loader.load().then(() => {
+
+      this.initMap();
+      
+      }, (error) =>{console.log(error);
+      });
+
     this.ticket = new TicketDto();
     this.defaultUpload = "";    
     this.waiting = true;
-
-    this.zoom = 5.5;
-    this.center =  {
-      lat: -30.5595,
-      lng: 22.9375,
-    };
-    this.options = {
-      zoomControl: true,
-      scrollwheel: false,
-    }
 
     //User Data
     this.displayName = "John Doe";
@@ -66,10 +65,9 @@ export class EditTicketComponent implements OnInit {
     if (tempID)
       this.ticketService.getTicket(tempID).subscribe(
         (response) => {
-          // console.log("HERE:");
           console.log(response);
+          this.ticket = response[0];
           this.initialiseFields(response[0]);
-          this.initMap();
         }
       )
   }
@@ -164,7 +162,7 @@ export class EditTicketComponent implements OnInit {
     // console.log(data.ticket_id);
     
     // this.getPictureURL += data.ticket_id;
-    this.ticket = data;
+   
     this.ticketService.getImages(data.ticket_id).subscribe(
       (response) => {
         console.log(response);
@@ -202,6 +200,13 @@ export class EditTicketComponent implements OnInit {
 
   initMap() : void
   {
+    
+    const zoom = 5.5;
+    const center =  {
+      lat: -30.5595,
+      lng: 22.9375,
+    };
+    this.map = this.googleMapsService.createMapObject("map",center,zoom)
     this.autocomplete = this.googleMapsService.createAutoCompleteObject("pac-input");
     google.maps.event.addListener(this.autocomplete, "place_changed" , () =>{
       const place = this.autocomplete.getPlace()
@@ -237,14 +242,12 @@ export class EditTicketComponent implements OnInit {
 
   createMapMarker(place: {lat:number, lng:number}) : void
   {
-    // this.marker_position =
-   
-    this.markerPosition = place;
-    this.zoom = 12;
-    this.center = place;
-    // console.log("HERE");
-    // console.log(place);
-    document.getElementById("pac-input")?.focus();
+    if (this.marker !== undefined)
+    this.marker.setMap(null);
+    this.map.setCenter(place);
+    this.map.setZoom(16)
+    const tempLabel = "";
+    this.marker = this.googleMapsService.createMarkerObject(place, this.map, tempLabel);
   }
 
   uploadPhoto() : void

@@ -21,7 +21,7 @@
                 
                 <div class="mt-2 " *ngIf="(ticket.ticket_type === 'Other')" id="other_field"  >
                         <label>Other issue details</label>
-                        <input class="form-control" [(ngModel)]="other_details">
+                        <input class="form-control" [(ngModel)]="otherDetails">
                 </div>
 
                 <div class="mt-2 " id="description_field">
@@ -75,7 +75,8 @@
                      </div>
                 </div>
                 <div class="mt-2 border ">
-                    <google-map
+                    <div id="map"></div>
+                    <!-- <google-map
                         height="500px"
                         width="100%"
                         [zoom]="zoom"
@@ -86,7 +87,7 @@
                             [title]="ticket.ticket_type"
                         >
                         </map-marker>
-                    </google-map>
+                    </google-map> -->
                 </div>
 
                 <!-- BUTTONS -->
@@ -105,5 +106,4 @@
             </div>
         </span>  -->
     </div>
-    
 </div>

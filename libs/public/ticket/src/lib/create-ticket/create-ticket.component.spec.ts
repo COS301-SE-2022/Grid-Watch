@@ -2,7 +2,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Loader } from '@googlemaps/js-api-loader';
 import { CreateTicketComponent } from './create-ticket.component';
+import {} from '@googlemaps/js-api-loader';
+import {} from  '@angular/google-maps';
 
 describe('CreateTicketComponent', () => {
   let component: CreateTicketComponent;
@@ -22,7 +25,6 @@ describe('CreateTicketComponent', () => {
   });
 
   it('should create CreateTicketComponent component', () => {
-
     expect(component).toBeTruthy();
   });
 

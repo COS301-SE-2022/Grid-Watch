@@ -7,6 +7,7 @@ import { Multer } from 'multer';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
+import { Loader } from '@googlemaps/js-api-loader';
 
 
 @Component({
@@ -20,16 +21,17 @@ export class CreateTicketComponent{
   file! : File;
 
   autocomplete!: google.maps.places.Autocomplete;
-  markerPosition!: google.maps.LatLng | google.maps.LatLngLiteral
+  marker!: google.maps.Marker
 
   zoom! : number;
-  center! : google.maps.LatLngLiteral | google.maps.LatLng;
+  center! : google.maps.LatLngLiteral
   options!: google.maps.MapOptions;
-  place_id!: string;
+  placeID!: string;
 
   defaultUpload! : string;
   other!: boolean;
-  other_details!: string;
+  otherDetails!: string;
+  map!: google.maps.Map;
   
 
   constructor(private http : HttpClient, 
@@ -50,11 +52,24 @@ export class CreateTicketComponent{
     }
     this.defaultUpload = "";
     this.other = false;
-    this.other_details = "";
+    this.otherDetails = "";
     this.ticket.ticket_location = "";
-    this.place_id = "";
+    this.placeID = "";
+
+    const loader = new Loader({
+      apiKey: "AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE",
+      version: "weekly",
+      libraries: ["places"]
+    });
     
-    this.initMap()
+    loader.load().then(() => {
+
+      this.initMap();
+      
+      }, (error) =>{console.log(error);
+      });
+    
+    // this.initMap()
   }
 
   async fileUploaded(e: any) : Promise<void>
@@ -87,18 +102,18 @@ export class CreateTicketComponent{
       return;
     }
     
-    if ((this.autocomplete.getPlace() === undefined) && (( this.place_id === "")))
+    if ((this.autocomplete.getPlace() === undefined) && (( this.placeID === "")))
     {
       this.showErrorMessage("Location not found")
       return;
     }
     
-    if (this.place_id == "")
+    if (this.placeID == "")
     {
-      this.place_id = this.autocomplete.getPlace().place_id as string;
+      this.placeID = this.autocomplete.getPlace().place_id as string;
       this.ticket.ticket_city = this.googleMapsService.getAutocompleteCity(this.autocomplete.getPlace().address_components);
     }
-    this.ticket.ticket_location = this.place_id;
+    this.ticket.ticket_location = this.placeID;
     this.ticket.ticket_status = "Created";
     this.ticket.ticket_create_date = new Date();
     this.ticket.ticket_upvotes = 0;
@@ -126,6 +141,7 @@ export class CreateTicketComponent{
 
   initMap() : void
   {
+    this.map = this.googleMapsService.createMapObject("map",this.center,this.zoom)
     this.autocomplete = this.googleMapsService.createAutoCompleteObject("pac-input");
     google.maps.event.addListener(this.autocomplete, "place_changed" , 
       () =>{
@@ -136,6 +152,7 @@ export class CreateTicketComponent{
             lat: place.geometry?.location?.lat(),
           lng: place.geometry?.location?.lng()
           }
+          
           this.createMapMarker(pos)
         }
       })
@@ -152,9 +169,9 @@ export class CreateTicketComponent{
           lng: response.longitude
         }
         this.createMapMarker(pos);
-        this.place_id  = await this.googleMapsService.getLocationCoord(pos);
-        this.ticket.ticket_location = await this.googleMapsService.getLocation(this.place_id);
-        this.ticket.ticket_city = await this.googleMapsService.getCity(this.place_id);
+        this.placeID  = await this.googleMapsService.getLocationCoord(pos);
+        this.ticket.ticket_location = await this.googleMapsService.getLocation(this.placeID);
+        this.ticket.ticket_city = await this.googleMapsService.getCity(this.placeID);
         // this.placeID  
       }
     );
@@ -194,13 +211,14 @@ export class CreateTicketComponent{
 
   createMapMarker(place: {lat:number, lng:number}) : void
   {
-   
-    this.markerPosition = place;
-    this.zoom = 12;
-    this.center = place;
-    // console.log("HERE");
-    // console.log(place);
-    document.getElementById("pac-input")?.focus();
+    if (this.marker !== undefined)
+    this.marker.setMap(null);
+    this.map.unbind("marker");
+    this.map.setCenter(place);
+    this.map.setZoom(16)
+    const tempLabel = "";
+    this.marker = this.googleMapsService.createMarkerObject(place, this.map, tempLabel);
+
   }
 
   delay(ms: number) {

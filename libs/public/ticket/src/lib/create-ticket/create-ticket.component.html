@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-2">
     <div class="row">
         <span class="card col-12">
             <div class="card-body">
@@ -21,7 +21,7 @@
                 
                 <div class="mt-2 " *ngIf="(ticket.ticket_type === 'Other')" id="other_field"  >
                         <label>Other issue details</label>
-                        <input class="form-control" [(ngModel)]="other_details">
+                        <input class="form-control" [(ngModel)]="otherDetails">
                 </div>
 
                 <div class="mt-2 " id="description_field">
@@ -43,69 +43,67 @@
                     </mat-form-field>
                 </div> -->
                 
-                <div class="mt-3">
-                    <div class="imagePreviewContainer">
-                        <div class="picture_text" *ngIf="file === undefined">
-                            No Picture uploaded
+                <label class="form-label mt-2 " for="customFile">Upload image of issue</label>
+                <div class="" (click)="initiateFileUpload()">
+                    <div class="imagePreviewContainer d-flex justify-content-center" >
+                        <div class="icon_container " *ngIf="file === undefined">
+                            <div class="add_icon material-icons align-center centered_element">add</div>
                         </div>
-                        <div class="centered_element d-flex justify-content-center" *ngIf="default_upload === '' && file !== undefined"> 
+                        <div class="centered_element d-flex justify-content-center" *ngIf="defaultUpload === '' && file !== undefined"> 
                             <div class="spinner-border text-success text-center" >
                             </div>
                         </div>
-                        <div  *ngIf="file !== undefined && default_upload !== ''">
-                            <img id="image_preview" src="{{default_upload}}" class="upload_issue_image" alt="upload_image">
+                        <div  *ngIf="file !== undefined && defaultUpload !== ''">
+                            <img id="image_preview" src="{{defaultUpload}}" class="upload_issue_image" alt="upload_image">
                         </div>
                     </div>
                 </div> 
                 
-                <div class="mt-2 " id="upload_image">
-                    <label class="">Upload image of issue</label><br>
-                    <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
+                <div class="mt-2 d-none" id="upload_image">
+                    <label class="form-label" for="customFile">Upload image of issue</label>
+                    <input type="file" id="issue_uploaded_img" class="form-control" accept="image/png, image/jpeg" (change)="fileUploaded($event)"/>
                 </div>
                 
                 <div class="mt-2 location_pin">
                     <label class="">Pin location of issue</label><br>
-                    <input  class="form-control" id="pac-input" type="text" placeholder="Search a location" [(ngModel)]="ticket.ticket_location"/>
-                    <button class="mt-2 btn btn-outline-dark" (click)="getCurrentLocation()">
-                        Use Current Location
-                    </button>
+                    <div class="input-group">
+                        <input  class="form-control" id="pac-input" type="text" placeholder="Search a location" [(ngModel)]="ticket.ticket_location"/>
+                        <button class="getLocationButton btn btn-outline-dark" (click)="getCurrentLocation()">
+                            <!-- <p><img src="assets/map-location-solid.svg" alt=""></p> -->
+                            <span class="material-icons">share_location</span>
+                        </button>
+                     </div>
                 </div>
                 <div class="mt-2 border ">
-                    <google-map
+                    <div id="map"></div>
+                    <!-- <google-map
                         height="500px"
                         width="100%"
                         [zoom]="zoom"
                         [center]="center"
                         [options]="options">
                         <map-marker
-                            [position]="marker_position"
+                            [position]="markerPosition"
                             [title]="ticket.ticket_type"
                         >
                         </map-marker>
-                    </google-map>
+                    </google-map> -->
                 </div>
 
                 <!-- BUTTONS -->
                  <div class="row mt-5">
+                     <div class="col-4"></div>              
                      <div class="col-4">
-                         <!-- <a routerLink="/tickets"> -->
-                             <button class="btn btn-outline-dark" id="createTicket_button" color="primary" (click)="createTicket()">Create</button>
-                         <!-- </a> -->
+                        <button class="btn btn-outline-dark" id="createTicket_button" color="primary" (click)="createTicket()">Create</button>
                     </div>
-                    <div class="col-4"></div>
-                    <div class="col-4">
-                        <a routerLink="/tickets">
-                            <button class="btn btn-outline-dark" id="discardTicket_button" color="primary" >Discard</button>
-                        </a>
-                   </div>                
+                    <div class="col-4"></div>              
                  </div>
             </div>
         </span> 
         <!-- <span class="col-4 col-md-5 border-top border-end border-bottom">
             <div class="border align-middle p-5 mt-5 d-flex justify-content-center">
-                <img id="image_preview" src="{{default_upload}}" class="upload_issue_image" alt="upload_image">
+                <img id="image_preview" src="{{defaultUpload}}" class="upload_issue_image" alt="upload_image">
             </div>
         </span>  -->
     </div>
-    
 </div>

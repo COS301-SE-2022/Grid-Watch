@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GoogleMap } from '@angular/google-maps';
+import { GoogleMap, MapPolygon } from '@angular/google-maps';
+import { Loader } from '@googlemaps/js-api-loader';
+import { GoogleMapsService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-home-page-body',
@@ -10,24 +12,21 @@ export class HomePageBodyComponent implements OnInit{
 
   application_type! : string | undefined;
 
+  mapHeight! : number;
   zoom! : number;
-  center! : google.maps.LatLngLiteral | google.maps.LatLng;
+  center! : google.maps.LatLngLiteral;
   options!: google.maps.MapOptions;
-  markers!: {
-    position : {
-        lat : number,
-        lng : number
-    };
-    label : Record<string, unknown>;
-    title: string;
-    options: Record<string, unknown>;
-} [];
-  
   infoWindow!: google.maps.InfoWindow;
+  map!: google.maps.Map;
+
+  constructor(private googleMapsService : GoogleMapsService)
+  {
+
+  }
   
   ngOnInit() : void {
 
-    this.markers = [];
+    this.mapHeight = (window.innerHeight - 40 * 3);
     this.zoom = 10;
     this.center =  {
       lat: -25.7479,
@@ -40,9 +39,21 @@ export class HomePageBodyComponent implements OnInit{
 
     const temp = document.getElementById("application_type");
     this.application_type = temp?.innerHTML;
-    this.initMap();
-    this.addMarker();
-  }
+    
+    const loader = new Loader({
+      apiKey: "AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE",
+      version: "weekly",
+      libraries: ["places"]
+    });
+    
+    loader.load().then(() => {
+
+      this.initMap();
+      this.addMarker();
+      
+      }, (error) =>{console.log(error);
+      });
+}
 
   // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
@@ -51,9 +62,18 @@ export class HomePageBodyComponent implements OnInit{
 
 initMap() : void
 {
-  console.log("Initiate map");
-  
+  // const map = document.createElement("google-map");
+  // map.setAttribute("width", "100%");
+  // map.setAttribute("height", this.mapHeight.toString());
+  // map.setAttribute("zoom", "10");
+  // const mapContainer = document.getElementById("mapContainer");
+  // mapContainer?.appendChild(map);
+   this.map = this.googleMapsService.createMapObject("map",this.center,this.zoom)
+    console.log("working");
+
 }
+
+
 addMarker() : void {
   const temp =  {
     lat: -25.7479,
@@ -62,19 +82,18 @@ addMarker() : void {
   const titles= ["Pothole","Broken Light", "Broken Robot", "Sinkhole", "Electricity Outage", "Water Outage"];
   for (let k = 0; k < 20; k++)
   {
-    this.markers.push({
-      position: {
-        lat: temp.lat + (((Math.random() - 0.5) * 6) / 10),
-        lng: temp.lng + ((Math.random() - 0.5) * 6) / 10,
-      },
-      label: {
-        color: 'red'
-      },
-      title: titles[k % titles.length],
-      // options: { animation: google.maps.Animation.BOUNCE },
-      options: {},
-    });
+    const position = {
+      lat: temp.lat + (((Math.random() - 0.5) * 6) / 10),
+      lng: temp.lng + ((Math.random() - 0.5) * 6) / 10,
+    }
+
+    const tempLabel = titles[Math.floor(Math.random() * (titles.length-1 - 0 + 1) + 0)];
+    console.log(tempLabel);
+    
+    this.googleMapsService.createMarkerObject(position, this.map, tempLabel);
+  
   }
+
 }
 
 }

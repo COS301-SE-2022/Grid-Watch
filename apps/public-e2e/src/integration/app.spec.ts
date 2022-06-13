@@ -4,15 +4,15 @@ import { getGreeting } from '../support/app.po';
 describe('public', () => {
   // beforeEach(() => cy.visit('/'));
 
-  it('should display welcome message', () => {
-    // Custom command example, see `../support/commands.ts` file
-    // cy.login('my-email@something.com', 'myPassword');
+  // it('should display welcome message', () => {
+  //   // Custom command example, see `../support/commands.ts` file
+  //   // cy.login('my-email@something.com', 'myPassword');
 
-    // Function helper example, see `../support/app.po.ts` file
-    cy.visit("/")
-    cy.contains('Welcome to Gridwatch');
-    cy.contains('public Application');
-  });
+  //   // Function helper example, see `../support/app.po.ts` file
+  //   cy.visit("/")
+  //   cy.contains('Welcome to Gridwatch');
+  //   cy.contains('public Application');
+  // });
 
 //   it('should display google maps element', () => {
 //     cy.get("google-map");

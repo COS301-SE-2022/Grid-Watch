@@ -4,11 +4,11 @@ describe('tech-team', () => {
   // beforeEach(() => cy.visit('/'));
 
   
-  it('should display welcome message', () => {
-    cy.visit("/");
-    cy.contains('Welcome to Gridwatch');
-    cy.contains('tech-team Application');
-  });
+  // it('should display welcome message', () => {
+  //   cy.visit("/");
+  //   cy.contains('Welcome to Gridwatch');
+  //   cy.contains('tech-team Application');
+  // });
 
   // it('should contain google maps component', () => {
   //   cy.get("google-map");

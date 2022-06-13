@@ -10,11 +10,11 @@ describe('admin', () => {
   //   // Function helper example, see `../support/app.po.ts` file
   //   getGreeting().contains('Welcome admin');
   // });
-  it('should display welcome message', () => {
-    cy.visit("/");
-    cy.contains('Welcome to Gridwatch!');
-    cy.contains('admin Application');
-  });
+  // it('should display welcome message', () => {
+  //   cy.visit("/");
+  //   cy.contains('Welcome to Gridwatch!');
+  //   cy.contains('admin Application');
+  // });
 
   // it('should route to tickets page', () => {
   //   cy.get("a.nav-link#Tickets").click();

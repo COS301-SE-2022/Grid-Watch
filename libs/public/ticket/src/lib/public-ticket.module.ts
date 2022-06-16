@@ -11,8 +11,9 @@ import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps'
+import { MatIconModule } from '@angular/material/icon'
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
@@ -29,6 +30,7 @@ import { GoogleMapsModule } from '@angular/google-maps'
     GoogleMapsModule,
     MatCardModule,
     FormsModule,
+    MatIconModule,
     RouterModule.forChild([
       {
         path: 'createTicket',
@@ -57,5 +59,6 @@ import { GoogleMapsModule } from '@angular/google-maps'
     CreateTicketComponent,
     EditTicketComponent,
   ],
+  providers: [FormBuilder]
 })
 export class PublicTicketModule {}

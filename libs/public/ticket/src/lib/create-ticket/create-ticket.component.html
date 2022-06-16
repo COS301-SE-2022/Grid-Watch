@@ -8,25 +8,29 @@
                         <input matInput>
                     </mat-form-field>
                 </div> -->
-                <div class="mt-2 " id="issue_field">
-                      <label>Issue Type</label> <br>
-                      <select class="form-select" [(ngModel)]="ticket.ticket_type" id="issue_type_options" >
-                        <option value="Pothole">Pothole</option>
-                        <option value="Electricity Outage">Electicity Outage</option>
-                        <option value="Water Outage">Water Outage</option>
-                        <option value="Sinkhole">Sinkhole</option>
-                        <option value="Other">Other</option>
-                      </select>
+                <div id="issue_field">
+                    <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                        <mat-label>Issue Type</mat-label>
+                        <mat-select placeholder="Issue Type" [(ngModel)]="ticket.ticket_type" name="issue_type">
+                            <mat-option *ngFor="let issues of issueOptions" [value]="issues">
+                                {{issues}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
                 
-                <div class="mt-2 " *ngIf="(ticket.ticket_type === 'Other')" id="other_field"  >
-                        <label>Other issue details</label>
-                        <input class="form-control" [(ngModel)]="otherDetails">
+                <div *ngIf="(ticket.ticket_type === 'Other')" id="other_field"  >
+                    <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                            <mat-label>Other issue details</mat-label>
+                            <input matInput placeholder="Other issue details" [(ngModel)]="otherDetails">
+                        </mat-form-field>
                 </div>
 
-                <div class="mt-2 " id="description_field">
-                      <label>Description</label>
-                      <textarea id="ticketDescription" class="form-control" [(ngModel)]="ticket.ticket_description"></textarea>
+                <div id="description_field">
+                    <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput placeholder="Description" rows="3"  [(ngModel)]="ticket.ticket_description"></textarea>
+                    </mat-form-field>      
                 </div>
 <!--                 
                 <div id="location_field" class="">
@@ -43,8 +47,8 @@
                     </mat-form-field>
                 </div> -->
                 
-                <label class="form-label mt-2 " for="customFile">Upload image of issue</label>
                 <div class="" (click)="initiateFileUpload()">
+                    <mat-label for="customFile">Upload image of issue</mat-label>
                     <div class="imagePreviewContainer d-flex justify-content-center" >
                         <div class="icon_container " *ngIf="file === undefined">
                             <div class="add_icon material-icons align-center centered_element">add</div>
@@ -65,14 +69,19 @@
                 </div>
                 
                 <div class="mt-2 location_pin">
-                    <label class="">Pin location of issue</label><br>
-                    <div class="input-group">
-                        <input  class="form-control" id="pac-input" type="text" placeholder="Search a location" [(ngModel)]="ticket.ticket_location"/>
+                    <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                        <mat-label class="">Pin location of issue</mat-label>
+                        <input matInput placeholder="Pin location of issue" id="pac-input" type="text" [(ngModel)]="ticket.ticket_location">
+                        <button mat-icon-button matSuffix (click)="getCurrentLocation()">
+                            <mat-icon>share_location</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <!-- <div class="input-group">
+                        <input  class="form-control" />
                         <button class="getLocationButton btn btn-outline-dark" (click)="getCurrentLocation()">
-                            <!-- <p><img src="assets/map-location-solid.svg" alt=""></p> -->
                             <span class="material-icons">share_location</span>
                         </button>
-                     </div>
+                     </div> -->
                 </div>
                 <div class="mt-2 border ">
                     <div id="map"></div>
@@ -91,13 +100,11 @@
                 </div>
 
                 <!-- BUTTONS -->
-                 <div class="row mt-5">
-                     <div class="col-4"></div>              
-                     <div class="col-4">
-                        <button class="btn btn-outline-dark" id="createTicket_button" color="primary" (click)="createTicket()">Create</button>
-                    </div>
-                    <div class="col-4"></div>              
-                 </div>
+                <div class="createButtonContainer">
+                    <!-- <button class="btn btn-outline-dark" id="createTicket_button" color="primary" (click)="createTicket()">Create</button> -->
+                    <!-- <button mat-button id="createTicket_button" (click)="createTicket()">Create</button> -->
+                    <button mat-raised-button id="createTicket_button" (click)="createTicket()">Create</button>
+                </div>
             </div>
         </span> 
         <!-- <span class="col-4 col-md-5 border-top border-end border-bottom">

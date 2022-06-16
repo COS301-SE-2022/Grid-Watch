@@ -6,6 +6,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 import { CreateTicketComponent } from './create-ticket.component';
 import {} from '@googlemaps/js-api-loader';
 import {} from  '@angular/google-maps';
+import { FormBuilder } from '@angular/forms';
 
 describe('CreateTicketComponent', () => {
   let component: CreateTicketComponent;
@@ -14,7 +15,8 @@ describe('CreateTicketComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CreateTicketComponent],
-      imports: [RouterTestingModule, HttpClientModule, GoogleMapsModule]
+      imports: [RouterTestingModule, HttpClientModule, GoogleMapsModule],
+      providers: [FormBuilder]
     }).compileComponents();
   });
 

@@ -14,6 +14,7 @@ import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps'
 import { MatIconModule } from '@angular/material/icon'
+import { GoogleMapsService } from '@grid-watch/shared-ui';
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
@@ -59,6 +60,6 @@ import { MatIconModule } from '@angular/material/icon'
     CreateTicketComponent,
     EditTicketComponent,
   ],
-  providers: [FormBuilder]
+  providers: [FormBuilder, GoogleMapsService]
 })
 export class PublicTicketModule {}

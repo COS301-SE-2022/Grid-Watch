@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { Delete } from '@nestjs/common';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class GoogleMapsService {
 
   // constructor() { }
-
+  
   public async getLocation(placeID : string) : Promise<string>  {
-    const geocoder = new google.maps.Geocoder();
     // const output;
     // console.log(placeID);
+    const geocoder = new google.maps.Geocoder();
     const temp = await geocoder.geocode({placeId : placeID}).then(
       ({results}) => {
         return results[0].formatted_address;

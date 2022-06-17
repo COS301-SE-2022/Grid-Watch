@@ -7,6 +7,7 @@ import { AdminAppTicketModule} from '@grid-watch/admin-app/ticket';
 import { HomePageBodyComponent } from '@grid-watch/public/home-page';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedUiModule } from '@grid-watch/shared-ui';
+import { AdminAppDashboardModule } from '@grid-watch/admin-app/dashboard';
 
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     SharedUiModule,
     AdminAppTicketModule,
+    AdminAppDashboardModule,
     HttpClientModule
   ],
   providers: [],

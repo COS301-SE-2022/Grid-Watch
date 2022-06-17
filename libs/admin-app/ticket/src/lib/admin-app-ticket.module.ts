@@ -10,9 +10,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
-  imports: [    
+  imports: [
     RouterModule,
     CommonModule,
     BrowserAnimationsModule,
@@ -30,7 +31,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       },
     ]),
   ],
-  declarations: [AdminViewBodyComponent, ViewTicketDetailsComponent],
-  exports: [AdminViewBodyComponent, ViewTicketDetailsComponent],
+  declarations: [
+    AdminViewBodyComponent,
+    ViewTicketDetailsComponent,
+    DashboardComponent,
+  ],
+  exports: [
+    AdminViewBodyComponent,
+    ViewTicketDetailsComponent,
+    DashboardComponent,
+  ],
 })
 export class AdminAppTicketModule {}

@@ -1,78 +1,66 @@
-<div class="">
-    <div class="row">
-        <div class="card col-12 col-lg-7">
-            <div class="card-body">
-                <!-- ISSUE TYPE -->
-                <div>
-                    <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
-                        <mat-label>Issue Type</mat-label>
-                        <mat-select placeholder="Issue Type" [(ngModel)]="issue_type" name="issueType">
-                            <mat-option *ngFor="let issues of issueOptions" [value]="issues">
-                                {{issues}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+<div class="editContainer">
+    <!-- ISSUE TYPE -->
+    <div>
+        <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+            <mat-label>Issue Type</mat-label>
+            <mat-select placeholder="Issue Type" [(ngModel)]="issue_type" name="issueType">
+                <mat-option *ngFor="let issues of issueOptions" [value]="issues">
+                    {{issues}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <!-- OTHER ISSUE -->
+    <div *ngIf="(issue_type === 'Other')" id="other_field">
+        <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+            <mat-label>Other issue details</mat-label>
+            <input matInput placeholder="Other issue details" [(ngModel)]="other_details">
+        </mat-form-field>
+    </div>
+    <!-- DESCRIPTION -->
+    <div id="descriptionField">
+        <mat-form-field  appearance="outline" [floatLabel]="getFloatLabelValue()">
+                <mat-label>Description</mat-label>
+            <textarea matInput placeholder="Description" [(ngModel)]="ticket.ticket_description"></textarea>
+            </mat-form-field>
+            <!-- <textarea class="form-control">{{ticket.ticket_description}}</textarea> -->
+    </div>
+    <!-- FILE UPLOAD -->
+    <label class="form-label" for="customFile">Upload image of issue</label>
+    <div class="" (click)="initiateFileUpload()">
+        <div class="imagePreviewContainer d-flex justify-content-center" >
+            <div class="icon_container " *ngIf="(file === undefined && defaultUpload === '' ) && (waiting !== true)">
+                <div class="add_icon material-icons align-center centered_element">add</div>
+            </div>
+            <div class="centered_element d-flex justify-content-center" *ngIf="waiting === true"> 
+                <div class="spinner-border text-success text-center" >
                 </div>
-                <!-- OTHER ISSUE -->
-                <div *ngIf="(issue_type === 'Other')" id="other_field">
-                    <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
-                        <mat-label>Other issue details</mat-label>
-                        <input matInput placeholder="Other issue details" [(ngModel)]="other_details">
-                    </mat-form-field>
-                </div>
-                <!-- DESCRIPTION -->
-                <div id="description_field">
-                    <mat-form-field  appearance="outline" [floatLabel]="getFloatLabelValue()">
-                          <mat-label>Description</mat-label>
-                        <textarea matInput placeholder="Description" [(ngModel)]="ticket.ticket_description"></textarea>
-                      </mat-form-field>
-                      <!-- <textarea class="form-control">{{ticket.ticket_description}}</textarea> -->
-                </div>
-                <!-- FILE UPLOAD -->
-                <label class="form-label" for="customFile">Upload image of issue</label>
-                <div class="" (click)="initiateFileUpload()">
-                    <div class="imagePreviewContainer d-flex justify-content-center" >
-                        <div class="icon_container " *ngIf="(file === undefined && defaultUpload === '' ) && (waiting !== true)">
-                            <div class="add_icon material-icons align-center centered_element">add</div>
-                        </div>
-                        <div class="centered_element d-flex justify-content-center" *ngIf="waiting === true"> 
-                            <div class="spinner-border text-success text-center" >
-                            </div>
-                        </div>
-                        <div *ngIf="defaultUpload !== '' || file !== undefined" >
-                            <img id="image_preview" src="{{defaultUpload}}" class="upload_issue_image" alt="upload_image">
-                        </div>
-                    </div>
-                </div> 
-                <div id="upload_image" class="d-none">
-                    <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
-                 </div>
+            </div>
+            <div *ngIf="defaultUpload !== '' || file !== undefined" >
+                <img id="image_preview" src="{{defaultUpload}}" class="upload_issue_image" alt="upload_image">
+            </div>
+        </div>
+    </div> 
+    <div id="upload_image" class="d-none">
+        <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
+        </div>
 
-                <!-- LOCATION PIN -->
-                 <div class="mt-2 location_pin">
-                    <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
-                        <mat-label class="">Pin location of issue</mat-label>
-                        <input matInput placeholder="Pin location of issue" id="pac-input" type="text" [(ngModel)]="ticket.ticket_location">
-                        <button mat-icon-button matSuffix (click)="getCurrentLocation()">
-                            <mat-icon>share_location</mat-icon>
-                        </button>
-                    </mat-form-field>
-                </div>
-                <!-- MAP PREVIEW -->
-                <div class="mt-2 border mapContainer">
-                    <div id="map"></div>
-                </div>
-                
-                 <div class="row mt-2">
-                   <button mat-raised-button id="createTicket_button" (click)="editTicket()">Update</button>
-                </div>
-            </div>
-        </div> 
-        <div class="col-12 col-lg-5 border d-none d-lg-inline">
-            <div class="align-middle p-5 preview_container">
-                <img id="image_preview" src="{{defaultUpload}}" class="upload_issue_image" alt="upload_image" onerror="this.src='assets/upload-solid.svg'">
-            </div>
-        </div> 
+    <!-- LOCATION PIN -->
+        <div class=" locationPin">
+        <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+            <mat-label class="">Pin location of issue</mat-label>
+            <input matInput placeholder="Pin location of issue" id="pac-input" type="text" [(ngModel)]="ticket.ticket_location">
+            <button mat-icon-button matSuffix (click)="getCurrentLocation()">
+                <mat-icon>share_location</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+    <!-- MAP PREVIEW -->
+    <div class=" border mapContainer">
+        <div id="map"></div>
     </div>
     
+    <div class="row">
+        <button mat-raised-button id="createTicket_button" (click)="editTicket()">Update</button>
+    </div>
 </div>

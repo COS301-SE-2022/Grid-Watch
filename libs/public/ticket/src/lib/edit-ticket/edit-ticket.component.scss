@@ -40,6 +40,7 @@ img#image_preview {
 {
     width: 100%;
     margin-bottom: 50px;
+    margin-top: 10px;
 }
 
 .add_icon
@@ -59,4 +60,15 @@ img#image_preview {
 
 mat-form-field{
     width: 100%;
+    padding: 0 !important;
+}
+
+.locationPin
+{
+    margin-top: 10px;
+}
+
+.editContainer
+{
+    margin:10px 15px;
 }

@@ -63,6 +63,17 @@ export class EditTicketComponent implements OnInit {
     loader.load().then(() => {
 
       this.initMap();
+
+      //Get parameters
+    const tempID = this.route.snapshot.paramMap.get('id');
+    if (tempID)
+      this.ticketService.getTicket(tempID).subscribe(
+        (response) => {
+          console.log(response);
+          this.ticket = response[0];
+          this.initialiseFields(response[0]);
+        }
+      )
       
       }, (error) =>{console.log(error);
       });
@@ -74,16 +85,7 @@ export class EditTicketComponent implements OnInit {
     //User Data
     this.displayName = "John Doe";
 
-    //Get parameters
-    const tempID = this.route.snapshot.paramMap.get('id');
-    if (tempID)
-      this.ticketService.getTicket(tempID).subscribe(
-        (response) => {
-          console.log(response);
-          this.ticket = response[0];
-          this.initialiseFields(response[0]);
-        }
-      )
+    
   }
 
   async fileUploaded(e: any)

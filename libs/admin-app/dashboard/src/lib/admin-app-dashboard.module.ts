@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview.component';
 import { DashboardTimelineComponent } from './dashboard-timeline/dashboard-timeline.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { DashboardTimelineComponent } from './dashboard-timeline/dashboard-timel
     MatIconModule,
 
     MatButtonModule,
+    MatDividerModule,
 
     LayoutModule,
   ],

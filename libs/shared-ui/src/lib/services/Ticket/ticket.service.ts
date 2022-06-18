@@ -120,4 +120,6 @@ export class TicketService {
       catchError(this.handleError<ImageResponse>('postImage', {originalname:"", filename: ""}))
     );
   }
+
+  
 }

@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminAppTicketModule} from '@grid-watch/admin-app/ticket';
 import { HomePageBodyComponent } from '@grid-watch/public/home-page';
 import { HttpClientModule } from '@angular/common/http';
-import { SharedUiModule } from '@grid-watch/shared-ui';
+import { GoogleMapsService, SharedUiModule } from '@grid-watch/shared-ui';
 import { AdminAppDashboardModule } from '@grid-watch/admin-app/dashboard';
 
 const routes: Routes = [
@@ -26,7 +26,7 @@ const routes: Routes = [
     AdminAppDashboardModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [GoogleMapsService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

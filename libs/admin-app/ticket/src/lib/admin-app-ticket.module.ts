@@ -14,6 +14,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatTableModule } from '@angular/material/table'  
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   imports: [
@@ -39,6 +41,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatIconModule,
     MatButtonModule,
     LayoutModule,
+    MatTableModule,
+    MatSortModule,
   ],
   declarations: [
     AdminViewBodyComponent,

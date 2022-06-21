@@ -122,4 +122,89 @@ export class TicketService {
   }
 
   
+  sort(selectedOption: string, order: string, tickets : TicketDto []): TicketDto[] {
+   if (selectedOption == 'Date') {
+      if (order === 'asc') tickets.sort(this.sortByDate);
+      else tickets.sort(this.sortByDateDesc);
+    } else if (selectedOption == 'Location') {
+      if (order === 'asc') tickets.sort(this.sortByLocation);
+      else tickets.sort(this.sortByLocationDesc);
+    } else if (selectedOption == 'City') {
+      if (order === 'asc') tickets.sort(this.sortByCity);
+      else tickets.sort(this.sortByCityDesc);
+    } else if (selectedOption == 'Status') {
+      if (order === 'asc') tickets.sort(this.sortByStatus);
+      else tickets.sort(this.sortByStatusDesc);
+    } else if (selectedOption == 'Upvotes') {
+      if (order === 'asc') tickets.sort(this.sortByUpvotes);
+      else tickets.sort(this.sortByUpvotesDesc);
+    } else if (selectedOption == 'Issue') {
+      if (order === 'asc') tickets.sort(this.sortByIssue);
+      else tickets.sort(this.sortByIssueDesc);
+    }
+
+    return tickets;
+
+  }
+
+  sortByIssue(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_type > a.ticket_type) return 1;
+    else return -1;
+  }
+
+  sortByIssueDesc(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_type < a.ticket_type) return 1;
+    else return -1;
+  }
+
+  sortByUpvotes(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_upvotes > a.ticket_upvotes) return 1;
+    else return -1;
+  }
+
+  sortByStatus(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_status > a.ticket_status) return 1;
+    else return -1;
+  }
+
+  sortByCity(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_city > a.ticket_city) return 1;
+    else return -1;
+  }
+
+  sortByLocation(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_location > a.ticket_location) return 1;
+    else return -1;
+  }
+
+  sortByDate(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_create_date > a.ticket_create_date) return 1;
+    else return -1;
+  }
+
+  sortByUpvotesDesc(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_upvotes < a.ticket_upvotes) return 1;
+    else return -1;
+  }
+
+  sortByStatusDesc(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_status < a.ticket_status) return 1;
+    else return -1;
+  }
+
+  sortByCityDesc(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_city < a.ticket_city) return 1;
+    else return -1;
+  }
+
+  sortByLocationDesc(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_location < a.ticket_location) return 1;
+    else return -1;
+  }
+
+  sortByDateDesc(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_create_date < a.ticket_create_date) return 1;
+    else return -1;
+  }
+  
 }

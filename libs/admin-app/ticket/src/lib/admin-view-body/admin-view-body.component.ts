@@ -81,7 +81,18 @@ export class AdminViewBodyComponent implements OnInit {
   announceSortChange(sortState: Sort) {
     console.log(sortState);
 
-    this.sort(sortState.active, sortState.direction);
+    if (sortState.direction === '') {
+      this.tickets = [];
+      for (let index = 0; index < this.ticketsPERM.length; index++) {
+        this.tickets[index] = this.copy(this.ticketsPERM[index]);
+      }
+    }
+    else
+    {
+      this.tickets = this.ticketService.sort(sortState.active, sortState.direction, this.tickets);
+    }
+    this.dataSource = new MatTableDataSource<TicketDto>(this.tickets);
+    this.table.renderRows();
   }
 
   getDatabaseData(filters: boolean) {
@@ -150,96 +161,6 @@ export class AdminViewBodyComponent implements OnInit {
     newTicket.ticket_type = temp.ticket_type;
     newTicket.ticket_upvotes = temp.ticket_upvotes;
     return newTicket;
-  }
-
-  sort(selectedOption: string, order: string): void {
-    if (order === '') {
-      this.tickets = [];
-      for (let index = 0; index < this.ticketsPERM.length; index++) {
-        this.tickets[index] = this.copy(this.ticketsPERM[index]);
-      }
-    } else if (selectedOption == 'Date') {
-      if (order === 'asc') this.tickets.sort(this.sortByDate);
-      else this.tickets.sort(this.sortByDateDesc);
-    } else if (selectedOption == 'Location') {
-      if (order === 'asc') this.tickets.sort(this.sortByLocation);
-      else this.tickets.sort(this.sortByLocationDesc);
-    } else if (selectedOption == 'City') {
-      if (order === 'asc') this.tickets.sort(this.sortByCity);
-      else this.tickets.sort(this.sortByCityDesc);
-    } else if (selectedOption == 'Status') {
-      if (order === 'asc') this.tickets.sort(this.sortByStatus);
-      else this.tickets.sort(this.sortByStatusDesc);
-    } else if (selectedOption == 'Upvotes') {
-      if (order === 'asc') this.tickets.sort(this.sortByUpvotes);
-      else this.tickets.sort(this.sortByUpvotesDesc);
-    } else if (selectedOption == 'Issue') {
-      if (order === 'asc') this.tickets.sort(this.sortByIssue);
-      else this.tickets.sort(this.sortByIssueDesc);
-    }
-
-    this.dataSource = new MatTableDataSource(this.tickets);
-    this.table.renderRows();
-  }
-
-  sortByIssue(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_type > a.ticket_type) return 1;
-    else return -1;
-  }
-
-  sortByIssueDesc(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_type < a.ticket_type) return 1;
-    else return -1;
-  }
-
-  sortByUpvotes(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_upvotes > a.ticket_upvotes) return 1;
-    else return -1;
-  }
-
-  sortByStatus(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_status > a.ticket_status) return 1;
-    else return -1;
-  }
-
-  sortByCity(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_city > a.ticket_city) return 1;
-    else return -1;
-  }
-
-  sortByLocation(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_location > a.ticket_location) return 1;
-    else return -1;
-  }
-
-  sortByDate(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_create_date > a.ticket_create_date) return 1;
-    else return -1;
-  }
-
-  sortByUpvotesDesc(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_upvotes < a.ticket_upvotes) return 1;
-    else return -1;
-  }
-
-  sortByStatusDesc(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_status < a.ticket_status) return 1;
-    else return -1;
-  }
-
-  sortByCityDesc(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_city < a.ticket_city) return 1;
-    else return -1;
-  }
-
-  sortByLocationDesc(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_location < a.ticket_location) return 1;
-    else return -1;
-  }
-
-  sortByDateDesc(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_create_date < a.ticket_create_date) return 1;
-    else return -1;
   }
 
   filter(event: any) {

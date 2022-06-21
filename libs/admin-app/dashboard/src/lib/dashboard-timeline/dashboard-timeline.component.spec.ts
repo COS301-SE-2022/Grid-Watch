@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+
 
 import { DashboardTimelineComponent } from './dashboard-timeline.component';
 
@@ -8,7 +11,8 @@ describe('DashboardTimelineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DashboardTimelineComponent],
+      declarations: [DashboardTimelineComponent ],
+      imports: [HttpClientModule, RouterTestingModule]
     }).compileComponents();
   });
 

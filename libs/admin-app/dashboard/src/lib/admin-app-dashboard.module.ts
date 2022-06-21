@@ -11,6 +11,9 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview.component';
 import { DashboardTimelineComponent } from './dashboard-timeline/dashboard-timeline.component';
 import { MatDividerModule } from '@angular/material/divider';
+import Chart from 'chart.js/auto';
+import { registerables } from 'chart.js';
+
 
 @NgModule({
   imports: [
@@ -44,4 +47,10 @@ import { MatDividerModule } from '@angular/material/divider';
     DashboardTimelineComponent,
   ],
 })
-export class AdminAppDashboardModule {}
+export class AdminAppDashboardModule {
+  constructor()
+  {
+    Chart.register(...registerables);
+
+  }
+}

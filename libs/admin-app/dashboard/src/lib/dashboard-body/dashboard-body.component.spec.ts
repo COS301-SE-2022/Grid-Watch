@@ -8,6 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { DashboardBodyComponent } from './dashboard-body.component';
+import { DashboardTimelineComponent } from '../dashboard-timeline/dashboard-timeline.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
+import { DashboardOverviewComponent } from '../dashboard-overview/dashboard-overview.component';
 
 describe('DashboardBodyComponent', () => {
   let component: DashboardBodyComponent;
@@ -15,7 +19,10 @@ describe('DashboardBodyComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [DashboardBodyComponent],
+      declarations: [DashboardBodyComponent,
+        DashboardBodyComponent,
+        DashboardTimelineComponent,
+        DashboardOverviewComponent],
       imports: [
         NoopAnimationsModule,
         LayoutModule,
@@ -24,6 +31,8 @@ describe('DashboardBodyComponent', () => {
         MatGridListModule,
         MatIconModule,
         MatMenuModule,
+        HttpClientModule,
+        RouterTestingModule
       ]
     }).compileComponents();
   }));

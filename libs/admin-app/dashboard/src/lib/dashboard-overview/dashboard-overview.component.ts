@@ -1,24 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {Chart, registerables} from 'chart.js';
+import {} from 'chart.js/auto';
+
 
 @Component({
   selector: 'grid-watch-dashboard-overview',
   templateUrl: './dashboard-overview.component.html',
   styleUrls: ['./dashboard-overview.component.scss'],
 })
-export class DashboardOverviewComponent implements OnInit {
+export class DashboardOverviewComponent implements AfterViewInit {
 
   chartTitles = ["Pothole", "Sinkhole", "Water Outage", "Electricity Outage", "Other"];
 
-  constructor() {}
+  // constructor() {}
 
-  ngOnInit(): void {
-    Chart.register(...registerables);
-  }
-
+  // ngOnInit(): void {
+  // }
+  
   ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
+    
+    // Chart.register(...registerables);
     this.initiateGraphs();
   }
 
@@ -32,7 +35,7 @@ export class DashboardOverviewComponent implements OnInit {
         const ctx = canvas.getContext('2d');
         if (ctx !== null)
         {
-          const myChart = new Chart(ctx, {
+          new Chart(ctx, {
             type: 'line',
             data: {
               labels: ["1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1",],

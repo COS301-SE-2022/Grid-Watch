@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DashboardOverviewComponent } from './dashboard-overview.component';
+import {Chart, registerables} from 'chart.js';
+
 
 describe('DashboardOverviewComponent', () => {
   let component: DashboardOverviewComponent;

@@ -3,8 +3,8 @@
     <div>
         <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
             <mat-label>Issue Type</mat-label>
-            <mat-select placeholder="Issue Type" [(ngModel)]="issue_type" name="issueType">
-                <mat-option *ngFor="let issues of issueOptions" [value]="issues">
+            <mat-select placeholder="Issue Type" [(ngModel)]="issue_type" name="issueType" value="Pothole">
+                <mat-option *ngFor="let issues of issueOptions" value="{{issues}}">
                     {{issues}}
                 </mat-option>
             </mat-select>

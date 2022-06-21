@@ -85,7 +85,6 @@ export class EditTicketComponent implements OnInit {
     //User Data
     this.displayName = "John Doe";
 
-    
   }
 
   async fileUploaded(e: any)

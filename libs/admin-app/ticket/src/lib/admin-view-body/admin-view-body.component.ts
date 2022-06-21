@@ -11,11 +11,9 @@ import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
 import { Ticket } from '@prisma/client';
 import { table } from 'console';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+export interface Filters {
+  name : string,
+  checked: boolean
 }
 
 @Component({
@@ -24,11 +22,12 @@ export interface PeriodicElement {
   styleUrls: ['./admin-view-body.component.scss'],
 })
 export class AdminViewBodyComponent implements OnInit {
+  counter = 0;
   tickets: Array<TicketDto> = [];
   ticketsPERM: Array<TicketDto> = [];
-  statuses: string[] = [];
-  issues: string[] = [];
-  cities: string[] = [];
+  statuses: Filters[] = [];
+  issues: Filters[] = [];
+  cities: Filters[] = [];
   dates: Date[] = [];
   filterChecked: string[] = [];
   sort_options: string[] = [
@@ -111,13 +110,20 @@ export class AdminViewBodyComponent implements OnInit {
 
   initialiseFilters() {
     for (let index = 0; index < this.tickets.length; index++) {
-      this.statuses.push(this.tickets[index].ticket_status);
-      this.cities.push(this.tickets[index].ticket_city);
-      this.issues.push(this.tickets[index].ticket_type);
+      let filter: Filters = {name : this.tickets[index].ticket_status, checked : false};
+      if (this.statuses.indexOf(filter) === -1)
+        this.statuses.push(filter);
+      filter = {name : this.tickets[index].ticket_city, checked : false};
+      this.cities.push(filter);
+      filter = {name : this.tickets[index].ticket_type, checked : false};
+      this.issues.push(filter);
     }
-    this.statuses = [...new Set(this.statuses)];
-    this.cities = [...new Set(this.cities)];
-    this.issues = [...new Set(this.issues)];
+    this.statuses = this.statuses.filter((value, index, self) =>
+    index === self.findIndex((t) => ( t.name === value.name)));
+    this.cities = this.cities.filter((value, index, self) =>
+    index === self.findIndex((t) => ( t.name === value.name)));
+    this.issues = this.issues.filter((value, index, self) =>
+    index === self.findIndex((t) => ( t.name === value.name)));
   }
 
   viewTicket(id: number): void {
@@ -177,35 +183,69 @@ export class AdminViewBodyComponent implements OnInit {
     {
       let filterdTickets: TicketDto[] = [];
       for (let index = 0; index < this.filterChecked.length; index++) {
-        const temp = this.tickets.filter((ticket) => {
+        const temp = this.ticketsPERM.filter((ticket) => {
           return ticket.ticket_city === this.filterChecked[index];
         });
         filterdTickets = filterdTickets.concat(temp);
       }
   
       for (let index = 0; index < this.filterChecked.length; index++) {
-        const temp = this.tickets.filter((ticket) => {
+        const temp = this.ticketsPERM.filter((ticket) => {
           return ticket.ticket_status === this.filterChecked[index];
         });
         filterdTickets = filterdTickets.concat(temp);
       }
   
       for (let index = 0; index < this.filterChecked.length; index++) {
-        const temp = this.tickets.filter((ticket) => {
+        const temp = this.ticketsPERM.filter((ticket) => {
           return ticket.ticket_type === this.filterChecked[index];
         });
         filterdTickets = filterdTickets.concat(temp);
       }
-  
-      this.dataSource = new MatTableDataSource<TicketDto>(filterdTickets);
+      this.tickets = filterdTickets;
+      this.dataSource = new MatTableDataSource<TicketDto>(this.tickets);
       this.table.renderRows();
     }
     else
     {
+      this.tickets = [];
+      for (let index = 0; index < this.ticketsPERM.length; index++) {
+        this.tickets[index] = this.copy(this.ticketsPERM[index]);
+      }
       this.dataSource = new MatTableDataSource<TicketDto>(this.tickets);
       this.table.renderRows();
     }
 
 
+  }
+
+  resetFilters() : void
+  {
+    // console.log(this.checkedBool);
+    
+    // for (let index = 0; index < this.checkedBool.length; index++) {
+    //   this.checkedBool[index] = false;
+      
+    // }
+    this.statuses.forEach((item) =>
+    {
+      item.checked = false;
+    })
+    this.cities.forEach((item) =>
+    {
+      item.checked = false;
+    })
+    this.issues.forEach((item) =>
+    {
+      item.checked = false;
+    })
+
+    this.tickets = [];
+    this.filterChecked = [];
+    for (let index = 0; index < this.ticketsPERM.length; index++) {
+      this.tickets[index] = this.copy(this.ticketsPERM[index]);
+    }
+    this.dataSource = new MatTableDataSource(this.ticketsPERM);
+    this.table.renderRows();
   }
 }

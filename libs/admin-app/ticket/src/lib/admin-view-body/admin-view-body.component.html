@@ -75,34 +75,42 @@
     <mat-drawer #drawer mode="over">
       <div class="filterContainers">
         <div> <b> City</b></div>
-        <div *ngFor="let city of cities">
+        <div *ngFor="let city of cities, index as i">
           <mat-checkbox 
-          name="{{city}}"
+          name="{{city.name}}"
           (change)="filter($event)"
-          color="primary">{{city}}</mat-checkbox>
+          [(ngModel)]="city.checked"
+          color="primary">{{city.name}}</mat-checkbox>
         </div>
       </div>
       <mat-divider></mat-divider>
       <div class="filterContainers">
         <div> <b> Issues</b></div>
-        <div *ngFor="let issue of issues">
+        <div *ngFor="let issue of issues, index as i">
           <mat-checkbox color="primary"
-          name="{{issue}}"
+          name="{{issue.name}}"
           (change)="filter($event)"
-          >{{issue}}</mat-checkbox>
+          [(ngModel)]="issue.checked"
+          >{{issue.name}}</mat-checkbox>
         </div>
       </div>
       <mat-divider></mat-divider>
       <div class="filterContainers">
         <div> <b> Status</b></div>
-        <div *ngFor="let status of statuses">
+        <div *ngFor="let status of statuses, index as i">
           <mat-checkbox color="primary"
-          name="{{status}}"
-          (change)="filter($event)">
-          {{status}}</mat-checkbox>
+          name="{{status.name}}"
+          (change)="filter($event)"
+          [(ngModel)]="status.checked"
+          >
+          {{status.name}}
+        </mat-checkbox>
         </div>
       </div>
-      <!-- <mat-divider></mat-divider> -->
+      <mat-divider></mat-divider>
+      <div class="filterContainers">
+        <button mat-button (click)="resetFilters()">reset</button>
+      </div>
     </mat-drawer>
     <mat-drawer-content>
       <table

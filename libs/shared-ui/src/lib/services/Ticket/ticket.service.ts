@@ -6,11 +6,15 @@ import { catchError, Observable, of } from 'rxjs';
 import { Express } from 'express';
 import { Multer } from 'multer';
 import { ImageResponse } from './image-response';
+import { id } from '@swimlane/ngx-charts';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TicketService {
+
+
+ 
   
   private httpOptions = {
     headers: new HttpHeaders({
@@ -26,6 +30,8 @@ export class TicketService {
   private updateURL = "/api/ticket/update/";
   private createPictureURL = "/api/ticket/picture/create/";
   private createTicketURL = "/api/ticket/create";
+  private UpdateStatusURL = "/api/ticket/update/status/";
+
 
   constructor(private http : HttpClient) {
 
@@ -35,6 +41,16 @@ export class TicketService {
    {  
       console.log(message);
    }
+
+   updateTicketStatus(issue_id: string , status: string) {
+    const temp = {status: "Dispatched"}
+    const tempURL = this.UpdateStatusURL + issue_id;
+    console.log(tempURL);
+    
+    return this.http.put<string>(tempURL, temp ,this.httpOptions).pipe(
+      catchError(this.handleError<string>('updateTicketStatus', "Error"))
+    )
+  }
    
 
    public createNewTicket(ticket : TicketDto) : Observable<TicketDto[]> {
@@ -122,7 +138,7 @@ export class TicketService {
   }
 
   
-  sort(selectedOption: string, order: string, tickets : TicketDto []): TicketDto[] {
+  public sort(selectedOption: string, order: string, tickets : TicketDto []): TicketDto[] {
    if (selectedOption == 'Date') {
       if (order === 'asc') tickets.sort(this.sortByDate);
       else tickets.sort(this.sortByDateDesc);
@@ -147,62 +163,62 @@ export class TicketService {
 
   }
 
-  sortByIssue(a: TicketDto, b: TicketDto): number {
+  private sortByIssue(a: TicketDto, b: TicketDto): number {
     if (b.ticket_type > a.ticket_type) return 1;
     else return -1;
   }
 
-  sortByIssueDesc(a: TicketDto, b: TicketDto): number {
+  private sortByIssueDesc(a: TicketDto, b: TicketDto): number {
     if (b.ticket_type < a.ticket_type) return 1;
     else return -1;
   }
 
-  sortByUpvotes(a: TicketDto, b: TicketDto): number {
+  private sortByUpvotes(a: TicketDto, b: TicketDto): number {
     if (b.ticket_upvotes > a.ticket_upvotes) return 1;
     else return -1;
   }
 
-  sortByStatus(a: TicketDto, b: TicketDto): number {
+  private sortByStatus(a: TicketDto, b: TicketDto): number {
     if (b.ticket_status > a.ticket_status) return 1;
     else return -1;
   }
 
-  sortByCity(a: TicketDto, b: TicketDto): number {
+  private sortByCity(a: TicketDto, b: TicketDto): number {
     if (b.ticket_city > a.ticket_city) return 1;
     else return -1;
   }
 
-  sortByLocation(a: TicketDto, b: TicketDto): number {
+  private sortByLocation(a: TicketDto, b: TicketDto): number {
     if (b.ticket_location > a.ticket_location) return 1;
     else return -1;
   }
 
-  sortByDate(a: TicketDto, b: TicketDto): number {
+  private sortByDate(a: TicketDto, b: TicketDto): number {
     if (b.ticket_create_date > a.ticket_create_date) return 1;
     else return -1;
   }
 
-  sortByUpvotesDesc(a: TicketDto, b: TicketDto): number {
+  private sortByUpvotesDesc(a: TicketDto, b: TicketDto): number {
     if (b.ticket_upvotes < a.ticket_upvotes) return 1;
     else return -1;
   }
 
-  sortByStatusDesc(a: TicketDto, b: TicketDto): number {
+  private sortByStatusDesc(a: TicketDto, b: TicketDto): number {
     if (b.ticket_status < a.ticket_status) return 1;
     else return -1;
   }
 
-  sortByCityDesc(a: TicketDto, b: TicketDto): number {
+  private sortByCityDesc(a: TicketDto, b: TicketDto): number {
     if (b.ticket_city < a.ticket_city) return 1;
     else return -1;
   }
 
-  sortByLocationDesc(a: TicketDto, b: TicketDto): number {
+  private sortByLocationDesc(a: TicketDto, b: TicketDto): number {
     if (b.ticket_location < a.ticket_location) return 1;
     else return -1;
   }
 
-  sortByDateDesc(a: TicketDto, b: TicketDto): number {
+  private sortByDateDesc(a: TicketDto, b: TicketDto): number {
     if (b.ticket_create_date < a.ticket_create_date) return 1;
     else return -1;
   }

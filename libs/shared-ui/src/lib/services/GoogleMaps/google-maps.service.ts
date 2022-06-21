@@ -127,6 +127,7 @@ public createMapObject(elementID : string, center : google.maps.LatLngLiteral, z
   });
 }
 
+
 public createMarkerObject(position: google.maps.LatLngLiteral, map: google.maps.Map, title :string)
 {
   return new google.maps.Marker({
@@ -136,5 +137,19 @@ public createMarkerObject(position: google.maps.LatLngLiteral, map: google.maps.
   });
 }
 
-
+public async getCoordinates(placeID : string)
+{
+  console.log(placeID);
+  const geocoder = new google.maps.Geocoder();
+    const temp = await geocoder.geocode({placeId : placeID}).then(
+      ({results}) => {
+        console.log(results[0]);
+        return results[0].geometry.location;
+      },
+      (error) =>
+      {console.log(error);}
+      
+    )
+    return temp
+}
 }

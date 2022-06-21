@@ -137,14 +137,7 @@
                   <input matInput placeholder="City" disabled="true"  [(ngModel)]="ticket.ticket_upvotes">
               </mat-form-field>
             </div>
-            <div class="buttonsContainer">
-                <div class="buttons">
-                    <button mat-button (click)="dispatch()">Dispatch</button>
-                </div>
-                <div class="buttons">
-                    <button mat-button (click)="back()">Discard</button>
-                </div>
-            </div>
+            
         </div>
       <!-- </form> -->
     </mat-grid-tile>
@@ -161,4 +154,13 @@
         </div>
     </mat-grid-tile>
   </mat-grid-list>
+  <div class="buttonsContainer">
+    <div class="buttons">
+        <button mat-button (click)="dispatch()">Dispatch</button>
+    </div>
+    <div class="buttons">
+        <button mat-button (click)="back()">Discard</button>
+    </div>
 </div>
+</div>
+

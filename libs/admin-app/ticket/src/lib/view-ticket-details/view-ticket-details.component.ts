@@ -25,15 +25,13 @@ export class ViewTicketDetailsComponent implements OnInit {
     floatLabel: this.floatLabelControl,
   });
 
-  issue_id! : string | undefined;
-  defaultUpload! : string;
+  issueId! : string | undefined;
   ticket: TicketDto = new TicketDto();
+  placeID! : string;
   dateCreated! : string;
-  getTicketURL = "http://localhost:3333/api/ticket/";
-  UpdateStatusURL = "http://localhost:3333/api/ticket/update/status/";
-  getPictureURL = "http://localhost:3333/api/ticket/picture/";
   zoom!: number;
   center!: { lat: number; lng: number; };
+  map!: google.maps.Map;
 
   constructor(private http : HttpClient, 
               private route: ActivatedRoute,
@@ -45,7 +43,7 @@ export class ViewTicketDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.ticket.ticket_img = "";
     const temp = this.route.snapshot.paramMap.get('id');
-    this.issue_id = temp?.toString();
+    this.issueId = temp?.toString();
     this.zoom = 5.5;
     this.center =  {
       lat: -30.5595,
@@ -60,10 +58,9 @@ export class ViewTicketDetailsComponent implements OnInit {
     
     loader.load().then(
       () => {
-        console.log("Loaded");
-        if (this.issue_id)
-          this.initialiseTicket(this.issue_id);
-          this.initMap();
+        if (this.issueId)
+          this.initialiseTicket(this.issueId);
+          
         
       },
       (error) => {
@@ -74,8 +71,22 @@ export class ViewTicketDetailsComponent implements OnInit {
   }
 
 
-  initMap() {
-    this.googleMapsService.createMapObject("map", this.center, this.zoom)
+  async initMap() {
+    this.googleMapsService.getCoordinates(this.placeID).then(
+      (response) =>
+      {
+        if (response)
+        {
+          this.center.lat = response.lat();
+          this.center.lng = response.lng();
+        }
+        this.map = this.googleMapsService.createMapObject("map", this.center, 16);
+        this.googleMapsService.createMarkerObject(this.center, this.map, this.ticket.ticket_type)
+      }
+    )
+    
+    
+
   }
 
   async initialiseTicket(id : string ) {
@@ -84,6 +95,8 @@ export class ViewTicketDetailsComponent implements OnInit {
       async (response) => {
         const data = response[0];
         this.ticket = response[0];
+        this.placeID = this.ticket.ticket_location;
+        this.initMap();
         let temp = formatDate(data.ticket_create_date, 'yyyy-MM-dd', 'en-US');;
         this.dateCreated = temp;
         if (data.ticket_close_date != null)
@@ -94,7 +107,6 @@ export class ViewTicketDetailsComponent implements OnInit {
         this.ticket.ticket_location = await this.googleMapsService.getLocation(this.ticket.ticket_location);
       }
       );
-      
     
   }
 
@@ -102,9 +114,11 @@ export class ViewTicketDetailsComponent implements OnInit {
     this.ticketService.getImages(id).subscribe(
       (response) =>
       {
-        console.log(response);
-        this.ticket.ticket_img = response[response.length -1].picture_link
-        
+        console.log(response.length );
+        if (response.length !== 0)
+          this.ticket.ticket_img = response[response.length -1].picture_link;
+          else 
+          this.ticket.ticket_img = "image-solid.svg"; 
       }
     )
     console.log(this.ticket);
@@ -118,27 +132,21 @@ export class ViewTicketDetailsComponent implements OnInit {
 
   dispatch() : void 
   {
-    this.UpdateStatusURL += this.issue_id;
-    // console.log(this.UpdateStatusURL);
-    
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    };
-    const temp = {status: "Dispatched"}
-    this.http.put<string>(this.UpdateStatusURL, temp ,httpOptions).subscribe(
-      () => {
-        this.showSuccessMessage();
-        this.router.navigateByUrl("/adminViewTicket")
-      },
-      () =>
-      {
-        this.showErrorMessage();
-    }
-    );
+    if (this.issueId)
+      this.ticketService.updateTicketStatus(this.issueId, "Dispatched").subscribe(
+        (response) =>
+        {
+          console.log(response);
+          this.showSuccessMessage();
+          this.router.navigateByUrl("/adminViewTicket");
+        }, 
+        (error) =>
+        {
+          this.showErrorMessage();
+        }
 
-    // this.ticketService.
+      )
+
   }
   showErrorMessage() : void {
     alert("Error Dispathing Ticket");

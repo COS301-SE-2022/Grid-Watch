@@ -16,6 +16,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatTableModule } from '@angular/material/table'  
 import { MatSortModule } from '@angular/material/sort';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   imports: [
@@ -43,6 +46,10 @@ import { MatSortModule } from '@angular/material/sort';
     LayoutModule,
     MatTableModule,
     MatSortModule,
+    MatSidenavModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
   ],
   declarations: [
     AdminViewBodyComponent,

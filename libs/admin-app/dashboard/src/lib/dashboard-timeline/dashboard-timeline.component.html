@@ -1,28 +1,53 @@
-<mat-card class="example-card">
-    <mat-card-title-group>
-      <div>
-        
+<div id="ticketsContainer">
+  <!-- <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let ticket of tickets">
+      <mat-card
+    class="timelineCard"
+    
+    (click)="viewTicketDetails(ticket.ticket_id)"
+  >
+    <div class="infoContainer">
+      <div class="rowContainer">
+        <div class="imageContainer">
+          <img mat-card-sm-image src="assets/pothole_example.jpg" alt="" />
+        </div>
+        <div>
+          <div>{{ticket.ticket_type}}</div>
+          <div>{{ticket.ticket_location}}</div>
+          <div>{{ticket.ticket_description}}</div>
+        </div>
       </div>
-        <mat-card-title>Pothole</mat-card-title>
-        <mat-card-subtitle>
+    </div>
+    <mat-card-footer>
+      <button mat-button>view</button>
+    </mat-card-footer>
+  </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list> -->
+      <mat-card
+    class="timelineCard"
+    *ngFor="let ticket of tickets"
+    (click)="viewTicketDetails(ticket.ticket_id)"
+  >
+    <div class="infoContainer">
+      <div class="rowContainer">
+        <div class="imageContainer">
+          <img mat-card-sm-image src="assets/pothole_example.jpg" alt="" />
+        </div>
+        <div>
+          <div>{{ticket.ticket_type}}</div>
           <div>
             <span class="material-icons">
               my_location
-            </span>
-            <span>
-              1226 Park Street Hatfield
-            </span>
+              </span>
+            {{ticket.ticket_location}}
           </div>
-        </mat-card-subtitle>
-        <img mat-card-sm-image src="assets/pothole_example.jpg" alt="" />
-  </mat-card-title-group>
-  <mat-card-content>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ultricies sollicitudin placerat. Morbi facilisis mi a quam vehicula, vitae semper justo sollicitudin. Curabitur ut orci eget est facilisis posuere ut ut lorem. Nunc leo elit, fermentum et lectus sed, elementum venenatis tortor. Praesent vitae semper arcu, sit amet commodo lorem. Proin tristique, odio sollicitudin pretium imperdiet, odio massa ultrices nunc, nec finibus nisl elit nec augue. Donec suscipit dignissim aliquet.
-    <div class="dateCreated">
-      21/04/1205
+          <div>{{ticket.ticket_description}}</div>
+        </div>
+      </div>
     </div>
-  </mat-card-content>
-  <mat-card-footer>
-    <button mat-button>view</button>
-  </mat-card-footer>
-</mat-card>
+    <mat-card-footer>
+      <button mat-button>view</button>
+    </mat-card-footer>
+  </mat-card>
+</div>

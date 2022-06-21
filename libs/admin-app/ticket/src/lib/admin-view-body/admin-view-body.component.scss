@@ -1,3 +1,30 @@
 table{
     width: 100%;
 }
+
+button{
+    width: 100%;
+}
+
+.bodyContainer
+{
+    height: 500px;
+}
+
+mat-drawer-container
+{
+    height: 100%;
+}
+
+mat-drawer
+{
+    height: 500px;
+    padding: 10px;
+    width: 250px;
+    background-color: lightgrey;
+}
+
+.filterContainers
+{
+    padding-bottom: 5px;
+}

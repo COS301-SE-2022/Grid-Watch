@@ -23,23 +23,23 @@ export class DashboardOverviewComponent implements OnInit {
   }
 
   initiateGraphs() : void {
-    for (let index = 0; index < this.chartTitles.length; index++) {
+    for (let index = 0; index < 1; index++) {
       
       const canvas = <HTMLCanvasElement> document.getElementById('myChart' + index);
-      console.log(canvas);
+      // console.log(canvas);
       if (canvas !== null)
       {
         const ctx = canvas.getContext('2d');
         if (ctx !== null)
         {
           const myChart = new Chart(ctx, {
-            type: 'doughnut',
+            type: 'line',
             data: {
-              labels: ['Active', 'Completed'],
+              labels: ["1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1",],
               datasets: [
                 {
                   label: '# of Votes',
-                  data: [Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0)],
+                  data: [Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0)],
                   backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -55,7 +55,7 @@ export class DashboardOverviewComponent implements OnInit {
             options: {
               scales: {
                 y: {
-                  beginAtZero: true,
+                  beginAtZero: false,
                 },
               },
             },

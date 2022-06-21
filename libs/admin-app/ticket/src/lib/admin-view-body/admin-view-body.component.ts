@@ -1,4 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -34,6 +35,7 @@ export class AdminViewBodyComponent implements OnInit {
   issues: string[] = [];
   cities: string[] = [];
   dates: Date[] = [];
+  filterChecked : string[]  = [];
   sort_options: string[] = [
     'Original',
     'Date',
@@ -99,8 +101,6 @@ export class AdminViewBodyComponent implements OnInit {
     this.statuses = [...new Set(this.statuses)];
     this.cities = [...new Set(this.cities)];
     this.issues = [...new Set(this.issues)];
-    // console.log(this.dates);
-    // console.log(this.cities);
   }
 
   viewTicket(id: number): void {
@@ -122,91 +122,10 @@ export class AdminViewBodyComponent implements OnInit {
       this.tickets.push(data[index]);
       this.ticketsPERM.push(data[index]);
       console.log(this.tickets[index].ticket_location);
-      this.tickets[index].ticket_location = await this.googleMapsService.getLocation(this.tickets[index].ticket_location);
+      // this.tickets[index].ticket_location = await this.googleMapsService.getLocation(this.tickets[index].ticket_location);
       this.ticketsPERM[index].ticket_location = this.tickets[index].ticket_location;
     }
     this.dataSource = new MatTableDataSource(this.tickets);
-  }
-
-  filterByStatus(status: string): void {
-    // this.getSortUrl += status;
-    // console.log(this.getSortUrl);
-    // this.http.get<TicketDto[]>(this.getSortUrl).subscribe(
-    //   (data) => {
-    //     // console.log(data);
-    //     this.initialiseTicket(data);
-    // }
-    // );
-
-    const temp = document.getElementById(status) as HTMLInputElement;
-    console.log(temp);
-
-    if (!temp.checked) {
-      this.tickets = [];
-      this.getDatabaseData(false);
-    } else {
-      // this.getDatabaseData(false);
-      status = temp.value;
-      let result1: TicketDto[] = [];
-      let result2: TicketDto[] = [];
-      let result3: TicketDto[] = [];
-      if (status === 'Created') {
-        result1 = this.tickets.filter(this.checkStatusCreated);
-      }
-      if (status === 'Dispatched') {
-        result2 = this.tickets.filter(this.checkStatusDispacthed);
-      }
-      if (status === 'Accepted') {
-        result3 = this.tickets.filter(this.checkStatusAccepted);
-      }
-      this.tickets = [];
-      this.tickets.push(...result1);
-      this.tickets.push(...result2);
-      this.tickets.push(...result3);
-      // console.log(this.tickets);
-    }
-  }
-
-  checkStatusCreated(ticket: TicketDto): boolean {
-    return ticket.ticket_status === 'Created';
-  }
-
-  checkStatusDispacthed(ticket: TicketDto): boolean {
-    return ticket.ticket_status === 'Dispatched';
-  }
-
-  checkStatusAccepted(ticket: TicketDto): boolean {
-    return ticket.ticket_status === 'Accepted';
-  }
-
-  filterByCity(id: string, value: string) {
-    const temp = document.getElementById(id) as HTMLInputElement;
-    if (!temp.checked) {
-      this.tickets = [];
-      this.getDatabaseData(false);
-    } else {
-      const tempURL = this.getCityURL;
-      this.getCityURL += value;
-      this.http.get<TicketDto[]>(this.getCityURL).subscribe((data) => {
-        this.tickets = data;
-      });
-      this.getCityURL = tempURL;
-    }
-  }
-
-  filterByType(id: string, value: string) {
-    const temp = document.getElementById(id) as HTMLInputElement;
-    if (!temp.checked) {
-      this.tickets = [];
-      this.getDatabaseData(false);
-    } else {
-      const tempURL = this.getTypeURL;
-      this.getTypeURL += value;
-      this.http.get<TicketDto[]>(this.getTypeURL).subscribe((data) => {
-        this.tickets = data;
-      });
-      this.getTypeURL = tempURL;
-    }
   }
 
   copy(temp : TicketDto) : TicketDto
@@ -354,6 +273,51 @@ export class AdminViewBodyComponent implements OnInit {
     else
     return -1;
   }
+  
+  filterCity(event : any)
+  {
+    // console.log(event.source.name);
+    if (!this.filterChecked.includes(event.source.name))
+    {
+      this.filterChecked.push(event.source.name)
+    }
+    else
+    {
+      this.filterChecked = this.filterChecked.filter((val) => {
+        return !val.match(event.source.name)
+      })
+    }
+
+    let filterdTickets: TicketDto [] = [];
+    for (let index = 0; index < this.filterChecked.length; index++) {
+      const temp = this.tickets.filter((ticket)=>
+      {
+        return ticket.ticket_city === this.filterChecked[index]
+      })
+      // console.log(temp);
+      filterdTickets = filterdTickets.concat(temp);
+    }
+    for (let index = 0; index < this.filterChecked.length; index++) {
+      const temp = this.tickets.filter((ticket)=>
+      {
+        return ticket.ticket_status === this.filterChecked[index]
+      })
+      // console.log(temp);
+      filterdTickets = filterdTickets.concat(temp);
+    }
+    for (let index = 0; index < this.filterChecked.length; index++) {
+      const temp = this.tickets.filter((ticket)=>
+      {
+        return ticket.ticket_type === this.filterChecked[index]
+      })
+      // console.log(temp);
+      filterdTickets = filterdTickets.concat(temp);
+    }
+
+    this.dataSource = new MatTableDataSource<TicketDto>(filterdTickets);
+    this.table.renderRows();
+  }
+
 
   
 }

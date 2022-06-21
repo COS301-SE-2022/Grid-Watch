@@ -2,7 +2,7 @@
   <h1 class="mat-h1">Dashboard</h1>
   <mat-grid-list cols="2" rowHeight="370px">
     <mat-grid-tile *ngFor="let card of cards | async,  index as i" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card">
+      <mat-card class="dashboard-card" id="card{{i}}">
         <mat-card-header>
           <mat-card-title>
             {{card.title}}
@@ -19,7 +19,7 @@
           <div *ngIf="i === 0">
               <grid-watch-dashboard-overview></grid-watch-dashboard-overview>
           </div>
-          <div *ngIf="i === 2">
+          <div *ngIf="i === 2" id="timelineCOntainer">
             <grid-watch-dashboard-timeline></grid-watch-dashboard-timeline>
           </div>
         </mat-card-content>

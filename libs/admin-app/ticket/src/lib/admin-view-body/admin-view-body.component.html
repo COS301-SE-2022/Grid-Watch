@@ -78,7 +78,7 @@
         <div *ngFor="let city of cities, index as i">
           <mat-checkbox 
           name="{{city.name}}"
-          (change)="filter($event)"
+          (change)="filter($event, 'city')"
           [(ngModel)]="city.checked"
           color="primary">{{city.name}}</mat-checkbox>
         </div>
@@ -89,7 +89,7 @@
         <div *ngFor="let issue of issues, index as i">
           <mat-checkbox color="primary"
           name="{{issue.name}}"
-          (change)="filter($event)"
+          (change)="filter($event, 'issue')"
           [(ngModel)]="issue.checked"
           >{{issue.name}}</mat-checkbox>
         </div>
@@ -100,7 +100,7 @@
         <div *ngFor="let status of statuses, index as i">
           <mat-checkbox color="primary"
           name="{{status.name}}"
-          (change)="filter($event)"
+          (change)="filter($event, 'status')"
           [(ngModel)]="status.checked"
           >
           {{status.name}}

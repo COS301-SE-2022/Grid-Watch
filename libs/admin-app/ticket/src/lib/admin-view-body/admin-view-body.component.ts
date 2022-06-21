@@ -97,7 +97,7 @@ export class AdminViewBodyComponent implements OnInit {
   getDatabaseData(filters: boolean) {
     this.ticketService.getTickets().subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.initialiseTicket(response);
         this.adjustDates();
         if (filters) this.initialiseFilters();
@@ -144,7 +144,7 @@ export class AdminViewBodyComponent implements OnInit {
     for (let index = 0; index < data.length; index++) {
       this.tickets.push(data[index]);
       this.ticketsPERM.push(data[index]);
-      console.log(this.tickets[index].ticket_location);
+      // console.log(this.tickets[index].ticket_location);
       // this.tickets[index].ticket_location = await this.googleMapsService.getLocation(this.tickets[index].ticket_location);
       this.ticketsPERM[index].ticket_location =
         this.tickets[index].ticket_location;
@@ -169,8 +169,8 @@ export class AdminViewBodyComponent implements OnInit {
     return newTicket;
   }
 
-  filter(event: any) {
-    // console.log(event.source.name);
+  filter(event: any, category : string) {
+    console.log(event);
     if (!this.filterChecked.includes(event.source.name)) {
       this.filterChecked.push(event.source.name);
     } else {
@@ -182,22 +182,25 @@ export class AdminViewBodyComponent implements OnInit {
     if (this.filterChecked.length > 0)
     {
       let filterdTickets: TicketDto[] = [];
+      if (category == 'city')
       for (let index = 0; index < this.filterChecked.length; index++) {
-        const temp = this.ticketsPERM.filter((ticket) => {
+        const temp = this.tickets.filter((ticket) => {
           return ticket.ticket_city === this.filterChecked[index];
         });
         filterdTickets = filterdTickets.concat(temp);
       }
-  
+      
+      if (category == 'status')
       for (let index = 0; index < this.filterChecked.length; index++) {
-        const temp = this.ticketsPERM.filter((ticket) => {
+        const temp = this.tickets.filter((ticket) => {
           return ticket.ticket_status === this.filterChecked[index];
         });
         filterdTickets = filterdTickets.concat(temp);
       }
-  
+      
+      if (category == 'issue')
       for (let index = 0; index < this.filterChecked.length; index++) {
-        const temp = this.ticketsPERM.filter((ticket) => {
+        const temp = this.tickets.filter((ticket) => {
           return ticket.ticket_type === this.filterChecked[index];
         });
         filterdTickets = filterdTickets.concat(temp);

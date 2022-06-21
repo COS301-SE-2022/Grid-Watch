@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AdminViewBodyComponent } from './admin-view-body/admin-view-body.component';
 import { ViewTicketDetailsComponent } from './view-ticket-details/view-ticket-details.component';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroupDirective, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
@@ -50,6 +49,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatDividerModule,
     MatFormFieldModule,
     MatCheckboxModule,
+    MatInputModule
   ],
   declarations: [
     AdminViewBodyComponent,
@@ -59,5 +59,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     AdminViewBodyComponent,
     ViewTicketDetailsComponent,
   ],
+  providers: [FormBuilder]
 })
 export class AdminAppTicketModule {}

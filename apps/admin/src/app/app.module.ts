@@ -7,11 +7,11 @@ import { AdminAppTicketModule} from '@grid-watch/admin-app/ticket';
 import { HomePageBodyComponent } from '@grid-watch/public/home-page';
 import { HttpClientModule } from '@angular/common/http';
 import { GoogleMapsService, SharedUiModule } from '@grid-watch/shared-ui';
-import { AdminAppDashboardModule } from '@grid-watch/admin-app/dashboard';
+import { AdminAppDashboardModule, DashboardBodyComponent } from '@grid-watch/admin-app/dashboard';
 
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomePageBodyComponent },
+  { path: 'home', component: DashboardBodyComponent },
   // { path: 'tickets', component: TicketBodyComponent },
   // { path: 'createTicket', component: CreateTicketComponent },
 ];

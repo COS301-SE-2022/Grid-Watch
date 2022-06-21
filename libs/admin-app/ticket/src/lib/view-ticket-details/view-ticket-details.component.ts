@@ -4,6 +4,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { FloatLabelType } from '@angular/material/form-field';
+import { Loader } from '@googlemaps/js-api-loader';
+import { env } from 'process';
+import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-view-ticket-details',
@@ -12,66 +17,103 @@ import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-pictu
 })
 export class ViewTicketDetailsComponent implements OnInit {
 
+  
+  hideRequiredControl = new FormControl(false);
+  floatLabelControl = new FormControl('auto' as FloatLabelType);
+  options = this.formBuilder.group({
+    hideRequired: this.hideRequiredControl,
+    floatLabel: this.floatLabelControl,
+  });
+
   issue_id! : string | undefined;
   defaultUpload! : string;
   ticket: TicketDto = new TicketDto();
-  date_created! : string;
+  dateCreated! : string;
   getTicketURL = "http://localhost:3333/api/ticket/";
   UpdateStatusURL = "http://localhost:3333/api/ticket/update/status/";
   getPictureURL = "http://localhost:3333/api/ticket/picture/";
+  zoom!: number;
+  center!: { lat: number; lng: number; };
 
   constructor(private http : HttpClient, 
               private route: ActivatedRoute,
-              private router: Router) {}
+              private router: Router,
+              private formBuilder: FormBuilder,
+              private ticketService : TicketService,
+              private googleMapsService : GoogleMapsService) {}
 
   ngOnInit(): void {
-
-    
     this.ticket.ticket_img = "";
     const temp = this.route.snapshot.paramMap.get('id');
     this.issue_id = temp?.toString();
-    
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
+    this.zoom = 5.5;
+    this.center =  {
+      lat: -30.5595,
+      lng: 22.9375,
     };
-
-    this.getTicketURL = this.getTicketURL + temp;
-    // console.log(this.getTicketURL);
-    this.http.get<TicketDto[]>(this.getTicketURL, httpOptions).subscribe(
-      (data) => {
-        this.ticket = data[0];
-        console.log(data[0]);
-        this.initialiseTicket(data[0]);
-    }
+      
+    const loader = new Loader({
+      apiKey: 'AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE',
+      version: 'weekly',
+      libraries: ['places'],
+    });
+    
+    loader.load().then(
+      () => {
+        console.log("Loaded");
+        if (this.issue_id)
+          this.initialiseTicket(this.issue_id);
+          this.initMap();
+        
+      },
+      (error) => {
+        console.log(error);
+      }
     );
     
   }
 
-  initialiseTicket(data: TicketDto) {
-    
-    let temp = formatDate(data.ticket_create_date, 'yyyy-MM-dd', 'en-US');;
-    
-    this.date_created = temp;
-    if (data.ticket_close_date != null)
-      temp = formatDate(data.ticket_close_date, 'yyyy-MM-dd', 'en-US');
-    else
-      temp = "";
 
-      this.getPictureURL += data.ticket_id;
-      this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
-        (data) => {
-          this.ticket.ticket_img = data[0].picture_link
-        }
-        );
-        console.log(this.ticket)
+  initMap() {
+    this.googleMapsService.createMapObject("map", this.center, this.zoom)
+  }
+
+  async initialiseTicket(id : string ) {
+    
+    this.ticketService.getTicket(id).subscribe(
+      async (response) => {
+        const data = response[0];
+        this.ticket = response[0];
+        let temp = formatDate(data.ticket_create_date, 'yyyy-MM-dd', 'en-US');;
+        this.dateCreated = temp;
+        if (data.ticket_close_date != null)
+          temp = formatDate(data.ticket_close_date, 'yyyy-MM-dd', 'en-US');
+        else
+          temp = "";
+        this.getPicture(this.ticket.ticket_id)
+        this.ticket.ticket_location = await this.googleMapsService.getLocation(this.ticket.ticket_location);
+      }
+      );
+      
+    
+  }
+
+  getPicture(id : number) : void {
+    this.ticketService.getImages(id).subscribe(
+      (response) =>
+      {
+        console.log(response);
+        this.ticket.ticket_img = response[response.length -1].picture_link
         
+      }
+    )
+    console.log(this.ticket);
+    
   }
 
   back() : void
   {
-    this.router.navigateByUrl("/tickets")
+    this.router.navigateByUrl("/adminViewTicket")
   }
 
   dispatch() : void 
@@ -95,6 +137,8 @@ export class ViewTicketDetailsComponent implements OnInit {
         this.showErrorMessage();
     }
     );
+
+    // this.ticketService.
   }
   showErrorMessage() : void {
     alert("Error Dispathing Ticket");
@@ -103,5 +147,9 @@ export class ViewTicketDetailsComponent implements OnInit {
   showSuccessMessage() : void 
   {
     alert("Successfully Dispatched Ticket");
+  }
+
+  getFloatLabelValue(): FloatLabelType {
+    return this.floatLabelControl.value || 'auto';
   }
 }

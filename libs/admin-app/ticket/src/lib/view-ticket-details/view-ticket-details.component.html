@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<!-- <div class="container mt-5">
     <div class="row">
         <div class="col-12-lg border d-lg-none d-inline preview_container">
             <div class="centered_element d-flex justify-content-center" *ngIf="ticket.ticket_img === ''"> 
@@ -71,12 +71,94 @@
             <div class="align-middle p-5 preview_container" *ngIf="ticket.ticket_img !== ''">
                 <img id="image_preview" src="assets/{{ticket.ticket_img}}" class="upload_issue_image" alt="upload_image">
             </div>
-            <!-- <div class="centered_element d-flex justify-content-center" > 
-                <div class="spinner-border text-success text-center" >
-                </div>
-            </div> -->
         </div> 
     </div>
     
 </div>
+ -->
 
+<div class="viewContainer">
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile id="infoTile" class="border" [rowspan]="2">
+      <!-- <form [formGroup]="options"> -->
+          <div id="ticketInfoContainer">
+            <h3> <b> Ticket Information </b></h3> <br>
+            <div class="ticketInfo">
+              <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                  <mat-label>Ticket ID</mat-label>
+                  <input matInput placeholder="Ticket ID" disabled="true" [(ngModel)]="ticket.ticket_id">
+              </mat-form-field>
+            </div>
+            <div class="ticketInfo">
+              <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                  <mat-label>Issue Type</mat-label>
+                  <input matInput placeholder="Issue Type" disabled="true" [(ngModel)]="ticket.ticket_type">
+              </mat-form-field>
+            </div>
+            <div class="ticketInfo">
+              <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                  <mat-label>Status</mat-label>
+                  <input matInput placeholder="Status" disabled="true" [(ngModel)]="ticket.ticket_status">
+              </mat-form-field>
+            </div>
+            <div class="ticketInfo">
+              <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                  <mat-label>Create Date</mat-label>
+                  <input matInput type="date" placeholder="Create Date" disabled="true"  [(ngModel)]="dateCreated">
+              </mat-form-field>
+            </div>
+            <div class="ticketInfo">
+              <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                  <mat-label>Description</mat-label>
+                  <input matInput placeholder="Description" disabled="true" [(ngModel)]="ticket.ticket_description">
+              </mat-form-field>
+            </div>
+            <div class="ticketInfo">
+              <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                  <mat-label>Location</mat-label>
+                  <input matInput placeholder="Location" disabled="true"  [(ngModel)]="ticket.ticket_location">
+              </mat-form-field>
+            </div>
+            <div class="ticketInfo">
+              <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                  <mat-label>City</mat-label>
+                  <input matInput placeholder="City" disabled="true" [(ngModel)]="ticket.ticket_city">
+              </mat-form-field>
+            </div>
+            <div class="ticketInfo">
+              <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                  <mat-label>Repair time</mat-label>
+                  <input matInput placeholder="City" disabled="true" [(ngModel)]="ticket.ticket_repair_time">
+              </mat-form-field>
+            </div>
+            <div class="ticketInfo">
+              <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                  <mat-label>Upvotes</mat-label>
+                  <input matInput placeholder="City" disabled="true"  [(ngModel)]="ticket.ticket_upvotes">
+              </mat-form-field>
+            </div>
+            <div class="buttonsContainer">
+                <div class="buttons">
+                    <button mat-button (click)="dispatch()">Dispatch</button>
+                </div>
+                <div class="buttons">
+                    <button mat-button (click)="back()">Discard</button>
+                </div>
+            </div>
+        </div>
+      <!-- </form> -->
+    </mat-grid-tile>
+    <mat-grid-tile class="border">
+        <div class="imageContainer">
+            <img id="ticketImage" src="assets/{{ticket.ticket_img}}" alt="">
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile class="border"> 
+        <div class="mapContainer">
+            <div id="map">
+
+            </div>
+        </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

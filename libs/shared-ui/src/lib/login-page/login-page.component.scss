@@ -1,5 +1,23 @@
-.container
-{
-    height: fit-content;
-    // padding-top: 50%;
+.button {
+    margin-top: 18px;
+    margin-bottom: 10px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.bodyContainer {
+    height: 100%;
+    /* border: 2px solid red; */
+}
+
+.cardContainer{
+    height: 100%;
+    padding-top: 40px;
+}
+
+
+button {
+    width: 100%;
 }

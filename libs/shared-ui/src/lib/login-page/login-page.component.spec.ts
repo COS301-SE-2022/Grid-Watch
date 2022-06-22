@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { LoginPageComponent } from './login-page.component';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
 
 describe('LoginPageComponent', () => {
   let component: LoginPageComponent;
@@ -12,6 +12,7 @@ describe('LoginPageComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [LoginPageComponent],
       imports: [RouterTestingModule, FormsModule],
+      providers: [FormBuilder]
     }).compileComponents();
   });
 

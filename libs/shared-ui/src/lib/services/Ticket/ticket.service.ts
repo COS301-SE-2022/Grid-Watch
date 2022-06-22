@@ -6,11 +6,15 @@ import { catchError, Observable, of } from 'rxjs';
 import { Express } from 'express';
 import { Multer } from 'multer';
 import { ImageResponse } from './image-response';
+import { id } from '@swimlane/ngx-charts';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TicketService {
+
+
+ 
   
   private httpOptions = {
     headers: new HttpHeaders({
@@ -26,6 +30,8 @@ export class TicketService {
   private updateURL = "/api/ticket/update/";
   private createPictureURL = "/api/ticket/picture/create/";
   private createTicketURL = "/api/ticket/create";
+  private UpdateStatusURL = "/api/ticket/update/status/";
+
 
   constructor(private http : HttpClient) {
 
@@ -35,6 +41,16 @@ export class TicketService {
    {  
       console.log(message);
    }
+
+   updateTicketStatus(issue_id: string , status: string) {
+    const temp = {status: "Dispatched"}
+    const tempURL = this.UpdateStatusURL + issue_id;
+    console.log(tempURL);
+    
+    return this.http.put<string>(tempURL, temp ,this.httpOptions).pipe(
+      catchError(this.handleError<string>('updateTicketStatus', "Error"))
+    )
+  }
    
 
    public createNewTicket(ticket : TicketDto) : Observable<TicketDto[]> {
@@ -120,4 +136,91 @@ export class TicketService {
       catchError(this.handleError<ImageResponse>('postImage', {originalname:"", filename: ""}))
     );
   }
+
+  
+  public sort(selectedOption: string, order: string, tickets : TicketDto []): TicketDto[] {
+   if (selectedOption == 'Date') {
+      if (order === 'asc') tickets.sort(this.sortByDate);
+      else tickets.sort(this.sortByDateDesc);
+    } else if (selectedOption == 'Location') {
+      if (order === 'asc') tickets.sort(this.sortByLocation);
+      else tickets.sort(this.sortByLocationDesc);
+    } else if (selectedOption == 'City') {
+      if (order === 'asc') tickets.sort(this.sortByCity);
+      else tickets.sort(this.sortByCityDesc);
+    } else if (selectedOption == 'Status') {
+      if (order === 'asc') tickets.sort(this.sortByStatus);
+      else tickets.sort(this.sortByStatusDesc);
+    } else if (selectedOption == 'Upvotes') {
+      if (order === 'asc') tickets.sort(this.sortByUpvotes);
+      else tickets.sort(this.sortByUpvotesDesc);
+    } else if (selectedOption == 'Issue') {
+      if (order === 'asc') tickets.sort(this.sortByIssue);
+      else tickets.sort(this.sortByIssueDesc);
+    }
+
+    return tickets;
+
+  }
+
+  private sortByIssue(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_type > a.ticket_type) return 1;
+    else return -1;
+  }
+
+  private sortByIssueDesc(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_type < a.ticket_type) return 1;
+    else return -1;
+  }
+
+  private sortByUpvotes(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_upvotes > a.ticket_upvotes) return 1;
+    else return -1;
+  }
+
+  private sortByStatus(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_status > a.ticket_status) return 1;
+    else return -1;
+  }
+
+  private sortByCity(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_city > a.ticket_city) return 1;
+    else return -1;
+  }
+
+  private sortByLocation(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_location > a.ticket_location) return 1;
+    else return -1;
+  }
+
+  private sortByDate(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_create_date > a.ticket_create_date) return 1;
+    else return -1;
+  }
+
+  private sortByUpvotesDesc(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_upvotes < a.ticket_upvotes) return 1;
+    else return -1;
+  }
+
+  private sortByStatusDesc(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_status < a.ticket_status) return 1;
+    else return -1;
+  }
+
+  private sortByCityDesc(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_city < a.ticket_city) return 1;
+    else return -1;
+  }
+
+  private sortByLocationDesc(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_location < a.ticket_location) return 1;
+    else return -1;
+  }
+
+  private sortByDateDesc(a: TicketDto, b: TicketDto): number {
+    if (b.ticket_create_date < a.ticket_create_date) return 1;
+    else return -1;
+  }
+  
 }

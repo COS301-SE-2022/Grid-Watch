@@ -1,19 +1,57 @@
-img#image_preview {
+img#ticketImage {
+    height: 100%;
+    width: 100%;
+    // padding: 10px;
+}
+
+.viewContainer
+{
+   padding: 20px; 
+}
+
+mat-form-field
+{
+    width: 100%;
+}
+
+div#ticketInfoContainer {
+    height: inherit;
+    padding-top: 25px;
+}
+
+.ticketInfo {
+    width: 600px;
+}
+
+#infoTile
+{
+    overflow-y: auto;
+}
+
+div#map {
     width: 100%;
     height: 100%;
 }
 
-.preview_container
-{
-    height: 500px;
-}
-
-.centered_element{
-    display: flex;
-    align-items: center;
+.mapContainer {
     height: 100%;
+    width: 100%;
+    // padding: 10px;
 }
 
-.col-4.discardButton {
-    text-align: right;
+.buttonsContainer
+{
+    margin-top: 10px;
+    display: flex;
+}
+
+.buttons
+{
+    display: inline;
+    flex: 50%;
+}
+
+button{
+    width: 100%;
+    padding: 10px;
 }

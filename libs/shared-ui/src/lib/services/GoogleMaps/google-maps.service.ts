@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { Delete } from '@nestjs/common';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class GoogleMapsService {
 
   // constructor() { }
-
+  
   public async getLocation(placeID : string) : Promise<string>  {
-    const geocoder = new google.maps.Geocoder();
     // const output;
     // console.log(placeID);
+    const geocoder = new google.maps.Geocoder();
     const temp = await geocoder.geocode({placeId : placeID}).then(
       ({results}) => {
         return results[0].formatted_address;
@@ -127,6 +127,7 @@ public createMapObject(elementID : string, center : google.maps.LatLngLiteral, z
   });
 }
 
+
 public createMarkerObject(position: google.maps.LatLngLiteral, map: google.maps.Map, title :string)
 {
   return new google.maps.Marker({
@@ -136,5 +137,19 @@ public createMarkerObject(position: google.maps.LatLngLiteral, map: google.maps.
   });
 }
 
-
+public async getCoordinates(placeID : string)
+{
+  console.log(placeID);
+  const geocoder = new google.maps.Geocoder();
+    const temp = await geocoder.geocode({placeId : placeID}).then(
+      ({results}) => {
+        console.log(results[0]);
+        return results[0].geometry.location;
+      },
+      (error) =>
+      {console.log(error);}
+      
+    )
+    return temp
+}
 }

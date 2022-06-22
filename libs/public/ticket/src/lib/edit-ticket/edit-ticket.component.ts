@@ -8,6 +8,8 @@ import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
 import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
 import { Loader } from '@googlemaps/js-api-loader';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { FloatLabelType } from '@angular/material/form-field';
 
 @Component({
   selector: 'grid-watch-edit-ticket',
@@ -16,9 +18,18 @@ import { Loader } from '@googlemaps/js-api-loader';
 })
 export class EditTicketComponent implements OnInit {
 
+  
+  hideRequiredControl = new FormControl(false);
+  floatLabelControl = new FormControl('auto' as FloatLabelType);
+  formOptions = this.formBuilder.group({
+    hideRequired: this.hideRequiredControl,
+    floatLabel: this.floatLabelControl,
+  });
+
   autocomplete!: google.maps.places.Autocomplete;
 
   displayName! : string | null;
+  issueOptions = ["Pothole", "Sinkhole", "Broken Light", "Broken Robot", "Water Outage", "Electricity Outage", "Other"]
   defaultUpload! : string | null;
   @Input() issue_type! : string;
   @Input() other_details! : string;
@@ -30,12 +41,15 @@ export class EditTicketComponent implements OnInit {
   map!: google.maps.Map;
   marker!: google.maps.Marker
 
+
+
   constructor(
       private route: ActivatedRoute, 
       private http : HttpClient,
       private router : Router,
       private ticketService :TicketService, 
-      private googleMapsService: GoogleMapsService) {
+      private googleMapsService: GoogleMapsService, 
+      private formBuilder : FormBuilder) {
   }
 
 
@@ -49,6 +63,17 @@ export class EditTicketComponent implements OnInit {
     loader.load().then(() => {
 
       this.initMap();
+
+      //Get parameters
+    const tempID = this.route.snapshot.paramMap.get('id');
+    if (tempID)
+      this.ticketService.getTicket(tempID).subscribe(
+        (response) => {
+          console.log(response);
+          this.ticket = response[0];
+          this.initialiseFields(response[0]);
+        }
+      )
       
       }, (error) =>{console.log(error);
       });
@@ -60,16 +85,6 @@ export class EditTicketComponent implements OnInit {
     //User Data
     this.displayName = "John Doe";
 
-    //Get parameters
-    const tempID = this.route.snapshot.paramMap.get('id');
-    if (tempID)
-      this.ticketService.getTicket(tempID).subscribe(
-        (response) => {
-          console.log(response);
-          this.ticket = response[0];
-          this.initialiseFields(response[0]);
-        }
-      )
   }
 
   async fileUploaded(e: any)
@@ -263,4 +278,7 @@ export class EditTicketComponent implements OnInit {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
+  getFloatLabelValue(): FloatLabelType {
+    return this.floatLabelControl.value || 'auto';
+  }
 }

@@ -29,11 +29,22 @@ export class TicketBodyComponent implements OnInit {
     this.surname = "Doe"
     this.avatar = "assets/user-solid.svg";
 
-    this.ticketService.getTickets().subscribe(
-      (response) => {
-        this.InitialiseTicket(response)
-      }
-    )
+    const loader = new Loader({
+      apiKey: "AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE",
+      version: "weekly",
+      libraries: ["places"]
+    });
+    
+    loader.load().then(() => {
+        this.ticketService.getTickets().subscribe(
+          (response) => {
+            this.InitialiseTicket(response)
+          }
+        )
+      
+      }, (error) =>{console.log(error);
+      });
+
   }
 
   IncreaseUpvote(id : number, index: number): void

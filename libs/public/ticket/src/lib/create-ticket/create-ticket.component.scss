@@ -32,8 +32,11 @@ mat-form-field{
 
 #createTicket_button
 {
+    // display: flex;
+    // align-items: center;
     width: 100%;
     margin-bottom: 50px;
+    margin-top: 10px;
 }
 
 .add_icon
@@ -44,4 +47,9 @@ mat-form-field{
 #map{
     width: 100%;
     height: 100%;
+}
+
+#InputContainer{
+    margin: 0 5%;
+    margin-top: 15px;
 }

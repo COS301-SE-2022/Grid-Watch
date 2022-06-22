@@ -8,6 +8,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
 import { Loader } from '@googlemaps/js-api-loader';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { FloatLabelType } from '@angular/material/form-field';
 
 
 @Component({
@@ -16,6 +18,14 @@ import { Loader } from '@googlemaps/js-api-loader';
   styleUrls: ['./create-ticket.component.scss'],
 })
 export class CreateTicketComponent{
+
+    hideRequiredControl = new FormControl(false);
+    floatLabelControl = new FormControl('auto' as FloatLabelType);
+    formOptions = this.formBuilder.group({
+      hideRequired: this.hideRequiredControl,
+      floatLabel: this.floatLabelControl,
+    });
+
   @Input() ticket : TicketDto = new TicketDto();
 
   file! : File;
@@ -32,12 +42,15 @@ export class CreateTicketComponent{
   other!: boolean;
   otherDetails!: string;
   map!: google.maps.Map;
+
+  issueOptions = ["Pothole", "Sinkhole", "Broken Light", "Broken Robot", "Water Outage", "Electricity Outage", "Other"]
   
 
   constructor(private http : HttpClient, 
               private router: Router,
               private ticketService : TicketService,
-              private googleMapsService: GoogleMapsService) {
+              private googleMapsService: GoogleMapsService,
+              private formBuilder: FormBuilder) {
               }
               
   ngOnInit(): void {    
@@ -70,6 +83,10 @@ export class CreateTicketComponent{
       });
     
     // this.initMap()
+  }
+
+  getFloatLabelValue(): FloatLabelType {
+    return this.floatLabelControl.value || 'auto';
   }
 
   async fileUploaded(e: any) : Promise<void>

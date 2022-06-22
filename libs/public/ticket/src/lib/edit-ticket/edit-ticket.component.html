@@ -1,95 +1,66 @@
-<div class="container mt-1">
-    <div class="row">
-        <div class="card col-12 col-lg-7">
-            <div class="card-body">
-                <div class="mt-2 "  id="name_field">
-                        <label>Name</label>
-                        <input class="form-control" [value]="displayName" disabled>
-                </div>
-                <div id="issue_field" class="mt-2">
-                    <label>Issue Type</label> <br>
-                    <select  class="form-select" value="{{issue_type}}" [(ngModel)]="issue_type"  id="issue_type_options">
-                        <option value="Pothole">Pothole</option>
-                        <option value="Electricity Outage">Electricity Outage</option>
-                        <option value="Water Outage">Water Outage</option>
-                        <option value="Sinkhole">Sinkhole</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-
-                <div *ngIf="(issue_type === 'Other')" id="other_field"  class="mt-2" >
-                    <label>Other issue details</label>
-                    <input  class="form-control" [(ngModel)]="other_details">
-                </div>
-
-                <div id="description_field" class="mt-2">
-                      <label>Description</label>
-                      <textarea class="form-control"  [(ngModel)]="ticket.ticket_description">{{ticket.ticket_description}}</textarea>
-                </div>
-
-                <label class="form-label mt-2 " for="customFile">Upload image of issue</label>
-                <div class="" (click)="initiateFileUpload()">
-                    <div class="imagePreviewContainer d-flex justify-content-center" >
-                        <div class="icon_container " *ngIf="(file === undefined && defaultUpload === '' ) && (waiting !== true)">
-                            <div class="add_icon material-icons align-center centered_element">add</div>
-                        </div>
-                        <div class="centered_element d-flex justify-content-center" *ngIf="waiting === true"> 
-                            <div class="spinner-border text-success text-center" >
-                            </div>
-                        </div>
-                        <div *ngIf="defaultUpload !== '' || file !== undefined" >
-                            <img id="image_preview" src="{{defaultUpload}}" class="upload_issue_image" alt="upload_image">
-                        </div>
-                    </div>
-                </div> 
-                
-                <div id="upload_image" class="d-none">
-                    <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
-                 </div>
-
-                 <!-- <div class="fileUploadPreview mt-2">
-                    <img id="image_preview" src="{{defaultUpload}}" class="upload_issue_image" alt="upload_image" onerror="this.src='assets/upload-solid.svg'">
-                 </div> -->
-
-                 <div class="mt-2 location_pin">
-                     <label class="">Pin location of issue</label><br>
-                     <div class="input-group">
-                        <input  class="form-control" id="pac-input" type="text" placeholder="Search a location" [(ngModel)]="ticket.ticket_location"/>
-                        <button class="getLocationButton btn btn-outline-dark" (click)="getCurrentLocation()">
-                            <span class="material-icons">share_location</span>
-                        </button>
-                     </div>
-                </div>
-                <div class="mt-2 border mapContainer">
-                    <div id="map"></div>
-                    <!-- <google-map
-                        height="500px"
-                        width="100%"
-                        [zoom]="zoom"
-                        [center]="center"
-                        [options]="options">
-                        <map-marker
-                            [position]="markerPosition"
-                            [title]="ticket.ticket_type"
-                        >
-                        </map-marker>
-                    </google-map> -->
-                </div>
-                
-                 <div class="row mt-5">
-                    <div class="col-4"></div>              
-                    <div class="col-4">
-                       <button class="btn btn-outline-dark" id="createTicket_button" color="primary" (click)="editTicket()">Update</button>
-                   </div>
-                   <div class="col-4"></div>              
+<div class="editContainer">
+    <!-- ISSUE TYPE -->
+    <div>
+        <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+            <mat-label>Issue Type</mat-label>
+            <mat-select placeholder="Issue Type" [(ngModel)]="issue_type" name="issueType" value="Pothole">
+                <mat-option *ngFor="let issues of issueOptions" value="{{issues}}">
+                    {{issues}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <!-- OTHER ISSUE -->
+    <div *ngIf="(issue_type === 'Other')" id="other_field">
+        <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+            <mat-label>Other issue details</mat-label>
+            <input matInput placeholder="Other issue details" [(ngModel)]="other_details">
+        </mat-form-field>
+    </div>
+    <!-- DESCRIPTION -->
+    <div id="descriptionField">
+        <mat-form-field  appearance="outline" [floatLabel]="getFloatLabelValue()">
+                <mat-label>Description</mat-label>
+            <textarea matInput placeholder="Description" [(ngModel)]="ticket.ticket_description"></textarea>
+            </mat-form-field>
+            <!-- <textarea class="form-control">{{ticket.ticket_description}}</textarea> -->
+    </div>
+    <!-- FILE UPLOAD -->
+    <label class="form-label" for="customFile">Upload image of issue</label>
+    <div class="" (click)="initiateFileUpload()">
+        <div class="imagePreviewContainer d-flex justify-content-center" >
+            <div class="icon_container " *ngIf="(file === undefined && defaultUpload === '' ) && (waiting !== true)">
+                <div class="add_icon material-icons align-center centered_element">add</div>
+            </div>
+            <div class="centered_element d-flex justify-content-center" *ngIf="waiting === true"> 
+                <div class="spinner-border text-success text-center" >
                 </div>
             </div>
-        </div> 
-        <div class="col-12 col-lg-5 border d-none d-lg-inline">
-            <div class="align-middle p-5 preview_container">
-                <img id="image_preview" src="{{defaultUpload}}" class="upload_issue_image" alt="upload_image" onerror="this.src='assets/upload-solid.svg'">
+            <div *ngIf="defaultUpload !== '' || file !== undefined" >
+                <img id="image_preview" src="{{defaultUpload}}" class="upload_issue_image" alt="upload_image">
             </div>
-        </div> 
+        </div>
+    </div> 
+    <div id="upload_image" class="d-none">
+        <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
+        </div>
+
+    <!-- LOCATION PIN -->
+        <div class=" locationPin">
+        <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+            <mat-label class="">Pin location of issue</mat-label>
+            <input matInput placeholder="Pin location of issue" id="pac-input" type="text" [(ngModel)]="ticket.ticket_location">
+            <button mat-icon-button matSuffix (click)="getCurrentLocation()">
+                <mat-icon>share_location</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+    <!-- MAP PREVIEW -->
+    <div class=" border mapContainer">
+        <div id="map"></div>
     </div>
     
+    <div class="row">
+        <button mat-raised-button id="createTicket_button" (click)="editTicket()">Update</button>
+    </div>
 </div>

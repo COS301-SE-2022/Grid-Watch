@@ -13,7 +13,7 @@ export class DashboardBodyComponent {
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'General overview', cols: 1, rows: 1 },
+          { title: 'General overview', cols: 2, rows: 1 },
           { title: 'Card 2', cols: 1, rows: 1 },
           { title: 'Current Activity', cols: 1, rows: 1 },
           { title: 'Card 4', cols: 1, rows: 1 }

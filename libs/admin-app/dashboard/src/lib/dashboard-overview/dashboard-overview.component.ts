@@ -9,6 +9,9 @@ import {} from 'chart.js/auto';
   styleUrls: ['./dashboard-overview.component.scss'],
 })
 export class DashboardOverviewComponent implements AfterViewInit {
+  
+  
+  chart! : Chart; 
 
   chartTitles = ["Pothole", "Sinkhole", "Water Outage", "Electricity Outage", "Other"];
 
@@ -26,45 +29,149 @@ export class DashboardOverviewComponent implements AfterViewInit {
   }
 
   initiateGraphs() : void {
-    for (let index = 0; index < 1; index++) {
-      
-      const canvas = <HTMLCanvasElement> document.getElementById('myChart' + index);
-      // console.log(canvas);
-      if (canvas !== null)
-      {
-        const ctx = canvas.getContext('2d');
-        if (ctx !== null)
+    const DATA_COUNT = 7;
+    const labels = ["January","February","March","April","May","June","July",];
+    const dataExample = {
+      labels: labels,
+      datasets: [
         {
-          new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: ["1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1",],
-              datasets: [
-                {
-                  label: '# of Votes',
-                  data: [Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0), Math.floor(Math.random() * (1000 - 0 + 1) + 0)],
-                  backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                  ],
-                  borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                  ],
-                  borderWidth: 1,
-                },
-              ],
+          label: 'Tickets created',
+          data: [51, 25, 65, 35, 58, 100, 58],
+          borderColor: 'rgba(255, 0, 0, 0.4)',
+          backgroundColor: 'rgba(255, 0, 0, 0.4)',
+          yAxisID: 'y',
+        },
+        {
+          label: 'Tickets dispatched',
+          data: [33, 88, 25 , 33 , 45 , 15 , 87 ],
+          borderColor: 'rgba(0, 0, 255, 0.4)',
+          backgroundColor: 'rgba(0, 0, 255, 0.4)',
+          yAxisID: 'y2',
+        }
+      ]
+    };
+    
+    const config = {
+      type: "line",
+      data: dataExample,
+      options: {
+        responsive: true,
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        },
+        stacked: false,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Chart.js Line Chart - Multi Axis'
+          }
+        },
+        scales: {
+          y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+          },
+          y1: {
+            type: 'linear',
+            display: true,
+            position: 'right',
+    
+            // grid line settings
+            grid: {
+              drawOnChartArea: false, // only want the grid lines for one axis to show up
             },
-            options: {
-              scales: {
-                y: {
-                  beginAtZero: false,
+          },
+        }
+      },
+    };
+
+    const canvas = <HTMLCanvasElement> document.getElementById('myChart0');
+    if (canvas !== null)
+    {
+      const ctx = canvas.getContext('2d');
+      if (ctx !== null)
+      {
+        this.chart = new Chart(ctx, {
+          type: "line",
+          data: dataExample,
+          options: {
+            responsive: true,
+            interaction: {
+              mode: 'index',
+              intersect: false,
+            },
+            plugins: {
+              title: {
+                display: true,
+                text: 'Number of tickets recieved and Number of tickets dispatched '
+              }
+            },
+            scales: {
+              y: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+              },
+              y1: {
+                type: 'linear',
+                display: false,
+                position: 'right',
+        
+                // grid line settings
+                grid: {
+                  drawOnChartArea: false, // only want the grid lines for one axis to show up
                 },
               },
-            },
-          });
-        }
+              
+            }
+          },
+        });
       }
     }
+  }
+
+  showLineGraph(type : string) : void
+  {
+    console.log(type);
+    const temp : number [] =[];
+    for (let k = 0; k < 7; k++) {
+      temp.push(Math.random() * (100 - 0 + 1) + 0);
+    }
+
+    if (type === "Pothole")
+    this.chart.config.data.datasets.push( {
+      label: 'Potholes',
+      data: temp,
+      borderColor: 'rgba(235, 12, 148, 0.4)',
+      backgroundColor: 'rgba(235, 12, 148, 0.4)',
+      yAxisID: 'y',
+    })
+    else if (type === "Water")
+    this.chart.config.data.datasets.push( {
+      label: 'Water',
+      data: temp,
+      borderColor: 'rgba(235, 82, 23, 0.4)',
+      backgroundColor: 'rgba(235, 82, 23, 0.4)',
+      yAxisID: 'y',
+    })
+    else if (type === "Electricity")
+    this.chart.config.data.datasets.push( {
+      label: 'Electricity',
+      data: temp,
+      borderColor: 'rgba(1, 235, 194, 0.4)',
+      backgroundColor: 'rgba(0, 255, 0, 0.4)',
+      yAxisID: 'y',
+    })
+    else if (type === "Other")
+    this.chart.config.data.datasets.push( {
+      label: 'Other',
+      data: temp,
+      borderColor: 'rgba(40,235,23, 0.4)',
+      backgroundColor: 'rgba(40,235,23, 0.4)',
+      yAxisID: 'y',
+    })
+    this.chart.update();
   }
 }

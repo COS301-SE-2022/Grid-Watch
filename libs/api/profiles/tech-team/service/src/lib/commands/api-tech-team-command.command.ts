@@ -1,68 +1,68 @@
 export class CreateTechTeamCommand{
     constructor(
-        public readonly Name,
-        public readonly Email,
-        public readonly Specialisation,
-        public readonly ContactNr
+        public readonly name,
+        public readonly email,
+        public readonly specialisation,
+        public readonly contactNr
     ){}
 }
 
 export class UpdateTechTeamCommand{
     constructor(
-        public readonly TechTeamId,
-        public readonly Name,
-        public readonly Email,
-        public readonly Specialisation,
-        public readonly ContactNr
+        public readonly techTeamId,
+        public readonly name,
+        public readonly email,
+        public readonly specialisation,
+        public readonly contactNr
     ){}
 }
 
 export class UpdateTechTeamNameCommand{
     constructor(
-        public readonly TechTeamId,
-        public readonly Name
+        public readonly techTeamId,
+        public readonly name
     ){}
 }
 
 export class UpdateTechTeamEmailCommand{
     constructor( 
-        public readonly TechTeamId,
-        public readonly Email){}
+        public readonly techTeamId,
+        public readonly email){}
 }
 
 export class UpdateTechTeamContactNrCommand{
     constructor( 
-        public readonly TechTeamId,
-        public readonly ContactNr){}
+        public readonly techTeamId,
+        public readonly contactNr){}
 }
 
 export class UpdateTechTeamSpecialisationCommand{
     constructor(
-        public readonly TechTeamId, 
-        public readonly Specialisation
+        public readonly techTeamId, 
+        public readonly specialisation
         ){}
 }
 
 export class UpdateTechTeamNrJobsCompletedCommand{
     constructor(
-        public readonly TechTeamId,
-        public readonly NrJobsCompleted
+        public readonly techTeamId,
+        public readonly nrJobsCompleted
     ){}
 }
 
 export class IncTechTeamNrJobsCompletedCommand{
     constructor(
-        public readonly TechTeamId
+        public readonly techTeamId
     ){}
 }
 
 export class UpdateTechTeamRatingJobsCommand{
     constructor(
-        public readonly TechTeamId,
-        public readonly RatingJobs
+        public readonly techTeamId,
+        public readonly ratingJobs
     ){}
 }
 
 export class DeleteTechTeamCommand{
-    constructor(public readonly TechTeamId){}
+    constructor(public readonly techTeamId){}
 }

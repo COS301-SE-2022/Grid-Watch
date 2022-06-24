@@ -13,72 +13,72 @@ import {ApiProfilesTechTeamRepositoryDataAccess} from '@grid-watch/api/profiles/
 
 
 @CommandHandler(CreateTechTeamCommand)
-export class createTechTeamHandler implements ICommandHandler<CreateTechTeamCommand>{
+export class CreateTechTeamHandler implements ICommandHandler<CreateTechTeamCommand>{
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: CreateTechTeamCommand) {
-        const{Name,Email,Specialisation,ContactNr} = command;
-        return this.repository.createTechTeam(Name,Email,Specialisation,ContactNr);
+        const{name: name,email: email,specialisation: specialisation,contactNr: contactNr} = command;
+        return this.repository.createTechTeam(name,email,specialisation,contactNr);
     }
 }
 
 @CommandHandler(UpdateTechTeamCommand)
-export class updateTechTeamHandler implements ICommandHandler<UpdateTechTeamCommand>{
+export class UpdateTechTeamHandler implements ICommandHandler<UpdateTechTeamCommand>{
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: UpdateTechTeamCommand) {
-        const{TechTeamId,Name,Email,Specialisation,ContactNr} = command;
-        return this.repository.UpdateTechTeam(TechTeamId,Name,Email,Specialisation,ContactNr);
+        const{techTeamId: techTeamId,name: name,email: email,specialisation: specialisation,contactNr: contactNr} = command;
+        return this.repository.UpdateTechTeam(techTeamId,name,email,specialisation,contactNr);
     }
 }
 
 @CommandHandler(UpdateTechTeamNameCommand)
-export class updateTechTeamNameHandler implements ICommandHandler<UpdateTechTeamNameCommand>{
+export class UpdateTechTeamNameHandler implements ICommandHandler<UpdateTechTeamNameCommand>{
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: UpdateTechTeamNameCommand) {
-        const{TechTeamId,Name} = command;
-        return this.repository.UpdateTechTeamName(TechTeamId,Name);
+        const{techTeamId: techTeamId,name: name} = command;
+        return this.repository.UpdateTechTeamName(techTeamId,name);
     }
 }
 
 @CommandHandler(UpdateTechTeamEmailCommand)
-export class updateTechTeamEmailHandler implements ICommandHandler<UpdateTechTeamEmailCommand>{
+export class UpdateTechTeamEmailHandler implements ICommandHandler<UpdateTechTeamEmailCommand>{
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: UpdateTechTeamEmailCommand) {
-        const{TechTeamId,Email} = command;
-        return this.repository.UpdateTechTeamEmail(TechTeamId,Email);
+        const{techTeamId: techTeamId,email: email} = command;
+        return this.repository.UpdateTechTeamEmail(techTeamId,email);
     }
 }
 
 @CommandHandler(UpdateTechTeamSpecialisationCommand)
-export class updateTechTeamSpecialisationHandler implements ICommandHandler<UpdateTechTeamSpecialisationCommand>{
+export class UpdateTechTeamSpecialisationHandler implements ICommandHandler<UpdateTechTeamSpecialisationCommand>{
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: UpdateTechTeamSpecialisationCommand) {
-        const{TechTeamId,Specialisation} = command;
-        return this.repository.UpdateTechTeamSpecialisation(TechTeamId,Specialisation);
+        const{techTeamId: techTeamId,specialisation: specialisation} = command;
+        return this.repository.UpdateTechTeamSpecialisation(techTeamId,specialisation);
     }
 }
 
 @CommandHandler(UpdateTechTeamContactNrCommand)
-export class updateTechTeamContactNrHandler implements ICommandHandler<UpdateTechTeamContactNrCommand>{
+export class UpdateTechTeamContactNrHandler implements ICommandHandler<UpdateTechTeamContactNrCommand>{
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: UpdateTechTeamContactNrCommand) {
-        const{TechTeamId,ContactNr} = command;
-        return this.repository.UpdateTechTeamContactNr(TechTeamId,ContactNr);
+        const{techTeamId: techTeamId,contactNr: contactNr} = command;
+        return this.repository.UpdateTechTeamContactNr(techTeamId,contactNr);
     }
 }
 
 @CommandHandler(UpdateTechTeamNrJobsCompletedCommand)
-export class updateTechTeamNrJobsCompletedHandler implements ICommandHandler<UpdateTechTeamNrJobsCompletedCommand>{
+export class UpdateTechTeamNrJobsCompletedHandler implements ICommandHandler<UpdateTechTeamNrJobsCompletedCommand>{
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: UpdateTechTeamNrJobsCompletedCommand) {
-        const{TechTeamId,NrJobsCompleted} = command;
-        return this.repository.UpdateTechTeamNrJobsCompleted(TechTeamId,NrJobsCompleted);
+        const{techTeamId: techTeamId,nrJobsCompleted: nrJobsCompleted} = command;
+        return this.repository.UpdateTechTeamNrJobsCompleted(techTeamId,nrJobsCompleted);
     }
 }
 
@@ -87,27 +87,27 @@ export class IncTechTeamNrJobsCompletedHandler implements ICommandHandler<IncTec
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: IncTechTeamNrJobsCompletedCommand) {
-        const{TechTeamId} = command;
-        return this.repository.IncTechTeamNrJobsCompleted(TechTeamId);
+        const{techTeamId: techTeamId} = command;
+        return this.repository.IncTechTeamNrJobsCompleted(techTeamId);
     }
 }
 
 @CommandHandler(UpdateTechTeamRatingJobsCommand)
-export class updateTechTeamRatingJobsHandler implements ICommandHandler<UpdateTechTeamRatingJobsCommand>{
+export class UpdateTechTeamRatingJobsHandler implements ICommandHandler<UpdateTechTeamRatingJobsCommand>{
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: UpdateTechTeamRatingJobsCommand) {
-        const{TechTeamId,RatingJobs} = command;
-        return this.repository.UpdateTechTeamRatingJobs(TechTeamId,RatingJobs);
+        const{techTeamId: techTeamId,ratingJobs: ratingJobs} = command;
+        return this.repository.UpdateTechTeamRatingJobs(techTeamId,ratingJobs);
     }
 }
 
 @CommandHandler(DeleteTechTeamCommand)
-export class deleteTechTeamHandler implements ICommandHandler<DeleteTechTeamCommand>{
+export class DeleteTechTeamHandler implements ICommandHandler<DeleteTechTeamCommand>{
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: DeleteTechTeamCommand) {
-        const{TechTeamId} = command;
-        return this.repository.DeleteTechTeam(TechTeamId);
+        const{techTeamId: techTeamId} = command;
+        return this.repository.DeleteTechTeam(techTeamId);
     }
 }

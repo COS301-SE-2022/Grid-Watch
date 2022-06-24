@@ -44,53 +44,53 @@ export class DeleteTicketCommand{
 }
 
 export class UpdateTicketStatusCommand{
-    constructor(public readonly TicketId, public readonly Status){}
+    constructor(public readonly ticketId, public readonly status){}
 }
 
 export class UpdateTicketCreateDateCommand{
-    constructor(public readonly TicketId, public readonly CreateDate){}
+    constructor(public readonly ticketId, public readonly createDate){}
 }
 
 export class UpdateTicketCloseDateCommand{
-    constructor(public readonly TicketId, public readonly CloseDate){}
+    constructor(public readonly ticketId, public readonly closeDate){}
 }
 
 export class UpdateTicketTypeCommand{
-    constructor(public readonly TicketId, public readonly Type){}
+    constructor(public readonly ticketId, public readonly type){}
 }
 
 export class UpdateTicketLocationCommand{
-    constructor(public readonly TicketId, public readonly Location){}
+    constructor(public readonly ticketId, public readonly location){}
 }
 
 export class UpdateTicketCostCommand{
-    constructor(public readonly TicketId, public readonly Cost){}
+    constructor(public readonly ticketId, public readonly cost){}
 }
 
 export class UpdateTicketDescriptionCommand{
-    constructor(public readonly TicketId, public readonly Description){}
+    constructor(public readonly ticketId, public readonly description){}
 }
 
 export class UpdateTicketRepairTimeCommand{
-    constructor(public readonly TicketId, public readonly RepairTime){}
+    constructor(public readonly ticketId, public readonly repairTime){}
 }
 
 export class UpdateTicketUpVotesCommand{
-    constructor(public readonly TicketId, public readonly UpVotes){}
+    constructor(public readonly ticketId, public readonly upVotes){}
 }
 
 export class IncUpvotesCommand{
-    constructor(public readonly TicketId){}
+    constructor(public readonly ticketId){}
 }
 
 export class CreatePictureCommand{
-    constructor(public readonly TicketId, public readonly img_link){}
+    constructor(public readonly ticketId, public readonly imgLink){}
 }
 
 export class UpdatePictureCommand{
-    constructor(public readonly PictureId, public readonly img_link){}
+    constructor(public readonly pictureId, public readonly imgLink){}
 }
 
 export class DeletePictureCommand{
-    constructor(public readonly PictureId){}
+    constructor(public readonly pictureId){}
 }

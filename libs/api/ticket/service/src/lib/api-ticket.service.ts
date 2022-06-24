@@ -23,39 +23,39 @@ import { CreateTicketCommand,
 export class ApiTicketService {
     constructor (private commandBus: CommandBus, private queryBus: QueryBus){}
 
-    async GetAll() {
+    async getAll() {
         return await this.queryBus.execute(new GetTicketsQuery())
     }
 
-    async GetAllSortByDate() {
+    async getAllSortByDate() {
         return await this.queryBus.execute(new GetTicketsSortByDateQuery())
     }
 
-    async GetAllSortByIssue() {
+    async getAllSortByIssue() {
         return await this.queryBus.execute(new GetTicketsSortByIssueQuery())
     }
 
-    async GetAllSortByCity() {
+    async getAllSortByCity() {
         return await this.queryBus.execute(new GetTicketsSortByCityQuery())
     }
 
-    async GetAllSortBystatus() {
+    async getAllSortBystatus() {
         return await this.queryBus.execute(new GetTicketsSortByStatusQuery())
     }
 
-    async GetAllSortByUpvotes() {
+    async getAllSortByUpvotes() {
         return await this.queryBus.execute(new GetTicketsSortByUpvotesQuery())
     }
 
-    async GetAllDispatched() {
+    async getAllDispatched() {
         return await this.queryBus.execute(new GetTicketsDispatchedQuery())
     }
 
-    async GetTicket(ticketId: number){
+    async getTicket(ticketId: number){
         return await this.queryBus.execute(new GetTicketQuery(ticketId))
     }
 
-    async UpdateTicket(TicketId: number, Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number){
+    async updateTicket(TicketId: number, Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number){
         return await this.commandBus.execute(new UpdateTicketCommand(TicketId, Status, createDate, closeDate, Type, City, Location, Cost, Description, RepairTime, Upvotes))
     }
 
@@ -119,7 +119,7 @@ export class ApiTicketService {
         return await this.queryBus.execute(new CloseTicketQuery(TicketId))
     }
 
-    async IncUpvotes(TicketId:number){
+    async incUpvotes(TicketId:number){
         return await this.commandBus.execute(new IncUpvotesCommand(TicketId))
     }
 

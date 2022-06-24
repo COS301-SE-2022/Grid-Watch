@@ -32,13 +32,13 @@ export class TicketController {
     //get endpiont to return a specific ticket
     @Get(':id')
     async getTicket(@Param() params){
-        return this.apiTicketService.GetTicket(parseInt(params.id));
+        return this.apiTicketService.getTicket(parseInt(params.id));
     }
 
     //get endpoint to increment the ticket upvotes
     @Get('inc/:id')
     async incUpvotes(@Param() params){
-        return this.apiTicketService.IncUpvotes(parseInt(params.id));
+        return this.apiTicketService.incUpvotes(parseInt(params.id));
     }
 
     //get endpoint to return tickets in a specified city
@@ -60,43 +60,43 @@ export class TicketController {
     //get endpint to return all tickets
     @Get('/all/tickets')
     async getAll(){
-        return this.apiTicketService.GetAll();
+        return this.apiTicketService.getAll();
     }
 
     //get endpint to return all tickets sort by Date
     @Get('/all/tickets/Date')
     async getAllSortByDate(){
-        return this.apiTicketService.GetAllSortByDate();
+        return this.apiTicketService.getAllSortByDate();
     }
     
     //get endpint to return all tickets sort by Issue
     @Get('/all/tickets/Issue')
     async getAllSortByIssue(){
-        return this.apiTicketService.GetAllSortByIssue();
+        return this.apiTicketService.getAllSortByIssue();
     }
     
     //get endpint to return all tickets sort by City
     @Get('/all/tickets/City')
     async getAllSortByCity(){
-        return this.apiTicketService.GetAllSortByCity();
+        return this.apiTicketService.getAllSortByCity();
     }
     
     //get endpint to return all tickets sort by Status
     @Get('/all/tickets/Status')
     async getAllSortByStatus(){
-        return this.apiTicketService.GetAllSortBystatus();
+        return this.apiTicketService.getAllSortBystatus();
     }
     
     //get endpint to return all tickets sort by Upvotes
     @Get('/all/tickets/Upvotes')
     async getAllSortByUpvotes(){
-        return this.apiTicketService.GetAllSortByUpvotes();
+        return this.apiTicketService.getAllSortByUpvotes();
     }
 
     //get endpint to return all tickets dispatched
     @Get('/all/tickets/dispatched')
     async getAllDispatched(){
-        return this.apiTicketService.GetAllDispatched();
+        return this.apiTicketService.getAllDispatched();
     }
 
 
@@ -109,7 +109,7 @@ export class TicketController {
     //update ticket 
     @Put('/update/:id')
     async UpdateTicket(@Param() params,@Body() ticket: TicketDto):Promise<boolean> {
-        return this.apiTicketService.UpdateTicket(parseInt(params.id),ticket.ticket_status,ticket.ticket_create_date,ticket.ticket_close_date,ticket.ticket_type,ticket.ticket_city,ticket.ticket_location,ticket.ticket_cost,ticket.ticket_description,ticket.ticket_repair_time,ticket.ticket_upvotes);
+        return this.apiTicketService.updateTicket(parseInt(params.id),ticket.ticket_status,ticket.ticket_create_date,ticket.ticket_close_date,ticket.ticket_type,ticket.ticket_city,ticket.ticket_location,ticket.ticket_cost,ticket.ticket_description,ticket.ticket_repair_time,ticket.ticket_upvotes);
     }
 
     //update ticket status

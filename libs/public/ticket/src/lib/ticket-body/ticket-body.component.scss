@@ -37,3 +37,20 @@ img.settings_icon
     flex-grow: 1;
     overflow: auto;
 }
+
+img.pin_location
+{
+    height: 10px;
+}
+
+.location_heading
+{
+    font-size: 10px;
+}
+
+.container{
+    width: fit-content;
+    margin:0 auto;
+    overflow-y: scroll;
+    margin-bottom: 50px;
+}

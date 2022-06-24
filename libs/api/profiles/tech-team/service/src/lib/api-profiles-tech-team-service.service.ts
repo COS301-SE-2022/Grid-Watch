@@ -15,8 +15,13 @@ import {CreateTechTeamCommand,
 export class ApiProfilesTechTeamServiceService {
     constructor(private commandBus: CommandBus){}
 
+<<<<<<< HEAD
     async createTechTeam(name: string, email: string, specialisation: string, contactNr: string){
             return await this.commandBus.execute(new CreateTechTeamCommand(name,email,specialisation,contactNr))
+=======
+    async createTechTeam(Name: string, Email: string, Specialisation: string, ContactNr: string, Password :string){
+            return await this.commandBus.execute(new CreateTechTeamCommand(Name,Email,Specialisation,ContactNr,Password))
+>>>>>>> 7c64f475c81696a498da307c1c036a62b621f2a3
     }
 
     async updateTechTeam(techTeamId: number,name: string,email: string, specialisation: string, contactNr:string){

@@ -1,3 +1,4 @@
+import { HashLocationStrategy } from '@angular/common';
 import { Injectable } from '@nestjs/common';
 import {PrismaClient} from '@prisma/client';
 @Injectable()
@@ -6,19 +7,62 @@ export class ApiProfilesTechTeamRepositoryDataAccess {
 
 prisma = new PrismaClient();
 
-    async createTechTeam(Name: string, Email: string,Specialisation: string, ContactNr: string ){
+    bcrypt = require('bcrypt');
 
-            await this.prisma.techTeam.create({
-                data:
-                {
-                    name :                  Name,
-                    email :                 Email,
-                    specialisation :        Specialisation,
-                    contact_number :        ContactNr,
-                    rating_of_jobs :        0.0,
-                    nr_jobs_completed :     0
-                },
-            });
+    async createTechTeam(Name: string, Email: string, Specialisation: string, ContactNr: string, Password : string){
+
+        if(!Name)
+            throw Error("name_falsy");
+        if(!Email)
+            throw Error("email_falsy");
+        if(!Specialisation)
+            throw Error("specialisation_falsy");
+        if(!ContactNr)
+            throw Error("contactnr_falsy");
+        if(!Password)
+            throw Error("password_falsy");
+
+        const salt = await this.bcrypt.genSalt(6);
+        const hash = await this.bcrypt.hash(Password, salt)
+
+        const techTeam = await this.prisma.techTeam.create({
+            data:
+            {
+                name :                  Name,
+                email :                 Email,
+                specialisation :        Specialisation,
+                contact_number :        ContactNr,
+                rating_of_jobs :        0.0,
+                nr_jobs_completed :     0,
+                password :              hash,
+                passwordSalt:           salt,
+                created :               new Date()
+
+            },
+        });
+
+        return techTeam
+
+    }
+
+    async verifyPassword(Email:string, password:string)
+    {
+        const techTeam = await this.prisma.techTeam.findFirst({
+            where:
+            {
+                email : Email,
+            },
+            select:
+            {
+                password:true,
+                passwordSalt:true
+            },
+        });
+
+        const hash = await this.bcrypt.hash(password, techTeam.passwordSalt); 
+
+        return techTeam.password==hash;
+
     }
 
     async getTechTeams(){
@@ -210,5 +254,52 @@ prisma = new PrismaClient();
             },
         })
     }
+
+    async createTechTeamTicket(TechTeamID: number, TicketID : number ){
+        await this.prisma.techTeamTicket.create({
+            data:
+            {
+                techteam_ID :   TechTeamID,
+                ticket_ID :     TicketID,
+            },
+        });
+    }
+
+    async getTechTeamTickets(TechTeamID: number){
+
+        const techteam = await this.prisma.techTeamTicket.findMany({
+
+            where:{
+                techteam_ID: TechTeamID
+            },
+
+        })
+
+        if (techteam) {
+            return techteam;
+        }
+        else{
+            return "Techteam " + TechTeamID + " has no tickets!";
+        }
+    }
+
+    async getTechTeamFromTicket(TicketID: number){
+
+        const techteam = await this.prisma.techTeamTicket.findMany({
+
+            where:{
+                id : TicketID
+            },
+
+        })
+
+        if (techteam) {
+            return techteam;
+        }
+        else{
+            return " No Techteam with Ticket ID " + TicketID + "!";
+        }
+    }
+    
 }
 

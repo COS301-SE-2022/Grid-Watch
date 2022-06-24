@@ -1,9 +1,11 @@
 export class CreateTechTeamCommand{
     constructor(
-        public readonly name,
-        public readonly email,
-        public readonly specialisation,
-        public readonly contactNr
+
+        public readonly Name,
+        public readonly Email,
+        public readonly Specialisation,
+        public readonly ContactNr,
+        public readonly Password
     ){}
 }
 

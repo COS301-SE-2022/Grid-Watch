@@ -192,6 +192,7 @@ export class TicketController {
                 }
             )
         }))
+        
     uploadFile(@UploadedFile() file: Express.Multer.File){
         const response = {
             

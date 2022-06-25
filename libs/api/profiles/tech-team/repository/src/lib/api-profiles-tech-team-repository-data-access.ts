@@ -27,7 +27,7 @@ prisma = new PrismaClient();
 
     async getTechTeamId(ID: number){
 
-        const techteam = await this.prisma.techTeam.findMany({
+        const techTeam = await this.prisma.techTeam.findMany({
 
             where:{
                 id : ID,
@@ -35,8 +35,8 @@ prisma = new PrismaClient();
 
         })
 
-        if (techteam) {
-            return techteam;
+        if (techTeam) {
+            return techTeam;
         }
         else{
             return "Techteam id = " + ID + " not found!";
@@ -44,9 +44,9 @@ prisma = new PrismaClient();
         
     }
 
-    async getTechTeamname(name: string){
+    async getTechTeamName(name: string){
 
-        const techteam = await this.prisma.techTeam.findMany({
+        const techTeam = await this.prisma.techTeam.findMany({
 
             where:{
                 name : name,
@@ -54,8 +54,8 @@ prisma = new PrismaClient();
 
         })
 
-        if (techteam) {
-            return techteam;
+        if (techTeam) {
+            return techTeam;
         }
         else{
             return "Techteam " + name + " not found!";
@@ -66,7 +66,7 @@ prisma = new PrismaClient();
     
     async getTechTeamSpecialisation(specs: string){
 
-        const techteam = await this.prisma.techTeam.findMany({
+        const techTeam = await this.prisma.techTeam.findMany({
 
             where:{
                 specialisation: {
@@ -76,8 +76,8 @@ prisma = new PrismaClient();
 
         })
 
-        if (techteam) {
-            return techteam;
+        if (techTeam) {
+            return techTeam;
         }
         else{
             return "Techteam with specialisation " + specs + " not found!";
@@ -187,7 +187,7 @@ prisma = new PrismaClient();
 
     }
 
-    async updateTechTeamRatingJobs(techTeamId: number, RatingJobs: number){
+    async updateTechTeamRatingJobs(techTeamId: number, ratingJobs: number){
 
         await this.prisma.techTeam.update({
             where:{
@@ -195,7 +195,7 @@ prisma = new PrismaClient();
             },
             data:
             {
-                ratingOfJobs : RatingJobs,    
+                ratingOfJobs : ratingJobs,    
             },
         });
 
@@ -211,49 +211,49 @@ prisma = new PrismaClient();
         })
     }
 
-    async createTechTeamTicket(techTeamId: number, ticketID : number ){
+    async createTechTeamTicket(techTeamID: number, ticketID : number ){
         await this.prisma.techTeamTicket.create({
             data:
             {
-                techteamId :   techTeamId,
+                techTeamId :   techTeamID,
                 ticketId :     ticketID,
             },
         });
     }
 
-    async getTechTeamTickets(techTeamId: number){
+    async getTechTeamTickets(techTeamID: number){
 
-        const techteam = await this.prisma.techTeamTicket.findMany({
+        const techTeam = await this.prisma.techTeamTicket.findMany({
 
             where:{
-                techteamId: techTeamId
+                techTeamId: techTeamID
             },
 
         })
 
-        if (techteam) {
-            return techteam;
+        if (techTeam) {
+            return techTeam;
         }
         else{
-            return "Techteam " + techTeamId + " has no tickets!";
+            return "Techteam " + techTeamID + " has no tickets!";
         }
     }
 
-    async getTechTeamFromTicket(TicketID: number){
+    async getTechTeamFromTicket(ticketId: number){
 
-        const techteam = await this.prisma.techTeamTicket.findMany({
+        const techTeam = await this.prisma.techTeamTicket.findMany({
 
             where:{
-                id : TicketID
+                id : ticketId
             },
 
         })
 
-        if (techteam) {
-            return techteam;
+        if (techTeam) {
+            return techTeam;
         }
         else{
-            return " No Techteam with Ticket ID " + TicketID + "!";
+            return " No Techteam with Ticket ID " + ticketId + "!";
         }
     }
     

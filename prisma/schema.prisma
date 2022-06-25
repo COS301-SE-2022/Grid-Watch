@@ -83,7 +83,7 @@ model TechTeam {
 
 model TechTeamTicket {
   id               Int     @id @default(autoincrement())
-  techteamId       Int
+  techTeamId       Int
   ticketId         Int     
 
   @@map("techteamticket")

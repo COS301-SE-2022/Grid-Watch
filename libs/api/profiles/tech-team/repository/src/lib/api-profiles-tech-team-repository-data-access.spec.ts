@@ -158,8 +158,8 @@ const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto
       });
     })
 
-    //DeleteTechTeam
-    describe('DeleteTechTeam',()=>{
+    //deleteTechTeam
+    describe('deleteTechTeam',()=>{
       it('should return void',async ()=>{
         jest
         .spyOn(provider,'deleteTechTeam')

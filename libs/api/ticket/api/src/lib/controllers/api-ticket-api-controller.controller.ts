@@ -102,77 +102,77 @@ export class TicketController {
 
     //creating tickets
     @Post('/create')
-    async CreateTicket(@Body() ticket: TicketDto){
+    async createTicket(@Body() ticket: TicketDto){
         return this.apiTicketService.createTicket(ticket.ticket_status,ticket.ticket_create_date,ticket.ticket_close_date,ticket.ticket_type,ticket.ticket_city,ticket.ticket_location,ticket.ticket_cost,ticket.ticket_description,ticket.ticket_repair_time,ticket.ticket_upvotes);
     }
 
     //update ticket 
     @Put('/update/:id')
-    async UpdateTicket(@Param() params,@Body() ticket: TicketDto):Promise<boolean> {
+    async updateTicket(@Param() params,@Body() ticket: TicketDto):Promise<boolean> {
         return this.apiTicketService.UpdateTicket(parseInt(params.id),ticket.ticket_status,ticket.ticket_create_date,ticket.ticket_close_date,ticket.ticket_type,ticket.ticket_city,ticket.ticket_location,ticket.ticket_cost,ticket.ticket_description,ticket.ticket_repair_time,ticket.ticket_upvotes);
     }
 
     //update ticket status
     @Put('/update/status/:id')
-    async UpdateTicketStatus(@Param() params,@Body() status: string):Promise<boolean> {
+    async updateTicketStatus(@Param() params,@Body() status: string):Promise<boolean> {
         return this.apiTicketService.updateTicketStatus(parseInt(params.id),status["status"]);
     }
 
     //update ticket createdate
     @Put('/update/createdate/:id')
-    async UpdateTicketCreateDate(@Param() params,@Body() createDate: Date):Promise<boolean>{
+    async updateTicketCreateDate(@Param() params,@Body() createDate: Date):Promise<boolean>{
         return this.apiTicketService.updateTicketCreateDate(parseInt(params.id),createDate["createDate"]);
     }
 
     //update ticket closedate
     @Put('/update/closedate/:id')
-    async UpdateTicketCloseDate(@Param() params,@Body() closeDate: Date):Promise<boolean> {
+    async updateTicketCloseDate(@Param() params,@Body() closeDate: Date):Promise<boolean> {
         return this.apiTicketService.updateTicketCloseDate(parseInt(params.id),closeDate["closeDate"]);
     }
 
     //update ticket type
     @Put('/update/type/:id')
-    async UpdateTicketType(@Param() params,@Body() type: string):Promise<boolean> {
+    async updateTicketType(@Param() params,@Body() type: string):Promise<boolean> {
         return this.apiTicketService.updateTicketType(parseInt(params.id),type["type"]);
     }
   
     //update ticket location
     @Put('/update/location/:id')
-    async UpdateTicketLocation(@Param() params,@Body() location: string):Promise<boolean> {
+    async updateTicketLocation(@Param() params,@Body() location: string):Promise<boolean> {
         return this.apiTicketService.updateTicketLocation(parseInt(params.id),location["location"]);
     }
 
     //update ticket cost
     @Put('/update/cost/:id')
-    async UpdateTicketCost(@Param() params,@Body() cost: string):Promise<boolean> {
+    async updateTicketCost(@Param() params,@Body() cost: string):Promise<boolean> {
         return this.apiTicketService.updateTicketCost(parseInt(params.id),cost["cost"]);
     }
 
     //update ticket description
     @Put('/update/description/:id')
-    async UpdateTicketDescription(@Param() params,@Body() description: string):Promise<boolean> {
+    async updateTicketDescription(@Param() params,@Body() description: string):Promise<boolean> {
         return this.apiTicketService.updateTicketDescription(parseInt(params.id), description["description"]);
     }
 
     //update ticket repair
     @Put('/update/repair/:id')
-    async UpdateTicketRepairTime(@Param() params,@Body() repairTime: string):Promise<boolean> {
+    async updateTicketRepairTime(@Param() params,@Body() repairTime: string):Promise<boolean> {
         return this.apiTicketService.updateTicketRepairTime(parseInt(params.id),repairTime["repairTime"]);
     }
     
     //update ticket upvotes
     @Put('/update/upvotes/:id')
-    async UpdateTicketUpvotes(@Param() params,@Body() upvotes: string):Promise<boolean> {
+    async updateTicketUpvotes(@Param() params,@Body() upvotes: string):Promise<boolean> {
         return this.apiTicketService.updateTicketUpVotes(parseInt(params.id),upvotes["upvotes"]);
     }
 
     @Post('/close')
-    async CloseTicket(@Body() ticketNum: number):Promise<boolean> {
+    async closeTicket(@Body() ticketNum: number):Promise<boolean> {
         return this.apiTicketService.closeTicket(ticketNum["ticketNum"]);
     }
 
     @Delete('/delete')
-    async DeleteTicket(@Body() ticketNum: number):Promise<boolean> {
+    async deleteTicket(@Body() ticketNum: number):Promise<boolean> {
         return this.apiTicketService.deleteTicket(ticketNum["ticketNum"]);
     
     }

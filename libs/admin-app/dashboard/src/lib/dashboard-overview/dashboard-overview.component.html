@@ -1,0 +1,56 @@
+<!-- <mat-grid-list cols="5">
+    <mat-grid-tile *ngFor="let item of chartTitles, index as i">
+    </mat-grid-tile>
+</mat-grid-list> -->
+<div class="cardContainer">
+    <div class="chartContainer">
+        <canvas id="myChart0" height="90px"></canvas>
+    </div>
+    <mat-divider
+        [vertical]="true">
+    </mat-divider>
+    <div class="buttonContainers">
+        <!-- <mat-grid-list cols="2" rowHeight="4:1">
+            <mat-grid-tile class="buttonTile">
+                <div class="tileInfo" (click)="showLineGraph('Pothole')">
+                    Pothole
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile class="buttonTile">
+                <div class="tileInfo"  (click)="showLineGraph('Water')">
+                    Water Outage
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile class="buttonTile"  (click)="showLineGraph('Electricity')">
+                <div class="tileInfo">
+                    Electricity Outage
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile class="buttonTile"  (click)="showLineGraph('Other')">
+                <div class="tileInfo">
+                    Other Issues
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list> -->
+        <div class="flexContainerButtons">
+            <div class="tileInfo" (click)="showLineGraph('Pothole')">
+                Pothole
+                <img class="tileImage" src="assets/pothole-sign.jpg" alt="potholeSign">
+            </div>
+            <div class="tileInfo"  (click)="showLineGraph('Water')">
+                Water Outage
+                <img class="tileImage" src="assets/water-icon.jpg" alt="potholeSign">
+            </div>
+        </div>
+        <div class="flexContainerButtons">
+            <div class="tileInfo" (click)="showLineGraph('Electricity')">
+                Electricity Outage
+                <img class="tileImage" src="assets/electricity-icon.png" alt="potholeSign">
+            </div>
+            <div class="tileInfo"  (click)="showLineGraph('Other')">
+                Other
+                <img class="tileImage" src="assets/other-icon.jpg" alt="potholeSign">
+            </div>
+        </div>
+    </div>
+</div>

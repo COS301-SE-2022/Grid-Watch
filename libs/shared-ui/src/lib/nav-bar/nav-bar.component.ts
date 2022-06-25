@@ -20,7 +20,8 @@ export class NavBarComponent implements OnInit{
 
   ngOnInit(): void {
     const temp = document.getElementById("application_type");
-    this.application_type = temp?.innerHTML;
+      if (temp)
+    this.application_type = temp.innerHTML;
     if (this.application_type === "admin")
     {
       this.login_url = "/login";

@@ -1,51 +1,55 @@
 import { getGreeting } from "../support/app.po";
 
+describe('tech-team', () => {
+  // beforeEach(() => cy.visit('/'));
 
-  describe("Testing API Endpoints Using Cypress", () => {
+  
+  // it('should display welcome message', () => {
+  //   cy.visit("/");
+  //   cy.contains('Welcome to Gridwatch');
+  //   cy.contains('tech-team Application');
+  // });
 
-    it("Test GET Request", () => {
-          cy.request("http://localhost:3333/api/techteam/1")
-               .then((response: { body: any; }) => {
-                      expect(response.body).to.have.property("code", 200);
-          })
-    })
+  // it('should contain google maps component', () => {
+  //   cy.get("google-map");
+  //   cy.get("map-marker");
+  // });
+  
+  // it('should show available tickets component', () => {
+  //   cy.visit("tickets");
+  //   cy.contains("Date Created");
+  //   cy.contains("Issue Type");
+  //   cy.contains("Location");
+  //   cy.contains("city");
+  //   cy.contains("status");
+  // });
+  // it('should tickets details component', () => {
+  //   cy.get("#option1").click()
+  //   cy.contains("Description");
+  //   cy.contains("Create date");
+  //   cy.contains("Address");
+  //   cy.contains("City");
+  // });
+  // it('should accept ticket for tech team', () => {
+  //   cy.get(':nth-child(1) > .btn').click();
+  // });
 
-    it("Test POST Request", () => {
-          cy.request({
-               method: "POST",
-               url: "http://localhost:3333/api/techteam/create",
-               body: {
-                    name :                  "Frikkie",
-                    email :                 "Frikkie@gmail.com",
-                    specialisation :        "Potholes",
-                    contact_number :        "0219983245",
-                    password :              "1234",
-               }
-          }).then((response: { body: any; }) => { 
-                  expect(response.body).has.property("title","Automation"); 
-          })
-    })
+  // it('should edit ticket details prior to accepting', () => {
+  //   cy.get('#repair_time').type("50");
+  //   cy.get('#ticketStatus').select("Accepted");
+  //   cy.get('#cost').type("3500");
+  // });
 
-    it("Test PUT Request", () => {
-          cy.request({
-                  method: "PUT",
-                  url: "http://localhost:3333/api/techteam/1",
-                  body: { 
-                     "id": 2,
-                     "title" : "Test Automation"
-                  }
-          }).then((response: { body: any; }) => { 
-                  expect(response.body).has.property("title"," Test Automation"); 
-          })          
-    })        
-
-    it("Test DELETE Request", () => {
-          cy.request({
-                    method : "DELETE",
-                    url: "http://localhost:3333/api/techteam/1"
-                    }).then((response: { body: any; }) => {
-                      expect(response.body).to.be.empty;
-          })	
-    })
- 
+  // it('should accept ticket ', () => {
+  //   cy.get('#update_button').click();
+  //   cy.visit("acceptedTickets")
+  // });
+  
+  // it('should change ticket status', () => {
+  //   cy.get('#option0').click();
+  //   cy.get("#ticketStatus").select("In Progress");
+  //   cy.get('#update_button').click();
+  //   cy.visit("acceptedTickets")
+  // });
+  
 });

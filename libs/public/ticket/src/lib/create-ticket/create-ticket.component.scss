@@ -13,14 +13,43 @@ mat-form-field{
     height: 250px;
 }
 
+
 .picture_text{
     height: 250px;
     line-height: 250px;
-    text-align: center;
 }
 
 .centered_element{
     display: flex;
     align-items: center;
     height: 100%;
+}
+
+.rounded-circle
+{
+    border: 1px solid black
+}
+
+#createTicket_button
+{
+    // display: flex;
+    // align-items: center;
+    width: 100%;
+    margin-bottom: 50px;
+    margin-top: 10px;
+}
+
+.add_icon
+{
+    font-size: 75px;
+}
+
+#map{
+    width: 100%;
+    height: 100%;
+}
+
+#InputContainer{
+    margin: 0 5%;
+    margin-top: 15px;
 }

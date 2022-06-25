@@ -9,12 +9,12 @@
             <div class="col-lg-10">
                 <ul class="navbar-nav" >
                     <li class="nav-item" *ngFor="let option of options, index as i">
-                        <a class="nav-link" routerLink="{{router_options[i]}}">{{option}}</a>
+                        <a class="nav-link" id="{{option}}" routerLink="{{router_options[i]}}">{{option}}</a>
                     </li>
 
                 </ul>
             </div>
-            <!--<div class="navbar-nav brand col ml-auto">
+            <div class="navbar-nav brand col ml-auto">
                 <a  class="nav-item nav-link notifications d-none d-lg-inline"  >
                     <img class="notifications_icon" src="assets/bell-solid.svg" alt="bell-icon">
                     <span class="position-relative top-0 start-0 translate-middle badge rounded-pill bg-danger">
@@ -42,10 +42,10 @@
                         </a>
                     </div>
                 </div>
-            </div>-->
-            <h2 id="classIdentifier" class="navbar-nav brand col ml-auto">
+            </div>
+            <!-- <h2 id="classIdentifier" class="navbar-nav brand col ml-auto">
 
-            </h2>
+            </h2> -->
         </div>
     </div>
 </nav>

@@ -3,7 +3,7 @@
     <div id="issue_field">
         <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
             <mat-label>Issue Type</mat-label>
-            <mat-select placeholder="Issue Type" [(ngModel)]="ticket.ticket_type" name="issue_type">
+            <mat-select placeholder="Issue Type" [(ngModel)]="ticket.ticketType" name="issue_type">
                 <mat-option *ngFor="let issues of issueOptions" [value]="issues">
                     {{issues}}
                 </mat-option>
@@ -11,7 +11,7 @@
         </mat-form-field>
     </div>
     <!-- OTHER ISSUE DETAILS-->
-    <div *ngIf="(ticket.ticket_type === 'Other')" id="other_field"  >
+    <div *ngIf="(ticket.ticketType === 'Other')" id="other_field"  >
         <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
                 <mat-label>Other issue details</mat-label>
                 <input matInput placeholder="Other issue details" [(ngModel)]="otherDetails">
@@ -21,7 +21,7 @@
     <div id="description_field">
         <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
             <mat-label>Description</mat-label>
-            <textarea matInput placeholder="Description" rows="3"  [(ngModel)]="ticket.ticket_description"></textarea>
+            <textarea matInput placeholder="Description" rows="3"  [(ngModel)]="ticket.ticketDescription"></textarea>
         </mat-form-field>      
     </div>
     <!-- FILE UPLOAD-->
@@ -49,7 +49,7 @@
     <div class="mt-2 location_pin">
         <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
             <mat-label class="">Pin location of issue</mat-label>
-            <input matInput placeholder="Pin location of issue" id="pac-input" type="text" [(ngModel)]="ticket.ticket_location">
+            <input matInput placeholder="Pin location of issue" id="pac-input" type="text" [(ngModel)]="ticket.ticketLocation">
             <button mat-icon-button matSuffix (click)="getCurrentLocation()">
                 <mat-icon>share_location</mat-icon>
             </button>

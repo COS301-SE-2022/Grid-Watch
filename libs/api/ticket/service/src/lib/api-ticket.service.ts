@@ -1,4 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 //import {Ticket,PrismaClient} from '@prisma/client';
 import {QueryBus,CommandBus} from '@nestjs/cqrs';
 import { GetTicketQuery, GetIssueQuery, GetTicketsQuery,GetCityTicketQuery,GetStatusQuery,CloseTicketQuery, GetTicketsDispatchedQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery, GetAllPicturesQuery, GetPictureQuery } from './queries/api-ticket-query.query';
@@ -23,123 +24,123 @@ import { CreateTicketCommand,
 export class ApiTicketService {
     constructor (private commandBus: CommandBus, private queryBus: QueryBus){}
 
-    async GetAll() {
+    async getAll() {
         return await this.queryBus.execute(new GetTicketsQuery())
     }
 
-    async GetAllSortByDate() {
+    async getAllSortByDate() {
         return await this.queryBus.execute(new GetTicketsSortByDateQuery())
     }
 
-    async GetAllSortByIssue() {
+    async getAllSortByIssue() {
         return await this.queryBus.execute(new GetTicketsSortByIssueQuery())
     }
 
-    async GetAllSortByCity() {
+    async getAllSortByCity() {
         return await this.queryBus.execute(new GetTicketsSortByCityQuery())
     }
 
-    async GetAllSortBystatus() {
+    async getAllSortBystatus() {
         return await this.queryBus.execute(new GetTicketsSortByStatusQuery())
     }
 
-    async GetAllSortByUpvotes() {
+    async getAllSortByUpvotes() {
         return await this.queryBus.execute(new GetTicketsSortByUpvotesQuery())
     }
 
-    async GetAllDispatched() {
+    async getAllDispatched() {
         return await this.queryBus.execute(new GetTicketsDispatchedQuery())
     }
 
-    async GetTicket(ticketId: number){
+    async getTicket(ticketId: number){
         return await this.queryBus.execute(new GetTicketQuery(ticketId))
     }
 
-    async UpdateTicket(TicketId: number, Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number){
-        return await this.commandBus.execute(new UpdateTicketCommand(TicketId, Status, createDate, closeDate, Type, City, Location, Cost, Description, RepairTime, Upvotes))
+    async updateTicket(ticketDto : TicketDto){
+        return await this.commandBus.execute(new UpdateTicketCommand(ticketDto))
     }
 
     async deleteTicket(ticketId:number){
         return await this.commandBus.execute(new DeleteTicketCommand(ticketId))
     }
 
-    async createTicket(Status: string, createDate: Date, closeDate: Date, Type: string, City: string, Location: string, Cost: number, Description: string, RepairTime: number, Upvotes: number){
-        return await this.commandBus.execute(new CreateTicketCommand(Status, createDate, closeDate, Type, City, Location, Cost, Description, RepairTime, Upvotes))
+    async createTicket(ticketDto : TicketDto){
+        return await this.commandBus.execute(new CreateTicketCommand(ticketDto))
     }
 
-    async getStatus(Status: string){
-        return await this.queryBus.execute(new GetStatusQuery(Status))
+    async getStatus(status: string){
+        return await this.queryBus.execute(new GetStatusQuery(status))
     }
 
     async getIssue(issue: string){
         return await this.queryBus.execute(new GetIssueQuery(issue))
     }
 
-    async getCityTicket(City: string){
-        return await this.queryBus.execute(new GetCityTicketQuery(City))
+    async getCityTicket(city: string){
+        return await this.queryBus.execute(new GetCityTicketQuery(city))
     }
 
-    async updateTicketStatus(TicketId:number,TicketStatus: string){
-        return await this.commandBus.execute(new UpdateTicketStatusCommand(TicketId,TicketStatus))
+    async updateTicketStatus(ticketId:number,ticketStatus: string){
+        return await this.commandBus.execute(new UpdateTicketStatusCommand(ticketId,ticketStatus))
     }
 
-    async updateTicketCreateDate(TicketId:number,CreateDate:Date){
-        return await this.commandBus.execute(new UpdateTicketCreateDateCommand(TicketId,CreateDate))
+    async updateTicketCreateDate(ticketId:number,createDate:Date){
+        return await this.commandBus.execute(new UpdateTicketCreateDateCommand(ticketId,createDate))
     }
 
-    async updateTicketCloseDate(TicketId:number,CloseDate:Date){
-        return await this.commandBus.execute(new UpdateTicketCloseDateCommand(TicketId,CloseDate))
+    async updateTicketCloseDate(ticketId:number,closeDate:Date){
+        return await this.commandBus.execute(new UpdateTicketCloseDateCommand(ticketId,closeDate))
     }
     
-    async updateTicketType(TicketId:number,Type:string){
-        return await this.commandBus.execute(new UpdateTicketTypeCommand(TicketId,Type))
+    async updateTicketType(ticketId:number,type:string){
+        return await this.commandBus.execute(new UpdateTicketTypeCommand(ticketId,type))
     }
 
-    async updateTicketLocation(TicketId:number,Location:string){
-        return await this.commandBus.execute(new UpdateTicketLocationCommand(TicketId,Location))
+    async updateTicketLocation(ticketId:number,location:string){
+        return await this.commandBus.execute(new UpdateTicketLocationCommand(ticketId,location))
     }
 
-    async updateTicketCost(TicketId:number,Cost:number){
-        return await this.commandBus.execute(new UpdateTicketCostCommand(TicketId,Cost))
+    async updateTicketCost(ticketId:number,cost:number){
+        return await this.commandBus.execute(new UpdateTicketCostCommand(ticketId,cost))
     }
 
-    async updateTicketDescription(TicketId:number,Description:string){
-        return await this.commandBus.execute(new UpdateTicketDescriptionCommand(TicketId,Description))
+    async updateTicketDescription(ticketId:number,description:string){
+        return await this.commandBus.execute(new UpdateTicketDescriptionCommand(ticketId,description))
     }
 
-    async updateTicketRepairTime(TicketId:number,RepairTime:number){
-        return await this.commandBus.execute(new UpdateTicketRepairTimeCommand(TicketId,RepairTime))
+    async updateTicketRepairTime(ticketId:number,repairTime:number){
+        return await this.commandBus.execute(new UpdateTicketRepairTimeCommand(ticketId,repairTime))
     }
 
-    async updateTicketUpVotes(TicketId:number,UpVotes: number){
-        return await this.commandBus.execute(new UpdateTicketUpVotesCommand(TicketId,UpVotes))
+    async updateTicketUpVotes(ticketId:number,upVotes: number){
+        return await this.commandBus.execute(new UpdateTicketUpVotesCommand(ticketId,upVotes))
     }
 
-    async closeTicket(TicketId:number){
-        return await this.queryBus.execute(new CloseTicketQuery(TicketId))
+    async closeTicket(ticketId:number){
+        return await this.queryBus.execute(new CloseTicketQuery(ticketId))
     }
 
-    async IncUpvotes(TicketId:number){
-        return await this.commandBus.execute(new IncUpvotesCommand(TicketId))
+    async incUpvotes(ticketId:number){
+        return await this.commandBus.execute(new IncUpvotesCommand(ticketId))
     }
 
-    async createPicture(TicketId:number,img_link:string){
-        return await this.commandBus.execute(new CreatePictureCommand(TicketId,img_link))
+    async createPicture(ticketId:number,img_link:string){
+        return await this.commandBus.execute(new CreatePictureCommand(ticketId,img_link))
     }
 
-    async getPicture(TicketId:number){
-        return await this.queryBus.execute(new GetPictureQuery(TicketId))
+    async getPicture(ticketId:number){
+        return await this.queryBus.execute(new GetPictureQuery(ticketId))
     }
 
-    async getAllPictures(TicketId:number){
-        return await this.queryBus.execute(new GetAllPicturesQuery(TicketId))
+    async getAllPictures(ticketId:number){
+        return await this.queryBus.execute(new GetAllPicturesQuery(ticketId))
     }
 
-    async updatePicture(PictureId:number,img_link:string){
-        return await this.commandBus.execute(new UpdatePictureCommand(PictureId,img_link))
+    async updatePicture(pictureId:number,img_link:string){
+        return await this.commandBus.execute(new UpdatePictureCommand(pictureId,img_link))
     }
 
-    async deletePicture(PictureId:number){
-        return await this.commandBus.execute(new DeletePictureCommand(PictureId))
+    async deletePicture(pictureId:number){
+        return await this.commandBus.execute(new DeletePictureCommand(pictureId))
     }
 }

@@ -41,7 +41,7 @@ export class ViewTicketDetailsComponent implements OnInit {
               private googleMapsService : GoogleMapsService) {}
 
   ngOnInit(): void {
-    this.ticket.ticket_img = "";
+    this.ticket.ticketImg = "";
     const temp = this.route.snapshot.paramMap.get('id');
     this.issueId = temp?.toString();
     this.zoom = 5.5;
@@ -81,7 +81,7 @@ export class ViewTicketDetailsComponent implements OnInit {
           this.center.lng = response.lng();
         }
         this.map = this.googleMapsService.createMapObject("map", this.center, 16);
-        this.googleMapsService.createMarkerObject(this.center, this.map, this.ticket.ticket_type)
+        this.googleMapsService.createMarkerObject(this.center, this.map, this.ticket.ticketType)
       }
     )
     
@@ -95,16 +95,16 @@ export class ViewTicketDetailsComponent implements OnInit {
       async (response) => {
         const data = response[0];
         this.ticket = response[0];
-        this.placeID = this.ticket.ticket_location;
+        this.placeID = this.ticket.ticketLocation;
         this.initMap();
-        let temp = formatDate(data.ticket_create_date, 'yyyy-MM-dd', 'en-US');;
+        let temp = formatDate(data.ticketCreateDate, 'yyyy-MM-dd', 'en-US');;
         this.dateCreated = temp;
-        if (data.ticket_close_date != null)
-          temp = formatDate(data.ticket_close_date, 'yyyy-MM-dd', 'en-US');
+        if (data.ticketCloseDate != null)
+          temp = formatDate(data.ticketCloseDate, 'yyyy-MM-dd', 'en-US');
         else
           temp = "";
-        this.getPicture(this.ticket.ticket_id)
-        this.ticket.ticket_location = await this.googleMapsService.getLocation(this.ticket.ticket_location);
+        this.getPicture(this.ticket.ticketId)
+        this.ticket.ticketLocation = await this.googleMapsService.getLocation(this.ticket.ticketLocation);
       }
       );
     
@@ -116,9 +116,9 @@ export class ViewTicketDetailsComponent implements OnInit {
       {
         console.log(response.length );
         if (response.length !== 0)
-          this.ticket.ticket_img = response[response.length -1].picture_link;
+          this.ticket.ticketImg = response[response.length -1].pictureLink;
           else 
-          this.ticket.ticket_img = "image-solid.svg"; 
+          this.ticket.ticketImg = "image-solid.svg"; 
       }
     )
     console.log(this.ticket);

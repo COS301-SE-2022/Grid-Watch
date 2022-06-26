@@ -43,9 +43,26 @@ model Ticket {
   ticketRepairTime    Int?
   ticketUpvotes       Int
 
+  Subtasks            Subtasks[]
   Picture             Picture[]
+
   @@map("ticket")
   
+}
+
+///////////////////////////////////////////////////////////////////////
+// Subtasks
+///////////////////////////////////////////////////////////////////////
+
+model Subtasks{
+  subtaskId         Int    @id @default(autoincrement())
+  tickets           Ticket @relation(fields: [ticketID], references: [ticketId], onDelete: Cascade)
+  ticketID          Int
+  taskDescription   String
+  taskStep          String
+  taskStatus        String
+
+  @@map("subtasks")
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -83,7 +100,7 @@ model TechTeam {
 
 model TechTeamTicket {
   id               Int     @id @default(autoincrement())
-  techteamId       Int
+  techTeamId       Int
   ticketId         Int     
 
   @@map("techteamticket")

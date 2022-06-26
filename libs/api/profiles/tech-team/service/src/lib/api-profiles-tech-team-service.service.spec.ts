@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiProfilesTechTeamServiceService } from './api-profiles-tech-team-service.service';
 import {CommandBus} from '@nestjs/cqrs';
-import {techTeamDto} from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
+import {TechTeamDto} from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 
-const techTeamDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto;
+const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamDto;
 
 describe('ApiProfilesTechTeamServiceService', () => {
   let service: ApiProfilesTechTeamServiceService;
@@ -29,15 +29,15 @@ describe('ApiProfilesTechTeamServiceService', () => {
     it('should return a Tech team',async()=>{
       jest
       .spyOn(service,'createTechTeam')
-      .mockImplementation((): Promise<techTeamDto> => Promise.resolve(techTeamDtoMock));
+      .mockImplementation((): Promise<TechTeamDto> => Promise.resolve(techTeamDtoMock));
 
-      expect(await service.createTechTeam('name','email','specialisation','contact')).toMatchObject(techTeamDtoMock)
+      expect(await service.createTechTeam(techTeamDtoMock)).toMatchObject(techTeamDtoMock)
     })
 
     it('should return null',async()=>{
       jest.spyOn(service,'createTechTeam').mockResolvedValue(null);
 
-      expect(await service.createTechTeam('name','email','specialisation','contact')).toEqual(null);
+      expect(await service.createTechTeam(techTeamDtoMock)).toEqual(null);
     })
   })
 
@@ -46,15 +46,14 @@ describe('ApiProfilesTechTeamServiceService', () => {
     it('should return a Tech team',async()=>{
       jest
       .spyOn(service,'updateTechTeam')
-      .mockImplementation((): Promise<techTeamDto> => Promise.resolve(techTeamDtoMock));
 
-      expect(await service.updateTechTeam(1,'name','email','specialisation','contact')).toMatchObject(techTeamDtoMock)
+      expect(await service.updateTechTeam(1,techTeamDtoMock)).toMatchObject(techTeamDtoMock)
     })
 
     it('should return null',async()=>{
       jest.spyOn(service,'updateTechTeam').mockResolvedValue(null);
 
-      expect(await service.updateTechTeam(1,'name','email','specialisation','contact')).toEqual(null);
+      expect(await service.updateTechTeam(1,techTeamDtoMock)).toEqual(null);
     })
   })
 
@@ -62,7 +61,7 @@ describe('ApiProfilesTechTeamServiceService', () => {
     it('should return a Tech team',async()=>{
       jest
       .spyOn(service,'updateTechTeamName')
-      .mockImplementation((): Promise<techTeamDto> => Promise.resolve(techTeamDtoMock));
+      .mockImplementation((): Promise<TechTeamDto> => Promise.resolve(techTeamDtoMock));
 
       expect(await service.updateTechTeamName(1,'name')).toMatchObject(techTeamDtoMock)
     })
@@ -78,7 +77,7 @@ describe('ApiProfilesTechTeamServiceService', () => {
     it('should return a Tech team',async()=>{
       jest
       .spyOn(service,'updateTechTeamEmail')
-      .mockImplementation((): Promise<techTeamDto> => Promise.resolve(techTeamDtoMock));
+      .mockImplementation((): Promise<TechTeamDto> => Promise.resolve(techTeamDtoMock));
 
       expect(await service.updateTechTeamEmail(1,'email')).toMatchObject(techTeamDtoMock)
     })
@@ -95,7 +94,7 @@ describe('ApiProfilesTechTeamServiceService', () => {
     it('should return a Tech team',async()=>{
       jest
       .spyOn(service,'updateTechTeamSpecialisation')
-      .mockImplementation((): Promise<techTeamDto> => Promise.resolve(techTeamDtoMock));
+      .mockImplementation((): Promise<TechTeamDto> => Promise.resolve(techTeamDtoMock));
 
       expect(await service.updateTechTeamSpecialisation(1,'specialisation')).toMatchObject(techTeamDtoMock)
     })
@@ -111,7 +110,7 @@ describe('ApiProfilesTechTeamServiceService', () => {
     it('should return a Tech team',async()=>{
       jest
       .spyOn(service,'updateTechTeamContactNr')
-      .mockImplementation((): Promise<techTeamDto> => Promise.resolve(techTeamDtoMock));
+      .mockImplementation((): Promise<TechTeamDto> => Promise.resolve(techTeamDtoMock));
 
       expect(await service.updateTechTeamContactNr(1,'contact')).toMatchObject(techTeamDtoMock)
     })
@@ -127,7 +126,7 @@ describe('ApiProfilesTechTeamServiceService', () => {
     it('should return a Tech team',async()=>{
       jest
       .spyOn(service,'updateTechTeamNrJobsCompleted')
-      .mockImplementation((): Promise<techTeamDto> => Promise.resolve(techTeamDtoMock));
+      .mockImplementation((): Promise<TechTeamDto> => Promise.resolve(techTeamDtoMock));
 
       expect(await service.updateTechTeamNrJobsCompleted(1,1)).toMatchObject(techTeamDtoMock)
     })
@@ -143,16 +142,16 @@ describe('ApiProfilesTechTeamServiceService', () => {
   describe('IncTechTeamNrJobsCompleted',()=>{
     it('should return a Tech team',async()=>{
       jest
-      .spyOn(service,'IncTechTeamNrJobsCompleted')
-      .mockImplementation((): Promise<techTeamDto> => Promise.resolve(techTeamDtoMock));
+      .spyOn(service,'incTechTeamNrJobsCompleted')
+      .mockImplementation((): Promise<TechTeamDto> => Promise.resolve(techTeamDtoMock));
 
-      expect(await service.IncTechTeamNrJobsCompleted(1)).toMatchObject(techTeamDtoMock)
+      expect(await service.incTechTeamNrJobsCompleted(1)).toMatchObject(techTeamDtoMock)
     })
 
     it('should return null',async()=>{
-      jest.spyOn(service,'IncTechTeamNrJobsCompleted').mockResolvedValue(null);
+      jest.spyOn(service,'incTechTeamNrJobsCompleted').mockResolvedValue(null);
 
-      expect(await service.IncTechTeamNrJobsCompleted(1)).toEqual(null);
+      expect(await service.incTechTeamNrJobsCompleted(1)).toEqual(null);
     })
   })
 
@@ -161,7 +160,7 @@ describe('ApiProfilesTechTeamServiceService', () => {
     it('should return a Tech team',async()=>{
       jest
       .spyOn(service,'updateTechTeamRatingJobs')
-      .mockImplementation((): Promise<techTeamDto> => Promise.resolve(techTeamDtoMock));
+      .mockImplementation((): Promise<TechTeamDto> => Promise.resolve(techTeamDtoMock));
 
       expect(await service.updateTechTeamRatingJobs(1,1.1)).toMatchObject(techTeamDtoMock)
     })
@@ -176,16 +175,16 @@ describe('ApiProfilesTechTeamServiceService', () => {
   describe('DeleteTechTeam',()=>{
     it('should return a Tech team',async()=>{
       jest
-      .spyOn(service,'DeleteTechTeam')
-      .mockImplementation((): Promise<techTeamDto> => Promise.resolve(techTeamDtoMock));
+      .spyOn(service,'deleteTechTeam')
+      .mockImplementation((): Promise<TechTeamDto> => Promise.resolve(techTeamDtoMock));
 
-      expect(await service.DeleteTechTeam(1)).toMatchObject(techTeamDtoMock)
+      expect(await service.deleteTechTeam(1)).toMatchObject(techTeamDtoMock)
     })
 
     it('should return null',async()=>{
-      jest.spyOn(service,'DeleteTechTeam').mockResolvedValue(null);
+      jest.spyOn(service,'deleteTechTeam').mockResolvedValue(null);
 
-      expect(await service.DeleteTechTeam(1)).toEqual(null);
+      expect(await service.deleteTechTeam(1)).toEqual(null);
     })
   })
 

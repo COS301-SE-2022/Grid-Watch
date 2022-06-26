@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { SharedUiModule } from '@grid-watch/shared-ui';
+import { GoogleMapsService, SharedUiModule } from '@grid-watch/shared-ui';
 import { HomePageBodyComponent } from '@grid-watch/public/home-page';
 import { TechTeamProfileModule } from '@grid-watch/tech-team/profile';
 import { TechTeamTicketModule } from '@grid-watch/tech-team/ticket';
@@ -24,7 +24,7 @@ const routes: Routes = [
     TechTeamProfileModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [],
+  providers: [GoogleMapsService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,24 +1,69 @@
+import { HashLocationStrategy } from '@angular/common';
 import { Injectable } from '@nestjs/common';
 import {PrismaClient} from '@prisma/client';
+import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 @Injectable()
 
 export class ApiProfilesTechTeamRepositoryDataAccess {
 
 prisma = new PrismaClient();
 
-    async createTechTeam(techName: string, techEmail: string, spec: string, contactNr: string ){
+    bcrypt = require('bcrypt');
 
-            await this.prisma.techTeam.create({
-                data:
-                {
-                    name :                  techName,
-                    email :                 techEmail,
-                    specialisation :        spec,
-                    contactNumber :        contactNr,
-                    ratingOfJobs :        0.0,
-                    nrJobsCompleted :     0
-                },
-            });
+    async createTechTeam(techTeamDto:TechTeamDto){
+
+        if(!techTeamDto.name)
+            throw Error("name_falsy");
+        if(!techTeamDto.email)
+            throw Error("email_falsy");
+        if(!techTeamDto.specialisation)
+            throw Error("specialisation_falsy");
+        if(!techTeamDto.contactNumber)
+            throw Error("contactnr_falsy");
+        if(!techTeamDto.password)
+            throw Error("password_falsy");
+
+        const salt = await this.bcrypt.genSalt(6);
+        const hash = await this.bcrypt.hash(techTeamDto.password, salt)
+
+        const techTeam = await this.prisma.techTeam.create({
+            data:
+            {
+                name :                  techTeamDto.name,
+                email :                 techTeamDto.email,
+                specialisation :        techTeamDto.specialisation,
+                contactNumber :         techTeamDto.contactNumber,
+                ratingOfJobs :          0.0,
+                nrJobsCompleted :       0,
+                password :              hash,
+                passwordSalt:           salt,
+                created :               new Date()
+
+            },
+        });
+
+        return techTeam
+
+    }
+
+    async verifyPassword(email:string, Password:string)
+    {
+        const techTeam = await this.prisma.techTeam.findFirst({
+            where:
+            {
+                email : email,
+            },
+            select:
+            {
+                password:true,
+                passwordSalt:true
+            },
+        });
+
+        const hash = await this.bcrypt.hash(Password, techTeam.passwordSalt); 
+
+        return techTeam.password==hash;
+
     }
 
     async getTechTeams(){
@@ -85,7 +130,7 @@ prisma = new PrismaClient();
 
     }
 
-    async updateTechTeam(techTeamId: number, name: string, email: string,specialisation: string, contactNr: string){
+    async updateTechTeam(techTeamId: number, techTeamDto:TechTeamDto){
 
         await this.prisma.techTeam.update({
             where:{
@@ -93,19 +138,19 @@ prisma = new PrismaClient();
             },
             data:
             {
-                name :                  name,
-                email :                 email,
-                specialisation :        specialisation,
-                contactNumber :         contactNr,
+                name :                  techTeamDto.name,
+                email :                 techTeamDto.email,
+                specialisation :        techTeamDto.specialisation,
+                contactNumber :         techTeamDto.contactNumber,
             },
         });
     }
     
-    async updateTechTeamName(TechTeamId: number, name: string){
+    async updateTechTeamName(techTeamId: number, name: string){
 
         await this.prisma.techTeam.update({
             where:{
-                id: TechTeamId,
+                id: techTeamId,
             },
             data:
             {
@@ -129,7 +174,7 @@ prisma = new PrismaClient();
 
     }
 
-    async updateTechTeamSpecialisation(techTeamId: number, Specialisation: string){
+    async updateTechTeamSpec(techTeamId: number, specialisation: string){
 
         await this.prisma.techTeam.update({
             where:{
@@ -137,7 +182,7 @@ prisma = new PrismaClient();
             },
             data:
             {
-                specialisation : Specialisation,    
+                specialisation : specialisation,    
             },
         });
 
@@ -211,11 +256,13 @@ prisma = new PrismaClient();
         })
     }
 
-    async createTechTeamTicket(techTeamID: number, ticketID : number ){
+    //TechTeamTicket
+
+    async createTechTeamTicket(techTeamId: number, ticketID : number ){
         await this.prisma.techTeamTicket.create({
             data:
             {
-                techTeamId :   techTeamID,
+                techTeamId :   techTeamId,
                 ticketId :     ticketID,
             },
         });
@@ -239,12 +286,12 @@ prisma = new PrismaClient();
         }
     }
 
-    async getTechTeamFromTicket(ticketId: number){
+    async getTechTeamFromTicket(ticketID: number){
 
         const techTeam = await this.prisma.techTeamTicket.findMany({
 
             where:{
-                id : ticketId
+                id : ticketID
             },
 
         })
@@ -253,9 +300,12 @@ prisma = new PrismaClient();
             return techTeam;
         }
         else{
-            return " No Techteam with Ticket ID " + ticketId + "!";
+            return " No Techteam with Ticket ID " + ticketID + "!";
         }
     }
-    
+
+    //update
+    //delete
+
 }
 

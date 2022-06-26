@@ -23,6 +23,25 @@ describe('TicketController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+  
+    //CreateTicket endpoint
+    describe('CreateTicket',()=>{
+      it('should return true ',async ()=>{
+        jest
+        .spyOn(controller,'createTicket')
+        .mockImplementation(():Promise<boolean> => Promise.resolve(true));
+  
+        expect(await controller.createTicket(ticketDtoMock)).toEqual(
+          true
+        )
+      });
+  
+      it('should return false', async () => {
+        jest.spyOn(controller, 'createTicket').mockResolvedValue(false);
+    
+        expect(await controller.createTicket(ticketDtoMock)).toEqual(false);
+      });
+    })
 
 //getTicket endpoint
   describe('getTicket',()=>{
@@ -86,7 +105,7 @@ describe('TicketController', () => {
     //getAll endpoint
     describe('getAll',()=>{
       const arrayOfTickets = [ticketDtoMock];
-      it('should return all tickes',async ()=>{
+      it('should return all tickets',async ()=>{
         jest
         .spyOn(controller,'getAll')
         .mockImplementation(():Promise<TicketDto[]> => Promise.resolve(arrayOfTickets));
@@ -103,209 +122,190 @@ describe('TicketController', () => {
       });
     })
 
-    //CreateTicket endpoint
-    describe('CreateTicket',()=>{
-      it('should return true ',async ()=>{
+    //updateTicket endpoint
+    describe('updateTicket',()=>{
+      it('should return true',async ()=>{
         jest
-        .spyOn(controller,'CreateTicket')
+        .spyOn(controller,'updateTicket')
         .mockImplementation(():Promise<boolean> => Promise.resolve(true));
   
-        expect(await controller.CreateTicket(ticketDtoMock)).toEqual(
-          true
-        )
+        expect(await controller.updateTicket(1,ticketDtoMock)).toEqual(true);
       });
   
       it('should return false', async () => {
-        jest.spyOn(controller, 'CreateTicket').mockResolvedValue(false);
+        jest.spyOn(controller, 'updateTicket').mockResolvedValue(false);
     
-        expect(await controller.CreateTicket(ticketDtoMock)).toEqual(false);
+        expect(await controller.updateTicket(1,null)).toEqual(false);
       });
     })
 
-    //UpdateTicket endpoint
-    describe('UpdateTicket',()=>{
+    //updateTicketStatus endpoint
+    describe('updateTicketStatus',()=>{
       it('should return true',async ()=>{
         jest
-        .spyOn(controller,'UpdateTicket')
+        .spyOn(controller,'updateTicketStatus')
         .mockImplementation(():Promise<boolean> => Promise.resolve(true));
   
-        expect(await controller.UpdateTicket(1,ticketDtoMock)).toEqual(true);
+        expect(await controller.updateTicketStatus(1,JSON.parse('{"status":"Urgent"}'))).toEqual(true);
       });
   
       it('should return false', async () => {
-        jest.spyOn(controller, 'UpdateTicket').mockResolvedValue(false);
+        jest.spyOn(controller, 'updateTicketStatus').mockResolvedValue(false);
     
-        expect(await controller.UpdateTicket(1,null)).toEqual(false);
+        expect(await controller.updateTicketStatus(1,null)).toEqual(false);
       });
     })
 
-    //UpdateTicketStatus endpoint
-    describe('UpdateTicketStatus',()=>{
+    //updateTicketCreateDate endpoint
+    describe('updateTicketCreateDate',()=>{
       it('should return true',async ()=>{
         jest
-        .spyOn(controller,'UpdateTicketStatus')
+        .spyOn(controller,'updateTicketCreateDate')
         .mockImplementation(():Promise<boolean> => Promise.resolve(true));
   
-        expect(await controller.UpdateTicketStatus(1,JSON.parse('{"status":"Urgent"}'))).toEqual(true);
+        expect(await controller.updateTicketCreateDate(1,new Date)).toEqual(true);
       });
   
       it('should return false', async () => {
-        jest.spyOn(controller, 'UpdateTicketStatus').mockResolvedValue(false);
+        jest.spyOn(controller, 'updateTicketCreateDate').mockResolvedValue(false);
     
-        expect(await controller.UpdateTicketStatus(1,null)).toEqual(false);
+        expect(await controller.updateTicketCreateDate(1,null)).toEqual(false);
       });
     })
 
-    //UpdateTicketCreateDate endpoint
-    describe('UpdateTicketCreateDate',()=>{
+    //updateTicketCloseDate endpoint
+    describe('updateTicketCloseDate',()=>{
       it('should return true',async ()=>{
         jest
-        .spyOn(controller,'UpdateTicketCreateDate')
+        .spyOn(controller,'updateTicketCloseDate')
         .mockImplementation(():Promise<boolean> => Promise.resolve(true));
   
-        expect(await controller.UpdateTicketCreateDate(1,new Date)).toEqual(true);
+        expect(await controller.updateTicketCloseDate(1,new Date)).toEqual(true);
       });
   
       it('should return false', async () => {
-        jest.spyOn(controller, 'UpdateTicketCreateDate').mockResolvedValue(false);
+        jest.spyOn(controller, 'updateTicketCloseDate').mockResolvedValue(false);
     
-        expect(await controller.UpdateTicketCreateDate(1,null)).toEqual(false);
+        expect(await controller.updateTicketCloseDate(1,null)).toEqual(false);
       });
     })
 
-    //UpdateTicketCloseDate endpoint
-    describe('UpdateTicketCloseDate',()=>{
+    //updateTicketType endpoint
+    describe('updateTicketType',()=>{
       it('should return true',async ()=>{
         jest
-        .spyOn(controller,'UpdateTicketCloseDate')
+        .spyOn(controller,'updateTicketType')
         .mockImplementation(():Promise<boolean> => Promise.resolve(true));
   
-        expect(await controller.UpdateTicketCloseDate(1,new Date)).toEqual(true);
+        expect(await controller.updateTicketType(1,JSON.parse('{"type":"Pothole"}'))).toEqual(true);
       });
   
       it('should return false', async () => {
-        jest.spyOn(controller, 'UpdateTicketCloseDate').mockResolvedValue(false);
+        jest.spyOn(controller, 'updateTicketType').mockResolvedValue(false);
     
-        expect(await controller.UpdateTicketCloseDate(1,null)).toEqual(false);
+        expect(await controller.updateTicketType(1,null)).toEqual(false);
       });
     })
 
-    //UpdateTicketType endpoint
-    describe('UpdateTicketType',()=>{
+    //updateTicketLocation endpoint
+    describe('updateTicketLocation',()=>{
       it('should return true',async ()=>{
         jest
-        .spyOn(controller,'UpdateTicketType')
+        .spyOn(controller,'updateTicketLocation')
         .mockImplementation(():Promise<boolean> => Promise.resolve(true));
   
-        expect(await controller.UpdateTicketType(1,JSON.parse('{"type":"Pothole"}'))).toEqual(true);
+        expect(await controller.updateTicketLocation(1,JSON.parse('{"location":"Hatfield"}'))).toEqual(true);
       });
   
       it('should return false', async () => {
-        jest.spyOn(controller, 'UpdateTicketType').mockResolvedValue(false);
+        jest.spyOn(controller, 'updateTicketLocation').mockResolvedValue(false);
     
-        expect(await controller.UpdateTicketType(1,null)).toEqual(false);
+        expect(await controller.updateTicketLocation(1,null)).toEqual(false);
       });
     })
 
-    //UpdateTicketLocation endpoint
-    describe('UpdateTicketLocation',()=>{
+    //updateTicketCost endpoint
+    describe('updateTicketCost',()=>{
       it('should return true',async ()=>{
         jest
-        .spyOn(controller,'UpdateTicketLocation')
+        .spyOn(controller,'updateTicketCost')
         .mockImplementation(():Promise<boolean> => Promise.resolve(true));
   
-        expect(await controller.UpdateTicketLocation(1,JSON.parse('{"location":"Hatfield"}'))).toEqual(true);
+        expect(await controller.updateTicketCost(1,JSON.parse('{"cost":123}'))).toEqual(true);
       });
   
       it('should return false', async () => {
-        jest.spyOn(controller, 'UpdateTicketLocation').mockResolvedValue(false);
+        jest.spyOn(controller, 'updateTicketCost').mockResolvedValue(false);
     
-        expect(await controller.UpdateTicketLocation(1,null)).toEqual(false);
+        expect(await controller.updateTicketCost(1,null)).toEqual(false);
       });
     })
 
-    //UpdateTicketCost endpoint
-    describe('UpdateTicketCost',()=>{
+    //updateTicketDescription endpoint
+    describe('updateTicketDescription',()=>{
       it('should return true',async ()=>{
         jest
-        .spyOn(controller,'UpdateTicketCost')
+        .spyOn(controller,'updateTicketDescription')
         .mockImplementation(():Promise<boolean> => Promise.resolve(true));
   
-        expect(await controller.UpdateTicketCost(1,JSON.parse('{"cost":123}'))).toEqual(true);
+        expect(await controller.updateTicketDescription(1,JSON.parse('{"description":"Pothole near the university"}'))).toEqual(true);
       });
   
       it('should return false', async () => {
-        jest.spyOn(controller, 'UpdateTicketCost').mockResolvedValue(false);
+        jest.spyOn(controller, 'updateTicketDescription').mockResolvedValue(false);
     
-        expect(await controller.UpdateTicketCost(1,null)).toEqual(false);
+        expect(await controller.updateTicketDescription(1,null)).toEqual(false);
       });
     })
 
-    //UpdateTicketDescription endpoint
-    describe('UpdateTicketDescription',()=>{
+    //updateTicketRepairTime endpoint
+    describe('updateTicketRepairTime',()=>{
       it('should return true',async ()=>{
         jest
-        .spyOn(controller,'UpdateTicketDescription')
+        .spyOn(controller,'updateTicketRepairTime')
         .mockImplementation(():Promise<boolean> => Promise.resolve(true));
   
-        expect(await controller.UpdateTicketDescription(1,JSON.parse('{"description":"Pothole near the university"}'))).toEqual(true);
+        expect(await controller.updateTicketRepairTime(1,JSON.parse('{"repairTime": 200}'))).toEqual(true);
       });
   
       it('should return false', async () => {
-        jest.spyOn(controller, 'UpdateTicketDescription').mockResolvedValue(false);
+        jest.spyOn(controller, 'updateTicketRepairTime').mockResolvedValue(false);
     
-        expect(await controller.UpdateTicketDescription(1,null)).toEqual(false);
+        expect(await controller.updateTicketRepairTime(1,null)).toEqual(false);
       });
     })
 
-    //UpdateTicketRepairTime endpoint
-    describe('UpdateTicketRepairTime',()=>{
+    //updateTicketUpvotes endpoint
+    describe('updateTicketUpvotes',()=>{
       it('should return true',async ()=>{
         jest
-        .spyOn(controller,'UpdateTicketRepairTime')
+        .spyOn(controller,'updateTicketUpvotes')
         .mockImplementation(():Promise<boolean> => Promise.resolve(true));
   
-        expect(await controller.UpdateTicketRepairTime(1,JSON.parse('{"repairTime": 200}'))).toEqual(true);
+        expect(await controller.updateTicketUpvotes(1,JSON.parse('{"upvotes": 20}'))).toEqual(true);
       });
   
       it('should return false', async () => {
-        jest.spyOn(controller, 'UpdateTicketRepairTime').mockResolvedValue(false);
+        jest.spyOn(controller, 'updateTicketUpvotes').mockResolvedValue(false);
     
-        expect(await controller.UpdateTicketRepairTime(1,null)).toEqual(false);
+        expect(await controller.updateTicketUpvotes(1,null)).toEqual(false);
       });
     })
 
-    //UpdateTicketUpvotes endpoint
-    describe('UpdateTicketUpvotes',()=>{
+    //closeTicket endpoint
+    describe('closeTicket',()=>{
       it('should return true',async ()=>{
         jest
-        .spyOn(controller,'UpdateTicketUpvotes')
+        .spyOn(controller,'closeTicket')
         .mockImplementation(():Promise<boolean> => Promise.resolve(true));
   
-        expect(await controller.UpdateTicketUpvotes(1,JSON.parse('{"upvotes": 20}'))).toEqual(true);
+        expect(await controller.closeTicket(JSON.parse('{"ticketNum": 2}'))).toEqual(true);
       });
   
       it('should return false', async () => {
-        jest.spyOn(controller, 'UpdateTicketUpvotes').mockResolvedValue(false);
+        jest.spyOn(controller, 'closeTicket').mockResolvedValue(false);
     
-        expect(await controller.UpdateTicketUpvotes(1,null)).toEqual(false);
-      });
-    })
-
-    //CloseTicket endpoint
-    describe('CloseTicket',()=>{
-      it('should return true',async ()=>{
-        jest
-        .spyOn(controller,'CloseTicket')
-        .mockImplementation(():Promise<boolean> => Promise.resolve(true));
-  
-        expect(await controller.CloseTicket(JSON.parse('{"ticketNum": 2}'))).toEqual(true);
-      });
-  
-      it('should return false', async () => {
-        jest.spyOn(controller, 'CloseTicket').mockResolvedValue(false);
-    
-        expect(await controller.CloseTicket(null)).toEqual(false);
+        expect(await controller.closeTicket(null)).toEqual(false);
       });
     })
 
@@ -313,16 +313,16 @@ describe('TicketController', () => {
     describe('DeleteTicket',()=>{
       it('should return true',async ()=>{
         jest
-        .spyOn(controller,'DeleteTicket')
+        .spyOn(controller,'deleteTicket')
         .mockImplementation(():Promise<boolean> => Promise.resolve(true));
   
-        expect(await controller.DeleteTicket(JSON.parse('{"ticketNum": 2}'))).toEqual(true);
+        expect(await controller.deleteTicket(JSON.parse('{"ticketNum": 2}'))).toEqual(true);
       });
   
       it('should return false', async () => {
-        jest.spyOn(controller, 'DeleteTicket').mockResolvedValue(false);
+        jest.spyOn(controller, 'deleteTicket').mockResolvedValue(false);
     
-        expect(await controller.DeleteTicket(null)).toEqual(false);
+        expect(await controller.deleteTicket(null)).toEqual(false);
       });
     })
 });

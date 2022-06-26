@@ -183,7 +183,7 @@ export class EditTicketComponent implements OnInit {
         console.log(response);
         if (response[response.length - 1])
         {
-          this.ticket.ticketImg = response[response.length - 1].picture_link;
+          this.ticket.ticketImg = response[response.length - 1].pictureLink;
           this.defaultUpload = "assets/" + this.ticket.ticketImg;
         }
       }

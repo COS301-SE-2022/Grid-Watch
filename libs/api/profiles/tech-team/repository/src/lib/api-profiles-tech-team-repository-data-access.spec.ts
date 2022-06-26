@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiProfilesTechTeamRepositoryDataAccess } from './api-profiles-tech-team-repository-data-access';
-import {techTeamDto} from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
+import {TechTeamDto} from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 
-const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto;
+const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamDto;
 
   describe('ApiTicketRepositoryDataAccess', () => {
   let provider: ApiProfilesTechTeamRepositoryDataAccess;
@@ -11,6 +11,12 @@ const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto
     const module: TestingModule = await Test.createTestingModule({
       providers: [ApiProfilesTechTeamRepositoryDataAccess],
     }).compile();
+
+  
+    techTeamDtoMock.name = "Sparky";
+    techTeamDtoMock.email = "sparkyy3@gmail.com";
+    techTeamDtoMock.specialisation = "Electricity";
+    techTeamDtoMock.contactNumber="0119873323";
 
     provider = module.get<ApiProfilesTechTeamRepositoryDataAccess>(
       ApiProfilesTechTeamRepositoryDataAccess
@@ -32,7 +38,7 @@ const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto
 
     it('should return null', async () => {
       jest.spyOn(provider, 'createTechTeam').mockResolvedValue(null);
-      expect(await provider.createTechTeam("Sparky", "sparky@gmail.com", "Electricity","0119843323","1234Anru")).toEqual(null)
+      expect(await provider.createTechTeam(techTeamDtoMock)).toEqual(null)
     });
   })
 
@@ -52,12 +58,12 @@ const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto
       jest
       .spyOn(provider,'updateTechTeam')
       .mockImplementation(():Promise<void> => Promise.resolve());
-      expect(await provider.updateTechTeam(2,"Sparky", "sparky1@gmail.com", "Electricity","0119873322")).toBeUndefined()
+      expect(await provider.updateTechTeam(2,techTeamDtoMock)).toBeUndefined()
     });
 
     it('should return null', async () => {
       jest.spyOn(provider, 'updateTechTeam').mockResolvedValue(null);
-      expect(await provider.updateTechTeam(2,"Sparky", "sparkyy3@gmail.com", "Electricity","0119873323")).toEqual(null)
+      expect(await provider.updateTechTeam(2,techTeamDtoMock)).toEqual(null)
     });
   })
 

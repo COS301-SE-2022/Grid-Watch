@@ -66,7 +66,7 @@ export class CreateTicketComponent{
     this.defaultUpload = "";
     this.other = false;
     this.otherDetails = "";
-    this.ticket.ticket_location = "";
+    this.ticket.ticketLocation = "";
     this.placeID = "";
 
     const loader = new Loader({
@@ -199,7 +199,7 @@ export class CreateTicketComponent{
       (response) =>
       {
         console.log(response);
-        this.ticket.ticketId = response[0].ticket_id;
+        this.ticket.ticketId = response[0].ticketId;
         if (this.file !== undefined)
             this.uploadPhoto();
       }

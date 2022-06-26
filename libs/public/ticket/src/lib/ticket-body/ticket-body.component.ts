@@ -61,7 +61,7 @@ export class TicketBodyComponent implements OnInit {
         (response) => {
           console.log(response);
           if (response[response.length - 1])
-            this.tickets[index].ticketImg = response[response.length - 1].picture_link;
+            this.tickets[index].ticketImg = response[response.length - 1].pictureLink;
         }
       );
       const place_id = this.tickets[index].ticketLocation;

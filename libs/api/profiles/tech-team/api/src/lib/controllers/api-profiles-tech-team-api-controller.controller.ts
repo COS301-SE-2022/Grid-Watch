@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Delete,
     Get,
     Param,
     Post,
@@ -53,8 +54,8 @@ export class ApiProfilesTechTeamApiControllerController {
 
     //update Tech Team contact number endpoint
     @Put('/update/contactnr/:id')
-    async updateTechTeamContactNr(@Param() params,@Body() ContactNr: string):Promise<boolean> {
-        return this.apiTechTeamService.updateTechTeamContactNr(parseInt(params.id),ContactNr["ContactNr"]);
+    async updateTechTeamContactNr(@Param() params,@Body() contactNr: string):Promise<boolean> {
+        return this.apiTechTeamService.updateTechTeamContactNr(parseInt(params.id),contactNr["ContactNr"]);
     }
 
     //update Tech Team number jobs completed endpoint
@@ -73,5 +74,12 @@ export class ApiProfilesTechTeamApiControllerController {
     @Put('/update/ratingjobs/:id')
     async updateTechTeamRatingJobs(@Param() params,@Body() ratingJobs: number):Promise<boolean> {
         return this.apiTechTeamService.updateTechTeamRatingJobs(parseInt(params.id),ratingJobs["ratingJobs"]);
+    }
+
+    //Delete specified techTeam
+    @Delete('/delete')
+    async deleteTicket(@Body() techTeamId: number):Promise<boolean> {
+        return this.apiTechTeamService.deleteTechTeam(techTeamId["techTeamId"]);
+    
     }
 }

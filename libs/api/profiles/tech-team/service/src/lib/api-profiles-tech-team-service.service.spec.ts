@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiProfilesTechTeamServiceService } from './api-profiles-tech-team-service.service';
 import {CommandBus} from '@nestjs/cqrs';
-import {techTeamDto} from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
+import {TechTeamDto} from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 
-const techTeamDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto;
+const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamDto;
 
 describe('ApiProfilesTechTeamServiceService', () => {
   let service: ApiProfilesTechTeamServiceService;

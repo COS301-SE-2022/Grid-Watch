@@ -9,8 +9,8 @@ export class createTicketHandler implements ICommandHandler<CreateTicketCommand>
         
     }
     async execute(command: CreateTicketCommand) {
-        const{ status,description,createDate,closeDate,cost,location,city,repairTime,upVotes,type}= command;
-        return this.repository.createTicket(status,createDate,closeDate,type,city,location,cost,description,repairTime,upVotes);
+        const{ ticketDto}= command;
+        return this.repository.createTicket(ticketDto);
     }
 }
 
@@ -21,8 +21,8 @@ export class updateTicketHandler implements ICommandHandler<UpdateTicketCommand>
 
     }
     async execute(command: UpdateTicketCommand) {
-        const{ticketId, status,description,createDate,closeDate,cost,location,city,repairTime,upVotes,type}= command;
-        return this.repository.UpdateTicket(ticketId,status,createDate,closeDate,type,city,location,cost,description,repairTime,upVotes)
+        const{ticketDto}= command;
+        return this.repository.updateTicket(ticketDto)
     }
 }
 
@@ -44,7 +44,7 @@ export class updateTicketStatusHandler implements ICommandHandler<UpdateTicketSt
 
     async execute(command: UpdateTicketStatusCommand) {
         const{TicketId,Status} = command;
-        return this.repository.UpdateStatus(TicketId,Status);
+        return this.repository.updateStatus(TicketId,Status);
     }
 }
 
@@ -54,7 +54,7 @@ export class updateTicketCreateDateHandler implements ICommandHandler<UpdateTick
 
    async execute(command: UpdateTicketCreateDateCommand) {
        const{TicketId,CreateDate} = command;
-       return this.repository.UpdateCreateDate(TicketId,CreateDate);
+       return this.repository.updateCreateDate(TicketId,CreateDate);
    }
 }
 
@@ -64,7 +64,7 @@ export class updateTicketCloseDateHandler implements ICommandHandler<UpdateTicke
 
    async execute(command: UpdateTicketCloseDateCommand) {
        const{TicketId,CloseDate} = command;
-       return this.repository.UpdateCloseDate(TicketId,CloseDate);
+       return this.repository.updateCloseDate(TicketId,CloseDate);
    }
 }
 
@@ -74,7 +74,7 @@ export class updateTicketTypeHandler implements ICommandHandler<UpdateTicketType
 
     async execute(command: UpdateTicketTypeCommand) {
         const{TicketId,Type} = command;
-        return this.repository.UpdateType(TicketId,Type);
+        return this.repository.updateType(TicketId,Type);
     }
 }
 
@@ -84,7 +84,7 @@ export class updateTicketLocationHandler implements ICommandHandler<UpdateTicket
 
     async execute(command: UpdateTicketLocationCommand) {
         const{TicketId,Location} = command;
-        return this.repository.UpdateLocation(TicketId,Location);
+        return this.repository.updateLocation(TicketId,Location);
     }
 }
 
@@ -94,7 +94,7 @@ export class updateTicketCostHandler implements ICommandHandler<UpdateTicketCost
 
     async execute(command: UpdateTicketCostCommand) {
         const{TicketId,Cost} = command;
-        return this.repository.UpdateCost(TicketId,Cost);
+        return this.repository.updateCost(TicketId,Cost);
     }
 }
 
@@ -104,7 +104,7 @@ export class updateTicketDescriptionHandler implements ICommandHandler<UpdateTic
 
     async execute(command: UpdateTicketDescriptionCommand) {
         const{TicketId,Description} = command;
-        return this.repository.UpdateDescription(TicketId,Description);
+        return this.repository.updateDescription(TicketId,Description);
     }
 }
 
@@ -114,7 +114,7 @@ export class updateTicketRepairTimeHandler implements ICommandHandler<UpdateTick
 
     async execute(command: UpdateTicketRepairTimeCommand) {
         const{TicketId,RepairTime} = command;
-        return this.repository.UpdateRepairTime(TicketId,RepairTime);
+        return this.repository.updateRepairTime(TicketId,RepairTime);
     }
 }
 
@@ -124,7 +124,7 @@ export class updateTicketUpVotesHandler implements ICommandHandler<UpdateTicketU
 
     async execute(command: UpdateTicketUpVotesCommand){
         const{TicketId,UpVotes} = command;
-        return this.repository.UpdateUpvotes(TicketId,UpVotes);
+        return this.repository.updateUpvotes(TicketId,UpVotes);
     }
 }
 
@@ -134,7 +134,7 @@ export class IncUpvotesHandler implements ICommandHandler<IncUpvotesCommand>{
 
     async execute(command: IncUpvotesCommand){
         const{TicketId} = command;
-        return this.repository.IncUpvotes(TicketId);
+        return this.repository.incUpvotes(TicketId);
     }
 }
 

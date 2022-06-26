@@ -4,7 +4,7 @@ import {DeleteTicketCommand, CreateTicketCommand,CreatePictureCommand, UpdateTic
 import { Logger } from '@nestjs/common';
 
 @CommandHandler(CreateTicketCommand)
-export class createTicketHandler implements ICommandHandler<CreateTicketCommand>{
+export class CreateTicketHandler implements ICommandHandler<CreateTicketCommand>{
     constructor (private readonly repository:ApiTicketRepositoryDataAccess){
         
     }
@@ -15,7 +15,7 @@ export class createTicketHandler implements ICommandHandler<CreateTicketCommand>
 }
 
 @CommandHandler(UpdateTicketCommand)
-export class updateTicketHandler implements ICommandHandler<UpdateTicketCommand>{
+export class UpdateTicketHandler implements ICommandHandler<UpdateTicketCommand>{
 
     constructor (private readonly repository:ApiTicketRepositoryDataAccess){
 
@@ -27,7 +27,7 @@ export class updateTicketHandler implements ICommandHandler<UpdateTicketCommand>
 }
 
 @CommandHandler(DeleteTicketCommand)
-export class deleteTicketHandler implements ICommandHandler<DeleteTicketCommand>{
+export class DeleteTicketHandler implements ICommandHandler<DeleteTicketCommand>{
 
     constructor (private readonly repository: ApiTicketRepositoryDataAccess){}
 
@@ -38,7 +38,7 @@ export class deleteTicketHandler implements ICommandHandler<DeleteTicketCommand>
 }
 
 @CommandHandler(UpdateTicketStatusCommand)
-export class updateTicketStatusHandler implements ICommandHandler<UpdateTicketStatusCommand>{
+export class UpdateTicketStatusHandler implements ICommandHandler<UpdateTicketStatusCommand>{
 
     constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
 
@@ -49,7 +49,7 @@ export class updateTicketStatusHandler implements ICommandHandler<UpdateTicketSt
 }
 
 @CommandHandler(UpdateTicketCreateDateCommand)
-export class updateTicketCreateDateHandler implements ICommandHandler<UpdateTicketCreateDateCommand>{
+export class UpdateTicketCreateDateHandler implements ICommandHandler<UpdateTicketCreateDateCommand>{
     constructor(private readonly repository:ApiTicketRepositoryDataAccess){}
 
    async execute(command: UpdateTicketCreateDateCommand) {
@@ -59,7 +59,7 @@ export class updateTicketCreateDateHandler implements ICommandHandler<UpdateTick
 }
 
 @CommandHandler(UpdateTicketCloseDateCommand)
-export class updateTicketCloseDateHandler implements ICommandHandler<UpdateTicketCloseDateCommand>{
+export class UpdateTicketCloseDateHandler implements ICommandHandler<UpdateTicketCloseDateCommand>{
     constructor(private readonly repository:ApiTicketRepositoryDataAccess){}
 
    async execute(command: UpdateTicketCloseDateCommand) {
@@ -69,7 +69,7 @@ export class updateTicketCloseDateHandler implements ICommandHandler<UpdateTicke
 }
 
 @CommandHandler(UpdateTicketTypeCommand)
-export class updateTicketTypeHandler implements ICommandHandler<UpdateTicketTypeCommand>{
+export class UpdateTicketTypeHandler implements ICommandHandler<UpdateTicketTypeCommand>{
     constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
 
     async execute(command: UpdateTicketTypeCommand) {
@@ -79,7 +79,7 @@ export class updateTicketTypeHandler implements ICommandHandler<UpdateTicketType
 }
 
 @CommandHandler(UpdateTicketLocationCommand)
-export class updateTicketLocationHandler implements ICommandHandler<UpdateTicketLocationCommand>{
+export class UpdateTicketLocationHandler implements ICommandHandler<UpdateTicketLocationCommand>{
     constructor(private readonly repository:ApiTicketRepositoryDataAccess){}
 
     async execute(command: UpdateTicketLocationCommand) {
@@ -89,7 +89,7 @@ export class updateTicketLocationHandler implements ICommandHandler<UpdateTicket
 }
 
 @CommandHandler(UpdateTicketCostCommand)
-export class updateTicketCostHandler implements ICommandHandler<UpdateTicketCostCommand>{
+export class UpdateTicketCostHandler implements ICommandHandler<UpdateTicketCostCommand>{
     constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
 
     async execute(command: UpdateTicketCostCommand) {
@@ -99,7 +99,7 @@ export class updateTicketCostHandler implements ICommandHandler<UpdateTicketCost
 }
 
 @CommandHandler(UpdateTicketDescriptionCommand)
-export class updateTicketDescriptionHandler implements ICommandHandler<UpdateTicketDescriptionCommand>{
+export class UpdateTicketDescriptionHandler implements ICommandHandler<UpdateTicketDescriptionCommand>{
     constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
 
     async execute(command: UpdateTicketDescriptionCommand) {
@@ -109,7 +109,7 @@ export class updateTicketDescriptionHandler implements ICommandHandler<UpdateTic
 }
 
 @CommandHandler(UpdateTicketRepairTimeCommand)
-export class updateTicketRepairTimeHandler implements ICommandHandler<UpdateTicketRepairTimeCommand>{
+export class UpdateTicketRepairTimeHandler implements ICommandHandler<UpdateTicketRepairTimeCommand>{
     constructor(private readonly repository:ApiTicketRepositoryDataAccess){}
 
     async execute(command: UpdateTicketRepairTimeCommand) {
@@ -119,7 +119,7 @@ export class updateTicketRepairTimeHandler implements ICommandHandler<UpdateTick
 }
 
 @CommandHandler(UpdateTicketUpVotesCommand)
-export class updateTicketUpVotesHandler implements ICommandHandler<UpdateTicketUpVotesCommand>{
+export class UpdateTicketUpVotesHandler implements ICommandHandler<UpdateTicketUpVotesCommand>{
     constructor(private readonly repository:ApiTicketRepositoryDataAccess){}
 
     async execute(command: UpdateTicketUpVotesCommand){

@@ -105,7 +105,7 @@ describe('TicketController', () => {
     //getAll endpoint
     describe('getAll',()=>{
       const arrayOfTickets = [ticketDtoMock];
-      it('should return all tickes',async ()=>{
+      it('should return all tickets',async ()=>{
         jest
         .spyOn(controller,'getAll')
         .mockImplementation(():Promise<TicketDto[]> => Promise.resolve(arrayOfTickets));

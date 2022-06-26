@@ -21,7 +21,7 @@ model User{
   password            String
   passwordSalt        String?    
   name                String
-  created             DateTime
+  created             DateTime  @default(now())
 
   @@map("user")
 }
@@ -51,21 +51,6 @@ model Ticket {
 }
 
 ///////////////////////////////////////////////////////////////////////
-// Subtasks
-///////////////////////////////////////////////////////////////////////
-
-model Subtasks{
-  subtaskId         Int       @id @default(autoincrement())
-  tickets           Ticket    @relation(fields: [ticketID], references: [ticketId], onDelete: Cascade)
-  ticketID          Int
-  taskDescription   String
-  taskStep          String
-  taskStatus        String
-
-  @@map("subtasks")
-}
-
-///////////////////////////////////////////////////////////////////////
 // Picture
 ///////////////////////////////////////////////////////////////////////
 
@@ -76,6 +61,21 @@ model Picture {
   ticketID          Int
 
   @@map("picture")
+}
+
+///////////////////////////////////////////////////////////////////////
+// Subtasks
+///////////////////////////////////////////////////////////////////////
+
+model Subtasks{
+  subtaskId         Int       @id @default(autoincrement())
+  tickets           Ticket    @relation(fields: [ticketID], references: [ticketId], onDelete: Cascade)
+  ticketID          Int
+  taskDescription   String
+  taskStep          Int
+  taskStatus        String
+
+  @@map("subtasks")
 }
 
 ///////////////////////////////////////////////////////////////////////

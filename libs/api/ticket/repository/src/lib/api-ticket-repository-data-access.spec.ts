@@ -119,7 +119,7 @@ import { Ticket } from '@prisma/client';
         jest
         .spyOn(provider,'updateType')
         .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.updateType(3,"Pothole")).toBeundefined()
+        expect(await provider.updateType(3,"Pothole")).toBeUndefined()
       });
   
       it('should return null', async () => {

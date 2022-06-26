@@ -20,7 +20,8 @@ export class NavBarComponent implements OnInit{
 
   ngOnInit(): void {
     const temp = document.getElementById("application_type");
-    this.application_type = temp?.innerHTML;
+      if (temp)
+    this.application_type = temp.innerHTML;
     if (this.application_type === "admin")
     {
       this.login_url = "/login";
@@ -30,9 +31,17 @@ export class NavBarComponent implements OnInit{
       
       this.options.push("Tech team");
       this.router_options.push("/techTeam");
+
+      const x = document.getElementById("generalNavbar");
+      x?.classList.add("bg-danger");
+
+      const y = document.getElementById("classIdentifier");
+      if(y != null)
+        y.innerHTML = "Admin";
     }
     else if (this.application_type === "tech-team")
     {
+      
       this.login_url = "/login";
       
       this.options.push("Available Tickets");
@@ -40,6 +49,13 @@ export class NavBarComponent implements OnInit{
       
       this.options.push("Accepted Tickets");
       this.router_options.push("/acceptedTickets");
+
+      const x = document.getElementById("generalNavbar");
+      x?.classList.add("bg-success");
+
+      const y = document.getElementById("classIdentifier");
+      if(y != null)
+        y.innerHTML = "Technician Team";
     }
     else
     {
@@ -48,10 +64,17 @@ export class NavBarComponent implements OnInit{
       this.options.push("Tickets");
       this.router_options.push("/tickets");
       
-      this.options.push("option 2");
-      this.router_options.push("/option2");
+      // this.options.push("option 2");
+      // this.router_options.push("/option2");
+      const x = document.getElementById("generalNavbar");
+      x?.classList.add("bg-secondary");
 
+      const y = document.getElementById("classIdentifier");
+      if(y != null)
+        y.innerHTML = "Citizens";
     }
+
+
   }
 
   dropdown() : void {

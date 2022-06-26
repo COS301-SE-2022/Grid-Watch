@@ -9,27 +9,26 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/public",
-        "allowedCommonJsDependencies": [
-          "validator"
-       ],
+        "allowedCommonJsDependencies": ["validator"],
         "index": "apps/public/src/index.html",
         "main": "apps/public/src/main.ts",
         "polyfills": "apps/public/src/polyfills.ts",
         "tsConfig": "apps/public/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/public/src/favicon.ico",
-                   "apps/public/src/assets",
-                   {
-                     "input": "libs/shared-assets/src/lib/uploadedFiles",
-                     "glob": "**.*",
-                     "output": "assets"
-                   },
-                   {
-                     "input": "libs/shared-assets/src/lib/shared-images",
-                     "glob": "**.*",
-                     "output": "assets"
-                   }
-                  ],
+        "assets": [
+          "apps/public/src/favicon.ico",
+          "apps/public/src/assets",
+          {
+            "input": "libs/shared-assets/src/lib/uploadedFiles",
+            "glob": "**.*",
+            "output": "assets"
+          },
+          {
+            "input": "libs/shared-assets/src/lib/shared-images",
+            "glob": "**.*",
+            "output": "assets"
+          }
+        ],
         "styles": ["apps/public/src/styles.scss"],
         "scripts": []
       },

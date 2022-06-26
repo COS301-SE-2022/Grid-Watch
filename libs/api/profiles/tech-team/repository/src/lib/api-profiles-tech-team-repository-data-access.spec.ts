@@ -23,21 +23,31 @@ const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto
 
   //createTechTeam endpoint
   describe('createTechTeam',()=>{
-    it('should return void',async ()=>{
-      jest
-      .spyOn(provider,'createTechTeam')
-      .mockImplementation(():Promise<void> => Promise.resolve());
-      expect(await provider.createTechTeam("Sparky", "sparkyy@gmail.com", "Electricity","0119874322")).toBeUndefined()
-    });
+    // it('should return void',async ()=>{
+    //   jest
+    //   .spyOn(provider,'createTechTeam')
+    //  // .mockImplementation(():Promise<void> => Promise.resolve());
+    //   expect(await provider.createTechTeam("Sparky", "sparkyy@gmail.com", "Electricity","0119874322", "1234Anru")).toBeDefined()
+    // });
 
     it('should return null', async () => {
       jest.spyOn(provider, 'createTechTeam').mockResolvedValue(null);
-      expect(await provider.createTechTeam("Sparky", "sparky@gmail.com", "Electricity","0119843322")).toEqual(null)
+      expect(await provider.createTechTeam("Sparky", "sparky@gmail.com", "Electricity","0119843323","1234Anru")).toEqual(null)
     });
   })
 
-  //updateTechTeam
-  describe('updateTechTeam',()=>{
+  // describe('verifyPassword',()=>{
+  //   it('should return true',async ()=>{
+  //     jest
+  //     .spyOn(provider,'verifyPassword')
+  //     .mockImplementation(():Promise<boolean> => Promise.resolve(true));
+  //     expect(await provider.verifyPassword("sparky@gmail.com", "123Anru")).toEqual(false)
+  //   });
+
+  // })
+
+  //UpdateTechTeam
+  describe('UpdateTechTeam',()=>{
     it('should return void',async ()=>{
       jest
       .spyOn(provider,'updateTechTeam')
@@ -87,14 +97,14 @@ const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto
     describe('updateTechTeamSpecialisation',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'updateTechTeamSpecialisation')
+        .spyOn(provider,'updateTechTeamSpec')
         .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.updateTechTeamSpecialisation(3,"Potholes")).toBeUndefined()
+        expect(await provider.updateTechTeamSpec(3,"Potholes")).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'updateTechTeamSpecialisation').mockResolvedValue(null);
-        expect(await provider.updateTechTeamSpecialisation(3,"Potholes")).toEqual(null);
+        jest.spyOn(provider, 'updateTechTeamSpec').mockResolvedValue(null);
+        expect(await provider.updateTechTeamSpec(3,"Potholes")).toEqual(null);
       });
     })
 
@@ -141,7 +151,7 @@ const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto
     //     jest.spyOn(provider, 'IncTechTeamNrJobsCompleted').mockResolvedValue(null);
     //     expect(await provider.IncTechTeamNrJobsCompleted(3)).toEqual(null);
     //   });
-    // })
+    // })DeleteTechTeam
 
     //updateTechTeamRatingJobs
     describe('updateTechTeamRatingJobs',()=>{

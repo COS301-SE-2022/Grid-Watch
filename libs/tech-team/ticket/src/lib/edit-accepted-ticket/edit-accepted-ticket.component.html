@@ -2,13 +2,19 @@
     <div class="card mt-4">
         <div class="card-body">
             <div class="row">
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-lg-6">
                     <div class="display-6 text-center">{{ticket.ticket_type}}</div>
-                    <div class="ticket_image p-4 border mt-3">
-                        <img src="assets/{{ticket.ticket_img}}" onerror="this.src='assets/solid_example.png'"  alt="issue_image">
+                    <div class="picturePreview">
+                        <div class="centered_element d-flex justify-content-center" *ngIf="ticket.ticket_img === ''"> 
+                            <div class="spinner-border text-success text-center" >
+                            </div>
+                        </div>
+                        <div class="picturePreview border" *ngIf="ticket.ticket_img !== ''">
+                            <img src="assets/{{ticket.ticket_img}}" onerror="this.src='assets/solid_example.png'" alt="issue_image">
+                        </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-lg-6">
                     <div class="ticket_description">
                         <b>
                             Description : <br>
@@ -30,7 +36,7 @@
                     </div>
                     <div class="ticket_status mt-1">
                         <label for="status" class="form-label">Status:</label>
-                        <select class="form-select" name="status" [(ngModel)]="status">
+                        <select class="form-select" name="status" [(ngModel)]="status" id="ticketStatus">
                             <option value="Accepted">Accepted</option>
                             <option value="Awaiting Material">Awaiting material</option>
                             <option value="In Progress">In Progress</option>
@@ -39,8 +45,8 @@
                           </select> 
                     </div>
                     <div class="ticket_status mt-1 mb-3">
-                        <label for="repair_time" class="form-label">Estimated Cost:</label>
-                        <input type="text" class="form-control" id="repair_time" placeholder="Enter repair time" name="repair_time" [(ngModel)]="cost" > 
+                        <label for="repair_time" class="form-label">Estimated cost:</label>
+                        <input type="text" class="form-control" id="cost" placeholder="Enter estimated cost" name="repair_time" [(ngModel)]="cost" > 
                     </div>
                 </div>
             </div>

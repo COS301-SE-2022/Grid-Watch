@@ -189,7 +189,7 @@ import { Ticket } from '@prisma/client';
     })
 
     //updateupvotes
-    describe('updateupvotes',()=>{
+    describe('updateUpvotes',()=>{
       it('should return void',async ()=>{
         jest
         .spyOn(provider,'updateUpvotes')

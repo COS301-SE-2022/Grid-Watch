@@ -1,0 +1,29 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Dashboard</h1>
+  <mat-grid-list cols="2" rowHeight="370px">
+    <mat-grid-tile *ngFor="let card of cards | async,  index as i" [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-card class="dashboard-card" id="card{{i}}">
+        <mat-card-header>
+          <mat-card-title>
+            {{card.title}}
+            <!-- <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>menu</mat-icon>
+            </button> -->
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div *ngIf="i === 0">
+              <grid-watch-dashboard-overview></grid-watch-dashboard-overview>
+          </div>
+          <div *ngIf="i === 2" id="timelineCOntainer">
+            <grid-watch-dashboard-timeline></grid-watch-dashboard-timeline>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

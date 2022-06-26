@@ -31,7 +31,7 @@ model User{
 ///////////////////////////////////////////////////////////////////////
 
 model Ticket {
-  ticketId            Int    @id @default(autoincrement())
+  ticketId            Int       @id @default(autoincrement())
   ticketStatus        String
   ticketCreateDate    DateTime
   ticketCloseDate     DateTime?
@@ -43,9 +43,26 @@ model Ticket {
   ticketRepairTime    Int?
   ticketUpvotes       Int
 
+  Subtasks            Subtasks[]
   Picture             Picture[]
+
   @@map("ticket")
   
+}
+
+///////////////////////////////////////////////////////////////////////
+// Subtasks
+///////////////////////////////////////////////////////////////////////
+
+model Subtasks{
+  subtaskId         Int       @id @default(autoincrement())
+  tickets           Ticket    @relation(fields: [ticketID], references: [ticketId], onDelete: Cascade)
+  ticketID          Int
+  taskDescription   String
+  taskStep          String
+  taskStatus        String
+
+  @@map("subtasks")
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -53,9 +70,9 @@ model Ticket {
 ///////////////////////////////////////////////////////////////////////
 
 model Picture {
-  pictureId         Int    @id @default(autoincrement())
+  pictureId         Int       @id @default(autoincrement())
   pictureLink       String
-  ticket            Ticket @relation(fields: [ticketID], references: [ticketId], onDelete: Cascade)
+  ticket            Ticket    @relation(fields: [ticketID], references: [ticketId], onDelete: Cascade)
   ticketID          Int
 
   @@map("picture")
@@ -66,13 +83,17 @@ model Picture {
 ///////////////////////////////////////////////////////////////////////
 
 model TechTeam {
-  id                Int     @id @default(autoincrement())
+  id                Int       @id @default(autoincrement())
   name              String
-  email             String? @unique
+  email             String?   @unique
   specialisation    String
-  contactNumber     String  @unique @db.VarChar(10)
+  contactNumber     String    @unique @db.VarChar(10)
   nrJobsCompleted   Int?
   ratingOfJobs      Float?
+
+  password          String
+  passwordSalt      String?    
+  created           DateTime  @default(now())
 
   @@map("techteam")
 }
@@ -82,8 +103,8 @@ model TechTeam {
 ///////////////////////////////////////////////////////////////////////
 
 model TechTeamTicket {
-  id               Int     @id @default(autoincrement())
-  techteamId       Int
+  id               Int        @id @default(autoincrement())
+  techTeamId       Int
   ticketId         Int     
 
   @@map("techteamticket")
@@ -94,10 +115,10 @@ model TechTeamTicket {
 ///////////////////////////////////////////////////////////////////////
 
 model AuthorizedOfficials {
-  id              Int    @id @default(autoincrement())
+  id              Int         @id @default(autoincrement())
   name            String
-  email           String @unique
-  contactNumber   String @unique @db.VarChar(10)
+  email           String      @unique
+  contactNumber   String      @unique @db.VarChar(10)
   cities          String
 
   @@map("authorizedofficials")

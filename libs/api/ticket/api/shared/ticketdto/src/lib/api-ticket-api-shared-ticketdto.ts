@@ -6,6 +6,7 @@ import {  IsDate,
 } from 'class-validator';
 
 export class TicketDto {
+
 @IsString()
 @IsNotEmpty()
 ticketStatus! : string;

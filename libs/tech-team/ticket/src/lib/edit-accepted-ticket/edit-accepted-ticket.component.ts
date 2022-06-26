@@ -40,6 +40,7 @@ export class EditAcceptedTicketComponent implements OnInit {
     ngOnInit(): void {
     // this.ticket = new TicketDto;
     this.issue_id = this.route.snapshot.paramMap.get('id');
+    this.ticket.ticket_img = "";
     this.getAllURL += this.issue_id;
     this.UpdateStatusURL += this.issue_id;
     this.UpdateRepairURL += this.issue_id;
@@ -47,6 +48,7 @@ export class EditAcceptedTicketComponent implements OnInit {
     this.http.get<TicketDto[]>(this.getAllURL).subscribe(
       (data) => {
         this.ticket = data[0];
+        this.ticket.ticket_img = "";
         this.status = this.ticket.ticket_status
         this.repair_time = this.ticket.ticket_repair_time
         this.cost = this.ticket.ticket_cost
@@ -62,47 +64,24 @@ export class EditAcceptedTicketComponent implements OnInit {
   
   update() : void
   {
-    let output_message= "";
-    let error = "";
     if (this.ticket.ticket_cost != this.cost)
     {
-      if (this.updateCost())
-      {
-        output_message += "Cost ";
-      }
-      else
-      {
-        error += "Cost ";
-      }
+      this.updateCost();
     }
     if (this.ticket.ticket_repair_time != this.repair_time)
     {
-      if (this.updateRepairTime())
-      {
-        output_message += "Repair time ";
-      }
-      else
-      {
-        error += "Repair Time ";
-      }
+      this.updateRepairTime();
     }
     if (this.ticket.ticket_status != this.status)
     {
-      if (this.updateStatus())
-      {
-        output_message += "Status";
-      }
-      else
-      {
-        error += "Status";
-      }
+      this.updateStatus();
      
     }
     
-    if (error != "")
-      this.showErrorMessage(error)
-      if (output_message != "")
-      this.showSuccessMessage(output_message);
+    // if (error !== "")
+    //   this.showErrorMessage("There has been an error")
+    // if (output_message !== "")
+      this.showSuccessMessage("Successfully updated ticket");
       
     this.router.navigateByUrl("/acceptedTickets");
     }
@@ -138,16 +117,17 @@ export class EditAcceptedTicketComponent implements OnInit {
   }
   
   showErrorMessage(edits :string) : void {
-    alert("Updated " + edits);
+    alert(edits);
   }
   
   showSuccessMessage(errors :string) : void {
     
-    alert("The Following updates encountered problems" + errors);
+    alert(errors);
   }
 
-  loadImage() : void 
+  async loadImage() : Promise<void> 
   {
+    await this.delay(3000)
     this.getPictureURL += this.ticket.ticket_id;
     this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
       (data) => {
@@ -157,4 +137,7 @@ export class EditAcceptedTicketComponent implements OnInit {
     );
   }
 
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
 }

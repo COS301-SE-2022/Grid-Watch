@@ -175,20 +175,6 @@ export class ApiTicketRepositoryDataAccess {
 
     }
 
-    // async getTicketsSortLocation(){
-
-    //     const tickets = await this.prisma.ticket.findMany({
-    //         orderBy: 
-    //         {
-    //             ticket_location: "asc",
-    //         },
-
-    //     })
-
-    //     return tickets
-
-    // }
-
     async getTicketsSortCity(){
 
         const tickets = await this.prisma.ticket.findMany({
@@ -433,7 +419,7 @@ export class ApiTicketRepositoryDataAccess {
                  ticket:{
                      connect : 
                      {
-                        ticketId : ticketID,
+                         ticketId : ticketID,
                      }
                  }
 
@@ -443,24 +429,24 @@ export class ApiTicketRepositoryDataAccess {
  
      }
 
-     async getPicture(ticketID : number){
+     async getPicture(ticketId : number){
 
          return await this.prisma.picture.findMany({
             where:
             {
-                Id: ticketID,
+                ticketID: ticketId,
             },
 
         })
      }
 
      // get all pictures of a ticket sorting according to newest picture ( highest picture id number)
-     async getAllPictures(ticketID : number){
+     async getAllPictures(ticketId : number){
 
         return await this.prisma.picture.findMany({
             where:
             {
-                ticketID: ticketID,
+                ticketID: ticketId,
             },
             orderBy: 
             {

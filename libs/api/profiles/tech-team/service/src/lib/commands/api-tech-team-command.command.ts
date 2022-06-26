@@ -3,7 +3,8 @@ export class CreateTechTeamCommand{
         public readonly Name,
         public readonly Email,
         public readonly Specialisation,
-        public readonly ContactNr
+        public readonly ContactNr,
+        public readonly Password
     ){}
 }
 

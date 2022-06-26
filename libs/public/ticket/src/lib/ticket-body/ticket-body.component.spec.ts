@@ -5,6 +5,7 @@ import { TicketBodyComponent } from './ticket-body.component';
 import {MatCardHarness} from '@angular/material/card/testing';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { GoogleMapsService } from '@grid-watch/shared-ui';
 
 describe('TicketBodyComponent', () => {
   let component: TicketBodyComponent;
@@ -13,7 +14,8 @@ describe('TicketBodyComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TicketBodyComponent],
-      imports: [MatCardModule, HttpClientModule]
+      imports: [MatCardModule, HttpClientModule],
+      providers: [GoogleMapsService]
     }).compileComponents();
   });
 

@@ -9,9 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/tech-team",
-        "allowedCommonJsDependencies": [
-          "validator"
-        ],
+        "allowedCommonJsDependencies": ["validator"],
         "index": "apps/tech-team/src/index.html",
         "main": "apps/tech-team/src/main.ts",
         "polyfills": "apps/tech-team/src/polyfills.ts",

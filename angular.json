@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "admin": "apps/admin",
+    "admin-app-dashboard": "libs/admin-app/dashboard",
     "admin-app-ticket": "libs/admin-app/ticket",
     "admin-e2e": "apps/admin-e2e",
     "api": "apps/api",

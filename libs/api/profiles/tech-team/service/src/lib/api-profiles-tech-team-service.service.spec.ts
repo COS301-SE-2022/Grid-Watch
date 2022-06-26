@@ -31,13 +31,13 @@ describe('ApiProfilesTechTeamServiceService', () => {
       .spyOn(service,'createTechTeam')
       .mockImplementation((): Promise<techTeamDto> => Promise.resolve(techTeamDtoMock));
 
-      expect(await service.createTechTeam('name','email','specialisation','contact')).toMatchObject(techTeamDtoMock)
+      expect(await service.createTechTeam('name','email','specialisation','contact','password')).toMatchObject(techTeamDtoMock)
     })
 
     it('should return null',async()=>{
       jest.spyOn(service,'createTechTeam').mockResolvedValue(null);
 
-      expect(await service.createTechTeam('name','email','specialisation','contact')).toEqual(null);
+      expect(await service.createTechTeam('name','email','specialisation','contact','password')).toEqual(null);
     })
   })
 

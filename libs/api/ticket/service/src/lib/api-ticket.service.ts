@@ -56,8 +56,8 @@ export class ApiTicketService {
         return await this.queryBus.execute(new GetTicketQuery(ticketId))
     }
 
-    async updateTicket(ticketDto : TicketDto){
-        return await this.commandBus.execute(new UpdateTicketCommand(ticketDto))
+    async updateTicket(ticketId : number, ticketDto : TicketDto){
+        return await this.commandBus.execute(new UpdateTicketCommand(ticketId, ticketDto))
     }
 
     async deleteTicket(ticketId:number){

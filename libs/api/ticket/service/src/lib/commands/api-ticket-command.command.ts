@@ -14,6 +14,7 @@ export class CreateTicketCommand{
 
 export class UpdateTicketCommand{
     constructor(
+        public readonly ticketId,
         public readonly ticketDto : TicketDto
         ){}
 

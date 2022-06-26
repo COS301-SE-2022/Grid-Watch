@@ -21,8 +21,8 @@ export class updateTicketHandler implements ICommandHandler<UpdateTicketCommand>
 
     }
     async execute(command: UpdateTicketCommand) {
-        const{ticketDto}= command;
-        return this.repository.updateTicket(ticketDto)
+        const{ticketId,ticketDto}= command;
+        return this.repository.updateTicket(ticketId,ticketDto)
     }
 }
 

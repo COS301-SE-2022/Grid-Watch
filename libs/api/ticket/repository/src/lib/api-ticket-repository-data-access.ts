@@ -1,45 +1,45 @@
 import { Injectable, Logger } from '@nestjs/common';
 import {PrismaClient} from '@prisma/client';
+import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 
 @Injectable()
 export class ApiTicketRepositoryDataAccess {
 
     prisma = new PrismaClient();
 
-    async createTicket(status: string, createDate: Date, closeDate: Date, type: string, city: string, location: string, cost: number, description: string, repairTime: number, upvotes: number){
-
+    async createTicket(ticketDto : TicketDto){
             await this.prisma.ticket.create({
                 data:
                 {
-                    ticketStatus :          status,    
-                    ticketCreateDate :      createDate, 
-                    ticketCloseDate :       closeDate,
-                    ticketType :            type,    
-                    ticketCity :            city,   
-                    ticketLocation :        location,   
-                    ticketCost :            cost,
-                    ticketDescription :     description,
-                    ticketRepairTime :      repairTime, 
-                    ticketUpvotes :         upvotes,
+                    ticketStatus :          ticketDto.ticketStatus,    
+                    ticketCreateDate :      ticketDto.ticketCreateDate, 
+                    ticketCloseDate :       ticketDto.ticketCloseDate,
+                    ticketType :            ticketDto.ticketType,    
+                    ticketCity :            ticketDto.ticketCity,   
+                    ticketLocation :        ticketDto.ticketLocation,   
+                    ticketCost :            ticketDto.ticketCost,
+                    ticketDescription :     ticketDto.ticketDescription,
+                    ticketRepairTime :      ticketDto.ticketRepairTime, 
+                    ticketUpvotes :         ticketDto.ticketUpvotes,
                 }
             });
             return  await this.prisma.ticket.findMany({
             
                 where:
                 {
-                    ticketCreateDate: createDate,
+                    ticketCreateDate: ticketDto.ticketCreateDate,
                 },
                 
             })
     }
 
     
-    async closeTicket(ticketID: number){
+    async closeTicket(ticketId: number){
 
         await this.prisma.ticket.update({
             where:
             {
-                ticketId: ticketID,
+                ticketId: ticketId,
             },
             data:
             {
@@ -216,7 +216,7 @@ export class ApiTicketRepositoryDataAccess {
         return tickets
     }
 
-    async updateTicket(ticketID: number, status: string, createDate: Date, closeDate: Date, type: string, city: string, location: string, cost: number, description: string, repairTime: number, upvotes: number){
+    async updateTicket(ticketID: number, ticketDto : TicketDto){
 
         await this.prisma.ticket.update({
             where:
@@ -225,16 +225,16 @@ export class ApiTicketRepositoryDataAccess {
             },
             data:
             {
-                ticketStatus :          status,    
-                ticketCreateDate :      createDate, 
-                ticketCloseDate :       closeDate,
-                ticketType :            type,    
-                ticketCity :            city,   
-                ticketLocation :        location,   
-                ticketCost :            cost,
-                ticketDescription :     description,
-                ticketRepairTime :      repairTime, 
-                ticketUpvotes :         upvotes,
+                ticketStatus :          ticketDto.ticketStatus,    
+                ticketCreateDate :      ticketDto.ticketCreateDate, 
+                ticketCloseDate :       ticketDto.ticketCloseDate,
+                ticketType :            ticketDto.ticketType,    
+                ticketCity :            ticketDto.ticketCity,   
+                ticketLocation :        ticketDto.ticketLocation,   
+                ticketCost :            ticketDto.ticketCost,
+                ticketDescription :     ticketDto.ticketDescription,
+                ticketRepairTime :      ticketDto.ticketRepairTime, 
+                ticketUpvotes :         ticketDto.ticketUpvotes,
             },
         })
        // return "The ticket with id: " + ticketId + " has been created."

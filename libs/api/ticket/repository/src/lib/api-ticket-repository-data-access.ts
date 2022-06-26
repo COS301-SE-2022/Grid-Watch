@@ -481,4 +481,118 @@ export class ApiTicketRepositoryDataAccess {
          })
      }
 
+    //////////////////////////////////
+    ///////// Subtasks CRUDS /////////
+    //////////////////////////////////
+
+    async createSubtask(ticketId : number, taskDesc:string, taskStep:number, taskStat: string ){
+        await this.prisma.subtasks.create({
+            data:
+            {
+                ticketID :          ticketId,
+                taskDescription:    taskDesc,
+                taskStep :          taskStep,
+                taskStatus :        taskStat
+            },
+        });
+    }
+
+    async getTicketSubtasks(ticketId : number){
+
+        return await this.prisma.subtasks.findMany({
+            where:
+            {
+                ticketID: ticketId,
+            },
+            orderBy: 
+            {
+                taskStep: "asc",
+            },
+        })
+     }
+
+     async updateSubtask(subtaskID : number, ticketId : number, taskDesc:string, taskStep:number, taskStat: string){
+
+        await this.prisma.subtasks.update({
+            where: 
+            {
+                subtaskId : subtaskID,
+            },
+            data:
+            {
+                ticketID :          ticketId, 
+                taskDescription:    taskDesc, 
+                taskStep:           taskStep, 
+                taskStatus:         taskStat
+            },
+         })
+     }
+
+     async updateSubtaskTicket(subtaskID : number, ticketId : number){
+        
+        await this.prisma.subtasks.update({
+            where: 
+            {
+                subtaskId : subtaskID,
+            },
+            data:
+            {
+                ticketID : ticketId,
+            }
+        })
+     }
+
+     async updateSubtaskDesc(subtaskID : number, desc : string){
+        
+        await this.prisma.subtasks.update({
+            where: 
+            {
+                subtaskId : subtaskID,
+            },
+            data:
+            {
+                taskDescription : desc,
+            }
+        })
+     }
+
+     async updateSubtaskStep(subtaskID : number, step : number){
+        
+        await this.prisma.subtasks.update({
+            where: 
+            {
+                subtaskId : subtaskID,
+            },
+            data:
+            {
+                taskStep : step,
+            }
+        })
+     }
+
+     async updateSubtaskStatus(subtaskID : number, stat : string){
+        
+        await this.prisma.subtasks.update({
+            where: 
+            {
+                subtaskId : subtaskID,
+            },
+            data:
+            {
+                taskStatus : stat,
+            }
+        })
+     }
+     
+
+    async deleteSubtask(subtaskID: number){
+
+        await this.prisma.subtasks.delete({
+
+            where:{
+                subtaskId : subtaskID,
+            },
+ 
+         })
+    }
 }

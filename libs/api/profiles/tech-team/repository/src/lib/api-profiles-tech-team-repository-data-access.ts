@@ -255,6 +255,8 @@ prisma = new PrismaClient();
         })
     }
 
+    //TechTeamTicket
+
     async createTechTeamTicket(techTeamId: number, ticketID : number ){
         await this.prisma.techTeamTicket.create({
             data:
@@ -300,6 +302,9 @@ prisma = new PrismaClient();
             return " No Techteam with Ticket ID " + ticketID + "!";
         }
     }
-    
+
+    //update
+    //delete
+
 }
 

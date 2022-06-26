@@ -18,7 +18,7 @@ export class CreateTechTeamHandler implements ICommandHandler<CreateTechTeamComm
 
     async execute(command: CreateTechTeamCommand) {
         const{techTeamDto} = command;
-        return this.repository.createTechTeam(techTeamDto.name, techTeamDto.email, techTeamDto.specialisation, techTeamDto.contactNumber, techTeamDto.password);
+        return this.repository.createTechTeam(techTeamDto);
     }
 }
 
@@ -28,7 +28,7 @@ export class UpdateTechTeamHandler implements ICommandHandler<UpdateTechTeamComm
 
     async execute(command: UpdateTechTeamCommand) {
         const{techTeamId,techTeamDto} = command;
-        return this.repository.updateTechTeam(techTeamId,techTeamDto.name, techTeamDto.email, techTeamDto.specialisation, techTeamDto.contactNumber);
+        return this.repository.updateTechTeam(techTeamId,techTeamDto);
     }
 }
 

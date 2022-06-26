@@ -1,6 +1,7 @@
 import { HashLocationStrategy } from '@angular/common';
 import { Injectable } from '@nestjs/common';
 import {PrismaClient} from '@prisma/client';
+import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 @Injectable()
 
 export class ApiProfilesTechTeamRepositoryDataAccess {
@@ -9,29 +10,29 @@ prisma = new PrismaClient();
 
     bcrypt = require('bcrypt');
 
-    async createTechTeam(name: string, email: string, spec: string, contactNr: string, Password : string){
+    async createTechTeam(techTeamDto:TechTeamDto){
 
-        if(!name)
+        if(!techTeamDto.name)
             throw Error("name_falsy");
-        if(!email)
+        if(!techTeamDto.email)
             throw Error("email_falsy");
-        if(!spec)
+        if(!techTeamDto.specialisation)
             throw Error("specialisation_falsy");
-        if(!contactNr)
+        if(!techTeamDto.contactNumber)
             throw Error("contactnr_falsy");
-        if(!Password)
+        if(!techTeamDto.password)
             throw Error("password_falsy");
 
         const salt = await this.bcrypt.genSalt(6);
-        const hash = await this.bcrypt.hash(Password, salt)
+        const hash = await this.bcrypt.hash(techTeamDto.password, salt)
 
         const techTeam = await this.prisma.techTeam.create({
             data:
             {
-                name :                  name,
-                email :                 email,
-                specialisation :        spec,
-                contactNumber :         contactNr,
+                name :                  techTeamDto.name,
+                email :                 techTeamDto.email,
+                specialisation :        techTeamDto.specialisation,
+                contactNumber :         techTeamDto.contactNumber,
                 ratingOfJobs :          0.0,
                 nrJobsCompleted :       0,
                 password :              hash,
@@ -129,7 +130,7 @@ prisma = new PrismaClient();
 
     }
 
-    async updateTechTeam(techTeamId: number, name: string, email: string,specialisation: string, contactNr: string){
+    async updateTechTeam(techTeamId: number, techTeamDto:TechTeamDto){
 
         await this.prisma.techTeam.update({
             where:{
@@ -137,10 +138,10 @@ prisma = new PrismaClient();
             },
             data:
             {
-                name :                  name,
-                email :                 email,
-                specialisation :        specialisation,
-                contactNumber :         contactNr,
+                name :                  techTeamDto.name,
+                email :                 techTeamDto.email,
+                specialisation :        techTeamDto.specialisation,
+                contactNumber :         techTeamDto.contactNumber,
             },
         });
     }

@@ -232,7 +232,7 @@ prisma = new PrismaClient();
 
     }
 
-    async updateTechTeamRatingJobs(techTeamId: number, RatingJobs: number){
+    async updateTechTeamRatingJobs(techTeamId: number, ratingJobs: number){
 
         await this.prisma.techTeam.update({
             where:{
@@ -240,7 +240,7 @@ prisma = new PrismaClient();
             },
             data:
             {
-                ratingOfJobs : RatingJobs,    
+                ratingOfJobs : ratingJobs,    
             },
         });
 

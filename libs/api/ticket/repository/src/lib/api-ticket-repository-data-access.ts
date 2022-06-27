@@ -485,7 +485,7 @@ export class ApiTicketRepositoryDataAccess {
     ///////// Subtasks CRUDS /////////
     //////////////////////////////////
 
-    async createSubtask(ticketId : number, taskDesc:string, taskStep:string, taskStat: string ){
+    async createSubtask(ticketId : number, taskDesc:string, taskStep:number, taskStat: string ){
         await this.prisma.subtasks.create({
             data:
             {
@@ -511,7 +511,7 @@ export class ApiTicketRepositoryDataAccess {
         })
      }
 
-     async updateSubtask(subtaskID : number, ticketId : number, taskDesc:string, taskStep:string, taskStat: string){
+     async updateSubtask(subtaskID : number, ticketId : number, taskDesc:string, taskStep:number, taskStat: string){
 
         await this.prisma.subtasks.update({
             where: 
@@ -556,7 +556,7 @@ export class ApiTicketRepositoryDataAccess {
         })
      }
 
-     async updateSubtaskStep(subtaskID : number, step : string){
+     async updateSubtaskStep(subtaskID : number, step : number){
         
         await this.prisma.subtasks.update({
             where: 

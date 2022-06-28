@@ -46,7 +46,7 @@ describe('ApiProfilesTechTeamServiceService', () => {
     it('should return a Tech team',async()=>{
       jest
       .spyOn(service,'updateTechTeam')
-
+      .mockImplementation(():Promise<any> => Promise.resolve(techTeamDtoMock))
       expect(await service.updateTechTeam(1,techTeamDtoMock)).toMatchObject(techTeamDtoMock)
     })
 

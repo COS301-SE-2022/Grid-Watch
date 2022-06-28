@@ -24,20 +24,18 @@ import { Ticket } from '@prisma/client';
 
   //createTicket endpoint
   describe('createTicket',()=>{
-    // it('should return void',async ()=>{
-    //   jest
-    //   .spyOn(provider,'createTicket')
-    //   .mockImplementation(():Promise<void> => Promise.resolve());
-
-    //   const createDate = new Date();
-    //   const closeDate = new Date();
-    //   expect(await provider.createTicket("urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20)).toBeundefined()
-    // });
+     it('should return ticket',async ()=>{
+      const arrayOfTickets:TicketDto[] = [];
+       jest
+       .spyOn(provider,'createTicket')
+       .mockImplementation(():Promise<Ticket[]> => Promise.resolve(arrayOfTickets));
+       expect(await provider.createTicket(ticketDtoMock)).toMatchObject(
+        expect.arrayContaining(arrayOfTickets)
+       )
+     });
 
     it('should return null', async () => {
       jest.spyOn(provider, 'createTicket').mockResolvedValue(null);
-      const createDate = new Date();
-      const closeDate = new Date();
       expect(await provider.createTicket(ticketDtoMock)).toEqual(null);
     });
   })
@@ -48,16 +46,11 @@ import { Ticket } from '@prisma/client';
       jest
       .spyOn(provider,'updateTicket')
       .mockImplementation(():Promise<void> => Promise.resolve());
-
-      const createDate = new Date();
-      const closeDate = new Date();
       expect(await provider.updateTicket(1,ticketDtoMock)).toBeUndefined()
     });
 
     it('should return null', async () => {
       jest.spyOn(provider, 'updateTicket').mockResolvedValue(null);
-      const createDate = new Date();
-      const closeDate = new Date();
       expect(await provider.updateTicket(1,ticketDtoMock)).toEqual(null);
     });
   })
@@ -239,11 +232,11 @@ import { Ticket } from '@prisma/client';
 
   //getAllTickets endpoint
     describe('getAllTickets',()=>{
-    const arrayOfTickets = [TicketDto];
+    const arrayOfTickets:TicketDto[] = [];
     it('should return all tickets',async ()=>{
       jest
-      .spyOn(provider,'getAllTickets');
-    
+      .spyOn(provider,'getAllTickets')
+      .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
       expect(await provider.getAllTickets()).toMatchObject(
         expect.arrayContaining(arrayOfTickets)
       )
@@ -258,11 +251,11 @@ import { Ticket } from '@prisma/client';
 
     //getTicket endpoint
     describe('getTicket',()=>{
-    const arrayOfTickets = [ticketDtoMock];
+    const arrayOfTickets:TicketDto[] = [];
     it('should return a ticket',async ()=>{
       jest
-      .spyOn(provider,'getTicket');
-    
+      .spyOn(provider,'getTicket')
+      .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
       expect(await provider.getTicket(2)).toMatchObject(
         expect.arrayContaining(arrayOfTickets)
       )
@@ -277,11 +270,11 @@ import { Ticket } from '@prisma/client';
 
     //getCityTicket endpoint
     describe('getCityTicket',()=>{
-    const arrayOfTickets = [ticketDtoMock];
+    const arrayOfTickets:TicketDto[] = [];
     it('should return tickets',async ()=>{
       jest
-      .spyOn(provider,'getCityTicket');
-    
+      .spyOn(provider,'getCityTicket')
+      .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
       expect(await provider.getCityTicket("Pretoria")).toMatchObject(
         expect.arrayContaining(arrayOfTickets)
       )
@@ -296,11 +289,11 @@ import { Ticket } from '@prisma/client';
 
     //getStatus endpoint
     describe('getStatus',()=>{
-    const arrayOfTickets = [ticketDtoMock];
+    const arrayOfTickets:TicketDto[] = [];
     it('should return tickets',async ()=>{
       jest
-      .spyOn(provider,'getStatus');
-    
+      .spyOn(provider,'getStatus')
+      .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
       expect(await provider.getStatus("In progress")).toMatchObject(
         expect.arrayContaining(arrayOfTickets)
       )

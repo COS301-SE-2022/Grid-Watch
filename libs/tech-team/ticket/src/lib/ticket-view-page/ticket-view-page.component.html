@@ -10,13 +10,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr  *ngFor="let ticket of tickets, index as i" (click)="viewTicket(ticket.ticket_id)" id="option{{i}}">
+          <tr  *ngFor="let ticket of tickets, index as i" (click)="viewTicket(ticket.ticketId)" id="option{{i}}">
             <div class="d-none"></div>
-            <td>{{ticket.ticket_create_date.toLocaleString()}}</td>
-            <td>{{ticket.ticket_type}}</td>
-            <td>{{ticket.ticket_location}}</td>
-            <td>{{ticket.ticket_city}}</td>
-            <td>{{ticket.ticket_status}}</td>
+            <td>{{ticket.ticketCreateDate.toLocaleString()}}</td>
+            <td>{{ticket.ticketType}}</td>
+            <td>{{ticket.ticketLocation}}</td>
+            <td>{{ticket.ticketCity}}</td>
+            <td>{{ticket.ticketStatus}}</td>
           </tr>
         </tbody>
       </table>

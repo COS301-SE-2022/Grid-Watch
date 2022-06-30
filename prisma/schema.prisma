@@ -16,32 +16,66 @@ datasource db {
 ///////////////////////////////////////////////////////////////////////
 
 model User{
-  id           Int          @id @default(autoincrement())
-  email        String       @unique
-  password     String
-  passwordSalt String?    
-  name         String
-  created      DateTime     @default(now())
+  id                  Int        @id @default(autoincrement())
+  email               String     @unique
+  password            String
+  passwordSalt        String?    
+  name                String
+  created             DateTime  @default(now())
 
   @@map("user")
 }
 
 ///////////////////////////////////////////////////////////////////////
-// AuthorizedOfficials
+// Ticket
 ///////////////////////////////////////////////////////////////////////
 
-model AuthorizedOfficials {
-  id              Int       @id @default(autoincrement())
-  name            String
-  email           String    @unique
-  contact_number  String    @unique @db.VarChar(10)
-  cities          String
+model Ticket {
+  ticketId            Int       @id @default(autoincrement())
+  ticketStatus        String
+  ticketCreateDate    DateTime
+  ticketCloseDate     DateTime?
+  ticketType          String
+  ticketCity          String?
+  ticketLocation      String    //place-id
+  ticketCost          Float?
+  ticketDescription   String
+  ticketRepairTime    Int?
+  ticketUpvotes       Int
 
-  password        String
-  passwordSalt    String?    
-  created         DateTime  @default(now())
+  Subtasks            Subtasks[]
+  Picture             Picture[]
 
-  @@map("authorizedofficials")
+  @@map("ticket")
+  
+}
+
+///////////////////////////////////////////////////////////////////////
+// Picture
+///////////////////////////////////////////////////////////////////////
+
+model Picture {
+  pictureId         Int       @id @default(autoincrement())
+  pictureLink       String
+  ticket            Ticket    @relation(fields: [ticketID], references: [ticketId], onDelete: Cascade)
+  ticketID          Int
+
+  @@map("picture")
+}
+
+///////////////////////////////////////////////////////////////////////
+// Subtasks
+///////////////////////////////////////////////////////////////////////
+
+model Subtasks{
+  subtaskId         Int       @id @default(autoincrement())
+  tickets           Ticket    @relation(fields: [ticketID], references: [ticketId], onDelete: Cascade)
+  ticketID          Int
+  taskDescription   String
+  taskStep          Int
+  taskStatus        String
+
+  @@map("subtasks")
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -53,9 +87,9 @@ model TechTeam {
   name              String
   email             String?   @unique
   specialisation    String
-  contact_number    String    @unique @db.VarChar(10)
-  nr_jobs_completed Int?
-  rating_of_jobs    Float?
+  contactNumber     String    @unique @db.VarChar(10)
+  nrJobsCompleted   Int?
+  ratingOfJobs      Float?
 
   password          String
   passwordSalt      String?    
@@ -69,47 +103,23 @@ model TechTeam {
 ///////////////////////////////////////////////////////////////////////
 
 model TechTeamTicket {
-  id                Int       @id @default(autoincrement())
-  techteam_ID       Int
-  ticket_ID         Int     
+  id               Int        @id @default(autoincrement())
+  techTeamId       Int
+  ticketId         Int     
 
   @@map("techteamticket")
 }
 
 ///////////////////////////////////////////////////////////////////////
-// Ticket
+// AuthorizedOfficials
 ///////////////////////////////////////////////////////////////////////
 
-model Ticket {
-  ticket_id           Int     @id @default(autoincrement())
-  ticket_status       String
-  ticket_create_date  DateTime    // @default(now())
-  ticket_close_date   DateTime?
-  ticket_type         String
-  ticket_city         String?
-  ticket_location     String    //place-id
-  ticket_cost         Float?
-  ticket_description  String
-  ticket_repair_time  Int?
-  ticket_upvotes      Int
+model AuthorizedOfficials {
+  id              Int         @id @default(autoincrement())
+  name            String
+  email           String      @unique
+  contactNumber   String      @unique @db.VarChar(10)
+  cities          String
 
-  Picture             Picture[]
-  @@map("ticket")
-  
+  @@map("authorizedofficials")
 }
-
-///////////////////////////////////////////////////////////////////////
-// Picture
-///////////////////////////////////////////////////////////////////////
-
-model Picture {
-  picture_id      Int     @id @default(autoincrement())
-  picture_link    String
-  ticket          Ticket  @relation(fields: [ticket_id], references: [ticket_id], onDelete: Cascade)
-  ticket_id       Int
-
-  @@map("picture")
-}
-
-
-

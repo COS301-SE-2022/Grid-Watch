@@ -10,52 +10,50 @@ import {CreateTechTeamCommand,
     UpdateTechTeamRatingJobsCommand,
     IncTechTeamNrJobsCompletedCommand,
     DeleteTechTeamCommand} from './commands/api-tech-team-command.command';
+import {TechTeamDto} from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 
 @Injectable()
 export class ApiProfilesTechTeamServiceService {
     constructor(private commandBus: CommandBus){}
 
-<<<<<<< HEAD
-    async createTechTeam(name: string, email: string, specialisation: string, contactNr: string){
-            return await this.commandBus.execute(new CreateTechTeamCommand(name,email,specialisation,contactNr))
-=======
-    async createTechTeam(Name: string, Email: string, Specialisation: string, ContactNr: string, Password :string){
-            return await this.commandBus.execute(new CreateTechTeamCommand(Name,Email,Specialisation,ContactNr,Password))
->>>>>>> 7c64f475c81696a498da307c1c036a62b621f2a3
+ 
+    async createTechTeam(techTeamDto: TechTeamDto){
+            return await this.commandBus.execute(new CreateTechTeamCommand(techTeamDto))
     }
 
-    async updateTechTeam(techTeamId: number,name: string,email: string, specialisation: string, contactNr:string){
+    async updateTechTeam(techTeamId: number,techTeamDto: TechTeamDto){
 
-            return await this.commandBus.execute(new UpdateTechTeamCommand(techTeamId,name,email,specialisation,contactNr))
+            return await this.commandBus.execute(new UpdateTechTeamCommand(techTeamId,techTeamDto))
     }
 
-    async updateTechTeamName(techTeamId: number,name: string){
-            return await this.commandBus.execute(new UpdateTechTeamNameCommand(techTeamId,name))
+    async updateTechTeamName(techTeamId: number,Name: string){
+            return await this.commandBus.execute(new UpdateTechTeamNameCommand(techTeamId,Name))
 
     }
 
-    async updateTechTeamEmail(techTeamId: number, email: string){
-            return await this.commandBus.execute(new UpdateTechTeamEmailCommand(techTeamId,email))
+    async updateTechTeamEmail(techTeamId: number, Email: string){
+            return await this.commandBus.execute(new UpdateTechTeamEmailCommand(techTeamId,Email))
     }
 
-    async updateTechTeamSpecialisation(techTeamId: number, specialisation:string){
-        return await this.commandBus.execute(new UpdateTechTeamSpecialisationCommand(techTeamId,specialisation))
+    async updateTechTeamSpecialisation(techTeamId: number, Specialisation:string){
+        return await this.commandBus.execute(new UpdateTechTeamSpecialisationCommand(techTeamId,Specialisation))
     }
 
-    async updateTechTeamContactNr(techTeamId: number, contactNr: string){
-        return await this.commandBus.execute(new UpdateTechTeamContactNrCommand(techTeamId,contactNr))
+    async updateTechTeamContactNr(techTeamId: number, ContactNr: string){
+        return await this.commandBus.execute(new UpdateTechTeamContactNrCommand(techTeamId,ContactNr))
     }
 
-    async updateTechTeamNrJobsCompleted(techTeamId: number, nrJobsCompleted: number){
-        return await this.commandBus.execute(new UpdateTechTeamNrJobsCompletedCommand(techTeamId,nrJobsCompleted))
+    async updateTechTeamNrJobsCompleted(techTeamId: number, NrJobsCompleted: number){
+        return await this.commandBus.execute(new UpdateTechTeamNrJobsCompletedCommand(techTeamId,NrJobsCompleted))
     }
 
     async incTechTeamNrJobsCompleted(techTeamId: number){
         return await this.commandBus.execute(new IncTechTeamNrJobsCompletedCommand(techTeamId))
     }
 
-    async updateTechTeamRatingJobs(techTeamId: number, ratingJobs: number){
-        return await this.commandBus.execute(new UpdateTechTeamRatingJobsCommand(techTeamId,ratingJobs))
+    async updateTechTeamRatingJobs(techTeamId: number, RatingJobs: number){
+        return await this.commandBus.execute(new UpdateTechTeamRatingJobsCommand(techTeamId,RatingJobs))
+
 
     }
 

@@ -9,8 +9,8 @@ export class CreateTicketHandler implements ICommandHandler<CreateTicketCommand>
         
     }
     async execute(command: CreateTicketCommand) {
-        const{ status,description,createDate,closeDate,cost,location,city,repairTime,upVotes,type}= command;
-        return this.repository.createTicket(status,createDate,closeDate,type,city,location,cost,description,repairTime,upVotes);
+        const{ ticketDto}= command;
+        return this.repository.createTicket(ticketDto);
     }
 }
 
@@ -21,8 +21,8 @@ export class UpdateTicketHandler implements ICommandHandler<UpdateTicketCommand>
 
     }
     async execute(command: UpdateTicketCommand) {
-        const{ticketId, status,description,createDate,closeDate,cost,location,city,repairTime,upVotes,type}= command;
-        return this.repository.UpdateTicket(ticketId,status,createDate,closeDate,type,city,location,cost,description,repairTime,upVotes)
+        const{ticketId,ticketDto}= command;
+        return this.repository.updateTicket(ticketId,ticketDto)
     }
 }
 
@@ -43,8 +43,8 @@ export class UpdateTicketStatusHandler implements ICommandHandler<UpdateTicketSt
     constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
 
     async execute(command: UpdateTicketStatusCommand) {
-        const{ticketId: ticketId,status: status} = command;
-        return this.repository.UpdateStatus(ticketId,status);
+        const{TicketId,Status} = command;
+        return this.repository.updateStatus(TicketId,Status);
     }
 }
 
@@ -53,8 +53,8 @@ export class UpdateTicketCreateDateHandler implements ICommandHandler<UpdateTick
     constructor(private readonly repository:ApiTicketRepositoryDataAccess){}
 
    async execute(command: UpdateTicketCreateDateCommand) {
-       const{ticketId: ticketId,createDate: createDate} = command;
-       return this.repository.UpdateCreateDate(ticketId,createDate);
+       const{TicketId,CreateDate} = command;
+       return this.repository.updateCreateDate(TicketId,CreateDate);
    }
 }
 
@@ -63,8 +63,8 @@ export class UpdateTicketCloseDateHandler implements ICommandHandler<UpdateTicke
     constructor(private readonly repository:ApiTicketRepositoryDataAccess){}
 
    async execute(command: UpdateTicketCloseDateCommand) {
-       const{ticketId: ticketId,closeDate: closeDate} = command;
-       return this.repository.UpdateCloseDate(ticketId,closeDate);
+       const{TicketId,CloseDate} = command;
+       return this.repository.updateCloseDate(TicketId,CloseDate);
    }
 }
 
@@ -73,8 +73,10 @@ export class UpdateTicketTypeHandler implements ICommandHandler<UpdateTicketType
     constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
 
     async execute(command: UpdateTicketTypeCommand) {
-        const{ticketId: ticketId,type: type} = command;
-        return this.repository.UpdateType(ticketId,type);
+
+        const{TicketId,Type} = command;
+        return this.repository.updateType(TicketId,Type);
+
     }
 }
 
@@ -83,8 +85,10 @@ export class UpdateTicketLocationHandler implements ICommandHandler<UpdateTicket
     constructor(private readonly repository:ApiTicketRepositoryDataAccess){}
 
     async execute(command: UpdateTicketLocationCommand) {
-        const{ticketId: ticketId,location: location} = command;
-        return this.repository.UpdateLocation(ticketId,location);
+
+        const{TicketId,Location} = command;
+        return this.repository.updateLocation(TicketId,Location);
+
     }
 }
 
@@ -93,8 +97,10 @@ export class UpdateTicketCostHandler implements ICommandHandler<UpdateTicketCost
     constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
 
     async execute(command: UpdateTicketCostCommand) {
-        const{ticketId: ticketId,cost: cost} = command;
-        return this.repository.UpdateCost(ticketId,cost);
+
+        const{TicketId,Cost} = command;
+        return this.repository.updateCost(TicketId,Cost);
+
     }
 }
 
@@ -103,8 +109,10 @@ export class UpdateTicketDescriptionHandler implements ICommandHandler<UpdateTic
     constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
 
     async execute(command: UpdateTicketDescriptionCommand) {
-        const{ticketId: ticketId,description: description} = command;
-        return this.repository.UpdateDescription(ticketId,description);
+
+        const{TicketId,Description} = command;
+        return this.repository.updateDescription(TicketId,Description);
+
     }
 }
 
@@ -113,8 +121,10 @@ export class UpdateTicketRepairTimeHandler implements ICommandHandler<UpdateTick
     constructor(private readonly repository:ApiTicketRepositoryDataAccess){}
 
     async execute(command: UpdateTicketRepairTimeCommand) {
-        const{ticketId: ticketId,repairTime: repairTime} = command;
-        return this.repository.UpdateRepairTime(ticketId,repairTime);
+
+        const{TicketId,RepairTime} = command;
+        return this.repository.updateRepairTime(TicketId,RepairTime);
+
     }
 }
 
@@ -123,8 +133,10 @@ export class UpdateTicketUpVotesHandler implements ICommandHandler<UpdateTicketU
     constructor(private readonly repository:ApiTicketRepositoryDataAccess){}
 
     async execute(command: UpdateTicketUpVotesCommand){
-        const{ticketId: ticketId,upVotes: upVotes} = command;
-        return this.repository.UpdateUpvotes(ticketId,upVotes);
+
+        const{TicketId,UpVotes} = command;
+        return this.repository.updateUpvotes(TicketId,UpVotes);
+
     }
 }
 
@@ -133,8 +145,10 @@ export class IncUpvotesHandler implements ICommandHandler<IncUpvotesCommand>{
     constructor(private readonly repository:ApiTicketRepositoryDataAccess){}
 
     async execute(command: IncUpvotesCommand){
-        const{ticketId: ticketId} = command;
-        return this.repository.IncUpvotes(ticketId);
+
+        const{TicketId} = command;
+        return this.repository.incUpvotes(TicketId);
+
     }
 }
 
@@ -144,7 +158,7 @@ export class CreatePictureHandler implements ICommandHandler<CreatePictureComman
         
     }
     async execute(command: CreatePictureCommand) {
-        const{ticketId: ticketId,imgLink: imgLink}= command;
+        const{TicketId: ticketId,imgLink: imgLink}= command;
         return this.repository.createPicture(ticketId,imgLink);
     }
 }
@@ -156,7 +170,7 @@ export class UpdatePictureHandler implements ICommandHandler<UpdatePictureComman
 
     }
     async execute(command: UpdatePictureCommand) {
-        const{pictureId: pictureId,imgLink: imgLink}= command;
+        const{PictureId: pictureId,imgLink: imgLink}= command;
         return this.repository.updatePicture(pictureId,imgLink);
     }
 }
@@ -166,7 +180,7 @@ export class DeletePictureHanadler implements ICommandHandler<DeletePictureComma
     constructor (private readonly repository: ApiTicketRepositoryDataAccess){}
 
     async execute(command: DeletePictureCommand) {
-        const{pictureId: pictureId} = command;
+        const{PictureId: pictureId} = command;
         return this.repository.deletePicture(pictureId);
     }
 }

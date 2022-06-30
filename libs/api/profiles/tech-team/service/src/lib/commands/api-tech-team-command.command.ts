@@ -1,21 +1,14 @@
+import { TechTeamDto } from "@grid-watch/api/profiles/tech-team/api/shared/techteamdto";
 export class CreateTechTeamCommand{
     constructor(
-
-        public readonly Name,
-        public readonly Email,
-        public readonly Specialisation,
-        public readonly ContactNr,
-        public readonly Password
+        public readonly techTeamDto : TechTeamDto
     ){}
 }
 
 export class UpdateTechTeamCommand{
     constructor(
         public readonly techTeamId,
-        public readonly name,
-        public readonly email,
-        public readonly specialisation,
-        public readonly contactNr
+        public readonly techTeamDto: TechTeamDto
     ){}
 }
 

@@ -17,9 +17,8 @@ export class CreateTechTeamHandler implements ICommandHandler<CreateTechTeamComm
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: CreateTechTeamCommand) {
-        const{Name,Email,Specialisation,ContactNr,Password} = command;
-        return this.repository.createTechTeam(Name,Email,Specialisation,ContactNr,Password);
-
+        const{techTeamDto} = command;
+        return this.repository.createTechTeam(techTeamDto);
     }
 }
 
@@ -28,8 +27,8 @@ export class UpdateTechTeamHandler implements ICommandHandler<UpdateTechTeamComm
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: UpdateTechTeamCommand) {
-        const{techTeamId: techTeamId,name: name,email: email,specialisation: specialisation,contactNr: contactNr} = command;
-        return this.repository.UpdateTechTeam(techTeamId,name,email,specialisation,contactNr);
+        const{techTeamId,techTeamDto} = command;
+        return this.repository.updateTechTeam(techTeamId,techTeamDto);
     }
 }
 
@@ -38,8 +37,8 @@ export class UpdateTechTeamNameHandler implements ICommandHandler<UpdateTechTeam
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: UpdateTechTeamNameCommand) {
-        const{techTeamId: techTeamId,name: name} = command;
-        return this.repository.UpdateTechTeamName(techTeamId,name);
+        const{techTeamId,name} = command;
+        return this.repository.updateTechTeamName(techTeamId,name);
     }
 }
 
@@ -48,8 +47,8 @@ export class UpdateTechTeamEmailHandler implements ICommandHandler<UpdateTechTea
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: UpdateTechTeamEmailCommand) {
-        const{techTeamId: techTeamId,email: email} = command;
-        return this.repository.UpdateTechTeamEmail(techTeamId,email);
+        const{techTeamId,email} = command;
+        return this.repository.updateTechTeamEmail(techTeamId,email);
     }
 }
 
@@ -58,8 +57,8 @@ export class UpdateTechTeamSpecialisationHandler implements ICommandHandler<Upda
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: UpdateTechTeamSpecialisationCommand) {
-        const{techTeamId: techTeamId,specialisation: specialisation} = command;
-        return this.repository.UpdateTechTeamSpecialisation(techTeamId,specialisation);
+        const{techTeamId,specialisation} = command;
+        return this.repository.updateTechTeamSpec(techTeamId,specialisation);
     }
 }
 
@@ -68,8 +67,8 @@ export class UpdateTechTeamContactNrHandler implements ICommandHandler<UpdateTec
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: UpdateTechTeamContactNrCommand) {
-        const{techTeamId: techTeamId,contactNr: contactNr} = command;
-        return this.repository.UpdateTechTeamContactNr(techTeamId,contactNr);
+        const{techTeamId,contactNr} = command;
+        return this.repository.updateTechTeamContactNr(techTeamId,contactNr);
     }
 }
 
@@ -78,8 +77,9 @@ export class UpdateTechTeamNrJobsCompletedHandler implements ICommandHandler<Upd
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: UpdateTechTeamNrJobsCompletedCommand) {
-        const{techTeamId: techTeamId,nrJobsCompleted: nrJobsCompleted} = command;
-        return this.repository.UpdateTechTeamNrJobsCompleted(techTeamId,nrJobsCompleted);
+
+        const{techTeamId,nrJobsCompleted} = command;
+        return this.repository.updateTechTeamNrJobsCompleted(techTeamId,nrJobsCompleted);
     }
 }
 
@@ -88,8 +88,8 @@ export class IncTechTeamNrJobsCompletedHandler implements ICommandHandler<IncTec
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: IncTechTeamNrJobsCompletedCommand) {
-        const{techTeamId: techTeamId} = command;
-        return this.repository.IncTechTeamNrJobsCompleted(techTeamId);
+        const{techTeamId} = command;
+        return this.repository.incTechTeamNrJobsCompleted(techTeamId);
     }
 }
 
@@ -98,8 +98,8 @@ export class UpdateTechTeamRatingJobsHandler implements ICommandHandler<UpdateTe
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: UpdateTechTeamRatingJobsCommand) {
-        const{techTeamId: techTeamId,ratingJobs: ratingJobs} = command;
-        return this.repository.UpdateTechTeamRatingJobs(techTeamId,ratingJobs);
+        const{techTeamId,ratingJobs} = command;
+        return this.repository.updateTechTeamRatingJobs(techTeamId,ratingJobs);
     }
 }
 
@@ -108,7 +108,7 @@ export class DeleteTechTeamHandler implements ICommandHandler<DeleteTechTeamComm
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: DeleteTechTeamCommand) {
-        const{techTeamId: techTeamId} = command;
-        return this.repository.DeleteTechTeam(techTeamId);
+        const{techTeamId} = command;
+        return this.repository.deleteTechTeam(techTeamId);
     }
 }

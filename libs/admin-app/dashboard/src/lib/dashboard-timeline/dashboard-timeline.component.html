@@ -27,7 +27,7 @@
       <mat-card
     class="timelineCard"
     *ngFor="let ticket of tickets"
-    (click)="viewTicketDetails(ticket.ticket_id)"
+    (click)="viewTicketDetails(ticket.ticketId)"
   >
     <div class="infoContainer">
       <div class="rowContainer">
@@ -35,14 +35,14 @@
           <img mat-card-sm-image src="assets/pothole_example.jpg" alt="" />
         </div>
         <div>
-          <div>{{ticket.ticket_type}}</div>
+          <div>{{ticket.ticketType}}</div>
           <div>
             <span class="material-icons">
               my_location
               </span>
-            {{ticket.ticket_location}}
+            {{ticket.ticketLocation}}
           </div>
-          <div>{{ticket.ticket_description}}</div>
+          <div>{{ticket.ticketDescription}}</div>
         </div>
       </div>
     </div>

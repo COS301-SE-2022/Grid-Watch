@@ -49,7 +49,7 @@ export class TicketBodyComponent implements OnInit {
 
   IncreaseUpvote(id : number, index: number): void
   {
-    this.ticketService.increaseUpvotes(id, ++this.tickets[index].ticket_upvotes)
+    this.ticketService.increaseUpvotes(id, ++this.tickets[index].ticketUpvotes)
   }
     
   async InitialiseTicket(data : TicketDto []) : Promise<void> 
@@ -57,17 +57,17 @@ export class TicketBodyComponent implements OnInit {
     for (let index = 0; index < data.length; index++) 
     {
       this.tickets.push(data[index]);
-      this.ticketService.getImages(data[index].ticket_id).subscribe(
+      this.ticketService.getImages(data[index].ticketId).subscribe(
         (response) => {
           console.log(response);
           if (response[response.length - 1])
-            this.tickets[index].ticket_img = response[response.length - 1].picture_link;
+            this.tickets[index].ticketImg = response[response.length - 1].pictureLink;
         }
       );
-      const place_id = this.tickets[index].ticket_location;
+      const place_id = this.tickets[index].ticketLocation;
       this.googleMapsService.getLocation(place_id).then(
         (response) => {
-          this.tickets[index].ticket_location = response;
+          this.tickets[index].ticketLocation = response;
         },
         (error) => {
           console.log(error);

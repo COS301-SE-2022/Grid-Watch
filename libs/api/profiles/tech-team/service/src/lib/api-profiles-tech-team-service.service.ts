@@ -16,6 +16,7 @@ import {TechTeamDto} from '@grid-watch/api/profiles/tech-team/api/shared/techtea
 export class ApiProfilesTechTeamServiceService {
     constructor(private commandBus: CommandBus){}
 
+ 
     async createTechTeam(techTeamDto: TechTeamDto){
             return await this.commandBus.execute(new CreateTechTeamCommand(techTeamDto))
     }
@@ -52,6 +53,7 @@ export class ApiProfilesTechTeamServiceService {
 
     async updateTechTeamRatingJobs(techTeamId: number, RatingJobs: number){
         return await this.commandBus.execute(new UpdateTechTeamRatingJobsCommand(techTeamId,RatingJobs))
+
 
     }
 

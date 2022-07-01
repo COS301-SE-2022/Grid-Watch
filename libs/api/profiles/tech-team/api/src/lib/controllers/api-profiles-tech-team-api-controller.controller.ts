@@ -66,6 +66,7 @@ export class ApiProfilesTechTeamApiControllerController {
 
     //Increment Tech Team number jobs completed endpoint
     @Put('/update/incjobscompleted/:id')
+
     async incTechTeamNrJobsCompleted(@Param() params):Promise<boolean> {
         return this.apiTechTeamService.incTechTeamNrJobsCompleted(parseInt(params.id));
     }

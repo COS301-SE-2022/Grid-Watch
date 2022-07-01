@@ -10,7 +10,9 @@ import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-pictu
   styleUrls: ['./edit-accepted-ticket.component.scss'],
 })
 export class EditAcceptedTicketComponent implements OnInit {
- 
+  fieldArray: Array<any> = [];
+  newAttribute: any = {};
+  stepCount = 0;
 
   getAllURL = "http://localhost:3333/api/ticket/"
   UpdateStatusURL = "http://localhost:3333/api/ticket/update/status/";
@@ -139,5 +141,16 @@ export class EditAcceptedTicketComponent implements OnInit {
 
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
-}
+  }
+
+  addFieldValue() 
+  {
+      this.fieldArray.push(this.newAttribute)
+      this.newAttribute = {};
+  }
+
+  deleteFieldValue(index: number) 
+  {
+      this.fieldArray.splice(index, 1);
+  }
 }

@@ -61,7 +61,7 @@ export class TicketService {
    }
 
    public updateTicket(ticket : TicketDto) : boolean {
-    const tempURL = this.updateURL + ticket.ticket_id ;
+    const tempURL = this.updateURL + ticket.ticketId ;
       this.http.put<TicketDto[]>(tempURL, ticket, this.httpOptions).subscribe(
         (response) =>
         {
@@ -164,62 +164,62 @@ export class TicketService {
   }
 
   private sortByIssue(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_type > a.ticket_type) return 1;
+    if (b.ticketType > a.ticketType) return 1;
     else return -1;
   }
 
   private sortByIssueDesc(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_type < a.ticket_type) return 1;
+    if (b.ticketType < a.ticketType) return 1;
     else return -1;
   }
 
   private sortByUpvotes(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_upvotes > a.ticket_upvotes) return 1;
+    if (b.ticketUpvotes > a.ticketUpvotes) return 1;
     else return -1;
   }
 
   private sortByStatus(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_status > a.ticket_status) return 1;
+    if (b.ticketStatus > a.ticketStatus) return 1;
     else return -1;
   }
 
   private sortByCity(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_city > a.ticket_city) return 1;
+    if (b.ticketCity > a.ticketCity) return 1;
     else return -1;
   }
 
   private sortByLocation(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_location > a.ticket_location) return 1;
+    if (b.ticketLocation > a.ticketLocation) return 1;
     else return -1;
   }
 
   private sortByDate(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_create_date > a.ticket_create_date) return 1;
+    if (b.ticketCreateDate > a.ticketCreateDate) return 1;
     else return -1;
   }
 
   private sortByUpvotesDesc(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_upvotes < a.ticket_upvotes) return 1;
+    if (b.ticketUpvotes < a.ticketUpvotes) return 1;
     else return -1;
   }
 
   private sortByStatusDesc(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_status < a.ticket_status) return 1;
+    if (b.ticketStatus < a.ticketStatus) return 1;
     else return -1;
   }
 
   private sortByCityDesc(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_city < a.ticket_city) return 1;
+    if (b.ticketCity < a.ticketCity) return 1;
     else return -1;
   }
 
   private sortByLocationDesc(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_location < a.ticket_location) return 1;
+    if (b.ticketLocation < a.ticketLocation) return 1;
     else return -1;
   }
 
   private sortByDateDesc(a: TicketDto, b: TicketDto): number {
-    if (b.ticket_create_date < a.ticket_create_date) return 1;
+    if (b.ticketCreateDate < a.ticketCreateDate) return 1;
     else return -1;
   }
   

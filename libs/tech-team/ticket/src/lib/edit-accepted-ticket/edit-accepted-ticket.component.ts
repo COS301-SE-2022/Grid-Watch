@@ -42,7 +42,7 @@ export class EditAcceptedTicketComponent implements OnInit {
     ngOnInit(): void {
     // this.ticket = new TicketDto;
     this.issue_id = this.route.snapshot.paramMap.get('id');
-    this.ticket.ticket_img = "";
+    this.ticket.ticketImg = "";
     this.getAllURL += this.issue_id;
     this.UpdateStatusURL += this.issue_id;
     this.UpdateRepairURL += this.issue_id;
@@ -50,10 +50,10 @@ export class EditAcceptedTicketComponent implements OnInit {
     this.http.get<TicketDto[]>(this.getAllURL).subscribe(
       (data) => {
         this.ticket = data[0];
-        this.ticket.ticket_img = "";
-        this.status = this.ticket.ticket_status
-        this.repair_time = this.ticket.ticket_repair_time
-        this.cost = this.ticket.ticket_cost
+        this.ticket.ticketImg = "";
+        this.status = this.ticket.ticketStatus
+        this.repair_time = this.ticket.ticketRepairTime
+        this.cost = this.ticket.ticketCost
         this.loadImage();
       }
     );
@@ -66,15 +66,15 @@ export class EditAcceptedTicketComponent implements OnInit {
   
   update() : void
   {
-    if (this.ticket.ticket_cost != this.cost)
+    if (this.ticket.ticketCost != this.cost)
     {
       this.updateCost();
     }
-    if (this.ticket.ticket_repair_time != this.repair_time)
+    if (this.ticket.ticketRepairTime != this.repair_time)
     {
       this.updateRepairTime();
     }
-    if (this.ticket.ticket_status != this.status)
+    if (this.ticket.ticketStatus != this.status)
     {
       this.updateStatus();
      
@@ -130,11 +130,11 @@ export class EditAcceptedTicketComponent implements OnInit {
   async loadImage() : Promise<void> 
   {
     await this.delay(3000)
-    this.getPictureURL += this.ticket.ticket_id;
+    this.getPictureURL += this.ticket.ticketId;
     this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
       (data) => {
         console.log(data[0])
-        this.ticket.ticket_img = data[0].picture_link
+        this.ticket.ticketImg = data[0].pictureLink
     }
     );
   }

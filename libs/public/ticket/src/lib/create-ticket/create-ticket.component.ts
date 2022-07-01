@@ -66,7 +66,7 @@ export class CreateTicketComponent{
     this.defaultUpload = "";
     this.other = false;
     this.otherDetails = "";
-    this.ticket.ticket_location = "";
+    this.ticket.ticketLocation = "";
     this.placeID = "";
 
     const loader = new Loader({
@@ -113,7 +113,7 @@ export class CreateTicketComponent{
 
   createTicket() : void
   {
-    if (( this.ticket.ticket_location == ""))
+    if (( this.ticket.ticketLocation == ""))
     {
       this.showErrorMessage("Location not found")
       return;
@@ -128,12 +128,12 @@ export class CreateTicketComponent{
     if (this.placeID == "")
     {
       this.placeID = this.autocomplete.getPlace().place_id as string;
-      this.ticket.ticket_city = this.googleMapsService.getAutocompleteCity(this.autocomplete.getPlace().address_components);
+      this.ticket.ticketCity = this.googleMapsService.getAutocompleteCity(this.autocomplete.getPlace().address_components);
     }
-    this.ticket.ticket_location = this.placeID;
-    this.ticket.ticket_status = "Created";
-    this.ticket.ticket_create_date = new Date();
-    this.ticket.ticket_upvotes = 0;
+    this.ticket.ticketLocation = this.placeID;
+    this.ticket.ticketStatus = "Created";
+    this.ticket.ticketCreateDate = new Date();
+    this.ticket.ticketUpvotes = 0;
 
 
     if (this.file)
@@ -144,7 +144,7 @@ export class CreateTicketComponent{
       this.ticketService.postImage(formData).subscribe(
         (response) =>
         {
-          this.ticket.ticket_img = response.filename
+          this.ticket.ticketImg = response.filename
           this.uploadTicket()
         }
       );
@@ -187,8 +187,8 @@ export class CreateTicketComponent{
         }
         this.createMapMarker(pos);
         this.placeID  = await this.googleMapsService.getLocationCoord(pos);
-        this.ticket.ticket_location = await this.googleMapsService.getLocation(this.placeID);
-        this.ticket.ticket_city = await this.googleMapsService.getCity(this.placeID);
+        this.ticket.ticketLocation = await this.googleMapsService.getLocation(this.placeID);
+        this.ticket.ticketCity = await this.googleMapsService.getCity(this.placeID);
         // this.placeID  
       }
     );
@@ -199,7 +199,7 @@ export class CreateTicketComponent{
       (response) =>
       {
         console.log(response);
-        this.ticket.ticket_id = response[0].ticket_id;
+        this.ticket.ticketId = response[0].ticketId;
         if (this.file !== undefined)
             this.uploadPhoto();
       }
@@ -214,7 +214,7 @@ export class CreateTicketComponent{
 
   uploadPhoto() : void
   {
-    this.ticketService.uploadImage(this.ticket.ticket_img, this.ticket.ticket_id).subscribe(
+    this.ticketService.uploadImage(this.ticket.ticketImg, this.ticket.ticketId).subscribe(
       () =>
       {
         this.showSuccessMessage();

@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiProfilesTechTeamRepositoryDataAccess } from './api-profiles-tech-team-repository-data-access';
-import {techTeamDto} from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
+import {TechTeamDto} from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 
-const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto;
+const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamDto;
 
   describe('ApiTicketRepositoryDataAccess', () => {
   let provider: ApiProfilesTechTeamRepositoryDataAccess;
@@ -11,6 +11,12 @@ const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto
     const module: TestingModule = await Test.createTestingModule({
       providers: [ApiProfilesTechTeamRepositoryDataAccess],
     }).compile();
+
+  
+    techTeamDtoMock.name = "Sparky";
+    techTeamDtoMock.email = "sparkyy3@gmail.com";
+    techTeamDtoMock.specialisation = "Electricity";
+    techTeamDtoMock.contactNumber="0119873323";
 
     provider = module.get<ApiProfilesTechTeamRepositoryDataAccess>(
       ApiProfilesTechTeamRepositoryDataAccess
@@ -32,7 +38,7 @@ const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto
 
     it('should return null', async () => {
       jest.spyOn(provider, 'createTechTeam').mockResolvedValue(null);
-      expect(await provider.createTechTeam("Sparky", "sparky@gmail.com", "Electricity","0119843323","1234Anru")).toEqual(null)
+      expect(await provider.createTechTeam(techTeamDtoMock)).toEqual(null)
     });
   })
 
@@ -50,91 +56,91 @@ const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto
   describe('UpdateTechTeam',()=>{
     it('should return void',async ()=>{
       jest
-      .spyOn(provider,'UpdateTechTeam')
+      .spyOn(provider,'updateTechTeam')
       .mockImplementation(():Promise<void> => Promise.resolve());
-      expect(await provider.UpdateTechTeam(2,"Sparky", "sparky1@gmail.com", "Electricity","0119873322")).toBeUndefined()
+      expect(await provider.updateTechTeam(2,techTeamDtoMock)).toBeUndefined()
     });
 
     it('should return null', async () => {
-      jest.spyOn(provider, 'UpdateTechTeam').mockResolvedValue(null);
-      expect(await provider.UpdateTechTeam(2,"Sparky", "sparkyy3@gmail.com", "Electricity","0119873323")).toEqual(null)
+      jest.spyOn(provider, 'updateTechTeam').mockResolvedValue(null);
+      expect(await provider.updateTechTeam(2,techTeamDtoMock)).toEqual(null)
     });
   })
 
-    //UpdateTechTeamName
-    describe('UpdateTechTeamName',()=>{
+    //updateTechTeamName
+    describe('updateTechTeamName',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'UpdateTechTeamName')
+        .spyOn(provider,'updateTechTeamName')
         .mockImplementation(():Promise<void> => Promise.resolve());
 
-        expect(await provider.UpdateTechTeamName(3,"Sparks")).toBeUndefined()
+        expect(await provider.updateTechTeamName(3,"Sparks")).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'UpdateTechTeamName').mockResolvedValue(null);
+        jest.spyOn(provider, 'updateTechTeamName').mockResolvedValue(null);
 
-        expect(await provider.UpdateTechTeamName(3,"Sparks")).toEqual(null);
+        expect(await provider.updateTechTeamName(3,"Sparks")).toEqual(null);
       });
     })
 
-    //UpdateTechTeamEmail
-    describe('UpdateTechTeamEmail',()=>{
+    //updateTechTeamEmail
+    describe('updateTechTeamEmail',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'UpdateTechTeamEmail')
+        .spyOn(provider,'updateTechTeamEmail')
         .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.UpdateTechTeamEmail(3,"Sparks@gmail.com")).toBeUndefined()
+        expect(await provider.updateTechTeamEmail(3,"Sparks@gmail.com")).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'UpdateTechTeamEmail').mockResolvedValue(null);
-        expect(await provider.UpdateTechTeamEmail(3,"Sparks@gmail.com")).toEqual(null);
+        jest.spyOn(provider, 'updateTechTeamEmail').mockResolvedValue(null);
+        expect(await provider.updateTechTeamEmail(3,"Sparks@gmail.com")).toEqual(null);
       });
     })
 
-    //UpdateTechTeamSpecialisation
-    describe('UpdateTechTeamSpecialisation',()=>{
+    //updateTechTeamSpecialisation
+    describe('updateTechTeamSpecialisation',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'UpdateTechTeamSpecialisation')
+        .spyOn(provider,'updateTechTeamSpec')
         .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.UpdateTechTeamSpecialisation(3,"Potholes")).toBeUndefined()
+        expect(await provider.updateTechTeamSpec(3,"Potholes")).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'UpdateTechTeamSpecialisation').mockResolvedValue(null);
-        expect(await provider.UpdateTechTeamSpecialisation(3,"Potholes")).toEqual(null);
+        jest.spyOn(provider, 'updateTechTeamSpec').mockResolvedValue(null);
+        expect(await provider.updateTechTeamSpec(3,"Potholes")).toEqual(null);
       });
     })
 
-    //UpdateTechTeamContactNr
-    describe('UpdateTechTeamContactNr',()=>{
+    //updateTechTeamContactNr
+    describe('updateTechTeamContactNr',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'UpdateTechTeamContactNr')
+        .spyOn(provider,'updateTechTeamContactNr')
         .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.UpdateTechTeamContactNr(3,"0122238843")).toBeUndefined()
+        expect(await provider.updateTechTeamContactNr(3,"0122238843")).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'UpdateTechTeamContactNr').mockResolvedValue(null);
-        expect(await provider.UpdateTechTeamContactNr(3,"0122238843")).toEqual(null);
+        jest.spyOn(provider, 'updateTechTeamContactNr').mockResolvedValue(null);
+        expect(await provider.updateTechTeamContactNr(3,"0122238843")).toEqual(null);
       });
     })
 
-    //UpdateTechTeamNrJobsCompleted
-    describe('UpdateTechTeamNrJobsCompleted',()=>{
+    //updateTechTeamNrJobsCompleted
+    describe('updateTechTeamNrJobsCompleted',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'UpdateTechTeamNrJobsCompleted')
+        .spyOn(provider,'updateTechTeamNrJobsCompleted')
         .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.UpdateTechTeamNrJobsCompleted(3,21)).toBeUndefined()
+        expect(await provider.updateTechTeamNrJobsCompleted(3,21)).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'UpdateTechTeamNrJobsCompleted').mockResolvedValue(null);
-        expect(await provider.UpdateTechTeamNrJobsCompleted(3,21)).toEqual(null);
+        jest.spyOn(provider, 'updateTechTeamNrJobsCompleted').mockResolvedValue(null);
+        expect(await provider.updateTechTeamNrJobsCompleted(3,21)).toEqual(null);
       });
     })
 
@@ -151,37 +157,37 @@ const ticketDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto
     //     jest.spyOn(provider, 'IncTechTeamNrJobsCompleted').mockResolvedValue(null);
     //     expect(await provider.IncTechTeamNrJobsCompleted(3)).toEqual(null);
     //   });
-    // })
+    // })DeleteTechTeam
 
-    //UpdateTechTeamRatingJobs
-    describe('UpdateTechTeamRatingJobs',()=>{
+    //updateTechTeamRatingJobs
+    describe('updateTechTeamRatingJobs',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'UpdateTechTeamRatingJobs')
+        .spyOn(provider,'updateTechTeamRatingJobs')
         .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.UpdateTechTeamRatingJobs(1,3)).toBeUndefined()
+        expect(await provider.updateTechTeamRatingJobs(1,3)).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'UpdateTechTeamRatingJobs').mockResolvedValue(null);
-        expect(await provider.UpdateTechTeamRatingJobs(1,3)).toEqual(null);
+        jest.spyOn(provider, 'updateTechTeamRatingJobs').mockResolvedValue(null);
+        expect(await provider.updateTechTeamRatingJobs(1,3)).toEqual(null);
       });
     })
 
     //DeleteTechTeam
-    describe('DeleteTechTeam',()=>{
+    describe('deleteTechTeam',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'DeleteTechTeam')
+        .spyOn(provider,'deleteTechTeam')
         .mockImplementation(():Promise<void> => Promise.resolve());
 
-        expect(await provider.DeleteTechTeam(2)).toBeUndefined()
+        expect(await provider.deleteTechTeam(2)).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'DeleteTechTeam').mockResolvedValue(null);
+        jest.spyOn(provider, 'deleteTechTeam').mockResolvedValue(null);
 
-        expect(await provider.DeleteTechTeam(2)).toEqual(null);
+        expect(await provider.deleteTechTeam(2)).toEqual(null);
       });
     })
 

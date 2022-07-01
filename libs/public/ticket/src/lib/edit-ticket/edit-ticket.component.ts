@@ -104,16 +104,16 @@ export class EditTicketComponent implements OnInit {
 
   editTicket() : void
   {
-    if ( this.ticket.ticket_location == "")
+    if ( this.ticket.ticketLocation == "")
     {
       this.showErrorMessage("Location not found")
       return;
     }
 
     if (this.issue_type === "Other")
-      this.ticket.ticket_type = this.other_details;
+      this.ticket.ticketType = this.other_details;
     else
-      this.ticket.ticket_type = this.issue_type;
+      this.ticket.ticketType = this.issue_type;
     
 
       
@@ -121,13 +121,13 @@ export class EditTicketComponent implements OnInit {
       if (place !== undefined)
       if (place.place_id !== undefined)
       {
-        this.ticket.ticket_location = place.place_id;
-        this.ticket.ticket_city = this.googleMapsService.getAutocompleteCity(place.address_components)
+        this.ticket.ticketLocation = place.place_id;
+        this.ticket.ticketCity = this.googleMapsService.getAutocompleteCity(place.address_components)
       }
 
       if (this.placeID != "")
       {
-        this.ticket.ticket_location = this.placeID;
+        this.ticket.ticketLocation = this.placeID;
       }
       
     console.log(this.ticket);
@@ -148,12 +148,12 @@ export class EditTicketComponent implements OnInit {
     }
     else
     {
-      this.updateTicket(this.ticket.ticket_img);
+      this.updateTicket(this.ticket.ticketImg);
     }
   }
   
   updateTicket(link : string) {
-    this.ticket.ticket_img = link;
+    this.ticket.ticketImg = link;
     if (this.ticketService.updateTicket(this.ticket))
     {
       this.uploadPhoto();
@@ -178,32 +178,32 @@ export class EditTicketComponent implements OnInit {
     
     // this.getPictureURL += data.ticket_id;
    
-    this.ticketService.getImages(data.ticket_id).subscribe(
+    this.ticketService.getImages(data.ticketId).subscribe(
       (response) => {
         console.log(response);
         if (response[response.length - 1])
         {
-          this.ticket.ticket_img = response[response.length - 1].picture_link;
-          this.defaultUpload = "assets/" + this.ticket.ticket_img;
+          this.ticket.ticketImg = response[response.length - 1].pictureLink;
+          this.defaultUpload = "assets/" + this.ticket.ticketImg;
         }
       }
     );
         
     //SET TICKET TYPE
-    if (data.ticket_type !== "Other")
-      this.issue_type = data.ticket_type;
+    if (data.ticketType !== "Other")
+      this.issue_type = data.ticketType;
     else
     {
       this.issue_type = "Other"
-      this.other_details = data.ticket_type;
+      this.other_details = data.ticketType;
     }
 
     //CHange location from PLACE ID to formatted address
-    this.placeID = this.ticket.ticket_location;
-    this.googleMapsService.getLocation(this.ticket.ticket_location).then(
+    this.placeID = this.ticket.ticketLocation;
+    this.googleMapsService.getLocation(this.ticket.ticketLocation).then(
       (response) =>
       {
-        this.ticket.ticket_location = response;
+        this.ticket.ticketLocation = response;
       },
       (error) =>
       {
@@ -248,8 +248,8 @@ export class EditTicketComponent implements OnInit {
         }
         this.createMapMarker(pos);
         this.placeID  = await this.googleMapsService.getLocationCoord(pos);
-        this.ticket.ticket_location = await this.googleMapsService.getLocation(this.placeID);
-        this.ticket.ticket_city = await this.googleMapsService.getCity(this.placeID);
+        this.ticket.ticketLocation = await this.googleMapsService.getLocation(this.placeID);
+        this.ticket.ticketCity = await this.googleMapsService.getCity(this.placeID);
         // this.placeID  
       }
     );
@@ -267,7 +267,7 @@ export class EditTicketComponent implements OnInit {
 
   uploadPhoto() : void
   {
-    this.ticketService.uploadImage(this.ticket.ticket_img, this.ticket.ticket_id);
+    this.ticketService.uploadImage(this.ticket.ticketImg, this.ticket.ticketId);
   }
 
   initiateFileUpload() : void {

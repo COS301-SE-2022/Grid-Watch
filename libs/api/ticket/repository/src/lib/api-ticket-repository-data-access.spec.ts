@@ -24,182 +24,175 @@ import { Ticket } from '@prisma/client';
 
   //createTicket endpoint
   describe('createTicket',()=>{
-    // it('should return void',async ()=>{
-    //   jest
-    //   .spyOn(provider,'createTicket')
-    //   .mockImplementation(():Promise<void> => Promise.resolve());
-
-    //   const createDate = new Date();
-    //   const closeDate = new Date();
-    //   expect(await provider.createTicket("urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20)).toBeUndefined()
-    // });
+     it('should return ticket',async ()=>{
+      const arrayOfTickets:TicketDto[] = [];
+       jest
+       .spyOn(provider,'createTicket')
+       .mockImplementation(():Promise<Ticket[]> => Promise.resolve(arrayOfTickets));
+       expect(await provider.createTicket(ticketDtoMock)).toMatchObject(
+        expect.arrayContaining(arrayOfTickets)
+       )
+     });
 
     it('should return null', async () => {
       jest.spyOn(provider, 'createTicket').mockResolvedValue(null);
-      const createDate = new Date();
-      const closeDate = new Date();
-      expect(await provider.createTicket("urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20)).toEqual(null);
+      expect(await provider.createTicket(ticketDtoMock)).toEqual(null);
     });
   })
 
-  //UpdateTicket
-  describe('UpdateTicket',()=>{
+  //updateTicket
+  describe('updateTicket',()=>{
     it('should return void',async ()=>{
       jest
-      .spyOn(provider,'UpdateTicket')
+      .spyOn(provider,'updateTicket')
       .mockImplementation(():Promise<void> => Promise.resolve());
-
-      const createDate = new Date();
-      const closeDate = new Date();
-      expect(await provider.UpdateTicket(1,"urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20)).toBeUndefined()
+      expect(await provider.updateTicket(1,ticketDtoMock)).toBeUndefined()
     });
 
     it('should return null', async () => {
-      jest.spyOn(provider, 'UpdateTicket').mockResolvedValue(null);
-      const createDate = new Date();
-      const closeDate = new Date();
-      expect(await provider.UpdateTicket(1,"urgent", createDate, closeDate, "pothole", "Hatfield", "Location", 500, "description", 200, 20)).toEqual(null);
+      jest.spyOn(provider, 'updateTicket').mockResolvedValue(null);
+      expect(await provider.updateTicket(1,ticketDtoMock)).toEqual(null);
     });
   })
 
-    //UpdateStatus
-    describe('UpdateStatus',()=>{
+    //updateStatus
+    describe('updateStatus',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'UpdateStatus')
+        .spyOn(provider,'updateStatus')
         .mockImplementation(():Promise<void> => Promise.resolve());
 
-        expect(await provider.UpdateStatus(2,"urgent")).toBeUndefined()
+        expect(await provider.updateStatus(2,"urgent")).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'UpdateStatus').mockResolvedValue(null);
+        jest.spyOn(provider, 'updateStatus').mockResolvedValue(null);
 
-        expect(await provider.UpdateStatus(2,"urgent")).toEqual(null);
+        expect(await provider.updateStatus(2,"urgent")).toEqual(null);
       });
     })
 
-    //UpdateCreateDate
-    describe('UpdateCreateDate',()=>{
+    //updateCreateDate
+    describe('updateCreateDate',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'UpdateCreateDate')
+        .spyOn(provider,'updateCreateDate')
         .mockImplementation(():Promise<void> => Promise.resolve());
         const createDate = new Date();
-        expect(await provider.UpdateCreateDate(3,createDate)).toBeUndefined()
+        expect(await provider.updateCreateDate(3,createDate)).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'UpdateCreateDate').mockResolvedValue(null);
+        jest.spyOn(provider, 'updateCreateDate').mockResolvedValue(null);
         const createDate = new Date();
-        expect(await provider.UpdateCreateDate(3,createDate)).toEqual(null);
+        expect(await provider.updateCreateDate(3,createDate)).toEqual(null);
       });
     })
 
-    //UpdateCloseDate
-    describe('UpdateCloseDate',()=>{
+    //updateCloseDate
+    describe('updateCloseDate',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'UpdateCloseDate')
+        .spyOn(provider,'updateCloseDate')
         .mockImplementation(():Promise<void> => Promise.resolve());
         const closeDate = new Date();
-        expect(await provider.UpdateCloseDate(3,closeDate)).toBeUndefined()
+        expect(await provider.updateCloseDate(3,closeDate)).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'UpdateCloseDate').mockResolvedValue(null);
+        jest.spyOn(provider, 'updateCloseDate').mockResolvedValue(null);
         const closeDate = new Date();
-        expect(await provider.UpdateCloseDate(3,closeDate)).toEqual(null);
+        expect(await provider.updateCloseDate(3,closeDate)).toEqual(null);
       });
     })
 
-    //UpdateType
-    describe('UpdateType',()=>{
+    //updateType
+    describe('updateType',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'UpdateType')
+        .spyOn(provider,'updateType')
         .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.UpdateType(3,"Pothole")).toBeUndefined()
+        expect(await provider.updateType(3,"Pothole")).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'UpdateType').mockResolvedValue(null);
-        expect(await provider.UpdateType(3,"Pothole")).toEqual(null);
+        jest.spyOn(provider, 'updateType').mockResolvedValue(null);
+        expect(await provider.updateType(3,"Pothole")).toEqual(null);
       });
     })
 
-    //UpdateLocation
-    describe('UpdateLocation',()=>{
+    //updateLocation
+    describe('updateLocation',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'UpdateLocation')
+        .spyOn(provider,'updateLocation')
         .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.UpdateLocation(3,"21 Duxbury Rd, Hatfield")).toBeUndefined()
+        expect(await provider.updateLocation(3,"21 Duxbury Rd, Hatfield")).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'UpdateLocation').mockResolvedValue(null);
-        expect(await provider.UpdateLocation(3,"21 Duxbury Rd, Hatfield")).toEqual(null);
+        jest.spyOn(provider, 'updateLocation').mockResolvedValue(null);
+        expect(await provider.updateLocation(3,"21 Duxbury Rd, Hatfield")).toEqual(null);
       });
     })
 
-    //UpdateCost
-    describe('UpdateCost',()=>{
+    //updateCost
+    describe('updateCost',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'UpdateCost')
+        .spyOn(provider,'updateCost')
         .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.UpdateCost(1,50000.00)).toBeUndefined()
+        expect(await provider.updateCost(1,50000.00)).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'UpdateCost').mockResolvedValue(null);
-        expect(await provider.UpdateCost(1,50000.00)).toEqual(null);
+        jest.spyOn(provider, 'updateCost').mockResolvedValue(null);
+        expect(await provider.updateCost(1,50000.00)).toEqual(null);
       });
     })
 
-    //UpdateDescription
-    describe('UpdateDescription',()=>{
+    //updateDescription
+    describe('updateDescription',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'UpdateDescription')
+        .spyOn(provider,'updateDescription')
         .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.UpdateDescription(1,"There is a large pothole.")).toBeUndefined()
+        expect(await provider.updateDescription(1,"There is a large pothole.")).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'UpdateDescription').mockResolvedValue(null);
-        expect(await provider.UpdateDescription(1,"There is a large pothole.")).toEqual(null);
+        jest.spyOn(provider, 'updateDescription').mockResolvedValue(null);
+        expect(await provider.updateDescription(1,"There is a large pothole.")).toEqual(null);
       });
     })
 
-    //UpdateRepairTime
-    describe('UpdateRepairTime',()=>{
+    //updateRepairTime
+    describe('updateRepairTime',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'UpdateRepairTime')
+        .spyOn(provider,'updateRepairTime')
         .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.UpdateRepairTime(1,20000)).toBeUndefined()
+        expect(await provider.updateRepairTime(1,20000)).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'UpdateRepairTime').mockResolvedValue(null);
-        expect(await provider.UpdateRepairTime(1,20000)).toEqual(null);
+        jest.spyOn(provider, 'updateRepairTime').mockResolvedValue(null);
+        expect(await provider.updateRepairTime(1,20000)).toEqual(null);
       });
     })
 
-    //UpdateUpvotes
-    describe('UpdateUpvotes',()=>{
+    //updateupvotes
+    describe('updateUpvotes',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(provider,'UpdateUpvotes')
+        .spyOn(provider,'updateUpvotes')
         .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.UpdateUpvotes(1,20)).toBeUndefined()
+        expect(await provider.updateUpvotes(1,20)).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(provider, 'UpdateUpvotes').mockResolvedValue(null);
-        expect(await provider.UpdateUpvotes(1,20)).toEqual(null);
+        jest.spyOn(provider, 'updateUpvotes').mockResolvedValue(null);
+        expect(await provider.updateUpvotes(1,20)).toEqual(null);
       });
     })
 
@@ -239,12 +232,11 @@ import { Ticket } from '@prisma/client';
 
   //getAllTickets endpoint
     describe('getAllTickets',()=>{
-    const arrayOfTickets = [ticketDtoMock];
+    const arrayOfTickets:TicketDto[] = [];
     it('should return all tickets',async ()=>{
       jest
       .spyOn(provider,'getAllTickets')
-      .mockImplementation(():Promise<TicketDto[]> => Promise.resolve(arrayOfTickets));
-    
+      .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
       expect(await provider.getAllTickets()).toMatchObject(
         expect.arrayContaining(arrayOfTickets)
       )
@@ -259,12 +251,11 @@ import { Ticket } from '@prisma/client';
 
     //getTicket endpoint
     describe('getTicket',()=>{
-    const arrayOfTickets = [ticketDtoMock];
+    const arrayOfTickets:TicketDto[] = [];
     it('should return a ticket',async ()=>{
       jest
       .spyOn(provider,'getTicket')
-      .mockImplementation(():Promise<TicketDto[]> => Promise.resolve(arrayOfTickets));
-    
+      .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
       expect(await provider.getTicket(2)).toMatchObject(
         expect.arrayContaining(arrayOfTickets)
       )
@@ -279,12 +270,11 @@ import { Ticket } from '@prisma/client';
 
     //getCityTicket endpoint
     describe('getCityTicket',()=>{
-    const arrayOfTickets = [ticketDtoMock];
+    const arrayOfTickets:TicketDto[] = [];
     it('should return tickets',async ()=>{
       jest
       .spyOn(provider,'getCityTicket')
-      .mockImplementation(():Promise<TicketDto[]> => Promise.resolve(arrayOfTickets));
-    
+      .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
       expect(await provider.getCityTicket("Pretoria")).toMatchObject(
         expect.arrayContaining(arrayOfTickets)
       )
@@ -299,12 +289,11 @@ import { Ticket } from '@prisma/client';
 
     //getStatus endpoint
     describe('getStatus',()=>{
-    const arrayOfTickets = [ticketDtoMock];
+    const arrayOfTickets:TicketDto[] = [];
     it('should return tickets',async ()=>{
       jest
       .spyOn(provider,'getStatus')
-      .mockImplementation(():Promise<TicketDto[]> => Promise.resolve(arrayOfTickets));
-    
+      .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
       expect(await provider.getStatus("In progress")).toMatchObject(
         expect.arrayContaining(arrayOfTickets)
       )

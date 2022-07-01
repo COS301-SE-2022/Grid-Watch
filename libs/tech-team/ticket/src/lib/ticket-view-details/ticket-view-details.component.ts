@@ -38,7 +38,7 @@ export class TicketViewDetailsComponent implements OnInit {
     this.http.get<TicketDto[]>(this.getAllURL).subscribe(
       (data) => {
         this.ticket = data[0];
-        this.ticket.ticket_img = "";
+        this.ticket.ticketImg = "";
         this.loadImage();
       }
       );
@@ -59,11 +59,11 @@ export class TicketViewDetailsComponent implements OnInit {
   async loadImage() : Promise<void> 
   {
     await this.delay(3000)
-    this.getPictureURL += this.ticket.ticket_id;
+    this.getPictureURL += this.ticket.ticketId;
     this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
       (data) => {
         console.log(data[0])
-        this.ticket.ticket_img = data[0].picture_link
+        this.ticket.ticketImg = data[0].pictureLink
     }
     );
   }

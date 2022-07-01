@@ -21,7 +21,7 @@
     <div id="descriptionField">
         <mat-form-field  appearance="outline" [floatLabel]="getFloatLabelValue()">
                 <mat-label>Description</mat-label>
-            <textarea matInput placeholder="Description" [(ngModel)]="ticket.ticket_description"></textarea>
+            <textarea matInput placeholder="Description" [(ngModel)]="ticket.ticketDescription"></textarea>
             </mat-form-field>
             <!-- <textarea class="form-control">{{ticket.ticket_description}}</textarea> -->
     </div>
@@ -49,7 +49,7 @@
         <div class=" locationPin">
         <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
             <mat-label class="">Pin location of issue</mat-label>
-            <input matInput placeholder="Pin location of issue" id="pac-input" type="text" [(ngModel)]="ticket.ticket_location">
+            <input matInput placeholder="Pin location of issue" id="pac-input" type="text" [(ngModel)]="ticket.ticketLocation">
             <button mat-icon-button matSuffix (click)="getCurrentLocation()">
                 <mat-icon>share_location</mat-icon>
             </button>

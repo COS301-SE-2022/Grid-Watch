@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input} from '@angular/core';
 import { Router } from '@angular/router';
-import { techTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
+import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 
 @Component({
@@ -13,7 +13,7 @@ export class RegisterTechTeamComponent {
 
   @Input() confirm_password! : string;
 
-  tech_profile : techTeamDto = new techTeamDto();
+  tech_profile : TechTeamDto = new TechTeamDto();
   
   createTechTeamURL = "http://localhost:3333/api/techteam/create";
   issue_options = ["Pothole", "Sinkhole", "Water Outage", "Electricity Outage", "Other"];
@@ -31,7 +31,7 @@ export class RegisterTechTeamComponent {
 
 
   register() : void {
-    this.http.post<techTeamDto[]>(this.createTechTeamURL, this.tech_profile, this.httpOptions)
+    this.http.post<TechTeamDto[]>(this.createTechTeamURL, this.tech_profile, this.httpOptions)
       .subscribe({
         next: (data) => {
             this.showSuccessMessage();

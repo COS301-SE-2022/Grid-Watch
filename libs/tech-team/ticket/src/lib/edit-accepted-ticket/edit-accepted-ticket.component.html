@@ -3,14 +3,14 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-12 col-lg-6">
-                    <div class="display-6 text-center">{{ticket.ticket_type}}</div>
+                    <div class="display-6 text-center">{{ticket.ticketType}}</div>
                     <div class="picturePreview">
-                        <div class="centered_element d-flex justify-content-center" *ngIf="ticket.ticket_img === ''"> 
+                        <div class="centered_element d-flex justify-content-center" *ngIf="ticket.ticketImg === ''"> 
                             <div class="spinner-border text-success text-center" >
                             </div>
                         </div>
-                        <div class="picturePreview border" *ngIf="ticket.ticket_img !== ''">
-                            <img src="assets/{{ticket.ticket_img}}" onerror="this.src='assets/solid_example.png'" alt="issue_image">
+                        <div class="picturePreview border" *ngIf="ticket.ticketImg !== ''">
+                            <img src="assets/{{ticket.ticketImg}}" onerror="this.src='assets/solid_example.png'" alt="issue_image">
                         </div>
                     </div>
                 </div>
@@ -19,16 +19,16 @@
                         <b>
                             Description : <br>
                         </b>
-                        {{ticket.ticket_description}}
+                        {{ticket.ticketDescription}}
                     </div>
                     <div class="ticket_create_date mt-1">
-                        <b>Create date :</b>  {{ticket.ticket_create_date}}
+                        <b>Create date :</b>  {{ticket.ticketCreateDate}}
                     </div>
                     <div class="ticket_address mt-1">
-                        <b>Address :</b> {{ticket.ticket_location}}
+                        <b>Address :</b> {{ticket.ticketLocation}}
                     </div>
                     <div class="ticket_city mt-1">
-                        <b> City:</b> {{ticket.ticket_city}}
+                        <b> City:</b> {{ticket.ticketCity}}
                     </div>
                     <div class="ticket_repair_time mt-3">
                         <label for="repair_time" class="form-label">Estimated Repair Time:</label>

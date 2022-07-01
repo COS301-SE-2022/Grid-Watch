@@ -57,3 +57,7 @@ export class GetAllPicturesQuery{
 export class GetPictureQuery{
     constructor(public readonly ticketId){}
 }
+
+export class GetAllSubtasksQuery{
+    constructor(public readonly ticketId){}
+}

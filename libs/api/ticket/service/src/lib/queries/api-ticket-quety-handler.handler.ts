@@ -1,5 +1,5 @@
 import {IQueryHandler, QueryHandler} from '@nestjs/cqrs';
-import {CloseTicketQuery, GetCityTicketQuery, GetStatusQuery, GetTicketQuery,GetTicketsDispatchedQuery,GetTicketsQuery, GetIssueQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery, GetAllPicturesQuery, GetPictureQuery } from './api-ticket-query.query';
+import {CloseTicketQuery, GetCityTicketQuery, GetStatusQuery, GetTicketQuery,GetTicketsDispatchedQuery,GetTicketsQuery, GetIssueQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery, GetAllPicturesQuery, GetPictureQuery, GetAllSubtasksQuery } from './api-ticket-query.query';
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
 import { Logger } from '@nestjs/common';
 
@@ -137,5 +137,15 @@ export class GetPictureHandler implements IQueryHandler<GetPictureQuery>{
     async execute(query: GetPictureQuery){
         const{ticketId: ticketId} = query;
         return this.repository.getPicture(ticketId);
+    }
+}
+
+@QueryHandler(GetAllSubtasksQuery)
+export class GetAllSubtasksHandler implements IQueryHandler<GetAllSubtasksQuery>{
+    constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
+
+    async execute(query: GetAllSubtasksQuery){
+        const{ticketId: ticketId} = query;
+        return this.repository.getTicketSubtasks(ticketId);
     }
 }

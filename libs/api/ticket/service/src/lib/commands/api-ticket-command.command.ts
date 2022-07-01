@@ -1,5 +1,6 @@
 import { Logger } from "@nestjs/common";
 import { TicketDto } from "@grid-watch/api/ticket/api/shared/ticketdto";
+import exp = require("constants");
 
 export class CreateTicketCommand{
     constructor(
@@ -74,4 +75,33 @@ export class UpdatePictureCommand{
 
 export class DeletePictureCommand{
     constructor(public readonly pictureId){}
+}
+
+export class CreateSubtaskCommand{
+    constructor(public readonly ticketId, public readonly taskDesc, public readonly taskStep,public readonly taskStat){}
+}
+
+
+export class UpdateSubtaskCommand{
+    constructor(public readonly subtaskID, public readonly ticketId,public readonly taskDesc, public readonly taskStep, public readonly taskStat){}
+}
+
+export class UpdateSubtaskTicketCommand{
+    constructor(public readonly subtaskID, public readonly ticketId){}
+}
+
+export class UpdateSubtaskDescCommand{
+    constructor(public readonly subtaskID, public readonly desc){}
+}
+
+export class UpdateSubtaskStepCommand{
+    constructor(public readonly subtaskID, public readonly step){}
+}
+
+export class UpdateSubtaskStatusCommand{
+    constructor(public readonly subtaskID, public readonly status){}
+}
+
+export class DeleteSubtaskCommand{
+    constructor(public readonly subtaskID){}
 }

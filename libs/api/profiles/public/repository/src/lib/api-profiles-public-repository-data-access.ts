@@ -132,19 +132,31 @@ export class ApiProfilesPublicRepositoryDataAccess{
     }
     
     async updateUser(userId:number,userDto:UserDto){
+        if(!userDto.name)
+            throw Error("name_falsy");
+        if(!userDto.email)
+            throw Error("email_falsy");
+        if(!userDto.password)
+            throw Error("password_falsy");
 
-        await this.prisma.user.update({
-            where:{
+        const salt = await this.bcrypt.genSalt(6);
+        const hash = await this.bcrypt.hash(userDto.password, salt)
+
+        const user = await this.prisma.user.update({
+            where:
+            {
                 id : userId,
             },
             data:
             {
-                name :                  techTeamDto.name,
-                email :                 techTeamDto.email,
-                specialisation :        techTeamDto.specialisation,
-                contactNumber :         techTeamDto.contactNumber,
+                name :                  userDto.name,
+                email :                 userDto.email,
+                password :              hash,
+                passwordSalt:           salt,
+
             },
         });
+        return user
     }
 
 

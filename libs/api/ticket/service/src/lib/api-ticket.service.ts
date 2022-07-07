@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 //import {Ticket,PrismaClient} from '@prisma/client';
 import {QueryBus,CommandBus} from '@nestjs/cqrs';
-import { GetTicketQuery, GetIssueQuery, GetTicketsQuery,GetCityTicketQuery,GetStatusQuery,CloseTicketQuery, GetTicketsDispatchedQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery, GetAllPicturesQuery, GetPictureQuery } from './queries/api-ticket-query.query';
+import { GetTicketQuery, GetIssueQuery, GetTicketsQuery,GetCityTicketQuery,GetStatusQuery,CloseTicketQuery, GetTicketsDispatchedQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery, GetAllPicturesQuery, GetPictureQuery, GetAllSubtasksQuery } from './queries/api-ticket-query.query';
 import { CreateTicketCommand,
     UpdateTicketCommand, 
     DeleteTicketCommand, 
@@ -18,7 +18,14 @@ import { CreateTicketCommand,
     UpdateTicketUpVotesCommand, 
     IncUpvotesCommand,
     UpdatePictureCommand,
-    DeletePictureCommand} from './commands/api-ticket-command.command';
+    DeletePictureCommand,
+    CreateSubtaskCommand,
+    UpdateSubtaskCommand,
+    UpdateSubtaskDescCommand,
+    UpdateSubtaskStepCommand,
+    UpdateSubtaskTicketCommand,
+    UpdateSubtaskStatusCommand,
+    DeleteSubtaskCommand} from './commands/api-ticket-command.command';
 
 @Injectable()
 export class ApiTicketService {
@@ -142,5 +149,38 @@ export class ApiTicketService {
 
     async deletePicture(pictureId:number){
         return await this.commandBus.execute(new DeletePictureCommand(pictureId))
+    }
+
+    async createSubtask(ticketId: number, taskDesc: string,taskStep: number,taskStat: string){
+        return await this.commandBus.execute(new CreateSubtaskCommand(ticketId,taskDesc,taskStep,taskStat))
+    }
+
+    async getAllSubtasks(ticketId){
+        return await this.queryBus.execute(new GetAllSubtasksQuery(ticketId))
+
+    }
+
+    async updateSubtask(subtaskID : number, ticketId : number, taskDesc:string, taskStep:number, taskStat: string){
+        return await this.commandBus.execute(new UpdateSubtaskCommand(subtaskID,ticketId,taskDesc,taskStep,taskStat))
+    }
+
+    async updateSubtaskTicket(subtaskID : number, ticketId : number){
+        return await this.commandBus.execute(new UpdateSubtaskTicketCommand(subtaskID,ticketId))
+    }
+
+    async updateSubtaskDesc(subtaskID : number, desc : string){
+        return await this.commandBus.execute(new UpdateSubtaskDescCommand(subtaskID,desc))
+    }
+
+    async updateSubtaskStep(subtaskID : number, step : number){
+        return await this.commandBus.execute(new UpdateSubtaskStepCommand(subtaskID,step))
+    }
+
+    async updateSubtaskStatus(subtaskID : number, stat : string){
+        return await this.commandBus.execute(new UpdateSubtaskStatusCommand(subtaskID,stat))
+    }
+
+    async deleteSubtask(subtaskID: number){
+        return await this.commandBus.execute(new DeleteSubtaskCommand(subtaskID))
     }
 }

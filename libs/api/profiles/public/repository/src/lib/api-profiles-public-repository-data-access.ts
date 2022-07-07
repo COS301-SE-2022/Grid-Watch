@@ -90,7 +90,7 @@ export class ApiProfilesPublicRepositoryDataAccess{
         
     }
 
-    async verifyPassword(email:string, Password:string)
+    async verifyUserPassword(email:string, Password:string)
     {
         const user = await this.prisma.user.findFirst({
 
@@ -111,7 +111,7 @@ export class ApiProfilesPublicRepositoryDataAccess{
 
     }
 
-    async updatePassword(techTeamId: number, newPassword: string){
+    async updateUserPassword(userId: number, newPassword: string){
 
         if(!newPassword)
         throw Error("password_falsy");
@@ -119,9 +119,9 @@ export class ApiProfilesPublicRepositoryDataAccess{
         const salt = await this.bcrypt.genSalt(6);
         const hash = await this.bcrypt.hash(newPassword, salt)
 
-            await this.prisma.techTeam.update({
+            await this.prisma.user.update({
                 where:{
-                    id : techTeamId,
+                    id : userId,
                 },
                 data:
                 {
@@ -160,7 +160,7 @@ export class ApiProfilesPublicRepositoryDataAccess{
     }
 
 
-    async updateEmail(userId:number,userEmail:string){
+    async updateUserEmail(userId:number,userEmail:string){
 
         await this.prisma.user.update({
             where:{
@@ -173,7 +173,7 @@ export class ApiProfilesPublicRepositoryDataAccess{
         });
     }
 
-    async updateName(userId:number,userName:string){
+    async updateUserName(userId:number,userName:string){
 
         await this.prisma.user.update({
             where:{
@@ -186,12 +186,12 @@ export class ApiProfilesPublicRepositoryDataAccess{
         });
     }
 
-    async deleteUser(techTeamId: number){
+    async deleteUser(userId: number){
 
-        await this.prisma.techTeam.delete({
+        await this.prisma.user.delete({
             where:
             {
-                id : techTeamId,
+                id : userId,
             },
         })
     }

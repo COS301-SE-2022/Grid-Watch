@@ -77,6 +77,7 @@ export class UpdateTechTeamNrJobsCompletedHandler implements ICommandHandler<Upd
     constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
 
     async execute(command: UpdateTechTeamNrJobsCompletedCommand) {
+
         const{techTeamId,nrJobsCompleted} = command;
         return this.repository.updateTechTeamNrJobsCompleted(techTeamId,nrJobsCompleted);
     }

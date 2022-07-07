@@ -112,9 +112,10 @@ prisma = new PrismaClient();
 
         const techTeam = await this.prisma.techTeam.findMany({
 
+            // string can use &(and) or | (or)
             where:{
                 specialisation: {
-                   // search: string
+                    search: specs
                 },
             },
 

@@ -159,7 +159,6 @@ export class ApiProfilesPublicRepositoryDataAccess{
         return user
     }
 
-
     async updateUserEmail(userId:number,userEmail:string){
 
         await this.prisma.user.update({

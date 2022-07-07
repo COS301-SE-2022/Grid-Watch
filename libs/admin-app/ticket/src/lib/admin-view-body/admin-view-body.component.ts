@@ -30,7 +30,7 @@ export class AdminViewBodyComponent implements OnInit {
   cities: Filters[] = [];
   dates: Date[] = [];
   filterChecked: string[] = [];
-  sort_options: string[] = [
+  sortoptions: string[] = [
     'Original',
     'Date',
     'Issue',
@@ -39,7 +39,7 @@ export class AdminViewBodyComponent implements OnInit {
     'Status',
     'Upvotes',
   ];
-  selected_option!: string;
+  selectedoption!: string;
 
   displayedColumns: string[] = [
     'Date',
@@ -110,12 +110,12 @@ export class AdminViewBodyComponent implements OnInit {
 
   initialiseFilters() {
     for (let index = 0; index < this.tickets.length; index++) {
-      let filter: Filters = {name : this.tickets[index].ticket_status, checked : false};
+      let filter: Filters = {name : this.tickets[index].ticketStatus, checked : false};
       if (this.statuses.indexOf(filter) === -1)
         this.statuses.push(filter);
-      filter = {name : this.tickets[index].ticket_city, checked : false};
+      filter = {name : this.tickets[index].ticketCity, checked : false};
       this.cities.push(filter);
-      filter = {name : this.tickets[index].ticket_type, checked : false};
+      filter = {name : this.tickets[index].ticketType, checked : false};
       this.issues.push(filter);
     }
     this.statuses = this.statuses.filter((value, index, self) =>
@@ -136,7 +136,7 @@ export class AdminViewBodyComponent implements OnInit {
   adjustDates(): void {
     this.dates = [];
     for (let index = 0; index < this.tickets.length; index++) {
-      this.dates.push(new Date(this.tickets[index].ticket_create_date));
+      this.dates.push(new Date(this.tickets[index].ticketCreateDate));
     }
   }
 
@@ -144,28 +144,28 @@ export class AdminViewBodyComponent implements OnInit {
     for (let index = 0; index < data.length; index++) {
       this.tickets.push(data[index]);
       this.ticketsPERM.push(data[index]);
-      // console.log(this.tickets[index].ticket_location);
-      // this.tickets[index].ticket_location = await this.googleMapsService.getLocation(this.tickets[index].ticket_location);
-      this.ticketsPERM[index].ticket_location =
-        this.tickets[index].ticket_location;
+      // console.log(this.tickets[index].ticketLocation);
+      // this.tickets[index].ticketLocation = await this.googleMapsService.getLocation(this.tickets[index].ticketLocation);
+      this.ticketsPERM[index].ticketLocation =
+        this.tickets[index].ticketLocation;
     }
     this.dataSource = new MatTableDataSource(this.tickets);
   }
 
   copy(temp: TicketDto): TicketDto {
     const newTicket = new TicketDto();
-    newTicket.ticket_city = temp.ticket_city;
-    newTicket.ticket_close_date = temp.ticket_close_date;
-    newTicket.ticket_cost = temp.ticket_cost;
-    newTicket.ticket_create_date = temp.ticket_create_date;
-    newTicket.ticket_description = temp.ticket_description;
-    newTicket.ticket_id = temp.ticket_id;
-    newTicket.ticket_img = temp.ticket_img;
-    newTicket.ticket_location = temp.ticket_location;
-    newTicket.ticket_repair_time = temp.ticket_repair_time;
-    newTicket.ticket_status = temp.ticket_status;
-    newTicket.ticket_type = temp.ticket_type;
-    newTicket.ticket_upvotes = temp.ticket_upvotes;
+    newTicket.ticketCity = temp.ticketCity;
+    newTicket.ticketCloseDate = temp.ticketCloseDate;
+    newTicket.ticketCost = temp.ticketCost;
+    newTicket.ticketCreateDate = temp.ticketCreateDate;
+    newTicket.ticketDescription = temp.ticketDescription;
+    newTicket.ticketId = temp.ticketId;
+    newTicket.ticketImg = temp.ticketImg;
+    newTicket.ticketLocation = temp.ticketLocation;
+    newTicket.ticketRepairTime = temp.ticketRepairTime;
+    newTicket.ticketStatus = temp.ticketStatus;
+    newTicket.ticketType = temp.ticketType;
+    newTicket.ticketUpvotes = temp.ticketUpvotes;
     return newTicket;
   }
 
@@ -185,7 +185,7 @@ export class AdminViewBodyComponent implements OnInit {
       if (category == 'city')
       for (let index = 0; index < this.filterChecked.length; index++) {
         const temp = this.tickets.filter((ticket) => {
-          return ticket.ticket_city === this.filterChecked[index];
+          return ticket.ticketCity === this.filterChecked[index];
         });
         filterdTickets = filterdTickets.concat(temp);
       }
@@ -193,7 +193,7 @@ export class AdminViewBodyComponent implements OnInit {
       if (category == 'status')
       for (let index = 0; index < this.filterChecked.length; index++) {
         const temp = this.tickets.filter((ticket) => {
-          return ticket.ticket_status === this.filterChecked[index];
+          return ticket.ticketStatus === this.filterChecked[index];
         });
         filterdTickets = filterdTickets.concat(temp);
       }
@@ -201,7 +201,7 @@ export class AdminViewBodyComponent implements OnInit {
       if (category == 'issue')
       for (let index = 0; index < this.filterChecked.length; index++) {
         const temp = this.tickets.filter((ticket) => {
-          return ticket.ticket_type === this.filterChecked[index];
+          return ticket.ticketType === this.filterChecked[index];
         });
         filterdTickets = filterdTickets.concat(temp);
       }

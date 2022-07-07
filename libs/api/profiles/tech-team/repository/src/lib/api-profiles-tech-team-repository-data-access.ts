@@ -1,6 +1,7 @@
 import { HashLocationStrategy } from '@angular/common';
 import { Injectable } from '@nestjs/common';
 import {PrismaClient} from '@prisma/client';
+import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 @Injectable()
 
 export class ApiProfilesTechTeamRepositoryDataAccess {
@@ -9,31 +10,31 @@ prisma = new PrismaClient();
 
     bcrypt = require('bcrypt');
 
-    async createTechTeam(Name: string, Email: string, Specialisation: string, ContactNr: string, Password : string){
+    async createTechTeam(techTeamDto:TechTeamDto){
 
-        if(!Name)
+        if(!techTeamDto.name)
             throw Error("name_falsy");
-        if(!Email)
+        if(!techTeamDto.email)
             throw Error("email_falsy");
-        if(!Specialisation)
+        if(!techTeamDto.specialisation)
             throw Error("specialisation_falsy");
-        if(!ContactNr)
+        if(!techTeamDto.contactNumber)
             throw Error("contactnr_falsy");
-        if(!Password)
+        if(!techTeamDto.password)
             throw Error("password_falsy");
 
         const salt = await this.bcrypt.genSalt(6);
-        const hash = await this.bcrypt.hash(Password, salt)
+        const hash = await this.bcrypt.hash(techTeamDto.password, salt)
 
         const techTeam = await this.prisma.techTeam.create({
             data:
             {
-                name :                  Name,
-                email :                 Email,
-                specialisation :        Specialisation,
-                contact_number :        ContactNr,
-                rating_of_jobs :        0.0,
-                nr_jobs_completed :     0,
+                name :                  techTeamDto.name,
+                email :                 techTeamDto.email,
+                specialisation :        techTeamDto.specialisation,
+                contactNumber :         techTeamDto.contactNumber,
+                ratingOfJobs :          0.0,
+                nrJobsCompleted :       0,
                 password :              hash,
                 passwordSalt:           salt,
                 created :               new Date()
@@ -45,12 +46,12 @@ prisma = new PrismaClient();
 
     }
 
-    async verifyPassword(Email:string, password:string)
+    async verifyPassword(email:string, Password:string)
     {
         const techTeam = await this.prisma.techTeam.findFirst({
             where:
             {
-                email : Email,
+                email : email,
             },
             select:
             {
@@ -59,7 +60,7 @@ prisma = new PrismaClient();
             },
         });
 
-        const hash = await this.bcrypt.hash(password, techTeam.passwordSalt); 
+        const hash = await this.bcrypt.hash(Password, techTeam.passwordSalt); 
 
         return techTeam.password==hash;
 
@@ -71,7 +72,7 @@ prisma = new PrismaClient();
 
     async getTechTeamId(ID: number){
 
-        const techteam = await this.prisma.techTeam.findMany({
+        const techTeam = await this.prisma.techTeam.findMany({
 
             where:{
                 id : ID,
@@ -79,8 +80,8 @@ prisma = new PrismaClient();
 
         })
 
-        if (techteam) {
-            return techteam;
+        if (techTeam) {
+            return techTeam;
         }
         else{
             return "Techteam id = " + ID + " not found!";
@@ -88,21 +89,21 @@ prisma = new PrismaClient();
         
     }
 
-    async getTechTeamName(Name: string){
+    async getTechTeamName(name: string){
 
-        const techteam = await this.prisma.techTeam.findMany({
+        const techTeam = await this.prisma.techTeam.findMany({
 
             where:{
-                name : Name,
+                name : name,
             },
 
         })
 
-        if (techteam) {
-            return techteam;
+        if (techTeam) {
+            return techTeam;
         }
         else{
-            return "Techteam " + Name + " not found!";
+            return "Techteam " + name + " not found!";
         }
         
     }
@@ -110,7 +111,7 @@ prisma = new PrismaClient();
     
     async getTechTeamSpecialisation(specs: string){
 
-        const techteam = await this.prisma.techTeam.findMany({
+        const techTeam = await this.prisma.techTeam.findMany({
 
             where:{
                 specialisation: {
@@ -120,8 +121,8 @@ prisma = new PrismaClient();
 
         })
 
-        if (techteam) {
-            return techteam;
+        if (techTeam) {
+            return techTeam;
         }
         else{
             return "Techteam with specialisation " + specs + " not found!";
@@ -129,101 +130,101 @@ prisma = new PrismaClient();
 
     }
 
-    async UpdateTechTeam(TechTeamId: number, Name: string, Email: string,Specialisation: string, ContactNr: string){
+    async updateTechTeam(techTeamId: number, techTeamDto:TechTeamDto){
 
         await this.prisma.techTeam.update({
             where:{
-                id : TechTeamId,
+                id : techTeamId,
             },
             data:
             {
-                name :                  Name,
-                email :                 Email,
-                specialisation :        Specialisation,
-                contact_number :        ContactNr,
+                name :                  techTeamDto.name,
+                email :                 techTeamDto.email,
+                specialisation :        techTeamDto.specialisation,
+                contactNumber :         techTeamDto.contactNumber,
             },
         });
     }
     
-    async UpdateTechTeamName(TechTeamId: number, Name: string){
+    async updateTechTeamName(techTeamId: number, name: string){
 
         await this.prisma.techTeam.update({
             where:{
-                id: TechTeamId,
+                id: techTeamId,
             },
             data:
             {
-                name : Name,    
+                name : name,    
             },
         });
 
     }
 
-    async UpdateTechTeamEmail(TechTeamId: number, Email: string){
+    async updateTechTeamEmail(techTeamId: number, email: string){
 
         await this.prisma.techTeam.update({
             where:{
-                id: TechTeamId,
+                id: techTeamId,
             },
             data:
             {
-                name : Email,    
+                name : email,    
             },
         });
 
     }
 
-    async UpdateTechTeamSpecialisation(TechTeamId: number, Specialisation: string){
+    async updateTechTeamSpec(techTeamId: number, specialisation: string){
 
         await this.prisma.techTeam.update({
             where:{
-                id: TechTeamId,
+                id: techTeamId,
             },
             data:
             {
-                specialisation : Specialisation,    
+                specialisation : specialisation,    
             },
         });
 
     }
 
-    async UpdateTechTeamContactNr(TechTeamId: number, Contact: string){
+    async updateTechTeamContactNr(techTeamId: number, Contact: string){
 
         await this.prisma.techTeam.update({
             where:{
-                id: TechTeamId,
+                id: techTeamId,
             },
             data:
             {
-                contact_number : Contact,    
+                contactNumber : Contact,    
             },
         });
 
     }
 
-    async UpdateTechTeamNrJobsCompleted(TechTeamId: number, NrJobsCompleted: number){
+    async updateTechTeamNrJobsCompleted(techTeamId: number, NrJobsCompleted: number){
 
         await this.prisma.techTeam.update({
             where:{
-                id: TechTeamId,
+                id: techTeamId,
             },
             data:
             {
-                nr_jobs_completed : NrJobsCompleted,    
+                nrJobsCompleted : NrJobsCompleted,    
             },
         });
 
     }
 
-    async IncTechTeamNrJobsCompleted(TechTeamId: number){
+    async incTechTeamNrJobsCompleted(techTeamId: number){
 
         await this.prisma.techTeam.update({
             where:{
-                id: TechTeamId,
+                id: techTeamId,
             },
             data:
             {
-                nr_jobs_completed:{
+                nrJobsCompleted:{
                     increment: 1,
                 } 
             },
@@ -231,75 +232,80 @@ prisma = new PrismaClient();
 
     }
 
-    async UpdateTechTeamRatingJobs(TechTeamId: number, RatingJobs: number){
+    async updateTechTeamRatingJobs(techTeamId: number, ratingJobs: number){
 
         await this.prisma.techTeam.update({
             where:{
-                id: TechTeamId,
+                id: techTeamId,
             },
             data:
             {
-                rating_of_jobs : RatingJobs,    
+                ratingOfJobs : ratingJobs,    
             },
         });
 
     }
 
-    async DeleteTechTeam(TechTeamId: number){
+    async deleteTechTeam(techTeamId: number){
 
         await this.prisma.techTeam.delete({
             where:
             {
-                id : TechTeamId,
+                id : techTeamId,
             },
         })
     }
 
-    async createTechTeamTicket(TechTeamID: number, TicketID : number ){
+    //TechTeamTicket
+
+    async createTechTeamTicket(techTeamId: number, ticketID : number ){
         await this.prisma.techTeamTicket.create({
             data:
             {
-                techteam_ID :   TechTeamID,
-                ticket_ID :     TicketID,
+                techTeamId :   techTeamId,
+                ticketId :     ticketID,
             },
         });
     }
 
-    async getTechTeamTickets(TechTeamID: number){
+    async getTechTeamTickets(techTeamID: number){
 
-        const techteam = await this.prisma.techTeamTicket.findMany({
+        const techTeam = await this.prisma.techTeamTicket.findMany({
 
             where:{
-                techteam_ID: TechTeamID
+                techTeamId: techTeamID
             },
 
         })
 
-        if (techteam) {
-            return techteam;
+        if (techTeam) {
+            return techTeam;
         }
         else{
-            return "Techteam " + TechTeamID + " has no tickets!";
+            return "Techteam " + techTeamID + " has no tickets!";
         }
     }
 
-    async getTechTeamFromTicket(TicketID: number){
+    async getTechTeamFromTicket(ticketID: number){
 
-        const techteam = await this.prisma.techTeamTicket.findMany({
+        const techTeam = await this.prisma.techTeamTicket.findMany({
 
             where:{
-                id : TicketID
+                id : ticketID
             },
 
         })
 
-        if (techteam) {
-            return techteam;
+        if (techTeam) {
+            return techTeam;
         }
         else{
-            return " No Techteam with Ticket ID " + TicketID + "!";
+            return " No Techteam with Ticket ID " + ticketID + "!";
         }
     }
-    
+
+    //update
+    //delete
+
 }
 

@@ -105,7 +105,7 @@ describe('TicketController', () => {
     //getAll endpoint
     describe('getAll',()=>{
       const arrayOfTickets = [ticketDtoMock];
-      it('should return all tickes',async ()=>{
+      it('should return all tickets',async ()=>{
         jest
         .spyOn(controller,'getAll')
         .mockImplementation(():Promise<TicketDto[]> => Promise.resolve(arrayOfTickets));
@@ -292,8 +292,8 @@ describe('TicketController', () => {
       });
     })
 
-    //CloseTicket endpoint
-    describe('CloseTicket',()=>{
+    //closeTicket endpoint
+    describe('closeTicket',()=>{
       it('should return true',async ()=>{
         jest
         .spyOn(controller,'closeTicket')

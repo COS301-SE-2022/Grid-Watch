@@ -6,29 +6,29 @@
                     <img class="border rounded-circle p-1" src="{{avatar}}" alt="avatar">
                 </div>
                 <div class="d-none">
-                    {{ticket.ticket_id}}
+                    {{ticket.ticketId}}
                 </div>
                 <mat-card-title>
                     {{name}} {{surname}}
                 </mat-card-title>
                 <mat-card-subtitle>
                     <div>
-                        {{ticket.ticket_type}}
+                        {{ticket.ticketType}}
                     </div>
                     <div>
                         <img class="pin_location" src="assets/location-pin-solid.svg" alt="">
-                        <span class="location_heading">&ensp;{{ticket.ticket_location}}</span>
+                        <span class="location_heading">&ensp;{{ticket.ticketLocation}}</span>
                     </div>
                 </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-                <img mat-card-image  class="uploaded_issue_image h-75" src="assets/{{ticket.ticket_img}}" onerror="this.src='assets/solid_example.png'">
-                <p class = "mt-3">{{ticket.ticket_description}}</p>
+                <img mat-card-image  class="uploaded_issue_image h-75" src="assets/{{ticket.ticketImg}}" onerror="this.src='assets/solid_example.png'">
+                <p class = "mt-3">{{ticket.ticketDescription}}</p>
             </mat-card-content>
             <mat-card-footer>
                 <div class="row">
                     <div class="col-10">
-                        <img (click)="IncreaseUpvote(ticket.ticket_id, i)" class="upvote_img m-2" src="assets/circle-up-solid.svg" alt="upvote icon"> {{ticket.ticket_upvotes}} 
+                        <img (click)="IncreaseUpvote(ticket.ticketId, i)" class="upvote_img m-2" src="assets/circle-up-solid.svg" alt="upvote icon"> {{ticket.ticketUpvotes}} 
                     </div>
                     <div class="col-1">    
                         <div class="settings_icon_container">
@@ -36,7 +36,7 @@
                                 <img  class="settings_icon" src="assets/ellipsis-vertical-solid.svg" alt="settings_icon">
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" [routerLink]="['/editTicket', {id:ticket.ticket_id}]">Edit </a></li>
+                                <li><a class="dropdown-item" [routerLink]="['/editTicket', {id:ticket.ticketId}]">Edit </a></li>
                                 <li><a class="dropdown-item" >Report</a></li>
                                 <li><a class="dropdown-item" >Delete</a></li>
                             </ul>

@@ -17,6 +17,7 @@ import { Express } from 'express';
 import { diskStorage, Multer } from 'multer';
 import { Helper } from './helper';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
+import { HttpParams } from '@angular/common/http';
 
 @Controller('ticket')
 export class TicketController {
@@ -32,13 +33,13 @@ export class TicketController {
     //get endpiont to return a specific ticket
     @Get(':id')
     async getTicket(@Param() params){
-        return this.apiTicketService.GetTicket(parseInt(params.id));
+        return this.apiTicketService.getTicket(parseInt(params.id));
     }
 
     //get endpoint to increment the ticket upvotes
     @Get('inc/:id')
     async incUpvotes(@Param() params){
-        return this.apiTicketService.IncUpvotes(parseInt(params.id));
+        return this.apiTicketService.incUpvotes(parseInt(params.id));
     }
 
     //get endpoint to return tickets in a specified city
@@ -60,56 +61,56 @@ export class TicketController {
     //get endpint to return all tickets
     @Get('/all/tickets')
     async getAll(){
-        return this.apiTicketService.GetAll();
+        return this.apiTicketService.getAll();
     }
 
     //get endpint to return all tickets sort by Date
     @Get('/all/tickets/Date')
     async getAllSortByDate(){
-        return this.apiTicketService.GetAllSortByDate();
+        return this.apiTicketService.getAllSortByDate();
     }
     
     //get endpint to return all tickets sort by Issue
     @Get('/all/tickets/Issue')
     async getAllSortByIssue(){
-        return this.apiTicketService.GetAllSortByIssue();
+        return this.apiTicketService.getAllSortByIssue();
     }
     
     //get endpint to return all tickets sort by City
     @Get('/all/tickets/City')
     async getAllSortByCity(){
-        return this.apiTicketService.GetAllSortByCity();
+        return this.apiTicketService.getAllSortByCity();
     }
     
     //get endpint to return all tickets sort by Status
     @Get('/all/tickets/Status')
     async getAllSortByStatus(){
-        return this.apiTicketService.GetAllSortBystatus();
+        return this.apiTicketService.getAllSortBystatus();
     }
     
     //get endpint to return all tickets sort by Upvotes
     @Get('/all/tickets/Upvotes')
     async getAllSortByUpvotes(){
-        return this.apiTicketService.GetAllSortByUpvotes();
+        return this.apiTicketService.getAllSortByUpvotes();
     }
 
     //get endpint to return all tickets dispatched
     @Get('/all/tickets/dispatched')
     async getAllDispatched(){
-        return this.apiTicketService.GetAllDispatched();
+        return this.apiTicketService.getAllDispatched();
     }
 
 
     //creating tickets
     @Post('/create')
     async createTicket(@Body() ticket: TicketDto){
-        return this.apiTicketService.createTicket(ticket.ticket_status,ticket.ticket_create_date,ticket.ticket_close_date,ticket.ticket_type,ticket.ticket_city,ticket.ticket_location,ticket.ticket_cost,ticket.ticket_description,ticket.ticket_repair_time,ticket.ticket_upvotes);
+        return this.apiTicketService.createTicket(ticket);
     }
 
     //update ticket 
     @Put('/update/:id')
     async updateTicket(@Param() params,@Body() ticket: TicketDto):Promise<boolean> {
-        return this.apiTicketService.UpdateTicket(parseInt(params.id),ticket.ticket_status,ticket.ticket_create_date,ticket.ticket_close_date,ticket.ticket_type,ticket.ticket_city,ticket.ticket_location,ticket.ticket_cost,ticket.ticket_description,ticket.ticket_repair_time,ticket.ticket_upvotes);
+        return this.apiTicketService.updateTicket(parseInt(params.id),ticket);
     }
 
     //update ticket status
@@ -234,5 +235,63 @@ export class TicketController {
     async deletePicture(@Body() PictureId: number):Promise<boolean> {
         return this.apiTicketService.deletePicture(PictureId["PictureId"]);
     }
+
+    //////////////////////////////////////////////
+    /////////////Subtask Endpionts////////////////
+    //////////////////////////////////////////////
+
+    //creating ticket subtasks
+    @Post('/subtask/create/:id')
+    async createSubtask(@Param() params,@Body() tasks){
+        //return this.apiTicketService.createSubtask(parseInt(params.id),tasks['taskDesc'],parseInt(tasks['taskStep']),tasks['taskStat']);
+    }
+
+    //get all subtasks of specific ticket
+    @Get('/subtasks/:id')
+    async getAllSubtasks(@Param() params){
+       // return this.apiTicketService.getAllSubtasks(parseInt(params.id));
+    }
+
+    //update subtask endpoint
+    @Put('/subtask/update/:id')
+    async updateSubtask(@Param() params, @Body() tasks): Promise<boolean>{
+        //return this.apiTicketService.updateSubtask(parseInt(params.id),parseInt(tasks['ticketId']),tasks['taskDesc'],parseInt(tasks['taskStep']),tasks['tasskStat']);
+        return true;
+    }
+
+    //update subtask ticket endpoint
+    @Put('/subtask/updateticket/:id')
+    async updateSubtaskTicket(@Param() params, @Body() tasks): Promise<boolean>{
+        //return this.apiTicketService.updatesubtaskTicket(parseInt(params.id),parseInt(tasks['ticketId']));
+        return true;
+    }
+     
+    //update subtask description endpint
+    @Put('/subtask/update/desc/:id')
+    async updateSubtaskDesc(@Param() params, @Body() tasks): Promise<boolean>{
+        //return this.apiTicketService.updateSubtaskDesc(parseInt(params.id),tasks["desc"]);
+        return true;
+    }
+
+    //update subtask step endpint
+    @Put('/subtask/update/step/:id')
+    async updateSubtaskStep(@Param() params, @Body() tasks): Promise<boolean>{
+        //return this.apiTicketService.updateSubtaskStep(parseInt(params.id),parseInt(tasks["step"]));
+        return true;
+    }
+   
+    //update subtask status endpoint
+    @Put('/subtask/update/status/:id')
+    async updateSubtaskStatus(@Param() params, @Body() tasks): Promise<boolean>{
+        //return this.apiTicketService.updateSubtaskStatus(parseInt(params.id),tasks['stat']);
+        return true;
+    } 
+    
+    //delete subtask endpoint
+    @Delete('/subtask/delete')
+    async deleteSubtask(@Body() taskId: number):Promise<boolean> {
+        //return this.apiTicketService.deleteSubtask(parseInt(taskId['taskId']));
+        return true;
+    } 
 
 }

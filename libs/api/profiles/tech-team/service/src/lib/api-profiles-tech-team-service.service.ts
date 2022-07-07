@@ -10,51 +10,54 @@ import {CreateTechTeamCommand,
     UpdateTechTeamRatingJobsCommand,
     IncTechTeamNrJobsCompletedCommand,
     DeleteTechTeamCommand} from './commands/api-tech-team-command.command';
+import {TechTeamDto} from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 
 @Injectable()
 export class ApiProfilesTechTeamServiceService {
     constructor(private commandBus: CommandBus){}
 
-    async createTechTeam(Name: string, Email: string, Specialisation: string, ContactNr: string, Password :string){
-            return await this.commandBus.execute(new CreateTechTeamCommand(Name,Email,Specialisation,ContactNr,Password))
+ 
+    async createTechTeam(techTeamDto: TechTeamDto){
+            return await this.commandBus.execute(new CreateTechTeamCommand(techTeamDto))
     }
 
-    async updateTechTeam(TechTeamId: number,Name: string,Email: string, Specialisation: string, ContactNr:string){
+    async updateTechTeam(techTeamId: number,techTeamDto: TechTeamDto){
 
-            return await this.commandBus.execute(new UpdateTechTeamCommand(TechTeamId,Name,Email,Specialisation,ContactNr))
+            return await this.commandBus.execute(new UpdateTechTeamCommand(techTeamId,techTeamDto))
     }
 
-    async updateTechTeamName(TechTeamId: number,Name: string){
-            return await this.commandBus.execute(new UpdateTechTeamNameCommand(TechTeamId,Name))
-
-    }
-
-    async updateTechTeamEmail(TechTeamId: number, Email: string){
-            return await this.commandBus.execute(new UpdateTechTeamEmailCommand(TechTeamId,Email))
-    }
-
-    async updateTechTeamSpecialisation(TechTeamId: number, Specialisation:string){
-        return await this.commandBus.execute(new UpdateTechTeamSpecialisationCommand(TechTeamId,Specialisation))
-    }
-
-    async updateTechTeamContactNr(TechTeamId: number, ContactNr: string){
-        return await this.commandBus.execute(new UpdateTechTeamContactNrCommand(TechTeamId,ContactNr))
-    }
-
-    async updateTechTeamNrJobsCompleted(TechTeamId: number, NrJobsCompleted: number){
-        return await this.commandBus.execute(new UpdateTechTeamNrJobsCompletedCommand(TechTeamId,NrJobsCompleted))
-    }
-
-    async IncTechTeamNrJobsCompleted(TechTeamId: number){
-        return await this.commandBus.execute(new IncTechTeamNrJobsCompletedCommand(TechTeamId))
-    }
-
-    async updateTechTeamRatingJobs(TechTeamId: number, RatingJobs: number){
-        return await this.commandBus.execute(new UpdateTechTeamRatingJobsCommand(TechTeamId,RatingJobs))
+    async updateTechTeamName(techTeamId: number,Name: string){
+            return await this.commandBus.execute(new UpdateTechTeamNameCommand(techTeamId,Name))
 
     }
 
-    async DeleteTechTeam(TechTeamId: number){
-        return await this.commandBus.execute(new DeleteTechTeamCommand(TechTeamId))
+    async updateTechTeamEmail(techTeamId: number, Email: string){
+            return await this.commandBus.execute(new UpdateTechTeamEmailCommand(techTeamId,Email))
+    }
+
+    async updateTechTeamSpecialisation(techTeamId: number, Specialisation:string){
+        return await this.commandBus.execute(new UpdateTechTeamSpecialisationCommand(techTeamId,Specialisation))
+    }
+
+    async updateTechTeamContactNr(techTeamId: number, ContactNr: string){
+        return await this.commandBus.execute(new UpdateTechTeamContactNrCommand(techTeamId,ContactNr))
+    }
+
+    async updateTechTeamNrJobsCompleted(techTeamId: number, NrJobsCompleted: number){
+        return await this.commandBus.execute(new UpdateTechTeamNrJobsCompletedCommand(techTeamId,NrJobsCompleted))
+    }
+
+    async incTechTeamNrJobsCompleted(techTeamId: number){
+        return await this.commandBus.execute(new IncTechTeamNrJobsCompletedCommand(techTeamId))
+    }
+
+    async updateTechTeamRatingJobs(techTeamId: number, RatingJobs: number){
+        return await this.commandBus.execute(new UpdateTechTeamRatingJobsCommand(techTeamId,RatingJobs))
+
+
+    }
+
+    async deleteTechTeam(techTeamId: number){
+        return await this.commandBus.execute(new DeleteTechTeamCommand(techTeamId))
     }
 }

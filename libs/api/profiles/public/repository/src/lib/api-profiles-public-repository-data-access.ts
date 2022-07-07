@@ -93,6 +93,7 @@ export class ApiProfilesPublicRepositoryDataAccess{
     async verifyPassword(email:string, Password:string)
     {
         const user = await this.prisma.user.findFirst({
+
             where:
             {
                 email : email,
@@ -110,67 +111,76 @@ export class ApiProfilesPublicRepositoryDataAccess{
 
     }
 
-async updatePassword(techTeamId: number, newPassword: string){
+    async updatePassword(techTeamId: number, newPassword: string){
 
-    if(!newPassword)
-    throw Error("password_falsy");
+        if(!newPassword)
+        throw Error("password_falsy");
 
-    const salt = await this.bcrypt.genSalt(6);
-    const hash = await this.bcrypt.hash(newPassword, salt)
+        const salt = await this.bcrypt.genSalt(6);
+        const hash = await this.bcrypt.hash(newPassword, salt)
 
+            await this.prisma.techTeam.update({
+                where:{
+                    id : techTeamId,
+                },
+                data:
+                {
+                    passwordSalt:   salt,
+                    password:       hash,
+                },
+            });
+    }
+    
+    async updateUser(userId:number,userDto:UserDto){
 
-        await this.prisma.techTeam.update({
+        await this.prisma.user.update({
             where:{
-                id : techTeamId,
+                id : userId,
             },
             data:
             {
-                passwordSalt:   salt,
-                password:       hash,
+                name :                  techTeamDto.name,
+                email :                 techTeamDto.email,
+                specialisation :        techTeamDto.specialisation,
+                contactNumber :         techTeamDto.contactNumber,
             },
         });
     }
-}
-
-async updateUser(userId:number,userDto:UserDto){
-
-    await this.prisma.user.update({
-        where:{
-            id : userId,
-        },
-        data:
-        {
-            name :                  techTeamDto.name,
-            email :                 techTeamDto.email,
-            specialisation :        techTeamDto.specialisation,
-            contactNumber :         techTeamDto.contactNumber,
-        },
-    });
-}
 
 
-async updateEmail(userId:number,userEmail:string){
+    async updateEmail(userId:number,userEmail:string){
 
-    await this.prisma.user.update({
-        where:{
-            id : userId,
-        },
-        data:
-        {
-            name :            userEmail,
-        },
-    });
-}
+        await this.prisma.user.update({
+            where:{
+                id : userId,
+            },
+            data:
+            {
+                name : userEmail,
+            },
+        });
+    }
 
-async updateName(userId:number,userName:string){
+    async updateName(userId:number,userName:string){
 
-    await this.prisma.user.update({
-        where:{
-            id : userId,
-        },
-        data:
-        {
-            name :              userName,
-        },
-    });
+        await this.prisma.user.update({
+            where:{
+                id : userId,
+            },
+            data:
+            {
+                name : userName,
+            },
+        });
+    }
+
+    async deleteUser(techTeamId: number){
+
+        await this.prisma.techTeam.delete({
+            where:
+            {
+                id : techTeamId,
+            },
+        })
+    }
 }

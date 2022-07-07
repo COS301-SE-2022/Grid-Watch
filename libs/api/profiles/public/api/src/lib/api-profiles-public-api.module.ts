@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import []
+import { ApiProfilesPublicApiController } from './controllers/api-profiles-public-api-controller.controller';
 
 @Module({
-  controllers: [TicketController],
-  imports:[ApiTicketServiceModule], 
+  controllers: [ApiProfilesPublicApiController],
+  imports:[], 
   providers: [],
   exports: [],
 })

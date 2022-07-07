@@ -11,7 +11,7 @@ import {
 import {UserDto} from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto'; 
 
 @Controller('public')
-export class ApiProfilesPublicApiControllerController {
+export class ApiProfilesPublicApiController {
 
     //constructor(private readonly apiTicketService:ApiTicketService){}
 

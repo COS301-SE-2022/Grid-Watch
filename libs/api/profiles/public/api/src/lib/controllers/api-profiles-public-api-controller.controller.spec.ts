@@ -1,7 +1,7 @@
-import { ApiProfilesPublicApiControllerController } from './api-profiles-public-api-controller.controller';
+import { ApiProfilesPublicApiController } from './api-profiles-public-api-controller.controller';
 
-describe('ApiProfilesPublicApiControllerController', () => {
+describe('ApiProfilesPublicApiController', () => {
   it('should be defined', () => {
-    expect(new ApiProfilesPublicApiControllerController()).toBeDefined();
+    expect(new ApiProfilesPublicApiController()).toBeDefined();
   });
 });

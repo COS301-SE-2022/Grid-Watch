@@ -31,6 +31,9 @@
       "@grid-watch/api/profiles/public/api": [
         "libs/api/profiles/public/api/src/index.ts"
       ],
+      "@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto": [
+        "libs/api/profiles/public/api/shared/api-profiles-public-api-dto/src/index.ts"
+      ],
       "@grid-watch/api/profiles/public/repository": [
         "libs/api/profiles/public/repository/src/index.ts"
       ],

@@ -10,6 +10,7 @@
     "api-profiles-admin-repository": "libs/api/profiles/admin/repository",
     "api-profiles-admin-service": "libs/api/profiles/admin/service",
     "api-profiles-public-api": "libs/api/profiles/public/api",
+    "api-profiles-public-api-shared-api-profiles-public-api-dto": "libs/api/profiles/public/api/shared/api-profiles-public-api-dto",
     "api-profiles-public-repository": "libs/api/profiles/public/repository",
     "api-profiles-public-service": "libs/api/profiles/public/service",
     "api-profiles-tech-team-api": "libs/api/profiles/tech-team/api",

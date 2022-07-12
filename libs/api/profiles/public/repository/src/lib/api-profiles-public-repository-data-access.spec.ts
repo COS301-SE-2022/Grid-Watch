@@ -111,11 +111,11 @@ const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
     
   //UpdateUser 
   describe('UpdateUser',()=>{
-    it('should return void',async ()=>{
+    it('should return user',async ()=>{
       jest
       .spyOn(provider,'updateUser')
       .mockImplementation(():Promise<UserDto> => Promise.resolve(userMock));
-      expect(await provider.updateUser(2,userMock)).toBeUndefined()
+      expect(await provider.updateUser(2,userMock)).toEqual(userMock)
     });
 
     it('should return null', async () => {

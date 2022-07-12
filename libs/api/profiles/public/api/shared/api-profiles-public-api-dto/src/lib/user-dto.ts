@@ -32,7 +32,7 @@ name! : string;
 
 @IsDate()
 @IsNotEmpty()
-created! : Date;
+dateCreated! : Date;
 
 
 }

@@ -1,6 +1,8 @@
 import { ApiProfilesPublicRepositoryDataAccess } from './api-profiles-public-repository-data-access';
 import {UserDto} from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { Test, TestingModule } from '@nestjs/testing';
+import { User } from '@prisma/client';
+
 const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
 
   describe('ApiTicketRepositoryDataAccess', () => {
@@ -55,7 +57,7 @@ const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
     it('should return void',async ()=>{
       jest
       .spyOn(provider,'updateUser')
-      .mockImplementation(():Promise<void> => Promise.resolve());
+      .mockImplementation(():Promise<UserDto> => Promise.resolve(userMock));
       expect(await provider.updateUser(2,userMock)).toBeUndefined()
     });
 
@@ -72,12 +74,12 @@ const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
       jest
       .spyOn(provider,'updateUserPassword')
       .mockImplementation(():Promise<void> => Promise.resolve());
-      expect(await provider.updateUserPassword(2,userMock)).toBeUndefined()
+      expect(await provider.updateUserPassword(2,userMock.password)).toBeUndefined()
     });
 
     it('should return null', async () => {
       jest.spyOn(provider, 'updateUserPassword').mockResolvedValue(null);
-      expect(await provider.updateUserPassword(2,userMock)).toEqual(null)
+      expect(await provider.updateUserPassword(2,userMock.password)).toEqual(null)
     });
   })
 

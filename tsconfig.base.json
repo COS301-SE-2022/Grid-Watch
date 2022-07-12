@@ -22,6 +22,9 @@
       "@grid-watch/api/profiles/admin/api": [
         "libs/api/profiles/admin/api/src/index.ts"
       ],
+      "@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto": [
+        "libs/api/profiles/admin/api/shared/api-profiles-admin-api-dto/src/index.ts"
+      ],
       "@grid-watch/api/profiles/admin/repository": [
         "libs/api/profiles/admin/repository/src/index.ts"
       ],

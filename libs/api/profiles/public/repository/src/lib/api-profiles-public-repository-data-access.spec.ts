@@ -12,8 +12,8 @@ const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
 
   
     userMock.name = "John";
-    userMock.email = "sparkyy3@gmail.com";
-    userMock.password = "Electricity";
+    userMock.email = "johndoe@gmail.com";
+    userMock.password = "johndoe1234";
 
     provider = module.get<ApiProfilesPublicRepositoryDataAccess>(
       ApiProfilesPublicRepositoryDataAccess

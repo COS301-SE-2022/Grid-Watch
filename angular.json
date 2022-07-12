@@ -29,6 +29,7 @@
     "shared-assets": "libs/shared-assets",
     "shared-ui": "libs/shared-ui",
     "tech-team": "apps/tech-team",
+    "tech-team-dashboard": "libs/tech-team/dashboard",
     "tech-team-e2e": "apps/tech-team-e2e",
     "tech-team-profile": "libs/tech-team/profile",
     "tech-team-ticket": "libs/tech-team/ticket"

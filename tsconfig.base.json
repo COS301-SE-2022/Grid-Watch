@@ -76,6 +76,9 @@
       ],
       "@grid-watch/shared-ui": ["libs/shared-ui/src/index.ts"],
       "@grid-watch/tech-team-app": ["libs/tech-team-app/src/index.ts"],
+      "@grid-watch/tech-team/dashboard": [
+        "libs/tech-team/dashboard/src/index.ts"
+      ],
       "@grid-watch/tech-team/profile": ["libs/tech-team/profile/src/index.ts"],
       "@grid-watch/tech-team/profile/tech-team-dto": [
         "/libs/api/profiles/tech-team/api/src/lib/dto/api-profiles-tech-team-api.dto.ts"

@@ -7,6 +7,7 @@ import { GoogleMapsService, SharedUiModule } from '@grid-watch/shared-ui';
 import { HomePageBodyComponent } from '@grid-watch/public/home-page';
 import { TechTeamProfileModule } from '@grid-watch/tech-team/profile';
 import { TechTeamTicketModule } from '@grid-watch/tech-team/ticket';
+import { TechTeamDashboardModule } from '@grid-watch/tech-team/dashboard';
 
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
@@ -22,7 +23,9 @@ const routes: Routes = [
     SharedUiModule,
     TechTeamTicketModule,
     TechTeamProfileModule,
+    TechTeamDashboardModule,
     RouterModule.forRoot(routes),
+
   ],
   providers: [GoogleMapsService],
   bootstrap: [AppComponent],

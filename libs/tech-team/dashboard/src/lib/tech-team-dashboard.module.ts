@@ -15,7 +15,7 @@ import { DashboardBodyComponent } from './dashboard-body/dashboard-body.componen
 
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
-      // {path: 'home', pathMatch: 'full', component: DashboardBodyComponent} 
+      {path: 'home', pathMatch: 'full', component: DashboardBodyComponent} 
     ]),
 
     MatGridListModule,
@@ -29,6 +29,7 @@ import { DashboardBodyComponent } from './dashboard-body/dashboard-body.componen
     MatButtonModule,
 
     LayoutModule,
+
   ],
   declarations: [DashboardBodyComponent],
   exports: [DashboardBodyComponent],

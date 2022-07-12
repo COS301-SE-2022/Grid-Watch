@@ -1,5 +1,6 @@
 import {PrismaClient} from '@prisma/client';
 import { Injectable } from '@nestjs/common';
+import {AdminDto} from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto'
 
 @Injectable()
 

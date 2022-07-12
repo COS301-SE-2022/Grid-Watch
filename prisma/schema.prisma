@@ -21,7 +21,7 @@ model User{
   password            String
   passwordSalt        String?    
   name                String
-  created             DateTime  @default(now())
+  dateCreated         DateTime  @default(now())
 
   @@map("user")
 }
@@ -119,7 +119,11 @@ model AuthorizedOfficials {
   name            String
   email           String      @unique
   contactNumber   String      @unique @db.VarChar(10)
-  cities          String
+  cities          String[]
 
+  password          String
+  passwordSalt      String?    
+  created           DateTime  @default(now())
+  
   @@map("authorizedofficials")
 }

@@ -111,26 +111,6 @@ export class ApiProfilesPublicRepositoryDataAccess{
 
     }
 
-    async updateUserPassword(userId: number, newPassword: string){
-
-        if(!newPassword)
-        throw Error("password_falsy");
-
-        const salt = await this.bcrypt.genSalt(6);
-        const hash = await this.bcrypt.hash(newPassword, salt)
-
-            await this.prisma.user.update({
-                where:{
-                    id : userId,
-                },
-                data:
-                {
-                    passwordSalt:   salt,
-                    password:       hash,
-                },
-            });
-    }
-    
     async updateUser(userId:number,userDto:UserDto){
         if(!userDto.name)
             throw Error("name_falsy");
@@ -159,6 +139,40 @@ export class ApiProfilesPublicRepositoryDataAccess{
         return user
     }
 
+
+    async updateUserPassword(userId: number, newPassword: string){
+
+        if(!newPassword)
+        throw Error("password_falsy");
+
+        const salt = await this.bcrypt.genSalt(6);
+        const hash = await this.bcrypt.hash(newPassword, salt)
+
+            await this.prisma.user.update({
+                where:{
+                    id : userId,
+                },
+                data:
+                {
+                    passwordSalt:   salt,
+                    password:       hash,
+                },
+            });
+    }
+    
+    async updateUserName(userId:number,userName:string){
+
+        await this.prisma.user.update({
+            where:{
+                id : userId,
+            },
+            data:
+            {
+                name : userName,
+            },
+        });
+    }
+
     async updateUserEmail(userId:number,userEmail:string){
 
         await this.prisma.user.update({
@@ -172,18 +186,6 @@ export class ApiProfilesPublicRepositoryDataAccess{
         });
     }
 
-    async updateUserName(userId:number,userName:string){
-
-        await this.prisma.user.update({
-            where:{
-                id : userId,
-            },
-            data:
-            {
-                name : userName,
-            },
-        });
-    }
 
     async deleteUser(userId: number){
 

@@ -338,7 +338,7 @@ import { Picture, Ticket } from '@prisma/client';
       jest
       .spyOn(provider,'getAllPictures')
       .mockImplementation(():Promise<Picture[]>=>Promise.resolve(arrayOfTickets))
-      expect(await provider.getAllTickets()).toMatchObject(
+      expect(await provider.getAllPictures(1)).toMatchObject(
         expect.arrayContaining(arrayOfTickets)
       )
     });

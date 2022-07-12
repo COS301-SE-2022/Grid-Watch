@@ -8,6 +8,8 @@ import { HomePageBodyComponent } from '@grid-watch/public/home-page';
 import { TechTeamProfileModule } from '@grid-watch/tech-team/profile';
 import { TechTeamTicketModule } from '@grid-watch/tech-team/ticket';
 import { TechTeamDashboardModule } from '@grid-watch/tech-team/dashboard';
+import { TechTeamGeneralUiModule } from '@grid-watch/tech-team/general-ui';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
@@ -20,12 +22,13 @@ const routes: Routes = [
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     SharedUiModule,
     TechTeamTicketModule,
     TechTeamProfileModule,
     TechTeamDashboardModule,
+    TechTeamGeneralUiModule,
     RouterModule.forRoot(routes),
-
   ],
   providers: [GoogleMapsService],
   bootstrap: [AppComponent],

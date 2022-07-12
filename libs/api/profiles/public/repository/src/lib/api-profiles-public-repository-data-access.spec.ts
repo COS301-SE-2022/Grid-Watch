@@ -47,11 +47,68 @@ const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
   //     jest
   //     .spyOn(provider,'verifyPassword')
   //     .mockImplementation(():Promise<boolean> => Promise.resolve(true));
-  //     expect(await provider.verifyPassword("sparky@gmail.com", "123Anru")).toEqual(false)
+  //     expect(await provider.verifyUserPassword(userMock.email, userMock.password)).toEqual(false)
   //   });
 
   // })
 
+    //getUser endpoint
+    describe('getUser',()=>{
+      const arrayOfUsers:UserDto[] = [];
+        it('should return a user',async ()=>{
+          jest
+          .spyOn(provider,'getUser')
+          .mockImplementation(():Promise<UserDto[]>=>Promise.resolve(arrayOfUsers))
+          expect(await provider.getUser(2)).toMatchObject(
+            expect.arrayContaining(arrayOfUsers)
+          )
+        });
+        
+        it('should return null', async () => {
+          jest.spyOn(provider, 'getUser').mockResolvedValue(null);
+          
+          expect(await provider.getUser(2)).toEqual(null);
+        });
+    })
+
+    //getUserName endpoint
+    describe('getUserName',()=>{
+      const arrayOfUsers:UserDto[] = [];
+        it('should return a user',async ()=>{
+          jest
+          .spyOn(provider,'getUserName')
+          .mockImplementation(():Promise<UserDto[]>=>Promise.resolve(arrayOfUsers))
+          expect(await provider.getUserName(userMock.name)).toMatchObject(
+            expect.arrayContaining(arrayOfUsers)
+          )
+        });
+        
+        it('should return null', async () => {
+          jest.spyOn(provider, 'getUserName').mockResolvedValue(null);
+          
+          expect(await provider.getUserName(userMock.name)).toEqual(null);
+        });
+    })
+
+    //getUserEmail endpoint
+    describe('getUserEmail',()=>{
+      const arrayOfUsers:UserDto[] = [];
+        it('should return a user',async ()=>{
+          jest
+          .spyOn(provider,'getUserName')
+          .mockImplementation(():Promise<UserDto[]>=>Promise.resolve(arrayOfUsers))
+          expect(await provider.getUserName(userMock.email)).toMatchObject(
+            expect.arrayContaining(arrayOfUsers)
+          )
+        });
+        
+        it('should return null', async () => {
+          jest.spyOn(provider, 'getUserName').mockResolvedValue(null);
+          
+          expect(await provider.getUserName(userMock.email)).toEqual(null);
+        });
+    })
+    
   //UpdateUser 
   describe('UpdateUser',()=>{
     it('should return void',async ()=>{
@@ -67,7 +124,6 @@ const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
     });
   })
 
-  
   //UpdateUserPassword
   describe('UpdateUserPassword',()=>{
     it('should return void',async ()=>{

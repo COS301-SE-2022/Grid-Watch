@@ -124,7 +124,7 @@ export class ApiTicketRepositoryDataAccess {
 
         })
 
-        return tickets
+        return tickets;
 
     }
 

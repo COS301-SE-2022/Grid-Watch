@@ -252,20 +252,20 @@ import { Picture, Ticket } from '@prisma/client';
     //getTicket endpoint
     describe('getTicket',()=>{
     const arrayOfTickets:TicketDto[] = [];
-    it('should return a ticket',async ()=>{
-      jest
-      .spyOn(provider,'getTicket')
-      .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
-      expect(await provider.getTicket(2)).toMatchObject(
-        expect.arrayContaining(arrayOfTickets)
-      )
-    });
-    
-    it('should return null', async () => {
-      jest.spyOn(provider, 'getTicket').mockResolvedValue(null);
+      it('should return a ticket',async ()=>{
+        jest
+        .spyOn(provider,'getTicket')
+        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+        expect(await provider.getTicket(2)).toMatchObject(
+          expect.arrayContaining(arrayOfTickets)
+        )
+      });
       
-      expect(await provider.getTicket(2)).toEqual(null);
-    });
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getTicket').mockResolvedValue(null);
+        
+        expect(await provider.getTicket(2)).toEqual(null);
+      });
   })
 
     //getCityTicket endpoint
@@ -331,15 +331,22 @@ import { Picture, Ticket } from '@prisma/client';
       )
     });
 
+    it('should return null', async () => {
+      jest.spyOn(provider, 'getAllPictures').mockResolvedValue(null);
+      
+      expect(await provider.getAllPictures(2)).toEqual(null);
+    });
+  });
+
   //getAllPictures endpoint
   describe('getAllPictures',()=>{
-    const arrayOfTickets:Picture[] = [];
+    const arrayOfPictures:Picture[] = [];
     it('should return all pictures',async ()=>{
       jest
       .spyOn(provider,'getAllPictures')
-      .mockImplementation(():Promise<Picture[]>=>Promise.resolve(arrayOfTickets))
+      .mockImplementation(():Promise<Picture[]>=>Promise.resolve(arrayOfPictures))
       expect(await provider.getAllTickets()).toMatchObject(
-        expect.arrayContaining(arrayOfTickets)
+        expect.arrayContaining(arrayOfPictures)
       )
     });
     
@@ -379,8 +386,6 @@ import { Picture, Ticket } from '@prisma/client';
       jest.spyOn(provider, 'deletePicture').mockResolvedValue(null);
       expect(await provider.deletePicture(2)).toEqual(null);
     });
-  })   
-});
-
+  });
 
 });

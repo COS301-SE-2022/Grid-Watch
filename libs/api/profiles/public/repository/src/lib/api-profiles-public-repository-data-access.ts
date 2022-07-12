@@ -67,7 +67,7 @@ export class ApiProfilesPublicRepositoryDataAccess{
             return user;
         }
         else{
-            return "Username: " + userName + " not found!";
+            return "User with name " + userName + " not found!";
         }
         
     }
@@ -86,7 +86,7 @@ export class ApiProfilesPublicRepositoryDataAccess{
             return user;
         }
         else{
-            return "User email: " + userEmail + " not found!";
+            return "User with email " + userEmail + " not found!";
         }
         
     }
@@ -113,6 +113,7 @@ export class ApiProfilesPublicRepositoryDataAccess{
     }
 
     async updateUser(userId:number,userDto:UserDto){
+        
         if(!userDto.name)
             throw Error("name_falsy");
         if(!userDto.email)

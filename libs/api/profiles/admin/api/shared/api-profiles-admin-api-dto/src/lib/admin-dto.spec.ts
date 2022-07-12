@@ -1,9 +1,7 @@
 import { AdminDto} from './admin-dto';
 
 describe('AdminDto', () => {
-  it('should work', () => {
-    expect(new AdminDto()).toEqual(
-      'AdminDto'
-    );
+  it('should be defined', () => {
+    expect(new AdminDto()).toBeDefined();
   });
 });

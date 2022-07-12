@@ -1,5 +1,6 @@
 import { ApiProfilesPublicRepositoryDataAccess } from './api-profiles-public-repository-data-access';
-
+import {UserDto} from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
+import { Test, TestingModule } from '@nestjs/testing';
 const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
 
   describe('ApiTicketRepositoryDataAccess', () => {

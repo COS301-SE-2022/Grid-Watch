@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { ApiTicketRepositoryDataAccess } from './api-ticket-repository-data-access';
-import { Ticket } from '@prisma/client';
+import { Picture, Ticket } from '@prisma/client';
 
   const ticketDtoMock: jest.Mocked<TicketDto> = new TicketDto() as TicketDto;
 
@@ -305,5 +305,82 @@ import { Ticket } from '@prisma/client';
       expect(await provider.getStatus("In progress")).toEqual(null);
     });
   })
+
+  it('should be defined', () => {
+    expect(provider).toBeDefined();
+  });
+
+  //createPicture endpoint
+  describe('createPicture',()=>{
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'createPicture').mockResolvedValue(null);
+      expect(await provider.createPicture(2,"mypc/pictures")).toEqual(null)
+    });
+  })
+
+  //getPicture endpoint
+  describe('getPicture',()=>{
+    const arrayOfTickets:Picture[] = [];
+    it('should return a picture',async ()=>{
+      jest
+      .spyOn(provider,'getPicture')
+      .mockImplementation(():Promise<Picture[]>=>Promise.resolve(arrayOfTickets))
+      expect(await provider.getPicture(2)).toMatchObject(
+        expect.arrayContaining(arrayOfTickets)
+      )
+    });
+
+  //getAllPictures endpoint
+  describe('getAllPictures',()=>{
+    const arrayOfTickets:Picture[] = [];
+    it('should return all pictures',async ()=>{
+      jest
+      .spyOn(provider,'getAllPictures')
+      .mockImplementation(():Promise<Picture[]>=>Promise.resolve(arrayOfTickets))
+      expect(await provider.getAllTickets()).toMatchObject(
+        expect.arrayContaining(arrayOfTickets)
+      )
+    });
+    
+    it('should return null', async () => {
+      jest.spyOn(provider, 'getAllPictures').mockResolvedValue(null);
+      
+      expect(await provider.getAllPictures(2)).toEqual(null);
+    });
+  });
+
+  //UpdatePicture 
+  describe('UpdatePicture',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'updatePicture')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updatePicture(2,"mypc/pictures")).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'updatePicture').mockResolvedValue(null);
+      expect(await provider.updatePicture(2,"mypc/pictures")).toEqual(null)
+    });
+  });
+
+  //DeletePicture
+  describe('deletePicture',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'deletePicture')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+
+      expect(await provider.deletePicture(2)).toBeUndefined()
+    });
+  
+    it('should return null', async () => {
+      jest.spyOn(provider, 'deletePicture').mockResolvedValue(null);
+      expect(await provider.deletePicture(2)).toEqual(null);
+    });
+  })   
+});
+
 
 });

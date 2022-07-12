@@ -72,12 +72,12 @@ const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
       jest
       .spyOn(provider,'updateUserPassword')
       .mockImplementation(():Promise<void> => Promise.resolve());
-      expect(await provider.updateUserPassword(2,userMock)).toBeUndefined()
+      expect(await provider.updateUserPassword(2,userMock.password)).toBeUndefined()
     });
 
     it('should return null', async () => {
       jest.spyOn(provider, 'updateUserPassword').mockResolvedValue(null);
-      expect(await provider.updateUserPassword(2,userMock)).toEqual(null)
+      expect(await provider.updateUserPassword(2,userMock.password)).toEqual(null)
     });
   })
 
@@ -88,13 +88,13 @@ const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
         .spyOn(provider,'updateUserName')
         .mockImplementation(():Promise<void> => Promise.resolve());
 
-        expect(await provider.updateUserName(3,"John")).toBeUndefined()
+        expect(await provider.updateUserName(3,userMock.name)).toBeUndefined()
       });
   
       it('should return null', async () => {
         jest.spyOn(provider, 'updateUserName').mockResolvedValue(null);
 
-        expect(await provider.updateUserName(3,"John")).toEqual(null);
+        expect(await provider.updateUserName(3,userMock.name)).toEqual(null);
       });
     })
 
@@ -104,12 +104,12 @@ const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
         jest
         .spyOn(provider,'updateUserEmail')
         .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.updateUserEmail(3,"johndoe@gmail.com")).toBeUndefined()
+        expect(await provider.updateUserEmail(3,userMock.email)).toBeUndefined()
       });
   
       it('should return null', async () => {
         jest.spyOn(provider, 'updateUserEmail').mockResolvedValue(null);
-        expect(await provider.updateUserEmail(3,"johndoe@gmail.com")).toEqual(null);
+        expect(await provider.updateUserEmail(3,userMock.email)).toEqual(null);
       });
     })
 

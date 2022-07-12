@@ -403,7 +403,6 @@ export class ApiTicketRepositoryDataAccess {
        // return "The ticket with id: " + ticketID + " has been deleted."
     }
 
-
     //////////////////////////////////
     ///////// Picture CRUDS //////////
     //////////////////////////////////

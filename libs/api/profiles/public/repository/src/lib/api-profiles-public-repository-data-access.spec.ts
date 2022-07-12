@@ -15,8 +15,8 @@ const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
 
   
     userMock.name = "John";
-    userMock.email = "sparkyy3@gmail.com";
-    userMock.password = "Electricity";
+    userMock.email = "johndoe@gmail.com";
+    userMock.password = "johndoe1234";
 
     provider = module.get<ApiProfilesPublicRepositoryDataAccess>(
       ApiProfilesPublicRepositoryDataAccess
@@ -90,13 +90,13 @@ const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
         .spyOn(provider,'updateUserName')
         .mockImplementation(():Promise<void> => Promise.resolve());
 
-        expect(await provider.updateUserName(3,"John")).toBeUndefined()
+        expect(await provider.updateUserName(3,userMock.name)).toBeUndefined()
       });
   
       it('should return null', async () => {
         jest.spyOn(provider, 'updateUserName').mockResolvedValue(null);
 
-        expect(await provider.updateUserName(3,"John")).toEqual(null);
+        expect(await provider.updateUserName(3,userMock.name)).toEqual(null);
       });
     })
 
@@ -106,12 +106,12 @@ const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
         jest
         .spyOn(provider,'updateUserEmail')
         .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.updateUserEmail(3,"johndoe@gmail.com")).toBeUndefined()
+        expect(await provider.updateUserEmail(3,userMock.email)).toBeUndefined()
       });
   
       it('should return null', async () => {
         jest.spyOn(provider, 'updateUserEmail').mockResolvedValue(null);
-        expect(await provider.updateUserEmail(3,"johndoe@gmail.com")).toEqual(null);
+        expect(await provider.updateUserEmail(3,userMock.email)).toEqual(null);
       });
     })
 

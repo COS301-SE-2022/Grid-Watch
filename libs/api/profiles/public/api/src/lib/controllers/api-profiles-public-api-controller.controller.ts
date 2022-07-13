@@ -75,8 +75,6 @@ export class ApiProfilesPublicApiController {
         return this.apiProfilesPublicService.updateUserName(parseInt(params.id),userName["name"]);
     }
 
-    
-
     @Delete('/delete')
     async deleteUser(@Body() userId: number):Promise<boolean> {
         return this.apiProfilesPublicService.deleteUser(userId["userId"]);

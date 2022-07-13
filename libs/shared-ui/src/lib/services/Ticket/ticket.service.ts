@@ -31,6 +31,7 @@ export class TicketService {
   private createPictureURL = "/api/ticket/picture/create/";
   private createTicketURL = "/api/ticket/create";
   private UpdateStatusURL = "/api/ticket/update/status/";
+  private getTicketStatus = "/api/ticket/status/";
 
 
   constructor(private http : HttpClient) {
@@ -75,6 +76,14 @@ export class TicketService {
     return this.http.get<TicketDto[]>(this.getAllURL)
     .pipe(
       catchError(this.handleError<TicketDto[]>('getTickets', []))
+    );
+   } 
+
+   public getTicketsType(status: string) : Observable<TicketDto[]> {
+    const tempURL = this.getTicketStatus + status ;
+    return this.http.get<TicketDto[]>(tempURL)
+    .pipe(
+      catchError(this.handleError<TicketDto[]>('getTicketsType', []))
     );
    } 
 

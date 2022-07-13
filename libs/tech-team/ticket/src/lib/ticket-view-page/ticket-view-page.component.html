@@ -33,13 +33,13 @@
         {{ticket.ticketLocation}}
       </div>
       <div class="ticketInformation">
+        <div class="status">
+          {{ticket.ticketStatus}}
+        </div>
         <div class="dateCreated">
           <i>
             {{ticket.ticketCreateDate.toLocaleString()}}
           </i>
-        </div>
-        <div class="status">
-          {{ticket.ticketStatus}}
         </div>
       </div>
     </mat-card-content>

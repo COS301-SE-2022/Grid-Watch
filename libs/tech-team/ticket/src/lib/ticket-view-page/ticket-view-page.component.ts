@@ -10,7 +10,6 @@ import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
   styleUrls: ['./ticket-view-page.component.scss'],
 })
 export class TicketViewPageComponent implements OnInit {
-  getAllURL = 'http://localhost:3333/api/ticket/all/tickets/dispatched';
   tickets: Array<TicketDto> = [];
 
   constructor(private router: Router, 
@@ -19,11 +18,7 @@ export class TicketViewPageComponent implements OnInit {
               private googleMapsService : GoogleMapsService,) {}
 
   ngOnInit(): void {
-    // this.http.get<TicketDto[]>(this.getAllURL).subscribe((data) => {
-    //   // console.log(data);
-    //   this.initialiseTicket(data);
-    // });
-    this.ticketService.getTickets().subscribe(
+    this.ticketService.getTicketsType("Dispatched").subscribe(
       (response) =>{
         this.initialiseTicket(response);
       })
@@ -36,12 +31,13 @@ export class TicketViewPageComponent implements OnInit {
     this.router.navigate([url, { id: id }]);
   }
 
-  initialiseTicket(data: TicketDto[]): void {
+  async initialiseTicket(data: TicketDto[]): Promise<void> {
     for (let index = 0; index < data.length; index++) {
       this.tickets.push(data[index]);
       this.tickets[index].ticketCreateDate = new Date(
         this.tickets[index].ticketCreateDate
       );
+      this.tickets[index].ticketLocation = await this.googleMapsService.getLocation(this.tickets[index].ticketLocation);
     }
     console.log(this.tickets);
   }

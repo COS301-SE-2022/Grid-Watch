@@ -132,7 +132,7 @@ export class ApiProfilesAdminRepositoryDataAccess {
             return admin;
         }
         else{
-            return "Admin city: " + adminCity + " not found!";
+            return "Admin ciity: " + adminCity + " not found!";
         }
         
     }

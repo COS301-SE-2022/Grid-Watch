@@ -6,6 +6,7 @@ import {VerifyUserPasswordCommand,
         UpdateUserNameCommand,
         UpdateUserEmailCommand,
         DeleteUserCommand,
+        CreateUserCommand,
 } from './commands/api-profiles-public-command.command';
 import{ GetUserQuery,
         GetUserNameQuery,
@@ -36,6 +37,10 @@ export class ApiProfilesPublicService {
     /////////////////////////////////////////
     ////////////////commands/////////////////
     /////////////////////////////////////////
+
+    async createUser(userDto: UserDto){
+        return await this.commandBus.execute(new CreateUserCommand(userDto));
+    }
 
     async verifyUserPassword(email: string, password: string){
         return await this.commandBus.execute(new VerifyUserPasswordCommand(email,password));

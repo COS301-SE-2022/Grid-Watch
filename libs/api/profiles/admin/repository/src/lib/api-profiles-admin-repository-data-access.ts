@@ -1,6 +1,7 @@
 import {PrismaClient} from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 import {AdminDto} from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto'
+import { finished } from 'stream';
 
 @Injectable()
 
@@ -132,9 +133,9 @@ export class ApiProfilesAdminRepositoryDataAccess {
             return admin;
         }
         else{
-            return "Admin ciity: " + adminCity + " not found!";
+            return "Admin city: " + adminCity + " not found!";
         }
-        
+
     }
 
     async AddAdminCity(adminId : number, city : string){

@@ -1,5 +1,5 @@
 <div id="navigation_button_groups" class="btn-group d-flex mt-4" role="group" aria-label="...">
-    <button type="button" class="btn btn-dark w-100 " routerLink="/home">
+    <button id = "menuLeftEnd" type="button" class="btn btn-dark w-100 " routerLink="/home">
         <span class="material-icons">home</span>
     </button>
     <button type="button" class="btn btn-dark w-100" routerLink="/tickets">
@@ -11,7 +11,7 @@
     <button type="button" class="btn btn-dark w-100" routerLink="/">
         <span class="material-icons">notifications</span>
     </button>
-    <button type="button" class="btn btn-dark w-100"  [routerLink]="['/login', {app:applicationType}]">
+    <button id = "menuRightEnd" type="button" class="btn btn-dark w-100"  [routerLink]="['/login', {app:applicationType}]">
         <span class="material-icons">account_circle</span>
     </button>
 </div>

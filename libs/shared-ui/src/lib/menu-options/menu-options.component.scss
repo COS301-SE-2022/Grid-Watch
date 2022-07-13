@@ -6,10 +6,30 @@
     height: 40px;
 }
 
+#navigation_button_groups button
+{
+    border-right:none;
+    border-left:none;
+}
+
 .btn.btn-dark.w-100 {
 	background: #8ec63f;
 }
 
 span{
     color: black;
+}
+
+#menuRightEnd
+{
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    border-right: none;
+}
+
+#menuLeftEnd
+{
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;    
+    border-left: none;
 }

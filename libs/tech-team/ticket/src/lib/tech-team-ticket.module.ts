@@ -8,6 +8,8 @@ import { AcceptedTicketViewComponent } from './accepted-ticket-view/accepted-tic
 import { EditAcceptedTicketComponent } from './edit-accepted-ticket/edit-accepted-ticket.component';
 import { FormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -15,6 +17,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
     HttpClientModule,
     FormsModule,
     GoogleMapsModule,
+    MatCardModule,
+    MatIconModule,
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
       {

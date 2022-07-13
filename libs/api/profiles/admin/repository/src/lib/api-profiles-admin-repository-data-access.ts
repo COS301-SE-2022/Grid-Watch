@@ -118,12 +118,12 @@ export class ApiProfilesAdminRepositoryDataAccess {
         
     }
 
-    async getAdminCities(adminEmail: string){
+    async getAdminCities(adminCity: string){
 
         const admin = await this.prisma.authorizedOfficials.findMany({
 
             where:{
-                email : adminEmail,
+                email : adminCity,
             },
 
         })
@@ -132,7 +132,7 @@ export class ApiProfilesAdminRepositoryDataAccess {
             return admin;
         }
         else{
-            return "Admin email: " + adminEmail + " not found!";
+            return "Admin ciity: " + adminCity + " not found!";
         }
         
     }

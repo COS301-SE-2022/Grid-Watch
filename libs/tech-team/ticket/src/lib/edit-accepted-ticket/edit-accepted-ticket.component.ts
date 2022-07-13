@@ -80,9 +80,6 @@ export class EditAcceptedTicketComponent implements OnInit {
      
     }
     
-    // if (error !== "")
-    //   this.showErrorMessage("There has been an error")
-    // if (output_message !== "")
       this.showSuccessMessage("Successfully updated ticket");
       
     this.router.navigateByUrl("/acceptedTickets");

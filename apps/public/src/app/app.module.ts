@@ -8,6 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomePageBodyComponent } from '@grid-watch/public/home-page';
 import { AdminAppTicketModule } from '@grid-watch/admin-app/ticket';
 import { SharedUiModule } from '@grid-watch/shared-ui';
+
 import { profile } from 'console';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { PublicUserProfileModule } from 'libs/public/user-profile/src';

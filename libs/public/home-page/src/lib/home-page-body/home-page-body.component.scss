@@ -7,3 +7,46 @@ img {
     width: 100%;
   }
 
+.home-1 {
+/* The image used */
+background-image: url("/assets/home-1.jpg");
+
+/* Set a specific height */
+min-height: 500px;
+
+/* Create the parallax scrolling effect */
+background-attachment: fixed;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+
+object-position: 0% 50%;
+}
+
+.home-2 {
+/* The image used */
+background-image: url("/assets/home-2.jpg");
+
+/* Set a specific height */
+min-height: 500px;
+
+/* Create the parallax scrolling effect */
+background-attachment: fixed;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+#home-1-logo
+{
+background-color:gray;
+}
+
+#h1-greet
+{
+background-color: rgba(0,0,0,0.5);
+color:white;
+right:0px;
+padding:20px;
+}
+

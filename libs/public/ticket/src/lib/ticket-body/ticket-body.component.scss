@@ -1,17 +1,6 @@
-.uploaded_issue_image
-{
-    height: max-content;
-    width: 250px;
-}
-
-.issue_card
-{
-    width: 300px;
-}
-
 img.upvote_img
 {
-    width: 20;
+    height:80%;
 }
 
 img.settings_icon 
@@ -19,38 +8,34 @@ img.settings_icon
     height: 25px;
 }
 
-
-
-.mat-card 
-{
-    display: flex;
-    flex-direction: column;
-}
-
-.mat-card-header 
-{
-    flex-shrink: 0;
-}
-
-.mat-card-content 
-{
-    flex-grow: 1;
-    overflow: auto;
-}
-
 img.pin_location
 {
-    height: 10px;
+    height: 15px;
 }
 
-.location_heading
+.cards
 {
-    font-size: 10px;
+    margin-top: 2%;
+    margin-left: 5%; 
+    margin-right:5%;
+    border: 2px #8ec63f solid;
 }
 
-.container{
-    width: fit-content;
-    margin:0 auto;
-    overflow-y: scroll;
-    margin-bottom: 50px;
+.ticketImg
+{
+    width:100%;
+    text-align: right;
+}
+
+.ticketEdit
+{
+    position:absolute;
+    right:0px;
+    text-decoration: none;
+    color:#8ec63f;    
+}
+
+.citizenName
+{
+    border-bottom: 1px solid #8ec63f;
 }

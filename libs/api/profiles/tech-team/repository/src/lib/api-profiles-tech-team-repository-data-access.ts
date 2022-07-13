@@ -1,4 +1,3 @@
-import { HashLocationStrategy } from '@angular/common';
 import { Injectable } from '@nestjs/common';
 import {PrismaClient} from '@prisma/client';
 import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
@@ -113,9 +112,10 @@ prisma = new PrismaClient();
 
         const techTeam = await this.prisma.techTeam.findMany({
 
+            // string can use &(and) or | (or)
             where:{
                 specialisation: {
-                   // search: string
+                    search: specs
                 },
             },
 
@@ -128,6 +128,27 @@ prisma = new PrismaClient();
             return "Techteam with specialisation " + specs + " not found!";
         }
 
+    }
+
+    async updatePassword(techTeamId: number, newPassword: string){
+
+    if(!newPassword)
+    throw Error("password_falsy");
+
+    const salt = await this.bcrypt.genSalt(6);
+    const hash = await this.bcrypt.hash(newPassword, salt)
+
+
+        await this.prisma.techTeam.update({
+            where:{
+                id : techTeamId,
+            },
+            data:
+            {
+                passwordSalt:   salt,
+                password:       hash,
+            },
+        });
     }
 
     async updateTechTeam(techTeamId: number, techTeamDto:TechTeamDto){

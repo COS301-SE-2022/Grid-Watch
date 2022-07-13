@@ -124,7 +124,7 @@ export class ApiTicketRepositoryDataAccess {
 
         })
 
-        return tickets
+        return tickets;
 
     }
 
@@ -402,7 +402,6 @@ export class ApiTicketRepositoryDataAccess {
         })
        // return "The ticket with id: " + ticketID + " has been deleted."
     }
-
 
     //////////////////////////////////
     ///////// Picture CRUDS //////////

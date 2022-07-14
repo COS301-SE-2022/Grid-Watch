@@ -1,19 +1,19 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ApiTicketService } from './api-ticket.service';
-import { createTicketHandler, IncUpvotesHandler,CreatePictureHandler,deleteTicketHandler, updateTicketHandler, updateTicketDescriptionHandler,updateTicketCloseDateHandler,updateTicketCostHandler,updateTicketCreateDateHandler,updateTicketLocationHandler,updateTicketRepairTimeHandler,updateTicketStatusHandler,updateTicketTypeHandler,updateTicketUpVotesHandler } from './commands/api-ticket-command-handler.handler';
+import { CreateTicketHandler, IncUpvotesHandler,CreatePictureHandler,DeleteTicketHandler, UpdateTicketHandler, UpdateTicketDescriptionHandler,UpdateTicketCloseDateHandler,UpdateTicketCostHandler,UpdateTicketCreateDateHandler,UpdateTicketLocationHandler,UpdateTicketRepairTimeHandler,UpdateTicketStatusHandler,UpdateTicketTypeHandler,UpdateTicketUpVotesHandler } from './commands/api-ticket-command-handler.handler';
 import { GetTicketHandler, GetTicketsHandler, GetCityHandler,CloseTicketHandler,GetStatusHandler, GetTicketsDispatchedHandler, GetIssueHandler, GetTicketsSortByDateHandler, GetTicketsSortByIssueHandler, GetTicketsSortByCityHandler, GetTicketsSortByStatusHandler, GetTicketsSortByUpvotesHandler, GetPictureHandler } from './queries/api-ticket-quety-handler.handler';
 import { ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
 
 @Module({
   imports: [CqrsModule],
   providers: [ApiTicketService,
-    createTicketHandler,
-    updateTicketHandler,
+    CreateTicketHandler,
+    UpdateTicketHandler,
     CreatePictureHandler,
     IncUpvotesHandler,
-    updateTicketDescriptionHandler,
-    deleteTicketHandler,
+    UpdateTicketDescriptionHandler,
+    DeleteTicketHandler,
     GetTicketHandler,
     GetTicketsHandler,
     GetTicketsDispatchedHandler,
@@ -27,14 +27,14 @@ import { ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository'
     ApiTicketRepositoryDataAccess,
     CloseTicketHandler,
     GetStatusHandler,
-    updateTicketCloseDateHandler,
-    updateTicketCostHandler,
-    updateTicketCreateDateHandler,
-    updateTicketLocationHandler,
-    updateTicketRepairTimeHandler,
-    updateTicketStatusHandler,
-    updateTicketTypeHandler,
-    updateTicketUpVotesHandler,
+    UpdateTicketCloseDateHandler,
+    UpdateTicketCostHandler,
+    UpdateTicketCreateDateHandler,
+    UpdateTicketLocationHandler,
+    UpdateTicketRepairTimeHandler,
+    UpdateTicketStatusHandler,
+    UpdateTicketTypeHandler,
+    UpdateTicketUpVotesHandler,
     GetPictureHandler,
   ],
   exports: [ApiTicketService],

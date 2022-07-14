@@ -19,6 +19,11 @@ export class TicketViewDetailsComponent implements OnInit {
   ticket! : TicketDto;
   issue_id! : string | null;
 
+  zoom! : number;
+  center! : Record<string, unknown>;
+  options!: Record<string, unknown>;
+  marker_position!: Record<string, unknown>;
+
   constructor(
     private router : Router,
     private http : HttpClient,
@@ -27,25 +32,38 @@ export class TicketViewDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.ticket = new TicketDto();
+    
     this.issue_id = this.route.snapshot.paramMap.get('id');
     this.getAllURL += this.issue_id;
     this.http.get<TicketDto[]>(this.getAllURL).subscribe(
       (data) => {
         this.ticket = data[0];
+        this.ticket.ticketImg = "";
         this.loadImage();
       }
       );
+
+    this.zoom = 5.5;
+    this.center =  {
+      lat: -30.5595,
+      lng: 22.9375,
+    };
+    this.options = {
+      zoomControl: true,
+      scrollwheel: false,
+    }
       
     
   }
 
-  loadImage() : void 
+  async loadImage() : Promise<void> 
   {
-    this.getPictureURL += this.ticket.ticket_id;
+    await this.delay(3000)
+    this.getPictureURL += this.ticket.ticketId;
     this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
       (data) => {
         console.log(data[0])
-        this.ticket.ticket_img = data[0].picture_link
+        this.ticket.ticketImg = data[0].pictureLink
     }
     );
   }
@@ -88,6 +106,10 @@ export class TicketViewDetailsComponent implements OnInit {
     
     alert("Successfully accepted the ticket")
   }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
 }
 
 

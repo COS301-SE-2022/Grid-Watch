@@ -1,24 +1,29 @@
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+
+<nav id="generalNavbar" class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
         <a routerLink="/home" class="navbar-brand">Gridwatch</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse row" id="collapsibleNavbar">
-            <div class="col-10">
+            <div class="col-lg-10">
                 <ul class="navbar-nav" >
                     <li class="nav-item" *ngFor="let option of options, index as i">
-                        <a class="nav-link" routerLink="{{router_options[i]}}">{{option}}</a>
+                        <a class="nav-link" id="{{option}}" routerLink="{{router_options[i]}}">{{option}}</a>
                     </li>
 
                 </ul>
             </div>
             <div class="navbar-nav brand col ml-auto">
-                <a  class="nav-item nav-link notifications" >
-                    <img src="assets/bell-solid.svg" alt="bell-icon">
-                    <span class="position-relative top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <a  class="nav-item nav-link notifications d-none d-lg-inline"  >
+                    <img class="notifications_icon" src="assets/bell-solid.svg" alt="bell-icon">
+                    <span class="position-relative top-0 start-0 translate-middle badge rounded-pill bg-danger">
                         1
                     </span>
+                </a>
+                <a  class="nav-item nav-link notifications d-inline d-lg-none" >
+                    <img class="notifications_icon" src="assets/bell-solid.svg" alt="bell-icon">
+                    Notifications
                 </a>
                 <div class="nav-item dropdown">
                     <a data-bs-toggle="dropdown" aria-expanded="false" id="drop-down-toggle" (click)="dropdown()" class="nav-link dropdown-toggle user-action"><img src="assets/user-solid.svg" class="avatar" alt="Avatar"> John Doe <b class="caret"></b></a>
@@ -35,11 +40,12 @@
                             <img src="assets/gear-solid.svg" class="profile_option_img" alt="settings_option_img"> 
                             Settings
                         </a>
-                        <!-- <div class="dropdown-divider"></div> -->
-                        <!-- <a href="#" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a> -->
                     </div>
                 </div>
             </div>
+            <!-- <h2 id="classIdentifier" class="navbar-nav brand col ml-auto">
+
+            </h2> -->
         </div>
     </div>
 </nav>

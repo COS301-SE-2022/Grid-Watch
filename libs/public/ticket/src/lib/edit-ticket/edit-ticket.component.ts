@@ -6,6 +6,10 @@ import { Multer } from 'multer';
 import { GoogleMap } from '@angular/google-maps';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
+import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
+import { Loader } from '@googlemaps/js-api-loader';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { FloatLabelType } from '@angular/material/form-field';
 
 @Component({
   selector: 'grid-watch-edit-ticket',
@@ -14,83 +18,85 @@ import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-pictu
 })
 export class EditTicketComponent implements OnInit {
 
+  
+  hideRequiredControl = new FormControl(false);
+  floatLabelControl = new FormControl('auto' as FloatLabelType);
+  formOptions = this.formBuilder.group({
+    hideRequired: this.hideRequiredControl,
+    floatLabel: this.floatLabelControl,
+  });
+
   autocomplete!: google.maps.places.Autocomplete;
-  marker_position!: google.maps.LatLng | google.maps.LatLngLiteral
 
-  zoom! : number;
-  center! : google.maps.LatLngLiteral | google.maps.LatLng;
-  options!: google.maps.MapOptions;
-
-  display_name! : string | null;
-  default_upload! : string | null;
+  displayName! : string | null;
+  issueOptions = ["Pothole", "Sinkhole", "Broken Light", "Broken Robot", "Water Outage", "Electricity Outage", "Other"]
+  defaultUpload! : string | null;
   @Input() issue_type! : string;
   @Input() other_details! : string;
   file! : File;
+  waiting! : boolean;
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json'
-    })
-  };
-
-
+  placeID! : string;
   @Input() ticket! : TicketDto;
-  updateURL = "http://localhost:3333/api/ticket/update/";
-  getTicketURL = "http://localhost:3333/api/ticket/";
-  uploadURL = "http://localhost:3333/api/ticket/upload";
-  getPictureURL = "http://localhost:3333/api/ticket/picture/";
+  map!: google.maps.Map;
+  marker!: google.maps.Marker
+
+
 
   constructor(
       private route: ActivatedRoute, 
       private http : HttpClient,
-      private router : Router) {
+      private router : Router,
+      private ticketService :TicketService, 
+      private googleMapsService: GoogleMapsService, 
+      private formBuilder : FormBuilder) {
   }
 
 
-  ngOnInit(): void {
-    this.ticket = new TicketDto();
-
+  async ngOnInit(): Promise<void> {
+    const loader = new Loader({
+      apiKey: "AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE",
+      version: "weekly",
+      libraries: ["places"]
+    });
     
-    this.zoom = 5.5;
-    this.center =  {
-      lat: -30.5595,
-      lng: 22.9375,
-    };
-    this.options = {
-      zoomControl: true,
-      scrollwheel: false,
-    }
+    loader.load().then(() => {
+
+      this.initMap();
+
+      //Get parameters
+    const tempID = this.route.snapshot.paramMap.get('id');
+    if (tempID)
+      this.ticketService.getTicket(tempID).subscribe(
+        (response) => {
+          console.log(response);
+          this.ticket = response[0];
+          this.initialiseFields(response[0]);
+        }
+      )
+      
+      }, (error) =>{console.log(error);
+      });
+
+    this.ticket = new TicketDto();
+    this.defaultUpload = "";    
+    this.waiting = true;
 
     //User Data
-    this.default_upload = "assets/upload-solid.svg"
-    this.display_name = "John Doe";
+    this.displayName = "John Doe";
 
-    //Get parameters
-    const temp = this.route.snapshot.paramMap.get('id');
-
-    //Add parameter to URL
-    this.getTicketURL = this.getTicketURL + temp
-    this.updateURL = this.updateURL + temp
-    
-    this.http.get<TicketDto[]>(this.getTicketURL, this.httpOptions).subscribe(
-      (data) =>
-      {
-        this.ticket = data[0];
-        this.initialiseFields(data[0]);
-        this.initMap();
-      }
-      )
   }
 
-  fileUploaded(e: any)
+  async fileUploaded(e: any)
   {
 
     this.file  = e.target.files[0];
-
-
+    this.waiting = true;
+    await this.delay(2000)
     const reader = new FileReader();
     reader.onload = () => {
-      this.default_upload = reader.result as string;
+      this.defaultUpload = reader.result as string;
+      this.waiting = false;
     }
     reader.readAsDataURL(this.file)
      
@@ -98,77 +104,63 @@ export class EditTicketComponent implements OnInit {
 
   editTicket() : void
   {
-    if ( this.ticket.ticket_location == "")
+    if ( this.ticket.ticketLocation == "")
     {
       this.showErrorMessage("Location not found")
       return;
     }
-    if (this.autocomplete.getPlace() !== undefined)
-    {
-      const place = this.autocomplete.getPlace().address_components;
-      // console.log(place);
-      // const temp = document.getElementById("pac-input") as HTMLInputElement;
-      this.ticket.ticket_location = "";
-      
-      if (place)
-      {
-        for (let k = 0; k < 3; k++)
-        {
-          
-          this.ticket.ticket_location += place[k].long_name + " ";
-        }
-      }
-      
-      if (place)
-      this.ticket.ticket_city = place[3].long_name
-    }
 
     if (this.issue_type === "Other")
-      this.ticket.ticket_type = this.other_details;
+      this.ticket.ticketType = this.other_details;
     else
-      this.ticket.ticket_type = this.issue_type;
-    this.ticket.ticket_status = "Created";
-    this.ticket.ticket_create_date = new Date();
-    this.ticket.ticket_upvotes = 0;
+      this.ticket.ticketType = this.issue_type;
+    
+
+      
+      const place = this.autocomplete.getPlace()
+      if (place !== undefined)
+      if (place.place_id !== undefined)
+      {
+        this.ticket.ticketLocation = place.place_id;
+        this.ticket.ticketCity = this.googleMapsService.getAutocompleteCity(place.address_components)
+      }
+
+      if (this.placeID != "")
+      {
+        this.ticket.ticketLocation = this.placeID;
+      }
+      
+    console.log(this.ticket);
+    
 
     if (this.file !== undefined)
     {
       const formData = new FormData();
       formData.append("photo", this.file, this.file.name);
-  
-      this.http.post<Express.Multer.File>(this.uploadURL, formData)
-      .subscribe({
-        next: (data) => {
-          console.log(data);
-          
-          this.updateTicket(data.filename);
-          this.showSuccessMessage();
-          this.router.navigateByUrl("/tickets")
-        },
-        error: error => {
-          this.showErrorMessage("Error uploading image");
-          this.updateTicket(this.ticket.ticket_img);
+      this.ticketService.postImage(formData).subscribe(
+        (response) =>
+        {
+
+          console.log(response.filename);
+          this.updateTicket(response.filename)
         }
-      }) 
+      );
     }
     else
     {
-      this.updateTicket(this.ticket.ticket_img);
+      this.updateTicket(this.ticket.ticketImg);
     }
   }
   
   updateTicket(link : string) {
-    this.ticket.ticket_img = link
-    this.http.put<TicketDto>(this.updateURL, this.ticket, this.httpOptions).subscribe(
-        () => {
-          if (this.file != null)
-            this.showSuccessMessage();
-            // this.router.navigateByUrl("/tickets")
-        },
-        () => {
-          this.showErrorMessage("Errror updating ticket");
-        }
-      ) 
+    this.ticket.ticketImg = link;
+    if (this.ticketService.updateTicket(this.ticket))
+    {
+      this.uploadPhoto();
+      this.router.navigateByUrl("/tickets")
+    }
+    else
+      this.showErrorMessage("Something went wrong")
   }
 
 
@@ -182,84 +174,111 @@ export class EditTicketComponent implements OnInit {
 
   initialiseFields(data : TicketDto)
   {
-    this.getPictureURL += data.ticket_id;
-      this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
-        (datas) => {
-          console.log(datas[0])
-          this.ticket.ticket_img = datas[0].picture_link;
-          if (this.ticket.ticket_img != "")
-              this.default_upload = "assets/" + this.ticket.ticket_img;
-          if ((data.ticket_type === "Pothole") || (data.ticket_type === "Water Outage") ||
-              (data.ticket_type === "Sinkhole")  || (data.ticket_type === "Electricity Outage") ) 
-                this.issue_type = data.ticket_type;
-          else
-          {
-            this.issue_type = "Other"
-            this.other_details = data.ticket_type;
-          }
+    // console.log(data.ticket_id);
+    
+    // this.getPictureURL += data.ticket_id;
+   
+    this.ticketService.getImages(data.ticketId).subscribe(
+      (response) => {
+        console.log(response);
+        if (response[response.length - 1])
+        {
+          this.ticket.ticketImg = response[response.length - 1].pictureLink;
+          this.defaultUpload = "assets/" + this.ticket.ticketImg;
+        }
       }
-      );
+    );
+        
+    //SET TICKET TYPE
+    if (data.ticketType !== "Other")
+      this.issue_type = data.ticketType;
+    else
+    {
+      this.issue_type = "Other"
+      this.other_details = data.ticketType;
+    }
+
+    //CHange location from PLACE ID to formatted address
+    this.placeID = this.ticket.ticketLocation;
+    this.googleMapsService.getLocation(this.ticket.ticketLocation).then(
+      (response) =>
+      {
+        this.ticket.ticketLocation = response;
+      },
+      (error) =>
+      {
+        console.log(error);
+      }
+    )
+    this.waiting = false;
   }
 
-  
   initMap() : void
   {
-    const input = document.getElementById("pac-input") as HTMLInputElement;
-    const options = {
-      componentRestrictions: { country: ["za"] },
-      fields: ["address_components", "geometry"],
-      types: ["address"],
+    
+    const zoom = 5.5;
+    const center =  {
+      lat: -30.5595,
+      lng: 22.9375,
     };
-    this.autocomplete = new google.maps.places.Autocomplete(input, options);
+    this.map = this.googleMapsService.createMapObject("map",center,zoom)
+    this.autocomplete = this.googleMapsService.createAutoCompleteObject("pac-input");
     google.maps.event.addListener(this.autocomplete, "place_changed" , () =>{
       const place = this.autocomplete.getPlace()
-      this.createMapMarker(place)
+      if (place.geometry?.location !== undefined)
+      {
+        const pos = {
+          lat: place.geometry?.location?.lat(),
+        lng: place.geometry?.location?.lng()
+        }
+        this.createMapMarker(pos)
+      }
     })
   }
 
   getCurrentLocation() : void
   {
-    if (navigator.geolocation)
-    {
-      navigator.geolocation.getCurrentPosition(
-        (position : GeolocationPosition) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          this.marker_position = pos;
-          this.center = pos;
-          this.zoom = 12;
-          const geocoder: google.maps.Geocoder = new google.maps.Geocoder;
-          geocoder.geocode({location: pos},(response) =>
-          {
-            
-            if (response != null) 
-            {
-              this.ticket.ticket_location = "";
-              for (let k = 0 ; k < 4; k++)
-                this.ticket.ticket_location += response[0].address_components[k].long_name + " ";
-              this.ticket.ticket_city = response[0].address_components[3].long_name;
-                console.log(this.ticket.ticket_location);
-              console.log(this.ticket.ticket_city);
-            }
-
-          });
+    this.googleMapsService.getCurrentLocation().then(
+      async (response) =>
+      {
+        console.log(response);
+        const pos = {
+          lat: response.latitude,
+          lng: response.longitude
         }
-      )
-    }
+        this.createMapMarker(pos);
+        this.placeID  = await this.googleMapsService.getLocationCoord(pos);
+        this.ticket.ticketLocation = await this.googleMapsService.getLocation(this.placeID);
+        this.ticket.ticketCity = await this.googleMapsService.getCity(this.placeID);
+        // this.placeID  
+      }
+    );
   }
 
-  createMapMarker(place: google.maps.places.PlaceResult) : void
+  createMapMarker(place: {lat:number, lng:number}) : void
   {
-    // this.marker_position =
-    if (place.geometry?.location !== undefined)
-    {
-      this.marker_position = place.geometry?.location;
-      this.zoom = 12;
-      this.center = place.geometry?.location;
-    }
-    console.log(place.geometry?.location);
-    document.getElementById("pac-input")?.focus();
+    if (this.marker !== undefined)
+    this.marker.setMap(null);
+    this.map.setCenter(place);
+    this.map.setZoom(16)
+    const tempLabel = "";
+    this.marker = this.googleMapsService.createMarkerObject(place, this.map, tempLabel);
+  }
+
+  uploadPhoto() : void
+  {
+    this.ticketService.uploadImage(this.ticket.ticketImg, this.ticket.ticketId);
+  }
+
+  initiateFileUpload() : void {
+    document.getElementById("issue_uploaded_img")?.click();
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
+  getFloatLabelValue(): FloatLabelType {
+    return this.floatLabelControl.value || 'auto';
   }
 }

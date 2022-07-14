@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Input} from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { FloatLabelType } from '@angular/material/form-field';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'grid-watch-register-page',
@@ -7,15 +9,26 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./register-page.component.scss'],
 })
 export class RegisterPageComponent {  //implements OnInit {
+
+  
+  hideRequiredControl = new FormControl(false);
+  floatLabelControl = new FormControl('auto' as FloatLabelType);
+  formOptions = this.formBuilder.group({
+    hideRequired: this.hideRequiredControl,
+    floatLabel: this.floatLabelControl,
+  });
   
   @Input() first_name! : string;
   @Input() last_name! : string;
   @Input() email! : string;
   @Input() password! : string;
   @Input() confirm_password! : string;
+  hide = true;
+  hideConfirm = true;
 
   constructor(
-    private router : Router
+    private router : Router,
+    private formBuilder : FormBuilder
   ) {}
 
   // ngOnInit(): void {
@@ -34,5 +47,9 @@ export class RegisterPageComponent {  //implements OnInit {
 
   back() : void {
     this.router.navigate(["/login",{app:"tech-team"}]);
+  }
+
+  getFloatLabelValue(): FloatLabelType {
+    return this.floatLabelControl.value || 'auto';
   }
 }

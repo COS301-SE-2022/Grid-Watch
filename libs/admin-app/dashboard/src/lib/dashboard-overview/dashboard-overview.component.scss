@@ -1,0 +1,39 @@
+.chartContainer
+{
+    width: 50%;
+    height: 100%;
+}
+
+.cardContainer{
+    display: flex;
+}
+
+.buttonContainers{
+    width: 50%;
+    padding-left: 10px;
+    height: 120px;
+}
+
+.buttonTile
+{
+    padding-top: 10px;
+}
+
+.tileInfo{
+    flex: 50%;
+    border: 1px solid black;
+    width: 100%;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.flexContainerButtons
+{
+    display: flex;
+    height: 100%;
+    margin-bottom: 10px;
+}
+
+img.tileImage {
+    height: 100%;
+}

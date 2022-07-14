@@ -1,11 +1,16 @@
-<div style="text-align: center">
+<!-- <div style="text-align: center">
     <h1 class="mt-5 display-1">Welcome to Gridwatch!</h1>
     <h1 class = "mt-3">{{application_type}} Application</h1>
-    <!-- <div class = "mt-4" ><img src="assets/under-construction.jpg" alt="under_construction"></div> -->
-</div>
-<div class="container mb-4">
-  <google-map 
+    <div class = "mt-4" ><img src="assets/under-construction.jpg" alt="under_construction"></div> 
+</div> -->
+<!-- <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE&callback=initMap">
+</script> -->
+<div class="container mt-4" id="mapContainer">
+  <div id="map"></div>
+  <!-- <google-map 
     width="100%"
+    [height]="mapHeight"
     [zoom]="zoom"
     [center]="center"
     [options]="options">
@@ -16,6 +21,7 @@
       [options]="marker.options"
       >
     </map-marker>
-  </google-map>
+  </google-map> -->
 </div>
+
    

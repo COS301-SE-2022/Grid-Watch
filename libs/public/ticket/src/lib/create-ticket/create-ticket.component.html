@@ -1,96 +1,86 @@
-<div class="container mt-5">
-    <div class="row">
-        <span class="card col-6 col-md-7">
-            <div class="card-body">
-                <!-- <div id="name_field">
-                    <mat-form-field appearance="fill">
-                        <label>Name</label>
-                        <input matInput>
-                    </mat-form-field>
-                </div> -->
-                <div class="mt-2 " id="issue_field">
-                      <label>Issue Type</label> <br>
-                      <select class="form-select" [(ngModel)]="ticket.ticket_type" id="issue_type_options" >
-                        <option value="Pothole">Pothole</option>
-                        <option value="Electricity Outage">Electicity Outage</option>
-                        <option value="Water Outage">Water Outage</option>
-                        <option value="Sinkhole">Sinkhole</option>
-                        <option value="Other">Other</option>
-                      </select>
-                </div>
-                
-                <div class="mt-2 " *ngIf="(ticket.ticket_type === 'Other')" id="other_field"  >
-                        <label>Other issue details</label>
-                        <input class="form-control" [(ngModel)]="other_details">
-                </div>
-
-                <div class="mt-2 " id="description_field">
-                      <label>Description</label>
-                      <textarea  class="form-control" [(ngModel)]="ticket.ticket_description"></textarea>
-                </div>
-<!--                 
-                <div id="location_field" class="">
-                    <mat-form-field appearance="fill">
-                        <label>Address</label>
-                        <input [(ngModel)]="ticket.ticket_location" matInput >
-                    </mat-form-field>
-                </div>
-                
-                <div id="city_field" class="">
-                    <mat-form-field appearance="fill">
-                      <label>City</label>
-                      <input [(ngModel)]="ticket.ticket_city" matInput>
-                    </mat-form-field>
-                </div> -->
-                
-                <div class="mt-2 " id="upload_image">
-                    <label class="">Upload image of issue</label><br>
-                    <input type="file" id="issue_uploaded_img" name="issue_img" accept="image/png, image/jpeg" (change)="fileUploaded($event)">
-                </div>
-                
-                <div class="mt-2location_pin">
-                    <label class="">Pin location of issue</label><br>
-                    <input  class="form-control" id="pac-input" type="text" placeholder="Search a location" [(ngModel)]="ticket.ticket_location"/>
-                    <button class="mt-2 btn btn-outline-dark" (click)="getCurrentLocation()">
-                        Use Current Location
-                    </button>
-                </div>
-                <div class="mt-2 border ">
-                    <google-map
-                        height="500px"
-                        width="100%"
-                        [zoom]="zoom"
-                        [center]="center"
-                        [options]="options">
-                        <map-marker
-                            [position]="marker_position"
-                            [title]="ticket.ticket_type"
-                        >
-                        </map-marker>
-                    </google-map>
-                </div>
-
-                <!-- BUTTONS -->
-                 <div class="row mt-5">
-                     <div class="col-4">
-                         <!-- <a routerLink="/tickets"> -->
-                             <button class="btn btn-outline-dark" id="createTicket_button" color="primary" (click)="createTicket()">Create</button>
-                         <!-- </a> -->
-                    </div>
-                    <div class="col-6"></div>
-                    <div class="col-2">
-                        <a routerLink="/tickets">
-                            <button class="btn btn-outline-dark" id="discardTicket_button" color="primary" >Discard</button>
-                        </a>
-                   </div>                
-                 </div>
-            </div>
-        </span> 
-        <span class="col-4 col-md-5 border-top border-end border-bottom">
-            <div class="border align-middle p-5 mt-5 d-flex justify-content-center">
-                <img id="image_preview" src="{{default_upload}}" class="upload_issue_image" alt="upload_image">
-            </div>
-        </span> 
+<div id="inputContainer">
+    <!-- ISSUE TYPE -->
+    <div id="issue_field">
+        <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+            <mat-label>Issue Type</mat-label>
+            <mat-select placeholder="Issue Type" [(ngModel)]="ticket.ticketType" name="issue_type">
+                <mat-option *ngFor="let issues of issueOptions" [value]="issues">
+                    {{issues}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
+    <!-- OTHER ISSUE DETAILS-->
+    <div *ngIf="(ticket.ticketType === 'Other')" id="other_field"  >
+        <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                <mat-label>Other issue details</mat-label>
+                <input matInput placeholder="Other issue details" [(ngModel)]="otherDetails">
+            </mat-form-field>
+    </div>
+    <!-- DESCRIPTION-->
+    <div id="description_field">
+        <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+            <mat-label>Description</mat-label>
+            <textarea matInput placeholder="Description" rows="3"  [(ngModel)]="ticket.ticketDescription"></textarea>
+        </mat-form-field>      
+    </div>
+    <!-- FILE UPLOAD-->
+    <div class="" (click)="initiateFileUpload()">
+        <mat-label for="customFile">Upload image of issue</mat-label>
+        <div class="imagePreviewContainer d-flex justify-content-center" >
+            <div class="icon_container " *ngIf="file === undefined">
+                <div class="add_icon material-icons align-center centered_element">add</div>
+            </div>
+            <div class="centered_element d-flex justify-content-center" *ngIf="defaultUpload === '' && file !== undefined"> 
+                <div class="spinner-border text-success text-center" >
+                </div>
+            </div>
+            <div  *ngIf="file !== undefined && defaultUpload !== ''">
+                <img id="image_preview" src="{{defaultUpload}}" class="upload_issue_image" alt="upload_image">
+            </div>
+        </div>
+    </div> 
     
+    <div class="mt-2 d-none" id="upload_image">
+        <label class="form-label" for="customFile">Upload image of issue</label>
+        <input type="file" id="issue_uploaded_img" class="form-control" accept="image/png, image/jpeg" (change)="fileUploaded($event)"/>
+    </div>
+    <!-- LOCATIONS-->
+    <div class="mt-2 location_pin">
+        <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+            <mat-label class="">Pin location of issue</mat-label>
+            <input matInput placeholder="Pin location of issue" id="pac-input" type="text" [(ngModel)]="ticket.ticketLocation">
+            <button mat-icon-button matSuffix (click)="getCurrentLocation()">
+                <mat-icon>share_location</mat-icon>
+            </button>
+        </mat-form-field>
+        <!-- <div class="input-group">
+            <input  class="form-control" />
+            <button class="getLocationButton btn btn-outline-dark" (click)="getCurrentLocation()">
+                <span class="material-icons">share_location</span>
+            </button>
+         </div> -->
+    </div>
+    <div class="mt-2 border ">
+        <div id="map"></div>
+        <!-- <google-map
+            height="500px"
+            width="100%"
+            [zoom]="zoom"
+            [center]="center"
+            [options]="options">
+            <map-marker
+                [position]="markerPosition"
+                [title]="ticket.ticket_type"
+            >
+            </map-marker>
+        </google-map> -->
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="createButtonContainer">
+        <!-- <button class="btn btn-outline-dark" id="createTicket_button" color="primary" (click)="createTicket()">Create</button> -->
+        <!-- <button mat-button id="createTicket_button" (click)="createTicket()">Create</button> -->
+        <button mat-raised-button id="createTicket_button" (click)="createTicket()">Create</button>
+    </div>
 </div>

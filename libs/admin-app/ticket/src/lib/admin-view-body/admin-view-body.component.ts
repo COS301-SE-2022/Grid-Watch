@@ -1,7 +1,20 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { Loader } from '@googlemaps/js-api-loader';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
+import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
+import { Ticket } from '@prisma/client';
+import { table } from 'console';
+
+export interface Filters {
+  name : string,
+  checked: boolean
+}
 
 @Component({
   selector: 'grid-watch-admin-view-body',
@@ -9,216 +22,233 @@ import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
   styleUrls: ['./admin-view-body.component.scss'],
 })
 export class AdminViewBodyComponent implements OnInit {
+  counter = 0;
+  tickets: Array<TicketDto> = [];
+  ticketsPERM: Array<TicketDto> = [];
+  statuses: Filters[] = [];
+  issues: Filters[] = [];
+  cities: Filters[] = [];
+  dates: Date[] = [];
+  filterChecked: string[] = [];
+  sortoptions: string[] = [
+    'Original',
+    'Date',
+    'Issue',
+    'Location',
+    'City',
+    'Status',
+    'Upvotes',
+  ];
+  selectedoption!: string;
 
-  getAllURL = "http://localhost:3333/api/ticket/all/tickets";
-  getSortUrl = "http://localhost:3333/api/ticket/status/";
-  getCityURL = "http://localhost:3333/api/ticket/city/";
-  getTypeURL = "http://localhost:3333/api/ticket/issue/";
-  getFilterURL = "http://localhost:3333/api/ticket/all/tickets/";
-  tickets : Array<TicketDto> = [];
-  statuses : string [] = [];
-  issues : string [] = [];
-  cities : string [] = [];
-  dates : Date [] = [];
-  sort_options : string [] = ["Original", "Date", "Issue", "Location", "City", "Status", "Upvotes"];
-  selected_option! :string;
+  displayedColumns: string[] = [
+    'Date',
+    'Issue',
+    'Location',
+    'City',
+    'Status',
+    'Upvotes',
+  ];
 
-  constructor(private router : Router, private http: HttpClient) {}
+  dataSource!: MatTableDataSource<TicketDto>;
+  @ViewChild(MatTable) table!: MatTable<any>;
 
-  ngOnInit(): void { 
-    this.getDatabaseData(true)
-      
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private ticketService: TicketService,
+    private googleMapsService: GoogleMapsService
+  ) {}
+
+  ngOnInit(): void {
+    const loader = new Loader({
+      apiKey: 'AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE',
+      version: 'weekly',
+      libraries: ['places'],
+    });
+
+    loader.load().then(
+      () => {
+        this.getDatabaseData(true);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
-  getDatabaseData(filters :boolean)
-  {
-    this.http.get<TicketDto[]>(this.getAllURL).subscribe(
-      (data) => {
-        this.initialiseTicket(data);
-        this.adjustDates();
-        if (filters)
-          this.initialiseFilters();
+  announceSortChange(sortState: Sort) {
+    console.log(sortState);
+
+    if (sortState.direction === '') {
+      this.tickets = [];
+      for (let index = 0; index < this.ticketsPERM.length; index++) {
+        this.tickets[index] = this.copy(this.ticketsPERM[index]);
+      }
     }
+    else
+    {
+      this.tickets = this.ticketService.sort(sortState.active, sortState.direction, this.tickets);
+    }
+    this.dataSource = new MatTableDataSource<TicketDto>(this.tickets);
+    this.table.renderRows();
+  }
+
+  getDatabaseData(filters: boolean) {
+    this.ticketService.getTickets().subscribe(
+      (response) => {
+        // console.log(response);
+        this.initialiseTicket(response);
+        this.adjustDates();
+        if (filters) this.initialiseFilters();
+      },
+      (error) => {
+        console.log(error);
+      }
     );
   }
 
   initialiseFilters() {
-    for (let index = 0; index < this.tickets.length; index++) 
-    { 
-      this.statuses.push(this.tickets[index].ticket_status);
-      this.cities.push(this.tickets[index].ticket_city);
-      this.issues.push(this.tickets[index].ticket_type);
+    for (let index = 0; index < this.tickets.length; index++) {
+      let filter: Filters = {name : this.tickets[index].ticketStatus, checked : false};
+      if (this.statuses.indexOf(filter) === -1)
+        this.statuses.push(filter);
+      filter = {name : this.tickets[index].ticketCity, checked : false};
+      this.cities.push(filter);
+      filter = {name : this.tickets[index].ticketType, checked : false};
+      this.issues.push(filter);
     }
-    this.statuses = [...new Set(this.statuses)];
-    this.cities = [...new Set(this.cities)];
-    this.issues = [...new Set(this.issues)];
-    console.log(this.dates);
-    // console.log(this.cities);
+    this.statuses = this.statuses.filter((value, index, self) =>
+    index === self.findIndex((t) => ( t.name === value.name)));
+    this.cities = this.cities.filter((value, index, self) =>
+    index === self.findIndex((t) => ( t.name === value.name)));
+    this.issues = this.issues.filter((value, index, self) =>
+    index === self.findIndex((t) => ( t.name === value.name)));
   }
 
-  viewTicket(id : number) : void {
-    console.log("GO to ticket view admin");
-    const url = "/adminViewTicketDetails";
-    console.log(url);
-    this.router.navigate([url, {"id":id}]);
+  viewTicket(id: number): void {
+    // console.log('GO to ticket view admin');
+    const url = '/adminViewTicketDetails';
+    console.log(id);
+    this.router.navigate([url, { id: id }]);
   }
 
-  adjustDates() : void
-  {
+  adjustDates(): void {
     this.dates = [];
-    for (let index = 0; index < this.tickets.length; index++) 
-    { 
-      this.dates.push(new Date(this.tickets[index].ticket_create_date));
+    for (let index = 0; index < this.tickets.length; index++) {
+      this.dates.push(new Date(this.tickets[index].ticketCreateDate));
     }
-
   }
 
-  
-  initialiseTicket(data : TicketDto []) : void 
-  {
-    for (let index = 0; index < data.length; index++) 
-    {
+  async initialiseTicket(data: TicketDto[]): Promise<void> {
+    for (let index = 0; index < data.length; index++) {
       this.tickets.push(data[index]);
+      this.ticketsPERM.push(data[index]);
+      // console.log(this.tickets[index].ticketLocation);
+      // this.tickets[index].ticketLocation = await this.googleMapsService.getLocation(this.tickets[index].ticketLocation);
+      this.ticketsPERM[index].ticketLocation =
+        this.tickets[index].ticketLocation;
     }
-    console.log(this.tickets);
+    this.dataSource = new MatTableDataSource(this.tickets);
   }
 
-  filterByStatus(status : string) : void
-  {
-    // this.getSortUrl += status;
-    // console.log(this.getSortUrl);
-    // this.http.get<TicketDto[]>(this.getSortUrl).subscribe(
-    //   (data) => {
-    //     // console.log(data);
-    //     this.initialiseTicket(data);
-    // }
-    // );
-    
-    const temp = document.getElementById(status) as HTMLInputElement;
-    console.log(temp);
+  copy(temp: TicketDto): TicketDto {
+    const newTicket = new TicketDto();
+    newTicket.ticketCity = temp.ticketCity;
+    newTicket.ticketCloseDate = temp.ticketCloseDate;
+    newTicket.ticketCost = temp.ticketCost;
+    newTicket.ticketCreateDate = temp.ticketCreateDate;
+    newTicket.ticketDescription = temp.ticketDescription;
+    newTicket.ticketId = temp.ticketId;
+    newTicket.ticketImg = temp.ticketImg;
+    newTicket.ticketLocation = temp.ticketLocation;
+    newTicket.ticketRepairTime = temp.ticketRepairTime;
+    newTicket.ticketStatus = temp.ticketStatus;
+    newTicket.ticketType = temp.ticketType;
+    newTicket.ticketUpvotes = temp.ticketUpvotes;
+    return newTicket;
+  }
 
-    if (!temp.checked){
-      this.tickets = [];
-      this.getDatabaseData(false);
+  filter(event: any, category : string) {
+    console.log(event);
+    if (!this.filterChecked.includes(event.source.name)) {
+      this.filterChecked.push(event.source.name);
+    } else {
+      this.filterChecked = this.filterChecked.filter((val) => {
+        return !val.match(event.source.name);
+      });
     }
-    else
+
+    if (this.filterChecked.length > 0)
     {
-      // this.getDatabaseData(false);
-      status = temp.value;
-      let result1 : TicketDto[] = []
-      let result2 : TicketDto[] = []
-      let result3 : TicketDto[] = []
-      if (status === "Created")
-      {
-        result1 = this.tickets.filter(this.checkStatusCreated)
-        
+      let filterdTickets: TicketDto[] = [];
+      if (category == 'city')
+      for (let index = 0; index < this.filterChecked.length; index++) {
+        const temp = this.tickets.filter((ticket) => {
+          return ticket.ticketCity === this.filterChecked[index];
+        });
+        filterdTickets = filterdTickets.concat(temp);
       }
-      if (status === "Dispatched")
-      {
-        result2 = this.tickets.filter(this.checkStatusDispacthed)
-        
-      }
-      if (status === "Accepted")
-      {
-        result3 = this.tickets.filter(this.checkStatusAccepted)
-      }
-      this.tickets = [];
-      this.tickets.push(...result1);
-      this.tickets.push(...result2);
-      this.tickets.push(...result3);
-      console.log(this.tickets);
       
-    }
-    
-
-    
-  }
-
-  checkStatusCreated(ticket : TicketDto ) : boolean {
-
-    return (ticket.ticket_status === "Created")
-    
-  }
-
-  checkStatusDispacthed(ticket : TicketDto ) : boolean {
-
-    return (ticket.ticket_status === "Dispatched")
-    
-  }
-
-  checkStatusAccepted(ticket : TicketDto ) : boolean {
-
-    return (ticket.ticket_status === "Accepted")
-    
-  }
-
-  filterByCity(id : string, value : string)
-  {
-    const temp = document.getElementById(id) as HTMLInputElement;
-    if (!temp.checked){
-      this.tickets = [];
-      this.getDatabaseData(false);
+      if (category == 'status')
+      for (let index = 0; index < this.filterChecked.length; index++) {
+        const temp = this.tickets.filter((ticket) => {
+          return ticket.ticketStatus === this.filterChecked[index];
+        });
+        filterdTickets = filterdTickets.concat(temp);
+      }
+      
+      if (category == 'issue')
+      for (let index = 0; index < this.filterChecked.length; index++) {
+        const temp = this.tickets.filter((ticket) => {
+          return ticket.ticketType === this.filterChecked[index];
+        });
+        filterdTickets = filterdTickets.concat(temp);
+      }
+      this.tickets = filterdTickets;
+      this.dataSource = new MatTableDataSource<TicketDto>(this.tickets);
+      this.table.renderRows();
     }
     else
     {
-      const tempURL = this.getCityURL;
-      // this.filterValue = value;
-      this.getCityURL += value;
-      console.log(this.getCityURL);
-      this.http.get<TicketDto[]>(this.getCityURL).subscribe(
-        (data) => {
-          console.log(data);
-          this.tickets = data;
-        }
-      );
-      this.getCityURL = tempURL;
+      this.tickets = [];
+      for (let index = 0; index < this.ticketsPERM.length; index++) {
+        this.tickets[index] = this.copy(this.ticketsPERM[index]);
+      }
+      this.dataSource = new MatTableDataSource<TicketDto>(this.tickets);
+      this.table.renderRows();
     }
+
+
   }
 
-  filterByType(id : string, value : string)
+  resetFilters() : void
   {
-    const temp = document.getElementById(id) as HTMLInputElement;
-    if (!temp.checked){
-      this.tickets = [];
-      this.getDatabaseData(false);
-    }
-    else
+    // console.log(this.checkedBool);
+    
+    // for (let index = 0; index < this.checkedBool.length; index++) {
+    //   this.checkedBool[index] = false;
+      
+    // }
+    this.statuses.forEach((item) =>
     {
-      const tempURL = this.getTypeURL;
-      // this.filterValue = value;
-      this.getTypeURL += value;
-      console.log(this.getTypeURL);
-      this.http.get<TicketDto[]>(this.getTypeURL).subscribe(
-        (data) => {
-          console.log(data);
-          this.tickets = data;
-        }
-      );
-      this.getTypeURL = tempURL;
-    }
-  }
+      item.checked = false;
+    })
+    this.cities.forEach((item) =>
+    {
+      item.checked = false;
+    })
+    this.issues.forEach((item) =>
+    {
+      item.checked = false;
+    })
 
-  sort() : void
-  {
-    if (this.selected_option === "Original")
-    {
-      this.tickets = [];
-      this.getDatabaseData(false);
+    this.tickets = [];
+    this.filterChecked = [];
+    for (let index = 0; index < this.ticketsPERM.length; index++) {
+      this.tickets[index] = this.copy(this.ticketsPERM[index]);
     }
-    else
-    {
-      const tempURL = this.getFilterURL;
-      // this.filterValue = value;
-      this.getFilterURL += this.selected_option;
-      console.log(this.getFilterURL);
-      this.http.get<TicketDto[]>(this.getFilterURL).subscribe(
-        (data) => {
-          console.log(data);
-          this.tickets = data;
-          this.adjustDates();
-        }
-      );
-      this.getFilterURL = tempURL;
-    }
+    this.dataSource = new MatTableDataSource(this.ticketsPERM);
+    this.table.renderRows();
   }
 }

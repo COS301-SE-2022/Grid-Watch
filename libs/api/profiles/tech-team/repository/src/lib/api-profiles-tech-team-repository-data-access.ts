@@ -106,13 +106,35 @@ prisma = new PrismaClient();
         }
         
     }
+    
+    //partial string search for name
+    async searchTechTeamName(partial: string){
+        const techTeam = await this.prisma.techTeam.findMany({
 
-    async getTechTeamEmail(name: string){
+            where:{
+                name:{
+                    search: partial,
+                }
+            },
+            orderBy:{
+                name: 'asc',
+            }
+
+        })
+
+        if (techTeam) {
+            return techTeam;
+        }
+        else{
+            return "Techteam " + partial + " not found!";
+        }
+    }
+    async getTechTeamEmail(techEmail: string){
 
         const techTeam = await this.prisma.techTeam.findMany({
 
             where:{
-                name : name,
+                email : techEmail,
             },
 
         })
@@ -121,7 +143,7 @@ prisma = new PrismaClient();
             return techTeam;
         }
         else{
-            return "Techteam " + name + " not found!";
+            return "Techteam " + techEmail + " not found!";
         }
         
     }
@@ -129,7 +151,7 @@ prisma = new PrismaClient();
     async getTechTeamSpecialisation(specs: string){
 
         const techTeam = await this.prisma.techTeam.findMany({
-            //string may contain more than one city example "Pretoria, Centurion"
+            //string may contain more than one specialisation example "Electricity, Potholes"
             where:{
                 specialisation:{
                     hasEvery: [specs],
@@ -142,17 +164,17 @@ prisma = new PrismaClient();
             return techTeam;
         }
         else{
-            return "techTeam with specialisation(s) " + specs + " not found!";
+            return "Techteam with specialisation(s) " + specs + " not found!";
         }
 
     }
 
-    async getTechTeamContactNr(name: string){
+    async getTechTeamContactNr(techContactNr: string){
 
         const techTeam = await this.prisma.techTeam.findMany({
 
             where:{
-                name : name,
+                contactNumber : techContactNr,
             },
 
         })
@@ -161,11 +183,11 @@ prisma = new PrismaClient();
             return techTeam;
         }
         else{
-            return "Techteam " + name + " not found!";
+            return "Techteam with contact number" + techContactNr + " not found!";
         }
         
     }
-
+    
     async updatePassword(techTeamId: number, newPassword: string){
 
     if(!newPassword)

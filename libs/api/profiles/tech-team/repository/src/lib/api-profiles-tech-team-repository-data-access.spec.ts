@@ -95,6 +95,40 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
         jest
         .spyOn(provider,'getTechTeamName')
         .mockImplementation(():Promise<TechTeamDto[]>=>Promise.resolve(arrayOfTechTeams))
+        expect(await provider.getTechTeamName(techTeamDtoMock.name)).toMatchObject(
+          expect.arrayContaining(arrayOfTechTeams)
+        )
+      });
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getTechTeamName').mockResolvedValue(null); 
+        expect(await provider.getTechTeamName(techTeamDtoMock.name)).toEqual(null);
+      });
+  })
+
+    //searchTechTeamName endpoint
+    describe('searchTechTeamName',()=>{
+      const arrayOfTechTeams:TechTeamDto[] = [];
+        it('should return a techteam',async ()=>{
+          jest
+          .spyOn(provider,'searchTechTeamName')
+          .mockImplementation(():Promise<TechTeamDto[]>=>Promise.resolve(arrayOfTechTeams))
+          expect(await provider.searchTechTeamName(techTeamDtoMock.name)).toMatchObject(
+            expect.arrayContaining(arrayOfTechTeams)
+          )
+        });
+        it('should return null', async () => {
+          jest.spyOn(provider, 'searchTechTeamName').mockResolvedValue(null); 
+          expect(await provider.searchTechTeamName(techTeamDtoMock.name)).toEqual(null);
+        });
+    })
+
+  //getTechTeamName endpoint
+  describe('getTechTeamName',()=>{
+    const arrayOfTechTeams:TechTeamDto[] = [];
+      it('should return a techteam',async ()=>{
+        jest
+        .spyOn(provider,'getTechTeamName')
+        .mockImplementation(():Promise<TechTeamDto[]>=>Promise.resolve(arrayOfTechTeams))
         expect(await provider.getTechTeamId(2)).toMatchObject(
           expect.arrayContaining(arrayOfTechTeams)
         )
@@ -104,7 +138,24 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
         expect(await provider.getTechTeamName(techTeamDtoMock.name)).toEqual(null);
       });
   })
-  
+
+  //getTechTeamEmail endpoint
+  describe('getTechTeamEmail',()=>{
+    const arrayOfTechTeams:TechTeamDto[] = [];
+      it('should return a techteam',async ()=>{
+        jest
+        .spyOn(provider,'getTechTeamEmail')
+        .mockImplementation(():Promise<TechTeamDto[]>=>Promise.resolve(arrayOfTechTeams))
+        expect(await provider.getTechTeamEmail(techTeamDtoMock.email)).toMatchObject(
+          expect.arrayContaining(arrayOfTechTeams)
+        )
+      });
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getTechTeamEmail').mockResolvedValue(null); 
+        expect(await provider.getTechTeamEmail(techTeamDtoMock.email)).toEqual(null);
+      });
+    })  
+
   //getTechTeamSpecialisation endpoint
   describe('getTechTeamSpecialisation',()=>{
     const arrayOfTechTeams:TechTeamDto[] = [];
@@ -112,13 +163,30 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
         jest
         .spyOn(provider,'getTechTeamSpecialisation')
         .mockImplementation(():Promise<TechTeamDto[]>=>Promise.resolve(arrayOfTechTeams))
-        expect(await provider.getTechTeamId(2)).toMatchObject(
+        expect(await provider.getTechTeamSpecialisation(techTeamDtoMock.specialisation)).toMatchObject(
           expect.arrayContaining(arrayOfTechTeams)
         )
       });
       it('should return null', async () => {
         jest.spyOn(provider, 'getTechTeamSpecialisation').mockResolvedValue(null); 
         expect(await provider.getTechTeamSpecialisation(techTeamDtoMock.specialisation)).toEqual(null);
+      });
+  })
+
+  //getTechTeamContactNr endpoint
+  describe('getTechTeamContactNr',()=>{
+    const arrayOfTechTeams:TechTeamDto[] = [];
+      it('should return a techteam',async ()=>{
+        jest
+        .spyOn(provider,'getTechTeamContactNr')
+        .mockImplementation(():Promise<TechTeamDto[]>=>Promise.resolve(arrayOfTechTeams))
+        expect(await provider.getTechTeamContactNr(techTeamDtoMock.contactNumber)).toMatchObject(
+          expect.arrayContaining(arrayOfTechTeams)
+        )
+      });
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getTechTeamContactNr').mockResolvedValue(null); 
+        expect(await provider.getTechTeamContactNr(techTeamDtoMock.contactNumber)).toEqual(null);
       });
   })
 

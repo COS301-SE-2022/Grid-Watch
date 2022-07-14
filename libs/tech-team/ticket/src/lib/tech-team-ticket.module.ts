@@ -10,6 +10,15 @@ import { FormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   imports: [
@@ -19,6 +28,9 @@ import { MatIconModule } from '@angular/material/icon';
     GoogleMapsModule,
     MatCardModule,
     MatIconModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
       {
@@ -48,12 +60,14 @@ import { MatIconModule } from '@angular/material/icon';
     TicketViewDetailsComponent,
     AcceptedTicketViewComponent,
     EditAcceptedTicketComponent,
+    DialogComponent,
   ],
   exports: [
     TicketViewPageComponent,
     TicketViewDetailsComponent,
     AcceptedTicketViewComponent,
     EditAcceptedTicketComponent,
+    DialogComponent,
   ],
 })
 export class TechTeamTicketModule {}

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { ApiTicketRepositoryDataAccess } from './api-ticket-repository-data-access';
-import { Picture, Ticket } from '@prisma/client';
+import { Picture, Subtasks } from '@prisma/client';
 
   const ticketDtoMock: jest.Mocked<TicketDto> = new TicketDto() as TicketDto;
 
@@ -580,6 +580,126 @@ import { Picture, Ticket } from '@prisma/client';
     it('should return null', async () => {
       jest.spyOn(provider, 'deletePicture').mockResolvedValue(null);
       expect(await provider.deletePicture(2)).toEqual(null);
+    });
+  });
+  //////////////////////
+  ////// Subtasks //////
+  //////////////////////
+
+  //createSubtask endpoint
+  describe('createSubtask',()=>{
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'createSubtask').mockResolvedValue(null);
+      expect(await provider.createSubtask(2,"Get materials needed",2,"Waiting")).toEqual(null)
+    });
+  })
+
+  //getTicketSubtasks endpoint
+  describe('getTicketSubtasks',()=>{
+    const arrayOfSubtasks: Subtasks[] = [];
+    it('should return a picture',async ()=>{
+      jest
+      .spyOn(provider,'getTicketSubtasks')
+      .mockImplementation(():Promise<Subtasks[]>=>Promise.resolve(arrayOfSubtasks))
+      expect(await provider.getTicketSubtasks(2)).toMatchObject(
+        expect.arrayContaining(arrayOfSubtasks)
+      )
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'getTicketSubtasks').mockResolvedValue(null);
+      expect(await provider.getTicketSubtasks(2)).toEqual(null);
+    });
+  });
+
+  //updateSubtask 
+  describe('updateSubtask',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'updateSubtask')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateSubtask(2,2,"Get materials needed",2,"Waiting")).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'updateSubtask').mockResolvedValue(null);
+      expect(await provider.updateSubtask(2,2,"Get materials needed",2,"Waiting")).toEqual(null)
+    });
+  });
+
+  //updateSubtaskTicket 
+  describe('updateSubtaskTicket',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'updateSubtaskTicket')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateSubtaskTicket(2,2)).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'updateSubtaskTicket').mockResolvedValue(null);
+      expect(await provider.updateSubtaskTicket(2,2)).toEqual(null)
+    });
+  });
+
+  //updateSubtaskDesc 
+  describe('updateSubtaskDesc',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'updateSubtaskDesc')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateSubtaskDesc(2,"Need to get materials")).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'updateSubtaskDesc').mockResolvedValue(null);
+      expect(await provider.updateSubtaskDesc(2,"Need to get materials")).toEqual(null)
+    });
+  });
+  
+  //updateSubtaskStep 
+  describe('updateSubtaskStep',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'updateSubtaskStep')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateSubtaskStep(2,5)).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'updateSubtaskStep').mockResolvedValue(null);
+      expect(await provider.updateSubtaskStep(2,5)).toEqual(null)
+    });
+  });
+
+  //updateSubtaskStatus 
+  describe('updateSubtaskStatus',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'updateSubtaskStatus')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateSubtaskStatus(2,"Waiting")).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'updateSubtaskStatus').mockResolvedValue(null);
+      expect(await provider.updateSubtaskStatus(2,"Waiting")).toEqual(null)
+    });
+  });  
+
+  //deleteSubtask
+  describe('deleteSubtask',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'deleteSubtask')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.deleteSubtask(2)).toBeUndefined()
+    });
+  
+    it('should return null', async () => {
+      jest.spyOn(provider, 'deleteSubtask').mockResolvedValue(null);
+      expect(await provider.deleteSubtask(2)).toEqual(null);
     });
   });
 

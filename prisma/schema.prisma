@@ -43,6 +43,9 @@ model Ticket {
   ticketRepairTime    Int?
   ticketUpvotes       Int
 
+  techTeam            TechTeam? @relation(fields: [assignedTechTeam] , references: [id])
+  assignedTechTeam    Int?
+
   Subtasks            Subtasks[]
   Picture             Picture[]
 
@@ -91,23 +94,13 @@ model TechTeam {
   nrJobsCompleted   Int?
   ratingOfJobs      Float?
 
+  assignedTickets  Ticket[]
+
   password          String
   passwordSalt      String?    
   created           DateTime  @default(now())
 
   @@map("techteam")
-}
-
-///////////////////////////////////////////////////////////////////////
-// TechTeamTicket
-///////////////////////////////////////////////////////////////////////
-
-model TechTeamTicket {
-  id               Int        @id @default(autoincrement())
-  techTeamId       Int
-  ticketId         Int     
-
-  @@map("techteamticket")
 }
 
 ///////////////////////////////////////////////////////////////////////

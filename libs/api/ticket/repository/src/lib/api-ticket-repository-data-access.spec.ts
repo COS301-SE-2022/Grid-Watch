@@ -87,6 +87,24 @@ import { Picture, Subtasks } from '@prisma/client';
       });
   })
 
+  //getAssignedTechteam endpoint
+  describe('getAssignedTechteam',()=>{
+    const arrayOfTickets:TicketDto[] = [];
+      it('should return a ticket',async ()=>{
+        jest
+        .spyOn(provider,'getAssignedTechteam')
+        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+        expect(await provider.getAssignedTechteam(2)).toMatchObject(
+          expect.arrayContaining(arrayOfTickets)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getAssignedTechteam').mockResolvedValue(null);
+        expect(await provider.getAssignedTechteam(2)).toEqual(null);
+      });
+  })
+
   //getTicket endpoint
   describe('getTicket',()=>{
     const arrayOfTickets:TicketDto[] = [];

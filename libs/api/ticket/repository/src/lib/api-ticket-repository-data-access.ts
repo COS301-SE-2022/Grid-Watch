@@ -48,6 +48,28 @@ export class ApiTicketRepositoryDataAccess {
         })
     }
 
+    async getAssignedTechteam(techId: number){
+
+        const ticket = await this.prisma.ticket.findMany({
+
+            where:
+            {
+                assignedTechTeam: techId,
+            },
+
+        })
+
+        if (ticket) 
+        {
+            return ticket;
+        }
+        else
+        {
+            return "Tickets with techID " + techId + "not found!";
+        }
+        
+    }
+
     async getTicket(ticketID: number){
 
         const ticket = await this.prisma.ticket.findMany({

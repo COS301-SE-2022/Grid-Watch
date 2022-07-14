@@ -189,6 +189,32 @@ prisma = new PrismaClient();
         
     }
     
+    async assignTicket(ticketID : number, techTeamID : number)
+    {
+        await this.prisma.ticket.update({
+            where:
+            {
+                ticketId : ticketID,
+            },
+            data:{
+                assignedTechTeam : techTeamID,
+            },
+        })
+    }
+
+    async getAllAssignedTickets( techTeamID : number)
+    {
+        await this.prisma.techTeam.findUnique({
+            where:
+            {
+                id : techTeamID,
+            },
+            include:{
+                assignedTickets: true
+            },
+        })
+    }
+
     async updatePassword(techTeamId: number, newPassword: string){
 
     if(!newPassword)
@@ -335,57 +361,6 @@ prisma = new PrismaClient();
             },
         })
     }
-
-    //TechTeamTicket
-
-    async createTechTeamTicket(techTeamId: number, ticketID : number ){
-        await this.prisma.techTeamTicket.create({
-            data:
-            {
-                techTeamId :   techTeamId,
-                ticketId :     ticketID,
-            },
-        });
-    }
-
-    async getTechTeamTickets(techTeamID: number){
-
-        const techTeam = await this.prisma.techTeamTicket.findMany({
-
-            where:{
-                techTeamId: techTeamID
-            },
-
-        })
-
-        if (techTeam) {
-            return techTeam;
-        }
-        else{
-            return "Techteam " + techTeamID + " has no tickets!";
-        }
-    }
-
-    async getTechTeamFromTicket(ticketID: number){
-
-        const techTeam = await this.prisma.techTeamTicket.findMany({
-
-            where:{
-                id : ticketID
-            },
-
-        })
-
-        if (techTeam) {
-            return techTeam;
-        }
-        else{
-            return " No Techteam with Ticket ID " + ticketID + "!";
-        }
-    }
-
-    //update
-    //delete
 
 }
 

@@ -1,3 +1,4 @@
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiProfilesPublicService } from './api-profiles-public.service';
 
@@ -6,7 +7,7 @@ describe('ApiProfilesPublicService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ApiProfilesPublicService],
+      providers: [ApiProfilesPublicService, CommandBus, QueryBus],
     }).compile();
 
     service = module.get<ApiProfilesPublicService>(ApiProfilesPublicService);

@@ -8,13 +8,14 @@ export class ApiTicketRepositoryDataAccess {
     prisma = new PrismaClient();
 
     async createTicket(ticketDto : TicketDto){
-            await this.prisma.ticket.create({
+           const ticket = await this.prisma.ticket.create({
                 data:
                 {
+                    
                     ticketStatus :          ticketDto.ticketStatus,    
-                    ticketCreateDate :      ticketDto.ticketCreateDate, 
-                    ticketCloseDate :       ticketDto.ticketCloseDate,
-                    ticketType :            ticketDto.ticketType,    
+                    ticketType :            ticketDto.ticketType,
+                    ticketCreateDate:       ticketDto.ticketType, //has default
+                    ticketCloseDate:        ticketDto.ticketType,    
                     ticketCity :            ticketDto.ticketCity,   
                     ticketLocation :        ticketDto.ticketLocation,   
                     ticketCost :            ticketDto.ticketCost,
@@ -23,14 +24,15 @@ export class ApiTicketRepositoryDataAccess {
                     ticketUpvotes :         ticketDto.ticketUpvotes,
                 }
             });
-            return  await this.prisma.ticket.findMany({
-            
-                where:
-                {
-                    ticketCreateDate: ticketDto.ticketCreateDate,
-                },
+             return ticket;
+             
+            //  await this.prisma.ticket.findMany({
+            //     where:
+            //     {
+            //         ticketCreateDate: ticketDto.ticketCreateDate,
+            //     },
                 
-            })
+            // })
     }
     
     async getAllTickets(){

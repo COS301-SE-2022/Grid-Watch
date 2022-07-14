@@ -33,7 +33,7 @@ model User{
 model Ticket {
   ticketId            Int       @id @default(autoincrement())
   ticketStatus        String
-  ticketCreateDate    DateTime
+  ticketCreateDate    DateTime  @default(now())
   ticketCloseDate     DateTime?
   ticketType          String
   ticketCity          String?
@@ -116,7 +116,7 @@ model AuthorizedOfficials {
 
   password        String
   passwordSalt    String?    
-  created         DateTime  @default(now())
+  created         DateTime    @default(now())
   
   @@map("authorizedofficials")
 }

@@ -16,4 +16,8 @@ describe('ApiProfilesPublicApiController', () => {
 
     controller = module.get<ApiProfilesPublicApiController>(ApiProfilesPublicApiController);
   });
+
+  it('should be defined', () => {
+    expect(controller).toBeDefined();
+  });
 })

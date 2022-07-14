@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { ApiProfilesAdminApiController } from './api-profiles-admin-api-controller.controller';
 
 @Module({
-  controllers: [],
+  controllers: [ApiProfilesAdminApiController],
   providers: [],
   exports: [],
 })

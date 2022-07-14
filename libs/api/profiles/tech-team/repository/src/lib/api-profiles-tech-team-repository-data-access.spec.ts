@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiProfilesTechTeamRepositoryDataAccess } from './api-profiles-tech-team-repository-data-access';
 import {TechTeamDto} from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
+import { TechTeam } from '@prisma/client';
 
 const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamDto;
 
@@ -12,7 +13,6 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
       providers: [ApiProfilesTechTeamRepositoryDataAccess],
     }).compile();
 
-  
     techTeamDtoMock.name = "Sparky";
     techTeamDtoMock.email = "sparkyy3@gmail.com";
     techTeamDtoMock.specialisation = "Electricity";
@@ -57,7 +57,7 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
     it('should return all techteams',async ()=>{
       jest
       .spyOn(provider,'getTechTeams')
-      .mockImplementation(():Promise<TechTeamDto[]>=>Promise.resolve(arrayOfTechTeams))
+      .mockImplementation(():Promise<TechTeam[]>=>Promise.resolve(arrayOfTechTeams))
       expect(await provider.getTechTeams()).toMatchObject(
         expect.arrayContaining(arrayOfTechTeams)
       )

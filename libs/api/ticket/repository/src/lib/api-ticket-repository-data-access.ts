@@ -32,23 +32,7 @@ export class ApiTicketRepositoryDataAccess {
                 
             })
     }
-
     
-    async closeTicket(ticketId: number){
-
-        await this.prisma.ticket.update({
-            where:
-            {
-                ticketId: ticketId,
-            },
-            data:
-            {
-                ticketStatus : "Closed",    
-            },
-        });
-       // return "The ticket with id: " + ticketID + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
-    }
-
     async getAllTickets(){
         return await this.prisma.ticket.findMany()
     }
@@ -123,9 +107,7 @@ export class ApiTicketRepositoryDataAccess {
             },
 
         })
-
         return tickets;
-
     }
 
     async getIssue(issue: string){
@@ -144,7 +126,6 @@ export class ApiTicketRepositoryDataAccess {
         })
 
         return tickets
-
     }
 
     async getTicketsSortDate(){
@@ -158,7 +139,6 @@ export class ApiTicketRepositoryDataAccess {
         })
 
         return tickets
-
     }
 
     async getTicketsSortIssue(){
@@ -172,7 +152,6 @@ export class ApiTicketRepositoryDataAccess {
         })
 
         return tickets
-
     }
 
     async getTicketsSortCity(){
@@ -186,7 +165,6 @@ export class ApiTicketRepositoryDataAccess {
         })
 
         return tickets
-
     }
 
     async getTicketsSortStatus(){
@@ -200,7 +178,6 @@ export class ApiTicketRepositoryDataAccess {
         })
 
         return tickets
-
     }
 
     async getTicketsSortUpvotes(){
@@ -212,8 +189,22 @@ export class ApiTicketRepositoryDataAccess {
             },
 
         })
-
         return tickets
+    }
+
+    async closeTicket(ticketId: number){
+
+        await this.prisma.ticket.update({
+            where:
+            {
+                ticketId: ticketId,
+            },
+            data:
+            {
+                ticketStatus : "Closed",    
+            },
+        });
+       // return "The ticket with id: " + ticketID + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
     }
 
     async updateTicket(ticketID: number, ticketDto : TicketDto){
@@ -238,7 +229,7 @@ export class ApiTicketRepositoryDataAccess {
             },
         })
        // return "The ticket with id: " + ticketId + " has been created."
-}
+    }
     
     async updateStatus(ticketID: number, ticketStatus: string){
 
@@ -416,28 +407,22 @@ export class ApiTicketRepositoryDataAccess {
                  pictureLink : imgLink,
 
                  ticket:{
-                     connect : 
-                     {
-                         ticketId : ticketID,
-                     }
-                 }
-
+                     connect :{ ticketId : ticketID,}
+                }
              }
- 
-         })
- 
-     }
+          })
+        }
 
-     async getPicture(ticketId : number){
+    async getPicture(ticketId : number){
 
-         return await this.prisma.picture.findMany({
+            return await this.prisma.picture.findMany({
             where:
             {
                 ticketID: ticketId,
             },
 
         })
-     }
+    }
 
      // get all pictures of a ticket sorting according to newest picture ( highest picture id number)
      async getAllPictures(ticketId : number){
@@ -477,7 +462,7 @@ export class ApiTicketRepositoryDataAccess {
                 pictureId : pictureID,
             }
  
-         })
+        })
      }
 
     //////////////////////////////////
@@ -510,7 +495,7 @@ export class ApiTicketRepositoryDataAccess {
         })
      }
 
-     async updateSubtask(subtaskID : number, ticketId : number, taskDesc:string, taskStep:number, taskStat: string){
+    async updateSubtask(subtaskID : number, ticketId : number, taskDesc:string, taskStep:number, taskStat: string){
 
         await this.prisma.subtasks.update({
             where: 
@@ -524,8 +509,8 @@ export class ApiTicketRepositoryDataAccess {
                 taskStep:           taskStep, 
                 taskStatus:         taskStat
             },
-         })
-     }
+        })
+    }
 
      async updateSubtaskTicket(subtaskID : number, ticketId : number){
         
@@ -537,7 +522,7 @@ export class ApiTicketRepositoryDataAccess {
             data:
             {
                 ticketID : ticketId,
-            }
+            },
         })
      }
 
@@ -582,8 +567,7 @@ export class ApiTicketRepositoryDataAccess {
             }
         })
      }
-     
-
+    
     async deleteSubtask(subtaskID: number){
 
         await this.prisma.subtasks.delete({
@@ -591,7 +575,6 @@ export class ApiTicketRepositoryDataAccess {
             where:{
                 subtaskId : subtaskID,
             },
- 
          })
     }
 }

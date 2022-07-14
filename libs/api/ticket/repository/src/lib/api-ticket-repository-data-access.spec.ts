@@ -5,6 +5,16 @@ import { Picture, Ticket } from '@prisma/client';
 
   const ticketDtoMock: jest.Mocked<TicketDto> = new TicketDto() as TicketDto;
 
+  ticketDtoMock.ticketStatus = "Dispatched";
+  // ticketDtoMock.ticketCreateDate = "2022/07/11";
+  // ticketDtoMock.ticketCloseDate =  "2022/07/11";  
+  ticketDtoMock.ticketType =  "Pothole";        
+  ticketDtoMock.ticketCity =  "Pretoria";            
+  ticketDtoMock.ticketLocation = "21 Duxbury Rd, Hatfield";      
+  ticketDtoMock.ticketCost = 25000;           
+  ticketDtoMock.ticketDescription = "There is a large pothole in the middle of the road";    
+  ticketDtoMock.ticketRepairTime =  55600;    
+  ticketDtoMock.ticketUpvotes = 52;       
   describe('ApiTicketRepositoryDataAccess', () => {
   let provider: ApiTicketRepositoryDataAccess;
 
@@ -24,11 +34,11 @@ import { Picture, Ticket } from '@prisma/client';
 
   //createTicket endpoint
   describe('createTicket',()=>{
+    const arrayOfTickets:TicketDto[] = [];
      it('should return ticket',async ()=>{
-      const arrayOfTickets:TicketDto[] = [];
        jest
        .spyOn(provider,'createTicket')
-       .mockImplementation(():Promise<Ticket[]> => Promise.resolve(arrayOfTickets));
+       .mockImplementation(():Promise<TicketDto[]> => Promise.resolve(arrayOfTickets));
        expect(await provider.createTicket(ticketDtoMock)).toMatchObject(
         expect.arrayContaining(arrayOfTickets)
        )
@@ -37,6 +47,274 @@ import { Picture, Ticket } from '@prisma/client';
     it('should return null', async () => {
       jest.spyOn(provider, 'createTicket').mockResolvedValue(null);
       expect(await provider.createTicket(ticketDtoMock)).toEqual(null);
+    });
+  })
+
+  //getAllTickets endpoint
+  describe('getAllTickets',()=>{
+    const arrayOfTickets:TicketDto[] = [];
+      it('should return all tickets',async ()=>{
+        jest
+        .spyOn(provider,'getAllTickets')
+        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+        expect(await provider.getAllTickets()).toMatchObject(
+          expect.arrayContaining(arrayOfTickets)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getAllTickets').mockResolvedValue(null);
+        
+        expect(await provider.getAllTickets()).toEqual(null);
+      });
+})
+
+  //getAllTicketsDispatched endpoint
+  describe('getAllTicketsDispatched',()=>{
+    const arrayOfTickets:TicketDto[] = [];
+      it('should return a ticket',async ()=>{
+        jest
+        .spyOn(provider,'getAllTicketsDispatched')
+        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+        expect(await provider.getAllTicketsDispatched()).toMatchObject(
+          expect.arrayContaining(arrayOfTickets)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getAllTicketsDispatched').mockResolvedValue(null);
+        expect(await provider.getAllTicketsDispatched()).toEqual(null);
+      });
+  })
+
+  //getTicket endpoint
+  describe('getTicket',()=>{
+    const arrayOfTickets:TicketDto[] = [];
+      it('should return a ticket',async ()=>{
+        jest
+        .spyOn(provider,'getTicket')
+        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+        expect(await provider.getTicket(2)).toMatchObject(
+          expect.arrayContaining(arrayOfTickets)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getTicket').mockResolvedValue(null);
+        expect(await provider.getTicket(2)).toEqual(null);
+      });
+  })
+
+  //getCityTicket endpoint
+  describe('getCityTicket',()=>{
+    const arrayOfTickets:TicketDto[] = [];
+      it('should return tickets',async ()=>{
+        jest
+        .spyOn(provider,'getCityTicket')
+        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+        expect(await provider.getCityTicket(ticketDtoMock.ticketCity)).toMatchObject(
+          expect.arrayContaining(arrayOfTickets)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getCityTicket').mockResolvedValue(null);
+        expect(await provider.getCityTicket(ticketDtoMock.ticketCity)).toEqual(null);
+      });
+  })
+
+  //getStatus endpoint
+  describe('getStatus',()=>{
+    const arrayOfTickets:TicketDto[] = [];
+      it('should return tickets',async ()=>{
+        jest
+        .spyOn(provider,'getStatus')
+        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+        expect(await provider.getStatus(ticketDtoMock.ticketStatus)).toMatchObject(
+          expect.arrayContaining(arrayOfTickets)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getStatus').mockResolvedValue(null);
+        expect(await provider.getStatus(ticketDtoMock.ticketStatus)).toEqual(null);
+      });
+  })
+
+  //getIssue endpoint
+  describe('getIssue',()=>{
+    const arrayOfTickets:TicketDto[] = [];
+      it('should return tickets',async ()=>{
+        jest
+        .spyOn(provider,'getIssue')
+        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+        expect(await provider.getIssue(ticketDtoMock.ticketType)).toMatchObject(
+          expect.arrayContaining(arrayOfTickets)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getIssue').mockResolvedValue(null);
+        expect(await provider.getIssue(ticketDtoMock.ticketType)).toEqual(null);
+      });
+  })
+
+  //getTicketsSortDate endpoint
+  describe('getTicketsSortDate',()=>{
+    const arrayOfTickets:TicketDto[] = [];
+      it('should return tickets',async ()=>{
+        jest
+        .spyOn(provider,'getTicketsSortDate')
+        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+        expect(await provider.getTicketsSortDate()).toMatchObject(
+          expect.arrayContaining(arrayOfTickets)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getTicketsSortDate').mockResolvedValue(null);
+        expect(await provider.getTicketsSortDate()).toEqual(null);
+      });
+  })
+
+  //getTicketsSortIssue endpoint
+  describe('getTicketsSortIssue',()=>{
+    const arrayOfTickets:TicketDto[] = [];
+      it('should return tickets',async ()=>{
+        jest
+        .spyOn(provider,'getTicketsSortIssue')
+        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+        expect(await provider.getTicketsSortIssue()).toMatchObject(
+          expect.arrayContaining(arrayOfTickets)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getTicketsSortIssue').mockResolvedValue(null);
+        expect(await provider.getTicketsSortIssue()).toEqual(null);
+      });
+  })
+
+  //getTicketsSortCity endpoint
+  describe('getTicketsSortCity',()=>{
+    const arrayOfTickets:TicketDto[] = [];
+      it('should return tickets',async ()=>{
+        jest
+        .spyOn(provider,'getTicketsSortCity')
+        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+        expect(await provider.getTicketsSortCity()).toMatchObject(
+          expect.arrayContaining(arrayOfTickets)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getTicketsSortCity').mockResolvedValue(null);
+        expect(await provider.getTicketsSortCity()).toEqual(null);
+      });
+  })  
+ 
+  //getTicketsSortStatus endpoint
+  describe('getTicketsSortStatus',()=>{
+    const arrayOfTickets:TicketDto[] = [];
+      it('should return tickets',async ()=>{
+        jest
+        .spyOn(provider,'getTicketsSortStatus')
+        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+        expect(await provider.getTicketsSortStatus()).toMatchObject(
+          expect.arrayContaining(arrayOfTickets)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getTicketsSortStatus').mockResolvedValue(null);
+        expect(await provider.getTicketsSortStatus()).toEqual(null);
+      });
+  })
+
+  //getTicketsSortUpvotes endpoint
+  describe('getTicketsSortUpvotes',()=>{
+    const arrayOfTickets:TicketDto[] = [];
+      it('should return tickets',async ()=>{
+        jest
+        .spyOn(provider,'getTicketsSortUpvotes')
+        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+        expect(await provider.getTicketsSortUpvotes()).toMatchObject(
+          expect.arrayContaining(arrayOfTickets)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getTicketsSortUpvotes').mockResolvedValue(null);
+        expect(await provider.getTicketsSortUpvotes()).toEqual(null);
+      });
+  })
+
+  //getTicketsSortCity endpoint
+  describe('getTicketsSortCity',()=>{
+    const arrayOfTickets:TicketDto[] = [];
+      it('should return tickets',async ()=>{
+        jest
+        .spyOn(provider,'getTicketsSortCity')
+        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+        expect(await provider.getTicketsSortCity()).toMatchObject(
+          expect.arrayContaining(arrayOfTickets)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getTicketsSortCity').mockResolvedValue(null);
+        expect(await provider.getTicketsSortCity()).toEqual(null);
+      });
+  })  
+ 
+  //getTicketsSortStatus endpoint
+  describe('getTicketsSortStatus',()=>{
+    const arrayOfTickets:TicketDto[] = [];
+      it('should return tickets',async ()=>{
+        jest
+        .spyOn(provider,'getTicketsSortStatus')
+        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+        expect(await provider.getTicketsSortStatus()).toMatchObject(
+          expect.arrayContaining(arrayOfTickets)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getTicketsSortStatus').mockResolvedValue(null);
+        expect(await provider.getTicketsSortStatus()).toEqual(null);
+      });
+  }) 
+
+  //getTicketsSortUpvotes endpoint
+  describe('getTicketsSortUpvotes',()=>{
+    const arrayOfTickets:TicketDto[] = [];
+      it('should return tickets',async ()=>{
+        jest
+        .spyOn(provider,'getTicketsSortUpvotes')
+        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+        expect(await provider.getTicketsSortUpvotes()).toMatchObject(
+          expect.arrayContaining(arrayOfTickets)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getTicketsSortUpvotes').mockResolvedValue(null);
+        expect(await provider.getTicketsSortUpvotes()).toEqual(null);
+      });
+  }) 
+
+  //closeTicket
+  describe('closeTicket',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'closeTicket')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.closeTicket(2)).toBeUndefined()
+  });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'closeTicket').mockResolvedValue(null);
+      expect(await provider.closeTicket(2)).toEqual(null);
     });
   })
 
@@ -55,260 +333,177 @@ import { Picture, Ticket } from '@prisma/client';
     });
   })
 
-    //updateStatus
-    describe('updateStatus',()=>{
-      it('should return void',async ()=>{
-        jest
-        .spyOn(provider,'updateStatus')
-        .mockImplementation(():Promise<void> => Promise.resolve());
-
-        expect(await provider.updateStatus(2,"urgent")).toBeUndefined()
-      });
-  
-      it('should return null', async () => {
-        jest.spyOn(provider, 'updateStatus').mockResolvedValue(null);
-
-        expect(await provider.updateStatus(2,"urgent")).toEqual(null);
-      });
-    })
-
-    //updateCreateDate
-    describe('updateCreateDate',()=>{
-      it('should return void',async ()=>{
-        jest
-        .spyOn(provider,'updateCreateDate')
-        .mockImplementation(():Promise<void> => Promise.resolve());
-        const createDate = new Date();
-        expect(await provider.updateCreateDate(3,createDate)).toBeUndefined()
-      });
-  
-      it('should return null', async () => {
-        jest.spyOn(provider, 'updateCreateDate').mockResolvedValue(null);
-        const createDate = new Date();
-        expect(await provider.updateCreateDate(3,createDate)).toEqual(null);
-      });
-    })
-
-    //updateCloseDate
-    describe('updateCloseDate',()=>{
-      it('should return void',async ()=>{
-        jest
-        .spyOn(provider,'updateCloseDate')
-        .mockImplementation(():Promise<void> => Promise.resolve());
-        const closeDate = new Date();
-        expect(await provider.updateCloseDate(3,closeDate)).toBeUndefined()
-      });
-  
-      it('should return null', async () => {
-        jest.spyOn(provider, 'updateCloseDate').mockResolvedValue(null);
-        const closeDate = new Date();
-        expect(await provider.updateCloseDate(3,closeDate)).toEqual(null);
-      });
-    })
-
-    //updateType
-    describe('updateType',()=>{
-      it('should return void',async ()=>{
-        jest
-        .spyOn(provider,'updateType')
-        .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.updateType(3,"Pothole")).toBeUndefined()
-      });
-  
-      it('should return null', async () => {
-        jest.spyOn(provider, 'updateType').mockResolvedValue(null);
-        expect(await provider.updateType(3,"Pothole")).toEqual(null);
-      });
-    })
-
-    //updateLocation
-    describe('updateLocation',()=>{
-      it('should return void',async ()=>{
-        jest
-        .spyOn(provider,'updateLocation')
-        .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.updateLocation(3,"21 Duxbury Rd, Hatfield")).toBeUndefined()
-      });
-  
-      it('should return null', async () => {
-        jest.spyOn(provider, 'updateLocation').mockResolvedValue(null);
-        expect(await provider.updateLocation(3,"21 Duxbury Rd, Hatfield")).toEqual(null);
-      });
-    })
-
-    //updateCost
-    describe('updateCost',()=>{
-      it('should return void',async ()=>{
-        jest
-        .spyOn(provider,'updateCost')
-        .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.updateCost(1,50000.00)).toBeUndefined()
-      });
-  
-      it('should return null', async () => {
-        jest.spyOn(provider, 'updateCost').mockResolvedValue(null);
-        expect(await provider.updateCost(1,50000.00)).toEqual(null);
-      });
-    })
-
-    //updateDescription
-    describe('updateDescription',()=>{
-      it('should return void',async ()=>{
-        jest
-        .spyOn(provider,'updateDescription')
-        .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.updateDescription(1,"There is a large pothole.")).toBeUndefined()
-      });
-  
-      it('should return null', async () => {
-        jest.spyOn(provider, 'updateDescription').mockResolvedValue(null);
-        expect(await provider.updateDescription(1,"There is a large pothole.")).toEqual(null);
-      });
-    })
-
-    //updateRepairTime
-    describe('updateRepairTime',()=>{
-      it('should return void',async ()=>{
-        jest
-        .spyOn(provider,'updateRepairTime')
-        .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.updateRepairTime(1,20000)).toBeUndefined()
-      });
-  
-      it('should return null', async () => {
-        jest.spyOn(provider, 'updateRepairTime').mockResolvedValue(null);
-        expect(await provider.updateRepairTime(1,20000)).toEqual(null);
-      });
-    })
-
-    //updateupvotes
-    describe('updateUpvotes',()=>{
-      it('should return void',async ()=>{
-        jest
-        .spyOn(provider,'updateUpvotes')
-        .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await provider.updateUpvotes(1,20)).toBeUndefined()
-      });
-  
-      it('should return null', async () => {
-        jest.spyOn(provider, 'updateUpvotes').mockResolvedValue(null);
-        expect(await provider.updateUpvotes(1,20)).toEqual(null);
-      });
-    })
-
-    //closeTicket
-    describe('closeTicket',()=>{
-      it('should return void',async ()=>{
-        jest
-        .spyOn(provider,'closeTicket')
-        .mockImplementation(():Promise<void> => Promise.resolve());
-
-        expect(await provider.closeTicket(2)).toBeUndefined()
-      });
-  
-      it('should return null', async () => {
-        jest.spyOn(provider, 'closeTicket').mockResolvedValue(null);
-
-        expect(await provider.closeTicket(2)).toEqual(null);
-      });
-    })
-
-    //deleteTicket
-    describe('deleteTicket',()=>{
-      it('should return void',async ()=>{
-        jest
-        .spyOn(provider,'deleteTicket')
-        .mockImplementation(():Promise<void> => Promise.resolve());
-
-        expect(await provider.deleteTicket(2)).toBeUndefined()
-      });
-  
-      it('should return null', async () => {
-        jest.spyOn(provider, 'deleteTicket').mockResolvedValue(null);
-
-        expect(await provider.deleteTicket(2)).toEqual(null);
-      });
-    })
-
-  //getAllTickets endpoint
-    describe('getAllTickets',()=>{
-    const arrayOfTickets:TicketDto[] = [];
-    it('should return all tickets',async ()=>{
+  //updateStatus
+  describe('updateStatus',()=>{
+    it('should return void',async ()=>{
       jest
-      .spyOn(provider,'getAllTickets')
-      .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
-      expect(await provider.getAllTickets()).toMatchObject(
-        expect.arrayContaining(arrayOfTickets)
-      )
+      .spyOn(provider,'updateStatus')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+
+      expect(await provider.updateStatus(2,ticketDtoMock.ticketStatus)).toBeUndefined()
     });
-    
+
     it('should return null', async () => {
-      jest.spyOn(provider, 'getAllTickets').mockResolvedValue(null);
-      
-      expect(await provider.getAllTickets()).toEqual(null);
+      jest.spyOn(provider, 'updateStatus').mockResolvedValue(null);
+      expect(await provider.updateStatus(2,ticketDtoMock.ticketStatus)).toEqual(null);
     });
   })
 
-    //getTicket endpoint
-    describe('getTicket',()=>{
-    const arrayOfTickets:TicketDto[] = [];
-      it('should return a ticket',async ()=>{
-        jest
-        .spyOn(provider,'getTicket')
-        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
-        expect(await provider.getTicket(2)).toMatchObject(
-          expect.arrayContaining(arrayOfTickets)
-        )
-      });
-      
-      it('should return null', async () => {
-        jest.spyOn(provider, 'getTicket').mockResolvedValue(null);
-        
-        expect(await provider.getTicket(2)).toEqual(null);
-      });
-  })
-
-    //getCityTicket endpoint
-    describe('getCityTicket',()=>{
-    const arrayOfTickets:TicketDto[] = [];
-    it('should return tickets',async ()=>{
+  //updateCreateDate
+  describe('updateCreateDate',()=>{
+    it('should return void',async ()=>{
       jest
-      .spyOn(provider,'getCityTicket')
-      .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
-      expect(await provider.getCityTicket("Pretoria")).toMatchObject(
-        expect.arrayContaining(arrayOfTickets)
-      )
+      .spyOn(provider,'updateCreateDate')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateCreateDate(3,ticketDtoMock.ticketCreateDate)).toBeUndefined()
     });
-    
+
     it('should return null', async () => {
-      jest.spyOn(provider, 'getCityTicket').mockResolvedValue(null);
-      
-      expect(await provider.getCityTicket("Pretoria")).toEqual(null);
+      jest.spyOn(provider, 'updateCreateDate').mockResolvedValue(null);
+      expect(await provider.updateCreateDate(3,ticketDtoMock.ticketCreateDate)).toEqual(null);
     });
   })
 
-    //getStatus endpoint
-    describe('getStatus',()=>{
-    const arrayOfTickets:TicketDto[] = [];
-    it('should return tickets',async ()=>{
+  //updateCloseDate
+  describe('updateCloseDate',()=>{
+    it('should return void',async ()=>{
       jest
-      .spyOn(provider,'getStatus')
-      .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
-      expect(await provider.getStatus("In progress")).toMatchObject(
-        expect.arrayContaining(arrayOfTickets)
-      )
+      .spyOn(provider,'updateCloseDate')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateCloseDate(3,ticketDtoMock.ticketCloseDate)).toBeUndefined()
     });
-    
+
     it('should return null', async () => {
-      jest.spyOn(provider, 'getStatus').mockResolvedValue(null);
-      
-      expect(await provider.getStatus("In progress")).toEqual(null);
+      jest.spyOn(provider, 'updateCloseDate').mockResolvedValue(null);
+      expect(await provider.updateCloseDate(3,ticketDtoMock.ticketCloseDate)).toEqual(null);
     });
   })
 
-  it('should be defined', () => {
-    expect(provider).toBeDefined();
-  });
+  //updateType
+  describe('updateType',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'updateType')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateType(3,ticketDtoMock.ticketType)).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'updateType').mockResolvedValue(null);
+      expect(await provider.updateType(3,ticketDtoMock.ticketType)).toEqual(null);
+    });
+  })
+
+  //updateLocation
+  describe('updateLocation',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'updateLocation')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateLocation(3,ticketDtoMock.ticketLocation)).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'updateLocation').mockResolvedValue(null);
+      expect(await provider.updateLocation(3,ticketDtoMock.ticketLocation)).toEqual(null);
+    });
+  })
+
+  //updateCost
+  describe('updateCost',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'updateCost')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateCost(1,ticketDtoMock.ticketCost)).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'updateCost').mockResolvedValue(null);
+      expect(await provider.updateCost(1,ticketDtoMock.ticketCost)).toEqual(null);
+    });
+  })
+
+  //updateDescription
+  describe('updateDescription',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'updateDescription')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateDescription(1,ticketDtoMock.ticketDescription)).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'updateDescription').mockResolvedValue(null);
+      expect(await provider.updateDescription(1,ticketDtoMock.ticketDescription)).toEqual(null);
+    });
+  })
+
+  //updateRepairTime
+  describe('updateRepairTime',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'updateRepairTime')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateRepairTime(1,ticketDtoMock.ticketRepairTime)).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'updateRepairTime').mockResolvedValue(null);
+      expect(await provider.updateRepairTime(1,ticketDtoMock.ticketRepairTime)).toEqual(null);
+    });
+  })
+
+  //updateupvotes
+  describe('updateUpvotes',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'updateUpvotes')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateUpvotes(1,ticketDtoMock.ticketUpvotes)).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'updateUpvotes').mockResolvedValue(null);
+      expect(await provider.updateUpvotes(1,ticketDtoMock.ticketUpvotes)).toEqual(null);
+    });
+  })
+
+  //incUpvotes
+  describe('incUpvotes',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'incUpvotes')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.incUpvotes(1)).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'incUpvotes').mockResolvedValue(null);
+      expect(await provider.incUpvotes(1)).toEqual(null);
+    });
+  })
+
+  //deleteTicket
+  describe('deleteTicket',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'deleteTicket')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+
+      expect(await provider.deleteTicket(2)).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'deleteTicket').mockResolvedValue(null);
+
+      expect(await provider.deleteTicket(2)).toEqual(null);
+    });
+  })
+    
+/////////////////////////
+///// Picture tests /////
+/////////////////////////
 
   //createPicture endpoint
   describe('createPicture',()=>{

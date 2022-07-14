@@ -86,7 +86,7 @@ model TechTeam {
   id                Int       @id @default(autoincrement())
   name              String
   email             String?   @unique
-  specialisation    String
+  specialisation    String[]
   contactNumber     String    @unique @db.VarChar(10)
   nrJobsCompleted   Int?
   ratingOfJobs      Float?
@@ -121,9 +121,9 @@ model AuthorizedOfficials {
   contactNumber   String      @unique @db.VarChar(10)
   cities          String[]
 
-  password          String
-  passwordSalt      String?    
-  created           DateTime  @default(now())
+  password        String
+  passwordSalt    String?    
+  created         DateTime  @default(now())
   
   @@map("authorizedofficials")
 }

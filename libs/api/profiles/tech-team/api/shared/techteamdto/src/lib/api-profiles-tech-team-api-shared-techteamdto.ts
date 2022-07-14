@@ -10,6 +10,10 @@ import {
 
 export class TechTeamDto {
 
+@IsAlphanumeric()
+@IsNotEmpty()
+id! : number;
+
 @IsString()
 @IsNotEmpty()
 name! : string;
@@ -37,5 +41,10 @@ ratingOfJobs! : number;
 @IsAlphanumeric()
 @IsNotEmpty()
 password! : string;
+
+@IsAlphanumeric()
+@IsNotEmpty()
+passwordSalt! : string;
+
 
 }

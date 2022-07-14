@@ -2,6 +2,7 @@ import {PrismaClient} from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 import {AdminDto} from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto'
 
+//authorizedofficials = admin
 @Injectable()
 
 export class ApiProfilesAdminRepositoryDataAccess {  
@@ -40,6 +41,10 @@ export class ApiProfilesAdminRepositoryDataAccess {
         });
 
     return admin
+    }
+
+    async getAllAdmins(){
+        return await this.prisma.authorizedOfficials.findMany()
     }
 
     async getAdmin(adminId: number){
@@ -121,9 +126,11 @@ export class ApiProfilesAdminRepositoryDataAccess {
     async getAdminCities(adminCity: string){
 
         const admin = await this.prisma.authorizedOfficials.findMany({
-
+            //string may contain more than one city example "Pretoria, Centurion"
             where:{
-                email : adminCity,
+                cities:{
+                    hasEvery: [adminCity],
+                },
             },
 
         })
@@ -132,7 +139,7 @@ export class ApiProfilesAdminRepositoryDataAccess {
             return admin;
         }
         else{
-            return "Admin city: " + adminCity + " not found!";
+            return "Admin representing city " + adminCity + " not found!";
         }
 
     }
@@ -216,7 +223,7 @@ export class ApiProfilesAdminRepositoryDataAccess {
                 name :                  adminDto.name,
                 email :                 adminDto.email,
                 password :              hash,
-                passwordSalt:           salt,
+                passwordSalt :          salt,
 
             },
         });

@@ -107,15 +107,32 @@ prisma = new PrismaClient();
         
     }
 
-    
-    async getTechTeamSpecialisation(specs: string){
+    async getTechTeamEmail(name: string){
 
         const techTeam = await this.prisma.techTeam.findMany({
 
-            // string can use &(and) or | (or)
             where:{
-                specialisation: {
-                    search: specs
+                name : name,
+            },
+
+        })
+
+        if (techTeam) {
+            return techTeam;
+        }
+        else{
+            return "Techteam " + name + " not found!";
+        }
+        
+    }
+
+    async getTechTeamSpecialisation(specs: string){
+
+        const techTeam = await this.prisma.techTeam.findMany({
+            //string may contain more than one city example "Pretoria, Centurion"
+            where:{
+                specialisation:{
+                    hasEvery: [specs],
                 },
             },
 
@@ -125,9 +142,28 @@ prisma = new PrismaClient();
             return techTeam;
         }
         else{
-            return "Techteam with specialisation " + specs + " not found!";
+            return "techTeam with specialisation(s) " + specs + " not found!";
         }
 
+    }
+
+    async getTechTeamContactNr(name: string){
+
+        const techTeam = await this.prisma.techTeam.findMany({
+
+            where:{
+                name : name,
+            },
+
+        })
+
+        if (techTeam) {
+            return techTeam;
+        }
+        else{
+            return "Techteam " + name + " not found!";
+        }
+        
     }
 
     async updatePassword(techTeamId: number, newPassword: string){

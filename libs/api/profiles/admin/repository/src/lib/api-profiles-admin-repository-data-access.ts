@@ -85,7 +85,30 @@ export class ApiProfilesAdminRepositoryDataAccess {
         
     }
 
-    async getAdminCellNr(adminCellNr: string){
+    //partial string search for name
+    async searchAdminName(partial: string){
+        const admin = await this.prisma.authorizedOfficials.findMany({
+
+            where:{
+                name:{
+                    search: partial,
+                }
+            },
+            orderBy:{
+                name: 'asc',
+            }
+
+        })
+
+        if (admin) {
+            return admin;
+        }
+        else{
+            return "Admin " + partial + " not found!";
+        }
+    }
+
+    async getAdminContactNr(adminCellNr: string){
 
         const admin = await this.prisma.authorizedOfficials.findMany({
 

@@ -129,6 +129,7 @@ prisma = new PrismaClient();
             return "Techteam " + partial + " not found!";
         }
     }
+    
     async getTechTeamEmail(techEmail: string){
 
         const techTeam = await this.prisma.techTeam.findMany({

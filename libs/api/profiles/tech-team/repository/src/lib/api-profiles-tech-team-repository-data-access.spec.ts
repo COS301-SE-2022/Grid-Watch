@@ -49,7 +49,6 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
   //     .mockImplementation(():Promise<boolean> => Promise.resolve(true));
   //     expect(await provider.verifyPassword("sparky@gmail.com", "123Anru")).toEqual(false)
   //   });
-
   // })
 
   //getTechTeams endpoint
@@ -81,6 +80,7 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
           expect.arrayContaining(arrayOfTechTeams)
         )
       });
+
       it('should return null', async () => {
         jest.spyOn(provider, 'getTechTeamId').mockResolvedValue(null);
         
@@ -99,6 +99,7 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
           expect.arrayContaining(arrayOfTechTeams)
         )
       });
+
       it('should return null', async () => {
         jest.spyOn(provider, 'getTechTeamName').mockResolvedValue(null); 
         expect(await provider.getTechTeamName(techTeamDtoMock.name)).toEqual(null);
@@ -116,6 +117,7 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
             expect.arrayContaining(arrayOfTechTeams)
           )
         });
+
         it('should return null', async () => {
           jest.spyOn(provider, 'searchTechTeamName').mockResolvedValue(null); 
           expect(await provider.searchTechTeamName(techTeamDtoMock.name)).toEqual(null);
@@ -133,6 +135,7 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
           expect.arrayContaining(arrayOfTechTeams)
         )
       });
+
       it('should return null', async () => {
         jest.spyOn(provider, 'getTechTeamName').mockResolvedValue(null); 
         expect(await provider.getTechTeamName(techTeamDtoMock.name)).toEqual(null);
@@ -150,6 +153,7 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
           expect.arrayContaining(arrayOfTechTeams)
         )
       });
+
       it('should return null', async () => {
         jest.spyOn(provider, 'getTechTeamEmail').mockResolvedValue(null); 
         expect(await provider.getTechTeamEmail(techTeamDtoMock.email)).toEqual(null);
@@ -167,6 +171,7 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
           expect.arrayContaining(arrayOfTechTeams)
         )
       });
+
       it('should return null', async () => {
         jest.spyOn(provider, 'getTechTeamSpecialisation').mockResolvedValue(null); 
         expect(await provider.getTechTeamSpecialisation(techTeamDtoMock.specialisation)).toEqual(null);
@@ -184,6 +189,7 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
           expect.arrayContaining(arrayOfTechTeams)
         )
       });
+
       it('should return null', async () => {
         jest.spyOn(provider, 'getTechTeamContactNr').mockResolvedValue(null); 
         expect(await provider.getTechTeamContactNr(techTeamDtoMock.contactNumber)).toEqual(null);
@@ -211,13 +217,11 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
         jest
         .spyOn(provider,'updateTechTeamName')
         .mockImplementation(():Promise<void> => Promise.resolve());
-
         expect(await provider.updateTechTeamName(3,"Sparks")).toBeUndefined()
       });
   
       it('should return null', async () => {
         jest.spyOn(provider, 'updateTechTeamName').mockResolvedValue(null);
-
         expect(await provider.updateTechTeamName(3,"Sparks")).toEqual(null);
       });
     })
@@ -295,7 +299,6 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
   //     jest.spyOn(provider, 'IncTechTeamNrJobsCompleted').mockResolvedValue(null);
   //     expect(await provider.IncTechTeamNrJobsCompleted(3)).toEqual(null);
   //   });
-  // })DeleteTechTeam
 
   //updateTechTeamRatingJobs
   describe('updateTechTeamRatingJobs',()=>{
@@ -318,13 +321,11 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
       jest
       .spyOn(provider,'deleteTechTeam')
       .mockImplementation(():Promise<void> => Promise.resolve());
-
       expect(await provider.deleteTechTeam(2)).toBeUndefined()
     });
 
     it('should return null', async () => {
       jest.spyOn(provider, 'deleteTechTeam').mockResolvedValue(null);
-
       expect(await provider.deleteTechTeam(2)).toEqual(null);
     });
   })

@@ -1,1 +1,6 @@
-<p>dialog works!</p>
+<h1 mat-dialog-title>Reject Issue</h1>
+<div mat-dialog-content>Are you sure you want to reject this issue?</div>
+<div mat-dialog-actions class="dialogButtons">
+  <button mat-button [mat-dialog-close]="true">Yes</button>
+  <button mat-button [mat-dialog-close]="false">No</button>
+</div>

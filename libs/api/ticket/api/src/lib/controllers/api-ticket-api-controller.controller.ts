@@ -243,55 +243,49 @@ export class TicketController {
     //creating ticket subtasks
     @Post('/subtask/create/:id')
     async createSubtask(@Param() params,@Body() tasks){
-        //return this.apiTicketService.createSubtask(parseInt(params.id),tasks['taskDesc'],parseInt(tasks['taskStep']),tasks['taskStat']);
+        return this.apiTicketService.createSubtask(parseInt(params.id),tasks['taskDesc'],parseInt(tasks['taskStep']),tasks['taskStat']);
     }
 
     //get all subtasks of specific ticket
     @Get('/subtasks/:id')
     async getAllSubtasks(@Param() params){
-       // return this.apiTicketService.getAllSubtasks(parseInt(params.id));
+       return this.apiTicketService.getAllSubtasks(parseInt(params.id));
     }
 
     //update subtask endpoint
     @Put('/subtask/update/:id')
     async updateSubtask(@Param() params, @Body() tasks): Promise<boolean>{
-        //return this.apiTicketService.updateSubtask(parseInt(params.id),parseInt(tasks['ticketId']),tasks['taskDesc'],parseInt(tasks['taskStep']),tasks['tasskStat']);
-        return true;
+        return this.apiTicketService.updateSubtask(parseInt(params.id),parseInt(tasks['ticketId']),tasks['taskDesc'],parseInt(tasks['taskStep']),tasks['tasskStat']);
     }
 
     //update subtask ticket endpoint
     @Put('/subtask/updateticket/:id')
     async updateSubtaskTicket(@Param() params, @Body() tasks): Promise<boolean>{
-        //return this.apiTicketService.updatesubtaskTicket(parseInt(params.id),parseInt(tasks['ticketId']));
-        return true;
+        return this.apiTicketService.updateSubtaskTicket(parseInt(params.id),parseInt(tasks['ticketId']));
     }
      
     //update subtask description endpint
     @Put('/subtask/update/desc/:id')
     async updateSubtaskDesc(@Param() params, @Body() tasks): Promise<boolean>{
-        //return this.apiTicketService.updateSubtaskDesc(parseInt(params.id),tasks["desc"]);
-        return true;
+        return this.apiTicketService.updateSubtaskDesc(parseInt(params.id),tasks["desc"]);
     }
 
     //update subtask step endpint
     @Put('/subtask/update/step/:id')
     async updateSubtaskStep(@Param() params, @Body() tasks): Promise<boolean>{
-        //return this.apiTicketService.updateSubtaskStep(parseInt(params.id),parseInt(tasks["step"]));
-        return true;
+        return this.apiTicketService.updateSubtaskStep(parseInt(params.id),parseInt(tasks["step"]));
     }
    
     //update subtask status endpoint
     @Put('/subtask/update/status/:id')
     async updateSubtaskStatus(@Param() params, @Body() tasks): Promise<boolean>{
-        //return this.apiTicketService.updateSubtaskStatus(parseInt(params.id),tasks['stat']);
-        return true;
+        return this.apiTicketService.updateSubtaskStatus(parseInt(params.id),tasks['stat']);
     } 
     
     //delete subtask endpoint
     @Delete('/subtask/delete')
     async deleteSubtask(@Body() taskId: number):Promise<boolean> {
-        //return this.apiTicketService.deleteSubtask(parseInt(taskId['taskId']));
-        return true;
+        return this.apiTicketService.deleteSubtask(parseInt(taskId['taskId']));
     } 
 
 }

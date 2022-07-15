@@ -21,7 +21,7 @@ export const techteams = [
         name              : "The Pothole Guys",
         email             : "thepotholeguys@gmail.com",
         specialisation    : "Potholes",
-        contactNumber     : "08323398787",
+        contactNumber     : "0832339877",
         nrJobsCompleted   : 2,
         ratingOfJobs      : 7.3,
         password          : "potholeguys4321"

@@ -9,31 +9,31 @@ const prisma = new PrismaClient();
 
 async function main(){
     for (let ticket of tickets){
-        await this.prisma.ticket.create({
+        await prisma.ticket.create({
             data: ticket,
         })
     } 
 
     for (let techteam of techteams){
-        await this.prisma.ticket.create({
+        await prisma.techTeam.create({
             data: techteam,
         })
     } 
 
     for (let admin of admins){
-        await this.prisma.ticket.create({
+        await prisma.authorizedOfficials.create({
             data: admin,
         })
     } 
 
     for (let user of users){
-        await this.prisma.ticket.create({
+        await prisma.user.create({
             data: user,
         })
     } 
 
     for (let subtask of subtasks){
-        await this.prisma.ticket.create({
+        await prisma.subtasks.create({
             data: subtask,
         })
     } 

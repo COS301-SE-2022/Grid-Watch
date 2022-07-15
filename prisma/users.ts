@@ -1,27 +1,27 @@
 export const users = [
     {
-        email : "pietersmith@gmail.com",
-        passsword : "PieterSmith@2222",
         name    : "Pieter2222",
+        email : "pietersmith@gmail.com",
+        password : "PieterSmith@2222"
     },
     {
-        email : "johnnewman@gmail.com",
-        passsword : "J0hnN1955",
         name    : "JohnnyBravo",
+        email : "johnnewman@gmail.com",
+        password : "J0hnN1955"
     },
     {
-        email : "drnyathi@hotmail.com",
-        passsword : "IamAI$1969",
         name    : "Professor AI",
+        email : "drnyathi@hotmail.com",
+        password : "IamAI$1969"
     },
     {
-        email : "billgates4231@outlook.com",
-        passsword : "iAMBILLGATE$1",
         name    : "microsoftguy",
+        email : "billgates4231@outlook.com",
+        password : "iAMBILLGATE$1"
     },    
     {
-        email : "deniedaccess@gmail.com",
-        passsword : "Denied@access#21",
         name    : "DeniedA",
+        email : "deniedaccess@gmail.com",
+        password : "Denied@access#21",
     }
 ]

@@ -12,7 +12,7 @@ export const tickets = [
     },
     {
         ticketStatus : "Opened",
-        ticketCreateDate : "2022/07/11",
+       // ticketCreateDate : "2022/07/11",
         ticketType :  "Electricity",        
         ticketCity :  "Pretoria",            
         ticketLocation : "",      //place-id

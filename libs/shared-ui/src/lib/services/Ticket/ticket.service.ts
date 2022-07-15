@@ -9,146 +9,147 @@ import { ImageResponse } from './image-response';
 import { id } from '@swimlane/ngx-charts';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TicketService {
-
-
- 
-  
   private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type':  'application/json'
-    })
+      'Content-Type': 'application/json',
+    }),
   };
 
-  private getAllURL = "/api/ticket/all/tickets"
-  private upvoteURL = "/api/ticket/update/upvotes/"
-  private getPictureURL = "/api/ticket/picture/"
-  private getTicketURL = "/api/ticket/";
-  private uploadURL = "/api/ticket/upload";
-  private updateURL = "/api/ticket/update/";
-  private createPictureURL = "/api/ticket/picture/create/";
-  private createTicketURL = "/api/ticket/create";
-  private UpdateStatusURL = "/api/ticket/update/status/";
-  private getTicketStatus = "/api/ticket/status/";
+  private getAllURL = '/api/ticket/all/tickets';
+  private upvoteURL = '/api/ticket/update/upvotes/';
+  private getPictureURL = '/api/ticket/picture/';
+  private getTicketURL = '/api/ticket/';
+  private uploadURL = '/api/ticket/upload';
+  private updateURL = '/api/ticket/update/';
+  private createPictureURL = '/api/ticket/picture/create/';
+  private createTicketURL = '/api/ticket/create';
+  private UpdateStatusURL = '/api/ticket/update/status/';
+  private getTicketStatus = '/api/ticket/status/';
+  private updateRepairURL = '/api/ticket/update/repair/';
 
+  constructor(private http: HttpClient) {}
 
-  constructor(private http : HttpClient) {
-
-   }
-
-   public print(message : string)
-   {  
-      console.log(message);
-   }
-
-   updateTicketStatus(issue_id: string , status: string) {
-    const temp = {status: "Dispatched"}
-    const tempURL = this.UpdateStatusURL + issue_id;
-    console.log(tempURL);
-    
-    return this.http.put<string>(tempURL, temp ,this.httpOptions).pipe(
-      catchError(this.handleError<string>('updateTicketStatus', "Error"))
-    )
+  public print(message: string) {
+    console.log(message);
   }
-   
 
-   public createNewTicket(ticket : TicketDto) : Observable<TicketDto[]> {
-    return this.http.post<TicketDto[]>(this.createTicketURL, ticket, this.httpOptions)
-    .pipe(
-      catchError(this.handleError<TicketDto[]>('createNewTickets', []))
-    )
-   }
+  updateTicketStatus(issueID: string, status_: string) {
+    const temp = { status: status_ };
+    const tempURL = this.UpdateStatusURL + issueID;
+    console.log(temp);
 
-   public updateTicket(ticket : TicketDto) : boolean {
-    const tempURL = this.updateURL + ticket.ticketId ;
-      this.http.put<TicketDto[]>(tempURL, ticket, this.httpOptions).subscribe(
-        (response) =>
-        {
-          console.log(response);
-        }
-      ) 
-      return true;
-   }
+    return this.http
+      .put<string>(tempURL, temp, this.httpOptions)
+      .pipe(
+        catchError(this.handleError<string>('updateTicketStatus', 'Error'))
+      );
+  }
 
-   public getTickets() : Observable<TicketDto[]> {
-    return this.http.get<TicketDto[]>(this.getAllURL)
-    .pipe(
-      catchError(this.handleError<TicketDto[]>('getTickets', []))
-    );
-   } 
+  updateTicketRepairTime(issueID: string, time: number) {
+    const temp = '{"repairTime": ' + time + '}';
+    const tempURL = this.updateRepairURL + issueID;
+    return this.http
+      .put<JSON>(tempURL, JSON.parse(temp), this.httpOptions)
+      .pipe(
+        catchError(this.handleError<JSON>('updateTicketRepairTime', JSON.parse('{"status":"error"}')))
+      );
+  }
 
-   public getTicketsType(status: string) : Observable<TicketDto[]> {
-    const tempURL = this.getTicketStatus + status ;
-    return this.http.get<TicketDto[]>(tempURL)
-    .pipe(
-      catchError(this.handleError<TicketDto[]>('getTicketsType', []))
-    );
-   } 
+  public createNewTicket(ticket: TicketDto): Observable<TicketDto[]> {
+    return this.http
+      .post<TicketDto[]>(this.createTicketURL, ticket, this.httpOptions)
+      .pipe(catchError(this.handleError<TicketDto[]>('createNewTickets', [])));
+  }
 
-   public getTicket(ticket_id : string) : Observable<TicketDto[]> {
-    const tempURL = this.getTicketURL + ticket_id
-    return this.http.get<TicketDto[]>(tempURL).pipe(
-      catchError(this.handleError<TicketDto[]>("getTicket", []))
-    );
-   }
+  public updateTicket(ticket: TicketDto): boolean {
+    const tempURL = this.updateURL + ticket.ticketId;
+    this.http
+      .put<TicketDto[]>(tempURL, ticket, this.httpOptions)
+      .subscribe((response) => {
+        console.log(response);
+      });
+    return true;
+  }
 
-   public uploadImage(ticketImg : string, ticketID : number) : Observable<string> 
-   {
+  public getTickets(): Observable<TicketDto[]> {
+    return this.http
+      .get<TicketDto[]>(this.getAllURL)
+      .pipe(catchError(this.handleError<TicketDto[]>('getTickets', [])));
+  }
+
+  public getTicketsType(status: string): Observable<TicketDto[]> {
+    const tempURL = this.getTicketStatus + status;
+    return this.http
+      .get<TicketDto[]>(tempURL)
+      .pipe(catchError(this.handleError<TicketDto[]>('getTicketsType', [])));
+  }
+
+  public getTicket(ticket_id: string): Observable<TicketDto[]> {
+    const tempURL = this.getTicketURL + ticket_id;
+    return this.http
+      .get<TicketDto[]>(tempURL)
+      .pipe(catchError(this.handleError<TicketDto[]>('getTicket', [])));
+  }
+
+  public uploadImage(ticketImg: string, ticketID: number): Observable<string> {
     const tempURL = this.createPictureURL + ticketID;
     const body = JSON.parse('{ "imgLink" : "' + ticketImg + '"}');
-    return this.http.post<string>(tempURL, body, this.httpOptions).pipe(
-      catchError(this.handleError<string>('getTickets', "failed"))
-    )
-   }
+    return this.http
+      .post<string>(tempURL, body, this.httpOptions)
+      .pipe(catchError(this.handleError<string>('getTickets', 'failed')));
+  }
 
-   private handleError<T>(operation = 'operation', result?: T) 
-   {
+  private handleError<T>(operation = 'operation', result?: T) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (error: any): Observable<T> => {
-      console.error(error); 
+      console.error(error);
       console.log(`${operation} failed: ${error.messgae}`);
 
       return of(result as T);
     };
-
-  
-
   }
 
-  public increaseUpvotes(ticketID : number, ticketUpvotes : number ) : void
-  {
-    const tempURL = this.upvoteURL + ticketID 
+  public increaseUpvotes(ticketID: number, ticketUpvotes: number): void {
+    const tempURL = this.upvoteURL + ticketID;
     const temp = '{"upvotes": ' + ticketUpvotes + '}';
-    this.http.put<JSON>(tempURL, JSON.parse(temp) ,this.httpOptions).subscribe(
-      () => {
+    this.http
+      .put<JSON>(tempURL, JSON.parse(temp), this.httpOptions)
+      .subscribe(() => {
         return;
-      }
+      });
+  }
+
+  public getImages(ticketID: number): Observable<TicketPictureDto[]> {
+    const tempURL = this.getPictureURL + ticketID;
+    return this.http
+      .get<TicketPictureDto[]>(tempURL)
+      .pipe(catchError(this.handleError<TicketPictureDto[]>('getImages', [])));
+  }
+
+  public postImage(formData: FormData): Observable<ImageResponse> {
+    // console.log("OVER HERE NOW");
+
+    return this.http
+      .post<Express.Multer.File>(this.uploadURL, formData)
+      .pipe(
+        catchError(
+          this.handleError<ImageResponse>('postImage', {
+            originalname: '',
+            filename: '',
+          })
+        )
       );
   }
 
-  public getImages(ticketID : number) : Observable<TicketPictureDto[]>
-  {
-    const tempURL = this.getPictureURL + ticketID
-    return this.http.get<TicketPictureDto[]>(tempURL)
-    .pipe(     
-      catchError(this.handleError<TicketPictureDto[]>('getImages', []))
-    );
-  }
-
-  public postImage(formData : FormData) : Observable<ImageResponse>{
-    // console.log("OVER HERE NOW");
-    
-    return this.http.post<Express.Multer.File>(this.uploadURL, formData)
-    .pipe(
-      catchError(this.handleError<ImageResponse>('postImage', {originalname:"", filename: ""}))
-    );
-  }
-
-  
-  public sort(selectedOption: string, order: string, tickets : TicketDto []): TicketDto[] {
-   if (selectedOption == 'Date') {
+  public sort(
+    selectedOption: string,
+    order: string,
+    tickets: TicketDto[]
+  ): TicketDto[] {
+    if (selectedOption == 'Date') {
       if (order === 'asc') tickets.sort(this.sortByDate);
       else tickets.sort(this.sortByDateDesc);
     } else if (selectedOption == 'Location') {
@@ -169,7 +170,6 @@ export class TicketService {
     }
 
     return tickets;
-
   }
 
   private sortByIssue(a: TicketDto, b: TicketDto): number {
@@ -231,5 +231,4 @@ export class TicketService {
     if (b.ticketCreateDate < a.ticketCreateDate) return 1;
     else return -1;
   }
-  
 }

@@ -1,66 +1,3 @@
-<!-- <div class="container">
-    <div class="card mt-4">
-        <div class="card-body">
-            <div class="row ">
-                <div class="col-12 col-lg-6">
-                    <div class="display-6 text-center">{{ticket.ticketType}}</div>
-                    <div class="picturePreview ">
-                        <div class="centered_element d-flex justify-content-center" *ngIf="ticket.ticketImg === ''"> 
-                            <div class="spinner-border text-success text-center" >
-                            </div>
-                        </div>
-                        <div class="picturePreview border" *ngIf="ticket.ticketImg !== ''">
-                            <img src="assets/{{ticket.ticketImg}}" onerror="this.src='assets/solid_example.png'" alt="issue_image">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <div class="ticket_description">
-                        <b>
-                            Description : <br>
-                        </b>
-                        {{ticket.ticketDescription}}
-                    </div>
-                    <div class="ticket_create_date mt-1">
-                        <b>Create date :</b>  {{ticket.ticketCreateDate}}
-                    </div>
-                    <div class="ticket_address mt-1">
-                        <b>Address :</b> {{ticket.ticketLocation}}
-                    </div>
-                    <div class="ticket_city mt-1">
-                        <b> City:</b> {{ticket.ticketCity}}
-                    </div>
-                    <div class="ticket_map">
-                        <div class="mt-2">
-                            <google-map
-                                height="250px"
-                                width="100%"
-                                [zoom]="zoom"
-                                [center]="center"
-                                [options]="options">
-                                <map-marker
-                                    [position]="marker_position"
-                                    [title]="ticket.ticketType"
-                                >
-                                </map-marker>
-                            </google-map>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3 text-center">
-                    <button type="button" class="btn btn-outline-dark" (click)="accept()">Accept</button>
-                </div>
-                <div class="col-6">
-                </div>
-                <div class="col-3 text-center">
-                    <button type="button" class="btn btn-outline-dark" (click)="back()">Back</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
 <div class="gridContainer">
   <mat-card>
     <mat-card-header>
@@ -89,7 +26,7 @@
         <div class="status">
           {{ ticket.ticketStatus }}
         </div>
-        <div class="dateCreated">
+        <div class="dateCreated" *ngIf="ticket.ticketCreateDate !== undefined">
           <i>
             {{ ticket.ticketCreateDate.toLocaleString() }}
           </i>

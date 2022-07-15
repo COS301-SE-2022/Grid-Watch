@@ -19,6 +19,9 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -31,6 +34,9 @@ import { DialogComponent } from './dialog/dialog.component';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
       {

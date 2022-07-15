@@ -1,8 +1,12 @@
 .dialogButtons
 {
     display: flex;
+    margin: 0 !important;
 }
 
-button{
-    flex: 40%;
+.buttons{
+    width: 100%;
+    flex: 50%;
+    padding: 0;
+    margin: 0 !important;
 }

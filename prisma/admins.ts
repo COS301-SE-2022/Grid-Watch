@@ -17,7 +17,7 @@ export const admins = [
         name              : "Frederick South",
         email             : "fsouth1978@gmail.com",
         contactNumber     : "0812929930",
-        cities            : ["Cape Town,Stellennosch,Milnerton"],
+        cities            : ["Cape Town,Stellenbosch,Milnerton"],
         password          : "F$outhGridWatch1"
     }
 ]

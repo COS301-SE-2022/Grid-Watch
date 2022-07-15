@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {PrismaClient} from '@prisma/client';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 
@@ -14,8 +14,8 @@ export class ApiTicketRepositoryDataAccess {
                     
                     ticketStatus :          ticketDto.ticketStatus,    
                     ticketType :            ticketDto.ticketType,
-                    ticketCreateDate:       ticketDto.ticketType, //has default
-                    ticketCloseDate:        ticketDto.ticketType,    
+                    ticketCreateDate:       ticketDto.ticketCreateDate, //has default
+                    ticketCloseDate:        ticketDto.ticketCloseDate,    
                     ticketCity :            ticketDto.ticketCity,   
                     ticketLocation :        ticketDto.ticketLocation,   
                     ticketCost :            ticketDto.ticketCost,
@@ -24,9 +24,10 @@ export class ApiTicketRepositoryDataAccess {
                     ticketUpvotes :         ticketDto.ticketUpvotes,
                 }
             });
-             return ticket;
+
+            return ticket;
              
-            //  await this.prisma.ticket.findMany({
+            // return await this.prisma.ticket.findMany({
             //     where:
             //     {
             //         ticketCreateDate: ticketDto.ticketCreateDate,

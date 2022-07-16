@@ -22,11 +22,8 @@
         <div class="button">
           <button mat-stroked-button (click)="login()">Submit</button>
         </div>
-        <div class="registerLink" *ngIf="application_type === 'public'">
-          Dont have an account? <a [routerLink]="['/register', {app:application_type}]">Register here</a>
-        </div>
-        <div class="registerLink" *ngIf="application_type === 'tech-team'">
-          Dont have an account? <a [routerLink]="['/registerTechTeam']">Register here</a>
+        <div class="registerLink" >
+          Dont have an account? <a [routerLink]="['/register']">Register here</a>
         </div>
       </mat-card-content>
     </mat-card>

@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { ActivatedRoute} from '@angular/router';
+import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
+import { PublicProfileService } from '../services/public-profile/public-profile.service';
 
 @Component({
   selector: 'grid-watch-login-page',
@@ -19,22 +21,24 @@ export class LoginPageComponent implements OnInit {
   });
 
   application_type! : string | undefined | null;
-  @Input() email! : string;
-  @Input() password! : string;
+  @Input() user! : UserDto;
   hide = true;
   
   constructor(private route : ActivatedRoute,
-    private formBuilder : FormBuilder) {}
+    private formBuilder : FormBuilder,
+    private profileService : PublicProfileService) {}
 
   ngOnInit(): void {
     const application_type = this.route.snapshot.paramMap.get('app');
     this.application_type = application_type;
+    this.user = new UserDto();
   }
 
   login() : void
   {
-    console.log("Email: " + this.email);
-    console.log("Password: " + this.password);
+    this.user.email = "Tshego14@gmail.com"
+    this.user.password = "Gbfj&hfbsh"
+    this.profileService.login(this.user);
   }
 
   

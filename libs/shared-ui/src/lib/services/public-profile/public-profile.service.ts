@@ -10,6 +10,7 @@ import { catchError, Observable, of } from 'rxjs';
 export class PublicProfileService {
   private createUserURL = 'api/public/create';
   private getUserEmailURL = 'api/public/email/';
+  private verifyLoginURL = 'api/public/verify';
 
   constructor(private http: HttpClient) {}
 
@@ -54,4 +55,14 @@ export class PublicProfileService {
     else
       return false;
   } 
+
+  public login(user : UserDto){
+    // console.log("True");
+    this.http.post<UserDto>(this.verifyLoginURL, user ).subscribe(
+      (response) => {
+        console.log(response);
+      }
+    );
+    return true;
+   }
 }

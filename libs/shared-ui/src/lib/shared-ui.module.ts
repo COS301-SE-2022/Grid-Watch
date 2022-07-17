@@ -20,7 +20,7 @@ import { MatIconModule } from "@angular/material/icon"
     CommonModule,
     FormsModule,
     RouterModule.forChild([
-      { path: 'login', pathMatch: 'full', component: LoginPageComponent },
+      // { path: 'login', pathMatch: 'full', component: LoginPageComponent },
       { path: 'register', pathMatch: 'full', component: RegisterPageComponent },
     ]),
     MatCardModule,

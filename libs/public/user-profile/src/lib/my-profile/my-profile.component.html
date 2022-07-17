@@ -8,26 +8,37 @@
       {{ user.email }}
     </div>
     <div class="optionsButton">
-        <span class="material-icons settingsIcon">settings</span>
+        <button mat-button [matMenuTriggerFor]="menu" class="material-icons settingsIcon">
+            <span >settings</span>
+        </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Settings</button>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu>
     </div>
   </div>
 </div>
-<mat-divider>
-</mat-divider>
+<mat-divider> </mat-divider>
 <div>
-    <mat-button-toggle-group class="viewSelector" [(ngModel)]="viewSelected" (change)="changeView()">
-        <mat-button-toggle class="views" value="list">
-            <span class="material-icons viewIcons">list</span>
-        </mat-button-toggle>
-        <mat-button-toggle class="views" value="grid">
-            <span class="material-icons viewIcons">grid_view</span>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
+  <mat-button-toggle-group
+    class="viewSelector"
+    [(ngModel)]="viewSelected"
+  >
+    <mat-button-toggle class="views" value="list">
+      <span class="material-icons viewIcons">list</span>
+    </mat-button-toggle>
+    <mat-button-toggle class="views" value="grid">
+      <span class="material-icons viewIcons">grid_view</span>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
 </div>
-<mat-divider>
-</mat-divider>
+<mat-divider> </mat-divider>
 
 <div class="myTicketsContainer">
-    <grid-watch-my-tickets-list *ngIf="viewSelected === 'list'"></grid-watch-my-tickets-list>
-    <grid-watch-my-tickets-block *ngIf="viewSelected === 'grid'"></grid-watch-my-tickets-block>
+  <grid-watch-my-tickets-list
+    *ngIf="viewSelected === 'list'"
+  ></grid-watch-my-tickets-list>
+  <grid-watch-my-tickets-block
+    *ngIf="viewSelected === 'grid'"
+  ></grid-watch-my-tickets-block>
 </div>

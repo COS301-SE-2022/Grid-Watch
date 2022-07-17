@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { GoogleMapsService } from '@grid-watch/shared-ui';
 
 import { MyTicketsBlockComponent } from './my-tickets-block.component';
 
@@ -9,6 +11,8 @@ describe('MyTicketsBlockComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MyTicketsBlockComponent],
+      imports: [HttpClientModule],
+      providers : [GoogleMapsService]
     }).compileComponents();
   });
 

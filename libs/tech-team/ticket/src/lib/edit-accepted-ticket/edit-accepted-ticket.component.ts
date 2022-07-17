@@ -19,7 +19,6 @@ export class EditAcceptedTicketComponent implements OnInit {
   UpdateCostURL = 'http://localhost:3333/api/ticket/update/cost/';
   getPictureURL = 'http://localhost:3333/api/ticket/picture/';
 
-  httpOptions!: {};
 
   hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto' as FloatLabelType);
@@ -110,7 +109,7 @@ export class EditAcceptedTicketComponent implements OnInit {
   updateStatus(): boolean {
     const temp = '{"status": "' + this.status + '"}';
     this.http
-      .put<JSON>(this.UpdateStatusURL, JSON.parse(temp), this.httpOptions)
+      .put<JSON>(this.UpdateStatusURL, JSON.parse(temp))
       .subscribe(
         () => {
           return true;
@@ -125,7 +124,7 @@ export class EditAcceptedTicketComponent implements OnInit {
   updateCost(): boolean {
     const temp = '{"cost": ' + this.cost + '}';
     this.http
-      .put<JSON>(this.UpdateCostURL, JSON.parse(temp), this.httpOptions)
+      .put<JSON>(this.UpdateCostURL, JSON.parse(temp))
       .subscribe(
         () => {
           return true;

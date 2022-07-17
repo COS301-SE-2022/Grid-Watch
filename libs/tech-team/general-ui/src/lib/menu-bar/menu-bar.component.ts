@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuBarComponent implements OnInit {
   applicationType: string | undefined;
-  constructor() {}
+  // constructor() {}
 
   ngOnInit(): void {
     const temp = document.getElementById("application_type");

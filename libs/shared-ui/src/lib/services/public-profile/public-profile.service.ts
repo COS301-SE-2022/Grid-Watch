@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
-import { User } from '@prisma/client';
 import { catchError, Observable, of } from 'rxjs';
 
 @Injectable({

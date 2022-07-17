@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -6,15 +6,13 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dial
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss'],
 })
-export class DialogComponent implements OnInit {
+export class DialogComponent {//implements OnInit {
   rejectReason! : string | undefined;
   constructor(
-    public dialogRef: MatDialogRef<DialogComponent>,
+    @Optional() public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
   ) {}
 
-  ngOnInit(): void {
-  }
 
   rejectIssue() : void{
     this.dialogRef.close();

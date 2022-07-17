@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
-import { PublicProfileService } from 'libs/shared-ui/src/lib/services/public-profile/public-profile.service';
+import { PublicProfileService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-my-profile',
@@ -13,7 +14,8 @@ export class MyProfileComponent implements OnInit {
   items = ["","","","","","","","","","",""]
   viewSelected! : string;
   constructor(
-    private profileService : PublicProfileService
+    private profileService : PublicProfileService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -30,8 +32,8 @@ export class MyProfileComponent implements OnInit {
     )
   }
 
-  changeView(){
-    console.log("changing view");
-    
+  logout() : void{
+    localStorage.setItem("LoggedIn", "false");
+    this.router.navigateByUrl("/login");
   }
 }

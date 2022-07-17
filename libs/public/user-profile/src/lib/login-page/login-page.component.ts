@@ -3,7 +3,7 @@ import { FormControl, FormBuilder } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
-import { PublicProfileService } from 'libs/shared-ui/src/lib/services/public-profile/public-profile.service';
+import { PublicProfileService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-login-page',

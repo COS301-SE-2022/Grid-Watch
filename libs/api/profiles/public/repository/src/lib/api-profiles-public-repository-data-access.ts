@@ -106,6 +106,9 @@ export class ApiProfilesPublicRepositoryDataAccess{
             },
         });
 
+        if (user == null)
+            return false;
+
         const hash = await this.bcrypt.hash(Password, user.passwordSalt); 
 
         return user.password==hash;

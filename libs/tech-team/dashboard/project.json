@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/tech-team/dashboard",
+  "sourceRoot": "libs/tech-team/dashboard/src",
+  "prefix": "grid-watch",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/tech-team/dashboard"],
+      "options": {
+        "jestConfig": "libs/tech-team/dashboard/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/tech-team/dashboard/**/*.ts",
+          "libs/tech-team/dashboard/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

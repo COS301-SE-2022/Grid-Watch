@@ -8,6 +8,20 @@ import { AcceptedTicketViewComponent } from './accepted-ticket-view/accepted-tic
 import { EditAcceptedTicketComponent } from './edit-accepted-ticket/edit-accepted-ticket.component';
 import { FormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { DialogComponent } from './dialog/dialog.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -15,6 +29,14 @@ import { GoogleMapsModule } from '@angular/google-maps';
     HttpClientModule,
     FormsModule,
     GoogleMapsModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
       {
@@ -44,12 +66,15 @@ import { GoogleMapsModule } from '@angular/google-maps';
     TicketViewDetailsComponent,
     AcceptedTicketViewComponent,
     EditAcceptedTicketComponent,
+    DialogComponent,
   ],
   exports: [
     TicketViewPageComponent,
     TicketViewDetailsComponent,
     AcceptedTicketViewComponent,
     EditAcceptedTicketComponent,
+    DialogComponent,
   ],
+  providers: [MatDialogRef]
 })
 export class TechTeamTicketModule {}

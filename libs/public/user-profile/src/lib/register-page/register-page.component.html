@@ -7,27 +7,27 @@
             </mat-card-header>
             <mat-card-content>
                 <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
-                    <mat-label>First Name</mat-label>
-                    <input type="text" matInput placeholder="Enter first name" >
+                    <mat-label>Username</mat-label>
+                    <input type="text" matInput placeholder="Enter user name"  [(ngModel)]="user.name" >
                   </mat-form-field> 
-                <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                <!-- <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
                     <mat-label>Last Name</mat-label>
                     <input type="text" matInput placeholder="Enter last name" >
-                  </mat-form-field> 
+                  </mat-form-field>  -->
                 <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
                     <mat-label>Email</mat-label>
-                    <input type="email" matInput placeholder="Enter email" >
+                    <input type="email" matInput placeholder="Enter email"  [(ngModel)]="user.email">
                   </mat-form-field> 
                 <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
                     <mat-label>Password</mat-label>
-                    <input  [type]="hide ? 'password' : 'text'" matInput placeholder="Enter password" >
+                    <input  [type]="hide ? 'password' : 'text'" matInput placeholder="Enter password"  [(ngModel)]="user.password">
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                   </mat-form-field> 
                 <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
                     <mat-label>Confirm Password</mat-label>
-                    <input  [type]="hideConfirm ? 'password' : 'text'" matInput placeholder="Enter password again" >
+                    <input  [type]="hideConfirm ? 'password' : 'text'" matInput placeholder="Enter password again"  [(ngModel)]="confirmPassword" >
                     <button mat-icon-button matSuffix (click)="hideConfirm = !hideConfirm" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirm">
                         <mat-icon>{{hideConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>

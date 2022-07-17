@@ -47,7 +47,7 @@ export class ApiProfilesPublicApiController {
 
     //post endpoint to verify password
     @Post('/verify')
-    async verifyUserPassword(@Body() user ):Promise<boolean>{
+    async verifyUserPassword(@Body() user: UserDto ):Promise<boolean>{
         return this.apiProfilesPublicService.verifyUserPassword(user["email"],user["password"]);
     }
 

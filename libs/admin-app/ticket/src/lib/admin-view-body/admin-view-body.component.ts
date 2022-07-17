@@ -69,12 +69,16 @@ export class AdminViewBodyComponent implements OnInit {
 
     loader.load().then(
       () => {
-        this.getDatabaseData(true);
+        // this.getDatabaseData(true);
       },
       (error) => {
         console.log(error);
       }
     );
+  }
+
+ ngAfterContentInit(): void {
+    this.getDatabaseData(true);
   }
 
   announceSortChange(sortState: Sort) {
@@ -96,9 +100,9 @@ export class AdminViewBodyComponent implements OnInit {
 
   getDatabaseData(filters: boolean) {
     this.ticketService.getTickets().subscribe(
-      (response) => {
-        // console.log(response);
-        this.initialiseTicket(response);
+      async (response) => {
+        console.log(response);
+        await this.initialiseTicket(response);
         this.adjustDates();
         if (filters) this.initialiseFilters();
       },
@@ -150,6 +154,7 @@ export class AdminViewBodyComponent implements OnInit {
         this.tickets[index].ticketLocation;
     }
     this.dataSource = new MatTableDataSource(this.tickets);
+    // this.table.renderRows();
   }
 
   copy(temp: TicketDto): TicketDto {

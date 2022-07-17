@@ -47,7 +47,7 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
      jest
      .spyOn(provider,'verifyPassword')
      .mockImplementation(():Promise<boolean> => Promise.resolve(true));
-     expect(await provider.verifyPassword("sparky@gmail.com", "123Anru")).toEqual(false)
+     expect(await provider.verifyPassword("sparky@gmail.com", "123Anru")).toEqual(true)
    });
  })
 
@@ -163,12 +163,7 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
   //getTechTeamSpecialisation endpoint
   describe('getTechTeamSpecialisation',()=>{
     const arrayOfTechTeams:TechTeamDto[] = [];
-    let specialisations = "";
-    for (let i = 0; i < techTeamDtoMock.specialisation.length-1; i++) {
-      specialisations += techTeamDtoMock.specialisation[i] + ", ";
-      
-    }
-    specialisations += techTeamDtoMock.specialisation[techTeamDtoMock.specialisation.length-1];
+    const specialisations = "Electricity";
       it('should return techteams',async ()=>{
         jest
         .spyOn(provider,'getTechTeamSpecialisation')

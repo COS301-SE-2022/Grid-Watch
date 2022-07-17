@@ -8,7 +8,7 @@ export class GetAdminCellNrHandler implements IQueryHandler<GetAdminCellNrQuery>
 
     async execute(query: GetAdminCellNrQuery){
         const {adminCellNr} = query;
-        return this.repository.getAdminCellNr(adminCellNr);
+        return this.repository.getAdminContactNr(adminCellNr);
 
     }
 

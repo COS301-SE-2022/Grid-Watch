@@ -124,24 +124,6 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
         });
     })
 
-  //getTechTeamName endpoint
-  describe('getTechTeamName',()=>{
-    const arrayOfTechTeams:TechTeamDto[] = [];
-      it('should return a techteam',async ()=>{
-        jest
-        .spyOn(provider,'getTechTeamName')
-        .mockImplementation(():Promise<TechTeamDto[]>=>Promise.resolve(arrayOfTechTeams))
-        expect(await provider.getTechTeamId(2)).toMatchObject(
-          expect.arrayContaining(arrayOfTechTeams)
-        )
-      });
-
-      it('should return null', async () => {
-        jest.spyOn(provider, 'getTechTeamName').mockResolvedValue(null); 
-        expect(await provider.getTechTeamName(techTeamDtoMock.name)).toEqual(null);
-      });
-  })
-
   //getTechTeamEmail endpoint
   describe('getTechTeamEmail',()=>{
     const arrayOfTechTeams:TechTeamDto[] = [];

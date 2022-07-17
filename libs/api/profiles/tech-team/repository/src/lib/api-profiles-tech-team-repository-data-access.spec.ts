@@ -15,7 +15,7 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
 
     techTeamDtoMock.name = "Sparky";
     techTeamDtoMock.email = "sparkyy3@gmail.com";
-    techTeamDtoMock.specialisation = "Electricity";
+    techTeamDtoMock.specialisation = ["Electricity"];
     techTeamDtoMock.contactNumber= "0119873323";
 
     provider = module.get<ApiProfilesTechTeamRepositoryDataAccess>(
@@ -29,12 +29,12 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
 
   //createTechTeam endpoint
   describe('createTechTeam',()=>{
-    // it('should return void',async ()=>{
-    //   jest
-    //   .spyOn(provider,'createTechTeam')
-    //  // .mockImplementation(():Promise<void> => Promise.resolve());
-    //   expect(await provider.createTechTeam("Sparky", "sparkyy@gmail.com", "Electricity","0119874322", "1234Anru")).toBeDefined()
-    // });
+     it('should return void',async ()=>{
+       jest
+       .spyOn(provider,'createTechTeam')
+       .mockImplementation(():Promise<TechTeamDto> => Promise.resolve(techTeamDtoMock))
+       expect(await provider.createTechTeam(techTeamDtoMock)).toEqual(techTeamDtoMock);
+     });
 
     it('should return null', async () => {
       jest.spyOn(provider, 'createTechTeam').mockResolvedValue(null);
@@ -42,14 +42,14 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
     });
   })
 
-  // describe('verifyPassword',()=>{
-  //   it('should return true',async ()=>{
-  //     jest
-  //     .spyOn(provider,'verifyPassword')
-  //     .mockImplementation(():Promise<boolean> => Promise.resolve(true));
-  //     expect(await provider.verifyPassword("sparky@gmail.com", "123Anru")).toEqual(false)
-  //   });
-  // })
+ describe('verifyPassword',()=>{
+   it('should return true',async ()=>{
+     jest
+     .spyOn(provider,'verifyPassword')
+     .mockImplementation(():Promise<boolean> => Promise.resolve(true));
+     expect(await provider.verifyPassword("sparky@gmail.com", "123Anru")).toEqual(false)
+   });
+ })
 
   //getTechTeams endpoint
   describe('getTechTeams',()=>{
@@ -163,18 +163,24 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
   //getTechTeamSpecialisation endpoint
   describe('getTechTeamSpecialisation',()=>{
     const arrayOfTechTeams:TechTeamDto[] = [];
+    let specialisations = "";
+    for (let i = 0; i < techTeamDtoMock.specialisation.length-1; i++) {
+      specialisations += techTeamDtoMock.specialisation[i] + ", ";
+      
+    }
+    specialisations += techTeamDtoMock.specialisation[techTeamDtoMock.specialisation.length-1];
       it('should return techteams',async ()=>{
         jest
         .spyOn(provider,'getTechTeamSpecialisation')
         .mockImplementation(():Promise<TechTeamDto[]>=>Promise.resolve(arrayOfTechTeams))
-        expect(await provider.getTechTeamSpecialisation(techTeamDtoMock.specialisation)).toMatchObject(
+        expect(await provider.getTechTeamSpecialisation(specialisations)).toMatchObject(
           expect.arrayContaining(arrayOfTechTeams)
         )
       });
 
       it('should return null', async () => {
         jest.spyOn(provider, 'getTechTeamSpecialisation').mockResolvedValue(null); 
-        expect(await provider.getTechTeamSpecialisation(techTeamDtoMock.specialisation)).toEqual(null);
+        expect(await provider.getTechTeamSpecialisation(specialisations)).toEqual(null);
       });
   })
 

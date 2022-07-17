@@ -36,7 +36,6 @@ prisma = new PrismaClient();
                 nrJobsCompleted :       0,
                 password :              hash,
                 passwordSalt:           salt,
-                created :               new Date()
 
             },
         });

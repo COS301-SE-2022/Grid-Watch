@@ -5,16 +5,16 @@ import { Picture, Subtasks } from '@prisma/client';
 
   const ticketDtoMock: jest.Mocked<TicketDto> = new TicketDto() as TicketDto;
 
-  ticketDtoMock.ticketStatus = "Dispatched";
-  // ticketDtoMock.ticketCreateDate = "2022/07/11";
-  // ticketDtoMock.ticketCloseDate =  "2022/07/11";  
-  ticketDtoMock.ticketType =  "Pothole";        
-  ticketDtoMock.ticketCity =  "Pretoria";            
-  ticketDtoMock.ticketLocation = "21 Duxbury Rd, Hatfield";      
-  ticketDtoMock.ticketCost = 25000;           
-  ticketDtoMock.ticketDescription = "There is a large pothole in the middle of the road";    
-  ticketDtoMock.ticketRepairTime =  55600;    
-  ticketDtoMock.ticketUpvotes = 52;       
+   ticketDtoMock.ticketStatus = "Dispatched";
+   // ticketDtoMock.ticketCreateDate = "2022/07/11";
+   // ticketDtoMock.ticketCloseDate =  "2022/07/11";  
+   ticketDtoMock.ticketType =  "Pothole";        
+   ticketDtoMock.ticketCity =  "Pretoria";            
+   ticketDtoMock.ticketLocation = "21 Duxbury Rd, Hatfield";      
+   ticketDtoMock.ticketCost = 25000;           
+   ticketDtoMock.ticketDescription = "There is a large pothole in the middle of the road";    
+   ticketDtoMock.ticketRepairTime =  55600;    
+   ticketDtoMock.ticketUpvotes = 52;       
   describe('ApiTicketRepositoryDataAccess', () => {
   let provider: ApiTicketRepositoryDataAccess;
 
@@ -34,14 +34,11 @@ import { Picture, Subtasks } from '@prisma/client';
 
   //createTicket endpoint
   describe('createTicket',()=>{
-    const arrayOfTickets:TicketDto[] = [];
      it('should return ticket',async ()=>{
        jest
        .spyOn(provider,'createTicket')
-       .mockImplementation(():Promise<TicketDto[]> => Promise.resolve(arrayOfTickets));
-       expect(await provider.createTicket(ticketDtoMock)).toMatchObject(
-        expect.arrayContaining(arrayOfTickets)
-       )
+       .mockImplementation(():Promise<TicketDto> => Promise.resolve(ticketDtoMock))
+       expect(await provider.createTicket(ticketDtoMock)).toEqual(ticketDtoMock);
      });
 
     it('should return null', async () => {

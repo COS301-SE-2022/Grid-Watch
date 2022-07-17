@@ -7,6 +7,14 @@ import {  IsDate,
 
 export class TicketDto {
 
+@IsNumber()
+@IsOptional()
+ticketId! : number;
+
+@IsNumber()
+@IsOptional()
+assignedTechTeam! : number;
+
 @IsString()
 @IsNotEmpty()
 ticketStatus! : string;
@@ -47,9 +55,7 @@ ticketRepairTime! : number;
 @IsNotEmpty()
 ticketUpvotes! : number;
 
-@IsNumber()
-@IsNotEmpty()
-ticketId! : number;
+
 
 @IsString()
 @IsNotEmpty()

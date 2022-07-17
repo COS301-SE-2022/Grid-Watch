@@ -98,7 +98,7 @@ model TechTeam {
 
   password          String
   passwordSalt      String?    
-  created           DateTime  @default(now())
+  dateCreated       DateTime  @default(now())
 
   @@map("techteam")
 }
@@ -116,7 +116,7 @@ model AuthorizedOfficials {
 
   password        String
   passwordSalt    String?    
-  created         DateTime    @default(now())
+  dateCreated     DateTime    @default(now())
   
   @@map("authorizedofficials")
 }

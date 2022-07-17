@@ -2,6 +2,7 @@ import {PrismaClient} from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 import {AdminDto} from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto'
 
+//authorizedofficials = admin
 @Injectable()
 
 export class ApiProfilesAdminRepositoryDataAccess {  
@@ -16,7 +17,7 @@ export class ApiProfilesAdminRepositoryDataAccess {
             throw Error("name_falsy");
         if(!adminDto.email)
             throw Error("name_falsy");
-        if(!adminDto.contactNr)
+        if(!adminDto.contactNumber)
             throw Error("name_falsy");
         if(!adminDto.cities)
             throw Error("email_falsy");
@@ -31,7 +32,7 @@ export class ApiProfilesAdminRepositoryDataAccess {
             {
                 name :                  adminDto.name,
                 email :                 adminDto.email,
-                contactNumber :         adminDto.contactNr,
+                contactNumber :         adminDto.contactNumber,
                 cities :                adminDto.cities,
                 password :              hash,
                 passwordSalt :          salt,
@@ -40,6 +41,10 @@ export class ApiProfilesAdminRepositoryDataAccess {
         });
 
     return admin
+    }
+
+    async getAllAdmins(){
+        return await this.prisma.authorizedOfficials.findMany()
     }
 
     async getAdmin(adminId: number){
@@ -80,7 +85,30 @@ export class ApiProfilesAdminRepositoryDataAccess {
         
     }
 
-    async getAdminCellNr(adminCellNr: string){
+    //partial string search for name
+    async searchAdminName(partial: string){
+        const admin = await this.prisma.authorizedOfficials.findMany({
+
+            where:{
+                name:{
+                    search: partial,
+                }
+            },
+            orderBy:{
+                name: 'asc',
+            }
+
+        })
+
+        if (admin) {
+            return admin;
+        }
+        else{
+            return "Admin " + partial + " not found!";
+        }
+    }
+
+    async getAdminContactNr(adminCellNr: string){
 
         const admin = await this.prisma.authorizedOfficials.findMany({
 
@@ -118,12 +146,14 @@ export class ApiProfilesAdminRepositoryDataAccess {
         
     }
 
-    async getAdminCities(adminEmail: string){
+    async getAdminCities(adminCity: string){
 
         const admin = await this.prisma.authorizedOfficials.findMany({
-
+            //string may contain more than one city example "Pretoria, Centurion"
             where:{
-                email : adminEmail,
+                cities:{
+                    hasEvery: [adminCity],
+                },
             },
 
         })
@@ -132,9 +162,9 @@ export class ApiProfilesAdminRepositoryDataAccess {
             return admin;
         }
         else{
-            return "Admin email: " + adminEmail + " not found!";
+            return "Admin representing city " + adminCity + " not found!";
         }
-        
+
     }
 
     async AddAdminCity(adminId : number, city : string){
@@ -216,7 +246,7 @@ export class ApiProfilesAdminRepositoryDataAccess {
                 name :                  adminDto.name,
                 email :                 adminDto.email,
                 password :              hash,
-                passwordSalt:           salt,
+                passwordSalt :          salt,
 
             },
         });

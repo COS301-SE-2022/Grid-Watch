@@ -13,7 +13,6 @@ const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
       providers: [ApiProfilesPublicRepositoryDataAccess],
     }).compile();
 
-  
     userMock.name = "John";
     userMock.email = "johndoe@gmail.com";
     userMock.password = "johndoe1234";

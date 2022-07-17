@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FormsModule } from '@angular/forms';
-import { RegisterPageComponent } from './register-page/register-page.component';
 import { MenuOptionsComponent } from './menu-options/menu-options.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
 import {MatCardModule} from "@angular/material/card"
@@ -31,13 +30,11 @@ import { MatIconModule } from "@angular/material/icon"
   ],
   declarations: [
     NavBarComponent,
-    RegisterPageComponent,
     MenuOptionsComponent,
     AppHeaderComponent,
   ],
   exports: [
     NavBarComponent,
-    RegisterPageComponent,
     MenuOptionsComponent,
     AppHeaderComponent,
   ],

@@ -17,7 +17,7 @@ export class ApiProfilesAdminRepositoryDataAccess {
             throw Error("name_falsy");
         if(!adminDto.email)
             throw Error("name_falsy");
-        if(!adminDto.contactNr)
+        if(!adminDto.contactNumber)
             throw Error("name_falsy");
         if(!adminDto.cities)
             throw Error("email_falsy");
@@ -32,7 +32,7 @@ export class ApiProfilesAdminRepositoryDataAccess {
             {
                 name :                  adminDto.name,
                 email :                 adminDto.email,
-                contactNumber :         adminDto.contactNr,
+                contactNumber :         adminDto.contactNumber,
                 cities :                adminDto.cities,
                 password :              hash,
                 passwordSalt :          salt,

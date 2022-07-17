@@ -1,6 +1,6 @@
 import { ApiProfilesAdminRepositoryDataAccess } from './api-profiles-admin-repository-data-access';
 import { Test, TestingModule } from '@nestjs/testing';
-import { AdminDto } from '../../../api/shared/api-profiles-admin-api-dto/src/lib/admin-dto';
+import { AdminDto } from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto';
 
 const adminDtoMock: jest.Mocked<AdminDto> = new AdminDto() as AdminDto;
 
@@ -14,7 +14,7 @@ const adminDtoMock: jest.Mocked<AdminDto> = new AdminDto() as AdminDto;
 
     adminDtoMock.name = "johndoe";
     adminDtoMock.email = "johndoe@gmail.com";
-    adminDtoMock.contactNr = "0829932828";
+    adminDtoMock.contactNumber = "0829932828";
     adminDtoMock.cities = ["Pretoria,Johannesburg"];
     adminDtoMock.password = "1234Admin#";
 
@@ -32,8 +32,8 @@ const adminDtoMock: jest.Mocked<AdminDto> = new AdminDto() as AdminDto;
     it('should return admin',async ()=>{
       jest
       .spyOn(provider,'createAdmin')
-      .mockImplementation(():Promise<AdminDto> => Promise.resolve(AdminDto));
-      expect(await provider.createAdmin(adminDtoMock)).toBeDefined()
+      .mockImplementation(():Promise<AdminDto> => Promise.resolve(adminDtoMock))
+      expect(await provider.createAdmin(adminDtoMock)).toEqual(adminDtoMock)
     });
 
     it('should return null', async () => {
@@ -121,14 +121,14 @@ const adminDtoMock: jest.Mocked<AdminDto> = new AdminDto() as AdminDto;
         jest
         .spyOn(provider,'getAdminContactNr')
         .mockImplementation(():Promise<AdminDto[]>=>Promise.resolve(arrayOfAdmins))
-        expect(await provider.getAdminContactNr(adminDtoMock.contactNr)).toMatchObject(
+        expect(await provider.getAdminContactNr(adminDtoMock.contactNumber)).toMatchObject(
           expect.arrayContaining(arrayOfAdmins)
         )
       });
 
       it('should return null', async () => {
         jest.spyOn(provider, 'getAdminContactNr').mockResolvedValue(null); 
-        expect(await provider.getAdminContactNr(adminDtoMock.contactNr)).toEqual(null);
+        expect(await provider.getAdminContactNr(adminDtoMock.contactNumber)).toEqual(null);
       });
   })
 
@@ -170,14 +170,11 @@ const adminDtoMock: jest.Mocked<AdminDto> = new AdminDto() as AdminDto;
 
   //AddAdminCity endpoint
   describe('AddAdminCity',()=>{
-    const arrayOfAdmins:AdminDto[] = [];
       it('should return Admins',async ()=>{
         jest
         .spyOn(provider,'AddAdminCity')
-        .mockImplementation(():Promise<AdminDto[]>=>Promise.resolve(arrayOfAdmins))
-        expect(await provider.AddAdminCity(2,"Pretoria")).toMatchObject(
-          expect.arrayContaining(arrayOfAdmins)
-        )
+        .mockImplementation(():Promise<void>=>Promise.resolve())
+        expect(await provider.AddAdminCity(2,"Pretoria")).toBeUndefined()
       });
       it('should return null', async () => {
         jest.spyOn(provider, 'AddAdminCity').mockResolvedValue(null); 
@@ -186,23 +183,22 @@ const adminDtoMock: jest.Mocked<AdminDto> = new AdminDto() as AdminDto;
   })  
 
   
-  // describe('verifyPassword',()=>{
-  //   it('should return true',async ()=>{
-  //     jest
-  //     .spyOn(provider,'verifyPassword')
-  //     .mockImplementation(():Promise<boolean> => Promise.resolve(true));
-  //     expect(await provider.verifyPassword("sparky@gmail.com", "123Anru")).toEqual(false)
-  //   });
-
-  // })
+   describe('verifyPassword',()=>{
+     it('should return true',async ()=>{
+       jest
+       .spyOn(provider,'verifyAdminPassword')
+       .mockImplementation(():Promise<boolean> => Promise.resolve(true));
+       expect(await provider.verifyAdminPassword("sparky@gmail.com", "123Anru")).toEqual(true)
+     })
+   })
 
   //UpdateAdmin
   describe('UpdateAdmin',()=>{
     it('should return void',async ()=>{
       jest
       .spyOn(provider,'updateAdmin')
-      .mockImplementation(():Promise<void> => Promise.resolve());
-      expect(await provider.updateAdmin(2,adminDtoMock)).toBeUndefined()
+      .mockImplementation(():Promise<AdminDto> => Promise.resolve(adminDtoMock));
+      expect(await provider.updateAdmin(2,adminDtoMock)).toEqual(adminDtoMock)
     });
 
     it('should return null', async () => {

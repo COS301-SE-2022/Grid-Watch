@@ -30,39 +30,30 @@ export class PublicProfileService {
     };
   }
 
-  public getUserEmail(email: string) : Observable<UserDto[]> {
+  public getUserEmail(email: string): Observable<UserDto[]> {
     const tempURL = this.getUserEmailURL + email;
     return this.http
       .get<UserDto[]>(tempURL)
       .pipe(catchError(this.handleError<UserDto[]>('getEmails', [])));
   }
 
-  public async checkEmailExists(email: string){
-    const users = await new Promise<UserDto[]>((resolve, reject)=>
-    {
-      this.getUserEmail(email).subscribe(
-        (res) =>
-        {
-          return resolve(res);
-        }
-      )
+  public async checkEmailExists(email: string) {
+    const users = await new Promise<UserDto[]>((resolve, reject) => {
+      this.getUserEmail(email).subscribe((res) => {
+        return resolve(res);
+      });
     });
 
     // console.log(users.length);
-    
-    if (users.length > 0)
-      return true;
-    else
-      return false;
-  } 
 
-  public login(user : UserDto){
+    if (users.length > 0) return true;
+    else return false;
+  }
+
+  public login(user: UserDto) {
     // console.log("True");
-    this.http.post<UserDto>(this.verifyLoginURL, user ).subscribe(
-      (response) => {
-        console.log(response);
-      }
-    );
-    return true;
-   }
+    return this.http
+      .post<boolean>(this.verifyLoginURL, user)
+      .pipe(catchError(this.handleError<boolean>('logn', false)));
+  }
 }

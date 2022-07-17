@@ -34,11 +34,33 @@ export class LoginPageComponent implements OnInit {
     this.user = new UserDto();
   }
 
-  login() : void
+  async login() : Promise<void>
   {
     this.user.email = "Tshego14@gmail.com"
-    this.user.password = "Gbfj&hfbsh"
-    this.profileService.login(this.user);
+    this.user.password = "Gbfj&hfbshw"
+    console.log(await this.profileService.login(this.user));
+    
+    this.profileService.login(this.user).subscribe(
+      (response)=>{
+        if (response)
+        {
+          this.successfulLogin()
+        }
+        else
+        {
+          this.errorLogin()
+
+        }
+        
+      }
+    )
+  }
+  successfulLogin() {
+    alert("Logged in");
+    localStorage.setItem("LoggedIn", "true");
+  }
+  errorLogin() {
+    alert("Wrong email, password combination");
   }
 
   

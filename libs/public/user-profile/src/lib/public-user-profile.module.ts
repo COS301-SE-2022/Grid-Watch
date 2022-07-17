@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { RegisterPageComponent } from './register-page/register-page.component';
 
 @NgModule({
   imports: [
@@ -26,9 +27,10 @@ import { MatButtonModule } from '@angular/material/button';
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
       { path: 'editUser', pathMatch: 'full', component: EditUserComponent },
       { path: 'login', pathMatch: 'full', component: LoginPageComponent },
+      { path: 'register', pathMatch: 'full', component: RegisterPageComponent },
     ]),
   ],
-  declarations: [EditUserComponent, LoginPageComponent],
-  exports: [EditUserComponent, LoginPageComponent],
+  declarations: [EditUserComponent, LoginPageComponent, RegisterPageComponent],
+  exports: [EditUserComponent, LoginPageComponent, RegisterPageComponent],
 })
 export class PublicUserProfileModule {}

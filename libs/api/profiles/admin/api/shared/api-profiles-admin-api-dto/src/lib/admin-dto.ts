@@ -3,11 +3,18 @@ import {
   IsString, 
   IsEmail,
   IsAlphanumeric,
-  //IsDate,
   IsArray,
+  IsOptional,
+  IsNumber,
+  IsDate,
 } from 'class-validator';
 
 export class AdminDto {
+
+@IsNumber()
+@IsOptional()
+id! : number;
+
 @IsString()
 @IsNotEmpty()
 name! : string;
@@ -18,7 +25,7 @@ email! : string;
 
 @IsString()
 @IsNotEmpty()
-contactNr! : string;
+contactNumber! : string;
 
 @IsArray()
 @IsNotEmpty()
@@ -28,7 +35,11 @@ cities! : string[];
 @IsNotEmpty()
 password! : string;
 
-// @IsDate()
-// @IsNotEmpty()
-// dateCreated! : Date;
+@IsAlphanumeric()
+@IsOptional()
+passwordSalt! : string;
+
+@IsDate()
+@IsOptional()
+dateCreated! : Date;
 }

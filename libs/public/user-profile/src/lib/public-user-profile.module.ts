@@ -12,6 +12,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RegisterPageComponent } from './register-page/register-page.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MyTicketsListComponent } from './my-tickets-list/my-tickets-list.component';
+import { MyTicketsBlockComponent } from './my-tickets-block/my-tickets-block.component';
 
 @NgModule({
   imports: [
@@ -23,14 +28,31 @@ import { RegisterPageComponent } from './register-page/register-page.component';
     MatIconModule,
     MatCheckboxModule,
     MatButtonModule,
+    MatDividerModule,
+    MatButtonToggleModule,
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
       { path: 'editUser', pathMatch: 'full', component: EditUserComponent },
       { path: 'login', pathMatch: 'full', component: LoginPageComponent },
+      { path: 'profile', pathMatch: 'full', component: MyProfileComponent },
       { path: 'register', pathMatch: 'full', component: RegisterPageComponent },
     ]),
   ],
-  declarations: [EditUserComponent, LoginPageComponent, RegisterPageComponent],
-  exports: [EditUserComponent, LoginPageComponent, RegisterPageComponent],
+  declarations: [
+    EditUserComponent,
+    LoginPageComponent,
+    RegisterPageComponent,
+    MyProfileComponent,
+    MyTicketsListComponent,
+    MyTicketsBlockComponent,
+  ],
+  exports: [
+    EditUserComponent,
+    LoginPageComponent,
+    RegisterPageComponent,
+    MyProfileComponent,
+    MyTicketsListComponent,
+    MyTicketsBlockComponent,
+  ],
 })
 export class PublicUserProfileModule {}

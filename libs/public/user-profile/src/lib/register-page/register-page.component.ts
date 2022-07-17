@@ -36,10 +36,10 @@ export class RegisterPageComponent implements OnInit {
 
   async register() : Promise<void>
   {
-    this.user.name = "Tshego";
-    this.user.email = "Tshego14@gmail.com";
-    this.user.password = "Gbfj&hfbsh";
-    this.confirmPassword = "Gbfj&hfbsh";
+    // this.user.name = "Tshego";
+    // this.user.email = "Tshego14@gmail.com";
+    // this.user.password = "Gbfj&hfbsh";
+    // this.confirmPassword = "Gbfj&hfbsh";
     if (this.user.password === this.confirmPassword)
     {
      
@@ -54,13 +54,13 @@ export class RegisterPageComponent implements OnInit {
         this.profileService.createUser(this.user).subscribe(
           () => {
             alert("Created user successfully")
+            this.router.navigateByUrl("/login") ;
           },
           () => {
             alert("Error while creating user")
           }
         );
       }
-          
       
     }
   }

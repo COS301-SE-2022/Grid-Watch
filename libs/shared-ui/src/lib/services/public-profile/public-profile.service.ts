@@ -11,6 +11,7 @@ export class PublicProfileService {
   private createUserURL = 'api/public/create';
   private getUserEmailURL = 'api/public/email/';
   private verifyLoginURL = 'api/public/verify';
+  private getUserIDURL = 'api/public/';
 
   constructor(private http: HttpClient) {}
 
@@ -54,6 +55,13 @@ export class PublicProfileService {
     // console.log("True");
     return this.http
       .post<boolean>(this.verifyLoginURL, user)
-      .pipe(catchError(this.handleError<boolean>('logn', false)));
+      .pipe(catchError(this.handleError<boolean>('login', false)));
+  }
+
+  public getUser(id : string )
+  {
+    const tempURL = this.getUserIDURL + id;
+    return this.http.get<UserDto[]>(tempURL)
+    .pipe(catchError(this.handleError<UserDto[]>('getUser', [])));
   }
 }

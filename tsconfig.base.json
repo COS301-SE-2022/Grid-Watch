@@ -20,6 +20,24 @@
       ],
       "@grid-watch/admin-app/ticket": ["libs/admin-app/ticket/src/index.ts"],
       "@grid-watch/api/ai/admin/api": ["libs/api/ai/admin/api/src/index.ts"],
+      "@grid-watch/api/ai/notifications/api": [
+        "libs/api/ai/notifications/api/src/index.ts"
+      ],
+      "@grid-watch/api/ai/notifications/repository": [
+        "libs/api/ai/notifications/repository/src/index.ts"
+      ],
+      "@grid-watch/api/ai/notifications/service": [
+        "libs/api/ai/notifications/service/src/index.ts"
+      ],
+      "@grid-watch/api/ai/tech-team/api": [
+        "libs/api/ai/tech-team/api/src/index.ts"
+      ],
+      "@grid-watch/api/ai/tech-team/repository": [
+        "libs/api/ai/tech-team/repository/src/index.ts"
+      ],
+      "@grid-watch/api/ai/tech-team/service": [
+        "libs/api/ai/tech-team/service/src/index.ts"
+      ],
       "@grid-watch/api/profiles/admin/api": [
         "libs/api/profiles/admin/api/src/index.ts"
       ],

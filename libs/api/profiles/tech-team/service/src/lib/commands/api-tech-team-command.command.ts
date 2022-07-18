@@ -61,3 +61,17 @@ export class UpdateTechTeamRatingJobsCommand{
 export class DeleteTechTeamCommand{
     constructor(public readonly techTeamId){}
 }
+
+export class VerifyPasswordCommand{
+    constructor(
+        public readonly email,
+        public readonly password
+    ){}
+}
+
+export class AssignTicketCommand{
+    constructor(
+        public readonly ticketId,
+        public readonly techTeamId
+    ){}
+}

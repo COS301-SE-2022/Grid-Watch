@@ -19,6 +19,7 @@
         "libs/admin-app/dashboard/src/index.ts"
       ],
       "@grid-watch/admin-app/ticket": ["libs/admin-app/ticket/src/index.ts"],
+      "@grid-watch/api/ai/admin/api": ["libs/api/ai/admin/api/src/index.ts"],
       "@grid-watch/api/profiles/admin/api": [
         "libs/api/profiles/admin/api/src/index.ts"
       ],

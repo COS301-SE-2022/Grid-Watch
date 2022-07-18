@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiProfilesTechTeamServiceService } from './api-profiles-tech-team-service.service';
-import {CommandBus} from '@nestjs/cqrs';
+import {CommandBus, QueryBus} from '@nestjs/cqrs';
 import {TechTeamDto} from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 
 const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamDto;
@@ -10,7 +10,7 @@ describe('ApiProfilesTechTeamServiceService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ApiProfilesTechTeamServiceService,CommandBus],
+      providers: [ApiProfilesTechTeamServiceService,CommandBus,QueryBus],
     }).compile();
 
     await module.init();

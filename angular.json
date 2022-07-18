@@ -7,6 +7,8 @@
     "admin-e2e": "apps/admin-e2e",
     "api": "apps/api",
     "api-ai-admin-api": "libs/api/ai/admin/api",
+    "api-ai-admin-repository": "libs/api/ai/admin/repository",
+    "api-ai-admin-service": "libs/api/ai/admin/service",
     "api-profiles-admin-api": "libs/api/profiles/admin/api",
     "api-profiles-admin-api-shared-api-profiles-admin-api-dto": "libs/api/profiles/admin/api/shared/api-profiles-admin-api-dto",
     "api-profiles-admin-repository": "libs/api/profiles/admin/repository",

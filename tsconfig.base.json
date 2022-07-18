@@ -20,6 +20,12 @@
       ],
       "@grid-watch/admin-app/ticket": ["libs/admin-app/ticket/src/index.ts"],
       "@grid-watch/api/ai/admin/api": ["libs/api/ai/admin/api/src/index.ts"],
+      "@grid-watch/api/ai/admin/repository": [
+        "libs/api/ai/admin/repository/src/index.ts"
+      ],
+      "@grid-watch/api/ai/admin/service": [
+        "libs/api/ai/admin/service/src/index.ts"
+      ],
       "@grid-watch/api/profiles/admin/api": [
         "libs/api/profiles/admin/api/src/index.ts"
       ],

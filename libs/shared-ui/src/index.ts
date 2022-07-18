@@ -11,3 +11,4 @@ export * from './lib/services/GoogleMaps/google-maps.service';
 export * from './lib/services/Ticket/ticket.service';
 
 export * from './lib/services/public-profile/public-profile.service';
+export * from './lib/services/tech-team-profile/tech-team-profile.service';

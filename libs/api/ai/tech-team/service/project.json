@@ -1,0 +1,33 @@
+{
+  "root": "libs/api/ai/tech-team/service",
+  "sourceRoot": "libs/api/ai/tech-team/service/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/ai/tech-team/service",
+        "tsConfig": "libs/api/ai/tech-team/service/tsconfig.lib.json",
+        "packageJson": "libs/api/ai/tech-team/service/package.json",
+        "main": "libs/api/ai/tech-team/service/src/index.ts",
+        "assets": ["libs/api/ai/tech-team/service/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/ai/tech-team/service/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/ai/tech-team/service"],
+      "options": {
+        "jestConfig": "libs/api/ai/tech-team/service/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

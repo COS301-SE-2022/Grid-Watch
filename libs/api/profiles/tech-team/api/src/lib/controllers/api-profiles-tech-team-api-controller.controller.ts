@@ -7,11 +7,10 @@ import {
     Post,
     Put,
   } from '@nestjs/common';
-  // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+
   import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
   import {ApiProfilesTechTeamServiceService} from '@grid-watch/api/profiles/tech-team/service'
   
-  //import { ApiProfilesTechTeamServiceService } from '@grid-watch/api/profiles/tech-team/service';
 @Controller('techteam')
 export class ApiProfilesTechTeamApiControllerController {
     constructor(private readonly apiTechTeamService:ApiProfilesTechTeamServiceService){}
@@ -20,6 +19,66 @@ export class ApiProfilesTechTeamApiControllerController {
     @Get()
     testing(){
         return  "Testing Tech Team";
+    }
+
+    //post endpoint to verify password
+    @Post('/verify')
+    async verifyPassword(@Param() params ){
+        return this.apiTechTeamService.verifyPassword(params["email"],params["password"]);
+    }
+
+    //get endpiont to return all Tech Teams
+    @Get('/all')
+    async getTechTeams(){
+        return this.apiTechTeamService.getTechTeams();
+    }
+
+    //get endpiont to return a specific admin
+    @Get(':id')
+    async getTechTeamId(@Param() params){
+        return this.apiTechTeamService.getTechTeamId(parseInt(params.id));
+    }
+
+    //get endpiont to return a TechTeam with specific name
+    @Get('/name/:name')
+    async getTechTeamName(@Param() params){
+        return this.apiTechTeamService.getTechTeamName(params.name);
+    }
+
+    //get endpiont to return a TechTeam with partial name
+    @Get('/name/partial/:name')
+    async searchTechTeamName(@Param() params){
+        return this.apiTechTeamService.searchTechTeamName(params.name);
+    }
+    
+    //get endpiont to return a TechTeam with specific email
+    @Get('/email/:email')
+    async getTechTeamEmail(@Param() params){
+        return this.apiTechTeamService.getTechTeamEmail(params.email);
+    }
+    
+    //get endpiont to return a TechTeam with specific specialisation
+    @Get('/specialisation/:specialisation')
+    async getTechTeamSpecialisation(@Param() params){
+        return this.apiTechTeamService.getTechTeamSpecialisation(params.specialisation);
+    }
+
+    //get endpiont to return a TechTeam with specific contact number
+    @Get('/contactnr/contactNr')
+    async getTechTeamContactNr(@Param() params){
+        return this.apiTechTeamService.getTechTeamContactNr(params.contactNr);
+    }
+
+    //get endpiont to return all assigned tickets
+    @Get('/assigned/:techTeamId')
+    async getAllAssignedTickets(@Param() params){
+        return this.apiTechTeamService.getAllAssignedTickets(params.techTeamId);
+    }
+    
+    //assign Ticket endpoint 
+    @Put('/assign/:ticketId')
+    async assignTicket(@Param() params,@Body() techTeamId){
+        return this.apiTechTeamService.assignTicket(parseInt(params.ticketId),parseInt(techTeamId['techTeamId']));
     }
 
     //create Tech Team endpoint

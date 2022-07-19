@@ -8,7 +8,9 @@ import {CreateTechTeamCommand,
     UpdateTechTeamNrJobsCompletedCommand,
     DeleteTechTeamCommand,
     IncTechTeamNrJobsCompletedCommand,
-    UpdateTechTeamRatingJobsCommand} from './api-tech-team-command.command';
+    UpdateTechTeamRatingJobsCommand,
+    AssignTicketCommand,
+    VerifyPasswordCommand} from './api-tech-team-command.command';
 import {ApiProfilesTechTeamRepositoryDataAccess} from '@grid-watch/api/profiles/tech-team/repository';
 
 
@@ -110,5 +112,25 @@ export class DeleteTechTeamHandler implements ICommandHandler<DeleteTechTeamComm
     async execute(command: DeleteTechTeamCommand) {
         const{techTeamId} = command;
         return this.repository.deleteTechTeam(techTeamId);
+    }
+}
+
+@CommandHandler(AssignTicketCommand)
+export class AssignTicketHandler implements ICommandHandler<AssignTicketCommand>{
+    constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
+
+    async execute(command: AssignTicketCommand) {
+        const{techTeamId,ticketId} = command;
+        return this.repository.assignTicket(ticketId,techTeamId);
+    }
+}
+
+@CommandHandler(VerifyPasswordCommand)
+export class VerifyPasswordHandler implements ICommandHandler<VerifyPasswordCommand>{
+    constructor( private readonly repository: ApiProfilesTechTeamRepositoryDataAccess){}
+
+    async execute(command: VerifyPasswordCommand) {
+        const{email,password} = command;
+        return this.repository.verifyPassword(email,password);
     }
 }

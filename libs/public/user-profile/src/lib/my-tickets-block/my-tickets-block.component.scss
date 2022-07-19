@@ -1,0 +1,56 @@
+.uploaded_issue_image
+{
+    height: max-content;
+    width: 250px;
+}
+
+.issue_card
+{
+    width: 300px;
+}
+
+img.upvote_img
+{
+    width: 20;
+}
+
+img.settings_icon 
+{
+    height: 25px;
+}
+
+
+
+.mat-card 
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.mat-card-header 
+{
+    flex-shrink: 0;
+}
+
+.mat-card-content 
+{
+    flex-grow: 1;
+    overflow: auto;
+}
+
+img.pin_location
+{
+    height: 10px;
+}
+
+.location_heading
+{
+    font-size: 10px;
+}
+
+.container{
+    width: fit-content;
+    margin:0 auto;
+    overflow-y: scroll;
+    margin-bottom: 50px;
+}

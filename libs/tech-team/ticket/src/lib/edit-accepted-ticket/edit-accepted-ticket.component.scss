@@ -1,10 +1,3 @@
-
-
-.ticket_image
-{
-    width: 100%;
-}
-
 .picturePreview
 {
     height: 400px;
@@ -16,8 +9,76 @@ img
     width: 100%;
 }
 
-.centered_element{
+.centeredElement{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.buttons
+{
+    display: inline;
+    flex: 50%;
+}
+
+button{
+    width: 100%;
+    padding: 10px;
+}
+
+.material-icons
+{
+    position: relative;
+    top: 6px;
+}
+
+.buttonContainer
+{
     display: flex;
-    align-items: center;
-    height: 100%;
+}
+
+.imageContainer{
+    height: 350px;
+    position: relative;
+}
+
+mat-spinner
+{
+    position: relative;
+    top: 50%;
+}
+
+.ticketInformation
+{
+    display: flex;
+}
+
+.status
+{
+    flex: 50%;
+    // text-align: right;
+}
+
+.dateCreated
+{
+    flex: 50%;
+    text-align: right;
+}
+
+.description
+{
+    padding: 10px 0px;
+    font-size: medium;
+}
+
+.ticketInformation
+{
+    font-size: small;
+}
+
+mat-form-field
+{
+    width: 100%;
 }

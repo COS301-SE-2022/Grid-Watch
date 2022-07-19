@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
     <div class="card mt-4">
         <div class="card-body">
             <div class="row">
@@ -31,11 +31,11 @@
                         <b> City:</b> {{ticket.ticketCity}}
                     </div>
                     <div class="ticket_repair_time mt-3">
-                        <label for="repair_time" class="form-label">Estimated Repair Time:</label>
+                        <mat-label for="repair_time" class="form-mat-label">Estimated Repair Time:</mat-label>
                         <input type="text" class="form-control" id="repair_time" placeholder="Enter repair time" name="repair_time"  [(ngModel)]="repair_time">
                     </div>
                     <div class="ticket_status mt-1">
-                        <label for="status" class="form-label">Status:</label>
+                        <mat-label for="status" class="form-mat-label">Status:</mat-label>
                         <select class="form-select" name="status" [(ngModel)]="status" id="ticketStatus">
                             <option value="Accepted">Accepted</option>
                             <option value="Awaiting Material">Awaiting material</option>
@@ -45,7 +45,7 @@
                           </select> 
                     </div>
                     <div class="ticket_status mt-1 mb-3">
-                        <label for="repair_time" class="form-label">Estimated cost:</label>
+                        <mat-label for="repair_time" class="form-mat-label">Estimated cost:</mat-label>
                         <input type="text" class="form-control" id="cost" placeholder="Enter estimated cost" name="repair_time" [(ngModel)]="cost" > 
                     </div>
                     <div class="ticket_status mt-1 mb-3">
@@ -108,4 +108,82 @@
             </div>
         </div>
     </div>
+</div> -->
+
+
+<div class="gridContainer">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ ticket.ticketType }}</mat-card-title>
+        <mat-card-subtitle>
+          <span class="material-icons">person_pin_circle</span>
+          {{ ticket.ticketLocation }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="imageContainer">
+          <img
+            src="assets/{{ ticket.ticketImg }}"
+            alt="IssueImage"
+            onerror=""
+            *ngIf="ticket.ticketImg !== ''"
+          />
+          <div class="centeredElement" *ngIf="ticket.ticketImg === ''">
+            <mat-spinner mode="indeterminate"> </mat-spinner>
+          </div>
+        </div>
+        <div class="description">
+          {{ ticket.ticketDescription }}
+        </div>
+        <div class="ticketInformation">
+          <div class="status">
+            {{ ticket.ticketStatus }}
+          </div>
+          <div class="dateCreated" *ngIf="ticket.ticketCreateDate !== undefined">
+            <i>
+              {{ ticket.ticketCreateDate.toLocaleString() }}
+            </i>
+          </div>
+        </div>
+        <div class="editTicketInformation">
+            <div class="ticket_repair_time mt-3">
+                <!-- <mat-label for="repair_time" class="form-mat-label">Estimated Repair Time:</mat-label>
+                <input type="text" class="form-control" id="repair_time" placeholder="Enter repair time" name="repair_time"  [(ngModel)]="repair_time"> -->
+                <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                    <mat-label>Estimated repair time</mat-label>
+                    <input matInput placeholder="Estimated repair time" ngDefaultControl [(ngModel)]="repair_time"/>
+                </mat-form-field>
+            </div>
+            <div class="ticket_status mt-1">
+                <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                    <mat-label>Status</mat-label>
+                    <mat-select placeholder="Status" ngDefaultControl [(ngModel)]="status">
+                        <mat-option value="Accepted">Accepted</mat-option>
+                        <mat-option value="Awaiting Material">Awaiting material</mat-option>
+                        <mat-option value="In Progress">In Progress</mat-option>
+                        <mat-option value="Finishing up">Finishing up</mat-option>
+                        <mat-option value="Finished">Finished</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="ticket_status mt-1 mb-3">
+                <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                    <mat-label>Estimated cost</mat-label>
+                    <input matInput placeholder="Estimated cost" ngDefaultControl [(ngModel)]="cost"/>
+                </mat-form-field>
+            </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="buttonContainer">
+          <div class="buttons">
+            <button mat-button (click)="update()">Update</button>
+          </div>
+          <div class="buttons">
+            <button mat-button>Reject</button>
+          </div>
+        </div>
+      </mat-card-actions>
+    </mat-card>
 </div>
+

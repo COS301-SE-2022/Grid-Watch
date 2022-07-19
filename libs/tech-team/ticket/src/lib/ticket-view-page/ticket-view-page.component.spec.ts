@@ -1,6 +1,7 @@
 import {  HttpClientModule} from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing'
+import { GoogleMapsService } from '@grid-watch/shared-ui';
 
 import { TicketViewPageComponent } from './ticket-view-page.component';
 
@@ -12,6 +13,7 @@ describe('TicketViewPageComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [TicketViewPageComponent, ],
       imports: [RouterTestingModule, HttpClientModule ],
+      providers: [GoogleMapsService]
     }).compileComponents();
   });
 

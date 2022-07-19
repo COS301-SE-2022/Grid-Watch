@@ -33,7 +33,7 @@ model User{
 model Ticket {
   ticketId            Int       @id @default(autoincrement())
   ticketStatus        String
-  ticketCreateDate    DateTime
+  ticketCreateDate    DateTime  @default(now())
   ticketCloseDate     DateTime?
   ticketType          String
   ticketCity          String?
@@ -42,6 +42,9 @@ model Ticket {
   ticketDescription   String
   ticketRepairTime    Int?
   ticketUpvotes       Int
+
+  techTeam            TechTeam? @relation(fields: [assignedTechTeam] , references: [id])
+  assignedTechTeam    Int?
 
   Subtasks            Subtasks[]
   Picture             Picture[]
@@ -86,28 +89,18 @@ model TechTeam {
   id                Int       @id @default(autoincrement())
   name              String
   email             String?   @unique
-  specialisation    String
+  specialisation    String[]
   contactNumber     String    @unique @db.VarChar(10)
   nrJobsCompleted   Int?
   ratingOfJobs      Float?
 
+  assignedTickets  Ticket[]
+
   password          String
   passwordSalt      String?    
-  created           DateTime  @default(now())
+  dateCreated       DateTime  @default(now())
 
   @@map("techteam")
-}
-
-///////////////////////////////////////////////////////////////////////
-// TechTeamTicket
-///////////////////////////////////////////////////////////////////////
-
-model TechTeamTicket {
-  id               Int        @id @default(autoincrement())
-  techTeamId       Int
-  ticketId         Int     
-
-  @@map("techteamticket")
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -121,9 +114,9 @@ model AuthorizedOfficials {
   contactNumber   String      @unique @db.VarChar(10)
   cities          String[]
 
-  password          String
-  passwordSalt      String?    
-  created           DateTime  @default(now())
+  password        String
+  passwordSalt    String?    
+  dateCreated     DateTime    @default(now())
   
   @@map("authorizedofficials")
 }

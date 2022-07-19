@@ -1,0 +1,24 @@
+.grid-container {
+  // margin: 5px;
+  margin-bottom: 50px;
+  overflow-y: scroll;
+}
+
+.dashboard-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border: 1px solid black;
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.dashboard-card-content {
+  text-align: center;
+}

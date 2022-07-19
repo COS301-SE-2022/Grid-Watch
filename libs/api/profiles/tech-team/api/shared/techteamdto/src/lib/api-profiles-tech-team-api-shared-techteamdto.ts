@@ -6,9 +6,14 @@ import {
   IsEmail,
   IsPhoneNumber,
   IsAlphanumeric,
+  IsDate,
 } from 'class-validator';
 
 export class TechTeamDto {
+
+@IsAlphanumeric()
+@IsNotEmpty()
+id! : number;
 
 @IsString()
 @IsNotEmpty()
@@ -20,7 +25,7 @@ email! : string;
 
 @IsString()
 @IsNotEmpty()
-specialisation! : string;
+specialisation! : string[];
 
 @IsPhoneNumber()
 @IsNotEmpty()
@@ -37,5 +42,13 @@ ratingOfJobs! : number;
 @IsAlphanumeric()
 @IsNotEmpty()
 password! : string;
+
+@IsAlphanumeric()
+@IsNotEmpty()
+passwordSalt! : string;
+
+@IsDate()
+@IsOptional()
+dateCreated! : Date;
 
 }

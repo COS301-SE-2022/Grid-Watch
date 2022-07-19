@@ -22,18 +22,12 @@ import { registerables } from 'chart.js';
     RouterModule.forChild([
       { path: 'testing', pathMatch: 'full', component: DashboardBodyComponent },
     ]),
-
     MatGridListModule,
-
     MatCardModule,
-
     MatMenuModule,
-
     MatIconModule,
-
     MatButtonModule,
     MatDividerModule,
-
     LayoutModule,
   ],
   declarations: [
@@ -51,6 +45,5 @@ export class AdminAppDashboardModule {
   constructor()
   {
     Chart.register(...registerables);
-
   }
 }

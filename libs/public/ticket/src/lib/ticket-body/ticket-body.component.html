@@ -1,111 +1,17 @@
-<!--<div class="container mt-3 row">
-    <div class="row">
-        <mat-card tabindex="0" class="issue_card col-12 p-4 ms-3 mt-2" *ngFor="let ticket of tickets, index as i">
-            <mat-card-header >
-                <div mat-card-avatar >
-                    <img class="border rounded-circle p-1" src="{{avatar}}" alt="avatar">
-                </div>
-                <div class="d-none">
-                    {{ticket.ticketId}}
-                </div>
-                <mat-card-title>
-                    {{name}} {{surname}}
-                </mat-card-title>
-                <mat-card-subtitle>
-                    <div>
-                        {{ticket.ticketType}}
-                    </div>
-                    <div>
-                        <img class="pin_location" src="assets/location-pin-solid.svg" alt="">
-                        <span class="location_heading">&ensp;{{ticket.ticketLocation}}</span>
-                    </div>
-                </mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <img mat-card-image  class="uploaded_issue_image h-75" src="assets/{{ticket.ticketImg}}" >
-                <p class = "mt-3">{{ticket.ticketDescription}}</p>
-            </mat-card-content>
-            <mat-card-footer>
-                <div class="row">
-                    <div class="col-10">
-                        <img (click)="IncreaseUpvote(ticket.ticketId, i)" class="upvote_img m-2" src="assets/circle-up-solid.svg" alt="upvote icon"> {{ticket.ticketUpvotes}} 
-                    </div>
-                    <div class="col-1">    
-                        <div class="settings_icon_container">
-                            <button class = "btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img  class="settings_icon" src="assets/ellipsis-vertical-solid.svg" alt="settings_icon">
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" [routerLink]="['/editTicket', {id:ticket.ticketId}]">Edit </a></li>
-                                <li><a class="dropdown-item" >Report</a></li>
-                                <li><a class="dropdown-item" >Delete</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </mat-card-footer>
-        </mat-card>        
-    </div>
-</div>-->
-
-<!--
-    <mat-grid-list cols="12" rowHeight="100px">
-        <mat-grid-tile colspan="6" rowspan="2">
-            <img mat-card-image [ngClass] = "'ticketImg'" src="assets/{{ticket.ticketImg}}" onerror="this.src='assets/solid_example.png'">
-        </mat-grid-tile>
-        <mat-grid-tile colspan="6" rowspan = "1" >
-            <div mat-card-avatar >
-                <img class="border rounded-circle p-1" src="{{avatar}}" alt="avatar">
-            </div>
-            {{name}} {{surname}}
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1"></mat-grid-tile>
-        <mat-grid-tile colspan="4" rowspan="1" class="ml-5 mr-5" style="text-align: center;font-size: small;">            
-            <img class="pin_location" src="assets/location-pin-solid.svg" alt="">
-            <span class="location_heading">&ensp;{{ticket.ticketLocation}}</span>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1"></mat-grid-tile>                        
-    </mat-grid-list>
-    <hr>
-    <mat-card-content>
-        {{ticket.ticketType}}
-    </mat-card-content>
-    <hr>
-    <mat-card-footer>
-        <div class="row" style="padding-left: 10px;">
-            <div class="col-10">
-                <img (click)="IncreaseUpvote(ticket.ticketId, i)" class="upvote_img m-2" src="assets/circle-up-solid.svg" alt="upvote icon"> {{ticket.ticketUpvotes}} 
-            </div>
-            <div class="col-1">    
-                <div class="settings_icon_container">
-                    <button class = "btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img  class="settings_icon" src="assets/ellipsis-vertical-solid.svg" alt="settings_icon">
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" [routerLink]="['/editTicket', {id:ticket.ticketId}]">Edit </a></li>
-                        <li><a class="dropdown-item" >Report</a></li>
-                        <li><a class="dropdown-item" >Delete</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </mat-card-footer>
--->
-
 <mat-card class="mt-2 cards" *ngFor="let ticket of tickets, index as i" >
     <mat-grid-list cols = "12" rowHeight = "30px">
         <mat-grid-tile colspan ="3" rowspan="2">
-            <img  [ngClass] = "'ticketImg'" src="assets/{{ticket.ticketImg}}" onerror="this.src='assets/solid_example.png'">
+            <img  [ngClass] = "'ticketImg'" src="{{ticketImages[i]}}" onerror="this.src='assets/solid_example.png'">
         </mat-grid-tile>
         <mat-grid-tile colspan="1"></mat-grid-tile>
-        <mat-grid-tile colspan="3" class="citizenName">
-            {{name}} {{surname}}            
+        <mat-grid-tile colspan="5" class="citizenName">
+            {{ticket.ticketType}}             
         </mat-grid-tile>
-        <mat-grid-tile colspan="3"></mat-grid-tile>
-        <mat-grid-tile colspan="1">
+        <mat-grid-tile colspan="1"></mat-grid-tile>
+        <mat-grid-tile rowspan = "2" colspan="1">
             {{ticket.ticketUpvotes}}            
         </mat-grid-tile>
-        <mat-grid-tile colspan="1">
+        <mat-grid-tile rowspan = "2" colspan="1">
             <img (click)="IncreaseUpvote(ticket.ticketId, i)" class="upvote_img m-2" src="assets/circle-up-solid.svg" alt="upvote icon">      
         </mat-grid-tile>                
         <mat-grid-tile colspan="1"></mat-grid-tile>
@@ -114,6 +20,6 @@
             <span class="location_heading">&ensp;{{ticket.ticketCity}}</span>
         </mat-grid-tile>
         <mat-grid-tile colspan="3"></mat-grid-tile>
-        <mat-grid-tile colspan="2"><a [ngClass] = "'ticketEdit'" [routerLink]="['/editTicket', {id:ticket.ticketId}]">Edit </a></mat-grid-tile>
+        <!--<mat-grid-tile colspan="2"><a [ngClass] = "'ticketEdit'" [routerLink]="['/editTicket', {id:ticket.ticketId}]">Edit </a></mat-grid-tile>-->
     </mat-grid-list>
 </mat-card>

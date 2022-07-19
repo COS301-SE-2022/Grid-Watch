@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleMap, MapPolygon } from '@angular/google-maps';
 import { Loader } from '@googlemaps/js-api-loader';
-import { GoogleMapsService } from '@grid-watch/shared-ui';
+import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-home-page-body',
@@ -19,7 +19,8 @@ export class HomePageBodyComponent implements OnInit{
   infoWindow!: google.maps.InfoWindow;
   map!: google.maps.Map;
 
-  constructor(private googleMapsService : GoogleMapsService)
+  constructor(private googleMapsService : GoogleMapsService,
+    private ticketService : TicketService)
   {
 
   }

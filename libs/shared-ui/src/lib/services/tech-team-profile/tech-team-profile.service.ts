@@ -10,6 +10,7 @@ import { catchError, Observable, of } from 'rxjs';
 export class TechTeamProfileService {
   private createTechTeamURL = 'api/techteam/create';
   private getTechTeamURL = 'api/techteam/email/';
+  private loginURL = 'api/techteam/verify';
 
   constructor(private http: HttpClient) {}
 
@@ -39,9 +40,32 @@ export class TechTeamProfileService {
     };
   }
 
-  // public getTechTeam(email : string) {
-  //   const tempURL = this.getTechTeamURL + email 
-  //   return this.http
-  //   .get<TechTeamDto>(tempURL)
-  // }
+  public getTechTeam(email : string) {
+    const tempURL = this.getTechTeamURL + email 
+    return this.http
+    .get<TechTeamDto[]>(tempURL)
+    .pipe(catchError(this.handleError<TechTeamDto[]>('getTechTeam', [])));
+  }
+
+  public async checkEmailExist(email : string) {
+  const techTeam = await new Promise<TechTeamDto[]>((resolve, reject) => {
+    this.getTechTeam(email).subscribe((res) => {
+      return resolve(res);
+    });
+  });
+
+  // console.log(users.length);
+
+  if (techTeam.length > 0) return true;
+  else return false;
+}
+
+public login(techProfile : TechTeamDto) 
+{
+  console.log(techProfile);
+  
+  return this.http
+  .post<boolean>(this.loginURL, techProfile)
+  .pipe(catchError(this.handleError<boolean>('getTechTeam', false)));
+}
 }

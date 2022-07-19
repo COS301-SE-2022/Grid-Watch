@@ -32,15 +32,6 @@
       "@grid-watch/api/ai/notifications/service": [
         "libs/api/ai/notifications/service/src/index.ts"
       ],
-      "@grid-watch/api/ai/tech-team/api": [
-        "libs/api/ai/tech-team/api/src/index.ts"
-      ],
-      "@grid-watch/api/ai/tech-team/repository": [
-        "libs/api/ai/tech-team/repository/src/index.ts"
-      ],
-      "@grid-watch/api/ai/tech-team/service": [
-        "libs/api/ai/tech-team/service/src/index.ts"
-      ],
       "@grid-watch/api/profiles/admin/api": [
         "libs/api/profiles/admin/api/src/index.ts"
       ],

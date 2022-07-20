@@ -1,7 +1,6 @@
 import {IQueryHandler, QueryHandler} from '@nestjs/cqrs';
 import { GetIssueAIQuery,GetTechTeamSpecialisationQuery} from './api-ai-ticket-query.query';
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import {ApiProfilesTechTeamRepositoryDataAccess} from '@grid-watch/api/profiles/tech-team/repository';
 
 @QueryHandler(GetIssueAIQuery)

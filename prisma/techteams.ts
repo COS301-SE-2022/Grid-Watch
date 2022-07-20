@@ -1,12 +1,23 @@
 export const techteams = [
     {
+        name              : "testtechteam",
+        email             : "testtechteam@gmail.com",
+        specialisation    : "Electricity",
+        contactNumber     : "0223788839",
+        nrJobsCompleted   : 5,
+        ratingOfJobs      : 9.3,
+        password          : "TechTeam#1234",
+        passwordSalt      : ""
+    },
+    {
         name              : "Pikachu Electric",
         email             : "pickachuelectric@gmail.com",
         specialisation    : "Electricity",
         contactNumber     : "0223788839",
         nrJobsCompleted   : 5,
         ratingOfJobs      : 9.3,
-        password          : "1234Electricity"
+        password          : "1234Electricity",
+        passwordSalt      : ""
     },
     {
         name              : "The A team plumbers",
@@ -15,7 +26,8 @@ export const techteams = [
         contactNumber     : "0236789822",
         nrJobsCompleted   : 10,
         ratingOfJobs      : 9.8,
-        password          : "the@teamplumbers"
+        password          : "the@teamplumbers",
+        passwordSalt      : ""
     },
     {
         name              : "The Pothole Guys",
@@ -24,6 +36,7 @@ export const techteams = [
         contactNumber     : "0832339877",
         nrJobsCompleted   : 2,
         ratingOfJobs      : 7.3,
-        password          : "potholeguys4321"
+        password          : "potholeguys4321",
+        passwordSalt      : ""
     }
 ]

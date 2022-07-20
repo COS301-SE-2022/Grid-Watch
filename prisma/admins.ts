@@ -2,7 +2,7 @@ export const admins = [
     {
         name              : "testadmin",
         email             : "testadmin@gmail.com",
-        contactNumber     : "0783397282",
+        contactNumber     : "0783397283",
         cities            : ["Pretoria,Johannesburg"],
         password          : "@dmin#21",
         passwordSalt      : ""

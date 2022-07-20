@@ -3,7 +3,7 @@ export const techteams = [
         name              : "testtechteam",
         email             : "testtechteam@gmail.com",
         specialisation    : "Electricity",
-        contactNumber     : "0223788839",
+        contactNumber     : "0223788832",
         nrJobsCompleted   : 5,
         ratingOfJobs      : 9.3,
         password          : "TechTeam#1234",

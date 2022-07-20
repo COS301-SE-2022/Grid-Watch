@@ -14,7 +14,7 @@ export class ApiAiTicketServiceService {
 
     async getEstimateCost(ticketDto: TicketDto){
         let tickets:TicketDto[] = [];
-        tickets = this.queryBus.execute(new GetIssueQuery(ticketDto.ticketType));
+        tickets = await this.queryBus.execute(new GetIssueQuery(ticketDto.ticketType));
         
         let cost = 0.0;
         for(let i=0;i<tickets.length;i++){

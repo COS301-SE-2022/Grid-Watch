@@ -1,19 +1,23 @@
-import { Test } from '@nestjs/testing';
+import { Test, TestingModule } from '@nestjs/testing';
 import { ApiAiTicketApiController } from './api-ai-ticket-api.controller';
+import {ApiAiTicketServiceService} from '@grid-watch/api/ai/ticket/service'
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 
 describe('ApiAiTicketApiController', () => {
   let controller: ApiAiTicketApiController;
 
   beforeEach(async () => {
-    const module = await Test.createTestingModule({
-      providers: [],
+    const module: TestingModule = await Test.createTestingModule({
       controllers: [ApiAiTicketApiController],
+      providers:[ApiAiTicketServiceService,CommandBus,QueryBus]
     }).compile();
 
-    controller = module.get(ApiAiTicketApiController);
+    await module.init();
+
+    controller = module.get<ApiAiTicketApiController>(ApiAiTicketApiController);
   });
 
   it('should be defined', () => {
-    expect(controller).toBeTruthy();
+    expect(controller).toBeDefined();
   });
 });

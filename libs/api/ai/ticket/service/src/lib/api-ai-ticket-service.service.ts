@@ -1,16 +1,18 @@
 import { Injectable} from '@nestjs/common';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import {GetIssueAIQuery} from './queries/api-ai-ticket-query.query';
+import {GetIssueAIQuery,GetTechTeamSpecialisationQuery} from './queries/api-ai-ticket-query.query';
 import {} from './commands/api-ai-ticket-command.command';
-import { Ticket } from '@prisma/client';
+import { TechTeam, Ticket } from '@prisma/client';
 @Injectable()
 export class ApiAiTicketServiceService {
-    constructor (private commanndBus : CommandBus,
+    constructor (private commandBus : CommandBus,
                  private queryBus : QueryBus){}
 
     async getRelevantTechTeam(ticketDto: TicketDto){
-        return "Working Progress";
+        let techTeams: TechTeam[]=[];
+        techTeams  = await this.queryBus.execute(new GetTechTeamSpecialisationQuery(ticketDto.ticketType));
+        return techTeams;
     }
 
     async getEstimateCost(ticketDto: TicketDto){

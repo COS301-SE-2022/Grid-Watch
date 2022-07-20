@@ -2,7 +2,6 @@ import { Injectable} from '@nestjs/common';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {GetIssueAIQuery,GetTechTeamSpecialisationQuery} from './queries/api-ai-ticket-query.query';
-import {} from './commands/api-ai-ticket-command.command';
 import { TechTeam, Ticket } from '@prisma/client';
 @Injectable()
 export class ApiAiTicketServiceService {

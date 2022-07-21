@@ -10,3 +10,18 @@
 .ticketInfo{
     flex: 75%;
 }
+
+.ticketImg
+{
+    width:100%;
+    text-align: right;
+}
+
+.ticket
+{
+  border-top: none;
+  border-left:none;
+  border-right:none;
+  border-bottom:1px solid;
+  border-color: #8ec63f;
+}

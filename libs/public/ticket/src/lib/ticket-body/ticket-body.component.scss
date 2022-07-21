@@ -1,6 +1,6 @@
 img.upvote_img
 {
-    height:40%;
+    height:80%;
 }
 
 img.settings_icon 
@@ -18,7 +18,7 @@ img.pin_location
     margin-top: 2%;
     margin-left: 5%; 
     margin-right:5%;
-    border: 2px #8ec63f solid;
+    border: 2px solid;
 }
 
 .ticketImg
@@ -48,4 +48,31 @@ img.pin_location
 .sidenav-button
 {
     float:right;
+}
+
+.truncate
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.redText
+{
+    border-color: red;
+}
+
+.orangeText
+{
+    border-color:orange;
+}
+
+.yellowText
+{
+    border-color:#edcf18;
+}
+
+.greentText
+{
+    border-color:#8ec63f;
 }

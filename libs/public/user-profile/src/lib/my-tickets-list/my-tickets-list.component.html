@@ -1,13 +1,12 @@
 <div class="myticketsContainer">
     <div class="mytickets">
-        <mat-card class="ticket" *ngFor="let ticket of tickets">
+        <mat-card class="ticket" *ngFor="let ticket of tickets, index as i">
             <div class="ticketImage">
-                <img class="ticketImage" src="assets/{{ticket.ticketImg}}" alt="" onerror="this.src='assets/solid_example.png'">
+                <img  [ngClass] = "'ticketImg'" src="{{ticketImages[i]}}" onerror="this.src='assets/solid_example.png'">
             </div>
             <div class="ticketInfo">
-                {{ticket.ticketType}} <br>
-                <span class="material-icons">person_pin_circle</span>
-                {{ticket.ticketLocation}}
+                {{ticket.ticketType}} <hr>
+                {{ticket.ticketDescription}}
             </div>
         </mat-card>
     </div>

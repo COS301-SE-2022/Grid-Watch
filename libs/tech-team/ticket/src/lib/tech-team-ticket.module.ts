@@ -74,7 +74,6 @@ import { MatSelectModule } from '@angular/material/select';
     AcceptedTicketViewComponent,
     EditAcceptedTicketComponent,
     DialogComponent,
-  ],
-  providers: [MatDialogRef]
+  ]
 })
 export class TechTeamTicketModule {}

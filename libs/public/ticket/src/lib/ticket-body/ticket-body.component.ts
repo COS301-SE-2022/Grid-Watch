@@ -19,7 +19,9 @@ export class TicketBodyComponent implements OnInit {
   public name! : string;
   public surname! : string;
   public avatar! : string;
+  ticketDates : string[] = [];
   ticketImages : string[] = [];
+  ticketStatus: string[] = [];
   tickets : Array<TicketDto> = [];
   
 
@@ -61,7 +63,11 @@ export class TicketBodyComponent implements OnInit {
     for (let index = 0; index < data.length; index++) 
     {      
       this.tickets.push(data[index]);
-      
+      const date = new Date(this.tickets[index]["ticketCreateDate"]);      
+      const m = date.getUTCMonth() + 1;
+      const y = date.getUTCFullYear();
+      const d = date.getUTCDate();
+      this.ticketDates.push(y + "/" + m + "/" + d);
       switch(this.tickets[index]["ticketType"])
       {
         case "Electricity Outage":
@@ -84,6 +90,25 @@ export class TicketBodyComponent implements OnInit {
           break;
         default:
           this.ticketImages.push("assets/issue-maintenance.svg");
+          break;
+      }
+
+      switch(this.tickets[index]["ticketStatus"])
+      {
+        case "Created":
+          this.ticketStatus.push("redText");
+          break;
+        case "Dispatched":
+          this.ticketStatus.push("orangeText");
+          break;
+        case "In Progress":
+          this.ticketStatus.push("yellowText");
+          break;
+        case "Closed":
+          this.ticketStatus.push("greenText");
+          break;
+        default:
+          this.ticketStatus.push("yellowText");
           break;
       }
       this.ticketService.getImages(data[index].ticketId).subscribe

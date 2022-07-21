@@ -2,6 +2,17 @@
   "root": "libs/api/profiles/tech-team/repository",
   "sourceRoot": "libs/api/profiles/tech-team/repository/src",
   "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/profiles/tech-team/repository",
+        "tsConfig": "libs/api/profiles/tech-team/repository/tsconfig.lib.json",
+        "packageJson": "libs/api/profiles/tech-team/repository/package.json",
+        "main": "libs/api/profiles/tech-team/repository/src/index.ts",
+        "assets": ["libs/api/profiles/tech-team/repository/*.md"]
+      }
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

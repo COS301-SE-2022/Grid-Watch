@@ -1,0 +1,33 @@
+{
+  "root": "libs/api/ai/notifications/api",
+  "sourceRoot": "libs/api/ai/notifications/api/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/ai/notifications/api",
+        "tsConfig": "libs/api/ai/notifications/api/tsconfig.lib.json",
+        "packageJson": "libs/api/ai/notifications/api/package.json",
+        "main": "libs/api/ai/notifications/api/src/index.ts",
+        "assets": ["libs/api/ai/notifications/api/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/ai/notifications/api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/ai/notifications/api"],
+      "options": {
+        "jestConfig": "libs/api/ai/notifications/api/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

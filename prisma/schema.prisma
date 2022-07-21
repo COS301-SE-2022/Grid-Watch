@@ -23,6 +23,9 @@ model User{
   name                String
   dateCreated         DateTime  @default(now())
 
+  ticketsCreated      Ticket[]
+  ticketsUpvoted      Int[]
+
   @@map("user")
 }
 
@@ -36,8 +39,11 @@ model Ticket {
   ticketCreateDate    DateTime  @default(now())
   ticketCloseDate     DateTime?
   ticketType          String
+  ticketStreetAddress String
   ticketCity          String?
   ticketLocation      String    //place-id
+  ticketLong          Float
+  ticketLat           Float
   ticketCost          Float?
   ticketDescription   String
   ticketRepairTime    Int?
@@ -45,6 +51,9 @@ model Ticket {
 
   techTeam            TechTeam? @relation(fields: [assignedTechTeam] , references: [id])
   assignedTechTeam    Int?
+
+  user                User @relation(fields: [userId] , references: [id], onDelete: Cascade) // user who created ticket
+  userId              Int
 
   Subtasks            Subtasks[]
   Picture             Picture[]

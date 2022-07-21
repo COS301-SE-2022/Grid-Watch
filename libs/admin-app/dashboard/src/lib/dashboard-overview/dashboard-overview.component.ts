@@ -54,7 +54,7 @@ export class DashboardOverviewComponent implements AfterViewInit
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Number of tickets recieved and Number of tickets dispatched '
+                            text: 'Number of tickets for issue per month'
                         },
                         legend: {
                             display: false

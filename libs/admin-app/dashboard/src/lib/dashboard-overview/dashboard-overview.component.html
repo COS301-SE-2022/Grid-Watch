@@ -6,16 +6,16 @@
     <mat-grid-tile colspan="1"></mat-grid-tile>
     <mat-radio-group aria-label="Select an option">
         <mat-grid-tile colspan="3">
-            <mat-slide-toggle (change)="showLineGraph('pothole')">Pothole</mat-slide-toggle>
+            <mat-slide-toggle (change)="showLineGraph('Pothole', $event)">Pothole</mat-slide-toggle>
         </mat-grid-tile>
         <mat-grid-tile colspan="3">
-            <mat-slide-toggle (change)="showLineGraph('water')">Water</mat-slide-toggle>
+            <mat-slide-toggle (change)="showLineGraph('Water', $event)">Water</mat-slide-toggle>
         </mat-grid-tile>
         <mat-grid-tile colspan="3">
-            <mat-slide-toggle (change)="showLineGraph('electricity')">Electricity Issue</mat-slide-toggle>
+            <mat-slide-toggle (change)="showLineGraph('Electricity', $event)">Electricity Issue</mat-slide-toggle>
         </mat-grid-tile>
         <mat-grid-tile colspan="3">
-            <mat-slide-toggle (change)="showLineGraph('other')">Miscellaneous</mat-slide-toggle>
+            <mat-slide-toggle (change)="showLineGraph('Other', $event)">Miscellaneous</mat-slide-toggle>
         </mat-grid-tile>
     </mat-radio-group>    
 </mat-grid-list>

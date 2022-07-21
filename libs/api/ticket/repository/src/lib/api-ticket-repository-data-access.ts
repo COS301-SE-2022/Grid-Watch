@@ -351,20 +351,6 @@ export class ApiTicketRepositoryDataAccess {
        // return "The ticket with id: " + ticketID + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
     }
 
-    async updateLatitude(ticketID: number, lat: number){
-
-        await this.prisma.ticket.update({
-            where:
-            {
-                ticketId: ticketID,
-            },
-            data:
-            {
-                ticketLat : lat,  
-            },
-        });
-    }
-
     async updateLongitude(ticketID: number, long: number){
 
         await this.prisma.ticket.update({
@@ -375,6 +361,20 @@ export class ApiTicketRepositoryDataAccess {
             data:
             {
                 ticketLong : long,  
+            },
+        });
+    }
+
+    async updateLatitude(ticketID: number, lat: number){
+
+        await this.prisma.ticket.update({
+            where:
+            {
+                ticketId: ticketID,
+            },
+            data:
+            {
+                ticketLat : lat,  
             },
         });
     }

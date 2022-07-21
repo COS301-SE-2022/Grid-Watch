@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class AdminProfileComponent implements OnInit {
 
   option! : string;
-  constructor() {}
+  // constructor() {}
 
   ngOnInit(): void {
     this.option = "accountInformation";

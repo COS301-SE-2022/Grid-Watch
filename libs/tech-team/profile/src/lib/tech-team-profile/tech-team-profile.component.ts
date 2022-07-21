@@ -5,8 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './tech-team-profile.component.html',
   styleUrls: ['./tech-team-profile.component.scss'],
 })
-export class TechTeamProfileComponent implements OnInit {
-  constructor() {}
+export class TechTeamProfileComponent {//implements OnInit {
+  // constructor() {}
 
-  ngOnInit(): void {}
+  // ngOnInit(): void {}
 }

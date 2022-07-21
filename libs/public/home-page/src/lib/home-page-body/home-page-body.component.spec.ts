@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
 
@@ -10,6 +11,7 @@ describe('HomePageBodyComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HomePageBodyComponent],
+      imports: [HttpClientModule],
       providers: [GoogleMapsService]
     }).compileComponents();
   });

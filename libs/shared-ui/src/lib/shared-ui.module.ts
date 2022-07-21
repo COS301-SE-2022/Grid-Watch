@@ -12,7 +12,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { AppHeaderLoginComponent } from './app-header-login/app-header-login.component';
 
 @NgModule({
   imports: [
@@ -34,13 +33,11 @@ import { AppHeaderLoginComponent } from './app-header-login/app-header-login.com
     NavBarComponent,
     MenuOptionsComponent,
     AppHeaderComponent,
-    AppHeaderLoginComponent,
   ],
   exports: [
     NavBarComponent,
     MenuOptionsComponent,
     AppHeaderComponent,
-    AppHeaderLoginComponent,
   ],
 })
 export class SharedUiModule {}

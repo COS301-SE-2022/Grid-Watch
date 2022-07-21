@@ -1,10 +1,6 @@
 .ticketImage{
-    height: 50px;
+    height: 75px;
     flex: 25%;
-}
-
-.ticket{
-  display: flex;  
 }
 
 .ticketInfo{
@@ -24,4 +20,9 @@
   border-right:none;
   border-bottom:1px solid;
   border-color: #8ec63f;
+}
+
+.myticketsContainer
+{
+  padding-bottom: 30px;
 }

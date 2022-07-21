@@ -1,7 +1,6 @@
-
 <nav id="generalNavbar" class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-        <a routerLink="/home" class="navbar-brand">Gridwatch</a>
+        <a routerLink="/home" class="navbar-brand"><img id = "navImage" src="assets/logo.png"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
         </button>
@@ -11,13 +10,8 @@
                     <li class="nav-item" *ngFor="let option of options, index as i">
                         <a class="nav-link" id="{{option}}" routerLink="{{router_options[i]}}">{{option}}</a>
                     </li>
-
                 </ul>
             </div>
-           
-            <!-- <h2 id="classIdentifier" class="navbar-nav brand col ml-auto">
-
-            </h2> -->
         </div>
     </div>
 </nav>

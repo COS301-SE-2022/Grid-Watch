@@ -13,6 +13,7 @@ export class MyTicketsListComponent implements OnInit
 
   tickets!: TicketDto[];
   ticketImages: string[] = [];
+  ticketDates: string[] = [];
   avatar!: string;
   constructor(
     private ticketService: TicketService,
@@ -46,11 +47,16 @@ export class MyTicketsListComponent implements OnInit
   }
 
   async initialiseTickets(data : TicketDto []): Promise<void>
-  {
-    console.log("initialised");
+  {    
     for (let index = 0; index < data.length; index++) 
     {      
+      
       this.tickets.push(data[index]);
+      const date = new Date(this.tickets[index]["ticketCreateDate"]);      
+      const m = date.getUTCMonth() + 1;
+      const y = date.getUTCFullYear();
+      const d = date.getUTCDate();
+      this.ticketDates.push(y + "/" + m + "/" + d);
       switch(this.tickets[index]["ticketType"])
       {
         case "Electricity Outage":

@@ -1,13 +1,22 @@
-<div class="myticketsContainer">
-    <div class="mytickets">
-        <mat-card class="ticket" *ngFor="let ticket of tickets, index as i">
-            <div class="ticketImage">
-                <img  [ngClass] = "'ticketImg'" src="{{ticketImages[i]}}" onerror="this.src='assets/solid_example.png'">
-            </div>
-            <div class="ticketInfo">
-                {{ticket.ticketType}} <hr>
-                {{ticket.ticketDescription}}
-            </div>
-        </mat-card>
-    </div>
-</div>
+<mat-card [routerLink]="['/editTicket', {id:ticket.ticketId}]" class="mt-2 cards ticket" *ngFor="let ticket of tickets, index as i" >
+    <mat-grid-list cols = "12" rowHeight = "30px">
+        <mat-grid-tile colspan ="2" rowspan="2">
+            <img  [ngClass] = "'ticketImage'" src="{{ticketImages[i]}}" onerror="this.src='assets/solid_example.png'">
+        </mat-grid-tile>
+        <mat-grid-tile colspan="8" class="citizenName">
+            {{ticket.ticketType}}             
+        </mat-grid-tile>
+        <mat-grid-tile rowspan = "1" colspan="2">               
+        </mat-grid-tile>                
+        <mat-grid-tile colspan="3" class="ml-5 mr-5" style="text-align: center;font-size: small;">    
+            <span class="location_heading">&ensp;{{ticket.ticketCity}}</span>
+        </mat-grid-tile>
+        <mat-grid-tile colspan = "3">
+            {{this.ticketDates[i]}}
+        </mat-grid-tile>
+        <mat-grid-tile colspan = "3" class = "truncate">
+            {{ticket.ticketStatus}}
+        </mat-grid-tile>
+        <!--<mat-grid-tile colspan="2"><a [ngClass] = "'ticketEdit'" [routerLink]="['/editTicket', {id:ticket.ticketId}]">Edit </a></mat-grid-tile>-->
+    </mat-grid-list>
+</mat-card>

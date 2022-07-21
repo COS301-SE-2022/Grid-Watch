@@ -18,6 +18,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MyTicketsListComponent } from './my-tickets-list/my-tickets-list.component';
 import { MyTicketsBlockComponent } from './my-tickets-block/my-tickets-block.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatDividerModule,
     MatButtonToggleModule,
     MatMenuModule,
+    MatGridListModule,
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
       { path: 'editUser', pathMatch: 'full', component: EditUserComponent },

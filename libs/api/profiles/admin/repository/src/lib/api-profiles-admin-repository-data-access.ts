@@ -1,5 +1,5 @@
 import {PrismaClient} from '@prisma/client';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import {AdminDto} from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto'
 
 //authorizedofficials = admin
@@ -198,6 +198,12 @@ export class ApiProfilesAdminRepositoryDataAccess {
                 passwordSalt:true
             },
         });
+
+        if (admin == null)
+            return false;
+
+        Logger.log(Password)
+        
 
         const hash = await this.bcrypt.hash(Password, admin.passwordSalt); 
 

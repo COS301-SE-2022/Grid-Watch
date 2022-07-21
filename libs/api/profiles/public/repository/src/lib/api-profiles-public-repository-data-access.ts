@@ -91,6 +91,38 @@ export class ApiProfilesPublicRepositoryDataAccess{
         
     }
 
+    // get all tickets of a user sorting according to newest tickets first ( highest ticketid number)
+    async getAllUserTickets(UserID : number){
+
+    return await this.prisma.ticket.findMany({
+        where:
+        {
+            userId: UserID,
+        },
+        orderBy: 
+        {
+            ticketId: "desc",
+        },
+    })
+    }
+
+    async AddTicketUpvoted(userId : number, ticketID : number){
+
+        await this.prisma.user.update({
+            where: 
+            { 
+                id: userId 
+            },
+            data: 
+            {
+                ticketsUpvoted: 
+                {
+                    push: ticketID,
+                },
+            },
+        });
+    }
+
     async verifyUserPassword(email:string, Password:string)
     {
         const user = await this.prisma.user.findFirst({

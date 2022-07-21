@@ -15,9 +15,12 @@ export class ApiTicketRepositoryDataAccess {
                     ticketStatus :          ticketDto.ticketStatus,    
                     ticketType :            ticketDto.ticketType,
                     ticketCreateDate:       ticketDto.ticketCreateDate, //has default
-                    ticketCloseDate:        ticketDto.ticketCloseDate,    
+                    ticketCloseDate:        ticketDto.ticketCloseDate,   
+                    ticketStreetAddress:    ticketDto.ticketStreetAddress, 
                     ticketCity :            ticketDto.ticketCity,   
-                    ticketLocation :        ticketDto.ticketLocation,   
+                    ticketLocation :        ticketDto.ticketLocation, 
+                    ticketLong:             ticketDto.ticketLong,
+                    ticketLat:              ticketDto.ticketLat,  
                     ticketCost :            ticketDto.ticketCost,
                     ticketDescription :     ticketDto.ticketDescription,
                     ticketRepairTime :      ticketDto.ticketRepairTime, 
@@ -242,11 +245,14 @@ export class ApiTicketRepositoryDataAccess {
             data:
             {
                 ticketStatus :          ticketDto.ticketStatus,    
-                ticketCreateDate :      ticketDto.ticketCreateDate, 
-                ticketCloseDate :       ticketDto.ticketCloseDate,
-                ticketType :            ticketDto.ticketType,    
+                ticketType :            ticketDto.ticketType,
+                ticketCreateDate:       ticketDto.ticketCreateDate, //has default
+                ticketCloseDate:        ticketDto.ticketCloseDate,   
+                ticketStreetAddress:    ticketDto.ticketStreetAddress, 
                 ticketCity :            ticketDto.ticketCity,   
-                ticketLocation :        ticketDto.ticketLocation,   
+                ticketLocation :        ticketDto.ticketLocation,  
+                ticketLong:             ticketDto.ticketLong, 
+                ticketLat:              ticketDto.ticketLat,
                 ticketCost :            ticketDto.ticketCost,
                 ticketDescription :     ticketDto.ticketDescription,
                 ticketRepairTime :      ticketDto.ticketRepairTime, 
@@ -316,6 +322,20 @@ export class ApiTicketRepositoryDataAccess {
        // return "The ticket with id: " + ticketID + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
     }
 
+    async updateStreetAddress(ticketID: number, address: string){
+
+        await this.prisma.ticket.update({
+            where:
+            {
+                ticketId: ticketID,
+            },
+            data:
+            {
+                ticketStreetAddress : address,  
+            },
+        });
+    }
+
     async updateLocation(ticketID: number, location: string){
 
         await this.prisma.ticket.update({
@@ -329,6 +349,34 @@ export class ApiTicketRepositoryDataAccess {
             },
         });
        // return "The ticket with id: " + ticketID + "'s status changed from " + prev_ticket_status + " to " + TicketStatus + "."
+    }
+
+    async updateLatitude(ticketID: number, lat: number){
+
+        await this.prisma.ticket.update({
+            where:
+            {
+                ticketId: ticketID,
+            },
+            data:
+            {
+                ticketLat : lat,  
+            },
+        });
+    }
+
+    async updateLongitude(ticketID: number, long: number){
+
+        await this.prisma.ticket.update({
+            where:
+            {
+                ticketId: ticketID,
+            },
+            data:
+            {
+                ticketLong : long,  
+            },
+        });
     }
 
     async updateCost(ticketID: number, cost: number){

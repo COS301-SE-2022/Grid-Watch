@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
+import { Router } from '@angular/router';
 import { AdminDto } from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto';
 import { AdminProfileService } from '@grid-watch/shared-ui';
 
@@ -22,7 +23,8 @@ export class LoginPageComponent implements OnInit {
   confirmPassword! : string;
   constructor(
     private formBuilder : FormBuilder,
-    private profileService : AdminProfileService
+    private profileService : AdminProfileService,
+    private router : Router
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +43,7 @@ export class LoginPageComponent implements OnInit {
         if (response)
         {
           this.showMessage("Successfully logged in");
+          this.successfulLogin();
         }
         else
         {
@@ -54,5 +57,17 @@ export class LoginPageComponent implements OnInit {
 
   showMessage( s : string ){
     alert(s);
+  }
+
+  successfulLogin() {
+    this.profileService.getAdminEmail(this.admin.email).subscribe(
+      (response) =>{
+        console.log(response);
+        localStorage.setItem("LoggedIn", "true");
+        localStorage.setItem("userId", response[0].id.toString() );
+        this.router.navigateByUrl("/profile");
+        
+      }
+    )
   }
 }

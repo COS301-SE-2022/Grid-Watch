@@ -31,5 +31,29 @@ export const tickets = [
         ticketDescription : "A pipe has burst outside my house",    
         // ticketRepairTime :  55600,    
         ticketUpvotes : 0, 
-    }
+    },
+    {
+        ticketStatus : "Closed",
+        ticketCreateDate : "2022-07-19T17:38:27.870Z",
+        ticketType :  "Electricity",        
+        ticketCity :  "Hatfield",            
+        ticketLocation : "",      //place-id
+        // ticketCost : 25000,           
+        ticketDescription : "A pipe has burst outside my house", 
+        ticketCloseDate : "2022-07-22T17:38:27.870Z",  
+        // ticketRepairTime :  55600,    
+        ticketUpvotes : 0, 
+    },
+    {
+        ticketStatus : "Opened",
+       // ticketCreateDate : "2022/07/11",
+        ticketType :  "Water",        
+        ticketCity :  "Hatfield",            
+        ticketLocation : "",      //place-id
+        // ticketCost : 25000,           
+        ticketDescription : "A pipe has burst outside my house",    
+        // ticketRepairTime :  55600,    
+        ticketUpvotes : 0, 
+    },
+    
 ]

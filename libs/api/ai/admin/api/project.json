@@ -1,0 +1,33 @@
+{
+  "root": "libs/api/ai/admin/api",
+  "sourceRoot": "libs/api/ai/admin/api/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/ai/admin/api",
+        "tsConfig": "libs/api/ai/admin/api/tsconfig.lib.json",
+        "packageJson": "libs/api/ai/admin/api/package.json",
+        "main": "libs/api/ai/admin/api/src/index.ts",
+        "assets": ["libs/api/ai/admin/api/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/ai/admin/api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/ai/admin/api"],
+      "options": {
+        "jestConfig": "libs/api/ai/admin/api/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

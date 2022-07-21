@@ -8,10 +8,13 @@ import { catchError, Observable, of } from 'rxjs';
 })
 export class AdminProfileService {
 
-  private createAdminURL = "api/admin/create"
-  private getAdminEmailURL = "api/admin/email/"
-  private getAdminContactURL = "api/admin/cell/"
-  private loginURL = "api/admin/verify/"
+  private createAdminURL = "api/admin/create";
+  private getAdminEmailURL = "api/admin/email/";
+  private getAdminContactURL = "api/admin/cell/";
+  private loginURL = "api/admin/verify/";
+  private getAdminURL = "api/admin/";
+  private updateAdminURL = "api/admin/update/admin/";
+  
   constructor(
     private http : HttpClient
   ) { }
@@ -41,7 +44,7 @@ export class AdminProfileService {
       });
     });
 
-    // console.log(users.length);
+    console.log(admins);
 
     if (admins.length > 0) return true;
     else return false;
@@ -81,6 +84,23 @@ export class AdminProfileService {
     .post<AdminDto>(this.loginURL, admin)
     .pipe(catchError(this.handleError<boolean>('login', false)));
 
+  }
+
+  public getAdmin(id : string)
+  {
+    const tempURL = this.getAdminURL + id;
+    return this.http
+    .get<AdminDto[]>(tempURL)
+    .pipe(catchError(this.handleError<AdminDto[]>('getAdmin', [])));
+
+  }
+
+  public updateAdmin(id : string, admin : AdminDto )
+  {
+    const tempURL = this.updateAdminURL + id
+    return this.http
+    .put<AdminDto>(tempURL, admin)
+    .pipe(catchError(this.handleError<boolean>('getAdmin', false)));
   }
 
 }

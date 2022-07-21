@@ -29,7 +29,7 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.admin = new AdminDto();
-    this.admin.email = "test3@gmail.com"
+    this.admin.email = "test4@gmail.com"
     this.admin.password = "HDFVHJW"
   }
 
@@ -64,7 +64,7 @@ export class LoginPageComponent implements OnInit {
       (response) =>{
         console.log(response);
         localStorage.setItem("LoggedIn", "true");
-        localStorage.setItem("userId", response[0].id.toString() );
+        localStorage.setItem("adminId", response[0].id.toString() );
         this.router.navigateByUrl("/profile");
         
       }

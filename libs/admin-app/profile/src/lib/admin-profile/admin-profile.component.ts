@@ -6,7 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-profile.component.scss'],
 })
 export class AdminProfileComponent implements OnInit {
+
+  option! : string;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.option = "accountInformation";
+  }
 }

@@ -239,8 +239,8 @@ export class ApiProfilesAdminRepositoryDataAccess {
         if(!adminDto.password)
             throw Error("password_falsy");
 
-        const salt = await this.bcrypt.genSalt(6);
-        const hash = await this.bcrypt.hash(adminDto.password, salt)
+        // const salt = await this.bcrypt.genSalt(6);
+        // const hash = await this.bcrypt.hash(adminDto.password, salt)
 
         const admin = await this.prisma.authorizedOfficials.update({
             where:
@@ -251,8 +251,10 @@ export class ApiProfilesAdminRepositoryDataAccess {
             {
                 name :                  adminDto.name,
                 email :                 adminDto.email,
-                password :              hash,
-                passwordSalt :          salt,
+                cities:                 adminDto.cities,
+                contactNumber:          adminDto.contactNumber,
+                // password :              hash,
+                // passwordSalt :          salt,
 
             },
         });

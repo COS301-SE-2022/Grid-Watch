@@ -21,6 +21,12 @@ export class ApiProfilesPublicApiController {
         return  "Testing public endpoint";
     }
 
+    //get endpoint to return all tickets of a specific user
+    @Get('tickets/:userId')
+    async getAllUserTickets(@Param() params){
+        return this.apiProfilesPublicService.getAllUserTickets(params.userId);
+    }
+
     //get endpiont to return a specific user
     @Get(':id')
     async getUser(@Param() params){
@@ -49,6 +55,12 @@ export class ApiProfilesPublicApiController {
     @Post('/verify')
     async verifyUserPassword(@Body() user: UserDto ):Promise<boolean>{
         return this.apiProfilesPublicService.verifyUserPassword(user["email"],user["password"]);
+    }
+
+    //add upvote to ticket
+    @Put('/add/upvote/:userId')
+    async addTicketUpvoted(@Param() params,@Body() ticketId: number):Promise<boolean> {
+        return this.apiProfilesPublicService.addTicketUpvoted(parseInt(params.userId),ticketId["ticketId"]);
     }
 
     //put endpoint to updatePassword

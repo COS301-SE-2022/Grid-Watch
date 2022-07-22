@@ -42,8 +42,8 @@ export class LoginPageComponent implements OnInit {
 
   async login() : Promise<void>
   {
-    this.user.email = "Tshego14@gmail.com"
-    this.user.password = "Gbfj&hfbsh"
+    //this.user.email = "Tshego14@gmail.com"
+    //this.user.password = "Gbfj&hfbsh"
     console.log(await this.profileService.login(this.user));
     
     this.profileService.login(this.user).subscribe(

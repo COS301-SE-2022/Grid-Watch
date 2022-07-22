@@ -7,10 +7,12 @@ import {VerifyUserPasswordCommand,
         UpdateUserEmailCommand,
         DeleteUserCommand,
         CreateUserCommand,
+        AddTicketUpvotedCommand,
 } from './commands/api-profiles-public-command.command';
 import{ GetUserQuery,
         GetUserNameQuery,
-        GetUserEmailQuery} from './queries/api-profiles-public-query.query';
+        GetUserEmailQuery,
+        GetAllUserTicketsQuery} from './queries/api-profiles-public-query.query';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 
 @Injectable()
@@ -33,6 +35,11 @@ export class ApiProfilesPublicService {
         return await this.queryBus.execute(new GetUserEmailQuery(userEmail));
     }
 
+    async getAllUserTickets(userId : number){
+        return await this.queryBus.execute(new GetAllUserTicketsQuery(userId));
+    }
+
+
 
     /////////////////////////////////////////
     ////////////////commands/////////////////
@@ -40,6 +47,10 @@ export class ApiProfilesPublicService {
 
     async createUser(userDto: UserDto){
         return await this.commandBus.execute(new CreateUserCommand(userDto));
+    }
+
+    async addTicketUpvoted(userId : number, ticketId: number){
+        return await this.commandBus.execute(new AddTicketUpvotedCommand(userId, ticketId));
     }
 
     async verifyUserPassword(email: string, password: string){

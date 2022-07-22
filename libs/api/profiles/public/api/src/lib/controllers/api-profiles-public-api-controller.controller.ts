@@ -59,7 +59,7 @@ export class ApiProfilesPublicApiController {
 
     //add upvote to ticket
     @Put('/add/upvote/:userId')
-    async addTicketUpvoted(@Param() params,@Body() ticketId: numer):Promise<boolean> {
+    async addTicketUpvoted(@Param() params,@Body() ticketId: number):Promise<boolean> {
         return this.apiProfilesPublicService.addTicketUpvoted(parseInt(params.userId),ticketId["ticketId"]);
     }
 

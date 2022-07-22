@@ -6,10 +6,11 @@ import { Express } from 'express';
 import { Multer } from 'multer';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
+import { GoogleMapsService, PublicProfileService, TicketService } from '@grid-watch/shared-ui';
 import { Loader } from '@googlemaps/js-api-loader';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
+import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 
 
 @Component({
@@ -42,6 +43,8 @@ export class CreateTicketComponent{
   other!: boolean;
   otherDetails!: string;
   map!: google.maps.Map;
+  
+  user! : UserDto
 
   issueOptions = ["Pothole", "Sinkhole", "Broken Light", "Broken Robot", "Water Outage", "Electricity Outage", "Other"]
   
@@ -50,10 +53,11 @@ export class CreateTicketComponent{
               private router: Router,
               private ticketService : TicketService,
               private googleMapsService: GoogleMapsService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private profileService : PublicProfileService) {
               }
               
-  ngOnInit(): void {    
+  async ngOnInit(): Promise<void> {    
     this.zoom = 5.5;
     this.center =  {
       lat: -30.5595,
@@ -132,8 +136,8 @@ export class CreateTicketComponent{
       this.ticket.ticketLat = this.autocomplete.getPlace().geometry?.location?.lat() || 0;
       this.ticket.ticketLong = this.autocomplete.getPlace().geometry?.location?.lng() || 0;
       console.log(this.autocomplete.getPlace());
+      this.ticket.ticketStreetAddress = this.autocomplete.getPlace().formatted_address || "";
     }
-    this.ticket.ticketStreetAddress = this.ticket.ticketLocation;
     this.ticket.ticketLocation = this.placeID;
     this.ticket.ticketStatus = "Created";
     this.ticket.ticketCreateDate = new Date();

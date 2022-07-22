@@ -31,7 +31,14 @@ export class MyTicketsListComponent implements OnInit {
       this.ticketService.getTickets().subscribe(
         (response) => {
           this.tickets = response;
-          this.initialiseTickets()
+          this.tickets = this.tickets.filter((ticket) => {
+            const userId = localStorage.getItem("userId");
+            if (userId)
+              return ticket.userId === parseInt(userId);
+            else
+              return false;
+          });
+          
         }
       )
       
@@ -40,14 +47,9 @@ export class MyTicketsListComponent implements OnInit {
     
   }
 
-  async initialiseTickets() : Promise<void> {
-    for (let k = 0; k < this.tickets.length; k++) {
-      this.tickets[k].ticketLocation = await this.googleMapsService.getLocation(this.tickets[k].ticketLocation);
-      this.ticketService.getImages(this.tickets[k].ticketId).subscribe(
-        (response) => {
-          this.tickets[k].ticketImg = response[0].pictureLink
-        }
-        );
-    }
+  filterTickets()
+  {
+    return 
   }
+
 }

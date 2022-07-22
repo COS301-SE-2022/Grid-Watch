@@ -6,13 +6,13 @@ import {
   IsAlphanumeric,
   IsDate,
   IsOptional,
+  IsArray,
 } from 'class-validator';
 
 export class UserDto {
 @IsNumber()
 @IsOptional()
 id !: number;
-
 
 @IsEmail()
 @IsNotEmpty()
@@ -34,5 +34,7 @@ name! : string;
 @IsNotEmpty()
 dateCreated! : Date;
 
-
+@IsArray()
+@IsNotEmpty()
+ticketsUpvoted! : number[];
 }

@@ -106,7 +106,7 @@ export class ApiProfilesPublicRepositoryDataAccess{
     })
     }
 
-    async AddTicketUpvoted(userId : number, ticketID : number){
+    async addTicketUpvoted(userId : number, ticketID : number){
 
         await this.prisma.user.update({
             where: 

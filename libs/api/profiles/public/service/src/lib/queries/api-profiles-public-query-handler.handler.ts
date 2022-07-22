@@ -1,5 +1,5 @@
 import {IQueryHandler, QueryHandler} from '@nestjs/cqrs';
-import {GetUserEmailQuery,GetUserNameQuery,GetUserQuery} from './api-profiles-public-query.query';
+import {GetAllUserTicketsQuery,GetUserEmailQuery,GetUserNameQuery,GetUserQuery} from './api-profiles-public-query.query';
 import { ApiProfilesPublicRepositoryDataAccess } from '@grid-watch/api/profiles/public/repository';
 
 
@@ -10,6 +10,19 @@ export class GetUserEmailHandler implements IQueryHandler<GetUserEmailQuery>{
     async execute(query: GetUserEmailQuery){
         const {userEmail} = query;
         return this.repository.getUserEmail(userEmail);
+
+    }
+
+
+}
+
+@QueryHandler(GetAllUserTicketsQuery)
+export class GetAllUserTicketsHandler implements IQueryHandler<GetAllUserTicketsQuery>{
+    constructor(private readonly repository: ApiProfilesPublicRepositoryDataAccess ){}
+
+    async execute(query: GetAllUserTicketsQuery){
+        const {userId} = query;
+        return this.repository.getAllUserTickets(userId);
 
     }
 

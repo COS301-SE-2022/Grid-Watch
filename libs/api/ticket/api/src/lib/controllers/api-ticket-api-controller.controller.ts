@@ -125,6 +125,24 @@ export class TicketController {
         return this.apiTicketService.updateTicketCreateDate(parseInt(params.id),createDate["createDate"]);
     }
 
+    //update ticket street address
+    @Put('/update/streetaddress/:id')
+    async updateStreetAddress(@Param() params,@Body() address: string):Promise<boolean>{
+        return this.apiTicketService.updateStreetAddress(parseInt(params.id),address["address"]);
+    }
+
+    //update ticket longitude
+    @Put('/update/longitude/:id')
+    async updateLongitude(@Param() params,@Body() long: number):Promise<boolean> {
+        return this.apiTicketService.updateLongitude(parseInt(params.id),long["longitude"]);
+    }
+
+    //update ticket longitude
+    @Put('/update/latitude/:id')
+    async updateLatitudde(@Param() params,@Body() lat: number):Promise<boolean> {
+        return this.apiTicketService.updateLatitude(parseInt(params.id),lat["latitude"]);
+    }
+
     //update ticket closedate
     @Put('/update/closedate/:id')
     async updateTicketCloseDate(@Param() params,@Body() closeDate: Date):Promise<boolean> {

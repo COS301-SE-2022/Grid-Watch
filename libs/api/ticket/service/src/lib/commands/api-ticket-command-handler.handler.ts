@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
-import {DeleteTicketCommand, CreateTicketCommand,CreatePictureCommand, UpdateTicketCommand, UpdateTicketStatusCommand, UpdateTicketCreateDateCommand, UpdateTicketTypeCommand, UpdateTicketCloseDateCommand, UpdateTicketLocationCommand, UpdateTicketCostCommand, UpdateTicketDescriptionCommand, UpdateTicketRepairTimeCommand, UpdateTicketUpVotesCommand, IncUpvotesCommand, UpdatePictureCommand, DeletePictureCommand, CreateSubtaskCommand, UpdateSubtaskCommand, UpdateSubtaskTicketCommand, UpdateSubtaskDescCommand, UpdateSubtaskStepCommand, UpdateSubtaskStatusCommand, DeleteSubtaskCommand} from './api-ticket-command.command';
-import { Logger } from '@nestjs/common';
+import {UpdateStreetAddressCommand,UpdateLongitudeCommand,UpdateLatitudeCommand,DeleteTicketCommand, CreateTicketCommand,CreatePictureCommand, UpdateTicketCommand, UpdateTicketStatusCommand, UpdateTicketCreateDateCommand, UpdateTicketTypeCommand, UpdateTicketCloseDateCommand, UpdateTicketLocationCommand, UpdateTicketCostCommand, UpdateTicketDescriptionCommand, UpdateTicketRepairTimeCommand, UpdateTicketUpVotesCommand, IncUpvotesCommand, UpdatePictureCommand, DeletePictureCommand, CreateSubtaskCommand, UpdateSubtaskCommand, UpdateSubtaskTicketCommand, UpdateSubtaskDescCommand, UpdateSubtaskStepCommand, UpdateSubtaskStatusCommand, DeleteSubtaskCommand} from './api-ticket-command.command';
+
 
 @CommandHandler(CreateTicketCommand)
 export class CreateTicketHandler implements ICommandHandler<CreateTicketCommand>{
@@ -11,6 +11,39 @@ export class CreateTicketHandler implements ICommandHandler<CreateTicketCommand>
     async execute(command: CreateTicketCommand) {
         const{ ticketDto}= command;
         return this.repository.createTicket(ticketDto);
+    }
+}
+
+@CommandHandler(UpdateStreetAddressCommand)
+export class UpdateStreetAddressHandler implements ICommandHandler<UpdateStreetAddressCommand>{
+    constructor (private readonly repository:ApiTicketRepositoryDataAccess){
+        
+    }
+    async execute(command: UpdateStreetAddressCommand) {
+        const{ address,ticketId}= command;
+        return this.repository.updateStreetAddress(ticketId,address);
+    }
+}
+
+@CommandHandler(UpdateLongitudeCommand)
+export class UpdateLongitudeHandler implements ICommandHandler<UpdateLongitudeCommand>{
+    constructor (private readonly repository:ApiTicketRepositoryDataAccess){
+        
+    }
+    async execute(command: UpdateLongitudeCommand) {
+        const{ ticketId,long}= command;
+        return this.repository.updateLongitude(ticketId,long);
+    }
+}
+
+@CommandHandler(UpdateLatitudeCommand)
+export class UpdateLatitudeHandler implements ICommandHandler<UpdateLatitudeCommand>{
+    constructor (private readonly repository:ApiTicketRepositoryDataAccess){
+        
+    }
+    async execute(command: UpdateLatitudeCommand) {
+        const{ ticketId,lat}= command;
+        return this.repository.updateLatitude(ticketId,lat);
     }
 }
 

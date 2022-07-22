@@ -127,7 +127,13 @@ export class CreateTicketComponent{
     
     if (this.placeID == "")
     {
-      this.placeID = this.autocomplete.getPlace().place_id as string;
+      const place = this.autocomplete.getPlace();
+
+      this.placeID = place.place_id as string;
+      if(place.geometry?.location != null){
+        this.ticket.ticketLat = place.geometry?.location?.lat();
+        this.ticket.ticketLong = place.geometry?.location?.lng();
+      }
       this.ticket.ticketCity = this.googleMapsService.getAutocompleteCity(this.autocomplete.getPlace().address_components);
     }
     this.ticket.ticketLocation = this.placeID;
@@ -167,7 +173,7 @@ export class CreateTicketComponent{
         {
           const pos = {
             lat: place.geometry?.location?.lat(),
-          lng: place.geometry?.location?.lng()
+            lng: place.geometry?.location?.lng()
           }
           
           this.createMapMarker(pos)

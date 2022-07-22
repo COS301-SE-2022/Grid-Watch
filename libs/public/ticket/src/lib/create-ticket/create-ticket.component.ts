@@ -1,10 +1,6 @@
-import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-// import { TicketController } from 'libs/api/ticket/api/src/lib/controllers/api-ticket-api-controller.controller';
+import { Component, Input } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Express } from 'express';
-import { Multer } from 'multer';
-import { GoogleMapsModule } from '@angular/google-maps';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
 import { Loader } from '@googlemaps/js-api-loader';
@@ -124,11 +120,10 @@ export class CreateTicketComponent{
       this.showErrorMessage("Location not found")
       return;
     }
-    
+    const place = this.autocomplete.getPlace();
+    console.log(place)
     if (this.placeID == "")
     {
-      const place = this.autocomplete.getPlace();
-
       this.placeID = place.place_id as string;
       if(place.geometry?.location != null){
         this.ticket.ticketLat = place.geometry?.location?.lat();
@@ -136,6 +131,11 @@ export class CreateTicketComponent{
       }
       this.ticket.ticketCity = this.googleMapsService.getAutocompleteCity(this.autocomplete.getPlace().address_components);
     }
+    if(place.address_components != null){
+      this.ticket.ticketStreetAddress = place.address_components[0]["long_name"]+' ' +place.address_components[1]["long_name"];
+      console.log(this.ticket.ticketStreetAddress)
+    }
+    
     this.ticket.ticketLocation = this.placeID;
     this.ticket.ticketStatus = "Created";
     this.ticket.ticketCreateDate = new Date();

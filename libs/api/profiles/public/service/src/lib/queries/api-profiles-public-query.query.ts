@@ -9,3 +9,7 @@ export class GetUserNameQuery{
 export class GetUserEmailQuery{
     constructor(public readonly userEmail){}
 }
+
+export class GetAllUserTicketsQuery{
+    constructor(public readonly userId){}
+}

@@ -58,10 +58,10 @@ export class TicketService {
       );
   }
 
-  public createNewTicket(ticket: TicketDto): Observable<TicketDto[]> {
+  public createNewTicket(ticket: TicketDto): Observable<TicketDto> {
     return this.http
-      .post<TicketDto[]>(this.createTicketURL, ticket, this.httpOptions)
-      .pipe(catchError(this.handleError<TicketDto[]>('createNewTickets', [])));
+      .post<TicketDto>(this.createTicketURL, ticket, this.httpOptions)
+      .pipe(catchError(this.handleError<TicketDto>('createNewTickets', new TicketDto())));
   }
 
   public updateTicket(ticket: TicketDto): boolean {

@@ -129,11 +129,23 @@ export class CreateTicketComponent{
     {
       this.placeID = this.autocomplete.getPlace().place_id as string;
       this.ticket.ticketCity = this.googleMapsService.getAutocompleteCity(this.autocomplete.getPlace().address_components);
+      this.ticket.ticketLat = this.autocomplete.getPlace().geometry?.location?.lat() || 0;
+      this.ticket.ticketLong = this.autocomplete.getPlace().geometry?.location?.lng() || 0;
+      console.log(this.autocomplete.getPlace());
     }
+    this.ticket.ticketStreetAddress = this.ticket.ticketLocation;
     this.ticket.ticketLocation = this.placeID;
     this.ticket.ticketStatus = "Created";
     this.ticket.ticketCreateDate = new Date();
     this.ticket.ticketUpvotes = 0;
+    const userId = localStorage.getItem("userId");
+    if (userId != null)
+      this.ticket.userId = parseInt(userId);
+    else
+    {
+      this.showErrorMessage("Not logged In")
+    }
+
 
 
     if (this.file)
@@ -188,6 +200,9 @@ export class CreateTicketComponent{
         this.createMapMarker(pos);
         this.placeID  = await this.googleMapsService.getLocationCoord(pos);
         this.ticket.ticketLocation = await this.googleMapsService.getLocation(this.placeID);
+        this.ticket.ticketStreetAddress = await this.googleMapsService.getLocation(this.placeID);
+        this.ticket.ticketLat = response.latitude;
+        this.ticket.ticketLong = response.longitude;
         this.ticket.ticketCity = await this.googleMapsService.getCity(this.placeID);
         // this.placeID  
       }
@@ -199,7 +214,7 @@ export class CreateTicketComponent{
       (response) =>
       {
         console.log(response);
-        this.ticket.ticketId = response[0].ticketId;
+        this.ticket.ticketId = response.ticketId;
         if (this.file !== undefined)
             this.uploadPhoto();
       }
@@ -245,5 +260,7 @@ export class CreateTicketComponent{
   initiateFileUpload() : void {
     document.getElementById("issue_uploaded_img")?.click();
   }
+
+ 
 }
 

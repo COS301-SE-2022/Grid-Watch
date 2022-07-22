@@ -11,7 +11,6 @@ export class ApiTicketRepositoryDataAccess {
            const ticket = await this.prisma.ticket.create({
                 data:
                 {
-                    
                     ticketStatus :          ticketDto.ticketStatus,    
                     ticketType :            ticketDto.ticketType,
                     ticketCreateDate:       ticketDto.ticketCreateDate, //has default
@@ -22,6 +21,7 @@ export class ApiTicketRepositoryDataAccess {
                     ticketLong:             ticketDto.ticketLong,
                     ticketLat:              ticketDto.ticketLat,  
                     ticketCost :            ticketDto.ticketCost,
+                    userId:                 ticketDto.userId,
                     ticketDescription :     ticketDto.ticketDescription,
                     ticketRepairTime :      ticketDto.ticketRepairTime, 
                     ticketUpvotes :         ticketDto.ticketUpvotes,
@@ -253,6 +253,7 @@ export class ApiTicketRepositoryDataAccess {
                 ticketLocation :        ticketDto.ticketLocation,  
                 ticketLong:             ticketDto.ticketLong, 
                 ticketLat:              ticketDto.ticketLat,
+                userId:                 ticketDto.userId,
                 ticketCost :            ticketDto.ticketCost,
                 ticketDescription :     ticketDto.ticketDescription,
                 ticketRepairTime :      ticketDto.ticketRepairTime, 

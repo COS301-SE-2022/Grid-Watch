@@ -67,6 +67,10 @@ ticketRepairTime! : number;
 @IsNotEmpty()
 ticketUpvotes! : number;
 
+@IsNumber()
+@IsNotEmpty()
+userId! : number;
+
 @IsString()
 @IsNotEmpty()
 ticketImg! : string;

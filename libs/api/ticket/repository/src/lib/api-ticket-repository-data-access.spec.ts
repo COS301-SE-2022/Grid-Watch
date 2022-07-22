@@ -9,8 +9,11 @@ import { Picture, Subtasks } from '@prisma/client';
    // ticketDtoMock.ticketCreateDate = "2022/07/11";
    // ticketDtoMock.ticketCloseDate =  "2022/07/11";  
    ticketDtoMock.ticketType =  "Pothole";        
-   ticketDtoMock.ticketCity =  "Pretoria";            
-   ticketDtoMock.ticketLocation = "21 Duxbury Rd, Hatfield";      
+   ticketDtoMock.ticketCity =  "Pretoria";
+   ticketDtoMock.ticketStreetAddress = "21 Burger street";        
+   ticketDtoMock.ticketLocation = "21 Duxbury Rd, Hatfield";  
+   ticketDtoMock.ticketLong = -25,
+   ticketDtoMock.ticketLat = 23,    
    ticketDtoMock.ticketCost = 25000;           
    ticketDtoMock.ticketDescription = "There is a large pothole in the middle of the road";    
    ticketDtoMock.ticketRepairTime =  55600;    
@@ -409,6 +412,21 @@ import { Picture, Subtasks } from '@prisma/client';
     });
   })
 
+  //updateStreetAddress
+  describe('updateStreetAddress',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'updateType')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateStreetAddress(3,ticketDtoMock.ticketStreetAddress)).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'updateStreetAddress').mockResolvedValue(null);
+      expect(await provider.updateStreetAddress(3,ticketDtoMock.ticketStreetAddress)).toEqual(null);
+    });
+  })
+
   //updateLocation
   describe('updateLocation',()=>{
     it('should return void',async ()=>{
@@ -421,6 +439,36 @@ import { Picture, Subtasks } from '@prisma/client';
     it('should return null', async () => {
       jest.spyOn(provider, 'updateLocation').mockResolvedValue(null);
       expect(await provider.updateLocation(3,ticketDtoMock.ticketLocation)).toEqual(null);
+    });
+  })
+
+  //updateLongitude
+  describe('updateLongitude',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'updateLongitude')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateLongitude(3,ticketDtoMock.ticketLong)).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'updateLongitude').mockResolvedValue(null);
+      expect(await provider.updateLongitude(3,ticketDtoMock.ticketLong)).toEqual(null);
+    });
+  })
+  
+  //updateLatitude
+  describe('updateLatitude',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'updateLatitude')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateLatitude(3,ticketDtoMock.ticketLat)).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'updateLatitude').mockResolvedValue(null);
+      expect(await provider.updateLatitude(3,ticketDtoMock.ticketLat)).toEqual(null);
     });
   })
 

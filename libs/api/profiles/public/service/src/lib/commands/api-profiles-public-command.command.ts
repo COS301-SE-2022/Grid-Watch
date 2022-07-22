@@ -14,6 +14,13 @@ export class VerifyUserPasswordCommand{
 
 }
 
+export class AddTicketUpvotedCommand{
+    constructor(
+        public readonly userId,
+        public readonly ticketId,
+    ){}
+}
+
 export class UpdateUserCommand{
     constructor( 
         public readonly userId,

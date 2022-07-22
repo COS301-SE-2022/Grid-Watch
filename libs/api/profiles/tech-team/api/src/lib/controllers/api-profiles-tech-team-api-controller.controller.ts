@@ -3,6 +3,7 @@ import {
     Controller,
     Delete,
     Get,
+    Logger,
     Param,
     Post,
     Put,
@@ -23,7 +24,7 @@ export class ApiProfilesTechTeamApiControllerController {
 
     //post endpoint to verify password
     @Post('/verify')
-    async verifyPassword(@Param() params ){
+    async verifyPassword(@Body() params : TechTeamDto ){
         return this.apiTechTeamService.verifyPassword(params["email"],params["password"]);
     }
 

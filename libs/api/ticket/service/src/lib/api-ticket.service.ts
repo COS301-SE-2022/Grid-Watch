@@ -25,6 +25,9 @@ import { CreateTicketCommand,
     UpdateSubtaskStepCommand,
     UpdateSubtaskTicketCommand,
     UpdateSubtaskStatusCommand,
+    UpdateLatitudeCommand,
+    UpdateLongitudeCommand,
+    UpdateStreetAddressCommand,
     DeleteSubtaskCommand} from './commands/api-ticket-command.command';
 
 @Injectable()
@@ -121,6 +124,18 @@ export class ApiTicketService {
 
     async updateTicketUpVotes(ticketId:number,upVotes: number){
         return await this.commandBus.execute(new UpdateTicketUpVotesCommand(ticketId,upVotes))
+    }
+
+    async updateStreetAddress(ticketId:number,address: string){
+        return await this.commandBus.execute(new UpdateStreetAddressCommand(ticketId,address))
+    }
+
+    async updateLongitude(ticketId:number,long: number){
+        return await this.commandBus.execute(new UpdateLongitudeCommand(ticketId,long))
+    }
+
+    async updateLatitude(ticketId:number,lat: number){
+        return await this.commandBus.execute(new UpdateLatitudeCommand(ticketId,lat))
     }
 
     async closeTicket(ticketId:number){

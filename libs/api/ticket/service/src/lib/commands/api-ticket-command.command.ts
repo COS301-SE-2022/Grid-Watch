@@ -29,6 +29,18 @@ export class UpdateTicketStatusCommand{
     constructor(public readonly ticketId, public readonly status){}
 }
 
+export class UpdateLatitudeCommand{
+    constructor(public readonly ticketId, public readonly lat){}
+}
+
+export class UpdateLongitudeCommand{
+    constructor(public readonly ticketId, public readonly long){}
+}
+
+export class UpdateStreetAddressCommand{
+    constructor(public readonly ticketId, public readonly address){}
+}
+
 export class UpdateTicketCreateDateCommand{
     constructor(public readonly ticketId, public readonly createDate){}
 }

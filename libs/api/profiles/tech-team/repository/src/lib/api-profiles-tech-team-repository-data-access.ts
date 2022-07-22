@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable} from '@nestjs/common';
 import {PrismaClient} from '@prisma/client';
 import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 @Injectable()
@@ -57,6 +57,9 @@ prisma = new PrismaClient();
                 passwordSalt:true
             },
         });
+
+        if (techTeam == null)
+            return false;
 
         const hash = await this.bcrypt.hash(Password, techTeam.passwordSalt); 
 

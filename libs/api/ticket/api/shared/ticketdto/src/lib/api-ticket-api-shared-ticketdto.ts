@@ -32,12 +32,24 @@ ticketCloseDate! : Date;
 ticketType! : string;
 
 @IsString()
+@IsNotEmpty()
+ticketStreetAddress! : string;
+
+@IsString()
 @IsOptional()
 ticketCity!  : string;
 
 @IsString()
-@IsNotEmpty()
+@IsOptional()
 ticketLocation! : string;
+
+@IsString()
+@IsOptional()
+ticketLong! : number;
+
+@IsString()
+@IsOptional()
+ticketLat! : number;
 
 @IsNumber()
 @IsNotEmpty()
@@ -55,7 +67,9 @@ ticketRepairTime! : number;
 @IsNotEmpty()
 ticketUpvotes! : number;
 
-
+@IsNumber()
+@IsNotEmpty()
+userId! : number;
 
 @IsString()
 @IsNotEmpty()

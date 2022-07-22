@@ -14,8 +14,10 @@ describe('HomePageBodyComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HomePageBodyComponent],
+
       imports: [RouterTestingModule, HttpClientModule, GoogleMapsModule],
       providers: [FormBuilder, GoogleMapsService]
+
     }).compileComponents();
   });
 

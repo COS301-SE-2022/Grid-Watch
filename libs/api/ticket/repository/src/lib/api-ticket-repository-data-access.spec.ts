@@ -416,7 +416,7 @@ import { Picture, Subtasks } from '@prisma/client';
   describe('updateStreetAddress',()=>{
     it('should return void',async ()=>{
       jest
-      .spyOn(provider,'updateType')
+      .spyOn(provider,'updateStreetAddress')
       .mockImplementation(():Promise<void> => Promise.resolve());
       expect(await provider.updateStreetAddress(3,ticketDtoMock.ticketStreetAddress)).toBeUndefined()
     });

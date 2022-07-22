@@ -23,6 +23,9 @@ model User{
   name                String
   dateCreated         DateTime  @default(now())
 
+  ticketsCreated      Ticket[]
+  ticketsUpvoted      Int[]
+
   @@map("user")
 }
 
@@ -36,8 +39,11 @@ model Ticket {
   ticketCreateDate    DateTime  @default(now())
   ticketCloseDate     DateTime?
   ticketType          String
-  ticketCity          String?
-  ticketLocation      String    //place-id
+  ticketStreetAddress String
+  ticketCity          String
+  ticketLocation      String?   //place-id
+  ticketLong          Float?
+  ticketLat           Float?
   ticketCost          Float?
   ticketDescription   String
   ticketRepairTime    Int?
@@ -45,6 +51,9 @@ model Ticket {
 
   techTeam            TechTeam? @relation(fields: [assignedTechTeam] , references: [id])
   assignedTechTeam    Int?
+
+  user                User @relation(fields: [userId] , references: [id], onDelete: Cascade) // user who created ticket
+  userId              Int
 
   Subtasks            Subtasks[]
   Picture             Picture[]
@@ -58,10 +67,10 @@ model Ticket {
 ///////////////////////////////////////////////////////////////////////
 
 model Picture {
-  pictureId         Int       @id @default(autoincrement())
-  pictureLink       String
-  ticket            Ticket    @relation(fields: [ticketID], references: [ticketId], onDelete: Cascade)
-  ticketID          Int
+  pictureId           Int       @id @default(autoincrement())
+  pictureLink         String
+  ticket              Ticket    @relation(fields: [ticketID], references: [ticketId], onDelete: Cascade)
+  ticketID            Int
 
   @@map("picture")
 }
@@ -71,12 +80,12 @@ model Picture {
 ///////////////////////////////////////////////////////////////////////
 
 model Subtasks{
-  subtaskId         Int       @id @default(autoincrement())
-  tickets           Ticket    @relation(fields: [ticketID], references: [ticketId], onDelete: Cascade)
-  ticketID          Int
-  taskDescription   String
-  taskStep          Int
-  taskStatus        String
+  subtaskId           Int       @id @default(autoincrement())
+  tickets             Ticket    @relation(fields: [ticketID], references: [ticketId], onDelete: Cascade)
+  ticketID            Int
+  taskDescription     String
+  taskStep            Int
+  taskStatus          String
 
   @@map("subtasks")
 }
@@ -86,19 +95,19 @@ model Subtasks{
 ///////////////////////////////////////////////////////////////////////
 
 model TechTeam {
-  id                Int       @id @default(autoincrement())
-  name              String
-  email             String?   @unique
-  specialisation    String[]
-  contactNumber     String    @unique @db.VarChar(10)
-  nrJobsCompleted   Int?
-  ratingOfJobs      Float?
+  id                  Int       @id @default(autoincrement())
+  name                String
+  email               String?   @unique
+  specialisation      String[]
+  contactNumber       String    @unique @db.VarChar(10)
+  nrJobsCompleted     Int?
+  ratingOfJobs        Float?
 
   assignedTickets  Ticket[]
 
-  password          String
-  passwordSalt      String?    
-  dateCreated       DateTime  @default(now())
+  password            String
+  passwordSalt        String?    
+  dateCreated         DateTime  @default(now())
 
   @@map("techteam")
 }
@@ -108,15 +117,15 @@ model TechTeam {
 ///////////////////////////////////////////////////////////////////////
 
 model AuthorizedOfficials {
-  id              Int         @id @default(autoincrement())
-  name            String
-  email           String      @unique
-  contactNumber   String      @unique @db.VarChar(10)
-  cities          String[]
+  id                  Int         @id @default(autoincrement())
+  name                String
+  email               String      @unique
+  contactNumber       String      @unique @db.VarChar(10)
+  cities              String[]
 
-  password        String
-  passwordSalt    String?    
-  dateCreated     DateTime    @default(now())
+  password            String
+  passwordSalt        String?    
+  dateCreated         DateTime    @default(now())
   
   @@map("authorizedofficials")
 }

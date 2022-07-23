@@ -1,73 +1,3 @@
-<!-- <div class="container">
-    <div class="card mt-4">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-12 col-lg-6">
-                    <div class="display-6 text-center">{{ticket.ticketType}}</div>
-                    <div class="picturePreview">
-                        <div class="centered_element d-flex justify-content-center" *ngIf="ticket.ticketImg === ''"> 
-                            <div class="spinner-border text-success text-center" >
-                            </div>
-                        </div>
-                        <div class="picturePreview border" *ngIf="ticket.ticketImg !== ''">
-                            <img src="assets/{{ticket.ticketImg}}" onerror="this.src='assets/solid_example.png'" alt="issue_image">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <div class="ticket_description">
-                        <b>
-                            Description : <br>
-                        </b>
-                        {{ticket.ticketDescription}}
-                    </div>
-                    <div class="ticket_create_date mt-1">
-                        <b>Create date :</b>  {{ticket.ticketCreateDate}}
-                    </div>
-                    <div class="ticket_address mt-1">
-                        <b>Address :</b> {{ticket.ticketLocation}}
-                    </div>
-                    <div class="ticket_city mt-1">
-                        <b> City:</b> {{ticket.ticketCity}}
-                    </div>
-                    <div class="ticket_repair_time mt-3">
-                        <mat-label for="repair_time" class="form-mat-label">Estimated Repair Time:</mat-label>
-                        <input type="text" class="form-control" id="repair_time" placeholder="Enter repair time" name="repair_time"  [(ngModel)]="repair_time">
-                    </div>
-                    <div class="ticket_status mt-1">
-                        <mat-label for="status" class="form-mat-label">Status:</mat-label>
-                        <select class="form-select" name="status" [(ngModel)]="status" id="ticketStatus">
-                            <option value="Accepted">Accepted</option>
-                            <option value="Awaiting Material">Awaiting material</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Finishing up">Finishing up</option>
-                            <option value="Finished">Finished</option>
-                          </select> 
-                    </div>
-                    <div class="ticket_status mt-1 mb-3">
-                        <mat-label for="repair_time" class="form-mat-label">Estimated cost:</mat-label>
-                        <input type="text" class="form-control" id="cost" placeholder="Enter estimated cost" name="repair_time" [(ngModel)]="cost" > 
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3 text-center">
-                    <button type="button" class="btn btn-outline-dark" (click)="update()" id="update_button">
-                        <div *ngIf="status === 'Finished'; then thenBlock else elseBlock"></div>
-                        <ng-template #thenBlock>Close</ng-template>
-                        <ng-template #elseBlock>Update</ng-template>
-                    </button>
-                </div>
-                <div class="col-6">
-                </div>
-                <div class="col-3 text-center">
-                    <button type="button" class="btn btn-outline-dark" (click)="back()">Back</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
 
 <div class="gridContainer">
     <mat-card>
@@ -75,7 +5,7 @@
         <mat-card-title>{{ ticket.ticketType }}</mat-card-title>
         <mat-card-subtitle>
           <span class="material-icons">person_pin_circle</span>
-          {{ ticket.ticketLocation }}
+          {{ ticket.ticketStreetAddress }}
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
@@ -110,7 +40,8 @@
                 <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
                     <mat-label>Estimated repair time</mat-label>
                     <input matInput placeholder="Estimated repair time" ngDefaultControl [(ngModel)]="repair_time"/>
-                </mat-form-field>
+                    <span matSuffix>hours</span>
+                  </mat-form-field>
             </div>
             <div class="ticket_status mt-1">
                 <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
@@ -128,7 +59,7 @@
                 <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
                     <mat-label>Estimated cost</mat-label>
                     <input matInput placeholder="Estimated cost" ngDefaultControl [(ngModel)]="cost"/>
-                </mat-form-field>
+                  </mat-form-field>
             </div>
         </div>
       </mat-card-content>

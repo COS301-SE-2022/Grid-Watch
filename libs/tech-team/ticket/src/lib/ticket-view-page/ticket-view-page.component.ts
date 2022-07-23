@@ -37,7 +37,6 @@ export class TicketViewPageComponent implements OnInit {
       this.tickets[index].ticketCreateDate = new Date(
         this.tickets[index].ticketCreateDate
       );
-      this.tickets[index].ticketLocation = await this.googleMapsService.getLocation(this.tickets[index].ticketLocation);
     }
     console.log(this.tickets);
   }

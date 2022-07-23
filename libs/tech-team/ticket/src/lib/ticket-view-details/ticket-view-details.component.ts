@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
@@ -22,6 +22,7 @@ export class TicketViewDetailsComponent implements OnInit {
 
   ticket! : TicketDto;
   issue_id! : string | null;
+  @Input() picture! : TicketPictureDto;
 
   zoom! : number;
   center! : Record<string, unknown>;
@@ -39,6 +40,8 @@ export class TicketViewDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.ticket = new TicketDto();
+    this.picture = new TicketPictureDto();
+    this.picture.pictureLink = "";
     
     this.issue_id = this.route.snapshot.paramMap.get('id');
     if (this.issue_id)
@@ -48,7 +51,6 @@ export class TicketViewDetailsComponent implements OnInit {
           this.ticket = data[0];
           this.ticket.ticketImg = "";
           this.ticket.ticketCreateDate = new Date(this.ticket.ticketCreateDate);
-          this.ticket.ticketLocation = await this.googleMapsService.getLocation(this.ticket.ticketLocation);
           this.loadImage();
         }
         );
@@ -72,8 +74,16 @@ export class TicketViewDetailsComponent implements OnInit {
     this.getPictureURL += this.ticket.ticketId;
     this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
       (data) => {
-        console.log(data[0])
-        this.ticket.ticketImg = data[0].pictureLink
+      console.log(data);
+      
+        if (data.length > 0)
+      {
+        this.picture = data[0];
+      }
+      else
+      {
+        this.picture.pictureLink = "image-solid.svg";
+      }
     }
     );
   }

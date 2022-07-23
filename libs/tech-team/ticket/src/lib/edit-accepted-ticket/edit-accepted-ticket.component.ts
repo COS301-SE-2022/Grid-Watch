@@ -106,19 +106,26 @@ export class EditAcceptedTicketComponent implements OnInit {
     );
   }
 
-  updateStatus(): boolean {
-    const temp = '{"status": "' + this.status + '"}';
-    this.http
-      .put<JSON>(this.UpdateStatusURL, JSON.parse(temp))
-      .subscribe(
-        () => {
-          return true;
-        },
-        () => {
-          return false;
-        }
-      );
-    return false;
+  updateStatus(): void {
+    // const temp = '{"status": "' + this.status + '"}';
+    // this.http
+    //   .put<JSON>(this.UpdateStatusURL, JSON.parse(temp))
+    //   .subscribe(
+    //     () => {
+    //       return true;
+    //     },
+    //     () => {
+    //       return false;
+    //     }
+    //   );
+    // return false;
+    if (this.issue_id)
+    this.ticketService.updateTicketStatus(this.issue_id, this.status).subscribe(
+      (resp) =>{
+        console.log(resp);
+        
+      }
+    )
   }
 
   updateCost(): boolean {
@@ -148,8 +155,15 @@ export class EditAcceptedTicketComponent implements OnInit {
     await this.delay(3000);
     this.getPictureURL += this.ticket.ticketId;
     this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe((data) => {
-      console.log(data[0]);
-      this.ticket.ticketImg = data[0].pictureLink;
+      console.log(data);
+      if (data.length > 0)
+      {
+        this.ticket.ticketImg = data[0].pictureLink;
+      }
+      else
+      {
+        this.ticket.ticketImg = "image-solid.svg";
+      }
     });
   }
 

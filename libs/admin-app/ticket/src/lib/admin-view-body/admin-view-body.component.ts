@@ -24,6 +24,7 @@ export interface Filters {
 export class AdminViewBodyComponent implements OnInit {
   counter = 0;
   tickets: Array<TicketDto> = [];
+  ticketDates: string[] = [];
   ticketsPERM: Array<TicketDto> = [];
   statuses: Filters[] = [];
   issues: Filters[] = [];
@@ -145,13 +146,16 @@ export class AdminViewBodyComponent implements OnInit {
   }
 
   async initialiseTicket(data: TicketDto[]): Promise<void> {
-    for (let index = 0; index < data.length; index++) {
+    for (let index = 0; index < data.length; index++) 
+    {
       this.tickets.push(data[index]);
       this.ticketsPERM.push(data[index]);
-      // console.log(this.tickets[index].ticketLocation);
-      // this.tickets[index].ticketLocation = await this.googleMapsService.getLocation(this.tickets[index].ticketLocation);
-      this.ticketsPERM[index].ticketLocation =
-        this.tickets[index].ticketLocation;
+      this.ticketsPERM[index].ticketLocation = this.tickets[index].ticketLocation;
+      const date = new Date(this.tickets[index]["ticketCreateDate"]);      
+      const m = date.getUTCMonth() + 1;
+      const y = date.getUTCFullYear();
+      const d = date.getUTCDate();
+      this.ticketDates.push(y + "/" + m + "/" + d);
     }
     this.dataSource = new MatTableDataSource(this.tickets);
     // this.table.renderRows();
@@ -229,12 +233,6 @@ export class AdminViewBodyComponent implements OnInit {
 
   resetFilters() : void
   {
-    // console.log(this.checkedBool);
-    
-    // for (let index = 0; index < this.checkedBool.length; index++) {
-    //   this.checkedBool[index] = false;
-      
-    // }
     this.statuses.forEach((item) =>
     {
       item.checked = false;

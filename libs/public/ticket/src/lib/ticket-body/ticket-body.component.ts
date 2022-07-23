@@ -4,6 +4,9 @@ import { Loader } from '@googlemaps/js-api-loader';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketService } from '@grid-watch/shared-ui';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
+import { MatGridList } from '@angular/material/grid-list';
+import { NgModule } from '@angular/core';
+
 
 
 @Component({
@@ -16,7 +19,11 @@ export class TicketBodyComponent implements OnInit {
   public name! : string;
   public surname! : string;
   public avatar! : string;
+  ticketDates : string[] = [];
+  ticketImages : string[] = [];
+  ticketStatus: string[] = [];
   tickets : Array<TicketDto> = [];
+  
 
   constructor( private http: HttpClient,
               private ticketService: TicketService,
@@ -40,8 +47,7 @@ export class TicketBodyComponent implements OnInit {
           (response) => {
             this.InitialiseTicket(response)
           }
-        )
-      
+        )      
       }, (error) =>{console.log(error);
       });
 
@@ -55,11 +61,60 @@ export class TicketBodyComponent implements OnInit {
   async InitialiseTicket(data : TicketDto []) : Promise<void> 
   {
     for (let index = 0; index < data.length; index++) 
-    {
+    {      
       this.tickets.push(data[index]);
-      this.ticketService.getImages(data[index].ticketId).subscribe(
-        (response) => {
-          console.log(response);
+      const date = new Date(this.tickets[index]["ticketCreateDate"]);      
+      const m = date.getUTCMonth() + 1;
+      const y = date.getUTCFullYear();
+      const d = date.getUTCDate();
+      this.ticketDates.push(y + "/" + m + "/" + d);
+      switch(this.tickets[index]["ticketType"])
+      {
+        case "Electricity Outage":
+          this.ticketImages.push("assets/issue-brokenpower.svg");
+          break;
+        case "Water Outage":
+          this.ticketImages.push("assets/issue-water.svg");
+          break;
+        case "Pothole":
+          this.ticketImages.push("assets/issue-pothole.svg");
+          break;
+        case "Sinkhole":
+          this.ticketImages.push("assets/issue-sinkhole.svg");
+          break;
+        case "Broken Traffic Light":
+          this.ticketImages.push("assets/issue-brokenrobot.svg");
+          break;
+        case "Broken Street Light":
+          this.ticketImages.push("assets/issue-brokenlight.svg");
+          break;
+        default:
+          this.ticketImages.push("assets/issue-maintenance.svg");
+          break;
+      }
+
+      switch(this.tickets[index]["ticketStatus"])
+      {
+        case "Created":
+          this.ticketStatus.push("redText");
+          break;
+        case "Dispatched":
+          this.ticketStatus.push("orangeText");
+          break;
+        case "In Progress":
+          this.ticketStatus.push("yellowText");
+          break;
+        case "Closed":
+          this.ticketStatus.push("greenText");
+          break;
+        default:
+          this.ticketStatus.push("yellowText");
+          break;
+      }
+      this.ticketService.getImages(data[index].ticketId).subscribe
+      (
+        (response) => 
+        {
           if (response[response.length - 1])
             this.tickets[index].ticketImg = response[response.length - 1].pictureLink;
         }
@@ -70,8 +125,7 @@ export class TicketBodyComponent implements OnInit {
           this.tickets[index].ticketLocation = response;
         },
         (error) => {
-          console.log(error);
-          
+          console.log(error);          
         }
       );
     }

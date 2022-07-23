@@ -1,36 +1,13 @@
-<!-- <div class="container">
-    <table class="table table-hover mt-5">
-        <thead>
-          <tr>
-            <th>Date Created</th>
-            <th>Issue Type</th>
-            <th>Location</th>
-            <th>city</th>
-            <th>status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr  *ngFor="let ticket of tickets, index as i" (click)="viewTicket(ticket.ticketId)" id="option{{i}}">
-            <div class="d-none"></div>
-            <td>{{ticket.ticketCreateDate}}</td>
-            <td>{{ticket.ticketType}}</td>
-            <td>{{ticket.ticketLocation}}</td>
-            <td>{{ticket.ticketCity}}</td>
-            <td>{{ticket.ticketStatus}}</td>
-          </tr>
-        </tbody>
-      </table>
-</div> -->
 <div class="grid-container">
   <h2>My Tickets</h2>
-  <mat-card class="ticketCards" *ngFor="let ticket of tickets, index as i" (click)="viewTicket(ticket.ticketId)" id="option{{i}}">
+  <mat-card class="ticketCards" *ngFor="let ticket of tickets, index as i" (click)="viewTicket(ticket.ticketId)" id="option{{i}}" style="padding-bottom:10px;">
     <mat-card-content>
       <div class="title">
-        {{ticket.ticketType}}
+        <h2>{{ticket.ticketType}}</h2>
       </div>
       <div class="location">
-        <span class="material-icons">person_pin_circle</span>
-        {{ticket.ticketStreetAddress}}
+        {{ticket.ticketDescription}}
+        {{ticket.ticketLocation}}
       </div>
       <div class="ticketInformation">
         <div class="status">

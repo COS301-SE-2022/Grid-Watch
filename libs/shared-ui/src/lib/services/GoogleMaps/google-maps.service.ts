@@ -119,6 +119,17 @@ public createAutoCompleteObject(inputID: string) : google.maps.places.Autocomple
     return new google.maps.places.Autocomplete(input, options);
 }
 
+public createAutoCompleteObjectCities(inputID: string) : google.maps.places.Autocomplete
+{
+  const input = document.getElementById(inputID) as HTMLInputElement;
+    const options = {
+      componentRestrictions: { country: ["za"] },
+      fields: ["address_components", "geometry", "place_id"],
+      types: ["locality"],
+    };
+    return new google.maps.places.Autocomplete(input, options);
+}
+
 public createMapObject(elementID : string, center : google.maps.LatLngLiteral, zoom: number)
 {
   return new google.maps.Map(document.getElementById("map") as HTMLElement, {

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleMap, MapPolygon } from '@angular/google-maps';
 import { Loader } from '@googlemaps/js-api-loader';
-import { GoogleMapsService } from '@grid-watch/shared-ui';
+
+import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
+import { GoogleMapsService ,TicketService} from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-home-page-body',
@@ -19,7 +21,8 @@ export class HomePageBodyComponent implements OnInit{
   infoWindow!: google.maps.InfoWindow;
   map!: google.maps.Map;
 
-  constructor(private googleMapsService : GoogleMapsService)
+  constructor(private googleMapsService : GoogleMapsService,
+    private ticketService : TicketService)
   {
 
   }
@@ -74,25 +77,38 @@ initMap() : void
 }
 
 
-addMarker() : void {
-  const temp =  {
-    lat: -25.7479,
-    lng: 28.2293,
-  };
-  const titles= ["Pothole","Broken Light", "Broken Robot", "Sinkhole", "Electricity Outage", "Water Outage"];
-  for (let k = 0; k < 20; k++)
-  {
-    const position = {
-      lat: temp.lat + (((Math.random() - 0.5) * 6) / 10),
-      lng: temp.lng + ((Math.random() - 0.5) * 6) / 10,
-    }
+async addMarker() : Promise<void> {
+  // const temp =  {
+  //   lat: -25.7479,
+  //   lng: 28.2293,
+  // };
+  // const titles= ["Pothole","Broken Light", "Broken Robot", "Sinkhole", "Electricity Outage", "Water Outage"];
+  // for (let k = 0; k < 20; k++)
+  // {
+  //   const position = {
+  //     lat: temp.lat + (((Math.random() - 0.5) * 6) / 10),
+  //     lng: temp.lng + ((Math.random() - 0.5) * 6) / 10,
+  //   }
 
-    const tempLabel = titles[Math.floor(Math.random() * (titles.length-1 - 0 + 1) + 0)];
-    console.log(tempLabel);
-    
-    this.googleMapsService.createMarkerObject(position, this.map, tempLabel);
+  //   const tempLabel = titles[Math.floor(Math.random() * (titles.length-1 - 0 + 1) + 0)];
+  //   console.log(tempLabel);
+  //   this.googleMapsService.createMarkerObject(position, this.map, tempLabel);
   
-  }
+  // }
+
+   this.ticketService.getTickets().subscribe((response)=>{
+    for(let i=0;i<response.length;i++){
+      const position = {
+        lat: -25.7479+0.1*i,//response.at(i)?.ticketLat
+        lng: 28.2293+0.1*i,//response.at(i)?.ticketLng
+      }
+      const type = response.at(i)?.ticketType;
+       if(type != null){
+         this.googleMapsService.createMarkerObject(position,this.map,type);
+       }
+  
+    }
+   });
 
 }
 

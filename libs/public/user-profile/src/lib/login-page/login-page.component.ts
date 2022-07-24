@@ -5,13 +5,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { PublicProfileService } from '@grid-watch/shared-ui';
 
+
+
 @Component({
   selector: 'grid-watch-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
 })
-export class LoginPageComponent implements OnInit {
-  
+export class LoginPageComponent implements OnInit {  
 
   hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto' as FloatLabelType);
@@ -42,8 +43,8 @@ export class LoginPageComponent implements OnInit {
 
   async login() : Promise<void>
   {
-    this.user.email = "Tshego14@gmail.com"
-    this.user.password = "Gbfj&hfbsh"
+    //this.user.email = "Tshego14@gmail.com"
+    //this.user.password = "Gbfj&hfbsh"
     console.log(await this.profileService.login(this.user));
     
     this.profileService.login(this.user).subscribe(

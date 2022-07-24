@@ -59,7 +59,7 @@ export class ApiProfilesAdminApiController {
 
     //post endpoint to verify password
     @Post('/verify')
-    async verifyAdminPassword(@Param() params ){
+    async verifyAdminPassword(@Body() params : AdminDto ){
         return this.apiAdminService.verifyAdminPassword(params["email"],params["password"]);
     }
 

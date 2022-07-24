@@ -1,0 +1,25 @@
+.OptionsView
+{
+    flex : 70%;
+    padding: 5px 5px;
+}
+
+mat-card
+{
+    display: flex;
+}
+
+.profileOptions
+{
+    padding: 0 5px;
+    flex: 30%;
+}
+
+.gridContainer
+{
+    padding: 10px 50px;
+}
+
+mat-button-toggle-group{
+    width: 100%;
+}

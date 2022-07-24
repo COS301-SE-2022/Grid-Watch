@@ -5,6 +5,7 @@ import { HomePageBodyComponent } from './home-page-body/home-page-body.component
 import { GoogleMapsModule } from '@angular/google-maps'
 import { BrowserModule } from '@angular/platform-browser';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { GoogleMapsService } from '@grid-watch/shared-ui';
     CommonModule,
     BrowserModule,
     GoogleMapsModule,
+    MatGridListModule,
     RouterModule.forChild([
        {path: 'home', pathMatch: 'full', component: HomePageBodyComponent} 
     ]),

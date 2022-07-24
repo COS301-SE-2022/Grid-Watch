@@ -1,5 +1,5 @@
 import {PrismaClient} from '@prisma/client';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import {AdminDto} from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto'
 
 //authorizedofficials = admin
@@ -199,6 +199,12 @@ export class ApiProfilesAdminRepositoryDataAccess {
             },
         });
 
+        if (admin == null)
+            return false;
+
+        // Logger.log(Password)
+        
+
         const hash = await this.bcrypt.hash(Password, admin.passwordSalt); 
 
         return admin.password==hash;
@@ -233,8 +239,8 @@ export class ApiProfilesAdminRepositoryDataAccess {
         if(!adminDto.password)
             throw Error("password_falsy");
 
-        const salt = await this.bcrypt.genSalt(6);
-        const hash = await this.bcrypt.hash(adminDto.password, salt)
+        // const salt = await this.bcrypt.genSalt(6);
+        // const hash = await this.bcrypt.hash(adminDto.password, salt)
 
         const admin = await this.prisma.authorizedOfficials.update({
             where:
@@ -245,8 +251,10 @@ export class ApiProfilesAdminRepositoryDataAccess {
             {
                 name :                  adminDto.name,
                 email :                 adminDto.email,
-                password :              hash,
-                passwordSalt :          salt,
+                cities:                 adminDto.cities,
+                contactNumber:          adminDto.contactNumber,
+                // password :              hash,
+                // passwordSalt :          salt,
 
             },
         });

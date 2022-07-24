@@ -1,0 +1,17 @@
+<div class="gridContainer">
+  <mat-card>
+    <div class="profileOptions">
+      <mat-button-toggle-group name="settingOptions" aria-label="Setting Options" vertical [(ngModel)]="option">
+          <mat-button-toggle value="accountInformation">Account Information</mat-button-toggle>
+          <mat-button-toggle value="notification">Notifications</mat-button-toggle>
+        <mat-button-toggle value="privacy">Privacy</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <div class="OptionsView">
+      <grid-watch-account-information *ngIf="option === 'accountInformation'"></grid-watch-account-information>
+      <div *ngIf="option !== 'accountInformation'">
+        Under construction
+      </div>
+    </div>
+  </mat-card>
+</div>

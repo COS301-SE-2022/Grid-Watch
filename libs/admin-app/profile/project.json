@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/admin-app/profile",
+  "sourceRoot": "libs/admin-app/profile/src",
+  "prefix": "grid-watch",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/admin-app/profile"],
+      "options": {
+        "jestConfig": "libs/admin-app/profile/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/admin-app/profile/**/*.ts",
+          "libs/admin-app/profile/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -15,3 +15,4 @@ export * from './lib/services/public-profile/public-profile.service';
 export * from './lib/services/tech-team-profile/tech-team-profile.service';
 
 export * from './lib/services/admin-profile/admin-profile.service';
+export * from './lib/message-dialog/message-dialog.component';

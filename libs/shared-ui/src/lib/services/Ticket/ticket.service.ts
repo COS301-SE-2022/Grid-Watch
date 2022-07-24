@@ -29,6 +29,8 @@ export class TicketService {
   private UpdateStatusURL = '/api/ticket/update/status/';
   private getTicketStatus = '/api/ticket/status/';
   private updateRepairURL = '/api/ticket/update/repair/';
+  private updateCostURL = '/api/ticket/update/cost/';
+  private updateAssignedTechTeamURL = '/api/ticket/update/assignedTeam//techTeam';
 
   constructor(private http: HttpClient) {}
 
@@ -51,6 +53,16 @@ export class TicketService {
   updateTicketRepairTime(issueID: string, time: number) {
     const temp = '{"repairTime": ' + time + '}';
     const tempURL = this.updateRepairURL + issueID;
+    return this.http
+      .put<JSON>(tempURL, JSON.parse(temp), this.httpOptions)
+      .pipe(
+        catchError(this.handleError<JSON>('updateTicketRepairTime', JSON.parse('{"status":"error"}')))
+      );
+  }
+
+  updateTicketCost(issueID: string, cost : number) {
+    const temp = '{"cost": ' + cost + '}';
+    const tempURL = this.updateCostURL + issueID;
     return this.http
       .put<JSON>(tempURL, JSON.parse(temp), this.httpOptions)
       .pipe(
@@ -92,6 +104,15 @@ export class TicketService {
     return this.http
       .get<TicketDto[]>(tempURL)
       .pipe(catchError(this.handleError<TicketDto[]>('getTicket', [])));
+  }
+
+  public assignTechTeam(ticketID: number, techTeamID : number)
+  {
+    const body ={"ticketId" : ticketID, "techTeamId" : techTeamID}
+    return this.http
+    .put<JSON>(this.updateAssignedTechTeamURL, body)
+    .pipe(catchError(this.handleError<boolean>('assignTechTeam', false)));
+
   }
 
   public uploadImage(ticketImg: string, ticketID: number): Observable<string> {

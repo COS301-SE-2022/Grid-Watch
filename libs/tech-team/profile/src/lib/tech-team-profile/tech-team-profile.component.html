@@ -44,7 +44,7 @@
             {{ticket.ticketType}}             
         </mat-grid-tile>
         <mat-grid-tile rowspan = "1" colspan="2">
-            {{ticket.ticketUpvotes}}  &nbsp; <img (click)="IncreaseUpvote(ticket.ticketId, i)" class="upvote_img" src="assets/circle-up-solid.svg" alt="upvote icon">      
+            {{ticket.ticketUpvotes}}  &nbsp; <img  class="upvote_img" src="assets/circle-up-solid.svg" alt="upvote icon">      
         </mat-grid-tile>     
         <mat-grid-tile (click)="goToTicket(ticket.ticketId.toString())" colspan="8" class="ml-5 mr-5" style="text-align: center;font-size: small;">            
             <img class="pin_location" src="assets/location-pin-solid.svg" alt="">

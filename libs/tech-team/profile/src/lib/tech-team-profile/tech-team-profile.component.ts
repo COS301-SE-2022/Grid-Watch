@@ -16,6 +16,8 @@ export class TechTeamProfileComponent implements OnInit {
   ticketImages!: string [];
   ticketStatus: any;
   googleMapsService: any;
+  logged!: string | null;
+  id!: string | null;
   constructor(
     private profileService : TechTeamProfileService,
     private ticketService : TicketService,
@@ -27,12 +29,12 @@ export class TechTeamProfileComponent implements OnInit {
     this.ticketDates = [];
     this.techTeam = new TechTeamDto();
     this.tickets = [];
-    const logged = localStorage.getItem("loggedIn")
-    if (logged === null)
+    this.logged = localStorage.getItem("loggedIn")
+    if (this.logged === null)
       this.router.navigateByUrl("/login");
-    const id = localStorage.getItem("techTeamID")
-    if (id)
-    this.profileService.getTechTeamID(id).subscribe(
+    this.id = localStorage.getItem("techTeamID")
+    if (this.id)
+    this.profileService.getTechTeamID(this.id).subscribe(
       async (response) =>
       {
         console.log(response);
@@ -50,6 +52,15 @@ export class TechTeamProfileComponent implements OnInit {
 
   async initialiseTicket(data : TicketDto []) : Promise<void> 
   {
+
+    data = data.filter((ticket: TicketDto) =>
+    {
+      if (this.id && ticket.assignedTechTeam)
+        return (ticket.assignedTechTeam.toString() === this.id)
+      else
+        return false;
+    })
+
     for (let index = 0; index < data.length; index++) 
     {      
       this.tickets.push(data[index]);
@@ -120,7 +131,7 @@ export class TechTeamProfileComponent implements OnInit {
 
   goToTicket(id : string)
   {
-
+    this.router.navigate(['/editTicketDetails', {id:id}]) ;
   }
 
   IncreaseUpvote(id : number, index: number): void

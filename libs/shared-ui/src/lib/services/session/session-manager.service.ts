@@ -19,4 +19,8 @@ export class SessionManagerService {
     localStorage.setItem("LoggedIn", "false");
     localStorage.removeItem("userId");
   }
+
+  getTechTeamID(){
+    return localStorage.getItem("techTeamID")
+  }
 }

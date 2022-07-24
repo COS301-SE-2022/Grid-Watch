@@ -9,15 +9,19 @@
         </mat-grid-tile>
         <mat-grid-tile rowspan = "1" colspan="2">
             {{ticket.ticketUpvotes}}  &nbsp; <img (click)="IncreaseUpvote(ticket.ticketId, i)" class="upvote_img" src="assets/circle-up-solid.svg" alt="upvote icon">      
-        </mat-grid-tile>                
-        <mat-grid-tile colspan="3" class="ml-5 mr-5" style="text-align: center;font-size: small;">            
+        </mat-grid-tile>     
+        <mat-grid-tile colspan="8" class="ml-5 mr-5" style="text-align: center;font-size: small;">            
             <img class="pin_location" src="assets/location-pin-solid.svg" alt="">
             <span class="location_heading">&ensp;{{ticket.ticketCity}}</span>
         </mat-grid-tile>
-        <mat-grid-tile colspan = "3">
+        <mat-grid-tile rowspan = "1" colspan="2">
+        </mat-grid-tile>     
+        <mat-grid-tile colspan = "3" class="smallInformation">
             {{ticketDates[i]}}
         </mat-grid-tile>
-        <mat-grid-tile colspan = "3" class = "truncate">
+        <mat-grid-tile colspan = "6">
+        </mat-grid-tile>
+        <mat-grid-tile colspan = "3" class = "truncate smallInformation">
             {{ticket.ticketStatus}}
         </mat-grid-tile>
         <!--<mat-grid-tile colspan="2"><a [ngClass] = "'ticketEdit'" [routerLink]="['/editTicket', {id:ticket.ticketId}]">Edit </a></mat-grid-tile>-->

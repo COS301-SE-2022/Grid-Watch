@@ -39,7 +39,7 @@ export class CreateTicketComponent{
   otherDetails!: string;
   map!: google.maps.Map;
 
-  issueOptions = ["Pothole", "Sinkhole", "Broken Light", "Broken Robot", "Water Outage", "Electricity Outage", "Other"]
+  issueOptions = ["Pothole", "Sinkhole", "Broken Street Light", "Broken Traffic Light", "Water Outage", "Electricity Outage", "Other"]
   
 
   constructor(private http : HttpClient, 

@@ -48,6 +48,48 @@
                         <mat-label for="repair_time" class="form-mat-label">Estimated cost:</mat-label>
                         <input type="text" class="form-control" id="cost" placeholder="Enter estimated cost" name="repair_time" [(ngModel)]="cost" > 
                     </div>
+                    <div class="ticket_status mt-1 mb-3">
+                        <label for="repair_time" class="form-label">Table:</label>
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Steps</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input class="form-control" type="text" id="newAttributeCode" [(ngModel)]="newAttribute.code" name="newAttributeCode" />
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="text" id="newAttributeName" [(ngModel)]="newAttribute.name" name="newAttributeName" />
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="text" id="newAttributePrice" [(ngModel)]="newAttribute.price" name="newAttributePrice" />
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-default" type="button" (click)="addFieldValue()">Add</button>
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let field of fieldArray; let i = index">
+                                    <td>
+                                        <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" />
+                                    </td>
+                                    <td>
+                                        <input [(ngModel)]="field.name" class="form-control" type="text" name="{{field.name}}" />
+                                    </td>
+                                    <td>
+                                        <input [(ngModel)]="field.price" class="form-control" type="text" name="{{field.price}}" />
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-default"  type="button" (click)="deleteFieldValue(i)">Delete</button>
+                                    </td>
+                                </tr>                                
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="row">

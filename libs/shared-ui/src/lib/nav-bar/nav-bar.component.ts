@@ -32,9 +32,6 @@ export class NavBarComponent implements OnInit{
       this.options.push("Tech team");
       this.router_options.push("/techTeam");
 
-      const x = document.getElementById("generalNavbar");
-      x?.classList.add("bg-danger");
-
       const y = document.getElementById("classIdentifier");
       if(y != null)
         y.innerHTML = "Admin";
@@ -50,8 +47,6 @@ export class NavBarComponent implements OnInit{
       this.options.push("Accepted Tickets");
       this.router_options.push("/acceptedTickets");
 
-      const x = document.getElementById("generalNavbar");
-      x?.classList.add("bg-success");
 
       const y = document.getElementById("classIdentifier");
       if(y != null)
@@ -62,12 +57,7 @@ export class NavBarComponent implements OnInit{
       this.login_url = "/login";
       
       this.options.push("Tickets");
-      this.router_options.push("/tickets");
-      
-      // this.options.push("option 2");
-      // this.router_options.push("/option2");
-      const x = document.getElementById("generalNavbar");
-      x?.classList.add("bg-secondary");
+      this.router_options.push("/tickets");      
 
       const y = document.getElementById("classIdentifier");
       if(y != null)

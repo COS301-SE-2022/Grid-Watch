@@ -1,7 +1,6 @@
-
 <nav id="generalNavbar" class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-        <a routerLink="/home" class="navbar-brand">Gridwatch</a>
+        <a routerLink="/home" class="navbar-brand"><img id = "navImage" src="assets/logo-white.png"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
         </button>
@@ -11,7 +10,6 @@
                     <li class="nav-item" *ngFor="let option of options, index as i">
                         <a class="nav-link" id="{{option}}" routerLink="{{router_options[i]}}">{{option}}</a>
                     </li>
-
                 </ul>
             </div>
             <div class="navbar-nav brand col ml-auto">
@@ -28,7 +26,7 @@
                 <div class="nav-item dropdown">
                     <a data-bs-toggle="dropdown" aria-expanded="false" id="drop-down-toggle" (click)="dropdown()" class="nav-link dropdown-toggle user-action"><img src="assets/user-solid.svg" class="avatar" alt="Avatar"> John Doe <b class="caret"></b></a>
                     <div class="dropdown-menu" id="profile_dropdown"  aria-labelledby="drop-down-toggle">
-                        <a class="dropdown-item" [routerLink]="['/login', {app:application_type}]">
+                        <a class="dropdown-item" [routerLink]="['/login']">
                             <img src="assets/user-solid.svg" class="profile_option_img" alt="profile_option_img"  > 
                             Login
                         </a>

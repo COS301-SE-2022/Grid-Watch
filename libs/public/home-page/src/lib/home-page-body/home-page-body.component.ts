@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleMap, MapPolygon } from '@angular/google-maps';
 import { Loader } from '@googlemaps/js-api-loader';
+
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { GoogleMapsService ,TicketService} from '@grid-watch/shared-ui';
 
@@ -21,7 +22,7 @@ export class HomePageBodyComponent implements OnInit{
   map!: google.maps.Map;
 
   constructor(private googleMapsService : GoogleMapsService,
-              private ticketService : TicketService)
+    private ticketService : TicketService)
   {
 
   }

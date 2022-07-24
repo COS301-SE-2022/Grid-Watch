@@ -5,13 +5,13 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FormsModule } from '@angular/forms';
 import { MenuOptionsComponent } from './menu-options/menu-options.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
-import {MatCardModule} from "@angular/material/card"
-import {MatFormFieldModule} from "@angular/material/form-field"
-import {MatInputModule} from "@angular/material/input"
-import { MatCheckboxModule} from "@angular/material/checkbox"
-import { MatButtonModule } from "@angular/material/button"
-import { MatIconModule } from "@angular/material/icon"
-
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   imports: [
@@ -26,7 +26,8 @@ import { MatIconModule } from "@angular/material/icon"
     MatInputModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatGridListModule,
   ],
   declarations: [
     NavBarComponent,

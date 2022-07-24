@@ -6,11 +6,14 @@ import { Express } from 'express';
 import { Multer } from 'multer';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { GoogleMapsService, PublicProfileService, TicketService } from '@grid-watch/shared-ui';
+import { GoogleMapsService, MessageDialogComponent, PublicProfileService, TicketService } from '@grid-watch/shared-ui';
 import { Loader } from '@googlemaps/js-api-loader';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
+import {generate} from 'generate-password';
 
 
 @Component({
@@ -47,14 +50,16 @@ export class CreateTicketComponent{
   user! : UserDto
 
   issueOptions = ["Pothole", "Sinkhole", "Broken Street Light", "Broken Traffic Light", "Water Outage", "Electricity Outage", "Other"]
+  dialogRef! : MatDialogRef<MessageDialogComponent>;
   
 
-  constructor(private http : HttpClient, 
+  constructor(
               private router: Router,
               private ticketService : TicketService,
               private googleMapsService: GoogleMapsService,
               private formBuilder: FormBuilder,
-              private profileService : PublicProfileService) {
+              private profileService : PublicProfileService,
+              public dialog: MatDialog) {
               }
               
   async ngOnInit(): Promise<void> {    
@@ -109,23 +114,46 @@ export class CreateTicketComponent{
     
   }
 
-  showErrorMessage(e :string) : void{
-    alert(e);
+  showErrorMessage(title :string, info : string ) : void{
+    const temp = window.innerWidth;
+      const pageData = title;
+      const pageInfo = info;
+      this.dialogRef = this.dialog.open(MessageDialogComponent,{
+        panelClass: ['full-screen'],
+        data: {pageData: pageData, pageInfo : pageInfo, return: ""},
+        width: temp.toString(), 
+        height: "150",
+        scrollStrategy: new NoopScrollStrategy()
+      },);
     
   }
 
 
-  createTicket() : void
+  async createTicket() : Promise<void>
   {
+    
     if (( this.ticket.ticketLocation == ""))
     {
-      this.showErrorMessage("Location not found")
+      
+      this.showErrorMessage("Location","Location not found")
       return;
     }
     
     if ((this.autocomplete.getPlace() === undefined) && (( this.placeID === "")))
     {
-      this.showErrorMessage("Location not found")
+
+      this.showErrorMessage("Location","Location not found")
+      return;
+    }
+    const userId = localStorage.getItem("userId");
+    if (userId == null)
+    {
+      this.showErrorMessage("Login","Not logged in, would you like to post as a guest?")
+      
+      this.dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+        this.createGuest();
+      });
       return;
     }
     
@@ -142,13 +170,9 @@ export class CreateTicketComponent{
     this.ticket.ticketStatus = "Created";
     this.ticket.ticketCreateDate = new Date();
     this.ticket.ticketUpvotes = 0;
-    const userId = localStorage.getItem("userId");
     if (userId != null)
       this.ticket.userId = parseInt(userId);
-    else
-    {
-      this.showErrorMessage("Not logged In")
-    }
+    
 
 
 
@@ -172,6 +196,7 @@ export class CreateTicketComponent{
      
   }
 
+
   initMap() : void
   {
     this.map = this.googleMapsService.createMapObject("map",this.center,this.zoom)
@@ -189,6 +214,33 @@ export class CreateTicketComponent{
           this.createMapMarker(pos)
         }
       })
+  }
+
+  createGuest()
+  {
+    const guestUser = new UserDto();
+    guestUser.dateCreated = new Date();
+    guestUser.email = "guest" + Date.now() + "@gridwatch.com"
+    guestUser.name = "guest" + Date.now();
+    const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+}{:";
+    const string_length = 12;
+    let randomstring = '';
+    for (let i=0; i<string_length; i++) {
+        randomstring = Math.random().toString(36).slice(-8);
+    }
+    guestUser.password = randomstring;
+    console.log(guestUser);
+
+    this.profileService.createUser(guestUser).subscribe(
+      (response) => {
+        console.log(response);
+        localStorage.setItem("LoggedIn", "true")
+        localStorage.setItem("userId", response.id.toString())
+        this.createTicket();
+      }
+    )
+
+    
   }
 
   getCurrentLocation() : void
@@ -240,7 +292,7 @@ export class CreateTicketComponent{
         this.router.navigateByUrl("/tickets")
       },
       () => {
-        this.showErrorMessage("Failed to create ticket");
+        this.showErrorMessage("Ticket","Failed to create ticket");
       }
     );
   }

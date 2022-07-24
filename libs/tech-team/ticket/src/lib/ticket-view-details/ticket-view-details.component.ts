@@ -90,6 +90,7 @@ export class TicketViewDetailsComponent implements OnInit {
 
   reject() : void
   {
+    console.log("Here")
     const dialogRef = this.dialog.open(DialogComponent);
 
     dialogRef.afterClosed().subscribe(async result => {

@@ -16,6 +16,7 @@ import { FormBuilder, FormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps'
 import { MatIconModule } from '@angular/material/icon'
 import { GoogleMapsService } from '@grid-watch/shared-ui';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
@@ -35,6 +36,7 @@ import { GoogleMapsService } from '@grid-watch/shared-ui';
     MatIconModule,
     MatSidenavModule,
     MatGridListModule,
+    MatDialogModule,
     RouterModule.forChild([
       {
         path: 'createTicket',

@@ -34,6 +34,7 @@ export class MyProfileComponent implements OnInit {
 
   logout() : void{
     localStorage.setItem("LoggedIn", "false");
+    localStorage.removeItem("userId")
     this.router.navigateByUrl("/login");
   }
 }

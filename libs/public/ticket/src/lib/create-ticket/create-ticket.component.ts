@@ -6,14 +6,15 @@ import { Express } from 'express';
 import { Multer } from 'multer';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { GoogleMapsService, MessageDialogComponent, PublicProfileService, TicketService } from '@grid-watch/shared-ui';
+import { GoogleMapsService, SessionManagerService, MessageDialogComponent, PublicProfileService, TicketService } from '@grid-watch/shared-ui';
 import { Loader } from '@googlemaps/js-api-loader';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import {generate} from 'generate-password';
+import { invalid } from '@angular/compiler/src/render3/view/util';
 
 
 @Component({
@@ -51,6 +52,11 @@ export class CreateTicketComponent{
 
   issueOptions = ["Pothole", "Sinkhole", "Broken Street Light", "Broken Traffic Light", "Water Outage", "Electricity Outage", "Other"]
   dialogRef! : MatDialogRef<MessageDialogComponent>;
+
+  issue = new FormControl('', [Validators.required]);
+  location = new FormControl('', [Validators.required]);
+  description = new FormControl('', [Validators.required]);
+
   
 
   constructor(
@@ -59,7 +65,8 @@ export class CreateTicketComponent{
               private googleMapsService: GoogleMapsService,
               private formBuilder: FormBuilder,
               private profileService : PublicProfileService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private sesssionManager: SessionManagerService) {
               }
               
   async ngOnInit(): Promise<void> {    
@@ -76,6 +83,8 @@ export class CreateTicketComponent{
     this.other = false;
     this.otherDetails = "";
     this.ticket.ticketLocation = "";
+    this.ticket.ticketType = "";
+    this.ticket.ticketDescription = "";
     this.placeID = "";
 
     const loader = new Loader({
@@ -131,6 +140,13 @@ export class CreateTicketComponent{
 
   async createTicket() : Promise<void>
   {
+    console.log(this.ticket);
+    
+    if (this.ticket.ticketType === "" && this.ticket.ticketDescription === "") //&& this.location.hasError !== null )
+    {
+      this.showErrorMessage("Fields", "Complete all mandatory fields")
+      return;
+    }
     
     if (( this.ticket.ticketLocation == ""))
     {
@@ -146,7 +162,8 @@ export class CreateTicketComponent{
       return;
     }
     const userId = localStorage.getItem("userId");
-    if (userId == null)
+    const loggedIn = localStorage.getItem("LoggedIn");
+    if (userId == null && loggedIn === "false")
     {
       this.showErrorMessage("Login","Not logged in, would you like to post as a guest?")
       
@@ -222,7 +239,6 @@ export class CreateTicketComponent{
     guestUser.dateCreated = new Date();
     guestUser.email = "guest" + Date.now() + "@gridwatch.com"
     guestUser.name = "guest" + Date.now();
-    const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+}{:";
     const string_length = 12;
     let randomstring = '';
     for (let i=0; i<string_length; i++) {
@@ -234,8 +250,7 @@ export class CreateTicketComponent{
     this.profileService.createUser(guestUser).subscribe(
       (response) => {
         console.log(response);
-        localStorage.setItem("LoggedIn", "true")
-        localStorage.setItem("userId", response.id.toString())
+        this.sesssionManager.login(response.id.toString());
         this.createTicket();
       }
     )
@@ -317,6 +332,10 @@ export class CreateTicketComponent{
     document.getElementById("issue_uploaded_img")?.click();
   }
 
- 
+  getErrorMessage() {
+    // if (this.issue.hasError('required')) {
+      return 'You must enter a value';
+    // }
+  }
 }
 

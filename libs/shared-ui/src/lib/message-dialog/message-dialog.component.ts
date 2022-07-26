@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class MessageDialogComponent implements OnInit {
   dataType!: string;
   dataInfo!: string;
+  closeButton = true;
   constructor(
     public dialogRef: MatDialogRef<MessageDialogComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
@@ -21,6 +22,12 @@ export class MessageDialogComponent implements OnInit {
   ngOnInit(): void {
     this.dataType = this.data.pageData;
     this.dataInfo = this.data.pageInfo;
+
+    if (this.dataType === 'Login')
+      this.closeButton= false
+    if (this.dataType === 'Login Admin')
+      this.closeButton= false
+    
   }
 
   close()

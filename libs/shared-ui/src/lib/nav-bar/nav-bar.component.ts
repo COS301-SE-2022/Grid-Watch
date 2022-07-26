@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'grid-watch-nav-bar',
@@ -14,7 +15,9 @@ export class NavBarComponent implements OnInit{
   logged! : string | null;
   userId! : string;
 
-  constructor() 
+  constructor(
+    private router : Router
+  ) 
   {
     this.options = [];
     this.router_options = [];
@@ -76,7 +79,9 @@ export class NavBarComponent implements OnInit{
   }
 
   logout(){
+    this.logged = "false";
     localStorage.removeItem("adminId");
     localStorage.setItem("LoggedIn", "false");
+    this.router.navigateByUrl("/login")
   }
 }

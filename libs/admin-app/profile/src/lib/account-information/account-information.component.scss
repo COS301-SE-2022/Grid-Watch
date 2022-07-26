@@ -20,3 +20,15 @@ mat-card{
 span.avatar {
     margin-right: 20px;
 }
+
+.changePassword{
+    margin-top: 20px;
+    
+}
+
+.changePassword:hover{
+    color: blue;
+    text-decoration: underline;
+    font-style: oblique;
+    cursor: pointer;
+}

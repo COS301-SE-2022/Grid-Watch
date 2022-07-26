@@ -20,6 +20,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ViewTicketComponent } from './view-ticket/view-ticket.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { TicketBodyListComponent } from './ticket-body-list/ticket-body-list.component';
+import { TicketBodyMapComponent } from './ticket-body-map/ticket-body-map.component';
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
@@ -70,12 +72,16 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     CreateTicketComponent,
     EditTicketComponent,
     ViewTicketComponent,
+    TicketBodyListComponent,
+    TicketBodyMapComponent,
   ],
   exports: [
     TicketBodyComponent,
     CreateTicketComponent,
     EditTicketComponent,
     ViewTicketComponent,
+    TicketBodyListComponent,
+    TicketBodyMapComponent,
   ],
   providers: [FormBuilder, GoogleMapsService],
 })

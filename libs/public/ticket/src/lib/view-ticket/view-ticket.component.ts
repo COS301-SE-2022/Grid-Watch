@@ -5,8 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './view-ticket.component.html',
   styleUrls: ['./view-ticket.component.scss'],
 })
-export class ViewTicketComponent implements OnInit {
-  constructor() {}
+export class ViewTicketComponent {//implements OnInit {
+  // constructor() {}
 
-  ngOnInit(): void {}
+  // ngOnInit(): void {}
 }

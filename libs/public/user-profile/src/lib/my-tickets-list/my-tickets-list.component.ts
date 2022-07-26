@@ -138,6 +138,6 @@ export class MyTicketsListComponent implements OnInit
   
   goToTicket(id : string)
   {
-    this.router.navigate(['/editTicket', {id:id}]) ;
+    this.router.navigate(['/viewTicket', {id:id}]) ;
   }
 }

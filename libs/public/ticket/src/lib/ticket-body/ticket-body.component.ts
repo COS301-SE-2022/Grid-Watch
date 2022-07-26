@@ -122,14 +122,14 @@ export class TicketBodyComponent implements OnInit {
         }
       );
       const place_id = this.tickets[index].ticketLocation;
-      this.googleMapsService.getLocation(place_id).then(
-        (response) => {
-          this.tickets[index].ticketLocation = response;
-        },
-        (error) => {
-          console.log(error);          
-        }
-      );
+      // this.googleMapsService.getLocation(place_id).then(
+      //   (response) => {
+      //     this.tickets[index].ticketLocation = response;
+      //   },
+      //   (error) => {
+      //     console.log(error);          
+      //   }
+      // );
     }
     console.log(this.tickets);
   }

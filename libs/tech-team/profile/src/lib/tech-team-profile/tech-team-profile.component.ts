@@ -126,7 +126,8 @@ export class TechTeamProfileComponent implements OnInit {
 
   logout()
   {
-
+    console.log("logout");
+    
   }
 
   goToTicket(id : string)

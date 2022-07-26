@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class SessionManagerService {
 
-  constructor() { }
+  // constructor() { }
 
   login(userId : string)
   {

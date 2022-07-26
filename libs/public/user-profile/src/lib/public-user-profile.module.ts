@@ -41,6 +41,7 @@ import { ProfileSettingComponent } from './profile-setting/profile-setting.compo
       { path: 'login', pathMatch: 'full', component: LoginPageComponent },
       { path: 'profile', pathMatch: 'full', component: MyProfileComponent },
       { path: 'register', pathMatch: 'full', component: RegisterPageComponent },
+      { path: 'profileSettings', pathMatch: 'full', component: ProfileSettingComponent },
     ]),
   ],
   declarations: [

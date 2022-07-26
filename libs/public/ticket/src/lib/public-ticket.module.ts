@@ -19,6 +19,7 @@ import { GoogleMapsService } from '@grid-watch/shared-ui';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ViewTicketComponent } from './view-ticket/view-ticket.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
@@ -40,6 +41,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatGridListModule,
     MatDialogModule,
     MatMenuModule,
+    MatButtonToggleModule,
     RouterModule.forChild([
       {
         path: 'createTicket',

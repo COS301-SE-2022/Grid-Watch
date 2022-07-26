@@ -29,7 +29,7 @@ export class EditTicketComponent implements OnInit {
   autocomplete!: google.maps.places.Autocomplete;
 
   displayName! : string | null;
-  issueOptions = ["Pothole", "Sinkhole", "Broken Light", "Broken Robot", "Water Outage", "Electricity Outage", "Other"]
+  issueOptions = ["Pothole", "Sinkhole", "Broken Street Light", "Broken Traffic Light", "Water Outage", "Electricity Outage", "Other"]
   defaultUpload! : string | null;
   @Input() issue_type! : string;
   @Input() other_details! : string;

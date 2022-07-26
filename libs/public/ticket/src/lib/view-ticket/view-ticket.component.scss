@@ -1,0 +1,66 @@
+.userInformation{
+    display: flex;
+    position: relative;
+}
+
+.avatar{
+    flex: 15%;
+}
+
+.personalInformation{
+    flex: 85%;
+    position: relative;
+    top : 10px;
+}
+
+img.avatarImage{
+    height: 50px;
+    border: 2px solid black;
+    border-radius: 75px;
+    padding: 2px;
+}
+
+.ticketContainer{
+    margin: 10px 20px;
+}
+
+img.pin_location
+{
+    height: 15px;
+}
+
+.issueImage
+{
+    width: 100%;
+}
+
+.minorTicketInformation{
+    display: flex;
+}
+
+.ticketDate{
+    font-size: small;
+    flex: 50%;
+    text-align: right;
+}
+
+.ticketUpvote{
+    flex:50%;
+}
+
+img.ticketUpvoteImage
+{
+    height: 25px;
+}
+
+.flexContainer{
+display: flex;
+}
+
+.flexBox{
+    flex: 95%;
+}
+
+.flexBoxSettings{
+    flex: 5%;
+}

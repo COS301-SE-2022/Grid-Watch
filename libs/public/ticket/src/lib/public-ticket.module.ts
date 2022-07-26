@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ViewTicketComponent } from './view-ticket/view-ticket.component';
+import { MatMenuModule } from '@angular/material/menu';
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
@@ -38,6 +39,7 @@ import { ViewTicketComponent } from './view-ticket/view-ticket.component';
     MatSidenavModule,
     MatGridListModule,
     MatDialogModule,
+    MatMenuModule,
     RouterModule.forChild([
       {
         path: 'createTicket',
@@ -53,6 +55,11 @@ import { ViewTicketComponent } from './view-ticket/view-ticket.component';
         path: 'editTicket',
         pathMatch: 'prefix',
         component: EditTicketComponent,
+      },
+      {
+        path: 'viewTicket',
+        pathMatch: 'prefix',
+        component: ViewTicketComponent,
       },
     ]),
   ],

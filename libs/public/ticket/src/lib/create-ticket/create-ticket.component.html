@@ -3,25 +3,28 @@
     <div id="issue_field">
         <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
             <mat-label>Issue Type</mat-label>
-            <mat-select placeholder="Issue Type" [(ngModel)]="ticket.ticketType" name="issue_type">
+            <mat-select placeholder="Issue Type" [(ngModel)]="ticket.ticketType" name="issue_type" required>
                 <mat-option *ngFor="let issues of issueOptions" [value]="issues">
                     {{issues}}
                 </mat-option>
             </mat-select>
+            <mat-error *ngIf="!issue.touched">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
     </div>
     <!-- OTHER ISSUE DETAILS-->
     <div *ngIf="(ticket.ticketType === 'Other')" id="other_field"  >
         <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
                 <mat-label>Other issue details</mat-label>
-                <input matInput placeholder="Other issue details" [(ngModel)]="otherDetails">
+                <input matInput placeholder="Other issue details" [(ngModel)]="otherDetails" required>
+                
         </mat-form-field>
     </div>
     <!-- DESCRIPTION-->
     <div id="description_field">
         <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
             <mat-label>Description</mat-label>
-            <textarea matInput placeholder="Description" rows="3"  [(ngModel)]="ticket.ticketDescription"></textarea>
+            <textarea matInput placeholder="Description" rows="3"  [(ngModel)]="ticket.ticketDescription" required></textarea >
+            <mat-error *ngIf="!issue.touched">{{getErrorMessage()}}</mat-error>
         </mat-form-field>      
     </div>
     <!-- FILE UPLOAD-->
@@ -49,10 +52,11 @@
     <div class="mt-2 location_pin">
         <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
             <mat-label class="">Pin location of issue</mat-label>
-            <input matInput placeholder="Pin location of issue" id="pac-input" type="text" [(ngModel)]="ticket.ticketLocation">
+            <input matInput placeholder="Pin location of issue" id="pac-input" type="text" [(ngModel)]="ticket.ticketLocation" required>
             <button mat-icon-button matSuffix (click)="getCurrentLocation()">
                 <mat-icon>share_location</mat-icon>
             </button>
+            <mat-error *ngIf="!issue.touched">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
         <!-- <div class="input-group">
             <input  class="form-control" />

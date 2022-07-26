@@ -117,7 +117,7 @@
         <mat-card-title>{{ ticket.ticketType }}</mat-card-title>
         <mat-card-subtitle>
           <span class="material-icons">person_pin_circle</span>
-          {{ ticket.ticketLocation }}
+          {{ ticket.ticketStreetAddress }}
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
@@ -152,7 +152,8 @@
                 <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
                     <mat-label>Estimated repair time</mat-label>
                     <input matInput placeholder="Estimated repair time" ngDefaultControl [(ngModel)]="repair_time"/>
-                </mat-form-field>
+                    <span matSuffix>hours</span>
+                  </mat-form-field>
             </div>
             <div class="ticket_status mt-1">
                 <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
@@ -170,7 +171,7 @@
                 <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
                     <mat-label>Estimated cost</mat-label>
                     <input matInput placeholder="Estimated cost" ngDefaultControl [(ngModel)]="cost"/>
-                </mat-form-field>
+                  </mat-form-field>
             </div>
         </div>
       </mat-card-content>
@@ -179,9 +180,9 @@
           <div class="buttons">
             <button mat-button (click)="update()">Update</button>
           </div>
-          <div class="buttons">
+          <!-- <div class="buttons">
             <button mat-button>Reject</button>
-          </div>
+          </div> -->
         </div>
       </mat-card-actions>
     </mat-card>

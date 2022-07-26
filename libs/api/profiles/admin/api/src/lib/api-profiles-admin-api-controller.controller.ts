@@ -102,7 +102,7 @@ export class ApiProfilesAdminApiController {
     //update admin cities
     @Put('/update/cities/:id')
     async updateAdminCities(@Param() params,@Body() cities: string[]){
-        return this.apiAdminService.updateAdminCities(parseInt(params.id),cities);
+        return this.apiAdminService.updateAdminCities(parseInt(params.id),cities["cities"]);
     }
     
     //delete admin endpoint

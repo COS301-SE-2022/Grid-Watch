@@ -29,9 +29,10 @@ export class LoginPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const logged = localStorage.getItem
     this.techProfile = new TechTeamDto();
     this.techProfile.name = 'TestCompany3';
-    this.techProfile.email = 'TestCompany3@gmail.com';
+    this.techProfile.email = 'TestCompany34@gmail.com';
     this.techProfile.contactNumber = '0844521545';
     this.techProfile.password = 'GFBSHAF';
     this.techProfile.passwordSalt = '';
@@ -40,9 +41,9 @@ export class LoginPageComponent implements OnInit {
     console.log(this.techProfile);
 
     if (
-      localStorage.getItem('id') !== null &&
+      localStorage.getItem('techTeamID') !== null &&
       localStorage.getItem('loggedIn') !== null &&
-      localStorage.getItem('loggedIN') !== 'false'
+      localStorage.getItem('loggedIn') === 'true'
     ) {
       this.router.navigateByUrl("/profile")
     }

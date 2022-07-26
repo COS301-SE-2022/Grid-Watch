@@ -15,6 +15,7 @@ import { addListener } from 'process';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AccountInformationComponent } from './account-information/account-information.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { AccountInformationComponent } from './account-information/account-infor
     MatCheckboxModule,
     MatChipsModule,
     MatButtonToggleModule,
+    MatDialogModule,
     RouterModule.forChild([
       { path: 'login', pathMatch: 'full', component: LoginPageComponent },
       { path: 'register', pathMatch: 'full', component: RegisterPageComponent },

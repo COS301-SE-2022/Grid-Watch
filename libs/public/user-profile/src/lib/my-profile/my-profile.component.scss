@@ -21,6 +21,7 @@ img.avatar {
 {
     flex: 75%;
     margin: 0 10px;
+    overflow: hidden;
 }
 
 .optionsButton
@@ -71,4 +72,10 @@ span.material-icons.settingsIcon {
 span.material-icons.viewIcons {
     position: absolute;
     top: 7px;
+}
+
+.profileContainer
+{
+    // overflow: hidden;
+    // width: 100vw;
 }

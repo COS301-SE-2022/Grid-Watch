@@ -1,9 +1,11 @@
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FloatLabelType } from '@angular/material/form-field';
 import { Loader } from '@googlemaps/js-api-loader';
 import { AdminDto } from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto';
-import { AdminProfileService, GoogleMapsService } from '@grid-watch/shared-ui';
+import { AdminProfileService, GoogleMapsService, MessageDialogComponent } from '@grid-watch/shared-ui';
 import { profile } from 'console';
 
 @Component({
@@ -21,29 +23,37 @@ export class AccountInformationComponent implements OnInit {
   });
 
   admin! : AdminDto;
+  adminPerm! : AdminDto;
   city! : string;
   autocomplete!: google.maps.places.Autocomplete;
-  confirmPassword! : string;
-
+  
   emailStatus = true;
   contactStatus = true;
   adminId!: string | null;
+  dialogRef! : MatDialogRef<MessageDialogComponent>;
+  confirmPassword! : string;
+  changePassword = false;
 
   constructor(
     private formBuilder : FormBuilder,
     private googleMapsService : GoogleMapsService, 
-    private profileService : AdminProfileService
+    private profileService : AdminProfileService,
+    public dialog: MatDialog,
     ) {}
 
   ngOnInit(): void {
     this.admin = new AdminDto();
-    this.admin.password = "HDFVHJW"
+    this.adminPerm = new AdminDto();
     this.adminId = localStorage.getItem("adminId")
     if (this.adminId)
      this.profileService.getAdmin(this.adminId).subscribe(
       (response) =>{
         console.log(response);
         this.admin = response[0];
+        this.admin.password = "";
+        this.adminPerm.email = this.admin.email;
+        this.adminPerm.cities =  Object.assign([], this.admin.cities);
+        this.adminPerm.contactNumber = this.admin.contactNumber;
       }
      )
 
@@ -93,30 +103,59 @@ export class AccountInformationComponent implements OnInit {
   async update(){
     if (this.adminId)
     {
-      if (await this.checkEmailExists() == false)  
+      if (this.adminPerm.email !== this.admin.email)
       {
-        if (await this.checkContactExist() == false)
+        this.profileService.updateEmail(this.admin.id.toString(), this.admin.email).subscribe(
+          (response) =>
+          {
+            // console.log(response);
+
+            this.adminPerm.email = this.admin.email
+          }
+        )
+      }
+      if (this.adminPerm.contactNumber !== this.admin.contactNumber)
+      {
+        this.profileService.updateContactNumber(this.admin.id.toString(), this.admin.contactNumber).subscribe(
+          (response) =>
+          {
+            // console.log(response);
+            this.adminPerm.contactNumber = this.admin.contactNumber
+          }
+        )
+      }
+      if (!this.isEqual(this.admin.cities, this.adminPerm.cities))
+      {
+        
+        this.profileService.updateCities(this.admin.id.toString(), this.admin.cities).subscribe(
+          (response) =>
+          {
+            // console.log(response);
+            this.adminPerm.cities = Object.assign([], this.admin.cities);
+          }
+        )
+      }
+      if (this.changePassword)
+      {
+        if ((this.admin.password === this.confirmPassword) && (this.admin.password !== ""))
         {
-          this.profileService.updateAdmin(this.adminId, this.admin).subscribe(
+          this.profileService.updatePassword(this.admin.id.toString(), this.admin.password).subscribe(
             (response) =>
             {
-              console.log(response);
+              // console.log(response);
+              this.adminPerm.cities = Object.assign([], this.admin.cities);
             }
           )
         }
         else
         {
-          this.showMessage("Contact already exists");
+          this.showMessage("Password", "Please make sure that your passwords match" )
         }
-      } 
-      else
-      {
-        this.showMessage("Email already exists");
-      }   
+      }
     }
     else
     {
-      this.showMessage("Could not find this admin ID, please login again");
+      this.showMessage("Login Admin","Could not find this admin ID, please login again");
     }
   }
 
@@ -139,6 +178,14 @@ export class AccountInformationComponent implements OnInit {
      this.contactStatus = false;
   }
 
+  togglePassword()
+  {
+    if (this.changePassword === false)
+      this.changePassword = true;
+    else
+     this.changePassword = false;
+  }
+
   async checkEmailExists() {
     return await this.profileService.checkEmailExists(this.admin.email);
   }
@@ -147,8 +194,36 @@ export class AccountInformationComponent implements OnInit {
     return await this.profileService.checkContactNumberExists(this.admin.contactNumber);
   }
 
-  showMessage(s : string)
-  {
-    alert(s);
+
+  showMessage(title :string, info : string ) : void{
+    const temp = window.innerWidth;
+      const pageData = title;
+      const pageInfo = info;
+      this.dialogRef = this.dialog.open(MessageDialogComponent,{
+        panelClass: ['full-screen'],
+        data: {pageData: pageData, pageInfo : pageInfo, return: ""},
+        width: temp.toString(), 
+        height: "150",
+        scrollStrategy: new NoopScrollStrategy()
+      },);
+    
   }
+
+  isEqual(x : string [], y : string []) : boolean
+  {
+    let returnValue = true;
+
+    if (x.length !== y.length)
+    {
+      return false;
+    }
+
+    x.every((value, index) =>{
+      if ( value !== y[index])
+        returnValue = false;
+    })
+
+    return returnValue;
+  }
+  
 }

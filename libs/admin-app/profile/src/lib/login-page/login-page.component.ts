@@ -30,7 +30,7 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
     this.admin = new AdminDto();
     this.admin.email = "test4@gmail.com"
-    this.admin.password = "HDFVHJW"
+    this.admin.password = "1234567"
   }
 
   getFloatLabelValue(): FloatLabelType {

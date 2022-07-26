@@ -10,6 +10,7 @@ import { catchError, Observable, of } from 'rxjs';
 export class TechTeamProfileService {
   private createTechTeamURL = 'api/techteam/create';
   private getTechTeamURL = 'api/techteam/email/';
+  private getTechTeamIDURL = 'api/techteam/';
   private loginURL = 'api/techteam/verify';
 
   constructor(private http: HttpClient) {}
@@ -42,6 +43,13 @@ export class TechTeamProfileService {
 
   public getTechTeam(email : string) {
     const tempURL = this.getTechTeamURL + email 
+    return this.http
+    .get<TechTeamDto[]>(tempURL)
+    .pipe(catchError(this.handleError<TechTeamDto[]>('getTechTeam', [])));
+  }
+
+  public getTechTeamID(id : string) {
+    const tempURL = this.getTechTeamIDURL + id 
     return this.http
     .get<TechTeamDto[]>(tempURL)
     .pipe(catchError(this.handleError<TechTeamDto[]>('getTechTeam', [])));

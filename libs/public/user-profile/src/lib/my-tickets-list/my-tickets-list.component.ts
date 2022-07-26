@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
@@ -14,10 +15,13 @@ export class MyTicketsListComponent implements OnInit
   tickets!: TicketDto[];
   ticketImages: string[] = [];
   ticketDates: string[] = [];
+  ticketStatus: string[] = [];
+  
   avatar!: string;
   constructor(
     private ticketService: TicketService,
-    private googleMapsService: GoogleMapsService
+    private googleMapsService: GoogleMapsService,
+    private router : Router
   ) { }
 
   ngOnInit(): void
@@ -34,9 +38,15 @@ export class MyTicketsListComponent implements OnInit
     loader.load().then(() =>
     {
       this.ticketService.getTickets().subscribe(
-        (response) =>
-        {
-          this.initialiseTickets(response)
+        async (response) => {
+          response = await response.filter((ticket) => {
+            const userId = localStorage.getItem("userId");
+            if (userId)
+              return ticket.userId === parseInt(userId);
+            else
+              return false;
+          });
+          this.InitialiseTicket(response);
         }
       )
     }, (error) =>
@@ -46,11 +56,15 @@ export class MyTicketsListComponent implements OnInit
 
   }
 
-  async initialiseTickets(data : TicketDto []): Promise<void>
-  {    
+  filterTickets()
+  {
+    return 
+  }
+
+  async InitialiseTicket(data : TicketDto []) : Promise<void> 
+  {
     for (let index = 0; index < data.length; index++) 
     {      
-      
       this.tickets.push(data[index]);
       const date = new Date(this.tickets[index]["ticketCreateDate"]);      
       const m = date.getUTCMonth() + 1;
@@ -81,6 +95,25 @@ export class MyTicketsListComponent implements OnInit
           this.ticketImages.push("assets/issue-maintenance.svg");
           break;
       }
+
+      switch(this.tickets[index]["ticketStatus"])
+      {
+        case "Created":
+          this.ticketStatus.push("redText");
+          break;
+        case "Dispatched":
+          this.ticketStatus.push("orangeText");
+          break;
+        case "In Progress":
+          this.ticketStatus.push("yellowText");
+          break;
+        case "Closed":
+          this.ticketStatus.push("greenText");
+          break;
+        default:
+          this.ticketStatus.push("yellowText");
+          break;
+      }
       this.ticketService.getImages(data[index].ticketId).subscribe
       (
         (response) => 
@@ -100,7 +133,11 @@ export class MyTicketsListComponent implements OnInit
       );
     }
     console.log(this.tickets);
-    console.log(this.ticketImages);
   }
   
+  
+  goToTicket(id : string)
+  {
+    this.router.navigate(['/editTicket', {id:id}]) ;
+  }
 }

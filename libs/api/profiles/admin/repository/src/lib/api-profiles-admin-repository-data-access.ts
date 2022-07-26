@@ -283,7 +283,7 @@ export class ApiProfilesAdminRepositoryDataAccess {
             },
             data:
             {
-                name : adminEmail,
+                email : adminEmail,
             },
         });
     }

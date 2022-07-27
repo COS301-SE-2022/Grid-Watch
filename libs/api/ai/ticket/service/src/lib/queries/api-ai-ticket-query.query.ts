@@ -5,3 +5,7 @@ export class GetIssueAIQuery{
 export class GetTechTeamSpecialisationQuery{
     constructor(public readonly specialisation){}
 }
+
+export class GetAllTicketsQuery{
+ 
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
@@ -14,7 +15,8 @@ export class MyTicketsBlockComponent implements OnInit {
   avatar! : string;
   constructor(
     private ticketService: TicketService,
-    private googleMapsService: GoogleMapsService
+    private googleMapsService: GoogleMapsService,
+    private router : Router
   ) {}
 
   ngOnInit(): void {
@@ -44,5 +46,11 @@ export class MyTicketsBlockComponent implements OnInit {
       }, (error) =>{console.log(error);
       });
     
+  }
+
+    
+  goToTicket(id : string)
+  {
+    this.router.navigate(['/viewTicket', {id:id}]) ;
   }
 }

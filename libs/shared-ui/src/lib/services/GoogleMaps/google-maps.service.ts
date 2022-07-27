@@ -132,7 +132,7 @@ public createAutoCompleteObjectCities(inputID: string) : google.maps.places.Auto
 
 public createMapObject(elementID : string, center : google.maps.LatLngLiteral, zoom: number)
 {
-  return new google.maps.Map(document.getElementById("map") as HTMLElement, {
+  return new google.maps.Map(document.getElementById(elementID) as HTMLElement, {
     center: center,
     zoom: zoom,
   });

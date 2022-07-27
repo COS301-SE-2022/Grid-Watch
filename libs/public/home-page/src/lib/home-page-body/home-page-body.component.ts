@@ -98,15 +98,22 @@ async addMarker() : Promise<void> {
 
    this.ticketService.getTickets().subscribe((response)=>{
     for(let i=0;i<response.length;i++){
-      const position = {
-        lat: -25.7479+0.1*i,//response.at(i)?.ticketLat
-        lng: 28.2293+0.1*i,//response.at(i)?.ticketLng
+      const lat = response.at(i)?.ticketLat;
+      const lng = response.at(i)?.ticketLong;
+      let position;
+
+      if(lat != null && lng!= null ){
+        position = {
+          lat: lat,
+          lng: lng,
+        }
+
+        const type = response.at(i)?.ticketType;
+
+        if(type != null){
+          this.googleMapsService.createMarkerObject(position,this.map,type);
+        } 
       }
-      const type = response.at(i)?.ticketType;
-       if(type != null){
-         this.googleMapsService.createMarkerObject(position,this.map,type);
-       }
-  
     }
    });
 

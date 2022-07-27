@@ -1,66 +1,60 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
+import { TicketService, GoogleMapsService } from '@grid-watch/shared-ui';
 
 @Component({
-  selector: 'grid-watch-my-tickets-list',
-  templateUrl: './my-tickets-list.component.html',
-  styleUrls: ['./my-tickets-list.component.scss'],
+  selector: 'grid-watch-ticket-body-list',
+  templateUrl: './ticket-body-list.component.html',
+  styleUrls: ['./ticket-body-list.component.scss'],
 })
-export class MyTicketsListComponent implements OnInit
-{
-
-  tickets!: TicketDto[];
-  ticketImages: string[] = [];
-  ticketDates: string[] = [];
-  ticketStatus: string[] = [];
+export class TicketBodyListComponent implements OnInit {
   
-  avatar!: string;
-  constructor(
-    private ticketService: TicketService,
-    private googleMapsService: GoogleMapsService,
-    private router : Router
-  ) { }
+  public name! : string;
+  public surname! : string;
+  public avatar! : string;
+  ticketDates : string[] = [];
+  ticketImages : string[] = [];
+  ticketStatus: string[] = [];
+  tickets : Array<TicketDto> = [];
+  
 
-  ngOnInit(): void
-  {
-    this.tickets = [];
-    this.avatar = "assets/user-solid.svg"
+  constructor( private http: HttpClient,
+              private ticketService: TicketService,
+              private googleMapsService: GoogleMapsService,
+              private router : Router) {
+
+  }
+  
+  ngOnInit(): void {
+    this.name = "John"
+    this.surname = "Doe"
+    this.avatar = "assets/user-solid.svg";
 
     const loader = new Loader({
       apiKey: "AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE",
       version: "weekly",
       libraries: ["places"]
     });
-
-    loader.load().then(() =>
-    {
-      this.ticketService.getTickets().subscribe(
-        async (response) => {
-          response = await response.filter((ticket) => {
-            const userId = localStorage.getItem("userId");
-            if (userId)
-              return ticket.userId === parseInt(userId);
-            else
-              return false;
-          });
-          this.InitialiseTicket(response);
-        }
-      )
-    }, (error) =>
-    {
-      console.log(error);
-    });
+    
+    loader.load().then(() => {
+        this.ticketService.getTickets().subscribe(
+          (response) => {
+            this.InitialiseTicket(response)
+          }
+        )      
+      }, (error) =>{console.log(error);
+      });
 
   }
 
-  filterTickets()
+  IncreaseUpvote(id : number, index: number): void
   {
-    return 
+    this.ticketService.increaseUpvotes(id, ++this.tickets[index].ticketUpvotes)
   }
-
+    
   async InitialiseTicket(data : TicketDto []) : Promise<void> 
   {
     for (let index = 0; index < data.length; index++) 
@@ -123,21 +117,21 @@ export class MyTicketsListComponent implements OnInit
         }
       );
       const place_id = this.tickets[index].ticketLocation;
-      this.googleMapsService.getLocation(place_id).then(
-        (response) => {
-          this.tickets[index].ticketLocation = response;
-        },
-        (error) => {
-          console.log(error);          
-        }
-      );
+      // this.googleMapsService.getLocation(place_id).then(
+      //   (response) => {
+      //     this.tickets[index].ticketLocation = response;
+      //   },
+      //   (error) => {
+      //     console.log(error);          
+      //   }
+      // );
     }
     console.log(this.tickets);
   }
-  
-  
+
   goToTicket(id : string)
   {
     this.router.navigate(['/viewTicket', {id:id}]) ;
   }
+
 }

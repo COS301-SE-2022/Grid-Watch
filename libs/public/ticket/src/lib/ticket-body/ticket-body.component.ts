@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 export class TicketBodyComponent implements OnInit {
 
   viewValue! : string
-  constructor() {}
+  // constructor() {}
 
   ngOnInit(): void {
     this.viewValue = "map";

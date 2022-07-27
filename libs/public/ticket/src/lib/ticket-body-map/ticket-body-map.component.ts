@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
+import { MarkerClusterer } from "@googlemaps/markerclusterer";
+
 
 @Component({
   selector: 'grid-watch-ticket-body-map',
@@ -17,6 +19,7 @@ export class TicketBodyMapComponent implements OnInit {
 
   tickets! : TicketDto[];
   markers!: google.maps.Marker []
+  infoWindow!: google.maps.InfoWindow;
   constructor(
     private googleMapsService : GoogleMapsService, 
     private ticketService : TicketService
@@ -57,6 +60,16 @@ export class TicketBodyMapComponent implements OnInit {
         this.initialiseMarkers()
       }
     )
+
+    this.infoWindow = new google.maps.InfoWindow({
+      content: "",
+      disableAutoPan: true,
+    });
+
+    // marker.addListener("click", () => {
+    //   infoWindow.setContent(label);
+    //   infoWindow.open(map, marker);
+    // });
   }
 
   initialiseMarkers(){
@@ -66,6 +79,12 @@ export class TicketBodyMapComponent implements OnInit {
         lng: this.tickets[k].ticketLong
       }
       this.markers.push(this.googleMapsService.createMarkerObject(pos, this.map, this.tickets[k].ticketType));
+      this.markers[k].addListener("click", () => {
+          this.infoWindow.setContent(this.tickets[k].ticketType);
+          this.infoWindow.open(this.map, this.markers[k]);
+        });
     }
+    
+    new MarkerClusterer(this.map, this.markers);
   }
 }

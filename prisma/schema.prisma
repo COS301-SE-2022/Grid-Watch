@@ -39,7 +39,7 @@ model Ticket {
   ticketCreateDate    DateTime  @default(now())
   ticketCloseDate     DateTime?
   ticketType          String
-  ticketStreetAddress String
+  ticketStreetAddress String?
   ticketCity          String
   ticketLocation      String?   //place-id
   ticketLong          Float?

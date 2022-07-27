@@ -14,8 +14,8 @@ export const techteams = [
         email             : "pickachuelectric@gmail.com",
         specialisation    : "Electricity",
         contactNumber     : "0223788839",
-        nrJobsCompleted   : 5,
-        ratingOfJobs      : 9.3,
+        nrJobsCompleted   : 0,
+        ratingOfJobs      : 0,
         password          : "$2b$06$OtyvlKOwHhXomJA3lonHeOYtiKbdUSp6rpx2v9vYQ/3D3ayfJ/XcO",//1234#Electricity
         passwordSalt      : "$2b$06$OtyvlKOwHhXomJA3lonHeO"
     },

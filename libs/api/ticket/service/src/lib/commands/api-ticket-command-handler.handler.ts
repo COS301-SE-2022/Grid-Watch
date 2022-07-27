@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
-import {UpdateStreetAddressCommand,UpdateLongitudeCommand,UpdateLatitudeCommand,DeleteTicketCommand, CreateTicketCommand,CreatePictureCommand, UpdateTicketCommand, UpdateTicketStatusCommand, UpdateTicketCreateDateCommand, UpdateTicketTypeCommand, UpdateTicketCloseDateCommand, UpdateTicketLocationCommand, UpdateTicketCostCommand, UpdateTicketDescriptionCommand, UpdateTicketRepairTimeCommand, UpdateTicketUpVotesCommand, IncUpvotesCommand, UpdatePictureCommand, DeletePictureCommand, CreateSubtaskCommand, UpdateSubtaskCommand, UpdateSubtaskTicketCommand, UpdateSubtaskDescCommand, UpdateSubtaskStepCommand, UpdateSubtaskStatusCommand, DeleteSubtaskCommand} from './api-ticket-command.command';
+import {UpdateStreetAddressCommand,UpdateLongitudeCommand,UpdateLatitudeCommand,DeleteTicketCommand, CreateTicketCommand,CreatePictureCommand, UpdateTicketCommand, UpdateTicketStatusCommand, UpdateTicketCreateDateCommand, UpdateTicketTypeCommand, UpdateTicketCloseDateCommand, UpdateTicketLocationCommand, UpdateTicketCostCommand, UpdateTicketDescriptionCommand, UpdateTicketRepairTimeCommand, UpdateTicketUpVotesCommand, IncUpvotesCommand, UpdatePictureCommand, DeletePictureCommand, CreateSubtaskCommand, UpdateSubtaskCommand, UpdateSubtaskTicketCommand, UpdateSubtaskDescCommand, UpdateSubtaskStepCommand, UpdateSubtaskStatusCommand, DeleteSubtaskCommand, updateAssignedTechTeamCommand} from './api-ticket-command.command';
 
 
 @CommandHandler(CreateTicketCommand)
@@ -78,6 +78,17 @@ export class UpdateTicketStatusHandler implements ICommandHandler<UpdateTicketSt
     async execute(command: UpdateTicketStatusCommand) {
         const{ticketId,status} = command;
         return this.repository.updateStatus(ticketId,status);
+    }
+}
+
+@CommandHandler(updateAssignedTechTeamCommand)
+export class updateAssignedTechTeamHandler implements ICommandHandler<updateAssignedTechTeamCommand>{
+
+    constructor(private readonly repository: ApiTicketRepositoryDataAccess){}
+
+    async execute(command: updateAssignedTechTeamCommand) {
+        const{ticketId,techTeamId} = command;
+        return this.repository.assignTechTeam(ticketId,techTeamId);
     }
 }
 

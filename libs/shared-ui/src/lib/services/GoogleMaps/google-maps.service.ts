@@ -113,7 +113,7 @@ public createAutoCompleteObject(inputID: string) : google.maps.places.Autocomple
   const input = document.getElementById(inputID) as HTMLInputElement;
     const options = {
       componentRestrictions: { country: ["za"] },
-      fields: ["address_components", "geometry", "place_id"],
+      fields: ["address_components", "geometry", "place_id", "formatted_address"],
       types: ["address"],
     };
     return new google.maps.places.Autocomplete(input, options);

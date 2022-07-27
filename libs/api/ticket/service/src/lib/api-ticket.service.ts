@@ -28,7 +28,8 @@ import { CreateTicketCommand,
     UpdateLatitudeCommand,
     UpdateLongitudeCommand,
     UpdateStreetAddressCommand,
-    DeleteSubtaskCommand} from './commands/api-ticket-command.command';
+    DeleteSubtaskCommand,
+    updateAssignedTechTeamCommand} from './commands/api-ticket-command.command';
 
 @Injectable()
 export class ApiTicketService {
@@ -136,6 +137,10 @@ export class ApiTicketService {
 
     async updateLatitude(ticketId:number,lat: number){
         return await this.commandBus.execute(new UpdateLatitudeCommand(ticketId,lat))
+    }
+
+    async updateAssignedTechTeam(ticketId:number, techTeamId : number){
+        return await this.commandBus.execute(new updateAssignedTechTeamCommand(ticketId, techTeamId))
     }
 
     async closeTicket(ticketId:number){

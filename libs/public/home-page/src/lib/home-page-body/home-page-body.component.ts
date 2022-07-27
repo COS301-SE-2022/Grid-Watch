@@ -51,8 +51,8 @@ export class HomePageBodyComponent implements OnInit{
     
     loader.load().then(() => {
 
-      this.initMap();
-      this.addMarker();
+      // this.initMap();
+      // this.addMarker();
       
       }, (error) =>{console.log(error);
       });
@@ -71,8 +71,8 @@ initMap() : void
   // map.setAttribute("zoom", "10");
   // const mapContainer = document.getElementById("mapContainer");
   // mapContainer?.appendChild(map);
-   this.map = this.googleMapsService.createMapObject("map",this.center,this.zoom)
-    console.log("working");
+  //  this.map = this.googleMapsService.createMapObject("map",this.center,this.zoom)
+    // console.log("working");
 
 }
 

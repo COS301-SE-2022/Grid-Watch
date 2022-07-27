@@ -14,6 +14,10 @@ export class AdminProfileService {
   private loginURL = "api/admin/verify/";
   private getAdminURL = "api/admin/";
   private updateAdminURL = "api/admin/update/admin/";
+  private updateEmailURL = "api/admin/update/email/";
+  private updateContactNumberURL = "api/admin/update/cell/";
+  private updateCitiesURL = "api/admin/update/cities/";
+  private updatePasswordURL = "api/admin/update/password/";
   
   constructor(
     private http : HttpClient
@@ -101,6 +105,42 @@ export class AdminProfileService {
     return this.http
     .put<AdminDto>(tempURL, admin)
     .pipe(catchError(this.handleError<boolean>('getAdmin', false)));
+  }
+
+  public updateEmail(id : string, email : string )
+  {
+    const body = {"email" : email}
+    const tempURL = this.updateEmailURL + id
+    return this.http
+    .put<JSON>(tempURL, body)
+    .pipe(catchError(this.handleError<boolean>('updateEmail', false)));
+  }
+
+  public updateContactNumber(id : string, contactNumber : string )
+  {
+    const body = {"cell" : contactNumber};    
+    const tempURL = this.updateContactNumberURL + id;
+    return this.http
+    .put<JSON>(tempURL, body)
+    .pipe(catchError(this.handleError<boolean>('updateContactNumber', false)));
+  }
+
+  public updateCities(id : string, cities : string [] )
+  {
+    const body = {"cities" : cities};    
+    const tempURL = this.updateCitiesURL + id;
+    return this.http
+    .put<JSON>(tempURL, body)
+    .pipe(catchError(this.handleError<boolean>('updateCities', false)));
+  }
+
+  public updatePassword(id : string, password : string )
+  {
+    const body = {"newPassword" : password};    
+    const tempURL = this.updatePasswordURL + id;
+    return this.http
+    .put<JSON>(tempURL, body)
+    .pipe(catchError(this.handleError<boolean>('updatePassword', false)));
   }
 
 }

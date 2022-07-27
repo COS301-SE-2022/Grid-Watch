@@ -22,6 +22,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatGridListModule,
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
       {

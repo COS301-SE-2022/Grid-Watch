@@ -12,7 +12,7 @@ export const tickets = [
         ticketDescription : "There is a large pothole in the middle of the road",    
         //ticketRepairTime :  55600,    
         ticketUpvotes : 0,   
-        userId  : 2
+        userId  : 1
     },
     {
         ticketStatus : "Opened",
@@ -27,11 +27,11 @@ export const tickets = [
         ticketDescription : "There is a power outage",    
         // ticketRepairTime :  55600,    
         ticketUpvotes : 0, 
-        userId  : 2
+        userId  : 1
     },
     {
         ticketStatus : "Opened",
-       // ticketCreateDate : "2022/07/11",
+        // ticketCreateDate : "2022/07/11",
         ticketType :  "Water",        
         ticketCity :  "Pretoria",            
         ticketLocation : "",      //place-id
@@ -39,10 +39,10 @@ export const tickets = [
         ticketLat   : 28.239241,
         ticketStreetAddress: "441 32 Avenue",
         // ticketCost : 25000,           
-        ticketDescription : "A pipe has burst outside my house",    
+        ticketDescription : "The entire road is flooded ",    
         // ticketRepairTime :  55600,    
         ticketUpvotes : 0, 
-        userId  : 2
+        userId  : 1
     },
     {
         ticketStatus : "Closed",
@@ -54,11 +54,11 @@ export const tickets = [
         ticketLat   : 28.141595,
         ticketStreetAddress: "866 Marina Street",
         // ticketCost : 25000,           
-        ticketDescription : "A pipe has burst outside my house", 
+        ticketDescription : "I have had no electricity for 2 days", 
         ticketCloseDate : "2022-07-22T17:38:27.870Z",  
         // ticketRepairTime :  55600,    
         ticketUpvotes : 0, 
-        userId  : 2
+        userId  : 1
     },
     {
         ticketStatus : "Opened",

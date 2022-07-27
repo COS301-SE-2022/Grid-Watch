@@ -5,7 +5,7 @@ import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
-import { TicketService, GoogleMapsService } from '@grid-watch/shared-ui';
+import { TicketService, GoogleMapsService, SessionManagerService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-edit-accepted-ticket',
@@ -40,11 +40,11 @@ export class EditAcceptedTicketComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private ticketService: TicketService,
-    private googleMapsService: GoogleMapsService
+    private googleMapsService: GoogleMapsService,
+    private sessionManager : SessionManagerService
   ) {}
 
   ngOnInit(): void {
-    // this.ticket = new TicketDto;
     this.issue_id = this.route.snapshot.paramMap.get('id');
     this.ticket.ticketImg = '';
     this.getAllURL += this.issue_id;
@@ -81,24 +81,23 @@ export class EditAcceptedTicketComponent implements OnInit {
       this.updateStatus();
     }
 
+    const techTeamId = this.sessionManager.getTechTeamID();
+    if (techTeamId)
+    this.ticketService.assignTechTeam(this.ticket.ticketId, parseInt(techTeamId)).subscribe(
+      (response) =>
+      {
+        console.log("something shame");
+        console.log(response);
+        
+      }
+    )
     this.showSuccessMessage('Successfully updated ticket');
 
     this.router.navigateByUrl('/acceptedTickets');
+
   }
 
   updateRepairTime(): void {
-    // const temp = '{"repairTime": ' + this.repair_time + '}';
-    // this.http
-    //   .put<JSON>(this.UpdateRepairURL, JSON.parse(temp), this.httpOptions)
-    //   .subscribe(
-    //     () => {
-    //       return true;
-    //     },
-    //     () => {
-    //       return false;
-    //     }
-    //   );
-    // return false;
     if (this.issue_id)
     this.ticketService.updateTicketRepairTime(this.issue_id, this.repair_time).subscribe(
       () =>{return true},
@@ -106,34 +105,24 @@ export class EditAcceptedTicketComponent implements OnInit {
     );
   }
 
-  updateStatus(): boolean {
-    const temp = '{"status": "' + this.status + '"}';
-    this.http
-      .put<JSON>(this.UpdateStatusURL, JSON.parse(temp))
-      .subscribe(
-        () => {
-          return true;
-        },
-        () => {
-          return false;
-        }
-      );
-    return false;
+  updateStatus(): void {
+    if (this.issue_id)
+    this.ticketService.updateTicketStatus(this.issue_id, this.status).subscribe(
+      (resp) =>{
+        console.log(resp);
+        
+      }
+    )
   }
 
-  updateCost(): boolean {
-    const temp = '{"cost": ' + this.cost + '}';
-    this.http
-      .put<JSON>(this.UpdateCostURL, JSON.parse(temp))
-      .subscribe(
-        () => {
-          return true;
-        },
-        () => {
-          return false;
-        }
-      );
-    return false;
+  updateCost(): void {
+    if (this.issue_id)
+    this.ticketService.updateTicketCost(this.issue_id, this.cost).subscribe(
+      (resp) =>{
+        console.log(resp);
+        
+      }
+    )
   }
 
   showErrorMessage(edits: string): void {
@@ -148,8 +137,15 @@ export class EditAcceptedTicketComponent implements OnInit {
     await this.delay(3000);
     this.getPictureURL += this.ticket.ticketId;
     this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe((data) => {
-      console.log(data[0]);
-      this.ticket.ticketImg = data[0].pictureLink;
+      console.log(data);
+      if (data.length > 0)
+      {
+        this.ticket.ticketImg = data[0].pictureLink;
+      }
+      else
+      {
+        this.ticket.ticketImg = "image-solid.svg";
+      }
     });
   }
 

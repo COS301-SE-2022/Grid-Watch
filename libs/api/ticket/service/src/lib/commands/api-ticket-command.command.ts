@@ -73,6 +73,10 @@ export class UpdateTicketUpVotesCommand{
     constructor(public readonly ticketId, public readonly upVotes){}
 }
 
+export class updateAssignedTechTeamCommand{
+    constructor(public readonly ticketId, public readonly techTeamId){}
+}
+
 export class IncUpvotesCommand{
     constructor(public readonly ticketId){}
 }

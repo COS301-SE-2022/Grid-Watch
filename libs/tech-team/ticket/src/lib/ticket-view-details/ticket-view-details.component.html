@@ -4,18 +4,18 @@
       <mat-card-title>{{ ticket.ticketType }}</mat-card-title>
       <mat-card-subtitle>
         <span class="material-icons">person_pin_circle</span>
-        {{ ticket.ticketLocation }}
+        {{ ticket.ticketStreetAddress }}
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <div class="imageContainer">
         <img
-          src="assets/{{ ticket.ticketImg }}"
+          src="assets/{{ picture.pictureLink }}"
           alt="IssueImage"
           onerror=""
-          *ngIf="ticket.ticketImg !== ''"
+          *ngIf="picture.pictureLink !== ''"
         />
-        <div class="centeredElement" *ngIf="ticket.ticketImg === ''">
+        <div class="centeredElement" *ngIf="picture.pictureLink === ''">
           <mat-spinner mode="indeterminate"> </mat-spinner>
         </div>
       </div>

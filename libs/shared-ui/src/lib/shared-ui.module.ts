@@ -12,6 +12,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MessageDialogComponent } from './message-dialog/message-dialog.component';
 
 @NgModule({
   imports: [
@@ -33,11 +34,13 @@ import { MatGridListModule } from '@angular/material/grid-list';
     NavBarComponent,
     MenuOptionsComponent,
     AppHeaderComponent,
+    MessageDialogComponent,
   ],
   exports: [
     NavBarComponent,
     MenuOptionsComponent,
     AppHeaderComponent,
+    MessageDialogComponent,
   ],
 })
 export class SharedUiModule {}

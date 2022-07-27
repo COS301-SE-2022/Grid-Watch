@@ -11,3 +11,5 @@ export * from './lib/my-profile/my-profile.component';
 export * from './lib/my-tickets-list/my-tickets-list.component';
 
 export * from './lib/my-tickets-block/my-tickets-block.component';
+
+export * from './lib/profile-setting/profile-setting.component';

@@ -3,22 +3,22 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
 
-import { MyTicketsBlockComponent } from './my-tickets-block.component';
+import { TicketBodyListComponent } from './ticket-body-list.component';
 
-describe('MyTicketsBlockComponent', () => {
-  let component: MyTicketsBlockComponent;
-  let fixture: ComponentFixture<MyTicketsBlockComponent>;
+describe('TicketBodyListComponent', () => {
+  let component: TicketBodyListComponent;
+  let fixture: ComponentFixture<TicketBodyListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MyTicketsBlockComponent],
+      declarations: [TicketBodyListComponent],
       imports: [HttpClientModule, RouterTestingModule],
-      providers : [GoogleMapsService]
+      providers: [GoogleMapsService]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MyTicketsBlockComponent);
+    fixture = TestBed.createComponent(TicketBodyListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

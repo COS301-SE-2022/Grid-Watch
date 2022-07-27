@@ -19,6 +19,7 @@ import { MyTicketsListComponent } from './my-tickets-list/my-tickets-list.compon
 import { MyTicketsBlockComponent } from './my-tickets-block/my-tickets-block.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { ProfileSettingComponent } from './profile-setting/profile-setting.component';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
       { path: 'login', pathMatch: 'full', component: LoginPageComponent },
       { path: 'profile', pathMatch: 'full', component: MyProfileComponent },
       { path: 'register', pathMatch: 'full', component: RegisterPageComponent },
+      { path: 'profileSettings', pathMatch: 'full', component: ProfileSettingComponent },
     ]),
   ],
   declarations: [
@@ -49,6 +51,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MyProfileComponent,
     MyTicketsListComponent,
     MyTicketsBlockComponent,
+    ProfileSettingComponent,
   ],
   exports: [
     EditUserComponent,
@@ -57,6 +60,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MyProfileComponent,
     MyTicketsListComponent,
     MyTicketsBlockComponent,
+    ProfileSettingComponent,
   ],
 })
 export class PublicUserProfileModule {}

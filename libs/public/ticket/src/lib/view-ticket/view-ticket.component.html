@@ -1,1 +1,57 @@
-<p>view-ticket works!</p>
+<div class="ticketContainer">
+    <mat-divider>
+    </mat-divider>
+    <div class="userInformation mt-3">
+        <div class="avatar">
+                <img class="avatarImage" src="assets/user-solid.svg" alt="avatar">
+        </div>
+        <div class="personalInformation">
+            {{user.name}}
+        </div>
+    </div>
+    <div class="mt-3">
+        <mat-divider>
+        </mat-divider>
+    </div>
+    <div class="ticketInformation mt-3">
+        <div class="flexContainer">
+            <div class="flexBox">
+                <div class="ticketType">
+                    {{ticket.ticketType}}
+                </div>
+                <div class="ticketLocation">
+                    <img class="pin_location" src="assets/location-pin-solid.svg" alt="">
+                    {{ticket.ticketStreetAddress}}
+                </div>
+                <div class="ticketStatus">
+                    <i>{{ticket.ticketStatus}}</i>
+                </div>
+            </div>
+            <div class="flexBoxSettings">
+                <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item *ngIf="user.id.toString() === userId" [routerLink]="['/editTicket', {id:ticket.ticketId}]">Edit</button>
+                    <button mat-menu-item *ngIf="user.id.toString() !== userId">Report</button>
+                </mat-menu>
+            </div>
+        </div>
+
+        <div class="issueImageContainer mt-3 mb-3">
+            <img class="issueImage" src="assets/{{ticket.ticketImg}}" alt="issue_image" onerror="this.src='assets/image-solid.svg'">
+        </div>
+        <div class="ticketDescription">
+            {{ticket.ticketDescription}}
+        </div>
+        <div class="minorTicketInformation mt-4 mb-3">
+            <div class="ticketUpvote">
+                <img class="ticketUpvoteImage" src="assets/circle-up-solid.svg" alt="upvoteIcon">
+                {{ticket.ticketUpvotes}}
+            </div>
+            <div class="ticketDate">
+                {{ticket.ticketCreateDate | date: 'dd/MM/yyyy hh:mm'}}
+            </div>
+        </div>
+    </div>
+    <mat-divider>
+    </mat-divider>
+</div>

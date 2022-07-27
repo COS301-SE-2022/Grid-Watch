@@ -3,6 +3,7 @@ import {techteams} from './techteams';
 import {admins} from './admins';
 import {users} from './users';
 import {subtasks} from './subtasks';
+import {pictures} from './pictures';
 import {PrismaClient} from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -18,6 +19,12 @@ async function main(){
     for (let ticket of tickets){
         await prisma.ticket.create({
             data: ticket,
+        })
+    } 
+
+    for (let picture of pictures){
+        await prisma.picture.create({
+            data: picture,
         })
     } 
 

@@ -43,7 +43,7 @@ export class UpdateAdminCitiesHandler implements ICommandHandler<UpdateAdminCiti
 
     async execute(command: UpdateAdminCitiesCommand){
         const{adminId,adminCities} = command;
-        return this.repository.updateAdmin(adminId,adminCities);
+        return this.repository.updateAdminCities(adminId,adminCities);
     }
 }
 

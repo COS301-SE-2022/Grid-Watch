@@ -1,47 +1,29 @@
-<!-- <div class="container">
-    <table class="table table-hover mt-5">
-        <thead>
-          <tr>
-            <th>Date Created</th>
-            <th>Issue Type</th>
-            <th>Location</th>
-            <th>city</th>
-            <th>status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr  *ngFor="let ticket of tickets, index as i" (click)="viewTicket(ticket.ticketId)" id="option{{i}}">
-            <div class="d-none"></div>
-            <td>{{ticket.ticketCreateDate.toLocaleString()}}</td>
-            <td>{{ticket.ticketType}}</td>
-            <td>{{ticket.ticketLocation}}</td>
-            <td>{{ticket.ticketCity}}</td>
-            <td>{{ticket.ticketStatus}}</td>
-          </tr>
-        </tbody>
-      </table>
-</div> -->
-<div class="grid-container">
-  <h2>Available Tickets</h2>
-  <mat-card class="ticketCards" *ngFor="let ticket of tickets, index as i" (click)="viewTicket(ticket.ticketId)" id="option{{i}}">
-    <mat-card-content>
-      <div class="title">
-        {{ticket.ticketType}}
-      </div>
-      <div class="location">
-        <span class="material-icons">person_pin_circle</span>
-        {{ticket.ticketLocation}}
-      </div>
-      <div class="ticketInformation">
-        <div class="status">
+
+<mat-card class="mt-2 cards {{ticketStatus[i]}}" *ngFor="let ticket of tickets, index as i" >
+  <mat-grid-list cols = "12" rowHeight = "30px">
+      <mat-grid-tile (click)="goToTicket(ticket.ticketId.toString())" colspan ="2" rowspan="2">
+          <img  [ngClass] = "'ticketImg'" src="{{ticketImages[i]}}" onerror="this.src='assets/solid_example.png'">
+      </mat-grid-tile>
+      <mat-grid-tile (click)="goToTicket(ticket.ticketId.toString())" colspan="8" class="citizenName">
+          {{ticket.ticketType}}             
+      </mat-grid-tile>
+      <mat-grid-tile rowspan = "1" colspan="2">
+          {{ticket.ticketUpvotes}}  &nbsp; <img class="upvote_img" src="assets/circle-up-solid.svg" alt="upvote icon">      
+      </mat-grid-tile>     
+      <mat-grid-tile (click)="goToTicket(ticket.ticketId.toString())" colspan="8" class="ml-5 mr-5" style="text-align: center;font-size: small;">            
+          <img class="pin_location" src="assets/location-pin-solid.svg" alt="">
+          <span class="location_heading">&ensp;{{ticket.ticketCity}}</span>
+      </mat-grid-tile>
+      <mat-grid-tile rowspan = "1" colspan="2" (click)="goToTicket(ticket.ticketId.toString())">
+      </mat-grid-tile>     
+      <mat-grid-tile colspan = "3" class="smallInformation" (click)="goToTicket(ticket.ticketId.toString())">
+          {{ticketDates[i]}}
+      </mat-grid-tile>
+      <mat-grid-tile colspan = "6" (click)="goToTicket(ticket.ticketId.toString())">
+      </mat-grid-tile>
+      <mat-grid-tile colspan = "3" class = "truncate smallInformation" (click)="goToTicket(ticket.ticketId.toString())">
           {{ticket.ticketStatus}}
-        </div>
-        <div class="dateCreated">
-          <i>
-            {{ticket.ticketCreateDate.toLocaleString()}}
-          </i>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+      </mat-grid-tile>
+      <!--<mat-grid-tile colspan="2"><a [ngClass] = "'ticketEdit'" [routerLink]="['/editTicket', {id:ticket.ticketId}]">Edit </a></mat-grid-tile>-->
+  </mat-grid-list>
+</mat-card>

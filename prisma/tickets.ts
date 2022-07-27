@@ -3,74 +3,73 @@ export const tickets = [
         ticketStatus : "In Progress",
         //ticketCreateDate : "2022/07/11",
         ticketType :  "Pothole",        
-        ticketCity :  "Pretoria",            
-        ticketLocation : "",    //place-id  
-        ticketLong   : -25.7534,
-        ticketLat   : 28.2359,
-        ticketStreetAddress: "1123 South St",
+        ticketCity :  "Centurion",            
+        ticketLocation : "ChIJpRlQSVZmlR4RLEC2P8aRaAA",    //place-id  
+        ticketLong   : -25.854438,
+        ticketLat   : 28.244657,
+        ticketStreetAddress: "79 Silk Oak Drive",
        // ticketCost : 25000,           
         ticketDescription : "There is a large pothole in the middle of the road",    
         //ticketRepairTime :  55600,    
         ticketUpvotes : 0,   
-        userId  : 2
+        userId  : 1
     },
     {
         ticketStatus : "Opened",
        // ticketCreateDate : "2022/07/11",
         ticketType :  "Electricity",        
         ticketCity :  "Pretoria",            
-        ticketLocation : "",      //place-id
-        ticketLong   : -25.7534,
-        ticketLat   : 28.2359,
-        ticketStreetAddress: "1123 South St",
+        ticketLocation : "ChIJpXRg_qdhlR4R1DT1kBrZ3C4",      //place-id
+        ticketLong   : -25.766522,
+        ticketLat   : 28.240386,
+        ticketStreetAddress: "245 Marais Street",
         // ticketCost : 25000,           
         ticketDescription : "There is a power outage",    
         // ticketRepairTime :  55600,    
         ticketUpvotes : 0, 
-        userId  : 2
+        userId  : 1
     },
     {
         ticketStatus : "Opened",
-       // ticketCreateDate : "2022/07/11",
+        // ticketCreateDate : "2022/07/11",
         ticketType :  "Water",        
-        ticketCity :  "Hatfield",            
-        ticketLocation : "",      //place-id
-        ticketLong   : -25.7534,
-        ticketLat   : 28.2359,
-        ticketStreetAddress: "1123 South St",
+        ticketCity :  "Pretoria",            
+        ticketLocation : "EjU0NDEgMzJuZCBBdmUsIFZpbGxpZXJpYSwgUHJldG9yaWEsIDAxODYsIFNvdXRoIEFmcmljYSIxEi8KFAoSCdEnNGFj378eEbm-ZvzjYIDJELkDKhQKEgl1sgldbt-_HhGtS9PommuXHA",      //place-id
+        ticketLong   : -25.718520,
+        ticketLat   : 28.239241,
+        ticketStreetAddress: "441 32 Avenue",
         // ticketCost : 25000,           
-        ticketDescription : "A pipe has burst outside my house",    
+        ticketDescription : "The entire road is flooded ",    
         // ticketRepairTime :  55600,    
         ticketUpvotes : 0, 
-        userId  : 2
+        userId  : 1
     },
     {
         ticketStatus : "Closed",
         ticketCreateDate : "2022-07-19T17:38:27.870Z",
         ticketType :  "Electricity",        
-        ticketCity :  "Hatfield",            
-        ticketLocation : "",      //place-id
-        ticketLong   : -25.7534,
-        ticketLat   : 28.2359,
-        ticketStreetAddress: "1123 South St",
+        ticketCity :  "Pretoria",            
+        ticketLocation : "ChIJFXn2MknYvx4RuODr3TlbaEA",      //place-id
+        ticketLong   : -25.709239,
+        ticketLat   : 28.141595,
+        ticketStreetAddress: "866 Marina Street",
         // ticketCost : 25000,           
-        ticketDescription : "A pipe has burst outside my house", 
+        ticketDescription : "I have had no electricity for 2 days", 
         ticketCloseDate : "2022-07-22T17:38:27.870Z",  
         // ticketRepairTime :  55600,    
         ticketUpvotes : 0, 
-        userId  : 2
+        userId  : 1
     },
     {
         ticketStatus : "Opened",
        // ticketCreateDate : "2022/07/11",
         ticketType :  "Water",        
-        ticketCity :  "Hatfield",            
+        ticketCity :  "Pretoria",            
         ticketLocation : "",      //place-id
-        ticketLong   : -25.7534,
-        ticketLat   : 28.2359,
-        ticketStreetAddress: "1123 South St",
+        ticketLong   : -25.750148,
+        ticketLat   : 28.133103,
         // ticketCost : 25000,           
-        ticketDescription : "A pipe has burst outside my house",    
+        ticketDescription : "A pipe has burst next to the road and the road has flooded.",    
         // ticketRepairTime :  55600,    
         ticketUpvotes : 0, 
         userId  : 2

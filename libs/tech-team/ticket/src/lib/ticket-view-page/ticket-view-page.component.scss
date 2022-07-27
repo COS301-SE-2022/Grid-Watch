@@ -1,43 +1,86 @@
-.material-icons
+img.upvote_img
 {
-    position: relative;
-    top: 6px;
+    height:80%;
 }
 
-.ticketInformation
+img.settings_icon 
 {
-    display: flex;
+    height: 25px;
 }
 
-.status
+img.pin_location
 {
-    flex: 50%;
-    // text-align: right;
+    height: 15px;
 }
 
-.dateCreated
+.cards
 {
-    flex: 50%;
+    margin-top: 2%;
+    margin-left: 5%; 
+    margin-right:5%;
+    border: 2px solid;
+}
+
+.ticketImg
+{
+    width:100%;
     text-align: right;
 }
 
-.title
+.ticketEdit
 {
-    font-size: 18px;
+    position:absolute;
+    right:0px;
+    text-decoration: none;
+    color:#8ec63f;    
 }
 
-.location
+.citizenName
 {
-    font-size: 16px;
-    margin-bottom: 5px;
+    border-bottom: 1px solid #8ec63f;
 }
 
-.ticketCards
+.sidenav-container
 {
-    margin-bottom: 10px;
+    height:20px;
 }
 
-.grid-container
+.sidenav-button
 {
-    margin: 5px;
+    float:right;
+}
+
+.truncate
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.redText
+{
+    border-color:#8ec63f;
+    border-right: 15px red solid;
+}
+
+.orangeText
+{
+    border-color:#8ec63f;
+    border-right: 15px orange solid;
+}
+
+.yellowText
+{
+    border-color:#8ec63f;
+    border-right: 15px #edcf18 solid;
+}
+
+.greentText
+{
+    border-color:#8ec63f;
+    border-color:#8ec63f;
+}
+
+.smallInformation{
+    font-size: small;
 }

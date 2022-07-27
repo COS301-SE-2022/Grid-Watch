@@ -38,6 +38,21 @@ export class ApiTicketRepositoryDataAccess {
                 
             // })
     }
+
+    async assignTechTeam(ticketId : number, techTeamId : number)
+    {
+        await this.prisma.ticket.update({
+            where:
+            {
+                ticketId: ticketId,
+            },
+            data:
+            {
+                assignedTechTeam : techTeamId,    
+            },
+        });
+
+    }
     
     async getAllTickets(){
         return await this.prisma.ticket.findMany()

@@ -184,6 +184,11 @@ export class TicketController {
     async updateTicketUpvotes(@Param() params,@Body() upvotes: string):Promise<boolean> {
         return this.apiTicketService.updateTicketUpVotes(parseInt(params.id),upvotes["upvotes"]);
     }
+    //update ticket upvotes
+    @Put('/update/assignedTeam/techTeam')
+    async assignTechTeam(@Body() info: string,):Promise<boolean> {
+        return this.apiTicketService.updateAssignedTechTeam(parseInt(info["ticketId"]),parseInt(info["techTeamId"]));
+    }
 
     @Post('/close')
     async closeTicket(@Body() ticketNum: number):Promise<boolean> {

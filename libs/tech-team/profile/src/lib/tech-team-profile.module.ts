@@ -11,6 +11,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TechTeamProfileComponent } from './tech-team-profile/tech-team-profile.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   imports: [
@@ -22,6 +25,9 @@ import { TechTeamProfileComponent } from './tech-team-profile/tech-team-profile.
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatGridListModule,
     RouterModule.forChild([
       {
         path: 'register',

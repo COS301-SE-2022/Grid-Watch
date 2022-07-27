@@ -6,6 +6,7 @@ import { TicketService } from '@grid-watch/shared-ui';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
 import { MatGridList } from '@angular/material/grid-list';
 import { NgModule } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 
@@ -27,7 +28,8 @@ export class TicketBodyComponent implements OnInit {
 
   constructor( private http: HttpClient,
               private ticketService: TicketService,
-              private googleMapsService: GoogleMapsService) {
+              private googleMapsService: GoogleMapsService,
+              private router : Router) {
 
   }
   
@@ -132,6 +134,9 @@ export class TicketBodyComponent implements OnInit {
     console.log(this.tickets);
   }
 
-  
+  goToTicket(id : string)
+  {
+    this.router.navigate(['/editTicket', {id:id}]) ;
+  }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'grid-watch-nav-bar',
@@ -11,14 +12,19 @@ export class NavBarComponent implements OnInit{
   application_type! : string | undefined;
   options! : string[];
   router_options! : string[];
+  logged! : string | null;
+  userId! : string;
 
-  constructor() 
+  constructor(
+    private router : Router
+  ) 
   {
     this.options = [];
     this.router_options = [];
   }
 
   ngOnInit(): void {
+    this.logged = localStorage.getItem("LoggedIn");
     const temp = document.getElementById("application_type");
       if (temp)
     this.application_type = temp.innerHTML;
@@ -70,5 +76,12 @@ export class NavBarComponent implements OnInit{
   dropdown() : void {
     const temp = document.getElementById("drop-down-toggle") as HTMLInputElement;
     // temp.dropdown();
+  }
+
+  logout(){
+    this.logged = "false";
+    localStorage.removeItem("adminId");
+    localStorage.setItem("LoggedIn", "false");
+    this.router.navigateByUrl("/login")
   }
 }

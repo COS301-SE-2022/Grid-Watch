@@ -14,6 +14,8 @@ export class DashboardOverviewComponent implements AfterViewInit
 
     chartTitles = ["Pothole", "Sinkhole", "Water Outage", "Electricity Outage", "Other"];
 
+    
+
     ngAfterViewInit(): void
     {
         this.initiateGraphs();
@@ -94,7 +96,7 @@ export class DashboardOverviewComponent implements AfterViewInit
         if (!e.checked)
         {
             let typeIndex: number;
-            switch(type)
+            switch (type)
             {
                 case "Pothole":
                     typeIndex = this.getTypeIndex("Pothole");
@@ -157,11 +159,12 @@ export class DashboardOverviewComponent implements AfterViewInit
         let index = -1;
         for (let i = 0; i < this.chart.config.data.datasets.length; i++) 
         {
-            if(this.chart.config.data.datasets[i].label === type)
+            if (this.chart.config.data.datasets[i].label === type)
             {
                 index = i;
-            }            
+            }
         }
         return index;
     }
+
 }

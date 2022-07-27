@@ -22,6 +22,8 @@ export class TicketService {
   private upvoteURL = '/api/ticket/update/upvotes/';
   private getPictureURL = '/api/ticket/picture/';
   private getTicketURL = '/api/ticket/';
+  private getSubtaskURL = 'api/ticket/subtasks/';
+  private createSubtaskURL = 'api/ticket/subtask/create/'
   private uploadURL = '/api/ticket/upload';
   private updateURL = '/api/ticket/update/';
   private createPictureURL = '/api/ticket/picture/create/';
@@ -58,7 +60,7 @@ export class TicketService {
       .pipe(
         catchError(this.handleError<JSON>('updateTicketRepairTime', JSON.parse('{"status":"error"}')))
       );
-  }
+  } 
 
   updateTicketCost(issueID: string, cost : number) {
     const temp = '{"cost": ' + cost + '}';
@@ -70,6 +72,32 @@ export class TicketService {
       );
   }
 
+  public getTicketSubtasks(ticketID: number)
+  {
+    const temp = '{"ticketId": ' + ticketID + '}';
+    const tempURL = this.getSubtaskURL + ticketID;
+    return this.http
+      .put<JSON>(tempURL, JSON.parse(temp), this.httpOptions)
+      .pipe(
+        catchError(this.handleError<JSON>('getSubtasksError', JSON.parse('{"status":"error"}')))
+      );
+  }
+
+  public createTicketSubtask(ticketID: number, taskDesc: string, taskStep: string, taskStat: string)
+  {
+    const temp = '{"ticketId": ' + ticketID + "," +
+    '"taskDesc": ' + '"' + taskDesc + '"' + "," +
+    '"taskStep": ' + '"' + taskStep + '"' + "," + 
+    '"taskStat": ' + '"' + taskStat + '"' + '}';
+    console.log(temp);
+    const tempURL = this.createSubtaskURL + ticketID;
+    return this.http
+      .post<JSON>(tempURL, JSON.parse(temp), this.httpOptions)
+      .pipe(
+        catchError(this.handleError<JSON>('createSubtasksError', JSON.parse('{"status":"error"}')))
+      );
+  }
+  
   public createNewTicket(ticket: TicketDto): Observable<TicketDto> {
     return this.http
       .post<TicketDto>(this.createTicketURL, ticket, this.httpOptions)
@@ -252,4 +280,6 @@ export class TicketService {
     if (b.ticketCreateDate < a.ticketCreateDate) return 1;
     else return -1;
   }
+
+  
 }

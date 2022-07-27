@@ -4,7 +4,7 @@ export const tickets = [
         //ticketCreateDate : "2022/07/11",
         ticketType :  "Pothole",        
         ticketCity :  "Centurion",            
-        ticketLocation : "",    //place-id  
+        ticketLocation : "ChIJpRlQSVZmlR4RLEC2P8aRaAA",    //place-id  
         ticketLong   : -25.854438,
         ticketLat   : 28.244657,
         ticketStreetAddress: "79 Silk Oak Drive",
@@ -19,7 +19,7 @@ export const tickets = [
        // ticketCreateDate : "2022/07/11",
         ticketType :  "Electricity",        
         ticketCity :  "Pretoria",            
-        ticketLocation : "",      //place-id
+        ticketLocation : "ChIJpXRg_qdhlR4R1DT1kBrZ3C4",      //place-id
         ticketLong   : -25.766522,
         ticketLat   : 28.240386,
         ticketStreetAddress: "245 Marais Street",
@@ -34,7 +34,7 @@ export const tickets = [
         // ticketCreateDate : "2022/07/11",
         ticketType :  "Water",        
         ticketCity :  "Pretoria",            
-        ticketLocation : "",      //place-id
+        ticketLocation : "EjU0NDEgMzJuZCBBdmUsIFZpbGxpZXJpYSwgUHJldG9yaWEsIDAxODYsIFNvdXRoIEFmcmljYSIxEi8KFAoSCdEnNGFj378eEbm-ZvzjYIDJELkDKhQKEgl1sgldbt-_HhGtS9PommuXHA",      //place-id
         ticketLong   : -25.718520,
         ticketLat   : 28.239241,
         ticketStreetAddress: "441 32 Avenue",
@@ -49,7 +49,7 @@ export const tickets = [
         ticketCreateDate : "2022-07-19T17:38:27.870Z",
         ticketType :  "Electricity",        
         ticketCity :  "Pretoria",            
-        ticketLocation : "",      //place-id
+        ticketLocation : "ChIJFXn2MknYvx4RuODr3TlbaEA",      //place-id
         ticketLong   : -25.709239,
         ticketLat   : 28.141595,
         ticketStreetAddress: "866 Marina Street",

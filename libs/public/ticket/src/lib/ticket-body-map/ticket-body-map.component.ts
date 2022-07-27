@@ -4,7 +4,6 @@ import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
 // import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { MarkerClusterer } from '@googlemaps/markerclusterer';
-import { response } from 'Express';
 
 @Component({
   selector: 'grid-watch-ticket-body-map',

@@ -100,6 +100,7 @@ model TechTeam {
   email               String?   @unique
   specialisation      String[]
   contactNumber       String    @unique @db.VarChar(10)
+  cities              String[]
   nrJobsCompleted     Int?
   ratingOfJobs        Float?
 

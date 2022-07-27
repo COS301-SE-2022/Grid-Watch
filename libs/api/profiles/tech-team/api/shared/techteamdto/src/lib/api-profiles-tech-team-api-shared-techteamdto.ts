@@ -7,6 +7,7 @@ import {
   IsPhoneNumber,
   IsAlphanumeric,
   IsDate,
+  IsArray,
 } from 'class-validator';
 
 export class TechTeamDto {
@@ -30,6 +31,10 @@ specialisation! : string[];
 @IsPhoneNumber()
 @IsNotEmpty()
 contactNumber!  : string;
+
+@IsArray()
+@IsNotEmpty()
+cities!  : string[];
 
 @IsNumber()
 @IsOptional()

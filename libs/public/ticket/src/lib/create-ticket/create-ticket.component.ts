@@ -1,10 +1,5 @@
-import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-// import { TicketController } from 'libs/api/ticket/api/src/lib/controllers/api-ticket-api-controller.controller';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Express } from 'express';
-import { Multer } from 'multer';
-import { GoogleMapsModule } from '@angular/google-maps';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { GoogleMapsService, SessionManagerService, MessageDialogComponent, PublicProfileService, TicketService } from '@grid-watch/shared-ui';
 import { Loader } from '@googlemaps/js-api-loader';
@@ -13,8 +8,6 @@ import { FloatLabelType } from '@angular/material/form-field';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
-import {generate} from 'generate-password';
-import { invalid } from '@angular/compiler/src/render3/view/util';
 
 
 @Component({
@@ -190,9 +183,6 @@ export class CreateTicketComponent{
     if (userId != null)
       this.ticket.userId = parseInt(userId);
     
-
-
-
     if (this.file)
     {
       const formData = new FormData();
@@ -225,7 +215,7 @@ export class CreateTicketComponent{
         {
           const pos = {
             lat: place.geometry?.location?.lat(),
-          lng: place.geometry?.location?.lng()
+            lng: place.geometry?.location?.lng()
           }
           
           this.createMapMarker(pos)

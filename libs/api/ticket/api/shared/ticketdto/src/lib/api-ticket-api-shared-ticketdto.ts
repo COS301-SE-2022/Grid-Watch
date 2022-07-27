@@ -68,7 +68,7 @@ ticketRepairTime! : number;
 ticketUpvotes! : number;
 
 @IsNumber()
-@IsNotEmpty()
+@IsOptional()
 userId! : number;
 
 @IsString()

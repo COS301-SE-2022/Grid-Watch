@@ -1,7 +1,6 @@
 import {IQueryHandler, QueryHandler} from '@nestjs/cqrs';
 import {CloseTicketQuery, GetCityTicketQuery, GetStatusQuery, GetTicketQuery,GetTicketsDispatchedQuery,GetTicketsQuery, GetIssueQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery, GetAllPicturesQuery, GetPictureQuery, GetAllSubtasksQuery } from './api-ticket-query.query';
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
-import { Logger } from '@nestjs/common';
 
 @QueryHandler(GetTicketQuery)
 export class GetTicketHandler implements IQueryHandler<GetTicketQuery>{

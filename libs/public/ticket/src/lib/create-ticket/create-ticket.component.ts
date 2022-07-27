@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { GoogleMapsService, SessionManagerService, MessageDialogComponent, PublicProfileService, TicketService } from '@grid-watch/shared-ui';
@@ -9,8 +8,6 @@ import { FloatLabelType } from '@angular/material/form-field';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
-import {generate} from 'generate-password';
-import { invalid } from '@angular/compiler/src/render3/view/util';
 
 
 @Component({
@@ -169,26 +166,16 @@ export class CreateTicketComponent{
       });
       return;
     }
-    const place = this.autocomplete.getPlace();
-    console.log(place)
+    
     if (this.placeID == "")
     {
-      this.placeID = place.place_id as string;
-      if(place.geometry?.location != null){
-        this.ticket.ticketLat = place.geometry?.location?.lat();
-        this.ticket.ticketLong = place.geometry?.location?.lng();
-      }
+      this.placeID = this.autocomplete.getPlace().place_id as string;
       this.ticket.ticketCity = this.googleMapsService.getAutocompleteCity(this.autocomplete.getPlace().address_components);
       this.ticket.ticketLat = this.autocomplete.getPlace().geometry?.location?.lat() || 0;
       this.ticket.ticketLong = this.autocomplete.getPlace().geometry?.location?.lng() || 0;
       console.log(this.autocomplete.getPlace());
       this.ticket.ticketStreetAddress = this.autocomplete.getPlace().formatted_address || "";
     }
-    if(place.address_components != null){
-      this.ticket.ticketStreetAddress = place.address_components[0]["long_name"]+' ' +place.address_components[1]["long_name"];
-      console.log(this.ticket.ticketStreetAddress)
-    }
-    
     this.ticket.ticketLocation = this.placeID;
     this.ticket.ticketStatus = "Created";
     this.ticket.ticketCreateDate = new Date();
@@ -196,9 +183,6 @@ export class CreateTicketComponent{
     if (userId != null)
       this.ticket.userId = parseInt(userId);
     
-
-
-
     if (this.file)
     {
       const formData = new FormData();

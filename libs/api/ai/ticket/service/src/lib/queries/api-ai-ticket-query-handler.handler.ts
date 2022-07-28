@@ -1,5 +1,5 @@
 import {IQueryHandler, QueryHandler} from '@nestjs/cqrs';
-import { GetIssueAIQuery,GetTechTeamSpecialisationQuery} from './api-ai-ticket-query.query';
+import { GetAllTicketsQuery, GetIssueAIQuery,GetTechTeamSpecialisationQuery} from './api-ai-ticket-query.query';
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
 import {ApiProfilesTechTeamRepositoryDataAccess} from '@grid-watch/api/profiles/tech-team/repository';
 
@@ -20,5 +20,16 @@ export class GetTechTeamSpecialisationHandler implements IQueryHandler<GetTechTe
     async execute(query: GetTechTeamSpecialisationQuery){
         const{specialisation} = query;
         return this.techTeamRepository.getTechTeamSpecialisation(specialisation);
+    }
+}
+
+
+@QueryHandler(GetAllTicketsQuery)
+export class GetAllTicketsHandler implements IQueryHandler<GetAllTicketsQuery>{
+    constructor(private readonly ticketRepository: ApiTicketRepositoryDataAccess){}
+
+    async execute(query: GetAllTicketsQuery){
+        
+        return this.ticketRepository.getAllTickets();
     }
 }

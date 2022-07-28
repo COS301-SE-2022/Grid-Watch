@@ -45,6 +45,11 @@ The system will also make use of predictive analytics powered by AI modules that
 
 [Coding Standards Document](https://docs.google.com/document/d/14ZgiOOHuGVIBg7ipPNieu8GqoA4tWqco2OpbXeJmOH0/edit?usp=sharing)
 
+### Technical Installation Guide
+
+[GridWatch Demo 3 Technical Installation Guide.pdf](https://github.com/COS301-SE-2022/Grid-Watch/files/9213024/GridWatch.Demo.3.Technical.Installation.Guide.pdf)
+
+
 ### User Manual
 [Grid Watch User Manual](https://drive.google.com/file/d/1Uv2K0BQI1hVqUTOibVpMgImo-9ssm-Sp/view?usp=sharing)
 

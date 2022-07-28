@@ -68,6 +68,10 @@ ticketRepairTime! : number;
 ticketUpvotes! : number;
 
 @IsNumber()
+@IsNotEmpty()
+currentSubtask! : number;
+
+@IsNumber()
 @IsOptional()
 userId! : number;
 

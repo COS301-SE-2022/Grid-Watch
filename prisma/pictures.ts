@@ -12,7 +12,7 @@ export const pictures = [
         ticketID    : 3
     },
     {
-        pictureLink :"noelectseed.jpg",
+        pictureLink :"noelecseed.jpg",
         ticketID    : 4
     },
     {

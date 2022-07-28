@@ -23,7 +23,7 @@
     <div id="description_field">
         <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
             <mat-label>Description</mat-label>
-            <textarea matInput placeholder="Description" rows="3"  [(ngModel)]="ticket.ticketDescription" required></textarea >
+            <textarea matInput placeholder="Description" rows="3"  [(ngModel)]="ticket.ticketDescription" required id="description"></textarea >
             <mat-error *ngIf="!issue.touched">{{getErrorMessage()}}</mat-error>
         </mat-form-field>      
     </div>

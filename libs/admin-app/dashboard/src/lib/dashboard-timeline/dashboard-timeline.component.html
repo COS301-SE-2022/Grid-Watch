@@ -1,29 +1,4 @@
 <div id="ticketsContainer">
-  <!-- <mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile *ngFor="let ticket of tickets">
-      <mat-card
-    class="timelineCard"
-    
-    (click)="viewTicketDetails(ticket.ticket_id)"
-  >
-    <div class="infoContainer">
-      <div class="rowContainer">
-        <div class="imageContainer">
-          <img mat-card-sm-image src="assets/pothole_example.jpg" alt="" />
-        </div>
-        <div>
-          <div>{{ticket.ticket_type}}</div>
-          <div>{{ticket.ticket_location}}</div>
-          <div>{{ticket.ticket_description}}</div>
-        </div>
-      </div>
-    </div>
-    <mat-card-footer>
-      <button mat-button>view</button>
-    </mat-card-footer>
-  </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list> -->
       <mat-card class="timelineCard" *ngFor="let ticket of tickets" (click)="viewTicketDetails(ticket.ticketId)">
         <div class="infoContainer">
           <div class="rowContainer">

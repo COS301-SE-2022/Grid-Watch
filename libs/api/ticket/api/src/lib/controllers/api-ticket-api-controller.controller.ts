@@ -260,7 +260,7 @@ export class TicketController {
     }
 
     //////////////////////////////////////////////
-    /////////////Subtask Endpionts////////////////
+    /////////////Subtask Endpoints////////////////
     //////////////////////////////////////////////
 
     //creating ticket subtasks
@@ -278,7 +278,7 @@ export class TicketController {
     //update subtask endpoint
     @Put('/subtask/update/:id')
     async updateSubtask(@Param() params, @Body() tasks): Promise<boolean>{
-        return this.apiTicketService.updateSubtask(parseInt(params.id),parseInt(tasks['ticketId']),tasks['taskDesc'],parseInt(tasks['taskStep']),tasks['tasskStat']);
+        return this.apiTicketService.updateSubtask(parseInt(params.id),parseInt(tasks['ticketId']),tasks['taskDesc'],parseInt(tasks['taskStep']),tasks['taskStat']);
     }
 
     //update subtask ticket endpoint

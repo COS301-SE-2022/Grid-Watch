@@ -32,11 +32,11 @@ export class NavBarComponent implements OnInit{
     {
       this.login_url = "/login";
       
-      this.options.push("Tickets");
+      /*this.options.push("Tickets");
       this.router_options.push("/adminViewTicket");
       
       this.options.push("Tech team");
-      this.router_options.push("/techTeam");
+      this.router_options.push("/techTeam");*/
 
       const y = document.getElementById("classIdentifier");
       if(y != null)

@@ -156,7 +156,17 @@ export class CreateTicketComponent{
     }
     const userId = localStorage.getItem("userId");
     const loggedIn = localStorage.getItem("LoggedIn");
-    if (userId == null && loggedIn === "false")
+    if (userId == null && loggedIn === null)
+    {            
+      this.showErrorMessage("Login","Not logged in, would you like to post as a guest?")
+      
+      this.dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+        this.createGuest();
+      });
+      return;
+    }
+    else if(loggedIn === "false")
     {
       this.showErrorMessage("Login","Not logged in, would you like to post as a guest?")
       

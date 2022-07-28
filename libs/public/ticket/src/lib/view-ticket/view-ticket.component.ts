@@ -10,18 +10,23 @@ import { id } from '@swimlane/ngx-charts';
   templateUrl: './view-ticket.component.html',
   styleUrls: ['./view-ticket.component.scss'],
 })
-export class ViewTicketComponent implements OnInit {
+export class ViewTicketComponent implements OnInit
+{
 
-  ticket! : TicketDto;
-  user! : UserDto;
-  userId! : string | null;
+  subtaskDescriptions: string[] = [];
+  subtaskSteps: string[] = [];
+  subtaskStatus: string [] = [];
+  ticket!: TicketDto;
+  user!: UserDto;
+  userId!: string | null;
   constructor(
-    private ticketService : TicketService,
-    private route : ActivatedRoute,
-    private profileService : PublicProfileService
-  ) {}
+    private ticketService: TicketService,
+    private route: ActivatedRoute,
+    private profileService: PublicProfileService
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {    
     this.ticket = new TicketDto();
     this.user = new UserDto();
     this.user.id = -1;
@@ -33,32 +38,54 @@ export class ViewTicketComponent implements OnInit {
         async (response) =>
         {
           this.ticket = response[0];
-          // console.log(response);
+          console.log(response);
           this.initialiseUser();
           this.initialiseImage();
+          this.getSubtasks();
         }
       )
     }
+    
   }
 
-  private initialiseUser() {
+  private getSubtasks(): void
+  {    
+    this.ticketService.getTicketSubtasks(this.ticket.ticketId).subscribe
+    (
+      (response) =>
+      {        
+        for(let i = 0; i < response.length; i++)
+        {
+          this.subtaskDescriptions.push(response[i]["taskDescription"]);
+          this.subtaskStatus.push(response[i]["taskStatus"]);
+          this.subtaskSteps.push(response[i]["taskStep"]);
+        }
+        if(response.length === 0)
+        {
+          document.getElementById("issue-container")?.classList.add("hidden");
+        }
+      }
+    );
+  }
+
+  private initialiseUser()
+  {
     this.profileService.getUser(this.ticket.userId.toString()).subscribe(
       (response) =>
       {
         this.user = response[0];
         console.log(this.user);
         console.log(this.userId);
-        
       }
     )
   }
 
-  private initialiseImage() {
-    this.ticketService.getImages(this.ticket.userId).subscribe(
+  private initialiseImage()
+  {
+    this.ticketService.getImages(this.ticket.ticketId).subscribe(
       (response) =>
       {
-        console.log(response);
-        if (response)
+        if (response[0].pictureLink)
           this.ticket.ticketImg = response[0].pictureLink;
       }
     )

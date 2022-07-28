@@ -30,7 +30,7 @@
             <div class="editTicketInformation">
                 <div class="ticket_repair_time mt-3">
                     <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
-                        <mat-label>Estimated repair time</mat-label>
+                        <mat-label>Estimated repair time (most common {{this.estTime}})</mat-label>
                         <input matInput placeholder="Estimated repair time" ngDefaultControl
                             [(ngModel)]="repair_time" />
                         <span matSuffix>hours</span>
@@ -50,11 +50,11 @@
                 </div>
                 <div class="ticket_status mt-1 mb-3">
                     <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
-                        <mat-label>Estimated cost</mat-label>
+                        <mat-label>Estimated cost (most common {{this.estCost}})</mat-label>
                         <input matInput placeholder="Estimated cost" ngDefaultControl [(ngModel)]="cost" />
                     </mat-form-field>
                 </div>
-            </div>         
+            </div>
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -71,37 +71,41 @@
                             <input [(ngModel)]="field.step" class="form-control" type="text" name="{{field.step}}" />
                         </td>
                         <td>
-                            <input [(ngModel)]="field.description" class="form-control" type="text" name="{{field.description}}" value="asd"/>
+                            <input [(ngModel)]="field.description" class="form-control" type="text"
+                                name="{{field.description}}" value="asd" />
                         </td>
                         <td>
-                            <input [(ngModel)]="field.status" class="form-control" type="text" name="{{field.status}}" />
+                            <input [(ngModel)]="field.status" class="form-control" type="text"
+                                name="{{field.status}}" />
                         </td>
                         <td>
-                            <button class="btn btn-default"  type="button" (click)="deleteFieldValue(i)">Delete</button>
+                            <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)">Delete</button>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <input class="form-control" type="text" id="newAttributeStep" [(ngModel)]="newAttribute.step" name="newAttributeCode" />
+                            <input class="form-control" type="text" id="newAttributeStep"
+                                [(ngModel)]="newAttribute.step" name="newAttributeCode" />
                         </td>
                         <td>
-                            <input class="form-control" type="text" id="newAttributeDescription" [(ngModel)]="newAttribute.description" name="newAttributeName" />
+                            <input class="form-control" type="text" id="newAttributeDescription"
+                                [(ngModel)]="newAttribute.description" name="newAttributeName" />
                         </td>
                         <td>
-                            <input class="form-control" type="text" id="newAttributeStatus" [(ngModel)]="newAttribute.status" name="newAttributePrice" />
+                            <input class="form-control" type="text" id="newAttributeStatus"
+                                [(ngModel)]="newAttribute.status" name="newAttributePrice" />
                         </td>
                         <td>
                             <button class="btn btn-default" type="button" (click)="addFieldValue()">Add</button>
                         </td>
                     </tr>
                 </tbody>
-            </table>   
+            </table>
         </mat-card-content>
         <mat-card-actions>
             <div class="buttonContainer">
                 <div class="buttons">
-                    <button mat-button (click) = "createSubtasks()">Test Create</button>
-                    <button mat-button (click)="update()">Update</button>
+                    <button mat-button (click)="update()"><b>Update</b></button>
                 </div>
             </div>
         </mat-card-actions>

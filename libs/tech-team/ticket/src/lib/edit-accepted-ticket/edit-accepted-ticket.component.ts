@@ -28,6 +28,8 @@ export class EditAcceptedTicketComponent implements OnInit
 		floatLabel: this.floatLabelControl,
 	});
 
+	estCost!: number;
+	estTime!: number;
 	issue_id!: string | null;
 	ticket: TicketDto = new TicketDto();
 	fieldArray: Array<any> = [];
@@ -64,6 +66,8 @@ export class EditAcceptedTicketComponent implements OnInit
 				this.cost = this.ticket.ticketCost;
 				this.loadImage();
 			});
+		this.getAverageRepairCost();
+		this.getAverageRepairTime();
 	}
 
 	addFieldValue()
@@ -108,22 +112,41 @@ export class EditAcceptedTicketComponent implements OnInit
 			this.ticketService.assignTechTeam(this.ticket.ticketId, parseInt(techTeamId)).subscribe(
 				(response) =>
 				{
-					console.log("something shame");
 					console.log(response);
 
 				}
 			)
 		this.showSuccessMessage('Successfully updated ticket');
 
-		this.router.navigateByUrl('/acceptedTickets');
+		this.router.navigateByUrl('/profile');
 
+	}
+
+	getAverageRepairCost()
+	{
+		this.ticketService.getAITicketCost(this.ticket).subscribe(
+			(response) =>
+			{
+				this.estCost = response;
+			}
+		);
+	}
+
+	getAverageRepairTime()
+	{
+		this.ticketService.getAITicketTime(this.ticket).subscribe(
+			(response) =>
+			{
+				this.estTime = response;
+			}
+		);
 	}
 
 	createSubtasks()
 	{
 		this.fieldArray.forEach(element => 
 		{
-			this.ticketService.createTicketSubtask(this.ticket.ticketId, "" + element.description, "" + element.step,  "" + element.status).subscribe();
+			this.ticketService.createTicketSubtask(this.ticket.ticketId, "" + element.description, "" + element.step, "" + element.status).subscribe();
 		});
 	}
 

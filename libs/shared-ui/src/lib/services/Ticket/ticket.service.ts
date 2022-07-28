@@ -33,6 +33,8 @@ export class TicketService {
   private updateRepairURL = '/api/ticket/update/repair/';
   private updateCostURL = '/api/ticket/update/cost/';
   private updateAssignedTechTeamURL = '/api/ticket/update/assignedTeam//techTeam';
+  private getAITicketCostURL = '/api/ticketAI/estimate/cost';
+  private getAITicketTimeURL = '/api/ticketAI/estimate/time';
 
   constructor(private http: HttpClient) {}
 
@@ -88,7 +90,6 @@ export class TicketService {
     '"taskDesc": ' + '"' + taskDesc + '"' + "," +
     '"taskStep": ' + '"' + taskStep + '"' + "," + 
     '"taskStat": ' + '"' + taskStat + '"' + '}';
-    console.log(temp);
     const tempURL = this.createSubtaskURL + ticketID;
     return this.http
       .post<JSON>(tempURL, JSON.parse(temp), this.httpOptions)
@@ -97,6 +98,18 @@ export class TicketService {
       );
   }
   
+  public getAITicketCost(ticket: TicketDto)
+  {
+    return this.http
+      .post<any>(this.getAITicketCostURL, ticket, this.httpOptions)
+  }
+
+  public getAITicketTime(ticket: TicketDto)
+  {
+    return this.http
+      .post<any>(this.getAITicketTimeURL, ticket, this.httpOptions)
+  }
+
   public createNewTicket(ticket: TicketDto): Observable<TicketDto> {
     return this.http
       .post<TicketDto>(this.createTicketURL, ticket, this.httpOptions)
@@ -158,7 +171,7 @@ export class TicketService {
 
       return of(result as T);
     };
-  }
+  }  
 
   public increaseUpvotes(ticketID: number, ticketUpvotes: number): void {
     const tempURL = this.upvoteURL + ticketID;

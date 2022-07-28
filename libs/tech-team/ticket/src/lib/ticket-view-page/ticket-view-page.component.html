@@ -1,4 +1,4 @@
-
+<div class="container mt-3" ><h2>Available Tickets</h2></div>
 <mat-card class="mt-2 cards {{ticketStatus[i]}}" *ngFor="let ticket of tickets, index as i" >
   <mat-grid-list cols = "12" rowHeight = "30px">
       <mat-grid-tile (click)="goToTicket(ticket.ticketId.toString())" colspan ="2" rowspan="2">

@@ -29,7 +29,7 @@ export class EditTicketComponent implements OnInit {
   autocomplete!: google.maps.places.Autocomplete;
 
   displayName! : string | null;
-  issueOptions = ["Pothole", "Sinkhole", "Broken Light", "Broken Robot", "Water Outage", "Electricity Outage", "Other"]
+  issueOptions = ["Pothole", "Sinkhole", "Broken Street Light", "Broken Traffic Light", "Water Outage", "Electricity Outage", "Other"]
   defaultUpload! : string | null;
   @Input() issue_type! : string;
   @Input() other_details! : string;
@@ -62,8 +62,7 @@ export class EditTicketComponent implements OnInit {
     
     loader.load().then(() => {
 
-      this.initMap();
-
+      
       //Get parameters
     const tempID = this.route.snapshot.paramMap.get('id');
     if (tempID)
@@ -72,6 +71,7 @@ export class EditTicketComponent implements OnInit {
           console.log(response);
           this.ticket = response[0];
           this.initialiseFields(response[0]);
+          this.initMap();
         }
       )
       
@@ -200,16 +200,17 @@ export class EditTicketComponent implements OnInit {
 
     //CHange location from PLACE ID to formatted address
     this.placeID = this.ticket.ticketLocation;
-    this.googleMapsService.getLocation(this.ticket.ticketLocation).then(
-      (response) =>
-      {
-        this.ticket.ticketLocation = response;
-      },
-      (error) =>
-      {
-        console.log(error);
-      }
-    )
+    this.ticket.ticketLocation = this.ticket.ticketStreetAddress;
+    // this.googleMapsService.getLocation(this.ticket.ticketLocation).then(
+    //   (response) =>
+    //   {
+    //     this.ticket.ticketLocation = response;
+    //   },
+    //   (error) =>
+    //   {
+    //     console.log(error);
+    //   }
+    // )
     this.waiting = false;
   }
 
@@ -223,13 +224,21 @@ export class EditTicketComponent implements OnInit {
     };
     this.map = this.googleMapsService.createMapObject("map",center,zoom)
     this.autocomplete = this.googleMapsService.createAutoCompleteObject("pac-input");
+    const pos = {
+      lat: this.ticket.ticketLat,
+      lng: this.ticket.ticketLong
+    }
+    console.log(pos);
+    
+    // this.googleMapsService.createMarkerObject(pos, this.map, this.ticket.ticketType)
+    this.createMapMarker(pos)
     google.maps.event.addListener(this.autocomplete, "place_changed" , () =>{
       const place = this.autocomplete.getPlace()
       if (place.geometry?.location !== undefined)
       {
         const pos = {
           lat: place.geometry?.location?.lat(),
-        lng: place.geometry?.location?.lng()
+          lng: place.geometry?.location?.lng()
         }
         this.createMapMarker(pos)
       }

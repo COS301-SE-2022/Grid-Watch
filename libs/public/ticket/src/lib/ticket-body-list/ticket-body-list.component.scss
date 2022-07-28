@@ -1,0 +1,86 @@
+img.upvote_img
+{
+    height:80%;
+}
+
+img.settings_icon 
+{
+    height: 25px;
+}
+
+img.pin_location
+{
+    height: 15px;
+}
+
+.cards
+{
+    margin-top: 2%;
+    margin-left: 5%; 
+    margin-right:5%;
+    border: 2px solid;
+}
+
+.ticketImg
+{
+    width:100%;
+    text-align: right;
+}
+
+.ticketEdit
+{
+    position:absolute;
+    right:0px;
+    text-decoration: none;
+    color:#8ec63f;    
+}
+
+.citizenName
+{
+    border-bottom: 1px solid #8ec63f;
+}
+
+.sidenav-container
+{
+    height:20px;
+}
+
+.sidenav-button
+{
+    float:right;
+}
+
+.truncate
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.redText
+{
+    border-color:#8ec63f;
+    border-right: 15px red solid;
+}
+
+.orangeText
+{
+    border-color:#8ec63f;
+    border-right: 15px orange solid;
+}
+
+.yellowText
+{
+    border-color:#8ec63f;
+    border-right: 15px #edcf18 solid;
+}
+
+.greentText
+{
+    border-color:#8ec63f;
+    border-color:#8ec63f;
+}
+
+.smallInformation{
+    font-size: small;
+}

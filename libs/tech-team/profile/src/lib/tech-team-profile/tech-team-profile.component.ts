@@ -127,7 +127,9 @@ export class TechTeamProfileComponent implements OnInit {
   logout()
   {
     console.log("logout");
-    
+    localStorage.removeItem("techTeamID");
+    localStorage.setItem("loggedIn", "false");
+    this.router.navigateByUrl("/login")
   }
 
   goToTicket(id : string)

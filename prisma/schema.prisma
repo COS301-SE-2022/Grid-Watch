@@ -49,10 +49,12 @@ model Ticket {
   ticketRepairTime    Int?
   ticketUpvotes       Int
 
+  currentSubtask      Int?      
+
   techTeam            TechTeam? @relation(fields: [assignedTechTeam] , references: [id])
   assignedTechTeam    Int?
 
-  user                User? @relation(fields: [userId] , references: [id], onDelete: Cascade) // user who created ticket
+  user                User?     @relation(fields: [userId] , references: [id], onDelete: Cascade) // user who created ticket
   userId              Int?
 
   Subtasks            Subtasks[]

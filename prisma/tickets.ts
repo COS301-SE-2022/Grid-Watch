@@ -10,8 +10,9 @@ export const tickets = [
         ticketStreetAddress: "79 Silk Oak Drive",
        // ticketCost : 25000,           
         ticketDescription : "There is a large pothole in the middle of the road",    
-        //ticketRepairTime :  55600,    
-        ticketUpvotes : 0,   
+        //ticketRepairTime :  55600, 
+        currentSubtask  : 1,   
+        ticketUpvotes : 0,
         userId  : 1
     },
     {
@@ -69,7 +70,7 @@ export const tickets = [
         ticketLong   : -25.750148,
         ticketLat   : 28.133103,
         // ticketCost : 25000,           
-        ticketDescription : "A pipe has burst next to the road and the road has flooded.",    
+        ticketDescription : "A pipe has burst next to the road and the left lane is flooded.",    
         // ticketRepairTime :  55600,    
         ticketUpvotes : 0, 
         userId  : 2

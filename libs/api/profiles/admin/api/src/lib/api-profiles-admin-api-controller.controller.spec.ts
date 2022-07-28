@@ -169,13 +169,13 @@ describe('ApiProfilesAdminApiController', () => {
   describe('AddAdminCity',()=>{
       it('should return Admins',async ()=>{
         jest
-        .spyOn(controller,'AddAdminCity')
+        .spyOn(controller,'addAdminCity')
         .mockImplementation(():Promise<void>=>Promise.resolve())
-        expect(await controller.AddAdminCity(2,"Pretoria")).toBeUndefined()
+        expect(await controller.addAdminCity(2,"Pretoria")).toBeUndefined()
       });
       it('should return null', async () => {
-        jest.spyOn(controller, 'AddAdminCity').mockResolvedValue(null); 
-        expect(await controller.AddAdminCity(2,"Pretoria")).toEqual(null);
+        jest.spyOn(controller, 'addAdminCity').mockResolvedValue(null); 
+        expect(await controller.addAdminCity(2,"Pretoria")).toEqual(null);
       });
   })  
 

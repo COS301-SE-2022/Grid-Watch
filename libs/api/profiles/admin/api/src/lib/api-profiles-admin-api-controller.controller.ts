@@ -33,6 +33,18 @@ export class ApiProfilesAdminApiController {
         return this.apiAdminService.getAdmin(parseInt(params.id));
     }
 
+    //get endpiont to return all admins
+    @Get('/all')
+    async getAllAdmins(){
+        return this.apiAdminService.getAllAdmins();
+    }
+
+    //search admin name endpoint
+    @Get('/name/:name')
+    async searchAdminName(@Param() params){
+        return this.apiAdminService.searchAdminName(params.name);
+    }
+
     //get endpoint to return a admin with a specific name
     @Get('name/:name')
     async getAdminName(@Param() params){

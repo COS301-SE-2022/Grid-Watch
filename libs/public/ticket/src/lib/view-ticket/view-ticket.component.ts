@@ -38,7 +38,7 @@ export class ViewTicketComponent implements OnInit
         async (response) =>
         {
           this.ticket = response[0];
-          // console.log(response);
+          console.log(response);
           this.initialiseUser();
           this.initialiseImage();
           this.getSubtasks();
@@ -82,11 +82,10 @@ export class ViewTicketComponent implements OnInit
 
   private initialiseImage()
   {
-    this.ticketService.getImages(this.ticket.userId).subscribe(
+    this.ticketService.getImages(this.ticket.ticketId).subscribe(
       (response) =>
       {
-        console.log(response);
-        if (response)
+        if (response[0].pictureLink)
           this.ticket.ticketImg = response[0].pictureLink;
       }
     )

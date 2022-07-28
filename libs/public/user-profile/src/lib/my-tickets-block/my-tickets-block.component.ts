@@ -33,21 +33,36 @@ export class MyTicketsBlockComponent implements OnInit {
       this.ticketService.getTickets().subscribe(
         (response) => {
           this.tickets = response;
+          this.getImage();
           this.tickets = this.tickets.filter((ticket) => {
             const userId = localStorage.getItem("userId");
             if (userId)
               return ticket.userId === parseInt(userId);
             else
               return false;
+          
           });
         }
       )
       
       }, (error) =>{console.log(error);
       });
-    
+      
   }
 
+  getImage()
+  {
+    for(let i = 0; i < this.tickets.length; i++)
+    {
+      this.ticketService.getImages(this.tickets[i].ticketId).subscribe(
+        (response) =>
+        {
+          this.tickets[i].ticketImg = response[0].pictureLink;
+        }
+      );
+    }
+    
+  }
     
   goToTicket(id : string)
   {

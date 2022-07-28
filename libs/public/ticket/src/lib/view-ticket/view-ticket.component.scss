@@ -3,6 +3,11 @@
     position: relative;
 }
 
+.hidden
+{
+    display:none;
+}
+
 .avatar{
     flex: 15%;
 }
@@ -63,4 +68,10 @@ display: flex;
 
 .flexBoxSettings{
     flex: 5%;
+}
+
+.mat-grid-tile
+{
+    justify-content: flex-start !important ;
+    align-items: flex-start !important;
 }

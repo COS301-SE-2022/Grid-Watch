@@ -74,10 +74,9 @@ export class TicketService {
 
   public getTicketSubtasks(ticketID: number)
   {
-    const temp = '{"ticketId": ' + ticketID + '}';
     const tempURL = this.getSubtaskURL + ticketID;
     return this.http
-      .put<JSON>(tempURL, JSON.parse(temp), this.httpOptions)
+      .get<any>(tempURL)
       .pipe(
         catchError(this.handleError<JSON>('getSubtasksError', JSON.parse('{"status":"error"}')))
       );

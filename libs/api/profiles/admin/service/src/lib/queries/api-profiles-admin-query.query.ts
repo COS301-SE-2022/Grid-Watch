@@ -17,3 +17,11 @@ export class GetAdminEmailQuery{
 export class GetAdminCityQuery{
     constructor(public readonly adminCity){}
 }
+
+export class GetAllAdminsQuery{
+
+}
+
+export class SearchAdminNameQuery{
+    constructor(public readonly partial){}
+}

@@ -183,7 +183,7 @@ describe('ApiProfilesAdminService', () => {
        jest
        .spyOn(service,'verifyAdminPassword')
        .mockImplementation(():Promise<boolean> => Promise.resolve(true));
-       expect(await service.verifyAdminPassword(adminDtoMock)).toEqual(true)
+       expect(await service.verifyAdminPassword(adminDtoMock.email,adminDtoMock.password)).toEqual(true)
      })
    })
 

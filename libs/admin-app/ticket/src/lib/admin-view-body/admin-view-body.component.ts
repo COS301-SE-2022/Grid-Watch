@@ -171,6 +171,7 @@ export class AdminViewBodyComponent implements OnInit {
     newTicket.ticketId = temp.ticketId;
     newTicket.ticketImg = temp.ticketImg;
     newTicket.ticketLocation = temp.ticketLocation;
+    newTicket.ticketStreetAddress = temp.ticketStreetAddress;
     newTicket.ticketRepairTime = temp.ticketRepairTime;
     newTicket.ticketStatus = temp.ticketStatus;
     newTicket.ticketType = temp.ticketType;
@@ -254,4 +255,6 @@ export class AdminViewBodyComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.ticketsPERM);
     this.table.renderRows();
   }
+
+  
 }

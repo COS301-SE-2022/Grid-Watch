@@ -31,11 +31,11 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
     const logged = localStorage.getItem
     this.techProfile = new TechTeamDto();
-    this.techProfile.name = 'TestCompany3';
-    this.techProfile.email = 'TestCompany34@gmail.com';
-    this.techProfile.contactNumber = '0844521545';
-    this.techProfile.password = 'GFBSHAF';
-    this.techProfile.passwordSalt = '';
+    // this.techProfile.name = 'TestCompany3';
+    // this.techProfile.email = 'TestCompany34@gmail.com';
+    // this.techProfile.contactNumber = '0844521545';
+    // this.techProfile.password = 'GFBSHAF';
+    // this.techProfile.passwordSalt = '';
     this.techProfile.dateCreated = new Date();
     this.techProfile.specialisation = [];
     console.log(this.techProfile);

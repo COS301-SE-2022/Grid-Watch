@@ -15,7 +15,7 @@ import { PublicUserProfileModule } from 'libs/public/user-profile/src';
 
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomePageBodyComponent },
+  { path: 'home', component: TicketBodyComponent },
   // { path: 'tickets', component: TicketBodyComponent },
   // { path: 'createTicket', component: CreateTicketComponent },
 ];

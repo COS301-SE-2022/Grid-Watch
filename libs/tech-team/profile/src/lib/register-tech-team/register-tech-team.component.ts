@@ -42,11 +42,11 @@ export class RegisterTechTeamComponent implements OnInit{
 
   ngOnInit(): void {
    this.techProfile = new TechTeamDto();
-   this.techProfile.name = "TestCompany3"
-   this.techProfile.email = "TestCompany34@gmail.com"
-   this.techProfile.contactNumber = "0844521535";
-   this.techProfile.password = "GFBSHAF";
-   this.confirmPassword = "GFBSHAF";
+  //  this.techProfile.name = "TestCompany3"
+  //  this.techProfile.email = "TestCompany34@gmail.com"
+  //  this.techProfile.contactNumber = "0844521535";
+  //  this.techProfile.password = "GFBSHAF";
+  //  this.confirmPassword = "GFBSHAF";
    this.techProfile.specialisation = [];
    this.specialisationSelected = []
       for (let k = 0; k < this.issue_options.length; k++) {

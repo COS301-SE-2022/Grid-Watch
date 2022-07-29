@@ -43,10 +43,8 @@ jobs:
       # - name: Running nx affected e2e
 
       - name: Running nx affected e2e
-        uses: cypress-io/github-action@v4
         with:
-          build: npm run build
-          start: npm start
+          start: nx run api:serve
         run: yarn nx affected --target=e2e 
 
   Test-All:

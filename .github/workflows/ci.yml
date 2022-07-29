@@ -40,11 +40,8 @@ jobs:
       - name: Running nx affected build
         run: yarn nx affected --target=build --parallel=3
 
-               
-      - name: serve API
-        run: yarn nx run api:serve
-
       - name: Running nx affected e2e
+        run: yarn nx run api:serve
         run: yarn nx affected --target=e2e 
 
   Test-All:

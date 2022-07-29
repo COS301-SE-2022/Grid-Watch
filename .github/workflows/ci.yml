@@ -40,7 +40,13 @@ jobs:
       - name: Running nx affected build
         run: yarn nx affected --target=build --parallel=3
 
+      # - name: Running nx affected e2e
+
       - name: Running nx affected e2e
+        uses: cypress-io/github-action@v4
+        with:
+          build: npm run build
+          start: npm start
         run: yarn nx affected --target=e2e 
 
   Test-All:

@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TicketViewDetailsComponent } from './ticket-view-details/ticket-view-details.component';
 import { AcceptedTicketViewComponent } from './accepted-ticket-view/accepted-ticket-view.component';
 import { EditAcceptedTicketComponent } from './edit-accepted-ticket/edit-accepted-ticket.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,6 +26,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   imports: [
+    ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
     FormsModule,

@@ -1,5 +1,5 @@
 import {IQueryHandler, QueryHandler} from '@nestjs/cqrs';
-import {GetAdminCellNrQuery,GetAdminCityQuery,GetAdminEmailQuery,GetAdminNameQuery,GetAdminQuery} from './api-profiles-admin-query.query';
+import {SearchAdminNameQuery,GetAllAdminsQuery,GetAdminCellNrQuery,GetAdminCityQuery,GetAdminEmailQuery,GetAdminNameQuery,GetAdminQuery} from './api-profiles-admin-query.query';
 import { ApiProfilesAdminRepositoryDataAccess} from '@grid-watch/api/profiles/admin/repository';
 
 @QueryHandler(GetAdminCellNrQuery)
@@ -13,6 +13,27 @@ export class GetAdminCellNrHandler implements IQueryHandler<GetAdminCellNrQuery>
     }
 
 
+}
+
+@QueryHandler(SearchAdminNameQuery)
+export class SearchAdminNameHandler implements IQueryHandler<SearchAdminNameQuery>{
+    constructor(private readonly repository: ApiProfilesAdminRepositoryDataAccess ){}
+
+    async execute(query: SearchAdminNameQuery){
+        const {partial} = query;
+        return this.repository.searchAdminName(partial);
+
+    }
+}
+
+@QueryHandler(GetAllAdminsQuery)
+export class GetAllAdminsHandler implements IQueryHandler<GetAllAdminsQuery>{
+    constructor(private readonly repository: ApiProfilesAdminRepositoryDataAccess ){}
+
+    async execute(){
+        return this.repository.getAllAdmins();
+
+    }
 }
 
 @QueryHandler(GetAdminCityQuery)

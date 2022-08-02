@@ -22,6 +22,8 @@ export class TicketService {
   private upvoteURL = '/api/ticket/update/upvotes/';
   private getPictureURL = '/api/ticket/picture/';
   private getTicketURL = '/api/ticket/';
+  private getSubtaskURL = 'api/ticket/subtasks/';
+  private createSubtaskURL = 'api/ticket/subtask/create/'
   private uploadURL = '/api/ticket/upload';
   private updateURL = '/api/ticket/update/';
   private createPictureURL = '/api/ticket/picture/create/';
@@ -31,6 +33,8 @@ export class TicketService {
   private updateRepairURL = '/api/ticket/update/repair/';
   private updateCostURL = '/api/ticket/update/cost/';
   private updateAssignedTechTeamURL = '/api/ticket/update/assignedTeam//techTeam';
+  private getAITicketCostURL = '/api/ticketAI/estimate/cost';
+  private getAITicketTimeURL = '/api/ticketAI/estimate/time';
 
   constructor(private http: HttpClient) {}
 
@@ -58,7 +62,7 @@ export class TicketService {
       .pipe(
         catchError(this.handleError<JSON>('updateTicketRepairTime', JSON.parse('{"status":"error"}')))
       );
-  }
+  } 
 
   updateTicketCost(issueID: string, cost : number) {
     const temp = '{"cost": ' + cost + '}';
@@ -68,6 +72,42 @@ export class TicketService {
       .pipe(
         catchError(this.handleError<JSON>('updateTicketRepairTime', JSON.parse('{"status":"error"}')))
       );
+  }
+
+  public getTicketSubtasks(ticketID: number)
+  {
+    const tempURL = this.getSubtaskURL + ticketID;
+    return this.http
+      .get<any>(tempURL)
+      .pipe(
+        catchError(this.handleError<JSON>('getSubtasksError', JSON.parse('{"status":"error"}')))
+      );
+  }
+
+  public createTicketSubtask(ticketID: number, taskDesc: string, taskStep: string, taskStat: string)
+  {
+    const temp = '{"ticketId": ' + ticketID + "," +
+    '"taskDesc": ' + '"' + taskDesc + '"' + "," +
+    '"taskStep": ' + '"' + taskStep + '"' + "," + 
+    '"taskStat": ' + '"' + taskStat + '"' + '}';
+    const tempURL = this.createSubtaskURL + ticketID;
+    return this.http
+      .post<JSON>(tempURL, JSON.parse(temp), this.httpOptions)
+      .pipe(
+        catchError(this.handleError<JSON>('createSubtasksError', JSON.parse('{"status":"error"}')))
+      );
+  }
+  
+  public getAITicketCost(ticket: TicketDto)
+  {
+    return this.http
+      .post<any>(this.getAITicketCostURL, ticket, this.httpOptions)
+  }
+
+  public getAITicketTime(ticket: TicketDto)
+  {
+    return this.http
+      .post<any>(this.getAITicketTimeURL, ticket, this.httpOptions)
   }
 
   public createNewTicket(ticket: TicketDto): Observable<TicketDto> {
@@ -131,7 +171,7 @@ export class TicketService {
 
       return of(result as T);
     };
-  }
+  }  
 
   public increaseUpvotes(ticketID: number, ticketUpvotes: number): void {
     const tempURL = this.upvoteURL + ticketID;
@@ -252,4 +292,6 @@ export class TicketService {
     if (b.ticketCreateDate < a.ticketCreateDate) return 1;
     else return -1;
   }
+
+  
 }

@@ -29,8 +29,6 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.admin = new AdminDto();
-    this.admin.email = "test4@gmail.com"
-    this.admin.password = "1234567"
   }
 
   getFloatLabelValue(): FloatLabelType {
@@ -65,8 +63,7 @@ export class LoginPageComponent implements OnInit {
         console.log(response);
         localStorage.setItem("LoggedIn", "true");
         localStorage.setItem("adminId", response[0].id.toString() );
-        this.router.navigateByUrl("/profile");
-        
+        this.router.navigateByUrl("/profile");        
       }
     )
   }

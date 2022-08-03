@@ -4,6 +4,7 @@ import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
 // import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { MarkerClusterer } from '@googlemaps/markerclusterer';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'grid-watch-ticket-body-map',
@@ -22,7 +23,8 @@ export class TicketBodyMapComponent implements OnInit {
   infoWindow!: google.maps.InfoWindow;
   constructor(
     private googleMapsService: GoogleMapsService,
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private router : Router
   ) {}
 
   ngOnInit(): void {
@@ -65,32 +67,39 @@ export class TicketBodyMapComponent implements OnInit {
         disableAutoPan: true,
       });
 
-      // Create an array of alphabetical characters used to label the markers.
-      const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-      // Add some markers to the map.
       const markers = this.locations.map((position, i) => {
-        // const label = this.tickets[i].ticketType.charAt(0);
-        const icon = "https://developers.google.com/maps/documentation/javascript/examples/full/images/library_maps.png";
+        // const icon = "https://developers.google.com/maps/documentation/javascript/examples/full/images/library_maps.png";
         const label = "";
         const marker = new google.maps.Marker({
           position,
-          label,
-          icon
+          label
         });
 
-        // markers can only be keyboard focusable when they have click listeners
-        // open info window when marker is clicked
         marker.addListener('click', () => {
-          infoWindow.setContent(this.tickets[i].ticketType);
+          // const html = 
+          // `<div> 
+          //   ${this.tickets[i].ticketType}
+          //   <button (click)="test()">View</button>
+          // </div>`;
+          const html = document.createElement("div");
+          html.innerHTML = this.tickets[i].ticketType;
+          html.onclick = () =>{
+            this.router.navigate(['/viewTicket', {id:this.tickets[i].ticketId}]) ;
+          };
+          infoWindow.setContent(html);
           infoWindow.open(map, marker);
         });
+
+        // infoWindow.addListener('click', () => {
+        //   this.router.navigate(['/viewTicket', {id:this.tickets[i].ticketId}]) ;
+        // });
 
         return marker;
       });
 
-      // Add a marker clusterer to manage the markers.
       new MarkerClusterer({ markers, map });
     });
   }
+
 }

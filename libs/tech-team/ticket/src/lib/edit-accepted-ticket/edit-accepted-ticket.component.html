@@ -1,190 +1,113 @@
-<!-- <div class="container">
-    <div class="card mt-4">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-12 col-lg-6">
-                    <div class="display-6 text-center">{{ticket.ticketType}}</div>
-                    <div class="picturePreview">
-                        <div class="centered_element d-flex justify-content-center" *ngIf="ticket.ticketImg === ''"> 
-                            <div class="spinner-border text-success text-center" >
-                            </div>
-                        </div>
-                        <div class="picturePreview border" *ngIf="ticket.ticketImg !== ''">
-                            <img src="assets/{{ticket.ticketImg}}" onerror="this.src='assets/solid_example.png'" alt="issue_image">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <div class="ticket_description">
-                        <b>
-                            Description : <br>
-                        </b>
-                        {{ticket.ticketDescription}}
-                    </div>
-                    <div class="ticket_create_date mt-1">
-                        <b>Create date :</b>  {{ticket.ticketCreateDate}}
-                    </div>
-                    <div class="ticket_address mt-1">
-                        <b>Address :</b> {{ticket.ticketLocation}}
-                    </div>
-                    <div class="ticket_city mt-1">
-                        <b> City:</b> {{ticket.ticketCity}}
-                    </div>
-                    <div class="ticket_repair_time mt-3">
-                        <mat-label for="repair_time" class="form-mat-label">Estimated Repair Time:</mat-label>
-                        <input type="text" class="form-control" id="repair_time" placeholder="Enter repair time" name="repair_time"  [(ngModel)]="repair_time">
-                    </div>
-                    <div class="ticket_status mt-1">
-                        <mat-label for="status" class="form-mat-label">Status:</mat-label>
-                        <select class="form-select" name="status" [(ngModel)]="status" id="ticketStatus">
-                            <option value="Accepted">Accepted</option>
-                            <option value="Awaiting Material">Awaiting material</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Finishing up">Finishing up</option>
-                            <option value="Finished">Finished</option>
-                          </select> 
-                    </div>
-                    <div class="ticket_status mt-1 mb-3">
-                        <mat-label for="repair_time" class="form-mat-label">Estimated cost:</mat-label>
-                        <input type="text" class="form-control" id="cost" placeholder="Enter estimated cost" name="repair_time" [(ngModel)]="cost" > 
-                    </div>
-                    <div class="ticket_status mt-1 mb-3">
-                        <label for="repair_time" class="form-label">Table:</label>
-                        <table class="table table-striped table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Steps</th>
-                                    <th>Description</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <input class="form-control" type="text" id="newAttributeCode" [(ngModel)]="newAttribute.code" name="newAttributeCode" />
-                                    </td>
-                                    <td>
-                                        <input class="form-control" type="text" id="newAttributeName" [(ngModel)]="newAttribute.name" name="newAttributeName" />
-                                    </td>
-                                    <td>
-                                        <input class="form-control" type="text" id="newAttributePrice" [(ngModel)]="newAttribute.price" name="newAttributePrice" />
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-default" type="button" (click)="addFieldValue()">Add</button>
-                                    </td>
-                                </tr>
-                                <tr *ngFor="let field of fieldArray; let i = index">
-                                    <td>
-                                        <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" />
-                                    </td>
-                                    <td>
-                                        <input [(ngModel)]="field.name" class="form-control" type="text" name="{{field.name}}" />
-                                    </td>
-                                    <td>
-                                        <input [(ngModel)]="field.price" class="form-control" type="text" name="{{field.price}}" />
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-default"  type="button" (click)="deleteFieldValue(i)">Delete</button>
-                                    </td>
-                                </tr>                                
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3 text-center">
-                    <button type="button" class="btn btn-outline-dark" (click)="update()" id="update_button">
-                        <div *ngIf="status === 'Finished'; then thenBlock else elseBlock"></div>
-                        <ng-template #thenBlock>Close</ng-template>
-                        <ng-template #elseBlock>Update</ng-template>
-                    </button>
-                </div>
-                <div class="col-6">
-                </div>
-                <div class="col-3 text-center">
-                    <button type="button" class="btn btn-outline-dark" (click)="back()">Back</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-
 <div class="gridContainer">
     <mat-card>
-      <mat-card-header>
-        <mat-card-title>{{ ticket.ticketType }}</mat-card-title>
-        <mat-card-subtitle>
-          <span class="material-icons">person_pin_circle</span>
-          {{ ticket.ticketStreetAddress }}
-        </mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="imageContainer">
-          <img
-            src="assets/{{ ticket.ticketImg }}"
-            alt="IssueImage"
-            onerror=""
-            *ngIf="ticket.ticketImg !== ''"
-          />
-          <div class="centeredElement" *ngIf="ticket.ticketImg === ''">
-            <mat-spinner mode="indeterminate"> </mat-spinner>
-          </div>
-        </div>
-        <div class="description">
-          {{ ticket.ticketDescription }}
-        </div>
-        <div class="ticketInformation">
-          <div class="status">
-            {{ ticket.ticketStatus }}
-          </div>
-          <div class="dateCreated" *ngIf="ticket.ticketCreateDate !== undefined">
-            <i>
-              {{ ticket.ticketCreateDate.toLocaleString() }}
-            </i>
-          </div>
-        </div>
-        <div class="editTicketInformation">
-            <div class="ticket_repair_time mt-3">
-                <!-- <mat-label for="repair_time" class="form-mat-label">Estimated Repair Time:</mat-label>
-                <input type="text" class="form-control" id="repair_time" placeholder="Enter repair time" name="repair_time"  [(ngModel)]="repair_time"> -->
-                <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
-                    <mat-label>Estimated repair time</mat-label>
-                    <input matInput placeholder="Estimated repair time" ngDefaultControl [(ngModel)]="repair_time"/>
-                    <span matSuffix>hours</span>
-                  </mat-form-field>
+        <mat-card-header>
+            <mat-card-title>{{ ticket.ticketType }}</mat-card-title>
+            <mat-card-subtitle>
+                <span class="material-icons">person_pin_circle</span>
+                {{ ticket.ticketStreetAddress }}
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="imageContainer">
+                <img src="assets/{{ ticket.ticketImg }}" alt="IssueImage" onerror="" *ngIf="ticket.ticketImg !== ''" />
+                <div class="centeredElement" *ngIf="ticket.ticketImg === ''">
+                    <mat-spinner mode="indeterminate"> </mat-spinner>
+                </div>
             </div>
-            <div class="ticket_status mt-1">
-                <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
-                    <mat-label>Status</mat-label>
-                    <mat-select placeholder="Status" ngDefaultControl [(ngModel)]="status">
-                        <mat-option value="Accepted">Accepted</mat-option>
-                        <mat-option value="Awaiting Material">Awaiting material</mat-option>
-                        <mat-option value="In Progress">In Progress</mat-option>
-                        <mat-option value="Finishing up">Finishing up</mat-option>
-                        <mat-option value="Finished">Finished</mat-option>
-                    </mat-select>
-                </mat-form-field>
+            <div class="description">
+                {{ ticket.ticketDescription }}
             </div>
-            <div class="ticket_status mt-1 mb-3">
-                <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
-                    <mat-label>Estimated cost</mat-label>
-                    <input matInput placeholder="Estimated cost" ngDefaultControl [(ngModel)]="cost"/>
-                  </mat-form-field>
+            <div class="ticketInformation">
+                <div class="status">
+                    {{ ticket.ticketStatus }}
+                </div>
+                <div class="dateCreated" *ngIf="ticket.ticketCreateDate !== undefined">
+                    <i>
+                        {{ ticket.ticketCreateDate.toLocaleString() }}
+                    </i>
+                </div>
             </div>
-        </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <div class="buttonContainer">
-          <div class="buttons">
-            <button mat-button (click)="update()">Update</button>
-          </div>
-          <!-- <div class="buttons">
-            <button mat-button>Reject</button>
-          </div> -->
-        </div>
-      </mat-card-actions>
+            <div class="editTicketInformation">
+                <div class="ticket_repair_time mt-3">
+                    <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                        <mat-label>Estimated repair time (most common {{this.estTime}})</mat-label>
+                        <input matInput placeholder="Estimated repair time" ngDefaultControl
+                            [(ngModel)]="repair_time" />
+                        <span matSuffix>hours</span>
+                    </mat-form-field>
+                </div>
+                <div class="ticket_status mt-1">
+                    <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                        <mat-label>Status</mat-label>
+                        <mat-select placeholder="Status" ngDefaultControl [(ngModel)]="status">
+                            <mat-option value="Accepted">Accepted</mat-option>
+                            <mat-option value="Awaiting Material">Awaiting material</mat-option>
+                            <mat-option value="In Progress">In Progress</mat-option>
+                            <mat-option value="Finishing up">Finishing up</mat-option>
+                            <mat-option value="Finished">Finished</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="ticket_status mt-1 mb-3">
+                    <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                        <mat-label>Estimated cost (most common {{this.estCost}})</mat-label>
+                        <input matInput placeholder="Estimated cost" ngDefaultControl [(ngModel)]="cost" />
+                    </mat-form-field>
+                </div>
+            </div>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let field of fieldArray; let i = index">
+                        <td>
+                            <!--<div style="padding-top: 10px; padding-left: 20px;">{{i+1}}</div>-->
+                            <input [(ngModel)]="field.step" class="form-control" type="text" name="{{field.step}}" />
+                        </td>
+                        <td>
+                            <input [(ngModel)]="field.description" class="form-control" type="text"
+                                name="{{field.description}}" value="asd" />
+                        </td>
+                        <td>
+                            <input [(ngModel)]="field.status" class="form-control" type="text"
+                                name="{{field.status}}" />
+                        </td>
+                        <td>
+                            <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="form-control" type="text" id="newAttributeStep"
+                                [(ngModel)]="newAttribute.step" name="newAttributeCode" />
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" id="newAttributeDescription"
+                                [(ngModel)]="newAttribute.description" name="newAttributeName" />
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" id="newAttributeStatus"
+                                [(ngModel)]="newAttribute.status" name="newAttributePrice" />
+                        </td>
+                        <td>
+                            <button class="btn btn-default" type="button" (click)="addFieldValue()">Add</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </mat-card-content>
+        <mat-card-actions>
+            <div class="buttonContainer">
+                <div class="buttons">
+                    <button mat-button (click)="update()"><b>Update</b></button>
+                </div>
+            </div>
+        </mat-card-actions>
     </mat-card>
 </div>
-

@@ -58,11 +58,6 @@ export class RegisterPageComponent implements OnInit {
 
   async register()
   {
-    this.admin.email = "test4@gmail.com"
-    this.admin.name = "testAdmin"
-    this.admin.contactNumber = "0742638570"
-    this.admin.password = "HDFVHJW"
-    this.confirmPassword = "HDFVHJW"
     this.admin.dateCreated = new Date();
     // console.log(this.admin);
     if (this.admin.password === this.confirmPassword)

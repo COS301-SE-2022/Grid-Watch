@@ -41,6 +41,7 @@ import { MessageDialogComponent } from './message-dialog/message-dialog.componen
     MenuOptionsComponent,
     AppHeaderComponent,
     MessageDialogComponent,
+    
   ],
 })
 export class SharedUiModule {}

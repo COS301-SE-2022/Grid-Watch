@@ -7,7 +7,7 @@ import { PublicTicketModule, TicketBodyComponent } from '@grid-watch/public/tick
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageBodyComponent } from '@grid-watch/public/home-page';
 import { AdminAppTicketModule } from '@grid-watch/admin-app/ticket';
-import { SharedUiModule } from '@grid-watch/shared-ui';
+import { LoggedInGuard, SharedUiModule } from '@grid-watch/shared-ui';
 
 import { profile } from 'console';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
@@ -16,6 +16,7 @@ import { PublicUserProfileModule } from 'libs/public/user-profile/src';
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: TicketBodyComponent },
+  { path: '', component: TicketBodyComponent },
   // { path: 'tickets', component: TicketBodyComponent },
   // { path: 'createTicket', component: CreateTicketComponent },
 ];
@@ -30,7 +31,7 @@ const routes: Routes = [
     SharedUiModule,
     PublicUserProfileModule,
     ],
-  providers: [ ],
+  providers: [ LoggedInGuard ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

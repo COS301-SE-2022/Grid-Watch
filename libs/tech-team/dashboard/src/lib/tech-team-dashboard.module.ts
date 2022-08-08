@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DashboardBodyComponent } from './dashboard-body/dashboard-body.component';
+import { LoggedInGuard } from '@grid-watch/shared-ui';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { DashboardBodyComponent } from './dashboard-body/dashboard-body.componen
 
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
-      {path: 'home', pathMatch: 'full', component: DashboardBodyComponent} 
+      {path: 'dashboard', pathMatch: 'full', component: DashboardBodyComponent, canActivate: [LoggedInGuard]}, 
     ]),
 
     MatGridListModule,

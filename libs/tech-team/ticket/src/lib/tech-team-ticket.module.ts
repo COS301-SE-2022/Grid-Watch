@@ -23,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { LoggedInGuard } from '@grid-watch/shared-ui';
 
 @NgModule({
   imports: [
@@ -46,21 +47,25 @@ import { MatGridListModule } from '@angular/material/grid-list';
         path: 'tickets',
         pathMatch: 'full',
         component: TicketViewPageComponent,
+        canActivate: [LoggedInGuard]
       },
       {
         path: 'ticketDetails',
         pathMatch: 'full',
         component: TicketViewDetailsComponent,
+        canActivate: [LoggedInGuard]
       },
       {
         path: 'acceptedTickets',
         pathMatch: 'full',
         component: AcceptedTicketViewComponent,
+        canActivate: [LoggedInGuard]
       },
       {
         path: 'editTicketDetails',
         pathMatch: 'full',
         component: EditAcceptedTicketComponent,
+        canActivate: [LoggedInGuard]
       },
     ]),
   ],

@@ -10,8 +10,8 @@ import { AdminAppDashboardModule, DashboardBodyComponent } from '@grid-watch/adm
 import { AdminAppProfileModule } from '@grid-watch/admin-app/profile';
 
 const routes: Routes = [
-  { path: '**', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: DashboardBodyComponent },
+  // { path: '**', redirectTo: 'home', pathMatch: 'full' },
+  // { path: 'home', component: DashboardBodyComponent },
   // { path: 'tickets', component: TicketBodyComponent },
   // { path: 'createTicket', component: CreateTicketComponent },
 ];

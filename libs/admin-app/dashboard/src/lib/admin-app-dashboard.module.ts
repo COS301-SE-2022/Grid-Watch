@@ -24,7 +24,7 @@ import { MatTabsModule } from '@angular/material/tabs'
     CommonModule,
     
     RouterModule.forChild([
-      { path: 'testing', pathMatch: 'full', component: DashboardBodyComponent },
+      // { path: 'testing', pathMatch: 'full', component: DashboardBodyComponent },
     ]),
     MatGridListModule,
     AdminAppTicketModule,

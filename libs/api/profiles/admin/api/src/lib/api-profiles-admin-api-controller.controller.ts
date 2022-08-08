@@ -23,19 +23,31 @@ export class ApiProfilesAdminApiController {
 
     //creating admin users
     @Post('/create')
-    async createTicket(@Body() admin: AdminDto){
+    async createAdmin(@Body() admin: AdminDto){
         return this.apiAdminService.createAdmin(admin);
     }
 
     //get endpiont to return a specific admin
     @Get(':id')
-    async getUser(@Param() params){
+    async getAdmin(@Param() params){
         return this.apiAdminService.getAdmin(parseInt(params.id));
+    }
+
+    //get endpiont to return all admins
+    @Get('/all')
+    async getAllAdmins(){
+        return this.apiAdminService.getAllAdmins();
+    }
+
+    //search admin name endpoint
+    @Get('/name/:name')
+    async searchAdminName(@Param() params){
+        return this.apiAdminService.searchAdminName(params.name);
     }
 
     //get endpoint to return a admin with a specific name
     @Get('name/:name')
-    async getUserName(@Param() params){
+    async getAdminName(@Param() params){
         return this.apiAdminService.getAdminName(params.name);
     }
 

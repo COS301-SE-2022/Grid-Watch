@@ -107,7 +107,7 @@ export class EditAcceptedTicketComponent implements OnInit
 		}
 		this.createSubtasks()
 
-		const techTeamId = this.sessionManager.getTechTeamID();
+		const techTeamId = this.sessionManager.getID();
 		if (techTeamId)
 			this.ticketService.assignTechTeam(this.ticket.ticketId, parseInt(techTeamId)).subscribe(
 				(response) =>

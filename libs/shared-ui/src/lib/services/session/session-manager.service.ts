@@ -20,7 +20,12 @@ export class SessionManagerService {
     localStorage.removeItem("userId");
   }
 
-  getTechTeamID(){
-    return localStorage.getItem("techTeamID")
+  getID(){
+    return localStorage.getItem("userId")
   }
+
+  getLoggedIn()
+  {
+    return localStorage.getItem("LoggedIn")
+  } 
 }

@@ -5,7 +5,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FloatLabelType } from '@angular/material/form-field';
 import { Loader } from '@googlemaps/js-api-loader';
 import { AdminDto } from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto';
-import { AdminProfileService, GoogleMapsService, MessageDialogComponent } from '@grid-watch/shared-ui';
+import { AdminProfileService, GoogleMapsService, MessageDialogComponent, SessionManagerService } from '@grid-watch/shared-ui';
 import { profile } from 'console';
 
 @Component({
@@ -39,12 +39,13 @@ export class AccountInformationComponent implements OnInit {
     private googleMapsService : GoogleMapsService, 
     private profileService : AdminProfileService,
     public dialog: MatDialog,
+    public sessionService: SessionManagerService
     ) {}
 
   ngOnInit(): void {
     this.admin = new AdminDto();
     this.adminPerm = new AdminDto();
-    this.adminId = localStorage.getItem("adminId")
+    this.adminId = this.sessionService.getID();
     if (this.adminId)
      this.profileService.getAdmin(this.adminId).subscribe(
       (response) =>{

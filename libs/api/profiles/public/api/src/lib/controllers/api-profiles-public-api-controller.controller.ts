@@ -65,30 +65,30 @@ export class ApiProfilesPublicApiController {
 
     //put endpoint to updatePassword
     @Put('/update/password/:id')
-    async updateUserPassword(@Param() params,@Body() userPassword: string):Promise<boolean> {
+    async updateUserPassword(@Param() params,@Body() userPassword: string) {
         return this.apiProfilesPublicService.updateUserPassword(parseInt(params.id),userPassword["password"]);
     }
 
     //update user endpoint
     @Put('/update/user/:id')
-    async updateUser(@Param() params,@Body() user: UserDto):Promise<boolean> {
+    async updateUser(@Param() params,@Body() user: UserDto) {
         return this.apiProfilesPublicService.updateUser(parseInt(params.id),user);
     }
 
     //update email endpoint
     @Put('/update/email/:id')
-    async updateUserEmail(@Param() params,@Body() userEmail: string):Promise<boolean>{
+    async updateUserEmail(@Param() params,@Body() userEmail: string){
         return this.apiProfilesPublicService.updateUserEmail(parseInt(params.id),userEmail["email"]);
     }
 
     //update user name closedate
     @Put('/update/name/:id')
-    async updateUserName(@Param() params,@Body() userName: string):Promise<boolean> {
+    async updateUserName(@Param() params,@Body() userName: string) {
         return this.apiProfilesPublicService.updateUserName(parseInt(params.id),userName["name"]);
     }
 
     @Delete('/delete')
-    async deleteUser(@Body() userId: number):Promise<boolean> {
+    async deleteUser(@Body() userId: number){
         return this.apiProfilesPublicService.deleteUser(userId["userId"]);
     }
 }

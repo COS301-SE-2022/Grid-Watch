@@ -16,6 +16,8 @@ import{ GetAdminQuery,
         GetAdminCellNrQuery,
         GetAdminEmailQuery,
         GetAdminCityQuery,
+        GetAllAdminsQuery,
+        SearchAdminNameQuery,
     } from './queries/api-profiles-admin-query.query';
 import { AdminDto } from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto';
 
@@ -29,6 +31,10 @@ export class ApiProfilesAdminService {
 
     async getAdmin(adminId: number){
         return await this.queryBus.execute(new GetAdminQuery(adminId));
+    }
+
+    async getAllAdmins(){
+        return await this.queryBus.execute(new GetAllAdminsQuery());
     }
 
     async getAdminName(adminName: string){
@@ -45,6 +51,10 @@ export class ApiProfilesAdminService {
 
     async getAdminCities(adminCity: string){
         return await this.queryBus.execute(new GetAdminCityQuery(adminCity));
+    }
+
+    async searchAdminName(partial: string){
+        return await this.queryBus.execute(new SearchAdminNameQuery(partial));
     }
 
     /////////////////////////////////////////

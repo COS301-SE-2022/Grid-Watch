@@ -8,31 +8,40 @@ import { PublicProfileService } from '@grid-watch/shared-ui';
   templateUrl: './my-profile.component.html',
   styleUrls: ['./my-profile.component.scss'],
 })
-export class MyProfileComponent implements OnInit {
+export class MyProfileComponent implements OnInit
+{
 
-  @Input() user! : UserDto;
-  items = ["","","","","","","","","","",""]
-  viewSelected! : string;
+  @Input() user!: UserDto;
+  items = ["", "", "", "", "", "", "", "", "", "", ""]
+  viewSelected!: string;
   constructor(
-    private profileService : PublicProfileService,
+    private profileService: PublicProfileService,
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     this.user = new UserDto();
     this.viewSelected = "list"
     const id = localStorage.getItem("userId");
     if (id)
-    this.profileService.getUser(id).subscribe(
-      (response) =>
-      { 
-        this.user = response[0];
-        console.log(this.user);
-      }
-    )
+      this.profileService.getUser(id).subscribe(
+        (response) =>
+        {
+          this.user = response[0];
+          console.log(this.user);
+          if (this.user.email.includes("@gridwatch.com"))
+          {
+            this.user.name = "Guest";
+            this.user.email = "";
+          }
+        }
+      )
+
   }
 
-  logout() : void{
+  logout(): void
+  {
     localStorage.setItem("LoggedIn", "false");
     localStorage.removeItem("userId")
     this.router.navigateByUrl("/login");

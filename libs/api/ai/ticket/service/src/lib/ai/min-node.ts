@@ -1,7 +1,7 @@
 import { InternalNode } from "./internal-node";
 import { Node } from './node'
 
-class MinNode extends InternalNode {
+export class MinNode extends InternalNode {
 
     constructor(left : Node, right : Node){
         super(left , right);

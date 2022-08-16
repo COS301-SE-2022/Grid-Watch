@@ -1,3 +1,4 @@
+import { Node } from "./node";
 export class InternalNode extends Node{
     leftNode :  Node;
     rightNode : Node;
@@ -30,20 +31,20 @@ export class InternalNode extends Node{
 
     async setLeft(left : Node) : Promise<void> {
         this.leftNode = left;
-        this.leftNode.setDepth(this.getDepth()+1);
+        this.leftNode.setDepth(await this.getDepth()+1);
     }
 
     async setRight(right : Node) : Promise<void> {
         this.rightNode = right;
-        this.rightNode.setDepth(this.getDepth()+1);
+        this.rightNode.setDepth(await this.getDepth()+1);
     }
 
     constructor(left : Node, right : Node){
         super();
         this.leftNode = left;
-        this.leftNode.setDepth(this.getDepth()+1);
+        this.leftNode.setDepth(this.depth+1);
         this.rightNode = right;
-        this.rightNode.setDepth(this.getDepth()+1);
+        this.rightNode.setDepth(this.depth+1);
     }
 
    async left() : Promise<Node> {

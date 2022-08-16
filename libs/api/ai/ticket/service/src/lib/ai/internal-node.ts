@@ -1,6 +1,6 @@
 export class InternalNode extends Node{
-    left :  Node;
-    right : Node;
+    leftNode :  Node;
+    rightNode : Node;
     depth : number;
     fitness : number;
 
@@ -29,34 +29,32 @@ export class InternalNode extends Node{
     }
 
     async setLeft(left : Node) : Promise<void> {
-        this.left = left;
-        this.left.setDepth(this.getDepth()+1);
+        this.leftNode = left;
+        this.leftNode.setDepth(this.getDepth()+1);
     }
 
-    async setRight(Node right) : Promise<void> {
-        this.right = right;
-        this.right.setDepth(this.getDepth()+1);
+    async setRight(right : Node) : Promise<void> {
+        this.rightNode = right;
+        this.rightNode.setDepth(this.getDepth()+1);
     }
 
-    public InternalNode(Node left, Node right){
-        this.left = left;
-        this.left.setDepth(this.getDepth()+1);
-        this.right = right;
-        this.right.setDepth(this.getDepth()+1);
+    constructor(left : Node, right : Node){
+        super();
+        this.leftNode = left;
+        this.leftNode.setDepth(this.getDepth()+1);
+        this.rightNode = right;
+        this.rightNode.setDepth(this.getDepth()+1);
     }
 
-    @Override
-    public Node left() {
-        return this.left;
+   async left() : Promise<Node> {
+        return this.leftNode;
     }
 
-    @Override
-    public Node right() {
-        return this.right;
+    async right() : Promise<Node> {
+        return this.rightNode;
     }
 
-    @Override
-    public float execute() {
+    async execute() : Promise<number> {
         return 0;
     }
 

@@ -13,17 +13,17 @@ export class DivNode extends InternalNode{
     }
 
     async clone() : Promise<Node>{
-        let out :  Node = new divNode(this.leftNode.clone(),this.rightNode.clone());
+        const out :  Node = new DivNode(await this.leftNode.clone(),await this.rightNode.clone());
         out.setDepth(this.depth);
-        out.setFitness(this.getFitness());
+        out.setFitness(await this.getFitness());
         return out;
     }
 
     async execute() : Promise<number> {
-        if(this.rightNode.execute()==0){
+        if(await this.rightNode.execute()==0){
             return 0;
         }else {
-            return this.leftNode.execute()/this.rightNode.execute();
+            return await this.leftNode.execute()/await this.rightNode.execute();
         }
     }
 }

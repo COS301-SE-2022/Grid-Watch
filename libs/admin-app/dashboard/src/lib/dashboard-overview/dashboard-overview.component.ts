@@ -1,6 +1,9 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { TicketService } from '@grid-watch/shared-ui';
 import { } from 'chart.js/auto';
+import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
+import { response } from 'express';
 
 
 @Component({
@@ -10,19 +13,120 @@ import { } from 'chart.js/auto';
 })
 export class DashboardOverviewComponent implements AfterViewInit
 {
+    constructor(
+        private ticketService: TicketService,
+    ){}
+
+    tickets : Array<TicketDto> = [];
+    ticketTypes : Array<string> = [];
+    ticketTypesCount : Array<number> = [];
+    filterChecked: string[] = [];
+    sortoptions: string[] = [
+      'Original',
+      'Date',
+      'Issue',
+      'Location',
+      'City',
+      'Status',
+      'Upvotes',
+    ];
     chart!: Chart;
+    pieChart!: Chart;
 
     chartTitles = ["Pothole", "Sinkhole", "Water Outage", "Electricity Outage", "Other"];
-
-    
 
     ngAfterViewInit(): void
     {
         this.initiateGraphs();
     }
 
+    async getDatabaseData() 
+    {
+        //calculate # of different ticket types
+        let tcount = 0;
+
+        const ticketTypes:string[] = [];
+
+        if (tcount == 0){
+
+           this.ticketService.getTickets().subscribe(
+                async (response) => {
+
+                    for (let i = 0; i < response.length; i++) {
+                        if (ticketTypes.length != 0) {
+                            let bexist = false;
+                            for (let j = 0; j < ticketTypes.length; j++) {
+                                if (response[i].ticketType == ticketTypes[j]) {
+                                    bexist = true;
+                                }
+                            }
+                            if (!bexist) {
+                                ticketTypes.push(response[i].ticketType);
+                                tcount++;
+                            }
+                        } else {
+                            ticketTypes.push(response[i].ticketType);
+                            tcount++;
+                        }
+                    }
+        const ticketCount: number[] = [];
+
+                    for (let k = 0; k < ticketTypes.length; k++) {
+                        ticketCount[k] = 0;
+                    }
+
+                    for (let i = 0; i < response.length; i++) {
+                        
+                        for (let j = 0; j < ticketTypes.length; j++) {
+                            
+                            if (response[i].ticketType == ticketTypes[j]) {
+                               ticketCount[j] += 1;
+                            }
+                            
+                        }
+                        
+                    }
+
+                    const backgroundColor: string[] = [];
+
+                    for (let a = 0; a < ticketTypes.length; a++) {
+                        backgroundColor[a] = "rgb(" +(Math.random() * (255 - 0 + 1) + 0).toString() + ","+(Math.random() * (255 - 0 + 1) + 0).toString()+","+(Math.random() * (255 - 0 + 1) + 0).toString() + ")"; 
+                    }
+
+                    const typesdata = 
+                    {
+                        labels: ticketTypes,
+                        datasets:[{
+                            labels: "Types of issues",
+                            data: ticketCount,
+                            backgroundColor: backgroundColor,
+                            hoverOffset: 10
+                        }]
+                    };
+
+                     ///// Draw the piechart /////
+         const canvas1 = <HTMLCanvasElement>document.getElementById('pieChart');
+         const ctx1 = canvas1.getContext('2d');
+         
+                    if (ctx1 !== null) {
+                        this.pieChart = new Chart(ctx1,{
+                            type: 'pie',
+                            data: typesdata,
+                        })
+                    }
+                }, 
+
+            )
+            
+        }
+
+    }
+
     initiateGraphs(): void
     {
+
+        this.getDatabaseData();
+
         const labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const dataExample = {
             labels: labels,

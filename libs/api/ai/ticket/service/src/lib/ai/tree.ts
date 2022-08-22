@@ -9,13 +9,10 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {GetIssueAIQuery,GetTechTeamSpecialisationQuery,GetAllTicketsQuery} from '../queries/api-ai-ticket-query.query';
 import { TechTeam, Ticket } from '@prisma/client';
 export class Tree {
-    depth: number;
-    fileName : string;
-
-    constructor(depth :number,fileName : string){
+    depth: Number;
+    constructor(depth : Number){
 
         this.depth = depth;
-        this.fileName = fileName;
     }
 
     async generateRandTree(): Promise<Node>{
@@ -101,8 +98,10 @@ export class Tree {
     async crossOver(parent1 : Node,parent2 : Node): Promise<Node[]>{
         //select random level
         const levels : number = Math.min(await this.getLevels(parent1),await this.getLevels(parent2));//between level 1 and the last level-1
+        
         const root1 : Node = await parent1.clone();
         const root2 : Node = await parent2.clone();
+
         let p1 : Node = await this.getRandLevelNode(levels,root1);
         let p2 : Node = await this.getRandLevelNode(levels,root2);
 
@@ -222,28 +221,22 @@ export class Tree {
         return maxdepth;
     }
 
+    async getInput() : Promise<number[]>{
+        let tickets:Ticket[] = [];
+        tickets =  await this.queryBus.execute(new GetIssueAIQuery(ticketDto.ticketType));
+        return null;
+    }
     async getFitness(curr : Node): Promise<number>{
         let correct=0;
         let all=0;
         let arrTest : Node[] =[];
         this.getArr(curr,arrTest);
         try {
-            File myFile = new File(fileName);
-            Scanner Reader = new Scanner(myFile);
-
-            int count=0;
-            if (Reader.hasNextLine()) {
-                String data = Reader.nextLine();
-                String test = data;
-                while(test.contains(",")){
-                    test = test.substring(test.indexOf(",")+1);
-                    count++;
-                }
-
-            }
-            Reader.close();
-            Reader = new Scanner(myFile);
-
+            //let dynamic input of array
+            //set dynamic input of array
+            //get expected value
+            //compare 
+            
             while (Reader.hasNextLine()) {
                 String data = Reader.nextLine();
                 String test = data;

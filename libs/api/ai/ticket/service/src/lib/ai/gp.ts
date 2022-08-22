@@ -1,5 +1,7 @@
+import { Injectable } from "@nestjs/common";
 import { Node } from "./node";
 import { Tree } from "./tree";
+@Injectable()
 export class GP {
     popsize : number;
     generations : number;
@@ -7,10 +9,11 @@ export class GP {
 
     population : Node[];
     genTree : Tree;
+    inputs : number[][];
 
 
-    constructor(popsize : number,depth : number,generations : number){
-        this.genTree = new Tree(depth);
+    constructor(popsize : number,depth : number,generations : number,inputs : number[][],expected: number[]){
+        this.genTree = new Tree(depth,inputs,expected);
 
         this.popsize = popsize;
         this.generations = generations;
@@ -30,7 +33,7 @@ export class GP {
         let countgen: number;
         
         highest = await (await this.getBestFitness()).clone();
-        while(await highest.getFitness()<100.0&&countgen<this.generations){
+        while(await highest.getFitness() < 100.0 && countgen < this.generations){
             //generate new popluation
             const newpopulation: Node[] = [];
             const half = this.population.length /2;
@@ -52,6 +55,7 @@ export class GP {
                 newpopulation[f].setFitness(await this.genTree.getFitness(newpopulation[f]));
             
             }
+
             this.population = newpopulation;
             this.population = await this.insertionSort(this.population);
             

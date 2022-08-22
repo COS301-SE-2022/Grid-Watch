@@ -4,19 +4,19 @@ import { PlusNode } from "./plus-node";
 import { MinNode } from "./min-node";
 import { DivNode } from "./div-node";
 import { multNode } from "./mult-node";
-import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import {GetIssueAIQuery,GetTechTeamSpecialisationQuery,GetAllTicketsQuery} from '../queries/api-ai-ticket-query.query';
-import { TechTeam, Ticket } from '@prisma/client';
-export class Tree {
-    depth: Number;
-    constructor(depth : Number){
 
+export class Tree {
+    depth: number;
+    input : number[][];
+    expected : number[];
+    constructor(depth : number, input : number[][], expected: number[]){
+        this.expected = expected;
+        this.input = input;
         this.depth = depth;
     }
 
     async generateRandTree(): Promise<Node>{
-        let root : Node = await this.getRandTerminal();
+        const root : Node = await this.getRandTerminal();
         root.setDepth(0);
         await this.generateRandNode(root);
         return root;
@@ -102,8 +102,8 @@ export class Tree {
         const root1 : Node = await parent1.clone();
         const root2 : Node = await parent2.clone();
 
-        let p1 : Node = await this.getRandLevelNode(levels,root1);
-        let p2 : Node = await this.getRandLevelNode(levels,root2);
+        const p1 : Node = await this.getRandLevelNode(levels,root1);
+        const p2 : Node = await this.getRandLevelNode(levels,root2);
 
         const temp1 : Node = await p1.clone();
         const temp2 : Node = await p2.clone();
@@ -113,7 +113,7 @@ export class Tree {
         this.replaceNode(p2,temp1,root2);
 
 
-        let ret : Node[] = [];
+        const ret : Node[] = [];
         ret.push(root1);
         ret.push(root2);
 
@@ -137,14 +137,14 @@ export class Tree {
     async getRandLevelNode(levels : number,parent : Node) : Promise<Node>{
         let randlevel = 0;
 
-        let levelNodes : Node[] = [];
+        const levelNodes : Node[] = [];
         while(levelNodes.length==0) {
             if(levels-1 <=0){
                 randlevel =1;
             }else{
                 randlevel = this.randomInt(1, levels-1);
             }
-            let pTree : Node[] = [];
+            const pTree : Node[] = [];
             this.getArr(parent, pTree);
 
             for (let  i = 0; i < pTree.length; i++) {
@@ -161,14 +161,14 @@ export class Tree {
 
     async mutation(root : Node,mutationdepth : number) : Promise<Node>{
         //generate random subtree
-        let subroot : Node = await this.getRandTerminal();
+        const subroot : Node = await this.getRandTerminal();
         this.generateRandSubtree(subroot,mutationdepth);
         //get random leaf node
 
-        let mutate : Node = await root.clone();
+        const mutate : Node = await root.clone();
 
         const levels : number  = await this.getLevels(mutate);
-        let leaf : Node = await this.getRandLeafLevelNode(mutate);
+        const leaf : Node = await this.getRandLeafLevelNode(mutate);
 
         //mutate
         this.replaceNode(leaf,subroot,mutate);
@@ -177,16 +177,16 @@ export class Tree {
     }
 
     async getRandLeafLevelNode(parent : Node) : Promise<Node>{
-        let pTree : Node[] = [];
+        const pTree : Node[] = [];
         this.getArr(parent,pTree);
-        let levelNodes : Node[] = [];
+        const levelNodes : Node[] = [];
         for(let i=0;i<pTree.length;i++){
             if(await pTree[i].getType() == "leaf"){
                 levelNodes.push(pTree[i]);
             }
         }
 
-        let randNode : number = this.randomInt(0, levelNodes.length);
+        const randNode : number = this.randomInt(0, levelNodes.length);
         return levelNodes[randNode];
     }
 
@@ -210,7 +210,7 @@ export class Tree {
     }
 
     async getLevels(root : Node) : Promise<number>{
-        let depth: Node[] = [];
+        const depth: Node[] = [];
         this.getArr(root,depth);
         let maxdepth = 0;
         for(let i=0;i<depth.length;i++){
@@ -221,64 +221,35 @@ export class Tree {
         return maxdepth;
     }
 
-    async getInput() : Promise<number[]>{
-        let tickets:Ticket[] = [];
-        tickets =  await this.queryBus.execute(new GetIssueAIQuery(ticketDto.ticketType));
-        return null;
-    }
     async getFitness(curr : Node): Promise<number>{
         let correct=0;
         let all=0;
-        let arrTest : Node[] =[];
+        const arrTest : Node[] =[];
         this.getArr(curr,arrTest);
-        try {
-            //let dynamic input of array
-            //set dynamic input of array
-            //get expected value
-            //compare 
             
-            while (Reader.hasNextLine()) {
-                String data = Reader.nextLine();
-                String test = data;
-                int[] input = new int[count];
+            for(let a=0;a<this.input.length;a++){
 
-                for(int i=0;i<count;i++){
-                    String val = test.substring(0,test.indexOf(","));
-                    input[i] = Integer.parseInt(val);
-                    test=test.substring(test.indexOf(",")+1);
-                }
-                int expected = Integer.parseInt(test);
-
-                double res=0.0;
-
-                int cinput=0;
-                for(int i=0;i<arrTest.getSize();i++){
-                    if(arrTest.get(i).getType().equals("leaf")){
-
-                        //arrTest.get(i).setVal(input[rand.nextInt(count)]);
-                        arrTest.get(i).setVal(input[cinput%(count)]);
+                let cinput: number;
+                for(let i=0;i<arrTest.length;i++){
+                    if(await arrTest[i].getType() == "leaf"){
+                        arrTest[i].setVal(this.input[a][cinput%(this.input.length)]);
                         cinput++;
                     }
                 }
 
-                res = curr.execute();
-                int compare =0;
+                const res = await curr.execute();
+                let compare: number;
                 if(res>0.5){
                     compare=1;
                 }
 
-                if(compare==expected){
+                if(compare==this.expected[a]){
                     correct++;
                 }
                 all++;
 
             }
-            Reader.close();
-            return (double)correct/(double)all*100;
-
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred. Textfile does not exist.\n");
-        }
+            return correct/all*100;
         return-1;
     }
 

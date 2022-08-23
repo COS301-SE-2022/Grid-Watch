@@ -8,7 +8,16 @@ export class MinNode extends InternalNode {
     }
 
     async clone() : Promise<Node> {
-        const out : Node = new MinNode(await this.leftNode.clone(),await this.rightNode.clone());
+        let out : Node = null;
+        if(this.leftNode != null && this.rightNode !=null){
+            out = new MinNode(await this.leftNode.clone(),await this.rightNode.clone());
+        }else if (this.leftNode != null){
+            out = new MinNode(await this.leftNode.clone(),null);
+        }else if(this.rightNode !=null){
+            out = new MinNode(null,await this.rightNode.clone());
+        }else{
+            return null;
+        }
         out.setDepth(this.depth);
         out.setFitness(await this.getFitness());
         return out;

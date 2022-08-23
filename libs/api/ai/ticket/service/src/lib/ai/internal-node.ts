@@ -42,9 +42,13 @@ export class InternalNode extends Node{
     constructor(left : Node, right : Node){
         super();
         this.leftNode = left;
-        this.leftNode.setDepth(this.depth+1);
+        if(this.leftNode !=null){
+            this.leftNode.setDepth(this.depth+1);
+        }
         this.rightNode = right;
-        this.rightNode.setDepth(this.depth+1);
+        if(this.rightNode != null){
+            this.rightNode.setDepth(this.depth+1);
+        }
     }
 
    async left() : Promise<Node> {

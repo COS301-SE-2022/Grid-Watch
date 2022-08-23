@@ -20,7 +20,7 @@ export class DivNode extends InternalNode{
         }else if(this.rightNode !=null){
             out = new DivNode(null,await this.rightNode.clone());
         }else{
-            return null;
+            return new DivNode(null,null);
         }
         out.setDepth(this.depth);
         out.setFitness(await this.getFitness());

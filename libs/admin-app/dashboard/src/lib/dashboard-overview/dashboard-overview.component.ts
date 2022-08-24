@@ -16,6 +16,10 @@ export class DashboardOverviewComponent implements AfterViewInit
     constructor(
         private ticketService: TicketService,
     ){}
+    Pothole: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
+    Electricity: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
+    Water: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
+    Other: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
 
     tickets : Array<TicketDto> = [];
     ticketTypes : Array<string> = [];

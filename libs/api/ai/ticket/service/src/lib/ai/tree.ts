@@ -52,11 +52,11 @@ export class Tree {
 
     }
 
-    randomInt(min, max) {
+    randomInt(min, max) {//check
         return Math.floor(Math.random() * (max - min + 1) + min)
       }
     
-    async getRandNode(depth : number): Promise<Node>{
+    async getRandNode(depth : number): Promise<Node>{//check
         const options : number = this.randomInt(0,2);
         let out : Node = null;
         if (options == 0) {
@@ -70,7 +70,7 @@ export class Tree {
         return out;
     }
 
-    async getRandTerminal(): Promise<Node>{
+    async getRandTerminal(): Promise<Node>{//check
         const decider : number = this.randomInt(0,3);
         let out : Node = null;
         if(decider==0){//+
@@ -89,9 +89,9 @@ export class Tree {
         if(await curr.getType() == "leaf"){
             acurr.push(curr);
         }else{
-            this.getArr(await curr.left(),acurr);
+            await this.getArr(await curr.left(),acurr);
             acurr.push(curr);
-            this.getArr(await curr.right(),acurr);
+            await this.getArr(await curr.right(),acurr);
         }
     }
 

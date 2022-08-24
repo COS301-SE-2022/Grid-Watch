@@ -16,7 +16,7 @@ export class multNode extends InternalNode {
         }else if(this.rightNode !=null){
             out = new multNode(null,await this.rightNode.clone());
         }else{
-            return new multNode(null,null);
+            out = new multNode(null,null);
         }
         out.setDepth(this.depth);
         out.setFitness(await this.getFitness());

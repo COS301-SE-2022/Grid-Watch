@@ -108,4 +108,24 @@ describe('InternalNode integration testing',()=>{
     const internalNode : InternalNode = new MinNode(new PlusNode(new LeafNode(0),null),new multNode(null,new LeafNode(2)));
     expect(await internalNode.clone()).toEqual(internalNode);
   })
+
+  it('inetnalNode of type div should return value on execute',async()=>{
+    const internalNode : InternalNode = new DivNode(new PlusNode(new LeafNode(0),new LeafNode(12)),new multNode(new LeafNode(-10),new LeafNode(2))); 
+    expect(await internalNode.execute()).toEqual(-0.6);
+  })
+
+  it('inetnalNode of type mult should return value on execute',async()=>{
+    const internalNode : InternalNode = new multNode(new PlusNode(new LeafNode(0),new LeafNode(12)),new multNode(new LeafNode(-10),new LeafNode(2))); 
+    expect(await internalNode.execute()).toEqual(-0.6);
+  })
+
+  it('inetnalNode of type plus should return value on execute',async()=>{
+    const internalNode : InternalNode = new PlusNode(new PlusNode(new LeafNode(0),new LeafNode(12)),new multNode(new LeafNode(-10),new LeafNode(2))); 
+    expect(await internalNode.execute()).toEqual(-0.6);
+  })
+
+  it('inetnalNode of type min should return value on execute',async()=>{
+    const internalNode : InternalNode = new MinNode(new PlusNode(new LeafNode(0),new LeafNode(12)),new multNode(new LeafNode(-10),new LeafNode(2))); 
+    expect(await internalNode.execute()).toEqual(-0.6);
+  })
 })

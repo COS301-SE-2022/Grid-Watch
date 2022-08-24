@@ -1,5 +1,8 @@
 import { DivNode } from './div-node';
 import { InternalNode } from './internal-node';
+import { MinNode } from './min-node';
+import { multNode } from './mult-node';
+import { PlusNode } from './plus-node';
 
 describe('InternalNode', () => {
   it('should be defined', () => {
@@ -48,5 +51,40 @@ describe('InternalNode integration testing',()=>{
   it('should be defined for div-node',()=>{
     const internalNode: InternalNode = new DivNode(null,null);
     expect(internalNode).toBeDefined();
+  })
+
+  it('should be defined for mult-node',()=>{
+    const internalNode: InternalNode = new multNode(null,null);
+    expect(internalNode).toBeDefined();
+  })
+
+  it('should be defined for PlusNode',()=>{
+    const internalNode: InternalNode = new PlusNode(null,null);
+    expect(internalNode).toBeDefined();
+  })
+
+  it('should be defined for minNode',()=>{
+    const internalNode: InternalNode = new MinNode(null,null);
+    expect(internalNode).toBeDefined();
+  })
+
+  it('internalNode should return div type',async()=>{
+    const internalNode: InternalNode = new DivNode(null,null);
+    expect(await internalNode.getType()).toEqual("div");
+  })
+
+  it('internalNode should return mult type',async()=>{
+    const internalNode: InternalNode = new multNode(null,null);
+    expect(await internalNode.getType()).toEqual("mult");
+  })
+
+  it('internalNode should return plus type',async()=>{
+    const internalNode: InternalNode = new PlusNode(null,null);
+    expect(await internalNode.getType()).toEqual("plus");
+  })
+
+  it('internalNode should return min type',async()=>{
+    const internalNode: InternalNode = new MinNode(null,null);
+    expect(await internalNode.getType()).toEqual("min");
   })
 })

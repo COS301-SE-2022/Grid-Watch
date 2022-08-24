@@ -1,5 +1,6 @@
 import { DivNode } from './div-node';
 import { InternalNode } from './internal-node';
+import { LeafNode } from './leaf-node';
 import { MinNode } from './min-node';
 import { multNode } from './mult-node';
 import { PlusNode } from './plus-node';
@@ -86,5 +87,25 @@ describe('InternalNode integration testing',()=>{
   it('internalNode should return min type',async()=>{
     const internalNode: InternalNode = new MinNode(null,null);
     expect(await internalNode.getType()).toEqual("min");
+  })
+
+  it('internalNode should return div clone',async()=>{
+    const internalNode : InternalNode = new DivNode(new PlusNode(new LeafNode(0),null),new multNode(null,new LeafNode(2)));
+    expect(await internalNode.clone()).toEqual(internalNode);
+  })
+
+  it('internalNode should return mult clone',async()=>{
+    const internalNode : InternalNode = new multNode(new PlusNode(new LeafNode(0),null),new multNode(null,new LeafNode(2)));
+    expect(await internalNode.clone()).toEqual(internalNode);
+  })
+
+  it('internalNode should return plus clone',async()=>{
+    const internalNode : InternalNode = new PlusNode(new PlusNode(new LeafNode(0),null),new multNode(null,new LeafNode(2)));
+    expect(await internalNode.clone()).toEqual(internalNode);
+  })
+
+  it('internalNode should return min clone',async()=>{
+    const internalNode : InternalNode = new MinNode(new PlusNode(new LeafNode(0),null),new multNode(null,new LeafNode(2)));
+    expect(await internalNode.clone()).toEqual(internalNode);
   })
 })

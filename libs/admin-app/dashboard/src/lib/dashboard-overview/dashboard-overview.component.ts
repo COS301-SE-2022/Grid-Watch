@@ -47,7 +47,6 @@ export class DashboardOverviewComponent implements AfterViewInit
 
     async getDatabaseData() 
     {
-        //calculate # of different ticket types
         let tcount = 0;
 
         const ticketTypes:string[] = [];
@@ -56,7 +55,7 @@ export class DashboardOverviewComponent implements AfterViewInit
 
            this.ticketService.getTickets().subscribe(
                 async (response) => {
-
+        //calculate # of different ticket types
                     for (let i = 0; i < response.length; i++) {
                         if (ticketTypes.length != 0) {
                             let bexist = false;
@@ -74,7 +73,8 @@ export class DashboardOverviewComponent implements AfterViewInit
                             tcount++;
                         }
                     }
-        const ticketCount: number[] = [];
+
+                    const ticketCount: number[] = [];
 
                     for (let k = 0; k < ticketTypes.length; k++) {
                         ticketCount[k] = 0;
@@ -92,11 +92,56 @@ export class DashboardOverviewComponent implements AfterViewInit
                         
                     }
 
-                    const backgroundColor: string[] = [];
+                    //draw piechart
+
+                    const backgroundColor: string[] = [
+                    'rgb(255,10,102)',
+                    'rgb(255,153,20)',
+                    'rgb(153,255,51)',
+                    'rgb(0,153,51)',
+                    'rgb(51,51,255)',
+                    'rgb(255,20,20)',
+                    'rgb(3,55,0)',
+                    'rgb(88,22,99)',
+                    'rgb(27,244,22)',
+                    'rgb(60,10,30)',
+                ]
 
                     for (let a = 0; a < ticketTypes.length; a++) {
-                        backgroundColor[a] = "rgb(" +(Math.random() * (255 - 0 + 1) + 0).toString() + ","+(Math.random() * (255 - 0 + 1) + 0).toString()+","+(Math.random() * (255 - 0 + 1) + 0).toString() + ")"; 
-                    }
+
+                        if (a+1 < ticketTypes.length){
+                            if (ticketTypes[a] == "Water"){
+                                backgroundColor[a+1] = backgroundColor[a];
+                                backgroundColor[a] = 'rgb(3,100,180)';
+                            }
+                            if (ticketTypes[a] == "Electricity"){
+                                backgroundColor[a+1] = backgroundColor[a];
+                                backgroundColor[a] = 'rgb(255,255,0)';
+                            }
+                            if (ticketTypes[a] == "Sinkhole"){
+                                backgroundColor[a+1] = backgroundColor[a];
+                                backgroundColor[a] = 'rgb(77,0,50)';
+                            }
+                            if (ticketTypes[a] == "Pothole"){
+                                backgroundColor[a+1] = backgroundColor[a];
+                                backgroundColor[a] = 'rgb(127,127,127)';
+                            }
+                        }
+                        else{
+                            if (ticketTypes[a] == "Water"){
+                                backgroundColor[a] = 'rgb(3,100,180)';
+                            }
+                            if (ticketTypes[a] == "Electricity"){
+                                backgroundColor[a] = 'rgb(255,255,0)';
+                            }
+                            if (ticketTypes[a] == "Sinkhole"){
+                                backgroundColor[a] = 'rgb(77,0,50)';
+                            }
+                            if (ticketTypes[a] == "Pothole"){
+                                backgroundColor[a] = 'rgb(127,127,127)';
+                            } 
+                        }
+                    }                         
 
                     const typesdata = 
                     {
@@ -195,300 +240,42 @@ export class DashboardOverviewComponent implements AfterViewInit
 
     setCount(){
         this.ticketService.getTickets().subscribe((ticket)=>{
-            for(let i=0; i < ticket.length; i++){
-                const dateTime = ticket.at(i)?.ticketCreateDate;
-                const stringify = dateTime?.toString();
-                const substring = stringify?.substring(5,7);
-                const type = ticket.at(i)?.ticketType;
-                if(type == "Pothole"){
-                    switch(substring)
-                {
-                    case "01":
-                        this.Pothole[0]++;
-                        break;
-                    case "02":
-                        this.Pothole[1]++;
-                        break;
-                    case "03":
-                        this.Pothole[2]++;
-                        break;
-                    case "04":
-                        this.Pothole[3]++;
-                        break;
-                    case "05":
-                        this.Pothole[4]++;
-                        break;
-                    case "06":
-                        this.Pothole[5]++;
-                        break;
-                    case "07":
-                        this.Pothole[6]++;
-                        break;
-                    case "08":
-                        this.Pothole[7]++;
-                        break;
-                    case "09":
-                        this.Pothole[8]++;
-                        break;
-                    case "10":
-                        this.Pothole[9]++;
-                        break;
-                    case "11":
-                        this.Pothole[10]++;
-                        break;
-                    case "12":
-                        this.Pothole[11]++;
-                        break;                
-                }
-                }else if(type == "Water Outage"){
-                    switch(substring)
-                {
-                    case "01":
-                        this.Water[0]++;
-                        break;
-                    case "02":
-                        this.Water[1]++;
-                        break;
-                    case "03":
-                        this.Water[2]++;
-                        break;
-                    case "04":
-                        this.Water[3]++;
-                        break;
-                    case "05":
-                        this.Water[4]++;
-                        break;
-                    case "06":
-                        this.Water[5]++;
-                        break;
-                    case "07":
-                        this.Water[6]++;
-                        break;
-                    case "08":
-                        this.Water[7]++;
-                        break;
-                    case "09":
-                        this.Water[8]++;
-                        break;
-                    case "10":
-                        this.Water[9]++;
-                        break;
-                    case "11":
-                        this.Water[10]++;
-                        break;
-                    case "12":
-                        this.Water[11]++;
-                        break;                
-                }
-                }else if (type == "Electricity Outage"){
-                    switch(substring)
-                {
-                    case "01":
-                        this.Electricity[0]++;
-                        break;
-                    case "02":
-                        this.Electricity[1]++;
-                        break;
-                    case "03":
-                        this.Electricity[2]++;
-                        break;
-                    case "04":
-                        this.Electricity[3]++;
-                        break;
-                    case "05":
-                        this.Electricity[4]++;
-                        break;
-                    case "06":
-                        this.Electricity[5]++;
-                        break;
-                    case "07":
-                        this.Electricity[6]++;
-                        break;
-                    case "08":
-                        this.Electricity[7]++;
-                        break;
-                    case "09":
-                        this.Electricity[8]++;
-                        break;
-                    case "10":
-                        this.Electricity[9]++;
-                        break;
-                    case "11":
-                        this.Electricity[10]++;
-                        break;
-                    case "12":
-                        this.Electricity[11]++;
-                        break;                
-                }
-                }else if (type == "Broken Street Light"){
-                    switch(substring)
-                {
-                    case "01":
-                        this.Electricity[0]++;
-                        break;
-                    case "02":
-                        this.Electricity[1]++;
-                        break;
-                    case "03":
-                        this.Electricity[2]++;
-                        break;
-                    case "04":
-                        this.Electricity[3]++;
-                        break;
-                    case "05":
-                        this.Electricity[4]++;
-                        break;
-                    case "06":
-                        this.Electricity[5]++;
-                        break;
-                    case "07":
-                        this.Electricity[6]++;
-                        break;
-                    case "08":
-                        this.Electricity[7]++;
-                        break;
-                    case "09":
-                        this.Electricity[8]++;
-                        break;
-                    case "10":
-                        this.Electricity[9]++;
-                        break;
-                    case "11":
-                        this.Electricity[10]++;
-                        break;
-                    case "12":
-                        this.Electricity[11]++;
-                        break;                
-                }
-                }else if (type == "Broken Traffic Light"){
-                    switch(substring)
-                {
-                    case "01":
-                        this.Electricity[0]++;
-                        break;
-                    case "02":
-                        this.Electricity[1]++;
-                        break;
-                    case "03":
-                        this.Electricity[2]++;
-                        break;
-                    case "04":
-                        this.Electricity[3]++;
-                        break;
-                    case "05":
-                        this.Electricity[4]++;
-                        break;
-                    case "06":
-                        this.Electricity[5]++;
-                        break;
-                    case "07":
-                        this.Electricity[6]++;
-                        break;
-                    case "08":
-                        this.Electricity[7]++;
-                        break;
-                    case "09":
-                        this.Electricity[8]++;
-                        break;
-                    case "10":
-                        this.Electricity[9]++;
-                        break;
-                    case "11":
-                        this.Electricity[10]++;
-                        break;
-                    case "12":
-                        this.Electricity[11]++;
-                        break;                
-                }
-                }else if(type == "Other"){
-                    switch(substring)
-                {
-                    case "01":
-                        this.Other[0]++;
-                        break;
-                    case "02":
-                        this.Other[1]++;
-                        break;
-                    case "03":
-                        this.Other[2]++;
-                        break;
-                    case "04":
-                        this.Other[3]++;
-                        break;
-                    case "05":
-                        this.Other[4]++;
-                        break;
-                    case "06":
-                        this.Other[5]++;
-                        break;
-                    case "07":
-                        this.Other[6]++;
-                        break;
-                    case "08":
-                        this.Other[7]++;
-                        break;
-                    case "09":
-                        this.Other[8]++;
-                        break;
-                    case "10":
-                        this.Other[9]++;
-                        break;
-                    case "11":
-                        this.Other[10]++;
-                        break;
-                    case "12":
-                        this.Other[11]++;
-                        break;                
-                }
-                }else if(type == "Sinkhole"){
-                    switch(substring)
-                {
-                    case "01":
-                        this.Other[0]++;
-                        break;
-                    case "02":
-                        this.Other[1]++;
-                        break;
-                    case "03":
-                        this.Other[2]++;
-                        break;
-                    case "04":
-                        this.Other[3]++;
-                        break;
-                    case "05":
-                        this.Other[4]++;
-                        break;
-                    case "06":
-                        this.Other[5]++;
-                        break;
-                    case "07":
-                        this.Other[6]++;
-                        break;
-                    case "08":
-                        this.Other[7]++;
-                        break;
-                    case "09":
-                        this.Other[8]++;
-                        break;
-                    case "10":
-                        this.Other[9]++;
-                        break;
-                    case "11":
-                        this.Other[10]++;
-                        break;
-                    case "12":
-                        this.Other[11]++;
-                        break;                
-                }
-                }
 
+            for(let i=0; i < ticket.length; i++){
+                const tick = ticket.at(i);
+                if (tick != undefined) {
+    
+                const date =  new Date( tick.ticketCreateDate);
+                                
+                const month = date.getMonth();
+                const type = tick.ticketType;   
+
+                if (month !=undefined){
+                    console.log(month);
+                    if(type == "Pothole"){
+                    {
+                        this.Pothole[month]++;
+                    }
+                    }else if(type == "Water Outage")
+                    {
+                        this.Water[month]++;
+                    }
+                    else if (type == "Electricity" || type == "Broken Street Light")
+                    {
+                        this.Electricity[month]++;
+                    }
+                    else if(type == "Sinkholes" || type == "Other")
+                    {
+                        this.Other[month]++;
+                    }  
+                }
             }
+        }
         })
     }
 
     showLineGraph(type: string, e: any): void
     {
-        
 
         if (!e.checked)
         {
@@ -519,32 +306,32 @@ export class DashboardOverviewComponent implements AfterViewInit
                 this.chart.config.data.datasets.push({
                     label: 'Pothole',
                     data: this.Pothole,
-                    borderColor: 'rgba(235, 12, 148, 0.4)',
-                    backgroundColor: 'rgba(235, 12, 148, 0.4)',
+                    borderColor: 'rgba(235, 12, 148, 0.6)',
+                    backgroundColor: 'rgba(235, 12, 148, 0.6)',
                     yAxisID: 'y',
                 })
             else if (type === "Water")
                 this.chart.config.data.datasets.push({
                     label: 'Water',
                     data: this.Water,
-                    borderColor: 'rgba(235, 82, 23, 0.4)',
-                    backgroundColor: 'rgba(235, 82, 23, 0.4)',
+                    borderColor: 'rgba(3, 82, 161, 0.6)',
+                    backgroundColor: 'rgba(3, 82, 161, 0.6)',
                     yAxisID: 'y',
                 })
             else if (type === "Electricity")
                 this.chart.config.data.datasets.push({
                     label: 'Electricity',
                     data: this.Electricity,
-                    borderColor: 'rgba(1, 235, 194, 0.4)',
-                    backgroundColor: 'rgba(0, 255, 0, 0.4)',
+                    borderColor: 'rgba(1, 235, 194, 0.6)',
+                    backgroundColor: 'rgba(0, 255, 0, 0.6)',
                     yAxisID: 'y',
                 })
             else if (type === "Other")
                 this.chart.config.data.datasets.push({
                     label: 'Other',
                     data: this.Other,
-                    borderColor: 'rgba(40,235,23, 0.4)',
-                    backgroundColor: 'rgba(40,235,23, 0.4)',
+                    borderColor: 'rgba(40,235,23, 0.6)',
+                    backgroundColor: 'rgba(40,235,23, 0.6)',
                     yAxisID: 'y',
                 })
             this.chart.update();

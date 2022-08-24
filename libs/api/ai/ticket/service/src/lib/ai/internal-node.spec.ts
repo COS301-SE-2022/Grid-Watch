@@ -116,16 +116,16 @@ describe('InternalNode integration testing',()=>{
 
   it('inetnalNode of type mult should return value on execute',async()=>{
     const internalNode : InternalNode = new multNode(new PlusNode(new LeafNode(0),new LeafNode(12)),new multNode(new LeafNode(-10),new LeafNode(2))); 
-    expect(await internalNode.execute()).toEqual(-0.6);
+    expect(await internalNode.execute()).toEqual(-240);
   })
 
   it('inetnalNode of type plus should return value on execute',async()=>{
     const internalNode : InternalNode = new PlusNode(new PlusNode(new LeafNode(0),new LeafNode(12)),new multNode(new LeafNode(-10),new LeafNode(2))); 
-    expect(await internalNode.execute()).toEqual(-0.6);
+    expect(await internalNode.execute()).toEqual(-8);
   })
 
   it('inetnalNode of type min should return value on execute',async()=>{
     const internalNode : InternalNode = new MinNode(new PlusNode(new LeafNode(0),new LeafNode(12)),new multNode(new LeafNode(-10),new LeafNode(2))); 
-    expect(await internalNode.execute()).toEqual(-0.6);
+    expect(await internalNode.execute()).toEqual(32);
   })
 })

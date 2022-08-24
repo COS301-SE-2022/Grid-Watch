@@ -174,7 +174,10 @@ export class DashboardOverviewComponent implements AfterViewInit
 
     initiateGraphs(): void
     {
-
+        const c = document.getElementById('pieChart');
+        if(c != undefined){
+            c.style.display = 'none';
+        }
         this.getDatabaseData();
 
         const labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -234,24 +237,24 @@ export class DashboardOverviewComponent implements AfterViewInit
 
     setCount(){
         this.ticketService.getTickets().subscribe((ticket)=>{
-
+            console.log(ticket);
             for(let i=0; i < ticket.length; i++){
                 const tick = ticket.at(i);
+
                 if (tick != undefined) {
-    
-                const date =  new Date( tick.ticketCreateDate);
-                                
+                const date =  new Date( tick.ticketCreateDate);           
                 const month = date.getMonth();
                 const type = tick.ticketType;   
 
                 if (month !=undefined){
-                    console.log(month);
+                    
                     if(type == "Pothole"){
                     {
                         this.Pothole[month]++;
                     }
-                    }else if(type == "Water Outage")
+                    }else if(type == "Water")
                     {
+                       // console.log("Water");
                         this.Water[month]++;
                     }
                     else if (type == "Electricity" || type == "Broken Street Light")
@@ -269,13 +272,20 @@ export class DashboardOverviewComponent implements AfterViewInit
     }
 
     showChart(type: string, e: any): void{
-        if (e.checked)
+        if (!e.checked)
         {
-            this.pieChart.hide;
-            this.pieChart.update();
-            let c = document.getElementById('pieChart')?.style.display;
-            c = "none";
-
+            const c = document.getElementById('pieChart');
+            if(c != undefined){
+                c.style.display = 'none';
+            }
+        }
+        else{
+            const c = document.getElementById('pieChart');
+            // const ch = document.getElementById('chart');
+            if(c != undefined ){
+               // ch.innerHTML = 'Hide graph';ch != undefined
+                c.style.display = '';
+            }
         }
 
     }

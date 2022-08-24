@@ -19,9 +19,10 @@
         </mat-grid-tile>
     </mat-radio-group>    
 </mat-grid-list>
+<mat-grid-list cols="12" rowHeight="100">
+    <mat-grid-tile colspan="3">
+        <mat-slide-toggle id ="chart" (change)="showChart('Other', $event)">Show chart</mat-slide-toggle>
+    </mat-grid-tile>
+</mat-grid-list>
 <canvas id="pieChart" style="max-height: 500px; max-width: 500px;"></canvas>
-<!-- <mat-grid-list cols="12" rowHeight="100">
-<mat-grid-tile colspan="3">
-    <mat-slide-toggle (change)="showChart('Other', $event)">Show chart</mat-slide-toggle>
-</mat-grid-tile>
-</mat-grid-list> -->
+

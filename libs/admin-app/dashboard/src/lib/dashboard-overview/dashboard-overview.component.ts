@@ -213,7 +213,7 @@ export class DashboardOverviewComponent implements AfterViewInit
                             text: 'Number of tickets for issue per month'
                         },
                         legend: {
-                            display: false
+                            display: false,
                         }
                     },
                     scales: {
@@ -221,14 +221,8 @@ export class DashboardOverviewComponent implements AfterViewInit
                             type: 'linear',
                             display: true,
                             position: 'right',
-                        },
-                        y1: {
-                            type: 'linear',
-                            display: false,
-                            position: 'right',
-                            grid: {
-                                drawOnChartArea: false,
-                            },
+                            suggestedMin : 0,
+                            suggestedMax : 10,
                         },
                     },
 
@@ -314,8 +308,8 @@ export class DashboardOverviewComponent implements AfterViewInit
                 this.chart.config.data.datasets.push({
                     label: 'Water',
                     data: this.Water,
-                    borderColor: 'rgba(3, 82, 161, 0.6)',
-                    backgroundColor: 'rgba(3, 82, 161, 0.6)',
+                    borderColor: 'rgba(3, 100, 180, 0.6)',
+                    backgroundColor: 'rgba(3, 100, 180, 0.6)',
                     yAxisID: 'y',
                 })
             else if (type === "Electricity")

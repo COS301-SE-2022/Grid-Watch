@@ -194,7 +194,7 @@ export class DashboardOverviewComponent implements AfterViewInit
             ]
         };
 
-        const canvas = <HTMLCanvasElement>document.getElementById('myChart0');
+        const canvas = <HTMLCanvasElement>document.getElementById('myGraph');
         const ctx = canvas.getContext('2d');
         if (ctx !== null)
         {
@@ -266,6 +266,18 @@ export class DashboardOverviewComponent implements AfterViewInit
             }
         }
         })
+    }
+
+    showChart(type: string, e: any): void{
+        if (e.checked)
+        {
+            this.pieChart.hide;
+            this.pieChart.update();
+            let c = document.getElementById('pieChart')?.style.display;
+            c = "none";
+
+        }
+
     }
 
     showLineGraph(type: string, e: any): void

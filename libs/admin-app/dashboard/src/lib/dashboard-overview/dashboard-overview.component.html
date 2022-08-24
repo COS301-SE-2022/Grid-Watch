@@ -1,7 +1,7 @@
 <mat-grid-list cols="12" rowHeight="100">
     <mat-grid-tile colspan="1"></mat-grid-tile>
     <mat-grid-tile colspan="10" rowspan="3">
-            <canvas id="myChart0" style="max-height: 300px;"></canvas>
+            <canvas id="myGraph" style="max-height: 300px;"></canvas>
     </mat-grid-tile>
     <mat-grid-tile colspan="1"></mat-grid-tile>
     <mat-radio-group aria-label="Select an option">
@@ -20,3 +20,8 @@
     </mat-radio-group>    
 </mat-grid-list>
 <canvas id="pieChart" style="max-height: 500px; max-width: 500px;"></canvas>
+<!-- <mat-grid-list cols="12" rowHeight="100">
+<mat-grid-tile colspan="3">
+    <mat-slide-toggle (change)="showChart('Other', $event)">Show chart</mat-slide-toggle>
+</mat-grid-tile>
+</mat-grid-list> -->

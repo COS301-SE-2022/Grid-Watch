@@ -85,7 +85,7 @@ export class Tree {
         return out;
     }
 
-    async getArr(curr : Node,acurr : Node[]) : Promise<void>{
+    async getArr(curr : Node,acurr : Node[]) : Promise<void>{//check
         if(await curr.getType() == "leaf"){
             acurr.push(curr);
         }else{

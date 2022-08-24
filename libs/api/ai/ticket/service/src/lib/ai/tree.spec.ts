@@ -89,13 +89,12 @@ describe('Tree', () => {
     }
   })
 
-  it('getArr should return array of Nodes of length 7',async()=>{
+  it('getArr should return array of Nodes',async()=>{
     const rootNode: Node = new DivNode(new LeafNode(12),new PlusNode(new LeafNode(9),new multNode(new LeafNode(2),new LeafNode(6))));
     const tree: Tree = new Tree(6,numbers,expected);
     const testarr : Node[]=[];
     await tree.getArr(rootNode,testarr);
-    expect(testarr.length).toEqual(7);
-    //expect(testarr).toEqual([{"leftNode": {"depth": NaN, "val": 12}, "rightNode": {"depth": NaN, "leftNode": {"depth": NaN, "val": 9}, "rightNode": {"depth": NaN, "leftNode": {"depth": NaN, "val": 2}, "rightNode": {"depth": NaN, "val": 6}}}}, {"depth": NaN, "val": 12}]);
+    expect(testarr).toEqual([{"depth": NaN, "val": 12}, {"leftNode": {"depth": NaN, "val": 12}, "rightNode": {"depth": NaN, "leftNode": {"depth": NaN, "val": 9}, "rightNode": {"depth": NaN, "leftNode": {"depth": NaN, "val": 2}, "rightNode": {"depth": NaN, "val": 6}}}}, {"depth": NaN, "val": 9}, {"depth": NaN, "leftNode": {"depth": NaN, "val": 9}, "rightNode": {"depth": NaN, "leftNode": {"depth": NaN, "val": 2}, "rightNode": {"depth": NaN, "val": 6}}}, {"depth": NaN, "val": 2}, {"depth": NaN, "leftNode": {"depth": NaN, "val": 2}, "rightNode": {"depth": NaN, "val": 6}}, {"depth": NaN, "val": 6}]);
   })
 
   

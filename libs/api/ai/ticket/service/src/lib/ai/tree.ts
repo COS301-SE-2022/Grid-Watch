@@ -71,7 +71,7 @@ export class Tree {
     }
 
     async getRandTerminal(): Promise<Node>{
-        const decider : number = this.randomInt(0,4);
+        const decider : number = this.randomInt(0,3);
         let out : Node = null;
         if(decider==0){//+
             out = new PlusNode(null,null);

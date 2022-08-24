@@ -18,10 +18,8 @@ describe('Tree', () => {
   });
 
   it('Generate random tree',async ()=>{
-    
-
     const tree: Tree = new Tree(6,numbers,expected);
-    expect(await tree.generateRandTree()).toEqual(null);
+    expect(await tree.generateRandTree()).toBeDefined();
   })
 
   it('randomInt should return value between 0 and 3',()=>{

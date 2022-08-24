@@ -10,6 +10,7 @@ import { TechTeamDashboardModule } from '@grid-watch/tech-team/dashboard';
 import { TechTeamGeneralUiModule } from '@grid-watch/tech-team/general-ui';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TicketBodyComponent } from '@grid-watch/public/ticket';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
@@ -28,6 +29,7 @@ const routes: Routes = [
     TechTeamProfileModule,
     TechTeamDashboardModule,
     TechTeamGeneralUiModule,
+    HttpClientModule,
     RouterModule.forRoot(routes),
   ],
   providers: [GoogleMapsService],

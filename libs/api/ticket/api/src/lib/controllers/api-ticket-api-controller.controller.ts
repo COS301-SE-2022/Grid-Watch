@@ -7,7 +7,9 @@ import {
     Param,
     Post,
     Put,
+    SetMetadata,
     UploadedFile,
+    UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
 
@@ -18,6 +20,7 @@ import { diskStorage, Multer } from 'multer';
 import { Helper } from './helper';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { HttpParams } from '@angular/common/http';
+import {RolesGuard} from '../../../../../roles-guard/roles.guard'
 
 @Controller('ticket')
 export class TicketController {
@@ -25,7 +28,9 @@ export class TicketController {
     constructor(private readonly apiTicketService:ApiTicketService){}
 
     //Testing endpoint to test functionality
+    // @SetMetadata('roles', ['admin'])
     @Get()
+    @UseGuards(RolesGuard)
     testing(){
         return  "Testing Tickets";
     }

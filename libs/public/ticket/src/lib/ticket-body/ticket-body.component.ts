@@ -17,11 +17,11 @@ import { Router } from '@angular/router';
 })
 export class TicketBodyComponent implements OnInit {
 
-  viewValue! : string
+  viewValue! : "map" | "list"
   // constructor() {}
 
   ngOnInit(): void {
-    this.viewValue = "map";
+    this.viewValue = "list";
   }
 
   test(){

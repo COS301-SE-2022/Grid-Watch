@@ -5,6 +5,12 @@ import { Loader } from '@googlemaps/js-api-loader';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketService, GoogleMapsService } from '@grid-watch/shared-ui';
 
+export interface filterInterface{
+    city : string[], 
+    type : string[], 
+    month : string[]
+}
+
 @Component({
   selector: 'grid-watch-ticket-body-list',
   templateUrl: './ticket-body-list.component.html',
@@ -19,6 +25,28 @@ export class TicketBodyListComponent implements OnInit {
   ticketImages : string[] = [];
   ticketStatus: string[] = [];
   tickets : Array<TicketDto> = [];
+  ticketsPerm : Array<TicketDto> = [];
+  type! : string
+  filterLabels: filterInterface[] = [];
+  sortLabels: string[] = [];
+  months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ]
+
+  filterList: string[] = []
+  sortDirection!: "asc" | "desc";
+  
   
 
   constructor( private http: HttpClient,
@@ -32,6 +60,7 @@ export class TicketBodyListComponent implements OnInit {
     this.name = "John"
     this.surname = "Doe"
     this.avatar = "assets/user-solid.svg";
+    this.sortDirection = "asc"
 
     const loader = new Loader({
       apiKey: "AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE",
@@ -42,12 +71,52 @@ export class TicketBodyListComponent implements OnInit {
     loader.load().then(() => {
         this.ticketService.getTickets().subscribe(
           (response) => {
-            this.InitialiseTicket(response)
+            this.InitialiseTicket(response);
+            this.ticketsPerm = response;
+            this.loadFilterLabels();
+            this.loadSortLabels();
           }
         )      
       }, (error) =>{console.log(error);
       });
 
+  }
+  loadSortLabels() {
+    this.sortLabels.push("Issue")
+    this.sortLabels.push("City")
+    this.sortLabels.push("Upvotes")
+    this.sortLabels.push("Date")
+  }
+
+  loadFilterLabels() {
+    const cities: string[] = [];
+    const types: string[] = [];
+    const months: string[] = []; 
+    this.tickets.forEach(
+      (ticket) =>{
+        if (!cities.includes(ticket.ticketCity))
+        {
+          cities.push(ticket.ticketCity);
+        }
+        if (!types.includes(ticket.ticketType))
+        {
+          types.push(ticket.ticketType);
+        }
+        const date = new Date(ticket.ticketCreateDate);
+        const dateString = this.months[date.getMonth()];
+         if (!months.includes(dateString))
+        {
+          months.push(dateString);
+        }
+        // console.log(date.toDateString());
+        
+      })
+      const tempFilter = {
+        city : cities,
+        type : types,
+        month : months,
+      }
+      this.filterLabels.push(tempFilter);
   }
 
   IncreaseUpvote(id : number, index: number): void
@@ -132,6 +201,43 @@ export class TicketBodyListComponent implements OnInit {
   goToTicket(id : string)
   {
     this.router.navigate(['/viewTicket', {id:id}]) ;
+  }
+
+  filter(search : string) : void{
+    this.tickets = this.ticketsPerm;
+    if (!this.filterList.includes(search)){
+      this.filterList.push(search);
+    }
+    else{
+      this.filterList.splice(this.filterList.indexOf(search), 1)
+    }
+
+    if (this.filterList.length == 0)
+    {
+      this.tickets = this.ticketsPerm
+    }
+
+    this.filterList.forEach((filter) =>{
+      this.tickets = (this.tickets.filter((ticket) =>{
+        return (
+          ticket.ticketCity == filter ||
+          this.months[new Date(ticket.ticketCreateDate).getMonth()] == filter ||
+          ticket.ticketType == filter
+        )
+      }))
+      // this.tickets = [...this.tickets ,...tempTickets]
+    })
+    
+    
+  }
+
+  sort(sortType : string) : void {
+    // this.sortLabels.push("Issue Type")
+    // this.sortLabels.push("City")
+    // this.sortLabels.push("Upvotes")
+    // this.sortLabels.push("Date")
+    this.tickets = this.ticketService.sort(sortType, this.sortDirection, this.tickets)
+    
   }
 
 }

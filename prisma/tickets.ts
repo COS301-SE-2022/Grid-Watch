@@ -5,8 +5,8 @@ export const tickets = [
         ticketType :  "Pothole",        
         ticketCity :  "Centurion",            
         ticketLocation : "ChIJpRlQSVZmlR4RLEC2P8aRaAA",    //place-id  
-        ticketLong   : -25.854438,
-        ticketLat   : 28.244657,
+        ticketLat   : -25.854438,
+        ticketLong   : 28.244657,
         ticketStreetAddress: "79 Silk Oak Drive",
        // ticketCost : 25000,           
         ticketDescription : "There is a large pothole in the middle of the road",    
@@ -21,8 +21,8 @@ export const tickets = [
         ticketType :  "Electricity outage",        
         ticketCity :  "Pretoria",            
         ticketLocation : "ChIJpXRg_qdhlR4R1DT1kBrZ3C4",      //place-id
-        ticketLong   : -25.766522,
-        ticketLat   : 28.240386,
+        ticketLat   : -25.766522,
+        ticketLong   : 28.240386,
         ticketStreetAddress: "245 Marais Street",
         // ticketCost : 25000,           
         ticketDescription : "There is a power outage",    
@@ -36,8 +36,8 @@ export const tickets = [
         ticketType :  "Water outage",        
         ticketCity :  "Pretoria",            
         ticketLocation : "EjU0NDEgMzJuZCBBdmUsIFZpbGxpZXJpYSwgUHJldG9yaWEsIDAxODYsIFNvdXRoIEFmcmljYSIxEi8KFAoSCdEnNGFj378eEbm-ZvzjYIDJELkDKhQKEgl1sgldbt-_HhGtS9PommuXHA",      //place-id
-        ticketLong   : -25.718520,
-        ticketLat   : 28.239241,
+        ticketLat   : -25.718520,
+        ticketLong   : 28.239241,
         ticketStreetAddress: "441 32 Avenue",
         // ticketCost : 25000,           
         ticketDescription : "The entire road is flooded",    
@@ -51,8 +51,8 @@ export const tickets = [
         ticketType :  "Broken Street Light",        
         ticketCity :  "Johannesburg",            
         ticketLocation : "ChIJFXn2MknYvx4RuODr3TlbaEA",      //place-id
-        ticketLong   : -26.169376, 
-        ticketLat   : 28.073011,
+        ticketLat   : -26.169376, 
+        ticketLong   : 28.073011,
         ticketStreetAddress: "106 Houghton Dr",
         // ticketCost : 25000,           
         ticketDescription : "The street lights or not working and it has been like that for the past couple of days", 
@@ -66,8 +66,8 @@ export const tickets = [
         ticketType :  "Broken Traffic Light",        
         ticketCity :  "Johannesburg",            
         ticketLocation : "hIJb8mg2WMNlR4R1TmdHeMDXyc",      //place-id
-        ticketLong   : -26.126002, 
-        ticketLat   : 28.108325,
+        ticketLat   : -26.126002, 
+        ticketLong   : 28.108325,
         ticketStreetAddress: "15 Drome Rd",
         // ticketCost : 25000,           
         ticketDescription : "The traffic lights are out since this morning!", 
@@ -80,8 +80,8 @@ export const tickets = [
         ticketType :  "Broken Traffic Light",        
         ticketCity :  "Johannesburg",            
         ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
-        ticketLong   : -26.126206, 
-        ticketLat   : 28.162290,
+        ticketLat   : -26.126206, 
+        ticketLong   : 28.162290,
         ticketStreetAddress: "38 Terrace Road",
         // ticketCost : 25000,           
         ticketDescription : "The traffic lights are not working", 
@@ -94,8 +94,8 @@ export const tickets = [
         ticketType :  "Other",        
         ticketCity :  "Benoni",            
         ticketLocation : "ChIJgXdN8SE8lR4RgXrjC9Ouzbc",      //place-id
-        ticketLong   : -26.135168, 
-        ticketLat   : 28.367707,
+        ticketLat   : -26.135168, 
+        ticketLong   : 28.367707,
         ticketStreetAddress: "122 Totius Rd",
         // ticketCost : 25000,           
         ticketDescription : "A waterpipe has burst right next to the road and it has flooded the right lane towards the Shell garage.", 
@@ -108,8 +108,8 @@ export const tickets = [
         ticketType :  "Pothole",        
         ticketCity :  "Centurion",            
         ticketLocation : "ChIJDconP2tmlR4R3Xulh0qe6Iw",      //place-id
-        ticketLong   : -25.877636, 
-        ticketLat   : 28.225392,
+        ticketLat   : -25.877636, 
+        ticketLong   : 28.225392,
         ticketStreetAddress: "11 Jan Smuts Ave",
         // ticketCost : 25000,           
         ticketDescription : "Potholes in the road right next to the Irene middle school.", 
@@ -122,8 +122,8 @@ export const tickets = [
         ticketType :  "Pothole",        
         ticketCity :  "Brakpan",            
         ticketLocation : "EjBGbG9vcnMgU3QsIFdpdGhvayBFc3RhdGVzLCBCcmFrcGFuLCBTb3V0aCBBZnJpY2EiLiosChQKEgm3YYXiJCKVHhGXLSfgKNLCLRIUChIJ65RmVWohlR4R23Q3KsIjXRw",      //place-id
-        ticketLong   : -26.299496, 
-        ticketLat   : 28.334772,
+        ticketLat   : -26.299496, 
+        ticketLong   : 28.334772,
         ticketStreetAddress: "Heidelberg Road, R23",
         // ticketCost : 25000,           
         ticketDescription : "There are huge potholes on this main road", 
@@ -136,8 +136,8 @@ export const tickets = [
         ticketType :  "Pothole",        
         ticketCity :  "Pretoria",            
         ticketLocation : "EidONCwgRGllIFdpbGdlcnMsIFByZXRvcmlhLCBTb3V0aCBBZnJpY2EiLiosChQKEgl1XI2CrgLAHhH1PJsxroNZORIUChIJMx9AODdelR4Rr8akWkFCPc8",      //place-id
-        ticketLong   : -25.753129, 
-        ticketLat   : 28.311490,
+        ticketLat   : -25.753129, 
+        ticketLong   : 28.311490,
         ticketStreetAddress: "N4, Die Wilgers, Pretoria",
         // ticketCost : 25000,           
         ticketDescription : "There are a lot of potholes on the highway, I almost hit one on my way home!", 
@@ -151,7 +151,7 @@ export const tickets = [
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
     //     ticketLat   : -26.126206, 
-    //     ticketLat   : 28.162290,
+    //     ticketLong   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
     //     ticketDescription : "The traffic lights are not working", 
@@ -165,7 +165,7 @@ export const tickets = [
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
     //     ticketLat   : -26.126206, 
-    //     ticketLat   : 28.162290,
+    //     ticketLong   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
     //     ticketDescription : "The traffic lights are not working", 
@@ -179,7 +179,7 @@ export const tickets = [
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
     //     ticketLat   : -26.126206, 
-    //     ticketLat   : 28.162290,
+    //     ticketLong   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
     //     ticketDescription : "The traffic lights are not working", 
@@ -193,7 +193,7 @@ export const tickets = [
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
     //     ticketLat   : -26.126206, 
-    //     ticketLat   : 28.162290,
+    //     ticketLong   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
     //     ticketDescription : "The traffic lights are not working", 
@@ -207,7 +207,7 @@ export const tickets = [
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
     //     ticketLat   : -26.126206, 
-    //     ticketLat   : 28.162290,
+    //     ticketLong   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
     //     ticketDescription : "The traffic lights are not working", 
@@ -221,7 +221,7 @@ export const tickets = [
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
     //     ticketLat   : -26.126206, 
-    //     ticketLat   : 28.162290,
+    //     ticketLong   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
     //     ticketDescription : "The traffic lights are not working", 
@@ -235,7 +235,7 @@ export const tickets = [
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
     //     ticketLat   : -26.126206, 
-    //     ticketLat   : 28.162290,
+    //     ticketLong   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
     //     ticketDescription : "The traffic lights are not working", 
@@ -249,7 +249,7 @@ export const tickets = [
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
     //     ticketLat   : -26.126206, 
-    //     ticketLat   : 28.162290,
+    //     ticketLong   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
     //     ticketDescription : "The traffic lights are not working", 
@@ -263,7 +263,7 @@ export const tickets = [
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
     //     ticketLat   : -26.126206, 
-    //     ticketLat   : 28.162290,
+    //     ticketLong   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
     //     ticketDescription : "The traffic lights are not working", 
@@ -277,7 +277,7 @@ export const tickets = [
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
     //     ticketLat   : -26.126206, 
-    //     ticketLat   : 28.162290,
+    //     ticketLong   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
     //     ticketDescription : "The traffic lights are not working", 
@@ -291,7 +291,7 @@ export const tickets = [
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
     //     ticketLat   : -26.126206, 
-    //     ticketLat   : 28.162290,
+    //     ticketLong   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
     //     ticketDescription : "The traffic lights are not working", 

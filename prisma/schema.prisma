@@ -22,7 +22,7 @@ model User{
   passwordSalt        String?    
   name                String
   dateCreated         DateTime  @default(now())
-  userRating          Int       @default(55)   //scale 1 - 100
+  userRating          Int       @default(50)   //scale 1 - 100
 
   ticketsCreated      Ticket[]
   ticketsUpvoted      Int[]

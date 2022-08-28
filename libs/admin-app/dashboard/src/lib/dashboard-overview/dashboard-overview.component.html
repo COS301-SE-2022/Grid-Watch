@@ -9,10 +9,16 @@
             <mat-slide-toggle (change)="showLineGraph('Pothole', $event)">Pothole</mat-slide-toggle>
         </mat-grid-tile>
         <mat-grid-tile colspan="3">
-            <mat-slide-toggle (change)="showLineGraph('Water', $event)">Water</mat-slide-toggle>
+            <mat-slide-toggle (change)="showLineGraph('Water outage', $event)">Water outages</mat-slide-toggle>
         </mat-grid-tile>
         <mat-grid-tile colspan="3">
-            <mat-slide-toggle (change)="showLineGraph('Electricity', $event)">Electricity Issue</mat-slide-toggle>
+            <mat-slide-toggle (change)="showLineGraph('Electricity outage', $event)">Electricity outages</mat-slide-toggle>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="3">
+            <mat-slide-toggle (change)="showLineGraph('Broken Traffic Light', $event)">Traffic light outages</mat-slide-toggle>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="3">
+            <mat-slide-toggle (change)="showLineGraph('Broken Street Light', $event)">Street light outages</mat-slide-toggle>
         </mat-grid-tile>
         <mat-grid-tile colspan="3">
             <mat-slide-toggle (change)="showLineGraph('Other', $event)">Miscellaneous</mat-slide-toggle>

@@ -17,6 +17,8 @@ export class DashboardOverviewComponent implements AfterViewInit
         private ticketService: TicketService,
     ){}
     Pothole: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
+    TrafficLights: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
+    StreetLights: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
     Electricity: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
     Water: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
     Other: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
@@ -37,6 +39,18 @@ export class DashboardOverviewComponent implements AfterViewInit
     chart!: Chart;
     pieChart!: Chart;
 
+    backgroundColor: string[] = [
+        'rgb(255,10,102)',
+        'rgb(255,153,20)',
+        'rgb(153,255,51)',
+        'rgb(0,153,51)',
+        'rgb(51,51,255)',
+        'rgb(255,20,20)',
+        'rgb(3,55,0)',
+        'rgb(88,22,99)',
+        'rgb(27,244,22)',
+        'rgb(60,10,30)',
+    ]
     chartTitles = ["Pothole", "Sinkhole", "Water Outage", "Electricity Outage", "Other"];
 
     ngAfterViewInit(): void
@@ -94,51 +108,38 @@ export class DashboardOverviewComponent implements AfterViewInit
 
                     //draw piechart
 
-                    const backgroundColor: string[] = [
-                    'rgb(255,10,102)',
-                    'rgb(255,153,20)',
-                    'rgb(153,255,51)',
-                    'rgb(0,153,51)',
-                    'rgb(51,51,255)',
-                    'rgb(255,20,20)',
-                    'rgb(3,55,0)',
-                    'rgb(88,22,99)',
-                    'rgb(27,244,22)',
-                    'rgb(60,10,30)',
-                ]
-
                     for (let a = 0; a < ticketTypes.length; a++) {
 
                         if (a+1 < ticketTypes.length){
-                            if (ticketTypes[a] == "Water"){
-                                backgroundColor[a+1] = backgroundColor[a];
-                                backgroundColor[a] = 'rgb(3,100,180)';
+                            if (ticketTypes[a] == "Water outage"){
+                                this.backgroundColor[a+1] = this.backgroundColor[a];
+                                this.backgroundColor[a] = 'rgb(3,100,180)';
                             }
-                            if (ticketTypes[a] == "Electricity"){
-                                backgroundColor[a+1] = backgroundColor[a];
-                                backgroundColor[a] = 'rgb(255,255,0)';
+                            if (ticketTypes[a] == "Electricity outage"){
+                                this.backgroundColor[a+1] = this.backgroundColor[a];
+                                this.backgroundColor[a] = 'rgb(255,255,0)';
                             }
                             if (ticketTypes[a] == "Sinkhole"){
-                                backgroundColor[a+1] = backgroundColor[a];
-                                backgroundColor[a] = 'rgb(77,0,50)';
+                                this.backgroundColor[a+1] = this.backgroundColor[a];
+                                this.backgroundColor[a] = 'rgb(77,0,50)';
                             }
                             if (ticketTypes[a] == "Pothole"){
-                                backgroundColor[a+1] = backgroundColor[a];
-                                backgroundColor[a] = 'rgb(127,127,127)';
+                                this.backgroundColor[a+1] = this.backgroundColor[a];
+                                this.backgroundColor[a] = 'rgb(127,127,127)';
                             }
                         }
                         else{
-                            if (ticketTypes[a] == "Water"){
-                                backgroundColor[a] = 'rgb(3,100,180)';
+                            if (ticketTypes[a] == "Water outage"){
+                                this.backgroundColor[a] = 'rgb(3,100,180)';
                             }
-                            if (ticketTypes[a] == "Electricity"){
-                                backgroundColor[a] = 'rgb(255,255,0)';
+                            if (ticketTypes[a] == "Electricity outage"){
+                                this.backgroundColor[a] = 'rgb(255,255,0)';
                             }
                             if (ticketTypes[a] == "Sinkhole"){
-                                backgroundColor[a] = 'rgb(77,0,50)';
+                                this.backgroundColor[a] = 'rgb(77,0,50)';
                             }
                             if (ticketTypes[a] == "Pothole"){
-                                backgroundColor[a] = 'rgb(127,127,127)';
+                                this.backgroundColor[a] = 'rgb(127,127,127)';
                             } 
                         }
                     }                         
@@ -149,7 +150,7 @@ export class DashboardOverviewComponent implements AfterViewInit
                         datasets:[{
                             labels: "Types of issues",
                             data: ticketCount,
-                            backgroundColor: backgroundColor,
+                            backgroundColor: this.backgroundColor,
                             hoverOffset: 10
                         }]
                     };
@@ -242,32 +243,41 @@ export class DashboardOverviewComponent implements AfterViewInit
                 const tick = ticket.at(i);
 
                 if (tick != undefined) {
-                const date =  new Date( tick.ticketCreateDate);           
-                const month = date.getMonth();
-                const type = tick.ticketType;   
+                    const date =  new Date( tick.ticketCreateDate);           
+                    const month = date.getMonth();
+                    const type = tick.ticketType;   
 
-                if (month !=undefined){
-                    
-                    if(type == "Pothole"){
-                    {
-                        this.Pothole[month]++;
+                    if (month !=undefined){
+                        
+                        if(type == "Pothole")
+                        {
+                            this.Pothole[month]++;
+                        }
+                        else if (type == "Water outage")
+                        {
+                        // console.log("Water");
+                            this.Water[month]++;
+                        }
+                        else if (type == "Broken Street Light")
+                        {
+                            this.StreetLights[month]++;
+                        }
+                        else if (type == "Broken Traffic Light")
+                        {
+                            this.TrafficLights[month]++;
+                        }
+                        else if (type == "Electricity outage")
+                        {
+                            this.Electricity[month]++;
+                        }
+                        else if(type == "Sinkholes" || type == "Other")
+                        {
+                            this.Other[month]++;
+                        }  
                     }
-                    }else if(type == "Water")
-                    {
-                       // console.log("Water");
-                        this.Water[month]++;
-                    }
-                    else if (type == "Electricity" || type == "Broken Street Light")
-                    {
-                        this.Electricity[month]++;
-                    }
-                    else if(type == "Sinkholes" || type == "Other")
-                    {
-                        this.Other[month]++;
-                    }  
                 }
             }
-        }
+                
         })
     }
 
@@ -301,11 +311,17 @@ export class DashboardOverviewComponent implements AfterViewInit
                 case "Pothole":
                     typeIndex = this.getTypeIndex("Pothole");
                     break;
-                case "Water":
-                    typeIndex = this.getTypeIndex("Water");
+                case "Water outage":
+                    typeIndex = this.getTypeIndex("Water outage");
                     break;
-                case "Electricity":
-                    typeIndex = this.getTypeIndex("Electricity");
+                case "Electricity outage":
+                    typeIndex = this.getTypeIndex("Electricity outage");
+                    break;
+                case "Broken Street Light":
+                    typeIndex = this.getTypeIndex("Broken Street Light");
+                    break;
+                case "Broken Traffic Light":
+                    typeIndex = this.getTypeIndex("Broken Traffic Light");
                     break;
                 case "Other":
                     typeIndex = this.getTypeIndex("Other");
@@ -326,22 +342,38 @@ export class DashboardOverviewComponent implements AfterViewInit
                     backgroundColor: 'rgba(235, 12, 148, 0.6)',
                     yAxisID: 'y',
                 })
-            else if (type === "Water")
+            else if (type === "Water outage")
                 this.chart.config.data.datasets.push({
-                    label: 'Water',
+                    label: 'Water outage',
                     data: this.Water,
                     borderColor: 'rgba(3, 100, 180, 0.6)',
                     backgroundColor: 'rgba(3, 100, 180, 0.6)',
                     yAxisID: 'y',
                 })
-            else if (type === "Electricity")
+            else if (type === "Electricity outage")
                 this.chart.config.data.datasets.push({
-                    label: 'Electricity',
+                    label: 'Electricity outage',
                     data: this.Electricity,
                     borderColor: 'rgba(1, 235, 194, 0.6)',
                     backgroundColor: 'rgba(0, 255, 0, 0.6)',
                     yAxisID: 'y',
                 })
+            else if (type === "Broken Street Light")
+                this.chart.config.data.datasets.push({
+                    label: 'Broken Street Light',
+                    data: this.StreetLights,
+                    borderColor: this.backgroundColor[3],
+                    backgroundColor: this.backgroundColor[3],
+                    yAxisID: 'y',
+            })
+            else if (type === "Broken Traffic Light")
+                this.chart.config.data.datasets.push({
+                    label: 'Broken Traffic Light',
+                    data: this.TrafficLights,
+                    borderColor: this.backgroundColor[4],
+                    backgroundColor: this.backgroundColor[4],
+                    yAxisID: 'y',
+            })
             else if (type === "Other")
                 this.chart.config.data.datasets.push({
                     label: 'Other',

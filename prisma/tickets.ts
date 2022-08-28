@@ -150,7 +150,7 @@ export const tickets = [
     //     ticketType :  "Broken Traffic Light",        
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
-    //     ticketLong   : -26.126206, 
+    //     ticketLat   : -26.126206, 
     //     ticketLat   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
@@ -164,7 +164,7 @@ export const tickets = [
     //     ticketType :  "Broken Traffic Light",        
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
-    //     ticketLong   : -26.126206, 
+    //     ticketLat   : -26.126206, 
     //     ticketLat   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
@@ -178,7 +178,7 @@ export const tickets = [
     //     ticketType :  "Broken Traffic Light",        
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
-    //     ticketLong   : -26.126206, 
+    //     ticketLat   : -26.126206, 
     //     ticketLat   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
@@ -192,7 +192,7 @@ export const tickets = [
     //     ticketType :  "Broken Traffic Light",        
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
-    //     ticketLong   : -26.126206, 
+    //     ticketLat   : -26.126206, 
     //     ticketLat   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
@@ -206,7 +206,7 @@ export const tickets = [
     //     ticketType :  "Broken Traffic Light",        
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
-    //     ticketLong   : -26.126206, 
+    //     ticketLat   : -26.126206, 
     //     ticketLat   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
@@ -220,7 +220,7 @@ export const tickets = [
     //     ticketType :  "Broken Traffic Light",        
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
-    //     ticketLong   : -26.126206, 
+    //     ticketLat   : -26.126206, 
     //     ticketLat   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
@@ -234,7 +234,7 @@ export const tickets = [
     //     ticketType :  "Broken Traffic Light",        
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
-    //     ticketLong   : -26.126206, 
+    //     ticketLat   : -26.126206, 
     //     ticketLat   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
@@ -248,7 +248,7 @@ export const tickets = [
     //     ticketType :  "Broken Traffic Light",        
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
-    //     ticketLong   : -26.126206, 
+    //     ticketLat   : -26.126206, 
     //     ticketLat   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
@@ -262,7 +262,7 @@ export const tickets = [
     //     ticketType :  "Broken Traffic Light",        
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
-    //     ticketLong   : -26.126206, 
+    //     ticketLat   : -26.126206, 
     //     ticketLat   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
@@ -276,7 +276,7 @@ export const tickets = [
     //     ticketType :  "Broken Traffic Light",        
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
-    //     ticketLong   : -26.126206, 
+    //     ticketLat   : -26.126206, 
     //     ticketLat   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           
@@ -290,7 +290,7 @@ export const tickets = [
     //     ticketType :  "Broken Traffic Light",        
     //     ticketCity :  "Johannesburg",            
     //     ticketLocation : "ChIJoR6sngETlR4RQhq4aC3u_m4",      //place-id
-    //     ticketLong   : -26.126206, 
+    //     ticketLat   : -26.126206, 
     //     ticketLat   : 28.162290,
     //     ticketStreetAddress: "38 Terrace Road",
     //     // ticketCost : 25000,           

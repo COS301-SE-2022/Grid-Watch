@@ -34,6 +34,27 @@ export class ApiProfilesPublicRepositoryDataAccess{
     return user
     }
 
+    async getUserRating(userId: number){
+
+        const user = await this.prisma.user.findMany({
+
+            where:{
+                id : userId,
+            },
+            select: {
+                userRating : true,
+            }
+        })
+
+        if (user) {
+            return user;
+        }
+        else{
+            return "User with ID: " + userId + " not found!";
+        }
+            
+    }
+
     async getUser(userId: number){
 
         const user = await this.prisma.user.findMany({
@@ -233,7 +254,7 @@ export class ApiProfilesPublicRepositoryDataAccess{
             },
             data:
             {
-                userRating : 5,
+                userRating : 50,
             },
         });
     }

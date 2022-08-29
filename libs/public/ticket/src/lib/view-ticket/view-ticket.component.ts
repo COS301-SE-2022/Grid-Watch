@@ -42,14 +42,9 @@ export class ViewTicketComponent implements OnInit
           this.initialiseUser();
           this.initialiseImage();
           this.getSubtasks();
-          if (this.user.email.includes("@gridwatch.com"))
-          {
-            this.user.name = "Guest";
-          }
         }
       )
     }
-
   }
 
   private getSubtasks(): void
@@ -68,6 +63,7 @@ export class ViewTicketComponent implements OnInit
           {
             document.getElementById("issue-container")?.classList.add("hidden");
           }
+
         }
       );
   }
@@ -78,6 +74,10 @@ export class ViewTicketComponent implements OnInit
       (response) =>
       {
         this.user = response[0];
+        if (this.user.email.includes("@gridwatch.com"))
+        {
+          this.user.name = "Guest";
+        }
         console.log(this.user);
         console.log(this.userId);
       }

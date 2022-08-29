@@ -95,6 +95,12 @@ describe('Tree', () => {
     expect(testarr).toEqual([{"depth": NaN, "val": 12}, {"leftNode": {"depth": NaN, "val": 12}, "rightNode": {"depth": NaN, "leftNode": {"depth": NaN, "val": 9}, "rightNode": {"depth": NaN, "leftNode": {"depth": NaN, "val": 2}, "rightNode": {"depth": NaN, "val": 6}}}}, {"depth": NaN, "val": 9}, {"depth": NaN, "leftNode": {"depth": NaN, "val": 9}, "rightNode": {"depth": NaN, "leftNode": {"depth": NaN, "val": 2}, "rightNode": {"depth": NaN, "val": 6}}}, {"depth": NaN, "val": 2}, {"depth": NaN, "leftNode": {"depth": NaN, "val": 2}, "rightNode": {"depth": NaN, "val": 6}}, {"depth": NaN, "val": 6}]);
   })
 
-  
-
+  it('generateRandNode should  return random tree',async()=>{
+    const rootNode: Node = new DivNode(null,null);
+    const testNode: Node = await rootNode.clone();
+    rootNode.setDepth(0);
+    const tree: Tree = new Tree(6,numbers,expected);
+    await tree.generateRandNode(rootNode);
+    expect(rootNode).not.toEqual(testNode);
+  })
 });

@@ -16,8 +16,8 @@ export class LeafNode extends Node{
 
     async clone() : Promise<Node> {
         const out : Node = new LeafNode(0);
-        out.setVal(this.val);
-        out.setDepth(this.depth);
+        await out.setVal(this.val);
+        await out.setDepth(this.depth);
         return out;
     }
 

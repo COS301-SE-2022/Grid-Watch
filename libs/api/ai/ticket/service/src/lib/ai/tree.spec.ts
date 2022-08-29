@@ -117,7 +117,7 @@ describe('Tree', () => {
     const rootNode: Node = await tree.generateRandTree();
     await tree.populateTree(rootNode);
     const leafNode = await tree.getRandLeafLevelNode(rootNode);
-    const testNode = await leafNode.clone()
+    const testNode = await leafNode.clone();
     testNode.setVal(-1);
     expect(leafNode).not.toEqual(testNode);
   })

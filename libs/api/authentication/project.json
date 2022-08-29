@@ -1,0 +1,33 @@
+{
+  "root": "libs/api/authentication",
+  "sourceRoot": "libs/api/authentication/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/authentication",
+        "tsConfig": "libs/api/authentication/tsconfig.lib.json",
+        "packageJson": "libs/api/authentication/package.json",
+        "main": "libs/api/authentication/src/index.ts",
+        "assets": ["libs/api/authentication/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/authentication/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/authentication"],
+      "options": {
+        "jestConfig": "libs/api/authentication/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

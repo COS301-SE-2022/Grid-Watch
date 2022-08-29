@@ -43,6 +43,9 @@
       "@grid-watch/api/ai/ticket/service": [
         "libs/api/ai/ticket/service/src/index.ts"
       ],
+      "@grid-watch/api/authentication": [
+        "libs/api/authentication/src/index.ts"
+      ],
       "@grid-watch/api/profiles/admin/api": [
         "libs/api/profiles/admin/api/src/index.ts"
       ],

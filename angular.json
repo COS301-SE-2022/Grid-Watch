@@ -16,6 +16,7 @@
     "api-ai-ticket-api": "libs/api/ai/ticket/api",
     "api-ai-ticket-repository": "libs/api/ai/ticket/repository",
     "api-ai-ticket-service": "libs/api/ai/ticket/service",
+    "api-authentication": "libs/api/authentication",
     "api-profiles-admin-api": "libs/api/profiles/admin/api",
     "api-profiles-admin-api-shared-api-profiles-admin-api-dto": "libs/api/profiles/admin/api/shared/api-profiles-admin-api-dto",
     "api-profiles-admin-repository": "libs/api/profiles/admin/repository",

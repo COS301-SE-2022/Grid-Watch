@@ -1,26 +1,15 @@
-img {
-    height: 400px;
-}
-
-#map {
-    height: 85%;
-    width: 100%;
-  }
-
 .home-1 {
-/* The image used */
 background-image: url("/assets/home-1.jpg");
 
-/* Set a specific height */
-min-height: 500px;
+min-height: 300px;
 
-/* Create the parallax scrolling effect */
 background-attachment: fixed;
 background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
 
 object-position: 0% 50%;
+
 }
 
 .home-2 {
@@ -42,19 +31,18 @@ background-size: cover;
 background-color:gray;
 }
 
-#h1-greet
-{
-  background-color: rgba(0,0,0,0.5);
-  color:white;
-  right:0px;
-  padding:20px;
-  }
 
-#h2-greet
+
+#logo
 {
-  background-color: rgba(0,0,0,0.5);
-  color:white;
-  right:0px;
-  padding:20px;
+  width:90vw;
 }
 
+.app-info-module
+{
+  padding-left: 10px;
+  padding-top:3%;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}

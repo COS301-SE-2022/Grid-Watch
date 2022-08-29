@@ -22,7 +22,7 @@ export class Tree {
         return root;
     }
 
-    async generateRandNode(curr : Node) : Promise<Node>{
+    async generateRandNode(curr : Node) : Promise<void>{
         if(await curr.getType() == "leaf"){
             return;
         }
@@ -35,8 +35,8 @@ export class Tree {
         }else {
            curr.setLeft(await this.getRandNode(await curr.getDepth()));
            curr.setRight(await this.getRandNode(await curr.getDepth()));
-           this.generateRandNode(await curr.left());
-           this.generateRandNode(await curr.right());
+           await this.generateRandNode(await curr.left());
+           await this.generateRandNode(await curr.right());
 
         }
     }

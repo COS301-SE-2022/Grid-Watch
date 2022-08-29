@@ -43,7 +43,7 @@ export class Tree {
         }
     }
 
-    async populateTree(curr : Node): Promise<void>{
+    async populateTree(curr : Node): Promise<void>{//check
         if(await curr.getType()=="leaf"){
             curr.setVal(this.randomInt(0,20));
             return;

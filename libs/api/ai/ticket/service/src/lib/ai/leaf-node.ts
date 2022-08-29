@@ -1,4 +1,6 @@
+import { Injectable } from "@nestjs/common";
 import { Node } from "./node";
+@Injectable()
 export class LeafNode extends Node{
 
     val : number;

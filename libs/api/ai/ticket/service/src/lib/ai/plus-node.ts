@@ -1,6 +1,8 @@
+import { Injectable } from "@nestjs/common";
 import { InternalNode } from "./internal-node";
 import { Node } from "./node";
 
+@Injectable()
 export class PlusNode extends InternalNode{
     constructor(left : Node, right: Node){
         super(left, right);

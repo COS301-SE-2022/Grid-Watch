@@ -4,7 +4,9 @@ import { PlusNode } from "./plus-node";
 import { MinNode } from "./min-node";
 import { DivNode } from "./div-node";
 import { multNode } from "./mult-node";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class Tree {
     depth: number;
     input : number[][];

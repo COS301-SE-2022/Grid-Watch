@@ -1,3 +1,6 @@
+import { Injectable } from "@nestjs/common";
+
+@Injectable()
 export class Node {
     async execute(): Promise<number>{ return 0.0;} 
     async left() : Promise<Node> {return null;};

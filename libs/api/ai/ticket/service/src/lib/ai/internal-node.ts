@@ -1,4 +1,6 @@
+import { Injectable } from "@nestjs/common";
 import { Node } from "./node";
+@Injectable()
 export class InternalNode extends Node{
     leftNode :  Node;
     rightNode : Node;

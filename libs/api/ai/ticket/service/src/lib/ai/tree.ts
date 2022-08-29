@@ -15,14 +15,14 @@ export class Tree {
         this.depth = depth;
     }
 
-    async generateRandTree(): Promise<Node>{
+    async generateRandTree(): Promise<Node>{//check
         const root : Node = await this.getRandTerminal();
         root.setDepth(0);
         await this.generateRandNode(root);
         return root;
     }
 
-    async generateRandNode(curr : Node) : Promise<void>{
+    async generateRandNode(curr : Node) : Promise<void>{//check
         if(await curr.getType() == "leaf"){
             return;
         }
@@ -57,9 +57,9 @@ export class Tree {
       }
     
     async getRandNode(depth : number): Promise<Node>{//check
-        const options : number = this.randomInt(0,2);
+        const options : number = this.randomInt(0,4);
         let out : Node = null;
-        if (options == 0) {
+        if (options <= 3) {
             out = await this.getRandTerminal();
         } else {
             out= new LeafNode(0);

@@ -46,8 +46,8 @@ export class Tree {
             curr.setVal(this.randomInt(0,20));
             return;
         }else{
-            this.populateTree(await curr.left());
-            this.populateTree(await curr.right());
+            await this.populateTree(await curr.left());
+            await this.populateTree(await curr.right());
         }
 
     }
@@ -178,7 +178,7 @@ export class Tree {
 
     async getRandLeafLevelNode(parent : Node) : Promise<Node>{
         const pTree : Node[] = [];
-        this.getArr(parent,pTree);
+        await this.getArr(parent,pTree);
         const levelNodes : Node[] = [];
         for(let i=0;i<pTree.length;i++){
             if(await pTree[i].getType() == "leaf"){

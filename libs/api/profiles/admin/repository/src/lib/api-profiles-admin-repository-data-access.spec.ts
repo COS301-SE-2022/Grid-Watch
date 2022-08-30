@@ -15,7 +15,7 @@ const adminDtoMock: jest.Mocked<AdminDto> = new AdminDto() as AdminDto;
     adminDtoMock.name = "johndoe";
     adminDtoMock.email = "johndoe@gmail.com";
     adminDtoMock.contactNumber = "0829932828";
-    adminDtoMock.cities = ["Pretoria,Johannesburg"];
+    adminDtoMock.cities = ["Pretoria","Johannesburg"];
     adminDtoMock.password = "1234Admin#";
 
     provider = module.get<ApiProfilesAdminRepositoryDataAccess>(
@@ -170,7 +170,7 @@ const adminDtoMock: jest.Mocked<AdminDto> = new AdminDto() as AdminDto;
 
   //AddAdminCity endpoint
   describe('AddAdminCity',()=>{
-      it('should return Admins',async ()=>{
+      it('should return void',async ()=>{
         jest
         .spyOn(provider,'AddAdminCity')
         .mockImplementation(():Promise<void>=>Promise.resolve())

@@ -22,6 +22,7 @@ model User{
   passwordSalt        String?    
   name                String
   dateCreated         DateTime  @default(now())
+  userRating          Int       @default(50)   //scale 1 - 100
 
   ticketsCreated      Ticket[]
   ticketsUpvoted      Int[]
@@ -49,10 +50,12 @@ model Ticket {
   ticketRepairTime    Int?
   ticketUpvotes       Int
 
+  currentSubtask      Int?      
+
   techTeam            TechTeam? @relation(fields: [assignedTechTeam] , references: [id])
   assignedTechTeam    Int?
 
-  user                User? @relation(fields: [userId] , references: [id], onDelete: Cascade) // user who created ticket
+  user                User?     @relation(fields: [userId] , references: [id], onDelete: Cascade) // user who created ticket
   userId              Int?
 
   Subtasks            Subtasks[]
@@ -100,6 +103,7 @@ model TechTeam {
   email               String?   @unique
   specialisation      String[]
   contactNumber       String    @unique @db.VarChar(10)
+  cities              String[]
   nrJobsCompleted     Int?
   ratingOfJobs        Float?
 

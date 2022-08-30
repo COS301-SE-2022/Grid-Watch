@@ -20,6 +20,7 @@ export class TicketService {
 
   private getAllURL = '/api/ticket/all/tickets';
   private upvoteURL = '/api/ticket/update/upvotes/';
+  private getTicketIssue = '/api/ticket/issue/';
   private getPictureURL = '/api/ticket/picture/';
   private getTicketURL = '/api/ticket/';
   private getSubtaskURL = 'api/ticket/subtasks/';
@@ -137,6 +138,13 @@ export class TicketService {
     return this.http
       .get<TicketDto[]>(tempURL)
       .pipe(catchError(this.handleError<TicketDto[]>('getTicketsType', [])));
+  }
+
+  public getTicketsIssue(issue: string): Observable<TicketDto[]> {
+    const tempURL = this.getTicketIssue + issue;
+    return this.http
+      .get<TicketDto[]>(tempURL)
+      .pipe(catchError(this.handleError<TicketDto[]>('getTicketsIssue', [])));
   }
 
   public getTicket(ticket_id: string): Observable<TicketDto[]> {

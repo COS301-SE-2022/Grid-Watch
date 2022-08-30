@@ -51,6 +51,25 @@ const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
 
   // })
 
+    //getUserRating endpoint
+    describe('getUserRating',()=>{
+      const arrayOfUsers:UserDto[] = [];
+        it('should return a user',async ()=>{
+          jest
+          .spyOn(provider,'getUserRating')
+          .mockImplementation(():Promise<UserDto[]>=>Promise.resolve(arrayOfUsers))
+          expect(await provider.getUserRating(2)).toMatchObject(
+            expect.arrayContaining(arrayOfUsers)
+          )
+        });
+        
+        it('should return null', async () => {
+          jest.spyOn(provider, 'getUserRating').mockResolvedValue(null);
+        
+          expect(await provider.getUserRating(2)).toEqual(null);
+        });
+    })
+
     //getUser endpoint
     describe('getUser',()=>{
       const arrayOfUsers:UserDto[] = [];
@@ -154,6 +173,38 @@ const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
         expect(await provider.updateUserName(3,userMock.name)).toEqual(null);
       });
     })
+
+    //updateRating
+    describe('updateRating',()=>{
+      it('should return void',async ()=>{
+        jest
+        .spyOn(provider,'updateRating')
+        .mockImplementation(():Promise<void> => Promise.resolve());
+
+        expect(await provider.updateRating(3,40)).toBeUndefined()
+      });
+  
+      it('should return null', async () => {
+        jest.spyOn(provider, 'updateRating').mockResolvedValue(null);
+        expect(await provider.updateRating(3,40)).toEqual(null);
+      });
+    })
+
+    //resetUserRating
+    describe('resetUserRating',()=>{
+      it('should return void',async ()=>{
+        jest
+        .spyOn(provider,'resetUserRating')
+        .mockImplementation(():Promise<void> => Promise.resolve());
+
+        expect(await provider.resetUserRating(3)).toBeUndefined()
+      });
+  
+      it('should return null', async () => {
+        jest.spyOn(provider, 'resetUserRating').mockResolvedValue(null);
+        expect(await provider.resetUserRating(3)).toEqual(null);
+      });
+    })    
 
     //updateUserEmail
     describe('updateUserEmail',()=>{

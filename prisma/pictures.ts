@@ -1,22 +1,22 @@
 export const pictures = [
     {
-        pictureLink :"",
+        pictureLink :"potholeseed.jpg",
         ticketID    : 1
     },
     {
-        pictureLink :"",
+        pictureLink :"nopowerseed.jpg",
         ticketID    : 2
     },
     {
-        pictureLink :"",
+        pictureLink :"roadfloodedseed.jpeg",
         ticketID    : 3
     },
     {
-        pictureLink :"",
+        pictureLink :"noelecseed.jpg",
         ticketID    : 4
     },
     {
-        pictureLink :"",
+        pictureLink :"pipeburstroad.jpg",
         ticketID    : 5
     }
 ]

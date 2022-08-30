@@ -18,8 +18,8 @@ export class ApiProfilesPublicRepositoryDataAccess{
             throw Error("password_falsy");
 
         const salt = await this.bcrypt.genSalt(6);
+        //const pepper = String.fromCharCode(userDto.email.length + userDto.password.length);
         const hash = await this.bcrypt.hash(userDto.password, salt)
-
         const user = await this.prisma.user.create({
             data:
             {
@@ -32,6 +32,27 @@ export class ApiProfilesPublicRepositoryDataAccess{
         });
 
     return user
+    }
+
+    async getUserRating(userId: number){
+
+        const user = await this.prisma.user.findMany({
+
+            where:{
+                id : userId,
+            },
+            select: {
+                userRating : true,
+            }
+        })
+
+        if (user) {
+            return user;
+        }
+        else{
+            return "User with ID: " + userId + " not found!";
+        }
+            
     }
 
     async getUser(userId: number){
@@ -123,8 +144,10 @@ export class ApiProfilesPublicRepositoryDataAccess{
         });
     }
 
-    async verifyUserPassword(email:string, Password:string)
-    {
+    async verifyUserPassword(email:string, Password:string) 
+    {                
+        //const pepper = String.fromCharCode(email.length + Password.length);
+
         const user = await this.prisma.user.findFirst({
 
             where:
@@ -209,6 +232,32 @@ export class ApiProfilesPublicRepositoryDataAccess{
             },
         });
     }
+        
+    async updateRating(userId:number, rating:number){
+
+        await this.prisma.user.update({
+            where:{
+                id : userId,
+            },
+            data:
+            {
+                userRating : rating,
+            },
+        });
+    }
+
+    async resetUserRating(userId:number){
+
+        await this.prisma.user.update({
+            where:{
+                id : userId,
+            },
+            data:
+            {
+                userRating : 50,
+            },
+        });
+    }
 
     async updateUserEmail(userId:number,userEmail:string){
 
@@ -222,7 +271,6 @@ export class ApiProfilesPublicRepositoryDataAccess{
             },
         });
     }
-
 
     async deleteUser(userId: number){
 

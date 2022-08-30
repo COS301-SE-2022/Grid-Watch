@@ -13,7 +13,7 @@ export const subtasks = [
     },
     {
         ticketID: 2,
-        taskDescription : "Start filling the pothole with tar.",
+        taskDescription : "Start filling the pothole with gravel.",
         taskStep: 3,
         taskStatus: "Restoration of the road has begun."
     },

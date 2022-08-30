@@ -1,7 +1,7 @@
 .home-1 {
 background-image: url("/assets/home-1.jpg");
 
-min-height: 300px;
+min-height: 250px;
 
 background-attachment: fixed;
 background-position: center;
@@ -31,8 +31,6 @@ background-size: cover;
 background-color:gray;
 }
 
-
-
 #logo
 {
   width:90vw;
@@ -45,4 +43,83 @@ background-color:gray;
   width: 100%;
   height: 100%;
   border-radius: 10px;
+  color:white;
+  text-shadow: 0 0 10px #000;
 }
+
+#logo-container
+{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #8ec63f;
+  filter: drop-shadow(0 0 0.25rem #000 );
+}
+
+.fa {
+  padding-top: 10px !important;
+  padding-left: 15px !important;
+  padding-right: 35px !important;
+  padding-bottom: 10px !important;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50%;
+}
+
+/* Add a hover effect if you want */
+.fa:hover {
+  opacity: 0.7;
+}
+
+/* Set a specific color for each brand */
+
+/* Facebook */
+.fa-facebook {
+  padding-left: 17px !important;
+  background: #adadad;
+  color: white;
+}
+
+/* Twitter */
+.fa-twitter {
+  padding-right: 38px !important;
+  background: #adadad;
+  color: white;
+}
+
+/* Instagram */
+.fa-instagram {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  padding-right: 40px !important;
+  background: #adadad;
+  color: white;
+}
+
+.fa-arrow-right
+{
+  color:black;
+}
+
+.create-ticket-arrow
+{
+  font-size: 50px;
+}
+
+.icon
+{
+  padding-right: 30px;
+}
+
+#howItWorksContainer
+{
+  background:#eeeeee;
+  border-radius: 20px;
+  margin:20px;
+  filter: drop-shadow(0 5px 2px #888888 );
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+

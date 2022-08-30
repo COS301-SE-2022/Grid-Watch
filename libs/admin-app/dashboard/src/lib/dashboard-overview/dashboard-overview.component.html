@@ -1,7 +1,7 @@
 <mat-grid-list cols="12" rowHeight="100">
     <mat-grid-tile colspan="1"></mat-grid-tile>
     <mat-grid-tile colspan="10" rowspan="3">
-        <canvas id="myChart0" style="max-height: 300px;"></canvas>
+            <canvas id="myGraph" style="max-height: 300px;"></canvas>
     </mat-grid-tile>
     <mat-grid-tile colspan="1"></mat-grid-tile>
     <mat-radio-group aria-label="Select an option">
@@ -9,13 +9,26 @@
             <mat-slide-toggle (change)="showLineGraph('Pothole', $event)">Pothole</mat-slide-toggle>
         </mat-grid-tile>
         <mat-grid-tile colspan="3">
-            <mat-slide-toggle (change)="showLineGraph('Water', $event)">Water</mat-slide-toggle>
+            <mat-slide-toggle (change)="showLineGraph('Water outage', $event)">Water outages</mat-slide-toggle>
         </mat-grid-tile>
         <mat-grid-tile colspan="3">
-            <mat-slide-toggle (change)="showLineGraph('Electricity', $event)">Electricity Issue</mat-slide-toggle>
+            <mat-slide-toggle (change)="showLineGraph('Electricity outage', $event)">Electricity outages</mat-slide-toggle>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="3">
+            <mat-slide-toggle (change)="showLineGraph('Broken Traffic Light', $event)">Traffic light outages</mat-slide-toggle>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="3">
+            <mat-slide-toggle (change)="showLineGraph('Broken Street Light', $event)">Street light outages</mat-slide-toggle>
         </mat-grid-tile>
         <mat-grid-tile colspan="3">
             <mat-slide-toggle (change)="showLineGraph('Other', $event)">Miscellaneous</mat-slide-toggle>
         </mat-grid-tile>
     </mat-radio-group>    
 </mat-grid-list>
+<mat-grid-list cols="12" rowHeight="100">
+    <mat-grid-tile colspan="3">
+        <mat-slide-toggle id ="chart" (change)="showChart('Other', $event)">Show chart</mat-slide-toggle>
+    </mat-grid-tile>
+</mat-grid-list>
+<canvas id="pieChart" style="max-height: 500px; max-width: 500px;"></canvas>
+

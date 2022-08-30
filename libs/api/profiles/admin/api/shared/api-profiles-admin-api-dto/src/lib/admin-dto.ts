@@ -42,4 +42,5 @@ passwordSalt! : string;
 @IsDate()
 @IsOptional()
 dateCreated! : Date;
+
 }

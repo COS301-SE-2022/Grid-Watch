@@ -235,6 +235,21 @@ export class ApiTicketRepositoryDataAccess {
         return tickets
     }
 
+    async getCurrentSubtask(ID:number, step:number){
+
+        const subtask = await this.prisma.subtasks.findMany({
+            
+            where:{
+                AND:[
+                    { ticketID : ID },
+                    { taskStep : step },
+                ],
+            },
+        })
+        
+        return subtask
+    }
+
     async closeTicket(ticketId: number){
 
         await this.prisma.ticket.update({

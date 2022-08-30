@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ApiProfilesTechTeamRepositoryDataAccess } from './api-profiles-tech-team-repository-data-access';
 import {TechTeamDto} from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 import { TechTeam } from '@prisma/client';
+import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 
 const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamDto;
 
@@ -16,7 +17,8 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
     techTeamDtoMock.name = "Sparky";
     techTeamDtoMock.email = "sparkyy3@gmail.com";
     techTeamDtoMock.specialisation = ["Electricity"];
-    techTeamDtoMock.contactNumber= "0119873323";
+    techTeamDtoMock.contactNumber = "0119873323";
+    techTeamDtoMock.cities = ["Centurion","Hatfield"]
 
     provider = module.get<ApiProfilesTechTeamRepositoryDataAccess>(
       ApiProfilesTechTeamRepositoryDataAccess
@@ -179,6 +181,88 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
       });
   })
 
+  //getTechTeamCities endpoint
+  describe('getTechTeamCities',()=>{
+    const arrayOfTechTeams:TechTeamDto[] = [];
+      it('should return techteams',async ()=>{
+        jest
+        .spyOn(provider,'getTechTeamCities')
+        .mockImplementation(():Promise<TechTeamDto[]>=>Promise.resolve(arrayOfTechTeams))
+        expect(await provider.getTechTeamCities("Pretoria")).toMatchObject(
+          expect.arrayContaining(arrayOfTechTeams)
+        )
+      });
+
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getTechTeamCities').mockResolvedValue(null); 
+        expect(await provider.getTechTeamCities("Pretoria")).toEqual(null);
+      });
+  })
+
+  //AddTechTeamCity endpoint
+  describe('AddTechTeamCity',()=>{
+      it('should return void',async ()=>{
+        jest
+        .spyOn(provider,'AddTechTeamCity')
+        .mockImplementation(():Promise<void>=>Promise.resolve())
+        expect(await provider.AddTechTeamCity(2,"Pretoria")).toBeUndefined()
+      });
+      it('should return null', async () => {
+        jest.spyOn(provider, 'AddTechTeamCity').mockResolvedValue(null); 
+        expect(await provider.AddTechTeamCity(2,"Pretoria")).toEqual(null);
+      });
+  })  
+
+  //assignTicket endpoint
+  describe('assignTicket',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'assignTicket')
+      .mockImplementation(():Promise<void>=>Promise.resolve())
+      expect(await provider.assignTicket(2,3)).toBeUndefined()
+    });
+    it('should return null', async () => {
+      jest.spyOn(provider, 'assignTicket').mockResolvedValue(null); 
+      expect(await provider.assignTicket(2,3)).toEqual(null);
+    });
+  }) 
+
+  // //getAllAssignedTickets endpoint
+  // describe('getAllAssignedTickets',()=>{
+  //   const arrayOfTickets:TicketDto[] = [];
+  //     it('should return tickets',async ()=>{
+  //       jest
+  //       .spyOn(provider,'getAllAssignedTickets')
+  //       .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
+  //       expect(await provider.getAllAssignedTickets(2)).toMatchObject(
+  //         expect.arrayContaining(arrayOfTickets)
+  //       )
+  //     });
+
+  //     it('should return null', async () => {
+  //       jest.spyOn(provider, 'getAllAssignedTickets').mockResolvedValue(null); 
+  //       expect(await provider.getAllAssignedTickets(2)).toEqual(null);
+  //     });
+  // })
+
+  //getTechTeamCities endpoint
+  describe('getTechTeamCities',()=>{
+    const arrayOfTechTeams:TechTeamDto[] = [];
+      it('should return techteams',async ()=>{
+        jest
+        .spyOn(provider,'getTechTeamCities')
+        .mockImplementation(():Promise<TechTeamDto[]>=>Promise.resolve(arrayOfTechTeams))
+        expect(await provider.getTechTeamCities("Pretoria")).toMatchObject(
+          expect.arrayContaining(arrayOfTechTeams)
+        )
+      });
+
+      it('should return null', async () => {
+        jest.spyOn(provider, 'getTechTeamCities').mockResolvedValue(null); 
+        expect(await provider.getTechTeamCities("Pretoria")).toEqual(null);
+      });
+  })
+
   //UpdateTechTeam
   describe('UpdateTechTeam',()=>{
     it('should return void',async ()=>{
@@ -251,6 +335,21 @@ const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamD
     it('should return null', async () => {
       jest.spyOn(provider, 'updateTechTeamContactNr').mockResolvedValue(null);
       expect(await provider.updateTechTeamContactNr(3,"0122238843")).toEqual(null);
+    });
+  })
+
+  //updateTechTeamCities
+  describe('updateTechTeamCities',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(provider,'updateTechTeamCities')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await provider.updateTechTeamCities(3,techTeamDtoMock.cities)).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'updateTechTeamCities').mockResolvedValue(null);
+      expect(await provider.updateTechTeamCities(3,techTeamDtoMock.cities)).toEqual(null);
     });
   })
 

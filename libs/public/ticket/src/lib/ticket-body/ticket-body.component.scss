@@ -8,3 +8,13 @@ mat-button-toggle{
     padding-bottom: 10px;
     width: 100%;
 }
+
+.view-selector
+{
+    position:fixed !important;
+    top:0;
+    left:0;
+    width:100vw;
+    height:40px;
+    z-index: 100;
+}

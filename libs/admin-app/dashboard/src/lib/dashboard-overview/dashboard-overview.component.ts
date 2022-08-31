@@ -79,7 +79,7 @@ export class DashboardOverviewComponent implements AfterViewInit
 
     initMap(): void
     {
-        var locations: google.maps.LatLng[] = [];
+        const locations: google.maps.LatLng[] = [];
         this.ticketService.getTickets().subscribe(async (tickets) => {
             this.tickets = tickets;
             this.tickets.forEach((value) =>{
@@ -100,7 +100,7 @@ export class DashboardOverviewComponent implements AfterViewInit
               disableAutoPan: true,
             });
 
-            var heatmap = new google.maps.visualization.HeatmapLayer({data: locations});
+            const heatmap = new google.maps.visualization.HeatmapLayer({data: locations});
             heatmap.setMap(map);
         });
 

@@ -147,7 +147,7 @@ export class Tree {
                 randlevel = this.randomInt(1, levels-1);
             }
             const pTree : Node[] = [];
-            this.getArr(parent, pTree);
+            await this.getArr(parent, pTree);
 
             for (let  i = 0; i < pTree.length; i++) {
                 if (await pTree[i].getDepth() == randlevel) {

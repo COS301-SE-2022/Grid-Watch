@@ -4,6 +4,8 @@ import { TicketService } from '@grid-watch/shared-ui';
 import { } from 'chart.js/auto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { response } from 'express';
+import { Loader } from '@googlemaps/js-api-loader';
+import { GoogleMapsService } from '@grid-watch/shared-ui';
 
 
 @Component({
@@ -15,6 +17,7 @@ export class DashboardOverviewComponent implements AfterViewInit
 {
     constructor(
         private ticketService: TicketService,
+        private googleMapsService: GoogleMapsService,
     ){}
     Pothole: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
     TrafficLights: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
@@ -23,6 +26,7 @@ export class DashboardOverviewComponent implements AfterViewInit
     Water: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
     Other: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
 
+    map!: google.maps.Map;
     tickets : Array<TicketDto> = [];
     ticketTypes : Array<string> = [];
     ticketTypesCount : Array<number> = [];
@@ -57,6 +61,49 @@ export class DashboardOverviewComponent implements AfterViewInit
     {
         this.initiateGraphs();
         this.setCount();
+        const loader = new Loader({
+            apiKey: 'AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE',
+            version: 'weekly',
+            libraries: ['places','visualization'],
+          });
+      
+          loader.load().then(
+            () => {
+              this.initMap();
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+    }
+
+    initMap(): void
+    {
+        var locations: google.maps.LatLng[] = [];
+        this.ticketService.getTickets().subscribe(async (tickets) => {
+            this.tickets = tickets;
+            this.tickets.forEach((value) =>{
+              locations.push(new google.maps.LatLng(value.ticketLat, value.ticketLong));
+            })
+            console.log(this.tickets);
+            const map = new google.maps.Map(
+              document.getElementById('heatmap') as HTMLElement,
+              {
+                zoom: 13,
+                center: { lat: -25.748733, lng: 28.238043},
+                mapTypeId: 'satellite',
+              }
+            );
+      
+            const infoWindow = new google.maps.InfoWindow({
+              content: '',
+              disableAutoPan: true,
+            });
+
+            var heatmap = new google.maps.visualization.HeatmapLayer({data: locations});
+            heatmap.setMap(map);
+        });
+
     }
 
     async getDatabaseData() 

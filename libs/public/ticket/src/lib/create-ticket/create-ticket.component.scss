@@ -56,7 +56,20 @@ mat-form-field{
     margin-top: 15px;
 }
 
+::ng-deep .green-snackbar
+{
+    background: gray;
+    color:black;
+    margin-bottom: 50% !important;
+}
+
+::ng-deep .green-snackbar .mat-button-wrapper
+{
+    color:white;
+}
+
 .backdrop
 {
     background-color: black;
 }
+

@@ -8,6 +8,7 @@ import { FloatLabelType } from '@angular/material/form-field';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -62,7 +63,8 @@ export class CreateTicketComponent{
               private formBuilder: FormBuilder,
               private profileService : PublicProfileService,
               public dialog: MatDialog,
-              private sesssionManager: SessionManagerService) {
+              private sesssionManager: SessionManagerService,
+              private _snackBar: MatSnackBar) {
               }
               
   async ngOnInit(): Promise<void> {    
@@ -214,6 +216,7 @@ export class CreateTicketComponent{
       this.uploadTicket();
     }
      
+    this.openSnackBar('Created', 'Done');
   }
 
 
@@ -339,6 +342,14 @@ export class CreateTicketComponent{
     // if (this.issue.hasError('required')) {
       return 'You must enter a value';
     // }
+  }
+
+  openSnackBar(message: string, action: string)
+  {
+
+    this._snackBar.open(message, action, {
+      panelClass: ['green-snackbar', 'login-snackbar'],
+     });
   }
 }
 

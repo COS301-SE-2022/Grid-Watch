@@ -23,6 +23,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TicketBodyListComponent } from './ticket-body-list/ticket-body-list.component';
 import { TicketBodyMapComponent } from './ticket-body-map/ticket-body-map.component';
+import { MatSnackBarModule} from '@angular/material/snack-bar';
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
@@ -46,6 +47,7 @@ import { TicketBodyMapComponent } from './ticket-body-map/ticket-body-map.compon
     MatGridListModule,
     MatDialogModule,
     MatMenuModule,
+    MatSnackBarModule,
     MatButtonToggleModule,
     RouterModule.forChild([
       {

@@ -111,7 +111,6 @@ describe('Tree', () => {
    expect(await leafNode.getType()).toEqual("leaf");
  })
   
-
   it('populate tree should add values to leaf nodes',async()=>{
     const tree: Tree = new Tree(6,numbers,expected);
     const rootNode: Node = await tree.generateRandTree();
@@ -120,5 +119,14 @@ describe('Tree', () => {
     const testNode = await leafNode.clone();
     testNode.setVal(-1);
     expect(leafNode).not.toEqual(testNode);
+  })
+
+  it('getRandLevelNode should return random internal node',async()=>{
+    const tree: Tree = new Tree(6,numbers,expected);
+    const rootNode: Node = await tree.generateRandTree();
+    await tree.populateTree(rootNode);
+    const node: Node = await tree.getRandLevelNode(2,rootNode);
+    console.log(node);
+    expect(await node.getType()).not.toEqual("leaf");
   })
 });

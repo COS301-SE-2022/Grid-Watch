@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardOverviewComponent } from './dashboard-overview.component';
 import {Chart, registerables} from 'chart.js';
 import {HttpClientModule} from '@angular/common/http';
+import {GoogleMapsService} from '@grid-watch/shared-ui';
 
 
 describe('DashboardOverviewComponent', () => {
@@ -12,6 +13,7 @@ describe('DashboardOverviewComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [DashboardOverviewComponent],
       imports: [HttpClientModule],
+      providers: [GoogleMapsService],
     }).compileComponents();
   });
 

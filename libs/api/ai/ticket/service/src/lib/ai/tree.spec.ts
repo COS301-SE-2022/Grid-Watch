@@ -147,7 +147,14 @@ describe('Tree', () => {
     await tree.replaceNode(node,replaceNode,rootNode);
     expect(rootNode).not.toEqual(testNode);
   })
-  //mutation
+
+  it('mutation should return a mutated subtree', async()=>{
+    const tree: Tree = new Tree(6,numbers,expected);
+    const rootNode: Node = await tree.generateRandTree();
+    await tree.populateTree(rootNode);
+    expect(await tree.mutation(rootNode,4)).toBeDefined();
+  })
+
   it('generateRandSubtree should return a random subtree', async()=>{
     const tree: Tree = new Tree(3,numbers,expected);
     const rootNode: Node = new DivNode(null,null);

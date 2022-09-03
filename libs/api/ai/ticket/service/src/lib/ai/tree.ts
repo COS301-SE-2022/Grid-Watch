@@ -164,6 +164,7 @@ export class Tree {
     async mutation(root : Node,mutationdepth : number) : Promise<Node>{
         //generate random subtree
         const subroot : Node = await this.getRandTerminal();
+        subroot.setDepth(0);
         await this.generateRandSubtree(subroot,mutationdepth);
         //get random leaf node
 

@@ -111,8 +111,8 @@ export class Tree {
         const temp2 : Node = await p2.clone();
 
         //replace node
-        this.replaceNode(p1,temp2,root1);
-        this.replaceNode(p2,temp1,root2);
+        await this.replaceNode(p1,temp2,root1);
+        await this.replaceNode(p2,temp1,root2);
 
 
         const ret : Node[] = [];

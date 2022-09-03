@@ -211,7 +211,7 @@ export class Tree {
         }
     }
 
-    async getLevels(root : Node) : Promise<number>{
+    async getLevels(root : Node) : Promise<number>{//check
         const depth: Node[] = [];
         await this.getArr(root,depth);
         let maxdepth = 0;

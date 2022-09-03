@@ -19,8 +19,8 @@ export class MinNode extends InternalNode {
         }else{
             out = new MinNode(null, null);
         }
-        out.setDepth(this.depth);
-        out.setFitness(await this.getFitness());
+        await out.setDepth(this.depth);
+        await out.setFitness(await this.getFitness());
         return out;
     }
 

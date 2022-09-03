@@ -92,7 +92,7 @@ describe('Tree', () => {
     const tree: Tree = new Tree(6,numbers,expected);
     const testarr : Node[]=[];
     await tree.getArr(rootNode,testarr);
-    expect(testarr).toEqual([{"depth": NaN, "val": 12}, {"leftNode": {"depth": NaN, "val": 12}, "rightNode": {"depth": NaN, "leftNode": {"depth": NaN, "val": 9}, "rightNode": {"depth": NaN, "leftNode": {"depth": NaN, "val": 2}, "rightNode": {"depth": NaN, "val": 6}}}}, {"depth": NaN, "val": 9}, {"depth": NaN, "leftNode": {"depth": NaN, "val": 9}, "rightNode": {"depth": NaN, "leftNode": {"depth": NaN, "val": 2}, "rightNode": {"depth": NaN, "val": 6}}}, {"depth": NaN, "val": 2}, {"depth": NaN, "leftNode": {"depth": NaN, "val": 2}, "rightNode": {"depth": NaN, "val": 6}}, {"depth": NaN, "val": 6}]);
+    expect(testarr).toEqual([{"depth": undefined, "val": 12}, {"leftNode": {"depth": undefined, "val": 12}, "rightNode": {"depth": undefined, "leftNode": {"depth": undefined, "val": 9}, "rightNode": {"depth": undefined, "leftNode": {"depth": undefined, "val": 2}, "rightNode": {"depth": undefined, "val": 6}}}}, {"depth": undefined, "val": 9}, {"depth": undefined, "leftNode": {"depth": undefined, "val": 9}, "rightNode": {"depth": undefined, "leftNode": {"depth": undefined, "val": 2}, "rightNode": {"depth": undefined, "val": 6}}}, {"depth": undefined, "val": 2}, {"depth": undefined, "leftNode": {"depth": undefined, "val": 2}, "rightNode": {"depth": undefined, "val": 6}}, {"depth": undefined, "val": 6}]);
   })
 
   it('generateRandNode should  return random tree',async()=>{
@@ -126,22 +126,21 @@ describe('Tree', () => {
     const rootNode: Node = await tree.generateRandTree();
     await tree.populateTree(rootNode);
     const node: Node = await tree.getRandLevelNode(2,rootNode);
+    console.log(await node.getType());
     expect(await node.getType()).not.toEqual("leaf");
   })
 
   it('crossOver should return a cross between parent1 and parent2', async()=>{
-    const tree: Tree = new Tree(3,numbers,expected);
+    const tree: Tree = new Tree(2,numbers,expected);
     const parent1: Node = await tree.generateRandTree();
     const parent2: Node = await tree.generateRandTree();
     await tree.populateTree(parent1);
     await tree. populateTree(parent2);
     expect(await tree.crossOver(parent1,parent2)).toBeDefined();
   })
-  //crossover
   //replaceNode
   //mutation
   //getrandsubtree
-  //getlevels
   it('getLevels should return the depth of a tree', async() =>{
     const tree: Tree = new Tree(3,numbers,expected);
     const rootNode: Node = await tree.generateRandTree();

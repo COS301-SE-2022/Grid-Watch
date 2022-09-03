@@ -126,7 +126,6 @@ describe('Tree', () => {
     const rootNode: Node = await tree.generateRandTree();
     await tree.populateTree(rootNode);
     const node: Node = await tree.getRandLevelNode(2,rootNode);
-    console.log(await node.getType());
     expect(await node.getType()).not.toEqual("leaf");
   })
 
@@ -138,7 +137,17 @@ describe('Tree', () => {
     await tree. populateTree(parent2);
     expect(await tree.crossOver(parent1,parent2)).toBeDefined();
   })
-  //replaceNode
+
+  it('replaceNode should replace a node with specified node',async ()=>{
+    const tree: Tree = new Tree(6,numbers,expected);
+    const rootNode: Node = await tree.generateRandTree();
+    const testNode :Node = await rootNode.clone();
+    await tree.populateTree(rootNode);
+    const node: Node = await tree.getRandLevelNode(2,rootNode);
+    const replaceNode: Node = await new DivNode(null,null);
+    await tree.replaceNode(node,replaceNode,rootNode);
+    expect(rootNode).not.toEqual(testNode);
+  })
   //mutation
   //getrandsubtree
   it('getLevels should return the depth of a tree', async() =>{

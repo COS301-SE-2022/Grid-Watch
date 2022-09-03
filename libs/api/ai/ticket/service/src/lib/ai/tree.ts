@@ -156,7 +156,7 @@ export class Tree {
             }
         }
 
-        const randNode : number = this.randomInt(0,levelNodes.length);
+        const randNode : number = this.randomInt(0,levelNodes.length-1);
         return levelNodes[randNode];
     }
 

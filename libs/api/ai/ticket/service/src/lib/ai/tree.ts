@@ -240,12 +240,8 @@ export class Tree {
                 }
 
                 const res = await curr.execute();
-                let compare: number;
-                if(res>0.5){
-                    compare=1;
-                }
-
-                if(compare==this.expected[a]){
+                const epsilon : number = Math.abs(res-this.expected[a]);
+                if(epsilon<res*0.1){
                     correct++;
                 }
                 all++;

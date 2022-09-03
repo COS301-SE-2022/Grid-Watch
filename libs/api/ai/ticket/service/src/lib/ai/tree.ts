@@ -164,7 +164,7 @@ export class Tree {
     async mutation(root : Node,mutationdepth : number) : Promise<Node>{
         //generate random subtree
         const subroot : Node = await this.getRandTerminal();
-        this.generateRandSubtree(subroot,mutationdepth);
+        await this.generateRandSubtree(subroot,mutationdepth);
         //get random leaf node
 
         const mutate : Node = await root.clone();
@@ -196,17 +196,19 @@ export class Tree {
         if (await curr.getType()== "leaf") {
             //return ;
         }
-        if (await curr.getDepth() == subdepth - 1) {
-            curr.setLeft(new LeafNode(0));
-            curr.setRight(new LeafNode(0));
-            (await curr.left()).setDepth(await curr.getDepth() + 1);
-            (await curr.right()).setDepth(await curr.getDepth() + 1);
+        if (curr.getDepth() == subdepth - 1) {
+            await curr.setLeft(new LeafNode(0));
+            await curr.setRight(new LeafNode(0));
+            (await curr.left()).setDepth(curr.getDepth() + 1);
+            (await curr.right()).setDepth(curr.getDepth() + 1);
             //return null;
         } else {
-            curr.setLeft(await this.getRandTerminal());
-            curr.setRight(await this.getRandTerminal());
-            this.generateRandNode(await curr.left());
-            this.generateRandNode(await curr.right());
+            await curr.setLeft(await this.getRandTerminal());
+            await curr.setRight(await this.getRandTerminal());
+            (await curr.left()).setDepth(curr.getDepth() + 1);
+            (await curr.right()).setDepth(curr.getDepth() + 1);
+            await this.generateRandNode(await curr.left());
+            await this.generateRandNode(await curr.right());
 
         }
     }

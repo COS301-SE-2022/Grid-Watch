@@ -1,4 +1,3 @@
-import { InternalNode } from './internal-node';
 import { Tree } from './tree';
 import {Node} from './node';
 import { DivNode } from './div-node';
@@ -149,13 +148,26 @@ describe('Tree', () => {
     expect(rootNode).not.toEqual(testNode);
   })
   //mutation
-  //getrandsubtree
+  it('generateRandSubtree should return a random subtree', async()=>{
+    const tree: Tree = new Tree(3,numbers,expected);
+    const rootNode: Node = new DivNode(null,null);
+    rootNode.setDepth(0);
+    await tree.generateRandSubtree(rootNode,4);
+    expect(rootNode).toBeDefined();
+  })
+
   it('getLevels should return the depth of a tree', async() =>{
     const tree: Tree = new Tree(3,numbers,expected);
     const rootNode: Node = await tree.generateRandTree();
     await tree.populateTree(rootNode);
     expect(await tree.getLevels(rootNode)).toEqual(3);
   })
-  //getfitness
+
+  it('getFitness should return a fitness value',async()=>{
+    const tree: Tree = new Tree(6,numbers,expected);
+    const rootNode: Node = await tree.generateRandTree();
+    await tree.populateTree(rootNode);
+    expect(await tree.getFitness(rootNode)).toBeGreaterThanOrEqual(0);
+  })
 
 });

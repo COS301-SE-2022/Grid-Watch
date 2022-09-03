@@ -213,7 +213,7 @@ export class Tree {
 
     async getLevels(root : Node) : Promise<number>{
         const depth: Node[] = [];
-        this.getArr(root,depth);
+        await this.getArr(root,depth);
         let maxdepth = 0;
         for(let i=0;i<depth.length;i++){
             if(maxdepth<await depth[i].getDepth()){

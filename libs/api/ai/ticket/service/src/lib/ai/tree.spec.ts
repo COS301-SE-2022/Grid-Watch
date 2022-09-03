@@ -135,13 +135,19 @@ describe('Tree', () => {
     const parent2: Node = await tree.generateRandTree();
     await tree.populateTree(parent1);
     await tree. populateTree(parent2);
-      expect(await tree.crossOver(parent1,parent2)).toBeDefined();
+    expect(await tree.crossOver(parent1,parent2)).toBeDefined();
   })
   //crossover
   //replaceNode
   //mutation
   //getrandsubtree
   //getlevels
+  it('getLevels should return the depth of a tree', async() =>{
+    const tree: Tree = new Tree(3,numbers,expected);
+    const rootNode: Node = await tree.generateRandTree();
+    await tree.populateTree(rootNode);
+    expect(await tree.getLevels(rootNode)).toEqual(3);
+  })
   //getfitness
 
 });

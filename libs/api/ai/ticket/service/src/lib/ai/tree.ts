@@ -136,7 +136,7 @@ export class Tree {
         }
     }
 
-    async getRandLevelNode(levels : number,parent : Node) : Promise<Node>{
+    async getRandLevelNode(levels : number,parent : Node) : Promise<Node>{//check
         let randlevel = 0;
 
         const levelNodes : Node[] = [];
@@ -178,7 +178,7 @@ export class Tree {
         return mutate;
     }
 
-    async getRandLeafLevelNode(parent : Node) : Promise<Node>{
+    async getRandLeafLevelNode(parent : Node) : Promise<Node>{//check
         const pTree : Node[] = [];
         await this.getArr(parent,pTree);
         const levelNodes : Node[] = [];

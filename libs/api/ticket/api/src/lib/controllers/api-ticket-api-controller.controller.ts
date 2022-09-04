@@ -36,7 +36,6 @@ export class TicketController {
     }
 
     //get endpiont to return a specific ticket
-    @UseGuards(JwtAuthGuard)
     @Get(':id')
     async getTicket(@Param() params){
         return this.apiTicketService.getTicket(parseInt(params.id));

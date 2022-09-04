@@ -42,6 +42,7 @@ export class LoginPageComponent implements OnInit {
         if (response)
         {
           this.showMessage("Successfully logged in");
+          this.sessionService.setToken(response.access_token)
           this.successfulLogin();
         }
         else

@@ -52,6 +52,7 @@ export class LoginPageComponent implements OnInit {
     this.profileService.login(this.techProfile).subscribe((response) => {
       console.log(response);
       if (response) {
+        this.sessionService.setToken(response.access_token)
         this.routeToProfile();
       } else {
         alert('Wrong email, password combination');

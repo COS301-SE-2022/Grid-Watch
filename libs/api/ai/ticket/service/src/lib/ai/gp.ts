@@ -14,7 +14,7 @@ export class GP {
 
     constructor(popsize : number,depth : number,generations : number,inputs : number[][],expected: number[]){
         this.genTree = new Tree(depth,inputs,expected);
-
+        this.population = [];
         this.popsize = popsize;
         this.generations = generations;
     

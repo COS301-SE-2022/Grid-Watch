@@ -234,10 +234,11 @@ export class Tree {
             
             for(let a=0;a<this.input.length;a++){
 
-                let cinput: number;
+                let cinput =0;
                 for(let i=0;i<arrTest.length;i++){
                     if(await arrTest[i].getType() == "leaf"){
-                        arrTest[i].setVal(this.input[a][cinput%(this.input.length)]);
+                        const temp : number = this.input[a][cinput%(this.input.length)];
+                        await arrTest[i].setVal(this.input[a][cinput%(this.input.length)]);
                         cinput++;
                     }
                 }

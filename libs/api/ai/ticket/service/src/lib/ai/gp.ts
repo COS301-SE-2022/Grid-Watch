@@ -30,7 +30,7 @@ export class GP {
     async GPA() : Promise<Node>{
         await this.getInitial();
         let highest: Node = null;
-        let countgen: number;
+        let countgen = 0;
         
         highest = await (await this.getBestFitness()).clone();
         while(await highest.getFitness() < 100.0 && countgen < this.generations){
@@ -42,13 +42,13 @@ export class GP {
                 let children:Node[] = [];
                 children = await this.genTree.crossOver(this.population[0],this.population[i+1]);
                 
-                newpopulation[newpopulation.length-1] = children[0];
-                newpopulation[newpopulation.length-1] = children[1];
+                newpopulation.push(children[0]);
+                newpopulation.push(children[1]);
 
             }
 
             for(let i=half;i<this.population.length;i++){
-                newpopulation[newpopulation.length-1] = await this.genTree.mutation(this.population[i],2);
+                newpopulation.push(await this.genTree.mutation(this.population[i],2));
             }
 
             for(let f=0;f<newpopulation.length;f++){

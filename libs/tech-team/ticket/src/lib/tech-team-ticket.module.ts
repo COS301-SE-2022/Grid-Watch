@@ -24,6 +24,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { LoggedInGuard } from '@grid-watch/shared-ui';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   imports: [
@@ -41,6 +45,10 @@ import { LoggedInGuard } from '@grid-watch/shared-ui';
     MatFormFieldModule,
     MatSelectModule,
     MatGridListModule,
+    MatSidenavModule,
+    MatRadioModule, 
+    MatCheckboxModule,
+    MatDividerModule,
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
       {

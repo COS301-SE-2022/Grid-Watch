@@ -90,7 +90,7 @@ export class ApiProfilesTechTeamApiControllerController {
 
     //get endpiont to return a TechTeam with specific contact number
     @UseGuards(JwtAuthGuard)
-    @Get('/contactnr/contactNr')
+    @Get('/contactnr/:contactNr')
     async getTechTeamContactNr(@Param() params){
         return this.apiTechTeamService.getTechTeamContactNr(params.contactNr);
     }

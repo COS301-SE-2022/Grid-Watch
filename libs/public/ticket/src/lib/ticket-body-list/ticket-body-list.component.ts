@@ -5,7 +5,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketService, GoogleMapsService } from '@grid-watch/shared-ui';
 
-export interface filterInterface{
+interface filterInterface{
     city : string[], 
     type : string[], 
     month : string[]
@@ -17,10 +17,7 @@ export interface filterInterface{
   styleUrls: ['./ticket-body-list.component.scss'],
 })
 export class TicketBodyListComponent implements OnInit {
-  
-  public name! : string;
-  public surname! : string;
-  public avatar! : string;
+
   ticketDates : string[] = [];
   ticketImages : string[] = [];
   ticketStatus: string[] = [];
@@ -57,9 +54,6 @@ export class TicketBodyListComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.name = "John"
-    this.surname = "Doe"
-    this.avatar = "assets/user-solid.svg";
     this.sortDirection = "asc"
 
     const loader = new Loader({

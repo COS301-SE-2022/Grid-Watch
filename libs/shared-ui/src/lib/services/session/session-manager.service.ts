@@ -14,6 +14,17 @@ export class SessionManagerService {
 
   }
 
+  setToken(token : string)
+  {
+    localStorage.setItem("accessToken", token);
+    
+  }
+
+  getToken()
+  {
+    return localStorage.getItem("accessToken");
+  }
+
   logout()
   {
     localStorage.setItem("LoggedIn", "false");

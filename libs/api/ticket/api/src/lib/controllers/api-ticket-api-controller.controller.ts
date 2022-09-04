@@ -20,7 +20,7 @@ import { diskStorage, Multer } from 'multer';
 import { Helper } from './helper';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { HttpParams } from '@angular/common/http';
-import {RolesGuard} from '../../../../../roles-guard/roles.guard'
+import { JwtAuthGuard } from '@grid-watch/api/authentication';
 
 @Controller('ticket')
 export class TicketController {
@@ -30,7 +30,6 @@ export class TicketController {
     //Testing endpoint to test functionality
     // @SetMetadata('roles', ['admin'])
     @Get()
-    @UseGuards(RolesGuard)
     testing(){
         return  "Testing Tickets";
     }
@@ -64,6 +63,7 @@ export class TicketController {
     }
 
     //get endpint to return all tickets
+    @UseGuards(JwtAuthGuard)
     @Get('/all/tickets')
     async getAll(){
         return this.apiTicketService.getAll();

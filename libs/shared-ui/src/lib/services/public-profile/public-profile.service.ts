@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { catchError, Observable, of } from 'rxjs';
 
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -53,8 +55,8 @@ export class PublicProfileService {
   public login(user: UserDto) {
     // console.log("True");
     return this.http
-      .post<boolean>(this.verifyLoginURL, user)
-      .pipe(catchError(this.handleError<boolean>('login', false)));
+      .post<{}>(this.verifyLoginURL, user)
+      .pipe(catchError(this.handleError<{}>('login', false)));
   }
 
   public getUser(id : string )

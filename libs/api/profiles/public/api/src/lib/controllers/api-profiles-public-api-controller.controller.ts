@@ -3,19 +3,26 @@ import {
     Controller,
     Delete,
     Get,
+    Logger,
     Param,
     Post,
     Put,
+    UseGuards,
 } from '@nestjs/common';
 import { ApiProfilesPublicService } from '@grid-watch/api/profiles/public/service';
 import {UserDto} from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto'; 
+import { JwtService } from '@nestjs/jwt';
+import { JwtAuthGuard } from '@grid-watch/api/authentication';
 
 @Controller('public')
 export class ApiProfilesPublicApiController {
 
-    constructor(private readonly apiProfilesPublicService:ApiProfilesPublicService){}
+    constructor(
+        private readonly apiProfilesPublicService:ApiProfilesPublicService,
+        private jwtTokenService: JwtService){}
 
     //Testing endpoint
+    @UseGuards(JwtAuthGuard)
     @Get()
     testing(){
         return  "Testing public endpoint";
@@ -53,8 +60,25 @@ export class ApiProfilesPublicApiController {
 
     //post endpoint to verify password
     @Post('/verify')
-    async verifyUserPassword(@Body() user: UserDto ):Promise<boolean>{
-        return this.apiProfilesPublicService.verifyUserPassword(user["email"],user["password"]);
+    async verifyUserPassword(@Body() user: UserDto ) {
+        const exists = this.apiProfilesPublicService.verifyUserPassword(user["email"],user["password"]); 
+        if (exists)
+        {
+            const payload = {
+                id : user.id,
+                email : user.email,
+            }
+            Logger.log(
+                {
+                    access_token: this.jwtTokenService.sign(payload)
+                }
+            )
+            return {
+                access_token: this.jwtTokenService.signAsync(payload)
+            }
+        }
+        else
+            return null 
     }
 
     //add upvote to ticket

@@ -43,14 +43,16 @@ export class LoginPageComponent implements OnInit {
 
   async login() : Promise<void>
   {
-    //this.user.email = "Tshego14@gmail.com"
-    //this.user.password = "Gbfj&hfbsh"
+    this.user.email = "tshego@yahoo.com"
+    this.user.password = "123456"
     console.log(await this.profileService.login(this.user));
     
     this.profileService.login(this.user).subscribe(
-      (response)=>{
+      async (response)=>{
         if (response)
         {
+          console.log(response);
+          // this.sessionService.setToken(response.access_token)
           this.successfulLogin()
         }
         else
@@ -68,6 +70,7 @@ export class LoginPageComponent implements OnInit {
       (response) =>{
         console.log(response);
         this.sessionService.login(response[0].id.toString());
+        
         this.router.navigateByUrl("/profile");
         
       }

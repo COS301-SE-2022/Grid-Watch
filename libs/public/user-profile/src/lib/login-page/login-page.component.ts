@@ -45,14 +45,14 @@ export class LoginPageComponent implements OnInit {
   {
     this.user.email = "tshego@yahoo.com"
     this.user.password = "123456"
-    console.log(await this.profileService.login(this.user));
+    // console.log(await this.profileService.login(this.user));
     
-    this.profileService.login(this.user).subscribe(
+    this.profileService.login(this.user).then(
       async (response)=>{
         if (response)
         {
-          console.log(response);
-          // this.sessionService.setToken(response.access_token)
+          console.log(response.access_token);
+          this.sessionService.setToken(response.access_token)
           this.successfulLogin()
         }
         else

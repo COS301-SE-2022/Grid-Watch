@@ -27,6 +27,7 @@ export class SessionManagerService {
 
   logout()
   {
+    localStorage.removeItem("accessToken");
     localStorage.setItem("LoggedIn", "false");
     localStorage.removeItem("userId");
   }

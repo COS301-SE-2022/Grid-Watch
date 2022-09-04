@@ -16,6 +16,8 @@ export class AuthInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    console.log("WHYYYYYYYYYYYYYYYYYYYY");
+    
     const authToken = this.sessionManager.getToken();
     if (authToken)
     {

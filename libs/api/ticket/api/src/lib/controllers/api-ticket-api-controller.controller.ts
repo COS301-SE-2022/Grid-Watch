@@ -22,6 +22,7 @@ import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { HttpParams } from '@angular/common/http';
 import { JwtAuthGuard } from '@grid-watch/api/authentication';
 
+// @UseGuards(JwtAuthGuard)
 @Controller('ticket')
 export class TicketController {
 
@@ -35,12 +36,14 @@ export class TicketController {
     }
 
     //get endpiont to return a specific ticket
+    @UseGuards(JwtAuthGuard)
     @Get(':id')
     async getTicket(@Param() params){
         return this.apiTicketService.getTicket(parseInt(params.id));
     }
 
     //get endpoint to increment the ticket upvotes
+    @UseGuards(JwtAuthGuard)
     @Get('inc/:id')
     async incUpvotes(@Param() params){
         return this.apiTicketService.incUpvotes(parseInt(params.id));
@@ -63,7 +66,6 @@ export class TicketController {
     }
 
     //get endpint to return all tickets
-    @UseGuards(JwtAuthGuard)
     @Get('/all/tickets')
     async getAll(){
         return this.apiTicketService.getAll();
@@ -107,99 +109,116 @@ export class TicketController {
 
 
     //creating tickets
+    
     @Post('/create')
     async createTicket(@Body() ticket: TicketDto){
         return this.apiTicketService.createTicket(ticket);
     }
 
     //update ticket 
+    @UseGuards(JwtAuthGuard)
     @Put('/update/:id')
     async updateTicket(@Param() params,@Body() ticket: TicketDto):Promise<boolean> {
         return this.apiTicketService.updateTicket(parseInt(params.id),ticket);
     }
 
     //update ticket status
+    @UseGuards(JwtAuthGuard)
     @Put('/update/status/:id')
     async updateTicketStatus(@Param() params,@Body() status: string):Promise<boolean> {
         return this.apiTicketService.updateTicketStatus(parseInt(params.id),status["status"]);
     }
 
     //update ticket createdate
+    @UseGuards(JwtAuthGuard)
     @Put('/update/createdate/:id')
     async updateTicketCreateDate(@Param() params,@Body() createDate: Date):Promise<boolean>{
         return this.apiTicketService.updateTicketCreateDate(parseInt(params.id),createDate["createDate"]);
     }
 
     //update ticket street address
+    @UseGuards(JwtAuthGuard)
     @Put('/update/streetaddress/:id')
     async updateStreetAddress(@Param() params,@Body() address: string):Promise<boolean>{
         return this.apiTicketService.updateStreetAddress(parseInt(params.id),address["address"]);
     }
 
     //update ticket longitude
+    @UseGuards(JwtAuthGuard)
     @Put('/update/longitude/:id')
     async updateLongitude(@Param() params,@Body() long: number):Promise<boolean> {
         return this.apiTicketService.updateLongitude(parseInt(params.id),long["longitude"]);
     }
 
     //update ticket longitude
+    @UseGuards(JwtAuthGuard)
     @Put('/update/latitude/:id')
     async updateLatitudde(@Param() params,@Body() lat: number):Promise<boolean> {
         return this.apiTicketService.updateLatitude(parseInt(params.id),lat["latitude"]);
     }
 
     //update ticket closedate
+    @UseGuards(JwtAuthGuard)
     @Put('/update/closedate/:id')
     async updateTicketCloseDate(@Param() params,@Body() closeDate: Date):Promise<boolean> {
         return this.apiTicketService.updateTicketCloseDate(parseInt(params.id),closeDate["closeDate"]);
     }
 
     //update ticket type
+    @UseGuards(JwtAuthGuard)
     @Put('/update/type/:id')
     async updateTicketType(@Param() params,@Body() type: string):Promise<boolean> {
         return this.apiTicketService.updateTicketType(parseInt(params.id),type["type"]);
     }
   
     //update ticket location
+    @UseGuards(JwtAuthGuard)
     @Put('/update/location/:id')
     async updateTicketLocation(@Param() params,@Body() location: string):Promise<boolean> {
         return this.apiTicketService.updateTicketLocation(parseInt(params.id),location["location"]);
     }
 
     //update ticket cost
+    @UseGuards(JwtAuthGuard)
     @Put('/update/cost/:id')
     async updateTicketCost(@Param() params,@Body() cost: string):Promise<boolean> {
         return this.apiTicketService.updateTicketCost(parseInt(params.id),cost["cost"]);
     }
 
     //update ticket description
+    @UseGuards(JwtAuthGuard)
     @Put('/update/description/:id')
     async updateTicketDescription(@Param() params,@Body() description: string):Promise<boolean> {
         return this.apiTicketService.updateTicketDescription(parseInt(params.id), description["description"]);
     }
 
     //update ticket repair
+    @UseGuards(JwtAuthGuard)
     @Put('/update/repair/:id')
     async updateTicketRepairTime(@Param() params,@Body() repairTime: string):Promise<boolean> {
         return this.apiTicketService.updateTicketRepairTime(parseInt(params.id),repairTime["repairTime"]);
     }
     
     //update ticket upvotes
+    @UseGuards(JwtAuthGuard)
     @Put('/update/upvotes/:id')
     async updateTicketUpvotes(@Param() params,@Body() upvotes: string):Promise<boolean> {
         return this.apiTicketService.updateTicketUpVotes(parseInt(params.id),upvotes["upvotes"]);
     }
     //update ticket upvotes
+    @UseGuards(JwtAuthGuard)
     @Put('/update/assignedTeam/techTeam')
     async assignTechTeam(@Body() info: string,):Promise<boolean> {
         return this.apiTicketService.updateAssignedTechTeam(parseInt(info["ticketId"]),parseInt(info["techTeamId"]));
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post('/close')
     async closeTicket(@Body() ticketNum: number):Promise<boolean> {
         return this.apiTicketService.closeTicket(ticketNum["ticketNum"]);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete('/delete')
     async deleteTicket(@Body() ticketNum: number):Promise<boolean> {
         return this.apiTicketService.deleteTicket(ticketNum["ticketNum"]);
@@ -253,12 +272,14 @@ export class TicketController {
     }
 
     //update Picture endpoint
+    @UseGuards(JwtAuthGuard)
     @Put('/picture/update/:id')
     async updatePicture(@Param() params, @Body() imgLink : string): Promise<boolean>{
         return this.apiTicketService.updatePicture(parseInt(params.id),imgLink["imgLink"]);
         return true;
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete('/picture/delete')
     async deletePicture(@Body() PictureId: number):Promise<boolean> {
         return this.apiTicketService.deletePicture(PictureId["PictureId"]);
@@ -269,6 +290,7 @@ export class TicketController {
     //////////////////////////////////////////////
 
     //creating ticket subtasks
+    @UseGuards(JwtAuthGuard)
     @Post('/subtask/create/:id')
     async createSubtask(@Param() params,@Body() tasks){
         return this.apiTicketService.createSubtask(parseInt(params.id),tasks['taskDesc'],parseInt(tasks['taskStep']),tasks['taskStat']);
@@ -281,36 +303,42 @@ export class TicketController {
     }
 
     //update subtask endpoint
+    @UseGuards(JwtAuthGuard)
     @Put('/subtask/update/:id')
     async updateSubtask(@Param() params, @Body() tasks): Promise<boolean>{
         return this.apiTicketService.updateSubtask(parseInt(params.id),parseInt(tasks['ticketId']),tasks['taskDesc'],parseInt(tasks['taskStep']),tasks['taskStat']);
     }
 
     //update subtask ticket endpoint
+    @UseGuards(JwtAuthGuard)
     @Put('/subtask/updateticket/:id')
     async updateSubtaskTicket(@Param() params, @Body() tasks): Promise<boolean>{
         return this.apiTicketService.updateSubtaskTicket(parseInt(params.id),parseInt(tasks['ticketId']));
     }
      
     //update subtask description endpint
+    @UseGuards(JwtAuthGuard)
     @Put('/subtask/update/desc/:id')
     async updateSubtaskDesc(@Param() params, @Body() tasks): Promise<boolean>{
         return this.apiTicketService.updateSubtaskDesc(parseInt(params.id),tasks["desc"]);
     }
 
     //update subtask step endpint
+    @UseGuards(JwtAuthGuard)
     @Put('/subtask/update/step/:id')
     async updateSubtaskStep(@Param() params, @Body() tasks): Promise<boolean>{
         return this.apiTicketService.updateSubtaskStep(parseInt(params.id),parseInt(tasks["step"]));
     }
    
     //update subtask status endpoint
+    @UseGuards(JwtAuthGuard)
     @Put('/subtask/update/status/:id')
     async updateSubtaskStatus(@Param() params, @Body() tasks): Promise<boolean>{
         return this.apiTicketService.updateSubtaskStatus(parseInt(params.id),tasks['stat']);
     } 
     
     //delete subtask endpoint
+    @UseGuards(JwtAuthGuard)
     @Delete('/subtask/delete')
     async deleteSubtask(@Body() taskId: number):Promise<boolean> {
         return this.apiTicketService.deleteSubtask(parseInt(taskId['taskId']));

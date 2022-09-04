@@ -65,6 +65,7 @@ export class TicketBodyListComponent implements OnInit {
     loader.load().then(() => {
         this.ticketService.getTickets().subscribe(
           (response) => {
+            this.tickets = response;
             this.InitialiseTicket(response);
             this.ticketsPerm = response;
             this.loadFilterLabels();
@@ -120,9 +121,11 @@ export class TicketBodyListComponent implements OnInit {
     
   async InitialiseTicket(data : TicketDto []) : Promise<void> 
   {
+    this.ticketImages = [];
+    this.ticketStatus = [];
     for (let index = 0; index < data.length; index++) 
     {      
-      this.tickets.push(data[index]);
+      // this.tickets.push(data[index]);
       const date = new Date(this.tickets[index]["ticketCreateDate"]);      
       const m = date.getUTCMonth() + 1;
       const y = date.getUTCFullYear();
@@ -171,15 +174,15 @@ export class TicketBodyListComponent implements OnInit {
           this.ticketStatus.push("yellowText");
           break;
       }
-      this.ticketService.getImages(data[index].ticketId).subscribe
-      (
-        (response) => 
-        {
-          if (response[response.length - 1])
-            this.tickets[index].ticketImg = response[response.length - 1].pictureLink;
-        }
-      );
-      const place_id = this.tickets[index].ticketLocation;
+      // this.ticketService.getImages(data[index].ticketId).subscribe
+      // (
+      //   (response) => 
+      //   {
+      //     if (response[response.length - 1])
+      //       this.tickets[index].ticketImg = response[response.length - 1].pictureLink;
+      //   }
+      // );
+      // const place_id = this.tickets[index].ticketLocation;
       // this.googleMapsService.getLocation(place_id).then(
       //   (response) => {
       //     this.tickets[index].ticketLocation = response;
@@ -189,7 +192,7 @@ export class TicketBodyListComponent implements OnInit {
       //   }
       // );
     }
-    console.log(this.tickets);
+    // console.log(this.tickets);
   }
 
   goToTicket(id : string)
@@ -222,7 +225,7 @@ export class TicketBodyListComponent implements OnInit {
       // this.tickets = [...this.tickets ,...tempTickets]
     })
     
-    
+    this.InitialiseTicket(this.tickets);
   }
 
   sort(sortType : string) : void {

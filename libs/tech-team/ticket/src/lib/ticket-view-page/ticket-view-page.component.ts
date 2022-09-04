@@ -1,15 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
+import {
+  GoogleMapsService,
+  SessionManagerService,
+  TechTeamProfileService,
+  TicketService,
+} from '@grid-watch/shared-ui';
+import { response } from 'Express';
 
-interface filterInterface{
-  city : string[], 
-  type : string[], 
-  month : string[]
+interface filterInterface {
+  city: string[];
+  type: string[];
+  month: string[];
 }
-
 
 @Component({
   selector: 'grid-watch-ticket-view-page',
@@ -18,49 +24,78 @@ interface filterInterface{
 })
 export class TicketViewPageComponent implements OnInit {
   tickets: Array<TicketDto> = [];
-  ticketsPerm : Array<TicketDto> = [];
+  ticketsPerm: Array<TicketDto> = [];
   ticketDates!: string[];
   ticketImages!: string[];
   ticketStatus!: string[];
 
-  type! : string
+  type!: string;
   filterLabels: filterInterface[] = [];
   sortLabels: string[] = [];
   months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ]
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
 
-  filterList: string[] = []
-  sortDirection!: "asc" | "desc";
+  filterList: string[] = [];
+  sortDirection!: 'asc' | 'desc';
+  specialisation!: string[];
 
   constructor(
     private router: Router,
-    private http: HttpClient,
     private ticketService: TicketService,
-    private googleMapsService: GoogleMapsService
+    private googleMapsService: GoogleMapsService,
+    private userService: TechTeamProfileService,
+    private sessionService: SessionManagerService
   ) {}
 
-  ngOnInit(): void {
-    this.sortDirection = "asc"
+  async ngOnInit(): Promise<void> {
+    this.sortDirection = 'asc';
     this.ticketDates = [];
     this.ticketImages = [];
     this.ticketStatus = [];
-    this.ticketService.getTicketsType('Dispatched').subscribe((response) => {
+
+    this.ticketService.getTicketsType('Dispatched').subscribe(
+      (response) => {
+        console.log(response);
+        
+      this.tickets = response;
       this.initialiseTicket(response);
       this.ticketsPerm = response;
       this.loadFilterLabels();
       this.loadSortLabels();
+      this.filterTicketsToTeam();
+    });
+  }
+
+  filterTicketsToTeam() {
+    this.tickets = [];
+    this.userService
+    .getTechTeamID(this.sessionService.getID() || '')
+    .subscribe((response) => {
+      this.specialisation = response[0].specialisation;
+      console.log(this.specialisation);
+      this.specialisation.forEach((specialty) => {
+         console.log(specialty);
+         this.tickets.push(...this.ticketsPerm.filter((ticket) => {
+           return ticket.ticketType === specialty;
+         }))
+        
+      });
+      this.loadSortLabels();
+      this.loadFilterLabels();
+      this.initialiseTicket(this.tickets);
+
     });
   }
 
@@ -72,14 +107,16 @@ export class TicketViewPageComponent implements OnInit {
   }
 
   async initialiseTicket(data: TicketDto[]): Promise<void> {
+    this.ticketImages = [];
+    this.ticketStatus = [];
     for (let index = 0; index < data.length; index++) {
-      this.tickets.push(data[index]);
-      const date = new Date(this.tickets[index]['ticketCreateDate']);
+      // this.tickets.push(data[index]);
+      const date = new Date(data[index]['ticketCreateDate']);
       const m = date.getUTCMonth() + 1;
       const y = date.getUTCFullYear();
       const d = date.getUTCDate();
       this.ticketDates.push(y + '/' + m + '/' + d);
-      switch (this.tickets[index]['ticketType']) {
+      switch (data[index]['ticketType']) {
         case 'Electricity Outage':
           this.ticketImages.push('assets/issue-brokenpower.svg');
           break;
@@ -103,7 +140,7 @@ export class TicketViewPageComponent implements OnInit {
           break;
       }
 
-      switch (this.tickets[index]['ticketStatus']) {
+      switch (data[index]['ticketStatus']) {
         case 'Created':
           this.ticketStatus.push('redText');
           break;
@@ -120,13 +157,13 @@ export class TicketViewPageComponent implements OnInit {
           this.ticketStatus.push('yellowText');
           break;
       }
-      this.ticketService
-        .getImages(data[index].ticketId)
-        .subscribe((response) => {
-          if (response[response.length - 1])
-            this.tickets[index].ticketImg =
-              response[response.length - 1].pictureLink;
-        });
+      // this.ticketService
+      //   .getImages(data[index].ticketId)
+      //   .subscribe((response) => {
+      //     if (response[response.length - 1])
+      //       this.tickets[index].ticketImg =
+      //         response[response.length - 1].pictureLink;
+      //   });
     }
     console.log(this.tickets);
   }
@@ -134,79 +171,75 @@ export class TicketViewPageComponent implements OnInit {
   goToTicket(id: string) {
     this.router.navigate(['/editTicketDetails', { id: id }]);
   }
-  
+
   loadSortLabels() {
-    this.sortLabels.push("Issue")
-    this.sortLabels.push("City")
-    this.sortLabels.push("Upvotes")
-    this.sortLabels.push("Date")
+    this.sortLabels.push('Issue');
+    this.sortLabels.push('City');
+    this.sortLabels.push('Upvotes');
+    this.sortLabels.push('Date');
   }
 
   loadFilterLabels() {
     const cities: string[] = [];
     const types: string[] = [];
-    const months: string[] = []; 
-    this.tickets.forEach(
-      (ticket) =>{
-        if (!cities.includes(ticket.ticketCity))
-        {
-          cities.push(ticket.ticketCity);
-        }
-        if (!types.includes(ticket.ticketType))
-        {
-          types.push(ticket.ticketType);
-        }
-        const date = new Date(ticket.ticketCreateDate);
-        const dateString = this.months[date.getMonth()];
-         if (!months.includes(dateString))
-        {
-          months.push(dateString);
-        }
-        // console.log(date.toDateString());
-        
-      })
-      const tempFilter = {
-        city : cities,
-        type : types,
-        month : months,
+    const months: string[] = [];
+    this.tickets.forEach((ticket) => {
+      if (!cities.includes(ticket.ticketCity)) {
+        cities.push(ticket.ticketCity);
       }
-      this.filterLabels.push(tempFilter);
+      if (!types.includes(ticket.ticketType)) {
+        types.push(ticket.ticketType);
+      }
+      const date = new Date(ticket.ticketCreateDate);
+      const dateString = this.months[date.getMonth()];
+      if (!months.includes(dateString)) {
+        months.push(dateString);
+      }
+      // console.log(date.toDateString());
+    });
+    const tempFilter = {
+      city: cities,
+      type: types,
+      month: months,
+    };
+    this.filterLabels.push(tempFilter);
   }
 
-  filter(search : string) : void{
+  filter(search: string): void {
     this.tickets = this.ticketsPerm;
-    if (!this.filterList.includes(search)){
+    if (!this.filterList.includes(search)) {
       this.filterList.push(search);
-    }
-    else{
-      this.filterList.splice(this.filterList.indexOf(search), 1)
-    }
-
-    if (this.filterList.length == 0)
-    {
-      this.tickets = this.ticketsPerm
+    } else {
+      this.filterList.splice(this.filterList.indexOf(search), 1);
     }
 
-    this.filterList.forEach((filter) =>{
-      this.tickets = (this.tickets.filter((ticket) =>{
+    if (this.filterList.length == 0) {
+      this.tickets = this.ticketsPerm;
+    }
+
+    this.filterList.forEach((filter) => {
+      this.tickets = this.tickets.filter((ticket) => {
         return (
           ticket.ticketCity == filter ||
           this.months[new Date(ticket.ticketCreateDate).getMonth()] == filter ||
           ticket.ticketType == filter
-        )
-      }))
+        );
+      });
       // this.tickets = [...this.tickets ,...tempTickets]
-    })
-    
-    
+    });
+    this.initialiseTicket(this.tickets);
   }
 
-  sort(sortType : string) : void {
+  sort(sortType: string): void {
     // this.sortLabels.push("Issue Type")
     // this.sortLabels.push("City")
     // this.sortLabels.push("Upvotes")
     // this.sortLabels.push("Date")
-    this.tickets = this.ticketService.sort(sortType, this.sortDirection, this.tickets)
-    
+    this.tickets = this.ticketService.sort(
+      sortType,
+      this.sortDirection,
+      this.tickets
+    );
+    this.initialiseTicket(this.tickets);
   }
 }

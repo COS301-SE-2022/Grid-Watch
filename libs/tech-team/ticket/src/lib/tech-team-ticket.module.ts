@@ -58,7 +58,7 @@ import { TicketViewMapComponent } from './ticket-view-map/ticket-view-map.compon
       {
         path: 'tickets',
         pathMatch: 'full',
-        component: TicketViewPageComponent,
+        component: TicketViewBodyComponent,
         canActivate: [LoggedInGuard],
       },
       {

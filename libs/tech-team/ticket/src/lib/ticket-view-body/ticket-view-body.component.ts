@@ -6,7 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ticket-view-body.component.scss'],
 })
 export class TicketViewBodyComponent implements OnInit {
+
+  viewValue! : string;
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.viewValue = "list"
+  }
 }

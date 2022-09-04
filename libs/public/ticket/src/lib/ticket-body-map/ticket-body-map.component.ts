@@ -19,7 +19,7 @@ export class TicketBodyMapComponent implements OnInit {
   center!: google.maps.LatLngLiteral;
 
   tickets!: TicketDto[];
-  markers!: google.maps.Marker[];
+  // markers!: google.maps.Marker[];
   infoWindow!: google.maps.InfoWindow;
   constructor(
     private googleMapsService: GoogleMapsService,
@@ -29,7 +29,7 @@ export class TicketBodyMapComponent implements OnInit {
 
   ngOnInit(): void {
     this.locations = [];
-    this.markers = [];
+    // this.markers = [];
     const loader = new Loader({
       apiKey: 'AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE',
       version: 'weekly',

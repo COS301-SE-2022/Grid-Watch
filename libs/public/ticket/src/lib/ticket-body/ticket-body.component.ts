@@ -24,8 +24,4 @@ export class TicketBodyComponent implements OnInit {
     this.viewValue = "list";
   }
 
-  test(){
-    console.log(this.viewValue);
-    
-  }
 }

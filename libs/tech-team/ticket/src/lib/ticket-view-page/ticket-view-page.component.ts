@@ -72,8 +72,6 @@ export class TicketViewPageComponent implements OnInit {
       this.tickets = response;
       this.initialiseTicket(response);
       this.ticketsPerm = response;
-      this.loadFilterLabels();
-      this.loadSortLabels();
       this.filterTicketsToTeam();
     });
   }

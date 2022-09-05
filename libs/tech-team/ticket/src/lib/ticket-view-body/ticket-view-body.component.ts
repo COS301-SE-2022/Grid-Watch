@@ -9,7 +9,7 @@ export class TicketViewBodyComponent implements OnInit {
 
   viewValue! : string;
 
-  constructor() {}
+  // constructor() {}
 
   ngOnInit(): void {
     this.viewValue = "list"

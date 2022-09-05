@@ -4,8 +4,8 @@ import {VerifyUserPasswordCommand,
         UpdateUserCommand,
         UpdateUserPasswordCommand,
         UpdateUserNameCommand,
-        UpdateUserRating,
-        ResetUserRating,
+        UpdateUserRatingCommand,
+        ResetUserRatingCommand,
         UpdateUserEmailCommand,
         DeleteUserCommand,
         CreateUserCommand,
@@ -73,11 +73,11 @@ export class ApiProfilesPublicService {
     }
 
     async updateUserRating(userId: number, rating: number){
-        return await this.commandBus.execute(new UpdateUserRating(userId,rating));
+        return await this.commandBus.execute(new UpdateUserRatingCommand(userId,rating));
     }
 
     async resetUserRating(userId: number){
-        return await this.commandBus.execute(new ResetUserRating(userId));
+        return await this.commandBus.execute(new ResetUserRatingCommand(userId));
     }
 
     async updateUserEmail(userId: number, userEmail: string){

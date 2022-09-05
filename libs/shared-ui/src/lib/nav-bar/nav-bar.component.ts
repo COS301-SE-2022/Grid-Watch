@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SessionManagerService } from '../services/session/session-manager.service';
 
 @Component({
   selector: 'grid-watch-nav-bar',
@@ -16,7 +17,8 @@ export class NavBarComponent implements OnInit{
   userId! : string;
 
   constructor(
-    private router : Router
+    private router : Router,
+    private sessionService : SessionManagerService
   ) 
   {
     this.options = [];
@@ -24,7 +26,7 @@ export class NavBarComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.logged = localStorage.getItem("LoggedIn");
+    this.logged = this.sessionService.getLoggedIn();
     const temp = document.getElementById("application_type");
       if (temp)
     this.application_type = temp.innerHTML;
@@ -80,8 +82,7 @@ export class NavBarComponent implements OnInit{
 
   logout(){
     this.logged = "false";
-    localStorage.removeItem("adminId");
-    localStorage.setItem("LoggedIn", "false");
+    this.sessionService.logout()
     this.router.navigateByUrl("/login")
   }
 }

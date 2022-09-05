@@ -8,16 +8,19 @@
             <div class="filterContainers">
                 <div> <b> City</b></div>
                 <div *ngFor="let city of cities, index as i">
-                    <mat-checkbox name="{{city.name}}" (change)="filter($event, 'city')" [(ngModel)]="city.checked"
-                        color="primary">{{city.name}}</mat-checkbox>
+                    <mat-checkbox name="{{city.name}}" id="cityFilter{{i}}" (change)="filter($event, 'city')" [(ngModel)]="city.checked"
+                        color="primary">{{city.name}}
+                    </mat-checkbox>
                 </div>
             </div>
             <mat-divider></mat-divider>
             <div class="filterContainers">
                 <div> <b> Issues</b></div>
                 <div *ngFor="let issue of issues, index as i">
-                    <mat-checkbox color="primary" name="{{issue.name}}" (change)="filter($event, 'issue')"
-                        [(ngModel)]="issue.checked">{{issue.name}}</mat-checkbox>
+                    <mat-checkbox color="primary"  id="issueFilter{{i}}" name="{{issue.name}}" (change)="filter($event, 'issue')"
+                        [(ngModel)]="issue.checked">
+                        {{issue.name}}
+                    </mat-checkbox>
                 </div>
             </div>
             <mat-divider></mat-divider>
@@ -25,14 +28,14 @@
                 <div> <b> Status</b></div>
                 <div *ngFor="let status of statuses, index as i">
                     <mat-checkbox color="primary" name="{{status.name}}" (change)="filter($event, 'status')"
-                        [(ngModel)]="status.checked">
+                        [(ngModel)]="status.checked" id="statusFilter{{i}}">
                         {{status.name}}
                     </mat-checkbox>
                 </div>
             </div>
             <mat-divider></mat-divider>
             <div class="filterContainers">
-                <button mat-button (click)="resetFilters()">Reset</button>
+                <button mat-button id="resetButton" (click)="resetFilters()">Reset</button>
             </div>
         </mat-drawer>
         <mat-drawer-content>

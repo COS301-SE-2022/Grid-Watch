@@ -20,6 +20,7 @@ import { MyTicketsBlockComponent } from './my-tickets-block/my-tickets-block.com
 import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ProfileSettingComponent } from './profile-setting/profile-setting.component';
+import { LoggedInGuard } from '@grid-watch/shared-ui';
 
 @NgModule({
   imports: [
@@ -37,11 +38,14 @@ import { ProfileSettingComponent } from './profile-setting/profile-setting.compo
     MatGridListModule,
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
-      { path: 'editUser', pathMatch: 'full', component: EditUserComponent },
+      { path: 'editUser', pathMatch: 'full', component: EditUserComponent,
+        canActivate: [LoggedInGuard] },
       { path: 'login', pathMatch: 'full', component: LoginPageComponent },
-      { path: 'profile', pathMatch: 'full', component: MyProfileComponent },
+      { path: 'profile', pathMatch: 'full', component: MyProfileComponent,
+        canActivate: [LoggedInGuard] },
       { path: 'register', pathMatch: 'full', component: RegisterPageComponent },
-      { path: 'profileSettings', pathMatch: 'full', component: ProfileSettingComponent },
+      { path: 'profileSettings', pathMatch: 'full', component: ProfileSettingComponent,
+        canActivate: [LoggedInGuard] },
     ]),
   ],
   declarations: [
@@ -62,5 +66,6 @@ import { ProfileSettingComponent } from './profile-setting/profile-setting.compo
     MyTicketsBlockComponent,
     ProfileSettingComponent,
   ],
+  providers: [LoggedInGuard]
 })
 export class PublicUserProfileModule {}

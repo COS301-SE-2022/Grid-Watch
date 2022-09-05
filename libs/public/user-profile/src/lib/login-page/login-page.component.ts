@@ -3,7 +3,7 @@ import { FormControl, FormBuilder } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
-import { PublicProfileService } from '@grid-watch/shared-ui';
+import { PublicProfileService, SessionManagerService } from '@grid-watch/shared-ui';
 
 
 
@@ -28,14 +28,14 @@ export class LoginPageComponent implements OnInit {
   constructor(private route : ActivatedRoute,
     private router : Router,
     private formBuilder : FormBuilder,
-    private profileService : PublicProfileService) {}
+    private profileService : PublicProfileService,
+    private sessionService : SessionManagerService) {}
 
   ngOnInit(): void {
     const application_type = this.route.snapshot.paramMap.get('app');
     this.application_type = application_type;
     this.user = new UserDto();
-    // localStorage.setItem("LoggedIn", "false");
-    if (localStorage.getItem("LoggedIn") != null && localStorage.getItem("LoggedIn") !== "false")
+    if (this.sessionService.getID() != null && this.sessionService.getLoggedIn() !== "false")
     {
       this.router.navigateByUrl("/profile")
     }
@@ -43,14 +43,16 @@ export class LoginPageComponent implements OnInit {
 
   async login() : Promise<void>
   {
-    //this.user.email = "Tshego14@gmail.com"
-    //this.user.password = "Gbfj&hfbsh"
-    console.log(await this.profileService.login(this.user));
+    this.user.email = "tshego@yahoo.com"
+    this.user.password = "123456"
+    // console.log(await this.profileService.login(this.user));
     
-    this.profileService.login(this.user).subscribe(
-      (response)=>{
+    this.profileService.login(this.user).then(
+      async (response)=>{
         if (response)
         {
+          console.log(response.access_token);
+          this.sessionService.setToken(response.access_token)
           this.successfulLogin()
         }
         else
@@ -67,8 +69,8 @@ export class LoginPageComponent implements OnInit {
     this.profileService.getUserEmail(this.user.email).subscribe(
       (response) =>{
         console.log(response);
-        localStorage.setItem("LoggedIn", "true");
-        localStorage.setItem("userId", response[0].id.toString() );
+        this.sessionService.login(response[0].id.toString());
+        
         this.router.navigateByUrl("/profile");
         
       }

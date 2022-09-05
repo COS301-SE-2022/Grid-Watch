@@ -18,6 +18,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { LoggedInGuard } from '@grid-watch/shared-ui';
 
 @NgModule({
   imports: [
@@ -30,11 +31,13 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
         path: 'adminViewTicket',
         pathMatch: 'full',
         component: AdminViewBodyComponent,
+        canActivate: [LoggedInGuard]
       },
       {
         path: 'adminViewTicketDetails',
         pathMatch: 'prefix',
         component: ViewTicketDetailsComponent,
+        canActivate: [LoggedInGuard]
       },
     ]),
     MatGridListModule,

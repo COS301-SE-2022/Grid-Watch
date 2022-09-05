@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Token } from '@grid-watch/api/authentication';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 import { catchError, Observable, of } from 'rxjs';
@@ -69,11 +70,9 @@ export class TechTeamProfileService {
 }
 
 public login(techProfile : TechTeamDto) 
-{
-  console.log(techProfile);
-  
+{  
   return this.http
-  .post<boolean>(this.loginURL, techProfile)
-  .pipe(catchError(this.handleError<boolean>('getTechTeam', false)));
+  .post<Token>(this.loginURL, techProfile)
+  .pipe(catchError(this.handleError<Token>('getTechTeam', {access_token:""})));
 }
 }

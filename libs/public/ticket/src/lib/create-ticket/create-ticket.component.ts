@@ -59,7 +59,7 @@ export class CreateTicketComponent{
               private formBuilder: FormBuilder,
               private profileService : PublicProfileService,
               public dialog: MatDialog,
-              private sesssionManager: SessionManagerService) {
+              private sesssionService: SessionManagerService) {
               }
               
   async ngOnInit(): Promise<void> {    
@@ -154,8 +154,8 @@ export class CreateTicketComponent{
       this.showErrorMessage("Location","Location not found")
       return;
     }
-    const userId = localStorage.getItem("userId");
-    const loggedIn = localStorage.getItem("LoggedIn");
+    const userId = this.sesssionService.getID();
+    const loggedIn = this.sesssionService.getLoggedIn();
     if (userId == null && loggedIn === null)
     {            
       this.showErrorMessage("Login","Not logged in, would you like to post as a guest?")
@@ -250,7 +250,7 @@ export class CreateTicketComponent{
     this.profileService.createUser(guestUser).subscribe(
       (response) => {
         console.log(response);
-        this.sesssionManager.login(response.id.toString());
+        this.sesssionService.login(response.id.toString());
         this.createTicket();
       }
     )

@@ -14,6 +14,7 @@ import { TechTeamProfileComponent } from './tech-team-profile/tech-team-profile.
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { LoggedInGuard } from '@grid-watch/shared-ui';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
         path: 'profile',
         pathMatch: 'full',
         component: TechTeamProfileComponent,
+        canActivate: [LoggedInGuard]
       },
     ]),
   ],

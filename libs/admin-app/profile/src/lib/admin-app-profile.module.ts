@@ -16,6 +16,7 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AccountInformationComponent } from './account-information/account-information.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { LoggedInGuard } from '@grid-watch/shared-ui';
 
 @NgModule({
   imports: [
@@ -33,7 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     RouterModule.forChild([
       { path: 'login', pathMatch: 'full', component: LoginPageComponent },
       { path: 'register', pathMatch: 'full', component: RegisterPageComponent },
-      { path: 'profile', pathMatch: 'full', component: AdminProfileComponent },
+      { path: 'profile', pathMatch: 'full', component: AdminProfileComponent, canActivate: [LoggedInGuard] },
     ]),
   ],
   declarations: [

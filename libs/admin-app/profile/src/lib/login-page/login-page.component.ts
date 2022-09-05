@@ -3,7 +3,7 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { AdminDto } from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto';
-import { AdminProfileService } from '@grid-watch/shared-ui';
+import { AdminProfileService, SessionManagerService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-login-page',
@@ -24,7 +24,8 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private formBuilder : FormBuilder,
     private profileService : AdminProfileService,
-    private router : Router
+    private router : Router,
+    private sessionService : SessionManagerService
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +42,7 @@ export class LoginPageComponent implements OnInit {
         if (response)
         {
           this.showMessage("Successfully logged in");
+          this.sessionService.setToken(response.access_token)
           this.successfulLogin();
         }
         else
@@ -60,9 +62,7 @@ export class LoginPageComponent implements OnInit {
   successfulLogin() {
     this.profileService.getAdminEmail(this.admin.email).subscribe(
       (response) =>{
-        console.log(response);
-        localStorage.setItem("LoggedIn", "true");
-        localStorage.setItem("adminId", response[0].id.toString() );
+        this.sessionService.login(response[0].id.toString())
         this.router.navigateByUrl("/profile");        
       }
     )

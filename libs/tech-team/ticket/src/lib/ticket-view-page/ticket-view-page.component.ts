@@ -9,7 +9,6 @@ import {
   TechTeamProfileService,
   TicketService,
 } from '@grid-watch/shared-ui';
-import { response } from 'Express';
 
 interface filterInterface {
   city: string[];

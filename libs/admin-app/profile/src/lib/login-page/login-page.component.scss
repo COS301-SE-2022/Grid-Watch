@@ -7,11 +7,6 @@ mat-form-field {
     width: 100%;
 }
 
-.bodyContainer {
-    height: 100%;
-    /* border: 2px solid red; */
-}
-
 .cardContainer{
     height: 100%;
     padding-top: 40px;
@@ -20,4 +15,12 @@ mat-form-field {
 
 button {
     width: 100%;
+}
+
+.bodyContainer{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
 }

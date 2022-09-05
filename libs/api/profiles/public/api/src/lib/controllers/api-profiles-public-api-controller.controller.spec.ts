@@ -3,6 +3,7 @@ import {ApiProfilesPublicService} from '@grid-watch/api/profiles/public/service'
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Test, TestingModule } from '@nestjs/testing';
 import {UserDto} from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
+import { JwtService } from '@nestjs/jwt';
 
 const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
 describe('ApiProfilesPublicApiController', () => {
@@ -11,7 +12,7 @@ describe('ApiProfilesPublicApiController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ApiProfilesPublicApiController],
-      providers:[ApiProfilesPublicService,CommandBus,QueryBus]
+      providers:[ApiProfilesPublicService,CommandBus,QueryBus, JwtService]
     }).compile();
 
     await module.init();

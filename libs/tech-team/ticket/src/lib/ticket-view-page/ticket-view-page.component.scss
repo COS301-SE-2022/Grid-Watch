@@ -84,3 +84,49 @@ img.pin_location
 .smallInformation{
     font-size: small;
 }
+
+
+.buttons{
+    display: flex;
+}
+
+.buttonsSort{
+    width: 100%;
+    height: 100%;
+}
+
+.buttonsFilter{
+    width: 100%;
+    height: 100%;
+}
+
+.buttonContainer{
+    flex: 50%;
+}
+
+mat-drawer{
+    width: 70%;
+}
+
+.sortContainer{
+    
+    padding: 1rem;
+}
+
+.filterContainer{
+    padding: 1rem;
+    
+}
+
+.drawerContainer{
+    overflow-y: scroll;
+    z-index: 0;
+}
+
+mat-drawer-content{
+    padding-bottom: 100px ;
+}
+
+mat-drawer-container{
+    height: 100vh;
+}

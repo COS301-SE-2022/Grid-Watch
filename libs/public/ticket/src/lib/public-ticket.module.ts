@@ -15,13 +15,15 @@ import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatIconModule } from '@angular/material/icon';
-import { GoogleMapsService } from '@grid-watch/shared-ui';
+import { GoogleMapsService, LoggedInGuard } from '@grid-watch/shared-ui';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ViewTicketComponent } from './view-ticket/view-ticket.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TicketBodyListComponent } from './ticket-body-list/ticket-body-list.component';
 import { TicketBodyMapComponent } from './ticket-body-map/ticket-body-map.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
@@ -43,6 +45,8 @@ import { TicketBodyMapComponent } from './ticket-body-map/ticket-body-map.compon
     MatGridListModule,
     MatDialogModule,
     MatMenuModule,
+    MatCheckboxModule,
+    MatRadioModule,
     MatButtonToggleModule,
     RouterModule.forChild([
       {
@@ -59,6 +63,7 @@ import { TicketBodyMapComponent } from './ticket-body-map/ticket-body-map.compon
         path: 'editTicket',
         pathMatch: 'prefix',
         component: EditTicketComponent,
+        canActivate: [LoggedInGuard]
       },
       {
         path: 'viewTicket',
@@ -83,6 +88,6 @@ import { TicketBodyMapComponent } from './ticket-body-map/ticket-body-map.compon
     TicketBodyListComponent,
     TicketBodyMapComponent,
   ],
-  providers: [FormBuilder, GoogleMapsService],
+  providers: [FormBuilder, GoogleMapsService, LoggedInGuard],
 })
 export class PublicTicketModule {}

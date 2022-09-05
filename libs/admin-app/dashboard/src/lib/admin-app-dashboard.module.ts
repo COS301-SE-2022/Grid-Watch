@@ -17,6 +17,7 @@ import { AdminAppTicketModule, AdminViewBodyComponent } from '@grid-watch/admin-
 import Chart from 'chart.js/auto';
 import { registerables } from 'chart.js';
 import { MatTabsModule } from '@angular/material/tabs'
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import { MatTabsModule } from '@angular/material/tabs'
     CommonModule,
     
     RouterModule.forChild([
-      { path: 'testing', pathMatch: 'full', component: DashboardBodyComponent },
+      // { path: 'testing', pathMatch: 'full', component: DashboardBodyComponent },
     ]),
     MatGridListModule,
     AdminAppTicketModule,
@@ -38,6 +39,7 @@ import { MatTabsModule } from '@angular/material/tabs'
     MatSlideToggleModule,
     MatRadioModule,
     LayoutModule,
+    FormsModule,
   ],
   declarations: [
     DashboardBodyComponent,

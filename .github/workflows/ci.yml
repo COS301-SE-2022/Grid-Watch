@@ -1,13 +1,11 @@
 name: CI
-
 env:
   node-version: 16.x
-
 on:
-  push: 
+  push:
     branches:
-       - main
-       - develop
+      - main
+      - develop
   pull_request: {}
   workflow_dispatch: {}
 
@@ -19,29 +17,24 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
       - uses: actions/setup-node@v2
-
+        with:
+          node-version: ${{env.node-version}}
+          cache: yarn
       - uses: nrwl/nx-set-shas@v2
-
-     # - name: Installing Yarn
-      #  run: npm install yarn
-
+      # - name: Installing Yarn
+      #   run: npm install yarn
       - name: Installing Dependencies
         run: yarn install
-
       - name: Running nx affected lint
         run: yarn nx affected --target=lint --parallel=3
-
       - name: Running nx affected test
         run: yarn nx affected --target=test --parallel=3 --ci --code-coverage
-      
+
       - name: Running nx affected build
         run: yarn nx affected --target=build --parallel=3
-
       - name: Running nx affected e2e
-        run: yarn nx affected --target=e2e 
-
+        run: yarn nx affected --target=e2e
   Test-All:
     if: ${{ github.event_name == 'push'}}
     runs-on: ubuntu-latest
@@ -49,40 +42,24 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
       - uses: actions/setup-node@v2
-        with: 
+        with:
           node-version: ${{env.node-version}}
           cache: yarn
-
       - uses: nrwl/nx-set-shas@v2
-
-      #- name: Installing Yarn
-       # run: npm install yarn
-
+      - name: Installing Yarn
+        run: npm install yarn
       - name: Installing Dependencies
         run: yarn install
-      
-      - name: Running nx run-many build
-        run: yarn nx run-many --target=build --all=true --parallel
-      
-      - name: Running nx run-many test
-        run: yarn nx run-many --target=test --all=true --parallel
-      
-      - name: Running nx run-many lint
-        run: yarn nx run-many --target=lint --all=true --parallel
-      
-      - name: Running nx run-many lint
-        run: yarn nx run-many --target=e2e --all=true --parallel
-        
-      - name: Merge coverage reports
-        if: inputs.test == 'all'   
-        run: node merge-reports.js
+      - name: Running nx affected lint
+        run: yarn nx affected --target=lint --parallel=3
+      - name: Running nx affected test
+        run: yarn nx affected --target=test --parallel=3 --ci --code-coverage
 
-      - uses: codecov/codecov-action@v2
-        if: inputs.test == 'all' 
-        with:
-          # Training-Buddy codecov token to be placed below
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/lcov.info
-          name: cypress-jest
+      - name: Running nx affected build
+        run: yarn nx affected --target=build --parallel=3
+      - name: Running nx affected e2e
+        run: yarn nx affected --target=e2e
+
+      - name: Running nx run-many
+        run: yarn nx run-many --target=build --all=true

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
+import { GoogleMapsService, SessionManagerService, TicketService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-my-tickets-list',
@@ -21,7 +21,8 @@ export class MyTicketsListComponent implements OnInit
   constructor(
     private ticketService: TicketService,
     private googleMapsService: GoogleMapsService,
-    private router : Router
+    private router : Router,
+    private sessionService : SessionManagerService
   ) { }
 
   ngOnInit(): void
@@ -40,7 +41,7 @@ export class MyTicketsListComponent implements OnInit
       this.ticketService.getTickets().subscribe(
         async (response) => {
           response = await response.filter((ticket) => {
-            const userId = localStorage.getItem("userId");
+            const userId = this.sessionService.getID();
             if (userId)
               return ticket.userId === parseInt(userId);
             else

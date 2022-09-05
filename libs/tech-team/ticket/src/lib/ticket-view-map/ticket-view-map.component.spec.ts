@@ -1,24 +1,24 @@
-import {HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
 
-import { AcceptedTicketViewComponent } from './accepted-ticket-view.component';
+import { TicketViewMapComponent } from './ticket-view-map.component';
 
-describe('AcceptedTicketViewComponent', () => {
-  let component: AcceptedTicketViewComponent;
-  let fixture: ComponentFixture<AcceptedTicketViewComponent>;
+describe('TicketViewMapComponent', () => {
+  let component: TicketViewMapComponent;
+  let fixture: ComponentFixture<TicketViewMapComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AcceptedTicketViewComponent],
-      imports: [RouterTestingModule, HttpClientModule],
+      declarations: [TicketViewMapComponent],
+      imports: [HttpClientModule, RouterTestingModule],
       providers: [GoogleMapsService]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AcceptedTicketViewComponent);
+    fixture = TestBed.createComponent(TicketViewMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

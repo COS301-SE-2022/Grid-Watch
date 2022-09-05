@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { TechTeamProfileService, TicketService } from '@grid-watch/shared-ui';
+import { SessionManagerService, TechTeamProfileService, TicketService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-tech-team-profile',
@@ -21,7 +21,8 @@ export class TechTeamProfileComponent implements OnInit {
   constructor(
     private profileService : TechTeamProfileService,
     private ticketService : TicketService,
-    private router : Router) {}
+    private router : Router,
+    private sessionService: SessionManagerService) {}
 
   ngOnInit(): void {
     this.ticketImages = [];
@@ -29,10 +30,10 @@ export class TechTeamProfileComponent implements OnInit {
     this.ticketDates = [];
     this.techTeam = new TechTeamDto();
     this.tickets = [];
-    this.logged = localStorage.getItem("loggedIn")
+    this.logged = this.sessionService.getLoggedIn();
     if (this.logged === null)
       this.router.navigateByUrl("/login");
-    this.id = localStorage.getItem("techTeamID")
+    this.id = this.sessionService.getID();
     if (this.id)
     this.profileService.getTechTeamID(this.id).subscribe(
       async (response) =>
@@ -127,8 +128,7 @@ export class TechTeamProfileComponent implements OnInit {
   logout()
   {
     console.log("logout");
-    localStorage.removeItem("techTeamID");
-    localStorage.setItem("loggedIn", "false");
+    this.sessionService.logout()
     this.router.navigateByUrl("/login")
   }
 

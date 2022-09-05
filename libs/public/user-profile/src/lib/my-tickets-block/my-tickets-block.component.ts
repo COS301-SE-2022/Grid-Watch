@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
+import { GoogleMapsService, SessionManagerService, TicketService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-my-tickets-block',
@@ -16,7 +16,8 @@ export class MyTicketsBlockComponent implements OnInit {
   constructor(
     private ticketService: TicketService,
     private googleMapsService: GoogleMapsService,
-    private router : Router
+    private router : Router,
+    private sessionService : SessionManagerService
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +36,7 @@ export class MyTicketsBlockComponent implements OnInit {
           this.tickets = response;
           this.getImage();
           this.tickets = this.tickets.filter((ticket) => {
-            const userId = localStorage.getItem("userId");
+            const userId = this.sessionService.getID();
             if (userId)
               return ticket.userId === parseInt(userId);
             else

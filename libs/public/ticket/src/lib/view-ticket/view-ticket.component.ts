@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { PublicProfileService, TicketService } from '@grid-watch/shared-ui';
+import { PublicProfileService, SessionManagerService, TicketService } from '@grid-watch/shared-ui';
 import { id } from '@swimlane/ngx-charts';
 
 @Component({
@@ -22,7 +22,8 @@ export class ViewTicketComponent implements OnInit
   constructor(
     private ticketService: TicketService,
     private route: ActivatedRoute,
-    private profileService: PublicProfileService
+    private profileService: PublicProfileService,
+    private sessionService: SessionManagerService
   ) { }
 
   ngOnInit(): void
@@ -30,7 +31,7 @@ export class ViewTicketComponent implements OnInit
     this.ticket = new TicketDto();
     this.user = new UserDto();
     this.user.id = -1;
-    this.userId = localStorage.getItem("userId");
+    this.userId = this.sessionService.getID();
     const ticketID = this.route.snapshot.paramMap.get('id');
     if (ticketID)
     {

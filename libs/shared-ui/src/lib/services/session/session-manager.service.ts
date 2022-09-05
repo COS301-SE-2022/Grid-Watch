@@ -14,13 +14,30 @@ export class SessionManagerService {
 
   }
 
+  setToken(token : string)
+  {
+    localStorage.setItem("accessToken", token);
+    
+  }
+
+  getToken()
+  {
+    return localStorage.getItem("accessToken");
+  }
+
   logout()
   {
+    localStorage.removeItem("accessToken");
     localStorage.setItem("LoggedIn", "false");
     localStorage.removeItem("userId");
   }
 
-  getTechTeamID(){
-    return localStorage.getItem("techTeamID")
+  getID(){
+    return localStorage.getItem("userId")
   }
+
+  getLoggedIn()
+  {
+    return localStorage.getItem("LoggedIn")
+  } 
 }

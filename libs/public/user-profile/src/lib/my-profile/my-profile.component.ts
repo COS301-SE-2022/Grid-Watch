@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
-import { PublicProfileService } from '@grid-watch/shared-ui';
+import { PublicProfileService, SessionManagerService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-my-profile',
@@ -15,13 +15,14 @@ export class MyProfileComponent implements OnInit {
   viewSelected! : string;
   constructor(
     private profileService : PublicProfileService,
-    private router: Router
+    private router: Router,
+    private sessionService : SessionManagerService
   ) {}
 
   ngOnInit(): void {
     this.user = new UserDto();
     this.viewSelected = "list"
-    const id = localStorage.getItem("userId");
+    const id = this.sessionService.getID();
     if (id)
     this.profileService.getUser(id).subscribe(
       (response) =>
@@ -33,8 +34,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   logout() : void{
-    localStorage.setItem("LoggedIn", "false");
-    localStorage.removeItem("userId")
+    this.sessionService.logout()
     this.router.navigateByUrl("/login");
   }
 }

@@ -32,6 +32,7 @@ prisma = new PrismaClient();
                 email :                 techTeamDto.email,
                 specialisation :        techTeamDto.specialisation,
                 contactNumber :         techTeamDto.contactNumber,
+                cities:                 techTeamDto.cities,
                 ratingOfJobs :          0.0,
                 nrJobsCompleted :       0,
                 password :              hash,
@@ -190,6 +191,44 @@ prisma = new PrismaClient();
         }
         
     }
+
+    async getTechTeamCities(techCity: string){
+
+        const techteam = await this.prisma.techTeam.findMany({
+            //string may contain more than one city example "Pretoria, Centurion"
+            where:{
+                cities:{
+                    hasEvery: [techCity],
+                },
+            },
+
+        })
+
+        if (techteam) {
+            return techteam;
+        }
+        else{
+            return "Techteam representing city " + techCity + " not found!";
+        }
+
+    }
+
+    async AddTechTeamCity(techId : number, city : string){
+
+        await this.prisma.techTeam.update({
+            where: 
+            { 
+                id: techId, 
+            },
+            data: 
+            {
+                cities: 
+                {
+                    push: city,
+                },
+            },
+        });
+    }
     
     async assignTicket(ticketID : number, techTeamID : number)
     {
@@ -202,11 +241,12 @@ prisma = new PrismaClient();
                 assignedTechTeam : techTeamID,
             },
         })
+
     }
 
     async getAllAssignedTickets( techTeamID : number)
     {
-        await this.prisma.techTeam.findUnique({
+        return await this.prisma.techTeam.findUnique({
             where:
             {
                 id : techTeamID,
@@ -215,16 +255,16 @@ prisma = new PrismaClient();
                 assignedTickets: true
             },
         })
+
     }
 
     async updatePassword(techTeamId: number, newPassword: string){
 
-    if(!newPassword)
-    throw Error("password_falsy");
+        if(!newPassword)
+        throw Error("password_falsy");
 
-    const salt = await this.bcrypt.genSalt(6);
-    const hash = await this.bcrypt.hash(newPassword, salt)
-
+        const salt = await this.bcrypt.genSalt(6);
+        const hash = await this.bcrypt.hash(newPassword, salt)
 
         await this.prisma.techTeam.update({
             where:{
@@ -250,6 +290,7 @@ prisma = new PrismaClient();
                 email :                 techTeamDto.email,
                 specialisation :        techTeamDto.specialisation,
                 contactNumber :         techTeamDto.contactNumber,
+                cities:                 techTeamDto.cities,
             },
         });
     }
@@ -308,6 +349,19 @@ prisma = new PrismaClient();
             },
         });
 
+    }
+
+    async updateTechTeamCities(techId:number,techCities:string[]){
+
+        await this.prisma.techTeam.update({
+            where:{
+                id : techId,
+            },
+            data:
+            {
+                cities : techCities,
+            },
+        });
     }
 
     async updateTechTeamNrJobsCompleted(techTeamId: number, NrJobsCompleted: number){

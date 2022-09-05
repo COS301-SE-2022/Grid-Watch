@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-
+import {GoogleMapsService} from '@grid-watch/shared-ui';
 import { DashboardBodyComponent } from './dashboard-body.component';
 import { DashboardTimelineComponent } from '../dashboard-timeline/dashboard-timeline.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -33,7 +33,8 @@ describe('DashboardBodyComponent', () => {
         MatMenuModule,
         HttpClientModule,
         RouterTestingModule
-      ]
+      ],
+      providers: [GoogleMapsService],
     }).compileComponents();
   }));
 

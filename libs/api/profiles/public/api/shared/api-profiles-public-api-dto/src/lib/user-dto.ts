@@ -18,6 +18,10 @@ id !: number;
 @IsNotEmpty()
 email! : string;
 
+@IsNumber()
+@IsNotEmpty()
+userRating! : number;
+
 @IsAlphanumeric()
 @IsNotEmpty()
 password! : string;

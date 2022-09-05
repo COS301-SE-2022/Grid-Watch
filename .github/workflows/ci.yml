@@ -74,3 +74,15 @@ jobs:
       
       - name: Running nx run-many lint
         run: yarn nx run-many --target=e2e --all=true --parallel
+        
+      - name: Merge coverage reports
+        if: inputs.test == 'all'   
+        run: node merge-reports.js
+
+      - uses: codecov/codecov-action@v2
+        if: inputs.test == 'all' 
+        with:
+          # Training-Buddy codecov token to be placed below
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          name: cypress-jest

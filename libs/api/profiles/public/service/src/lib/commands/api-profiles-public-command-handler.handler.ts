@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { ApiProfilesPublicRepositoryDataAccess } from '@grid-watch/api/profiles/public/repository';
-import {AddTicketUpvotedCommand,CreateUserCommand,DeleteUserCommand,ResetUserRating,ResetUserRatingCommand,UpdateUserCommand,UpdateUserEmailCommand,UpdateUserNameCommand,UpdateUserPasswordCommand,UpdateUserRatingCommand,VerifyUserPasswordCommand} from './api-profiles-public-command.command';
+import {AddTicketUpvotedCommand,CreateUserCommand,DeleteUserCommand,ResetUserRatingCommand,UpdateUserCommand,UpdateUserEmailCommand,UpdateUserNameCommand,UpdateUserPasswordCommand,UpdateUserRatingCommand,VerifyUserPasswordCommand} from './api-profiles-public-command.command';
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserHandler implements ICommandHandler<CreateUserCommand>{

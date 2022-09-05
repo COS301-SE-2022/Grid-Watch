@@ -30,7 +30,9 @@ import { Tree } from './ai/tree';
               multNode,
               Node,
               PlusNode,
-              Tree
+              Tree,
+              Number,
+              Array
             ],
   exports: [ApiAiTicketServiceService],
 })

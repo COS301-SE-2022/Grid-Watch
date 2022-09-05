@@ -230,7 +230,7 @@ export class Tree {
         let correct=0;
         let all=0;
         const arrTest : Node[] =[];
-        this.getArr(curr,arrTest);
+        await this.getArr(curr,arrTest);
             
             for(let a=0;a<this.input.length;a++){
 

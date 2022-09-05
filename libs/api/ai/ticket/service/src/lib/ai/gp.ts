@@ -36,7 +36,7 @@ export class GP {
         while(await highest.getFitness() < 100.0 && countgen < this.generations){
             //generate new popluation
             const newpopulation: Node[] = [];
-            const half = this.population.length /2;
+            const half = Math.floor(this.population.length /2);
             
             for(let i=0;i<half;i+=2){
                 let children:Node[] = [];

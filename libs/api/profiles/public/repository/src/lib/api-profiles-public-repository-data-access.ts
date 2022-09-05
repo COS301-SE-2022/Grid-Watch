@@ -246,6 +246,42 @@ export class ApiProfilesPublicRepositoryDataAccess{
         });
     }
 
+    async incUserRating(userId: number){
+
+        await this.prisma.user.update({
+            where:
+            {
+                id: userId,
+            },
+            data:
+            {
+                userRating :
+                {
+                    increment: 1,
+                } 
+            },
+        });
+
+    }
+
+    async decUserRating(userId: number){
+
+        await this.prisma.user.update({
+            where:
+            {
+                id: userId,
+            },
+            data:
+            {
+                userRating :
+                {
+                    decrement: 1,
+                } 
+            },
+        });
+
+    }  
+
     async resetUserRating(userId:number){
 
         await this.prisma.user.update({

@@ -152,19 +152,19 @@ describe('ApiProfilesPublicApiController', () => {
       });
     })
     
-    //updateRating
-    describe('updateRating',()=>{
+    //updateUserRating
+    describe('updateUserRating',()=>{
       it('should return void',async ()=>{
         jest
-        .spyOn(controller,'updateRating')
+        .spyOn(controller,'updateUserRating')
         .mockImplementation(():Promise<void> => Promise.resolve());
 
-        expect(await controller.updateRating(3,40)).toBeUndefined()
+        expect(await controller.updateUserRating(3,40)).toBeUndefined()
       });
   
       it('should return null', async () => {
-        jest.spyOn(controller, 'updateRating').mockResolvedValue(null);
-        expect(await controller.updateRating(3,40)).toEqual(null);
+        jest.spyOn(controller, 'updateUserRating').mockResolvedValue(null);
+        expect(await controller.updateUserRating(3,40)).toEqual(null);
       });
     })
 

@@ -89,13 +89,13 @@ export class ApiProfilesPublicApiController {
 
     //update userrating
     @Put('/update/rating/:id')
-    async updateuserRating(@Param() params,@Body() rating: number) {
+    async updateUserRating(@Param() params,@Body() rating: number) {
         return this.apiProfilesPublicService.updateUserRating(parseInt(params.id),rating[20]);
     }
 
     //reset user rating
     @Put('/update/rating/:id')
-    async resetUserRating(@Param() params,@Body() rating: number) {
+    async resetUserRating(@Param() params) {
         return this.apiProfilesPublicService.resetUserRating(parseInt(params.id));
     }
 

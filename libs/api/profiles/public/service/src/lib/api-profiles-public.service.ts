@@ -4,6 +4,8 @@ import {VerifyUserPasswordCommand,
         UpdateUserCommand,
         UpdateUserPasswordCommand,
         UpdateUserNameCommand,
+        UpdateUserRating,
+        ResetUserRating,
         UpdateUserEmailCommand,
         DeleteUserCommand,
         CreateUserCommand,
@@ -17,6 +19,7 @@ import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles
 
 @Injectable()
 export class ApiProfilesPublicService {
+
     constructor(private commandBus: CommandBus,private queryBus: QueryBus){}
 
     /////////////////////////////////////////
@@ -67,6 +70,14 @@ export class ApiProfilesPublicService {
 
     async updateUserName(userId: number, userName: string){
         return await this.commandBus.execute(new UpdateUserNameCommand(userId,userName));
+    }
+
+    async updateUserRating(userId: number, rating: number){
+        return await this.commandBus.execute(new UpdateUserRating(userId,rating));
+    }
+
+    async resetUserRating(userId: number){
+        return await this.commandBus.execute(new ResetUserRating(userId));
     }
 
     async updateUserEmail(userId: number, userEmail: string){

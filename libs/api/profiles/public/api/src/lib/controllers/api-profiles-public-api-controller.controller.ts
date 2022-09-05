@@ -87,6 +87,18 @@ export class ApiProfilesPublicApiController {
         return this.apiProfilesPublicService.updateUserName(parseInt(params.id),userName["name"]);
     }
 
+    //update userrating
+    @Put('/update/rating/:id')
+    async updateuserRating(@Param() params,@Body() rating: number) {
+        return this.apiProfilesPublicService.updateUserRating(parseInt(params.id),rating[20]);
+    }
+
+    //reset user rating
+    @Put('/update/rating/:id')
+    async resetUserRating(@Param() params,@Body() rating: number) {
+        return this.apiProfilesPublicService.resetUserRating(parseInt(params.id));
+    }
+
     @Delete('/delete')
     async deleteUser(@Body() userId: number){
         return this.apiProfilesPublicService.deleteUser(userId["userId"]);

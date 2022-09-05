@@ -42,6 +42,19 @@ export class UpdateUserNameCommand{
         ){}
 }
 
+export class UpdateUserRatingCommand{
+    constructor(
+        public readonly userId, 
+        public readonly rating,
+        ){}
+}
+
+export class ResetUserRatingCommand{
+    constructor(
+        public readonly userId, 
+        ){}
+}
+
 export class UpdateUserEmailCommand{
     constructor(
         public readonly userId, 

@@ -150,6 +150,38 @@ describe('ApiProfilesPublicService', () => {
       });
     })
 
+ //updateRating
+ describe('updateRating',()=>{
+  it('should return void',async ()=>{
+    jest
+    .spyOn(service,'updateRating')
+    .mockImplementation(():Promise<void> => Promise.resolve());
+
+    expect(await service.updateRating(3,40)).toBeUndefined()
+  });
+
+  it('should return null', async () => {
+    jest.spyOn(service, 'updateRating').mockResolvedValue(null);
+    expect(await service.updateRating(3,40)).toEqual(null);
+  });
+})
+
+//resetUserRating
+describe('resetUserRating',()=>{
+  it('should return void',async ()=>{
+    jest
+    .spyOn(service,'resetUserRating')
+    .mockImplementation(():Promise<void> => Promise.resolve());
+
+    expect(await service.resetUserRating(3)).toBeUndefined()
+  });
+
+  it('should return null', async () => {
+    jest.spyOn(service, 'resetUserRating').mockResolvedValue(null);
+    expect(await service.resetUserRating(3)).toEqual(null);
+  });
+})     
+
     //updateUserEmail
     describe('updateUserEmail',()=>{
       it('should return void',async ()=>{

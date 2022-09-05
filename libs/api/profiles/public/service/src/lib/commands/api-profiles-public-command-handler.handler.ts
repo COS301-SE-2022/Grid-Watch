@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { ApiProfilesPublicRepositoryDataAccess } from '@grid-watch/api/profiles/public/repository';
-import {AddTicketUpvotedCommand,CreateUserCommand,DeleteUserCommand,UpdateUserCommand,UpdateUserEmailCommand,UpdateUserNameCommand,UpdateUserPasswordCommand,VerifyUserPasswordCommand} from './api-profiles-public-command.command';
+import {AddTicketUpvotedCommand,CreateUserCommand,DeleteUserCommand,ResetUserRating,ResetUserRatingCommand,UpdateUserCommand,UpdateUserEmailCommand,UpdateUserNameCommand,UpdateUserPasswordCommand,UpdateUserRatingCommand,VerifyUserPasswordCommand} from './api-profiles-public-command.command';
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserHandler implements ICommandHandler<CreateUserCommand>{
@@ -44,6 +44,28 @@ export class UpdateUserHandler implements ICommandHandler<UpdateUserCommand>{
     async execute(command: UpdateUserCommand){
         const{userId,userDto} = command;
         return this.repository.updateUser(userId,userDto);
+    }
+}
+
+@CommandHandler(UpdateUserRatingCommand)
+export class UpdateUserRatingHandler implements ICommandHandler<UpdateUserRatingCommand>{
+
+    constructor (private readonly repository: ApiProfilesPublicRepositoryDataAccess){}
+
+    async execute(command: UpdateUserRatingCommand){
+        const{userId,rating} = command;
+        return this.repository.updateRating(userId,rating);
+    }
+}
+
+@CommandHandler(ResetUserRatingCommand)
+export class ResetUserRatingHandler implements ICommandHandler<ResetUserRatingCommand>{
+
+    constructor (private readonly repository: ApiProfilesPublicRepositoryDataAccess){}
+
+    async execute(command: ResetUserRatingCommand){
+        const{userId} = command;
+        return this.repository.resetUserRating(userId);
     }
 }
 

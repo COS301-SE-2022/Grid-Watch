@@ -67,7 +67,7 @@ import { Picture, Subtasks } from '@prisma/client';
         
         expect(await provider.getAllTickets()).toEqual(null);
       });
-})
+  })
 
   //getAllTicketsDispatched endpoint
   describe('getAllTicketsDispatched',()=>{
@@ -231,41 +231,6 @@ import { Picture, Subtasks } from '@prisma/client';
       });
   })  
  
-  //getTicketsSortStatus endpoint
-  describe('getTicketsSortStatus',()=>{
-    const arrayOfTickets:TicketDto[] = [];
-      it('should return tickets',async ()=>{
-        jest
-        .spyOn(provider,'getTicketsSortStatus')
-        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
-        expect(await provider.getTicketsSortStatus()).toMatchObject(
-          expect.arrayContaining(arrayOfTickets)
-        )
-      });
-      
-      it('should return null', async () => {
-        jest.spyOn(provider, 'getTicketsSortStatus').mockResolvedValue(null);
-        expect(await provider.getTicketsSortStatus()).toEqual(null);
-      });
-  })
-
-  //getTicketsSortUpvotes endpoint
-  describe('getTicketsSortUpvotes',()=>{
-    const arrayOfTickets:TicketDto[] = [];
-      it('should return tickets',async ()=>{
-        jest
-        .spyOn(provider,'getTicketsSortUpvotes')
-        .mockImplementation(():Promise<TicketDto[]>=>Promise.resolve(arrayOfTickets))
-        expect(await provider.getTicketsSortUpvotes()).toMatchObject(
-          expect.arrayContaining(arrayOfTickets)
-        )
-      });
-      
-      it('should return null', async () => {
-        jest.spyOn(provider, 'getTicketsSortUpvotes').mockResolvedValue(null);
-        expect(await provider.getTicketsSortUpvotes()).toEqual(null);
-      });
-  })
 
   //getTicketsSortCity endpoint
   describe('getTicketsSortCity',()=>{
@@ -319,7 +284,25 @@ import { Picture, Subtasks } from '@prisma/client';
         jest.spyOn(provider, 'getTicketsSortUpvotes').mockResolvedValue(null);
         expect(await provider.getTicketsSortUpvotes()).toEqual(null);
       });
-  }) 
+  })
+
+  //getCurrentSubtask endpoint
+  describe('getCurrentSubtask',()=>{
+    const arrayOfSubtasks: Subtasks[] = [];
+    it('should return a picture',async ()=>{
+      jest
+      .spyOn(provider,'getCurrentSubtask')
+      .mockImplementation(():Promise<Subtasks[]>=>Promise.resolve(arrayOfSubtasks))
+      expect(await provider.getCurrentSubtask(2,2)).toMatchObject(
+        expect.arrayContaining(arrayOfSubtasks)
+      )
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(provider, 'getCurrentSubtask').mockResolvedValue(null);
+      expect(await provider.getCurrentSubtask(2,2)).toEqual(null);
+    });
+  });
 
   //closeTicket
   describe('closeTicket',()=>{

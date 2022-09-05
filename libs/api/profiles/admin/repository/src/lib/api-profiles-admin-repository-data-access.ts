@@ -172,7 +172,7 @@ export class ApiProfilesAdminRepositoryDataAccess {
         await this.prisma.authorizedOfficials.update({
             where: 
             { 
-                id: adminId 
+                id: adminId,
             },
             data: 
             {

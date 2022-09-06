@@ -18,6 +18,7 @@ import Chart from 'chart.js/auto';
 import { registerables } from 'chart.js';
 import { MatTabsModule } from '@angular/material/tabs'
 import { FormsModule } from '@angular/forms';
+import { AdminAppTechTeamModule } from 'libs/admin-app/tech-team/src';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { FormsModule } from '@angular/forms';
     MatRadioModule,
     LayoutModule,
     FormsModule,
+    AdminAppTechTeamModule
   ],
   declarations: [
     DashboardBodyComponent,

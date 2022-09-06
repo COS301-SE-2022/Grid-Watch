@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor, GoogleMapsService, LoggedInGuard, SharedUiModule } from '@grid-watch/shared-ui';
 import { AdminAppDashboardModule, DashboardBodyComponent } from '@grid-watch/admin-app/dashboard';
 import { AdminAppProfileModule } from '@grid-watch/admin-app/profile';
+import { AdminAppTechTeamModule } from 'libs/admin-app/tech-team/src';
 
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
@@ -26,6 +27,7 @@ const routes: Routes = [
     AdminAppTicketModule,
     AdminAppDashboardModule,
     AdminAppProfileModule,
+    AdminAppTechTeamModule,
     HttpClientModule
   ],
   providers: [GoogleMapsService, LoggedInGuard, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true} ],

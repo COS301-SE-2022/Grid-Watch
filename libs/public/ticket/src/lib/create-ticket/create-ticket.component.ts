@@ -8,6 +8,7 @@ import { FloatLabelType } from '@angular/material/form-field';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
+// import { JwtService } from '@nestjs/jwt';
 
 
 @Component({
@@ -251,6 +252,11 @@ export class CreateTicketComponent{
       (response) => {
         console.log(response);
         this.sesssionService.login(response.id.toString());
+        this.profileService.login(guestUser).then(
+          (response)=>{
+            this.sesssionService.setToken(response.access_token)
+          }
+        )
         this.createTicket();
       }
     )

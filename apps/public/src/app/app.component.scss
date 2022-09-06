@@ -1,0 +1,12 @@
+#toast{
+    position: sticky;
+    min-height: 30px;
+    top: 20px;
+    z-index: 3;
+}
+
+app-toasts{
+    position: absolute;
+    top: 0;
+    right: 0;
+}

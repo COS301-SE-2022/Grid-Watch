@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { GoogleMapsService, SessionManagerService, MessageDialogComponent, PublicProfileService, TicketService } from '@grid-watch/shared-ui';
+import { GoogleMapsService, SessionManagerService, MessageDialogComponent, PublicProfileService, TicketService, ToastService } from '@grid-watch/shared-ui';
 import { Loader } from '@googlemaps/js-api-loader';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
@@ -59,6 +59,7 @@ export class CreateTicketComponent{
               private formBuilder: FormBuilder,
               private profileService : PublicProfileService,
               public dialog: MatDialog,
+              private toast: ToastService,
               private sesssionService: SessionManagerService) {
               }
               
@@ -135,7 +136,7 @@ export class CreateTicketComponent{
   {
     console.log(this.ticket);
     
-    if (this.ticket.ticketType === "" && this.ticket.ticketDescription === "") //&& this.location.hasError !== null )
+    if (this.ticket.ticketType === "" || this.ticket.ticketDescription === "") //&& this.location.hasError !== null )
     {
       this.showErrorMessage("Fields", "Complete all mandatory fields")
       return;
@@ -208,6 +209,11 @@ export class CreateTicketComponent{
     }
     else
     {
+      this.toast.show('Ticket Created Successfully',{
+        classname: 'bg-success text-light',
+        delay: 5000,
+        autohide: true
+      });
       this.uploadTicket();
     }
      

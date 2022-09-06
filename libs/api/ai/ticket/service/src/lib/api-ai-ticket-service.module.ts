@@ -15,7 +15,7 @@ import { PlusNode } from './ai/plus-node';
 import { Tree } from './ai/tree';
 @Module({
   controllers: [],
-  imports: [CqrsModule],
+  imports: [CqrsModule,Number,Array],
   providers: [ApiAiTicketServiceService,
               ApiTicketRepositoryDataAccess,
               ApiProfilesTechTeamRepositoryDataAccess,
@@ -30,7 +30,9 @@ import { Tree } from './ai/tree';
               multNode,
               Node,
               PlusNode,
-              Tree
+              Tree,
+              Number,
+              Array,
             ],
   exports: [ApiAiTicketServiceService],
 })

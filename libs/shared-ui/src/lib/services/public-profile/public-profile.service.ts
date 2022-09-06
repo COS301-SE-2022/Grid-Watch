@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Token } from '@grid-watch/api/authentication';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { catchError, Observable, of } from 'rxjs';
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -52,9 +55,19 @@ export class PublicProfileService {
 
   public login(user: UserDto) {
     // console.log("True");
-    return this.http
-      .post<boolean>(this.verifyLoginURL, user)
-      .pipe(catchError(this.handleError<boolean>('login', false)));
+    return new Promise<Token>(
+      (resolve) => {
+        this.http.post<Token>(this.verifyLoginURL, user).subscribe(
+          (res) =>{
+            resolve(res)
+          }
+        )
+        
+      }
+    );
+    // return this.http
+    //   .post<Token>(this.verifyLoginURL, user)
+    //   .pipe(catchError(this.handleError<Token>('login', {accessToken: ""})));
   }
 
   public getUser(id : string )

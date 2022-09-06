@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Token } from '@grid-watch/api/authentication';
 import { AdminDto } from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto';
 import { catchError, Observable, of } from 'rxjs';
 
@@ -85,8 +86,8 @@ export class AdminProfileService {
   public login(admin : AdminDto)
   {
     return this.http
-    .post<AdminDto>(this.loginURL, admin)
-    .pipe(catchError(this.handleError<boolean>('login', false)));
+    .post<Token>(this.loginURL, admin)
+    .pipe(catchError(this.handleError<Token>('login', {access_token:""})));
 
   }
 

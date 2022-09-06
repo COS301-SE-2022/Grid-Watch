@@ -3,6 +3,7 @@ import { ApiProfilesTechTeamApiControllerController } from './api-profiles-tech-
 import { ApiProfilesTechTeamServiceService} from '@grid-watch/api/profiles/tech-team/service';
 import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { JwtService } from '@nestjs/jwt';
 
 const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamDto;
 
@@ -12,7 +13,7 @@ describe('ApiProfilesTechTeamApiControllerController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ApiProfilesTechTeamApiControllerController],
-      providers: [ApiProfilesTechTeamServiceService,CommandBus,QueryBus],
+      providers: [ApiProfilesTechTeamServiceService,CommandBus,QueryBus, JwtService],
     }).compile();
 
     controller = module.get<ApiProfilesTechTeamApiControllerController>(

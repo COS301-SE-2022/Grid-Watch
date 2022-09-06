@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { TicketViewPageComponent } from './ticket-view-page/ticket-view-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TicketViewDetailsComponent } from './ticket-view-details/ticket-view-details.component';
-import { AcceptedTicketViewComponent } from './accepted-ticket-view/accepted-ticket-view.component';
 import { EditAcceptedTicketComponent } from './edit-accepted-ticket/edit-accepted-ticket.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
@@ -18,12 +17,19 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { LoggedInGuard } from '@grid-watch/shared-ui';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
+import { TicketViewBodyComponent } from './ticket-view-body/ticket-view-body.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { TicketViewMapComponent } from './ticket-view-map/ticket-view-map.component';
 
 @NgModule({
   imports: [
@@ -42,43 +48,49 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatSelectModule,
     MatSidenavModule,
     MatGridListModule,
+    MatSidenavModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatButtonToggleModule,
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
       {
         path: 'tickets',
         pathMatch: 'full',
-        component: TicketViewPageComponent,
+        component: TicketViewBodyComponent,
+        canActivate: [LoggedInGuard],
       },
       {
         path: 'ticketDetails',
         pathMatch: 'full',
         component: TicketViewDetailsComponent,
-      },
-      {
-        path: 'acceptedTickets',
-        pathMatch: 'full',
-        component: AcceptedTicketViewComponent,
+        canActivate: [LoggedInGuard],
       },
       {
         path: 'editTicketDetails',
         pathMatch: 'full',
         component: EditAcceptedTicketComponent,
+        canActivate: [LoggedInGuard],
       },
     ]),
   ],
   declarations: [
     TicketViewPageComponent,
     TicketViewDetailsComponent,
-    AcceptedTicketViewComponent,
     EditAcceptedTicketComponent,
     DialogComponent,
+    TicketViewBodyComponent,
+    TicketViewMapComponent,
   ],
   exports: [
     TicketViewPageComponent,
     TicketViewDetailsComponent,
-    AcceptedTicketViewComponent,
     EditAcceptedTicketComponent,
     DialogComponent,
+    TicketViewBodyComponent,
+    TicketViewMapComponent,
   ],
 })
 export class TechTeamTicketModule {}

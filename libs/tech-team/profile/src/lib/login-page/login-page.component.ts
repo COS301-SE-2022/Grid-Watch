@@ -3,7 +3,7 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
-import { TechTeamProfileService } from '@grid-watch/shared-ui';
+import { SessionManagerService, TechTeamProfileService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-login-page',
@@ -25,25 +25,20 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private profileService: TechTeamProfileService,
-    private router: Router
+    private router: Router,
+    private sessionService : SessionManagerService
   ) {}
 
   ngOnInit(): void {
-    const logged = localStorage.getItem
     this.techProfile = new TechTeamDto();
-    this.techProfile.name = 'TestCompany3';
-    this.techProfile.email = 'TestCompany34@gmail.com';
-    this.techProfile.contactNumber = '0844521545';
-    this.techProfile.password = 'GFBSHAF';
-    this.techProfile.passwordSalt = '';
     this.techProfile.dateCreated = new Date();
     this.techProfile.specialisation = [];
     console.log(this.techProfile);
 
     if (
-      localStorage.getItem('techTeamID') !== null &&
-      localStorage.getItem('loggedIn') !== null &&
-      localStorage.getItem('loggedIn') === 'true'
+      this.sessionService.getID() !== null &&
+      this.sessionService.getLoggedIn() !== null &&
+      this.sessionService.getLoggedIn() === 'true'
     ) {
       this.router.navigateByUrl("/profile")
     }
@@ -57,7 +52,7 @@ export class LoginPageComponent implements OnInit {
     this.profileService.login(this.techProfile).subscribe((response) => {
       console.log(response);
       if (response) {
-        localStorage.setItem('loggedIn', 'true');
+        this.sessionService.setToken(response.access_token)
         this.routeToProfile();
       } else {
         alert('Wrong email, password combination');
@@ -70,7 +65,7 @@ export class LoginPageComponent implements OnInit {
       .getTechTeam(this.techProfile.email)
       .subscribe((response) => {
         console.log(response);
-        localStorage.setItem('techTeamID', response[0].id.toString());
+        this.sessionService.login(response[0].id.toString())
         this.router.navigateByUrl('/profile');
       });
   }

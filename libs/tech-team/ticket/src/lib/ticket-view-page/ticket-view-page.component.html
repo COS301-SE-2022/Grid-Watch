@@ -1,5 +1,4 @@
-<mat-sidenav-container></mat-sidenav-container>
-<div class="container mt-3 mb-3" ><span style="font-size: 1.5rem"><b>Available Tickets</b></span> <span><i><img style="position:absolute; width:50px; right:10px;" src="assets/filter-icon.svg"></i></span></div>
+<div class="container mt-3" ><h2>Available Tickets</h2></div>
 <mat-card class="mt-2 cards {{ticketStatus[i]}}" *ngFor="let ticket of tickets, index as i" >
   <mat-grid-list cols = "12" rowHeight = "30px">
       <mat-grid-tile (click)="goToTicket(ticket.ticketId.toString())" colspan ="2" rowspan="2">

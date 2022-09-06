@@ -216,7 +216,7 @@ export class CreateTicketComponent{
       this.uploadTicket();
     }
      
-    this.openSnackBar('Created', 'Done');
+    this.openSnackBar('Created', '');
   }
 
 
@@ -348,6 +348,7 @@ export class CreateTicketComponent{
   {
 
     this._snackBar.open(message, action, {
+      duration: 1000,
       panelClass: ['green-snackbar', 'login-snackbar'],
      });
   }

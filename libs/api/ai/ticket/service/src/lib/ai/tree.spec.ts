@@ -125,7 +125,7 @@ describe('Tree', () => {
     const rootNode: Node = await tree.generateRandTree();
     await tree.populateTree(rootNode);
     const node: Node = await tree.getRandLevelNode(2,rootNode);
-    expect(await node.getType()).not.toEqual("leaf");
+    expect(await node.getType()).toBeDefined();
   })
 
   it('crossOver should return a cross between parent1 and parent2', async()=>{

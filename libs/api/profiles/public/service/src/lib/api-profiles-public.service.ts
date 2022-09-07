@@ -10,6 +10,8 @@ import {VerifyUserPasswordCommand,
         DeleteUserCommand,
         CreateUserCommand,
         AddTicketUpvotedCommand,
+        IncUserRatingCommand,
+        DecUserRatingCommand,
 } from './commands/api-profiles-public-command.command';
 import{ GetUserQuery,
         GetUserNameQuery,
@@ -74,6 +76,14 @@ export class ApiProfilesPublicService {
 
     async updateUserRating(userId: number, rating: number){
         return await this.commandBus.execute(new UpdateUserRatingCommand(userId,rating));
+    }
+
+    async incUserRating(userId: number){
+        return await this.commandBus.execute(new IncUserRatingCommand(userId));
+    }
+
+    async decUserRating(userId: number){
+        return await this.commandBus.execute(new DecUserRatingCommand(userId));
     }
 
     async resetUserRating(userId: number){

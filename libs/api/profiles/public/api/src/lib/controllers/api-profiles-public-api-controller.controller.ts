@@ -122,8 +122,20 @@ export class ApiProfilesPublicApiController {
         return this.apiProfilesPublicService.updateUserRating(parseInt(params.id),rating[20]);
     }
 
+    //inc user rating
+    @Put('/inc/rating/:id')
+    async incUserRating(@Param() params) {
+        return this.apiProfilesPublicService.incUserRating(parseInt(params.id));
+    }
+
+    //dec user rating
+    @Put('/dec/rating/:id')
+    async decUserRating(@Param() params) {
+        return this.apiProfilesPublicService.decUserRating(parseInt(params.id));
+    }
+
     //reset user rating
-    @Put('/update/rating/:id')
+    @Put('/reset/rating/:id')
     async resetUserRating(@Param() params) {
         return this.apiProfilesPublicService.resetUserRating(parseInt(params.id));
     }

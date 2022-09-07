@@ -49,6 +49,18 @@ export class UpdateUserRatingCommand{
         ){}
 }
 
+export class IncUserRatingCommand{
+    constructor(
+        public readonly userId, 
+        ){}
+}
+
+export class DecUserRatingCommand{
+    constructor(
+        public readonly userId, 
+        ){}
+}
+
 export class ResetUserRatingCommand{
     constructor(
         public readonly userId, 

@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { ApiProfilesPublicRepositoryDataAccess } from '@grid-watch/api/profiles/public/repository';
-import {AddTicketUpvotedCommand,CreateUserCommand,DeleteUserCommand,ResetUserRatingCommand,UpdateUserCommand,UpdateUserEmailCommand,UpdateUserNameCommand,UpdateUserPasswordCommand,UpdateUserRatingCommand,VerifyUserPasswordCommand} from './api-profiles-public-command.command';
+import {AddTicketUpvotedCommand,CreateUserCommand,DeleteUserCommand,ResetUserRatingCommand,IncUserRatingCommand,DecUserRatingCommand,UpdateUserCommand,UpdateUserEmailCommand,UpdateUserNameCommand,UpdateUserPasswordCommand,UpdateUserRatingCommand,VerifyUserPasswordCommand} from './api-profiles-public-command.command';
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserHandler implements ICommandHandler<CreateUserCommand>{
@@ -58,6 +58,26 @@ export class UpdateUserRatingHandler implements ICommandHandler<UpdateUserRating
     }
 }
 
+@CommandHandler(IncUserRatingCommand)
+export class IncUserRatingHandler implements ICommandHandler<IncUserRatingCommand>{
+
+    constructor (private readonly repository: ApiProfilesPublicRepositoryDataAccess){}
+
+    async execute(command: IncUserRatingCommand){
+        const{userId} = command;
+        return this.repository.incUserRating(userId);
+    }
+}
+@CommandHandler(DecUserRatingCommand)
+export class DecUserRatingHandler implements ICommandHandler<DecUserRatingCommand>{
+
+    constructor (private readonly repository: ApiProfilesPublicRepositoryDataAccess){}
+
+    async execute(command: DecUserRatingCommand){
+        const{userId} = command;
+        return this.repository.decUserRating(userId);
+    }
+}
 @CommandHandler(ResetUserRatingCommand)
 export class ResetUserRatingHandler implements ICommandHandler<ResetUserRatingCommand>{
 

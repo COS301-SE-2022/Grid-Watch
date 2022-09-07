@@ -168,6 +168,38 @@ describe('ApiProfilesPublicApiController', () => {
         expect(await controller.updateUserRating(3,40)).toEqual(null);
       });
     })
+    
+    //resetUserRating
+    describe('resetUserRating',()=>{
+      it('should return void',async ()=>{
+        jest
+        .spyOn(controller,'resetUserRating')
+        .mockImplementation(():Promise<void> => Promise.resolve());
+
+        expect(await controller.resetUserRating(3)).toBeUndefined()
+      });
+  
+      it('should return null', async () => {
+        jest.spyOn(controller, 'resetUserRating').mockResolvedValue(null);
+        expect(await controller.resetUserRating(3)).toEqual(null);
+      });
+    }) 
+
+    //resetUserRating
+    describe('resetUserRating',()=>{
+      it('should return void',async ()=>{
+        jest
+        .spyOn(controller,'resetUserRating')
+        .mockImplementation(():Promise<void> => Promise.resolve());
+
+        expect(await controller.resetUserRating(3)).toBeUndefined()
+      });
+  
+      it('should return null', async () => {
+        jest.spyOn(controller, 'resetUserRating').mockResolvedValue(null);
+        expect(await controller.resetUserRating(3)).toEqual(null);
+      });
+    }) 
 
     //resetUserRating
     describe('resetUserRating',()=>{

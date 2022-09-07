@@ -69,8 +69,13 @@ export class RegisterPageComponent implements OnInit {
           this.profileService.createAdmin(this.admin).subscribe(
             (response) => {
               console.log(response);
-              this.showMessage("Created admin successfully");
-              this.router.navigateByUrl("/login");
+              if (response !== false)
+              {
+                this.showMessage("Created admin successfully");
+                this.router.navigateByUrl("/login");
+              }
+              else
+                this.showMessage("An error has occcured")
             }
           )
         }

@@ -68,7 +68,9 @@
     </mat-divider>
     <div class="minorTicketInformation mt-4 mb-5">
         <div class="ticketUpvote">
-            <img class="ticketUpvoteImage" src="assets/circle-up-solid.svg" alt="upvoteIcon">
+            <span class="upvoteContainer" id="upvotesContainer">
+                <img class="ticketUpvoteImage" src="assets/circle-up-solid.svg" alt="upvoteIcon" (click)="increaseUpvotes(ticket.ticketId)">
+            </span>
             {{ticket.ticketUpvotes}}
         </div>
         <div class="ticketDate">

@@ -97,6 +97,7 @@ export class CreateTicketComponent{
     // this.initMap()
   }
 
+
   getFloatLabelValue(): FloatLabelType {
     return this.floatLabelControl.value || 'auto';
   }
@@ -215,7 +216,7 @@ export class CreateTicketComponent{
   }
 
 
-  initMap() : void
+  async initMap() : Promise<void>
   {
     this.map = this.googleMapsService.createMapObject("map",this.center,this.zoom)
     this.autocomplete = this.googleMapsService.createAutoCompleteObject("pac-input");
@@ -232,7 +233,56 @@ export class CreateTicketComponent{
           this.createMapMarker(pos)
         }
       })
+    this.map.addListener("click", (e: { latLng: any; }) => {
+      this.placeMarkerAndPanTo(e.latLng, this.map);
+    });
+
+    this.ticketService.getTickets().subscribe(
+      (response) =>{
+        const tickets = response;
+        tickets.forEach((ticket) =>{
+            const marker = new google.maps.Marker({
+            position: {lat: ticket.ticketLat, lng: ticket.ticketLong},
+            map: this.map,
+          });
+          const infoWindow = new google.maps.InfoWindow({
+            content: '',
+            disableAutoPan: true,
+          });
+          marker.addListener('click', () => {
+            // const html = 
+            // `<div> 
+            //   ${this.tickets[i].ticketType}
+            //   <button (click)="test()">View</button>
+            // </div>`;
+            const html = document.createElement("div");
+            html.innerHTML = ticket.ticketType;
+            html.onclick = () =>{
+              this.router.navigate(['/viewTicket', {id: ticket.ticketId}]) ;
+            };
+            infoWindow.setContent(html);
+            infoWindow.open(this.map, marker);
+          });
+        })
+      }
+    )
+    
+    
+    
   }
+
+
+
+  placeMarkerAndPanTo(latLng: google.maps.LatLng, map: google.maps.Map) {
+    // new google.maps.Marker({
+    //   position: latLng,
+    //   map: map,
+    // });
+    this.createMapMarker({lat: latLng.lat(), lng: latLng.lng()})
+  }
+    
+  
+
 
   createGuest()
   {
@@ -324,6 +374,7 @@ export class CreateTicketComponent{
     this.marker.setMap(null);
     this.map.unbind("marker");
     this.map.setCenter(place);
+    // this.map.panTo(place);
     this.map.setZoom(16)
     const tempLabel = "";
     this.marker = this.googleMapsService.createMarkerObject(place, this.map, tempLabel);

@@ -76,7 +76,9 @@
             {{ ticket.ticketType }}
           </mat-grid-tile>
           <mat-grid-tile rowspan="1" colspan="2">
-            {{ ticket.ticketUpvotes }} &nbsp;
+            <span class="upvoteCount">
+              {{ ticket.ticketUpvotes }} &nbsp;
+            </span>
             <span class="upvoteContainer" id="{{ticket.ticketId}}" aria-disabled="true">
 
               <img

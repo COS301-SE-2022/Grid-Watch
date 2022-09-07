@@ -26,7 +26,7 @@ import { AdminAppTechTeamModule } from '@grid-watch/admin-app/tech-team';
     CommonModule,
     
     RouterModule.forChild([
-      // { path: 'testing', pathMatch: 'full', component: DashboardBodyComponent },
+      { path: 'dashboard', pathMatch: 'full', component: DashboardOverviewComponent },
     ]),
     MatGridListModule,
     AdminAppTicketModule,

@@ -136,4 +136,11 @@ span.upvoteContainer.liked {
 span.upvoteContainer {
     border-radius: 13px;
     background: white;
+    height: 100%;
+    width: 100%;
+}
+
+.upvoteCount{
+    position: relative;
+    top: 8px;
 }

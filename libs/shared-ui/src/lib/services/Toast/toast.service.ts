@@ -5,7 +5,7 @@ import { Injectable, TemplateRef } from '@angular/core';
 })
 export class ToastService {
 
-  constructor() { }
+  //constructor() { }
 
   toasts: any[] = [];
 

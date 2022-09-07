@@ -20,8 +20,8 @@ export class multNode extends InternalNode {
         }else{
             out = new multNode(null,null);
         }
-        out.setDepth(this.depth);
-        out.setFitness(await this.getFitness());
+        await out.setDepth(this.depth);
+        await out.setFitness(await this.getFitness());
         return out;
     }
 

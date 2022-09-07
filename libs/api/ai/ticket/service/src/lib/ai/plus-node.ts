@@ -19,8 +19,8 @@ export class PlusNode extends InternalNode{
         }else{
             out = new PlusNode(null,null);
         }
-        out.setDepth(this.depth);
-        out.setFitness(await this.getFitness());
+        await out.setDepth(this.depth);
+        await out.setFitness(await this.getFitness());
         return out;
     }
 

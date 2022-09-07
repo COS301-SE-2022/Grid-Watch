@@ -46,62 +46,62 @@ describe('ApiProfilesPublicService', () => {
 
   // })
 
-    //getUser endpoint
-    describe('getUser',()=>{
-      const arrayOfUsers:UserDto[] = [];
-        it('should return a user',async ()=>{
-          jest
-          .spyOn(service,'getUser')
-          .mockImplementation(():Promise<UserDto[]>=>Promise.resolve(arrayOfUsers))
-          expect(await service.getUser(2)).toMatchObject(
-            expect.arrayContaining(arrayOfUsers)
-          )
-        });
+  //getUser endpoint
+  describe('getUser',()=>{
+    const arrayOfUsers:UserDto[] = [];
+      it('should return a user',async ()=>{
+        jest
+        .spyOn(service,'getUser')
+        .mockImplementation(():Promise<UserDto[]>=>Promise.resolve(arrayOfUsers))
+        expect(await service.getUser(2)).toMatchObject(
+          expect.arrayContaining(arrayOfUsers)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(service, 'getUser').mockResolvedValue(null);
         
-        it('should return null', async () => {
-          jest.spyOn(service, 'getUser').mockResolvedValue(null);
-          
-          expect(await service.getUser(2)).toEqual(null);
-        });
-    })
+        expect(await service.getUser(2)).toEqual(null);
+      });
+  })
 
-    //getUserName endpoint
-    describe('getUserName',()=>{
-      const arrayOfUsers:UserDto[] = [];
-        it('should return a user',async ()=>{
-          jest
-          .spyOn(service,'getUserName')
-          .mockImplementation(():Promise<UserDto[]>=>Promise.resolve(arrayOfUsers))
-          expect(await service.getUserName(userMock.name)).toMatchObject(
-            expect.arrayContaining(arrayOfUsers)
-          )
-        });
+  //getUserName endpoint
+  describe('getUserName',()=>{
+    const arrayOfUsers:UserDto[] = [];
+      it('should return a user',async ()=>{
+        jest
+        .spyOn(service,'getUserName')
+        .mockImplementation(():Promise<UserDto[]>=>Promise.resolve(arrayOfUsers))
+        expect(await service.getUserName(userMock.name)).toMatchObject(
+          expect.arrayContaining(arrayOfUsers)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(service, 'getUserName').mockResolvedValue(null);
         
-        it('should return null', async () => {
-          jest.spyOn(service, 'getUserName').mockResolvedValue(null);
-          
-          expect(await service.getUserName(userMock.name)).toEqual(null);
-        });
-    })
+        expect(await service.getUserName(userMock.name)).toEqual(null);
+      });
+  })
 
-    //getUserEmail endpoint
-    describe('getUserEmail',()=>{
-      const arrayOfUsers:UserDto[] = [];
-        it('should return a user',async ()=>{
-          jest
-          .spyOn(service,'getUserName')
-          .mockImplementation(():Promise<UserDto[]>=>Promise.resolve(arrayOfUsers))
-          expect(await service.getUserName(userMock.email)).toMatchObject(
-            expect.arrayContaining(arrayOfUsers)
-          )
-        });
+  //getUserEmail endpoint
+  describe('getUserEmail',()=>{
+    const arrayOfUsers:UserDto[] = [];
+      it('should return a user',async ()=>{
+        jest
+        .spyOn(service,'getUserName')
+        .mockImplementation(():Promise<UserDto[]>=>Promise.resolve(arrayOfUsers))
+        expect(await service.getUserName(userMock.email)).toMatchObject(
+          expect.arrayContaining(arrayOfUsers)
+        )
+      });
+      
+      it('should return null', async () => {
+        jest.spyOn(service, 'getUserName').mockResolvedValue(null);
         
-        it('should return null', async () => {
-          jest.spyOn(service, 'getUserName').mockResolvedValue(null);
-          
-          expect(await service.getUserName(userMock.email)).toEqual(null);
-        });
-    })
+        expect(await service.getUserName(userMock.email)).toEqual(null);
+      });
+  })
     
   //UpdateUser 
   describe('UpdateUser',()=>{
@@ -133,116 +133,116 @@ describe('ApiProfilesPublicService', () => {
     });
   })
 
-    //updateUserName
-    describe('updateUserName',()=>{
-      it('should return void',async ()=>{
-        jest
-        .spyOn(service,'updateUserName')
-        .mockImplementation(():Promise<void> => Promise.resolve());
+  //updateUserName
+  describe('updateUserName',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(service,'updateUserName')
+      .mockImplementation(():Promise<void> => Promise.resolve());
 
-        expect(await service.updateUserName(3,userMock.name)).toBeUndefined()
-      });
-  
-      it('should return null', async () => {
-        jest.spyOn(service, 'updateUserName').mockResolvedValue(null);
+      expect(await service.updateUserName(3,userMock.name)).toBeUndefined()
+    });
 
-        expect(await service.updateUserName(3,userMock.name)).toEqual(null);
-      });
-    })
+    it('should return null', async () => {
+      jest.spyOn(service, 'updateUserName').mockResolvedValue(null);
 
- //updateUserRating
- describe('updateUserRating',()=>{
-  it('should return void',async ()=>{
-    jest
-    .spyOn(service,'updateUserRating')
-    .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await service.updateUserName(3,userMock.name)).toEqual(null);
+    });
+  })
 
-    expect(await service.updateUserRating(3,40)).toBeUndefined()
-  });
+  //updateUserRating
+  describe('updateUserRating',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(service,'updateUserRating')
+      .mockImplementation(():Promise<void> => Promise.resolve());
 
-  it('should return null', async () => {
-    jest.spyOn(service, 'updateUserRating').mockResolvedValue(null);
-    expect(await service.updateUserRating(3,40)).toEqual(null);
-  });
-})
+      expect(await service.updateUserRating(3,40)).toBeUndefined()
+    });
 
-//incUserRating
-describe('incUserRating',()=>{
-  it('should return void',async ()=>{
-    jest
-    .spyOn(service,'incUserRating')
-    .mockImplementation(():Promise<void> => Promise.resolve());
+    it('should return null', async () => {
+      jest.spyOn(service, 'updateUserRating').mockResolvedValue(null);
+      expect(await service.updateUserRating(3,40)).toEqual(null);
+    });
+  })
 
-    expect(await service.incUserRating(3)).toBeUndefined()
-  });
+  //incUserRating
+  describe('incUserRating',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(service,'incUserRating')
+      .mockImplementation(():Promise<void> => Promise.resolve());
 
-  it('should return null', async () => {
-    jest.spyOn(service, 'incUserRating').mockResolvedValue(null);
-    expect(await service.incUserRating(3)).toEqual(null);
-  });
-})
+      expect(await service.incUserRating(3)).toBeUndefined()
+    });
 
-//decUserRating
-describe('decUserRating',()=>{
-  it('should return void',async ()=>{
-    jest
-    .spyOn(service,'decUserRating')
-    .mockImplementation(():Promise<void> => Promise.resolve());
+    it('should return null', async () => {
+      jest.spyOn(service, 'incUserRating').mockResolvedValue(null);
+      expect(await service.incUserRating(3)).toEqual(null);
+    });
+  })
 
-    expect(await service.decUserRating(3)).toBeUndefined()
-  });
+  //decUserRating
+  describe('decUserRating',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(service,'decUserRating')
+      .mockImplementation(():Promise<void> => Promise.resolve());
 
-  it('should return null', async () => {
-    jest.spyOn(service, 'decUserRating').mockResolvedValue(null);
-    expect(await service.decUserRating(3)).toEqual(null);
-  });
-})
+      expect(await service.decUserRating(3)).toBeUndefined()
+    });
 
-//resetUserRating
-describe('resetUserRating',()=>{
-  it('should return void',async ()=>{
-    jest
-    .spyOn(service,'resetUserRating')
-    .mockImplementation(():Promise<void> => Promise.resolve());
+    it('should return null', async () => {
+      jest.spyOn(service, 'decUserRating').mockResolvedValue(null);
+      expect(await service.decUserRating(3)).toEqual(null);
+    });
+  })
 
-    expect(await service.resetUserRating(3)).toBeUndefined()
-  });
+  //resetUserRating
+  describe('resetUserRating',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(service,'resetUserRating')
+      .mockImplementation(():Promise<void> => Promise.resolve());
 
-  it('should return null', async () => {
-    jest.spyOn(service, 'resetUserRating').mockResolvedValue(null);
-    expect(await service.resetUserRating(3)).toEqual(null);
-  });
-})     
+      expect(await service.resetUserRating(3)).toBeUndefined()
+    });
 
-    //updateUserEmail
-    describe('updateUserEmail',()=>{
-      it('should return void',async ()=>{
-        jest
-        .spyOn(service,'updateUserEmail')
-        .mockImplementation(():Promise<void> => Promise.resolve());
-        expect(await service.updateUserEmail(3,userMock.email)).toBeUndefined()
-      });
-  
-      it('should return null', async () => {
-        jest.spyOn(service, 'updateUserEmail').mockResolvedValue(null);
-        expect(await service.updateUserEmail(3,userMock.email)).toEqual(null);
-      });
-    })
+    it('should return null', async () => {
+      jest.spyOn(service, 'resetUserRating').mockResolvedValue(null);
+      expect(await service.resetUserRating(3)).toEqual(null);
+    });
+  })     
 
-    //DeleteUser
-    describe('deleteUser',()=>{
-      it('should return void',async ()=>{
-        jest
-        .spyOn(service,'deleteUser')
-        .mockImplementation(():Promise<void> => Promise.resolve());
+  //updateUserEmail
+  describe('updateUserEmail',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(service,'updateUserEmail')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+      expect(await service.updateUserEmail(3,userMock.email)).toBeUndefined()
+    });
 
-        expect(await service.deleteUser(2)).toBeUndefined()
-      });
-  
-      it('should return null', async () => {
-        jest.spyOn(service, 'deleteUser').mockResolvedValue(null);
+    it('should return null', async () => {
+      jest.spyOn(service, 'updateUserEmail').mockResolvedValue(null);
+      expect(await service.updateUserEmail(3,userMock.email)).toEqual(null);
+    });
+  })
 
-        expect(await service.deleteUser(2)).toEqual(null);
-      });
-    })
+  //DeleteUser
+  describe('deleteUser',()=>{
+    it('should return void',async ()=>{
+      jest
+      .spyOn(service,'deleteUser')
+      .mockImplementation(():Promise<void> => Promise.resolve());
+
+      expect(await service.deleteUser(2)).toBeUndefined()
+    });
+
+    it('should return null', async () => {
+      jest.spyOn(service, 'deleteUser').mockResolvedValue(null);
+
+      expect(await service.deleteUser(2)).toEqual(null);
+    });
+  })
 });

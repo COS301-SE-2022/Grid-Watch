@@ -52,8 +52,9 @@
             </div>
         </div>
       <mat-card
-        class="mt-2 cards {{ ticketStatus[i] }}"
+        class="mt-2 cards {{ ticketStatus[i] }}" 
         *ngFor="let ticket of tickets; index as i"
+        
       >
         <mat-grid-list cols="12" rowHeight="30px">
           <mat-grid-tile
@@ -76,12 +77,15 @@
           </mat-grid-tile>
           <mat-grid-tile rowspan="1" colspan="2">
             {{ ticket.ticketUpvotes }} &nbsp;
-            <img
+            <span class="upvoteContainer" id="{{ticket.ticketId}}" aria-disabled="true">
+
+              <img
               (click)="IncreaseUpvote(ticket.ticketId, i)"
               class="upvote_img"
               src="assets/circle-up-solid.svg"
               alt="upvote icon"
-            />
+              />
+            </span>
           </mat-grid-tile>
           <mat-grid-tile
             (click)="goToTicket(ticket.ticketId.toString())"

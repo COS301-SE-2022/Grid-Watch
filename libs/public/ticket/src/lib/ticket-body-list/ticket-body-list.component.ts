@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
+import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { TicketService, GoogleMapsService } from '@grid-watch/shared-ui';
+import { TicketService, GoogleMapsService, SessionManagerService, PublicProfileService } from '@grid-watch/shared-ui';
 
 interface filterInterface{
     city : string[], 
@@ -43,13 +44,17 @@ export class TicketBodyListComponent implements OnInit {
 
   filterList: string[] = []
   sortDirection!: "asc" | "desc";
+  id! : string;
+  user! : UserDto;
   
   
 
   constructor( private http: HttpClient,
               private ticketService: TicketService,
               private googleMapsService: GoogleMapsService,
-              private router : Router) {
+              private router : Router,
+              private sessionService: SessionManagerService,
+              private userService : PublicProfileService) {
 
   }
   
@@ -64,18 +69,36 @@ export class TicketBodyListComponent implements OnInit {
     
     loader.load().then(() => {
         this.ticketService.getTickets().subscribe(
-          (response) => {
+          async (response) => {
             this.tickets = response;
             this.InitialiseTicket(response);
             this.ticketsPerm = response;
             this.loadFilterLabels();
             this.loadSortLabels();
+            this.id = this.sessionService.getID() || "";
+            this.userService.getUser(this.id).subscribe(
+              (response) =>{
+                this.user = response[0];
+                this.initialiseUpvotes();
+              }
+            )
           }
-        )      
-      }, (error) =>{console.log(error);
-      });
+          )      
+        }, (error) =>{console.log(error);
+        });
 
   }
+
+  initialiseUpvotes() {
+    console.log(this.user);
+    this.user.ticketsUpvoted.forEach((id) =>{
+      const cardElement = document.getElementById(id.toString());
+      cardElement?.classList.add("liked");
+      
+    })
+    
+  }
+
   loadSortLabels() {
     this.sortLabels.push("Issue")
     this.sortLabels.push("City")
@@ -116,7 +139,15 @@ export class TicketBodyListComponent implements OnInit {
 
   IncreaseUpvote(id : number, index: number): void
   {
-    this.ticketService.increaseUpvotes(id, ++this.tickets[index].ticketUpvotes)
+    if (!this.user.ticketsUpvoted.includes(id))
+    {
+      this.user.ticketsUpvoted.push(this.tickets[index].ticketId)
+      this.ticketService.increaseUpvotes(id, ++this.tickets[index].ticketUpvotes, this.id)
+      const card = document.getElementById(id.toString());
+      console.log(card);
+      card?.classList.add("liked")
+      
+    }
   }
     
   async InitialiseTicket(data : TicketDto []) : Promise<void> 

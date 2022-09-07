@@ -150,19 +150,51 @@ describe('ApiProfilesPublicService', () => {
       });
     })
 
- //updateRating
- describe('updateRating',()=>{
+ //updateUserRating
+ describe('updateUserRating',()=>{
   it('should return void',async ()=>{
     jest
-    .spyOn(service,'updateRating')
+    .spyOn(service,'updateUserRating')
     .mockImplementation(():Promise<void> => Promise.resolve());
 
-    expect(await service.updateRating(3,40)).toBeUndefined()
+    expect(await service.updateUserRating(3,40)).toBeUndefined()
   });
 
   it('should return null', async () => {
-    jest.spyOn(service, 'updateRating').mockResolvedValue(null);
-    expect(await service.updateRating(3,40)).toEqual(null);
+    jest.spyOn(service, 'updateUserRating').mockResolvedValue(null);
+    expect(await service.updateUserRating(3,40)).toEqual(null);
+  });
+})
+
+//incUserRating
+describe('incUserRating',()=>{
+  it('should return void',async ()=>{
+    jest
+    .spyOn(service,'incUserRating')
+    .mockImplementation(():Promise<void> => Promise.resolve());
+
+    expect(await service.incUserRating(3)).toBeUndefined()
+  });
+
+  it('should return null', async () => {
+    jest.spyOn(service, 'incUserRating').mockResolvedValue(null);
+    expect(await service.incUserRating(3)).toEqual(null);
+  });
+})
+
+//decUserRating
+describe('decUserRating',()=>{
+  it('should return void',async ()=>{
+    jest
+    .spyOn(service,'decUserRating')
+    .mockImplementation(():Promise<void> => Promise.resolve());
+
+    expect(await service.decUserRating(3)).toBeUndefined()
+  });
+
+  it('should return null', async () => {
+    jest.spyOn(service, 'decUserRating').mockResolvedValue(null);
+    expect(await service.decUserRating(3)).toEqual(null);
   });
 })
 

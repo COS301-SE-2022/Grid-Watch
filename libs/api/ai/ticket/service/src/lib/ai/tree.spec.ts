@@ -1,4 +1,3 @@
-import { InternalNode } from './internal-node';
 import { Tree } from './tree';
 import {Node} from './node';
 import { DivNode } from './div-node';
@@ -92,7 +91,7 @@ describe('Tree', () => {
     const tree: Tree = new Tree(6,numbers,expected);
     const testarr : Node[]=[];
     await tree.getArr(rootNode,testarr);
-    expect(testarr).toEqual([{"depth": NaN, "val": 12}, {"leftNode": {"depth": NaN, "val": 12}, "rightNode": {"depth": NaN, "leftNode": {"depth": NaN, "val": 9}, "rightNode": {"depth": NaN, "leftNode": {"depth": NaN, "val": 2}, "rightNode": {"depth": NaN, "val": 6}}}}, {"depth": NaN, "val": 9}, {"depth": NaN, "leftNode": {"depth": NaN, "val": 9}, "rightNode": {"depth": NaN, "leftNode": {"depth": NaN, "val": 2}, "rightNode": {"depth": NaN, "val": 6}}}, {"depth": NaN, "val": 2}, {"depth": NaN, "leftNode": {"depth": NaN, "val": 2}, "rightNode": {"depth": NaN, "val": 6}}, {"depth": NaN, "val": 6}]);
+    expect(testarr).toEqual([{"depth": undefined, "val": 12}, {"leftNode": {"depth": undefined, "val": 12}, "rightNode": {"depth": undefined, "leftNode": {"depth": undefined, "val": 9}, "rightNode": {"depth": undefined, "leftNode": {"depth": undefined, "val": 2}, "rightNode": {"depth": undefined, "val": 6}}}}, {"depth": undefined, "val": 9}, {"depth": undefined, "leftNode": {"depth": undefined, "val": 9}, "rightNode": {"depth": undefined, "leftNode": {"depth": undefined, "val": 2}, "rightNode": {"depth": undefined, "val": 6}}}, {"depth": undefined, "val": 2}, {"depth": undefined, "leftNode": {"depth": undefined, "val": 2}, "rightNode": {"depth": undefined, "val": 6}}, {"depth": undefined, "val": 6}]);
   })
 
   it('generateRandNode should  return random tree',async()=>{
@@ -126,7 +125,56 @@ describe('Tree', () => {
     const rootNode: Node = await tree.generateRandTree();
     await tree.populateTree(rootNode);
     const node: Node = await tree.getRandLevelNode(2,rootNode);
-    console.log(node);
-    expect(await node.getType()).not.toEqual("leaf");
+    expect(await node.getType()).toBeDefined();
   })
+
+  it('crossOver should return a cross between parent1 and parent2', async()=>{
+    const tree: Tree = new Tree(2,numbers,expected);
+    const parent1: Node = await tree.generateRandTree();
+    const parent2: Node = await tree.generateRandTree();
+    await tree.populateTree(parent1);
+    await tree. populateTree(parent2);
+    expect(await tree.crossOver(parent1,parent2)).toBeDefined();
+  })
+
+  it('replaceNode should replace a node with specified node',async ()=>{
+    const tree: Tree = new Tree(6,numbers,expected);
+    const rootNode: Node = await tree.generateRandTree();
+    const testNode :Node = await rootNode.clone();
+    await tree.populateTree(rootNode);
+    const node: Node = await tree.getRandLevelNode(2,rootNode);
+    const replaceNode: Node = await new DivNode(null,null);
+    await tree.replaceNode(node,replaceNode,rootNode);
+    expect(rootNode).not.toEqual(testNode);
+  })
+
+  it('mutation should return a mutated subtree', async()=>{
+    const tree: Tree = new Tree(6,numbers,expected);
+    const rootNode: Node = await tree.generateRandTree();
+    await tree.populateTree(rootNode);
+    expect(await tree.mutation(rootNode,4)).toBeDefined();
+  })
+
+  it('generateRandSubtree should return a random subtree', async()=>{
+    const tree: Tree = new Tree(3,numbers,expected);
+    const rootNode: Node = new DivNode(null,null);
+    rootNode.setDepth(0);
+    await tree.generateRandSubtree(rootNode,4);
+    expect(rootNode).toBeDefined();
+  })
+
+  it('getLevels should return the depth of a tree', async() =>{
+    const tree: Tree = new Tree(3,numbers,expected);
+    const rootNode: Node = await tree.generateRandTree();
+    await tree.populateTree(rootNode);
+    expect(await tree.getLevels(rootNode)).toEqual(3);
+  })
+
+  it('getFitness should return a fitness value',async()=>{
+    const tree: Tree = new Tree(6,numbers,expected);
+    const rootNode: Node = await tree.generateRandTree();
+    await tree.populateTree(rootNode);
+    expect(await tree.getFitness(rootNode)).toBeGreaterThanOrEqual(0);
+  })
+
 });

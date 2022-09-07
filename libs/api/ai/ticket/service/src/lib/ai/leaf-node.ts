@@ -25,7 +25,7 @@ export class LeafNode extends Node{
         return "leaf";
     }
 
-    async getDepth() : Promise<number> {
+    getDepth(){
         return this.depth;
     }
 

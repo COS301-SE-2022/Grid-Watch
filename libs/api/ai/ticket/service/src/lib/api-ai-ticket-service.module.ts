@@ -18,6 +18,8 @@ import { Tree } from './ai/tree';
   controllers: [],
   imports: [CqrsModule],
   providers: [ApiAiTicketServiceService,
+              Number,
+              Array,
               ApiTicketRepositoryDataAccess,
               ApiProfilesTechTeamRepositoryDataAccess,
               GetIssueAIHandler,

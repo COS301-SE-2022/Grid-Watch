@@ -19,6 +19,7 @@ import Chart from 'chart.js/auto';
 import { registerables } from 'chart.js';
 import { MatTabsModule } from '@angular/material/tabs'
 import { FormsModule } from '@angular/forms';
+import { AdminAppTechTeamModule } from '@grid-watch/admin-app/tech-team';
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     
     RouterModule.forChild([
-      // { path: 'testing', pathMatch: 'full', component: DashboardBodyComponent },
+      { path: 'dashboard', pathMatch: 'full', component: DashboardOverviewComponent },
     ]),
     MatGridListModule,
     AdminAppTicketModule,
@@ -42,6 +43,7 @@ import { FormsModule } from '@angular/forms';
     MatRadioModule,
     LayoutModule,
     FormsModule,
+    AdminAppTechTeamModule
   ],
   declarations: [
     DashboardBodyComponent,

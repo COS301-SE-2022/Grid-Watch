@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MessageDialogComponent } from './message-dialog/message-dialog.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { MessageDialogComponent } from './message-dialog/message-dialog.componen
     MatButtonModule,
     MatIconModule,
     MatGridListModule,
+    MatTabsModule
   ],
   declarations: [
     NavBarComponent,

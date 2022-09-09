@@ -6,13 +6,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminAppTicketModule} from '@grid-watch/admin-app/ticket';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor, GoogleMapsService, LoggedInGuard, SharedUiModule } from '@grid-watch/shared-ui';
-import { AdminAppDashboardModule, DashboardBodyComponent } from '@grid-watch/admin-app/dashboard';
+import { AdminAppDashboardModule, DashboardBodyComponent, DashboardOverviewComponent } from '@grid-watch/admin-app/dashboard';
 import { AdminAppProfileModule } from '@grid-watch/admin-app/profile';
+import { AdminAppTechTeamModule } from '@grid-watch/admin-app/tech-team';
 
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: DashboardBodyComponent, canActivate: [LoggedInGuard] },
-  { path: '', component: DashboardBodyComponent, canActivate: [LoggedInGuard] },
+  { path: 'home', component: DashboardOverviewComponent, canActivate: [LoggedInGuard] },
+  { path: '', component: DashboardOverviewComponent, canActivate: [LoggedInGuard] },
   // { path: 'tickets', component: TicketBodyComponent },
   // { path: 'createTicket', component: CreateTicketComponent },
 ];
@@ -26,6 +27,7 @@ const routes: Routes = [
     AdminAppTicketModule,
     AdminAppDashboardModule,
     AdminAppProfileModule,
+    AdminAppTechTeamModule,
     HttpClientModule
   ],
   providers: [GoogleMapsService, LoggedInGuard, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true} ],

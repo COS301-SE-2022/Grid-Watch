@@ -35,6 +35,10 @@ export class LoginPageComponent implements OnInit {
     const application_type = this.route.snapshot.paramMap.get('app');
     this.application_type = application_type;
     this.user = new UserDto();
+    this.user.email = "";
+    this.user.password = "";
+    this.user.passwordSalt = "";
+
     if (this.sessionService.getID() != null && this.sessionService.getLoggedIn() !== "false")
     {
       this.router.navigateByUrl("/profile")
@@ -43,27 +47,35 @@ export class LoginPageComponent implements OnInit {
 
   async login() : Promise<void>
   {
-    this.user.email = "tshego@yahoo.com"
-    this.user.password = "123456"
+    // this.user.email = "tshego@yahoo.com"
+    // this.user.password = "123456"
     // console.log(await this.profileService.login(this.user));
+    console.log(this.user);
     
-    this.profileService.login(this.user).then(
-      async (response)=>{
-        if (response)
-        {
-          console.log(response.access_token);
-          this.sessionService.setToken(response.access_token)
-          this.successfulLogin()
+    if (this.user.email !== "" && this.user.password !== "")
+    {
+      this.profileService.login(this.user).then(
+        async (response)=>{
+          console.log(response);
+          
+          if (response)
+          {
+            console.log(response.access_token);
+            this.sessionService.setToken(response.access_token)
+            this.successfulLogin()
+          }
+          else
+          {
+            this.errorLogin()
+  
+          }
+          
         }
-        else
-        {
-          this.errorLogin()
-
-        }
-        
-      }
-    )
+      )
+    }
   }
+
+
   successfulLogin() {
     alert("Logged in");
     this.profileService.getUserEmail(this.user.email).subscribe(

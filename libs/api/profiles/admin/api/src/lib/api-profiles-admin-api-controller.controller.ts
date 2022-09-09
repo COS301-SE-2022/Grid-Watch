@@ -27,7 +27,6 @@ export class ApiProfilesAdminApiController {
     }
 
     //creating admin users
-    @UseGuards(JwtAuthGuard)
     @Post('/create')
     async createAdmin(@Body() admin: AdminDto){
         return this.apiAdminService.createAdmin(admin);
@@ -62,14 +61,12 @@ export class ApiProfilesAdminApiController {
     }
 
     //get endpoint to return a admin with a specific cellNr
-    @UseGuards(JwtAuthGuard)
     @Get('cell/:cellNr')
     async getAdminCellNr(@Param() params){
         return this.apiAdminService.getAdminCellNr(params.cellNr);
     }
 
     //get endpoint to return a admin with a specific email
-    @UseGuards(JwtAuthGuard)
     @Get('email/:email')
     async getAdminEmail(@Param() params){
         return this.apiAdminService.getAdminEmail(params.email);

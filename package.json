@@ -45,6 +45,7 @@
     "@swimlane/ngx-charts": "^20.1.0",
     "@types/google.maps": "^3.49.2",
     "@types/googlemaps": "^3.43.3",
+    "@types/jquery": "^3.5.14",
     "@types/multer": "^1.4.7",
     "@types/passport-jwt": "^3.0.6",
     "@types/passport-local": "^1.0.34",

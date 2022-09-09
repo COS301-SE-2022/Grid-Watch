@@ -1,17 +1,10 @@
 <mat-grid-list cols="12" rowHeight="100">
     <mat-grid-tile colspan = "12">
         <mat-chip-list aria-label="Fish selection">
-            <mat-chip>Line Chart</mat-chip>
-            <mat-chip>Bar Graph</mat-chip>
-            <mat-chip>Heat Map</mat-chip>
+            <mat-chip (click) = "toggleElement('lineChart')">Line Chart</mat-chip>
+            <mat-chip (click) = "toggleElement('pieChart')">Bar Graph</mat-chip>
+            <mat-chip (click) = "toggleElement('heatmap')">Heat Map</mat-chip>
           </mat-chip-list>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="6" rowspan="3">        
-        <canvas id="myGraph" style="max-height: 300px;"></canvas>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="6" rowspan="3">
-        <canvas id="pieChart" style="height:300px;max-height: 300px;"></canvas>
-        
     </mat-grid-tile>
     <mat-radio-group aria-label="Select an option">
         <mat-grid-tile colspan="2">
@@ -35,13 +28,15 @@
             <mat-slide-toggle (change)="showLineGraph('Other', $event)">Miscellaneous</mat-slide-toggle>
         </mat-grid-tile>
     </mat-radio-group>
-</mat-grid-list>
-<mat-grid-list cols="12" rowHeight="100">
-    <mat-grid-tile colspan="3">
-        <mat-slide-toggle id="chart" (change)="showChart('Other', $event)">Show chart</mat-slide-toggle>
+    <mat-grid-tile colspan="6" rowspan="3">  
+            <canvas id="lineChart" style="max-height: 300px;"></canvas>
     </mat-grid-tile>
+    <mat-grid-tile colspan="6" rowspan="3">
+        <canvas id="pieChart" style="height:300px;max-height: 300px;"></canvas>        
+    </mat-grid-tile>   
+        <mat-grid-tile colspan="12" rowspan="5">
+            <div class="heatmap">
+                <div id="heatmap"></div>
+            </div>
+        </mat-grid-tile>   
 </mat-grid-list>
-
-<div class="heatmap">
-    <div id="heatmap"></div>
-</div>

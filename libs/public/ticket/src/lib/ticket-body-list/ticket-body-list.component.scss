@@ -1,6 +1,6 @@
-img.upvote_img
-{
-    height:80%;
+img.upvote_img {
+    height: 100%;
+    width: 100%;
 }
 
 img.settings_icon 
@@ -129,18 +129,27 @@ mat-drawer-content{
 }
 
 span.upvoteContainer.liked {
-    border-radius: 13px;
+    // border-radius: 13px;
     background: #8ec63f;
+  
 }
 
 span.upvoteContainer {
     border-radius: 13px;
     background: white;
-    height: 100%;
-    width: 100%;
+    // height: 30px;
+    // width: 30px;
+    flex: 50%;
+    
 }
 
 .upvoteCount{
-    position: relative;
-    top: 8px;
+    // position: relative;
+    // top: 8px;
+    height: 100%;
+    flex: 50%;
+}
+
+.upVoteDivContainer{
+    display: flex;
 }

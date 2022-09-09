@@ -119,10 +119,28 @@ mat-drawer{
 }
 
 .drawerContainer{
-    overflow-y: scroll;
+    // overflow-y: scroll;
+    height: 82.5vh;
     z-index: 0;
 }
 
 mat-drawer-content{
     padding-bottom: 100px ;
+}
+
+span.upvoteContainer.liked {
+    border-radius: 13px;
+    background: #8ec63f;
+}
+
+span.upvoteContainer {
+    border-radius: 13px;
+    background: white;
+    height: 100%;
+    width: 100%;
+}
+
+.upvoteCount{
+    position: relative;
+    top: 8px;
 }

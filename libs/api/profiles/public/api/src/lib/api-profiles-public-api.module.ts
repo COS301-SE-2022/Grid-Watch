@@ -12,7 +12,7 @@ import { JwtStrategy } from '@grid-watch/api/authentication';
     PassportModule,
     JwtModule.register({
       secret: 'testing',
-      signOptions: { expiresIn: '50000s' },
+      // signOptions: { expiresIn: '50000s' },
     }),
   ],
   providers: [JwtStrategy],

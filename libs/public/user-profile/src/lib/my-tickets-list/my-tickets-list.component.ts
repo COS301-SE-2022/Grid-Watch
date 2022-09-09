@@ -33,7 +33,7 @@ export class MyTicketsListComponent implements OnInit
     const loader = new Loader({
       apiKey: "AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE",
       version: "weekly",
-      libraries: ["places"]
+      libraries: ["places","visualization"]
     });
 
     loader.load().then(() =>

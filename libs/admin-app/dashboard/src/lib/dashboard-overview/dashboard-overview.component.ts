@@ -445,6 +445,7 @@ export class DashboardOverviewComponent implements AfterViewInit
 
     toggleElement(id: string)
     {
+        console.log();
         $("#"+id).toggleClass("hidden");
     }
 }

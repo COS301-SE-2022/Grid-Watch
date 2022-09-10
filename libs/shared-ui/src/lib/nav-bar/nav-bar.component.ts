@@ -15,6 +15,12 @@ export class NavBarComponent implements OnInit{
   router_options! : string[];
   logged! : string | null;
   userId! : string;
+  links = [
+    {link: "/dashboard", title: "Dashboard"},
+    {link: "/adminViewTicket", title: "Tickets"},
+    {link: "/tech-team", title: "Technicians"},
+  ];
+  activeLink = this.links[0];
 
   constructor(
     private router : Router,

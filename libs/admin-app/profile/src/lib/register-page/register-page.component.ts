@@ -43,7 +43,7 @@ export class RegisterPageComponent implements OnInit {
     const loader = new Loader({
       apiKey: "AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE",
       version: "weekly",
-      libraries: ["places"]
+      libraries: ["places","visualization"]
     });
     
     loader.load().then(() => {
@@ -69,8 +69,13 @@ export class RegisterPageComponent implements OnInit {
           this.profileService.createAdmin(this.admin).subscribe(
             (response) => {
               console.log(response);
-              this.showMessage("Created admin successfully");
-              this.router.navigateByUrl("/login");
+              if (response !== false)
+              {
+                this.showMessage("Created admin successfully");
+                this.router.navigateByUrl("/login");
+              }
+              else
+                this.showMessage("An error has occcured")
             }
           )
         }

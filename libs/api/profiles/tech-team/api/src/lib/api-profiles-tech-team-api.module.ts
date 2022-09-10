@@ -9,7 +9,7 @@ import { JwtModule } from '@nestjs/jwt';
   imports: [ApiProfilesTechTeamServiceModule,
     JwtModule.register({
       secret: 'testing',
-      signOptions: { expiresIn: '50000s' },
+      // signOptions: { expiresIn: '50000s' },
     })],
   providers: [],
   exports: [],

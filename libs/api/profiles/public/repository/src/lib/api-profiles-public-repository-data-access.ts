@@ -1,5 +1,5 @@
 import {PrismaClient} from '@prisma/client';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import {UserDto} from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 @Injectable()
 
@@ -160,6 +160,8 @@ export class ApiProfilesPublicRepositoryDataAccess{
                 passwordSalt:true
             },
         });
+
+        Logger.log(user)
 
         if (user == null)
             return false;

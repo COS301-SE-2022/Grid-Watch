@@ -17,8 +17,11 @@ export class ViewTicketComponent implements OnInit
   subtaskSteps: string[] = [];
   subtaskStatus: string [] = [];
   ticket!: TicketDto;
+  ticketID! : string;
   user!: UserDto;
   userId!: string | null;
+  loggedUser!: UserDto;
+
   constructor(
     private ticketService: TicketService,
     private route: ActivatedRoute,
@@ -32,10 +35,10 @@ export class ViewTicketComponent implements OnInit
     this.user = new UserDto();
     this.user.id = -1;
     this.userId = this.sessionService.getID();
-    const ticketID = this.route.snapshot.paramMap.get('id');
-    if (ticketID)
+    this.ticketID = this.route.snapshot.paramMap.get('id') || "";
+    if (this.ticketID)
     {
-      this.ticketService.getTicket(ticketID).subscribe(
+      this.ticketService.getTicket(this.ticketID).subscribe(
         async (response) =>
         {
           this.ticket = response[0];
@@ -75,8 +78,22 @@ export class ViewTicketComponent implements OnInit
       (response) =>
       {
         this.user = response[0];
-        console.log(this.user);
-        console.log(this.userId);
+        console.log(this.ticketID);
+        if (this.userId)
+        {
+          this.profileService.getUser(this.userId).subscribe(
+            (response) =>
+            {
+              this.loggedUser = response[0];
+              if (this.loggedUser.ticketsUpvoted.includes(parseInt(this.ticketID)))
+              {
+                const element = document.getElementById("upvotesContainer");
+                console.log(element);
+                element?.classList.add("liked")
+              }
+            }
+          )
+        }
       }
     )
   }
@@ -90,6 +107,19 @@ export class ViewTicketComponent implements OnInit
           this.ticket.ticketImg = response[0].pictureLink;
       }
     )
+  }
+
+  increaseUpvotes(id : number) : void{
+    if (!this.loggedUser.ticketsUpvoted.includes(id))
+    {
+      this.loggedUser.ticketsUpvoted.push(this.ticket.ticketId)
+      this.ticketService.increaseUpvotes(id, ++this.ticket.ticketUpvotes, this.loggedUser.id.toString())
+      const card = document.getElementById("upvotesContainer");
+      console.log(card);
+      card?.classList.add("liked")
+      
+    }
+    
   }
 }
 

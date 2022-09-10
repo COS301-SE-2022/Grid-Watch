@@ -9,7 +9,8 @@ button{
 
 .bodyContainer
 {
-    height: 800px;
+    height: 100vh;
+    overflow: hidden;
 }
 
 mat-drawer-container

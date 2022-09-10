@@ -65,9 +65,11 @@ export class ApiProfilesPublicApiController {
     //post endpoint to verify password
     @Post('/verify')
     async verifyUserPassword(@Body() user: UserDto ) {
-        const exists = this.apiProfilesPublicService.verifyUserPassword(user["email"],user["password"]); 
+        const exists = await this.apiProfilesPublicService.verifyUserPassword(user["email"],user["password"]); 
+        Logger.log("exists = " + exists)
         if (exists)
         {
+            Logger.log("BUT WHY")
             const payload = {
                 id : user.id,
                 email : user.email,

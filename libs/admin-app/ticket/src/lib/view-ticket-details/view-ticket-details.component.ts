@@ -8,7 +8,7 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { Loader } from '@googlemaps/js-api-loader';
 import { env } from 'process';
-import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
+import { GoogleMapsService, TicketService,ToastService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-view-ticket-details',
@@ -38,6 +38,7 @@ export class ViewTicketDetailsComponent implements OnInit {
               private router: Router,
               private formBuilder: FormBuilder,
               private ticketService : TicketService,
+              private toastService : ToastService,
               private googleMapsService : GoogleMapsService) {}
 
   ngOnInit(): void {
@@ -127,6 +128,11 @@ export class ViewTicketDetailsComponent implements OnInit {
 
   back() : void
   {
+    this.toastService.show('Ticket Discarded',{
+      classname: 'bg-info text-light',
+      delay: 5000,
+      autohide: true
+    })
     this.router.navigateByUrl("/adminViewTicket")
   }
 
@@ -142,7 +148,12 @@ export class ViewTicketDetailsComponent implements OnInit {
         }, 
         (error) =>
         {
-          this.showErrorMessage();
+          this.toastService.show('Error Dispatching Ticket',{
+            classname:'bg-danger text-light',
+            delay : 5000,
+            autohide: true
+          })
+          //this.showErrorMessage();
         }
 
       )
@@ -154,7 +165,12 @@ export class ViewTicketDetailsComponent implements OnInit {
   
   showSuccessMessage() : void 
   {
-    alert("Successfully Dispatched Ticket");
+    this.toastService.show('Successfully Dispatched Ticket',{
+      classname: 'bg-success text-light',
+      delay: 5000,
+      autohide: true
+    })
+    //alert("Successfully Dispatched Ticket");
   }
 
   getFloatLabelValue(): FloatLabelType {

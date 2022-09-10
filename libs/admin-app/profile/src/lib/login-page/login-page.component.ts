@@ -37,10 +37,13 @@ export class LoginPageComponent implements OnInit {
   }
 
   login() : void {
+    console.log(this.admin);
+    
     this.profileService.login(this.admin).subscribe(
       (response) => {
         if (response)
         {
+          console.log(response);
           this.showMessage("Successfully logged in");
           this.sessionService.setToken(response.access_token)
           this.successfulLogin();

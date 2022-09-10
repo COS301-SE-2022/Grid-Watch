@@ -59,7 +59,9 @@ export class PublicProfileService {
       (resolve) => {
         this.http.post<Token>(this.verifyLoginURL, user).subscribe(
           (res) =>{
-            resolve(res)
+            console.log(res);
+            
+            resolve(res);
           }
         )
         

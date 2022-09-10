@@ -17,6 +17,8 @@ import { Tree } from './ai/tree';
   controllers: [],
   imports: [CqrsModule,Number,Array],
   providers: [ApiAiTicketServiceService,
+              Number,
+              Array,
               ApiTicketRepositoryDataAccess,
               ApiProfilesTechTeamRepositoryDataAccess,
               GetIssueAIHandler,
@@ -32,7 +34,7 @@ import { Tree } from './ai/tree';
               PlusNode,
               Tree,
               Number,
-              Array,
+              Array
             ],
   exports: [ApiAiTicketServiceService],
 })

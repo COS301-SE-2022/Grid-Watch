@@ -15,6 +15,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MessageDialogComponent } from './message-dialog/message-dialog.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ToastComponent } from './toast/toast.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { ToastComponent } from './toast/toast.component';
     MatButtonModule,
     MatIconModule,
     MatGridListModule,
+    MatTabsModule
   ],
   declarations: [
     NavBarComponent,

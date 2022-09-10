@@ -137,8 +137,8 @@ export class TechTeamProfileComponent implements OnInit {
     this.router.navigate(['/editTicketDetails', {id:id}]) ;
   }
 
-  IncreaseUpvote(id : number, index: number): void
-  {
-    this.ticketService.increaseUpvotes(id, ++this.tickets[index].ticketUpvotes)
-  }
+  // IncreaseUpvote(id : number, index: number): void
+  // {
+  //   this.ticketService.increaseUpvotes(id, ++this.tickets[index].ticketUpvotes, this.id)
+  // }
 }

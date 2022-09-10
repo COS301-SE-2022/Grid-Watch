@@ -75,3 +75,14 @@ display: flex;
     justify-content: flex-start !important ;
     align-items: flex-start !important;
 }
+
+
+span.upvoteContainer.liked {
+    border-radius: 13px;
+    background: #8ec63f;
+}
+
+span.upvoteContainer {
+    border-radius: 13px;
+    background: white;
+}

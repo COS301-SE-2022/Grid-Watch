@@ -19,11 +19,11 @@ export class InternalNode extends Node{
         return this.fitness;
     }
 
-    async setDepth(depth : number):  Promise<void> {
+    setDepth(depth : number){
         this.depth = depth;
     }
 
-    async getDepth() : Promise<number> {
+    getDepth(){
         return this.depth;
     }
 
@@ -45,11 +45,11 @@ export class InternalNode extends Node{
         super();
         this.leftNode = left;
         if(this.leftNode !=null){
-            this.leftNode.setDepth(this.depth+1);
+            this.leftNode.setDepth(left.getDepth());
         }
         this.rightNode = right;
         if(this.rightNode != null){
-            this.rightNode.setDepth(this.depth+1);
+            this.rightNode.setDepth(right.getDepth());
         }
     }
 

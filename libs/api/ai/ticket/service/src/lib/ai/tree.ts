@@ -111,8 +111,8 @@ export class Tree {
         const temp2 : Node = await p2.clone();
 
         //replace node
-        this.replaceNode(p1,temp2,root1);
-        this.replaceNode(p2,temp1,root2);
+        await this.replaceNode(p1,temp2,root1);
+        await this.replaceNode(p2,temp1,root2);
 
 
         const ret : Node[] = [];
@@ -136,7 +136,7 @@ export class Tree {
         }
     }
 
-    async getRandLevelNode(levels : number,parent : Node) : Promise<Node>{
+    async getRandLevelNode(levels : number,parent : Node) : Promise<Node>{//check
         let randlevel = 0;
 
         const levelNodes : Node[] = [];
@@ -156,7 +156,7 @@ export class Tree {
             }
         }
 
-        const randNode : number = this.randomInt(0,levelNodes.length);
+        const randNode : number = this.randomInt(0,levelNodes.length-1);
         return levelNodes[randNode];
     }
 
@@ -164,7 +164,8 @@ export class Tree {
     async mutation(root : Node,mutationdepth : number) : Promise<Node>{
         //generate random subtree
         const subroot : Node = await this.getRandTerminal();
-        this.generateRandSubtree(subroot,mutationdepth);
+        subroot.setDepth(0);
+        await this.generateRandSubtree(subroot,mutationdepth);
         //get random leaf node
 
         const mutate : Node = await root.clone();
@@ -178,7 +179,7 @@ export class Tree {
         return mutate;
     }
 
-    async getRandLeafLevelNode(parent : Node) : Promise<Node>{
+    async getRandLeafLevelNode(parent : Node) : Promise<Node>{//check
         const pTree : Node[] = [];
         await this.getArr(parent,pTree);
         const levelNodes : Node[] = [];
@@ -188,7 +189,7 @@ export class Tree {
             }
         }
 
-        const randNode : number = this.randomInt(0, levelNodes.length);
+        const randNode : number = this.randomInt(0, levelNodes.length-1);
         return levelNodes[randNode];
     }
 
@@ -196,24 +197,26 @@ export class Tree {
         if (await curr.getType()== "leaf") {
             //return ;
         }
-        if (await curr.getDepth() == subdepth - 1) {
-            curr.setLeft(new LeafNode(0));
-            curr.setRight(new LeafNode(0));
-            (await curr.left()).setDepth(await curr.getDepth() + 1);
-            (await curr.right()).setDepth(await curr.getDepth() + 1);
+        if (curr.getDepth() == subdepth - 1) {
+            await curr.setLeft(new LeafNode(0));
+            await curr.setRight(new LeafNode(0));
+            (await curr.left()).setDepth(curr.getDepth() + 1);
+            (await curr.right()).setDepth(curr.getDepth() + 1);
             //return null;
         } else {
-            curr.setLeft(await this.getRandTerminal());
-            curr.setRight(await this.getRandTerminal());
-            this.generateRandNode(await curr.left());
-            this.generateRandNode(await curr.right());
+            await curr.setLeft(await this.getRandTerminal());
+            await curr.setRight(await this.getRandTerminal());
+            (await curr.left()).setDepth(curr.getDepth() + 1);
+            (await curr.right()).setDepth(curr.getDepth() + 1);
+            await this.generateRandNode(await curr.left());
+            await this.generateRandNode(await curr.right());
 
         }
     }
 
-    async getLevels(root : Node) : Promise<number>{
+    async getLevels(root : Node) : Promise<number>{//check
         const depth: Node[] = [];
-        this.getArr(root,depth);
+        await this.getArr(root,depth);
         let maxdepth = 0;
         for(let i=0;i<depth.length;i++){
             if(maxdepth<await depth[i].getDepth()){
@@ -227,25 +230,22 @@ export class Tree {
         let correct=0;
         let all=0;
         const arrTest : Node[] =[];
-        this.getArr(curr,arrTest);
+        await this.getArr(curr,arrTest);
             
             for(let a=0;a<this.input.length;a++){
 
-                let cinput: number;
+                let cinput =0;
                 for(let i=0;i<arrTest.length;i++){
                     if(await arrTest[i].getType() == "leaf"){
-                        arrTest[i].setVal(this.input[a][cinput%(this.input.length)]);
+                        const temp : number = this.input[a][cinput%(this.input.length)];
+                        await arrTest[i].setVal(this.input[a][cinput%(this.input.length)]);
                         cinput++;
                     }
                 }
 
                 const res = await curr.execute();
-                let compare: number;
-                if(res>0.5){
-                    compare=1;
-                }
-
-                if(compare==this.expected[a]){
+                const epsilon : number = Math.abs(res-this.expected[a]);
+                if(epsilon<res*0.1){
                     correct++;
                 }
                 all++;

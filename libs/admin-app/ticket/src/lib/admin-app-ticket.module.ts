@@ -19,6 +19,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { LoggedInGuard } from '@grid-watch/shared-ui';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { LoggedInGuard } from '@grid-watch/shared-ui';
     CommonModule,
     BrowserAnimationsModule,
     FormsModule,
+    NgbModule,
     RouterModule.forChild([
       {
         path: 'adminViewTicket',

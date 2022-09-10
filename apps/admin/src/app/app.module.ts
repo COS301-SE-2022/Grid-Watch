@@ -9,6 +9,8 @@ import { AuthInterceptor, GoogleMapsService, LoggedInGuard, SharedUiModule } fro
 import { AdminAppDashboardModule, DashboardBodyComponent, DashboardOverviewComponent } from '@grid-watch/admin-app/dashboard';
 import { AdminAppProfileModule } from '@grid-watch/admin-app/profile';
 import { AdminAppTechTeamModule } from '@grid-watch/admin-app/tech-team';
+import { ToastService} from '@grid-watch/shared-ui';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
@@ -28,9 +30,10 @@ const routes: Routes = [
     AdminAppDashboardModule,
     AdminAppProfileModule,
     AdminAppTechTeamModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
-  providers: [GoogleMapsService, LoggedInGuard, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true} ],
+  providers: [GoogleMapsService, LoggedInGuard,ToastService ,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true} ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

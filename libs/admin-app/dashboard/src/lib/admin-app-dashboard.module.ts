@@ -20,7 +20,6 @@ import { registerables } from 'chart.js';
 import { MatTabsModule } from '@angular/material/tabs'
 import { FormsModule } from '@angular/forms';
 import { AdminAppTechTeamModule } from '@grid-watch/admin-app/tech-team';
-import * as $ from "jquery";
 
 
 @NgModule({

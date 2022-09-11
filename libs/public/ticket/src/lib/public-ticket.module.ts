@@ -24,6 +24,7 @@ import { TicketBodyListComponent } from './ticket-body-list/ticket-body-list.com
 import { TicketBodyMapComponent } from './ticket-body-map/ticket-body-map.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
@@ -47,6 +48,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatMenuModule,
     MatCheckboxModule,
     MatRadioModule,
+    NgbModule,
     MatButtonToggleModule,
     RouterModule.forChild([
       {

@@ -16,7 +16,7 @@ import { Tree } from './ai/tree';
 
 @Module({
   controllers: [],
-  imports: [CqrsModule],
+  imports: [CqrsModule,Number,Array],
   providers: [ApiAiTicketServiceService,
               Number,
               Array,

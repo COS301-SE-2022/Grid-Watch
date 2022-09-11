@@ -5,7 +5,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FloatLabelType } from '@angular/material/form-field';
 import { Loader } from '@googlemaps/js-api-loader';
 import { AdminDto } from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto';
-import { AdminProfileService, GoogleMapsService, MessageDialogComponent, SessionManagerService } from '@grid-watch/shared-ui';
+import { AdminProfileService, GoogleMapsService, MessageDialogComponent, SessionManagerService,ToastService } from '@grid-watch/shared-ui';
 import { profile } from 'console';
 
 @Component({
@@ -39,7 +39,8 @@ export class AccountInformationComponent implements OnInit {
     private googleMapsService : GoogleMapsService, 
     private profileService : AdminProfileService,
     public dialog: MatDialog,
-    public sessionService: SessionManagerService
+    public sessionService: SessionManagerService,
+    public toastService: ToastService
     ) {}
 
   ngOnInit(): void {
@@ -150,13 +151,23 @@ export class AccountInformationComponent implements OnInit {
         }
         else
         {
-          this.showMessage("Password", "Please make sure that your passwords match" )
+          this.toastService.show('Please make sure you that your passwords match',{
+            classname: 'bg-info text-light',
+            delay: 5000,
+            autohide: true
+          })
+          //this.showMessage("Password", "Please make sure that your passwords match" )
         }
       }
     }
     else
     {
-      this.showMessage("Login Admin","Could not find this admin ID, please login again");
+      this.toastService.show('Could not find this admin ID, please login again',{
+        classname: 'bg-info text-light',
+        delay: 5000,
+        autohide: true
+      })
+      //this.showMessage("Login Admin","Could not find this admin ID, please login again");
     }
   }
 

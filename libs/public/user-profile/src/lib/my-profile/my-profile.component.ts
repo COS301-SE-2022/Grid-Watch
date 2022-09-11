@@ -8,29 +8,37 @@ import { PublicProfileService, SessionManagerService } from '@grid-watch/shared-
   templateUrl: './my-profile.component.html',
   styleUrls: ['./my-profile.component.scss'],
 })
-export class MyProfileComponent implements OnInit {
+export class MyProfileComponent implements OnInit
+{
 
-  @Input() user! : UserDto;
-  items = ["","","","","","","","","","",""]
-  viewSelected! : string;
+  @Input() user!: UserDto;
+  items = ["", "", "", "", "", "", "", "", "", "", ""]
+  viewSelected!: string;
   constructor(
     private profileService : PublicProfileService,
     private router: Router,
     private sessionService : SessionManagerService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     this.user = new UserDto();
     this.viewSelected = "list"
     const id = this.sessionService.getID();
     if (id)
-    this.profileService.getUser(id).subscribe(
-      (response) =>
-      { 
-        this.user = response[0];
-        console.log(this.user);
-      }
-    )
+      this.profileService.getUser(id).subscribe(
+        (response) =>
+        {
+          this.user = response[0];
+          console.log(this.user);
+          if (this.user.email.includes("@gridwatch.com"))
+          {
+            this.user.name = "Guest";
+            this.user.email = "";
+          }
+        }
+      )
+
   }
 
   logout() : void{

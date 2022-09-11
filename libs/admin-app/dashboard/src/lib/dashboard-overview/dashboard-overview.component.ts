@@ -232,9 +232,6 @@ export class DashboardOverviewComponent implements AfterViewInit
     initiateGraphs(): void
     {
         const c = document.getElementById('pieChart');
-        if(c != undefined){
-            c.style.display = 'none';
-        }
         this.getDatabaseData();
 
         const labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -254,7 +251,7 @@ export class DashboardOverviewComponent implements AfterViewInit
             ]
         };
 
-        const canvas = <HTMLCanvasElement>document.getElementById('myGraph');
+        const canvas = <HTMLCanvasElement>document.getElementById('lineChart');
         const ctx = canvas.getContext('2d');
         if (ctx !== null)
         {
@@ -455,4 +452,8 @@ export class DashboardOverviewComponent implements AfterViewInit
         return index;
     }
 
+    toggleElement(id: string)
+    {
+        console.log();
+    }
 }

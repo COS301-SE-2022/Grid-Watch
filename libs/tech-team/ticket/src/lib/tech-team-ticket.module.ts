@@ -46,6 +46,7 @@ import { TicketViewMapComponent } from './ticket-view-map/ticket-view-map.compon
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatSidenavModule,
     MatGridListModule,
     MatSidenavModule,
     MatRadioModule,

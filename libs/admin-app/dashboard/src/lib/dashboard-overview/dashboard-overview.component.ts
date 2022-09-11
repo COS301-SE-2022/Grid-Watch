@@ -85,7 +85,9 @@ export class DashboardOverviewComponent implements AfterViewInit
             this.tickets.forEach((value) =>{
               locations.push(new google.maps.LatLng(value.ticketLat, value.ticketLong));
             })
-            console.log(this.tickets);
+
+            
+        
             const map = new google.maps.Map(
               document.getElementById('heatmap') as HTMLElement,
               {
@@ -94,14 +96,21 @@ export class DashboardOverviewComponent implements AfterViewInit
                 mapTypeId: 'satellite',
               }
             );
-      
-            const infoWindow = new google.maps.InfoWindow({
-              content: '',
-              disableAutoPan: true,
+
+            this.tickets.forEach((value) => {
+                const infoWindow = new google.maps.InfoWindow({
+                    content: value.ticketType,
+                    
+                })
+                google.maps.event.addListener(map,'mouseover', function(event: { value: { ticketLat: any; ticketLong: any; }; }) {
+                infoWindow.setPosition({lat: event.value.ticketLat,lng:event.value.ticketLong})
+                infoWindow.open(map);});
             });
+      
 
             const heatmap = new google.maps.visualization.HeatmapLayer({data: locations});
             heatmap.setMap(map);
+            heatmap.set("radius", heatmap.get("radius") ? null : 30);
         });
 
     }

@@ -20,6 +20,10 @@ export * from './lib/message-dialog/message-dialog.component';
 
 export * from './lib/services/session/session-manager.service';
 
+export * from './lib/services/Toast/toast.service';
+
+export * from './lib/toast/toast.component';
+
 export * from './lib/guards/logged-in/logged-in.guard';
 
 export * from './lib/interceptors/auth.interceptor';

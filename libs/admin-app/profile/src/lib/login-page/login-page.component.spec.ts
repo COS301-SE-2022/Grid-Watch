@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { LoginPageComponent } from './login-page.component';
 
@@ -12,7 +13,7 @@ describe('LoginPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [LoginPageComponent],
-      imports: [HttpClientModule, RouterTestingModule],
+      imports: [HttpClientModule, RouterTestingModule,NgbModule],
       providers : [FormBuilder],
     }).compileComponents();
   });

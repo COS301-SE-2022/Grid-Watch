@@ -17,6 +17,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AccountInformationComponent } from './account-information/account-information.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoggedInGuard } from '@grid-watch/shared-ui';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { LoggedInGuard } from '@grid-watch/shared-ui';
     MatChipsModule,
     MatButtonToggleModule,
     MatDialogModule,
+    NgbModule,
     RouterModule.forChild([
       { path: 'login', pathMatch: 'full', component: LoginPageComponent },
       { path: 'register', pathMatch: 'full', component: RegisterPageComponent },

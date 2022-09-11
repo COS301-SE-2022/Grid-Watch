@@ -13,12 +13,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MessageDialogComponent } from './message-dialog/message-dialog.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ToastComponent } from './toast/toast.component';
 import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    NgbModule,
     RouterModule.forChild([
       // { path: 'login', pathMatch: 'full', component: LoginPageComponent },
       // { path: 'register', pathMatch: 'full', component: RegisterPageComponent },
@@ -37,13 +40,14 @@ import { MatTabsModule } from '@angular/material/tabs';
     MenuOptionsComponent,
     AppHeaderComponent,
     MessageDialogComponent,
+    ToastComponent,
   ],
   exports: [
     NavBarComponent,
     MenuOptionsComponent,
     AppHeaderComponent,
     MessageDialogComponent,
-    
+    ToastComponent
   ],
   providers: [Router]
 })

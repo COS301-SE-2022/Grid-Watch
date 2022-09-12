@@ -7,12 +7,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatStepperModule } from '@angular/material/stepper';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
-import { FormBuilder, FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatIconModule } from '@angular/material/icon';
 import { GoogleMapsService, LoggedInGuard } from '@grid-watch/shared-ui';
@@ -24,6 +25,7 @@ import { TicketBodyListComponent } from './ticket-body-list/ticket-body-list.com
 import { TicketBodyMapComponent } from './ticket-body-map/ticket-body-map.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
@@ -39,14 +41,17 @@ import { MatRadioModule } from '@angular/material/radio';
     MatButtonModule,
     GoogleMapsModule,
     MatCardModule,
+    ReactiveFormsModule,
     FormsModule,
     MatIconModule,
     MatSidenavModule,
+    MatStepperModule,
     MatGridListModule,
     MatDialogModule,
     MatMenuModule,
     MatCheckboxModule,
     MatRadioModule,
+    NgbModule,
     MatButtonToggleModule,
     RouterModule.forChild([
       {

@@ -4,7 +4,7 @@ import { FloatLabelType } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
 import { AdminDto } from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto';
-import { GoogleMapsService, AdminProfileService } from '@grid-watch/shared-ui';
+import { GoogleMapsService, AdminProfileService, ToastService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-register-page',
@@ -30,7 +30,8 @@ export class RegisterPageComponent implements OnInit {
     private formBuilder : FormBuilder,
     private googleMapsService : GoogleMapsService,
     private profileService : AdminProfileService,
-    private router : Router
+    private router : Router,
+    private toastService : ToastService
   ) {}
 
   ngOnInit(): void {
@@ -71,7 +72,11 @@ export class RegisterPageComponent implements OnInit {
               console.log(response);
               if (response !== false)
               {
-                this.showMessage("Created admin successfully");
+                this.toastService.show('Created Admin Successfully',{
+                  classname: 'bg-success text-light',
+                  delay: 5000,
+                  autohide: true
+                });
                 this.router.navigateByUrl("/login");
               }
               else
@@ -81,17 +86,30 @@ export class RegisterPageComponent implements OnInit {
         }
         else
         {
-          this.showMessage("Contact number already exists");
+          this.toastService.show('Contact number already exists',{
+            classname: 'bg-danger text-light',
+            delay: 5000,
+            autohide: true
+          });
         }
       }
       else
       {
-        this.showMessage("Email already exists");
+        this.toastService.show('Email already exists',{
+          classname: 'bg-danger text-light',
+          delay: 5000,
+          autohide: true
+        });
       }
     }
     else
     {
-      this.showMessage("Passwords dont match")
+      this.toastService.show('Passwords do not match', {
+        classname: 'bg-danger text-light',
+        delay: 5000,
+        autohide: true
+      })
+      
     }
     
   }

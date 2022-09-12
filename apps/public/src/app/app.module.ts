@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AppComponent } from './app.component';
@@ -7,7 +8,7 @@ import { PublicTicketModule, TicketBodyComponent } from '@grid-watch/public/tick
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageBodyComponent } from '@grid-watch/public/home-page';
 import { AdminAppTicketModule } from '@grid-watch/admin-app/ticket';
-import { AuthInterceptor, LoggedInGuard, SharedUiModule } from '@grid-watch/shared-ui';
+import { AuthInterceptor, LoggedInGuard, SharedUiModule,ToastService } from '@grid-watch/shared-ui';
 
 import { profile } from 'console';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
@@ -30,8 +31,9 @@ const routes: Routes = [
     AdminAppTicketModule,
     SharedUiModule,
     PublicUserProfileModule,
+    NgbModule
     ],
-  providers: [ LoggedInGuard, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true} ],
+  providers: [ToastService, LoggedInGuard, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true} ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

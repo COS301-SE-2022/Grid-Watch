@@ -190,6 +190,38 @@ const userMock: jest.Mocked<UserDto> = new UserDto() as UserDto;
       });
     })
 
+    //incUserRating
+    describe('incUserRating',()=>{
+      it('should return void',async ()=>{
+        jest
+        .spyOn(provider,'incUserRating')
+        .mockImplementation(():Promise<void> => Promise.resolve());
+
+        expect(await provider.incUserRating(3)).toBeUndefined()
+      });
+  
+      it('should return null', async () => {
+        jest.spyOn(provider, 'incUserRating').mockResolvedValue(null);
+        expect(await provider.incUserRating(3)).toEqual(null);
+      });
+    })   
+
+    //decUserRating
+    describe('decUserRating',()=>{
+      it('should return void',async ()=>{
+        jest
+        .spyOn(provider,'decUserRating')
+        .mockImplementation(():Promise<void> => Promise.resolve());
+
+        expect(await provider.decUserRating(3)).toBeUndefined()
+      });
+  
+      it('should return null', async () => {
+        jest.spyOn(provider, 'decUserRating').mockResolvedValue(null);
+        expect(await provider.decUserRating(3)).toEqual(null);
+      });
+    })
+
     //resetUserRating
     describe('resetUserRating',()=>{
       it('should return void',async ()=>{

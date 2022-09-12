@@ -13,6 +13,7 @@ import { multNode } from './ai/mult-node';
 import { Node } from './ai/node';
 import { PlusNode } from './ai/plus-node';
 import { Tree } from './ai/tree';
+
 @Module({
   controllers: [],
   imports: [CqrsModule,Number,Array],
@@ -24,6 +25,8 @@ import { Tree } from './ai/tree';
               GetIssueAIHandler,
               GetTechTeamSpecialisationHandler,
               GetAllTicketsHandler,
+              Array,
+              Number,
               DivNode,
               GP,
               InternalNode,

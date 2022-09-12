@@ -1,9 +1,20 @@
 .buttonGroup
 {
     width: 100%;
-    padding: 15px 0;;
 }
 
 mat-button-toggle{
+    padding-top: 10px;
+    padding-bottom: 10px;
     width: 100%;
+}
+
+.view-selector
+{
+    position:fixed !important;
+    top:0;
+    left:0;
+    width:100vw;
+    height:40px;
+    z-index: 100;
 }

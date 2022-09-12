@@ -28,7 +28,7 @@ export class GetTechTeamSpecialisationHandler implements IQueryHandler<GetTechTe
 export class GetAllTicketsHandler implements IQueryHandler<GetAllTicketsQuery>{
     constructor(private readonly ticketRepository: ApiTicketRepositoryDataAccess){}
 
-    async execute(query: GetAllTicketsQuery){
+    async execute(){
         
         return this.ticketRepository.getAllTickets();
     }

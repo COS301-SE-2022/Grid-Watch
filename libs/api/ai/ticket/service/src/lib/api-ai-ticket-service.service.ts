@@ -39,6 +39,48 @@ export class ApiAiTicketServiceService {
         return cost;
     }
 
+    async formatInput(attribute : string){
+        let tickets:Ticket[] = [];
+        tickets = await this.queryBus.execute(new GetAllTicketsQuery());
+
+        //count # of groups
+        const newgroups:string[]|number[]|Date[] = [];
+        let ncount = 0;
+        for(let i=0;i<tickets.length;i++){
+            if(newgroups.length !=0){
+                let bexist = false;
+                for(let j=0;j<newgroups.length;j++){
+                    for(const attr in tickets[i]){
+                        if(attr == attribute){
+                            const tickettemp:Ticket = tickets[i];
+                            if(tickettemp[attr as keyof typeof tickettemp] == newgroups[j]){
+                                bexist = true;
+                            }
+                        }
+                    }
+                    
+                }
+                if(!bexist){
+                    for(const attr in tickets[i]){
+                        if(attr == attribute){
+                            const tickettemp: Ticket = tickets[i];
+                            newgroups[ncount] = tickettemp[attr as keyof typeof tickettemp];
+                            ncount++; 
+                        }
+                    }
+                }
+            }else{
+                for(const attr in tickets[i]){
+                    if(attr == attribute){
+                        const tickettemp: Ticket = tickets[i];
+                        newgroups[0] = tickettemp[attr as keyof typeof tickettemp];
+                    }
+                }
+            }
+        }
+        return newgroups;
+    }
+
     async getEstimateTime(ticketDto: TicketDto){
         let tickets:Ticket[] = [];
         tickets =  await this.queryBus.execute(new GetIssueAIQuery(ticketDto.ticketType));

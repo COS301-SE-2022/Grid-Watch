@@ -9,7 +9,6 @@
 	</div>
 </div>
 
-
 <div class="home-1">
 	<div class="home-container">
 		<div id="homeInfoContainer">
@@ -44,36 +43,33 @@
 	</div>
 </div>
 
-<div style="text-align:center" class="mt-4 mb-2">
-	<div><h3 ><b>DO YOU HAVE AN ISSUE?</b></h3></div>
-	<div><h4><b>It's Simple!</b></h4></div>
-</div>
-
-
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<div class="mt-3 mb-3"  id="howItWorksContainer">
-	<mat-grid-list cols="12" rowHeight="25px">
-		<mat-grid-tile colspan="9">
-			<div class="container" style="text-align:center;">Click this button to create a ticket</div>
-		</mat-grid-tile>
-		<mat-grid-tile [ngClass]="'create-ticket-arrow'" colspan="3">
-			<div id="create-ticket-arrow" >
-				<a class="fa fa-arrow-right"></a>
-			</div>			
-		</mat-grid-tile>			
-		
+<div class="container mt-3 text-center">
+	<h1>How does the system work?</h1>
+</div>
+
+<hr style="width:70%;text-align:left;margin-left:15%">
+
+<div id="steps">
+	<mat-grid-list cols="12" rowHeight="150px">
+		<mat-grid-tile colspan="6"><img class = "stepImg" id="s1" src="/assets/s1.png"> </mat-grid-tile>
+		<mat-grid-tile colspan="6"><p id="d1"><b>1.</b> <br>Notice the issue </p></mat-grid-tile>		
+		<mat-grid-tile colspan="6"><p id="d2"><b>2.</b> <br>We will notify your municipality</p></mat-grid-tile>
+		<mat-grid-tile colspan="6"><img class = "stepImg" id="s2" src="/assets/s2.png"> </mat-grid-tile>
+		<mat-grid-tile colspan="6"><img class = "stepImg" id="s3" src="/assets/s3.png"> </mat-grid-tile>
+		<mat-grid-tile colspan="6"><p id="d3"><b>3. </b> <br>We will notify your municipality</p></mat-grid-tile>
+		<mat-grid-tile colspan="6"><p id="d4"><b>4. </b> <br>You can follow the progress of your reports</p></mat-grid-tile>
+		<mat-grid-tile colspan="6"><img class = "stepImg" id="s4" src="/assets/s4.png"> </mat-grid-tile>
 	</mat-grid-list>
 </div>
+
+<hr style="width:60%;text-align:left;margin-left:20%">
 
 
 
 <div id="socialContainer">
-	
-
 	<mat-grid-list cols="13" rowHeight="60px">
-		<mat-grid-tile colspan="13"></mat-grid-tile>
 		<mat-grid-tile colspan="2"></mat-grid-tile>
 		<mat-grid-tile colspan="2"><a href="#" class="fa fa-facebook"></a></mat-grid-tile>
 		<mat-grid-tile colspan="1"></mat-grid-tile>
@@ -85,7 +81,23 @@
 </div>
 
 
+<div style="text-align:center" class="mt-4 mb-2">
+	<div><h3 ><b>Issue with the app?</b></h3></div>
+	<div><h4><b>Contact us!</b></h4></div>
+</div>
 
-<!--<div class="home-2">
-	
-</div>-->
+<div class="mt-3 mb-3"  id="howItWorksContainer">
+	<mat-grid-list cols="12" rowHeight="25px">
+		<mat-grid-tile colspan="9">
+			<div class="container" style="text-align:center;">Click here to send us an email!</div>
+		</mat-grid-tile>
+		<mat-grid-tile [ngClass]="'create-ticket-arrow'" colspan="3">
+			<div id="create-ticket-arrow" >
+				<a class="fa fa-arrow-right"></a>
+			</div>			
+		</mat-grid-tile>					
+	</mat-grid-list>
+</div>
+
+<div style="min-height:50px">
+</div>

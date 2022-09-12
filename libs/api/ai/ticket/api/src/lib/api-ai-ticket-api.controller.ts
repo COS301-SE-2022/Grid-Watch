@@ -3,6 +3,7 @@ import { Body,
          Controller, 
          //Delete, 
          Get, 
+         Param, 
          //Param, 
          Post,} from '@nestjs/common';
 import {ApiAiTicketServiceService} from '@grid-watch/api/ai/ticket/service';
@@ -16,6 +17,11 @@ export class ApiAiTicketApiController {
     @Get()
     testing(){
         return  "Testing Ai Tickets";
+    }
+
+    @Get('/format/:attribute')
+    async formatInput(@Param() params){
+        return this.apiAiTicketServiceService.formatInput(params.attribute);
     }
 
     //get endpiont to return the most relevant 

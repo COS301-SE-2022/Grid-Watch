@@ -15,7 +15,7 @@ export class ViewTicketComponent implements OnInit
 
   subtaskDescriptions: string[] = [];
   subtaskSteps: string[] = [];
-  subtaskStatus: string [] = [];
+  subtaskStatus: string[] = [];
   ticket!: TicketDto;
   ticketID! : string;
   user!: UserDto;
@@ -30,7 +30,7 @@ export class ViewTicketComponent implements OnInit
   ) { }
 
   ngOnInit(): void
-  {    
+  {
     this.ticket = new TicketDto();
     this.user = new UserDto();
     this.user.id = -1;
@@ -49,27 +49,27 @@ export class ViewTicketComponent implements OnInit
         }
       )
     }
-    
   }
 
   private getSubtasks(): void
-  {    
+  {
     this.ticketService.getTicketSubtasks(this.ticket.ticketId).subscribe
-    (
-      (response) =>
-      {        
-        for(let i = 0; i < response.length; i++)
+      (
+        (response) =>
         {
-          this.subtaskDescriptions.push(response[i]["taskDescription"]);
-          this.subtaskStatus.push(response[i]["taskStatus"]);
-          this.subtaskSteps.push(response[i]["taskStep"]);
+          for (let i = 0; i < response.length; i++)
+          {
+            this.subtaskDescriptions.push(response[i]["taskDescription"]);
+            this.subtaskStatus.push(response[i]["taskStatus"]);
+            this.subtaskSteps.push(response[i]["taskStep"]);
+          }
+          if (response.length === 0)
+          {
+            document.getElementById("issue-container")?.classList.add("hidden");
+          }
+
         }
-        if(response.length === 0)
-        {
-          document.getElementById("issue-container")?.classList.add("hidden");
-        }
-      }
-    );
+      );
   }
 
   private initialiseUser()

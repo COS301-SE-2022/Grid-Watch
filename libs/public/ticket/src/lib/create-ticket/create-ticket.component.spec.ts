@@ -9,6 +9,7 @@ import {} from  '@angular/google-maps';
 import { FormBuilder } from '@angular/forms';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
 import { MatDialogModule } from '@angular/material/dialog';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
 
 describe('CreateTicketComponent', () => {
   let component: CreateTicketComponent;
@@ -18,7 +19,7 @@ describe('CreateTicketComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [CreateTicketComponent],
       imports: [RouterTestingModule, HttpClientModule, 
-        GoogleMapsModule, MatDialogModule],
+        GoogleMapsModule, MatDialogModule,NgbModule],
       providers: [FormBuilder, GoogleMapsService]
     }).compileComponents();
   });

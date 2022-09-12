@@ -44,8 +44,16 @@ img.tileImage {
 }
 
 .heatmap{
-    margin-left: 25px;
-    margin-bottom: 20px;
-    width: 1300px;
-    height: 500px;
+    height:100%;
+    width:100%;
+}
+
+.hidden
+{
+    display:none !important;
+}
+
+mat-slide-toggle
+{
+    font-size: 15px;
 }

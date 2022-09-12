@@ -4,10 +4,14 @@ import {VerifyUserPasswordCommand,
         UpdateUserCommand,
         UpdateUserPasswordCommand,
         UpdateUserNameCommand,
+        UpdateUserRatingCommand,
+        ResetUserRatingCommand,
         UpdateUserEmailCommand,
         DeleteUserCommand,
         CreateUserCommand,
         AddTicketUpvotedCommand,
+        IncUserRatingCommand,
+        DecUserRatingCommand,
 } from './commands/api-profiles-public-command.command';
 import{ GetUserQuery,
         GetUserNameQuery,
@@ -17,6 +21,7 @@ import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles
 
 @Injectable()
 export class ApiProfilesPublicService {
+
     constructor(private commandBus: CommandBus,private queryBus: QueryBus){}
 
     /////////////////////////////////////////
@@ -67,6 +72,22 @@ export class ApiProfilesPublicService {
 
     async updateUserName(userId: number, userName: string){
         return await this.commandBus.execute(new UpdateUserNameCommand(userId,userName));
+    }
+
+    async updateUserRating(userId: number, rating: number){
+        return await this.commandBus.execute(new UpdateUserRatingCommand(userId,rating));
+    }
+
+    async incUserRating(userId: number){
+        return await this.commandBus.execute(new IncUserRatingCommand(userId));
+    }
+
+    async decUserRating(userId: number){
+        return await this.commandBus.execute(new DecUserRatingCommand(userId));
+    }
+
+    async resetUserRating(userId: number){
+        return await this.commandBus.execute(new ResetUserRatingCommand(userId));
     }
 
     async updateUserEmail(userId: number, userEmail: string){

@@ -85,7 +85,9 @@ export class DashboardOverviewComponent implements AfterViewInit
             this.tickets.forEach((value) =>{
               locations.push(new google.maps.LatLng(value.ticketLat, value.ticketLong));
             })
-            console.log(this.tickets);
+
+            
+        
             const map = new google.maps.Map(
               document.getElementById('heatmap') as HTMLElement,
               {
@@ -94,14 +96,21 @@ export class DashboardOverviewComponent implements AfterViewInit
                 mapTypeId: 'satellite',
               }
             );
-      
-            const infoWindow = new google.maps.InfoWindow({
-              content: '',
-              disableAutoPan: true,
+
+            this.tickets.forEach((value) => {
+                const infoWindow = new google.maps.InfoWindow({
+                    content: value.ticketType,
+                    
+                })
+                google.maps.event.addListener(map,'mouseover', function(event: { value: { ticketLat: any; ticketLong: any; }; }) {
+                infoWindow.setPosition({lat: event.value.ticketLat,lng:event.value.ticketLong})
+                infoWindow.open(map);});
             });
+      
 
             const heatmap = new google.maps.visualization.HeatmapLayer({data: locations});
             heatmap.setMap(map);
+            heatmap.set("radius", heatmap.get("radius") ? null : 30);
         });
 
     }
@@ -223,9 +232,6 @@ export class DashboardOverviewComponent implements AfterViewInit
     initiateGraphs(): void
     {
         const c = document.getElementById('pieChart');
-        if(c != undefined){
-            c.style.display = 'none';
-        }
         this.getDatabaseData();
 
         const labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -245,7 +251,7 @@ export class DashboardOverviewComponent implements AfterViewInit
             ]
         };
 
-        const canvas = <HTMLCanvasElement>document.getElementById('myGraph');
+        const canvas = <HTMLCanvasElement>document.getElementById('lineChart');
         const ctx = canvas.getContext('2d');
         if (ctx !== null)
         {
@@ -446,4 +452,8 @@ export class DashboardOverviewComponent implements AfterViewInit
         return index;
     }
 
+    toggleElement(id: string)
+    {
+        console.log();
+    }
 }

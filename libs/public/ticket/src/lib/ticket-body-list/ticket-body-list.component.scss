@@ -18,7 +18,10 @@ img.pin_location
     margin-top: 2%;
     margin-left: 5%; 
     margin-right:5%;
-    border: 2px solid;
+    filter: drop-shadow(0 0 0.3rem #adadad );
+    //box-shadow: 5px 5px #8ec63f;
+    //border: 2px solid;
+    
 }
 
 .ticketImg
@@ -60,25 +63,29 @@ img.pin_location
 .redText
 {
     border-color:#8ec63f;
-    border-right: 15px red solid;
+    box-shadow: inset 10px 0px 0px -1px red;
+    //border-right: -15px red solid;
 }
 
 .orangeText
 {
     border-color:#8ec63f;
-    border-right: 15px orange solid;
+    box-shadow: inset 10px 0px 0px -1px orange;
+    //border-right: -15px orange solid;
 }
 
 .yellowText
 {
     border-color:#8ec63f;
-    border-right: 15px #edcf18 solid;
+    box-shadow: inset 10px 0px 0px -1px #edcf18;
+    //border-right: -15px #edcf18 solid;
 }
 
 .greenText
 {
     border-color:#8ec63f;
-    border-right: 15px #8ec63f solid;
+    box-shadow: inset 10px 0px 0px -1px #8ec63f;
+    //border-right: -15px #8ec63f solid;
 }
 
 .smallInformation{
@@ -144,6 +151,7 @@ span.upvoteContainer {
 }
 
 .upvoteCount{
+<<<<<<< HEAD
     // position: relative;
     // top: 8px;
     height: 100%;
@@ -153,3 +161,16 @@ span.upvoteContainer {
 .upVoteDivContainer{
     display: flex;
 }
+=======
+    position: relative;
+    top: 8px;
+}
+
+#ticket-list-container
+{
+    padding-top: 40px;
+    padding-bottom: 60px;
+    background-color: #f5f5f5;
+}
+
+>>>>>>> 9ff9700134639af4cd5c7837c1bf36812a54b553

@@ -141,5 +141,5 @@ model AuthorizedOfficials {
 model AI{
   id                  Int         @id @default(autoincrement())
   dateCreated         DateTime    @default(now())
-  data                Json[]
+  data                Json?
 }

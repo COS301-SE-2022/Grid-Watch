@@ -5,14 +5,41 @@ import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
 // import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { MarkerClusterer } from '@googlemaps/markerclusterer';
 import { Router } from '@angular/router';
+import { sharedAssets } from '@grid-watch/shared-assets';
 
 @Component({
   selector: 'grid-watch-ticket-body-map',
   templateUrl: './ticket-body-map.component.html',
   styleUrls: ['./ticket-body-map.component.scss'],
 })
-export class TicketBodyMapComponent implements OnInit {
-  locations! : google.maps.LatLngLiteral [];
+export class TicketBodyMapComponent implements OnInit
+{
+  icons: Record<string, { icon: string }> =
+    {
+      issueLight: {
+        icon: "issue-brokenlight-pin.png"
+      },
+      issuePower: {
+        icon: "issue-brokenpower-pin.png"
+      },
+      issueRobot: {
+        icon: "issue-brokenrobot-pin.png"
+      },
+      issueMaintenance: {
+        icon: "issue-maintenance-pin.png"
+      },
+      issuePothole: {
+        icon: "issue-pothole-pin.png"
+      },
+      issueSinkhole: {
+        icon: "issue-sinkhole-pin.png"
+      },
+      issueWater: {
+        icon: "issue-water-pin.png"
+      }
+    }
+
+  locations!: google.maps.LatLngLiteral[];
 
   map!: google.maps.Map;
   zoom!: number;
@@ -24,10 +51,11 @@ export class TicketBodyMapComponent implements OnInit {
   constructor(
     private googleMapsService: GoogleMapsService,
     private ticketService: TicketService,
-    private router : Router
-  ) {}
+    private router: Router
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     this.locations = [];
     // this.markers = [];
     const loader = new Loader({
@@ -37,20 +65,25 @@ export class TicketBodyMapComponent implements OnInit {
     });
 
     loader.load().then(
-      () => {
+      () =>
+      {
         this.initMap();
       },
-      (error) => {
+      (error) =>
+      {
         console.log(error);
       }
     );
   }
 
-  initMap(): void {
-    this.ticketService.getTickets().subscribe(async (response) => {
+  initMap(): void
+  {
+    this.ticketService.getTickets().subscribe(async (response) =>
+    {
       this.tickets = response;
-      this.tickets.forEach((value) =>{
-        this.locations.push({lat : value.ticketLat, lng : value.ticketLong})
+      this.tickets.forEach((value) =>
+      {
+        this.locations.push({ lat: value.ticketLat, lng: value.ticketLong })
       })
       console.log(this.tickets);
       const myLocation = await this.googleMapsService.getCurrentLocation();
@@ -58,7 +91,7 @@ export class TicketBodyMapComponent implements OnInit {
         document.getElementById('mapContainer') as HTMLElement,
         {
           zoom: 7,
-          center: { lat: myLocation.latitude, lng: myLocation.longitude},
+          center: { lat: myLocation.latitude, lng: myLocation.longitude },
         }
       );
 
@@ -68,15 +101,50 @@ export class TicketBodyMapComponent implements OnInit {
       });
 
 
-      const markers = this.locations.map((position, i) => {
+      const markers = this.locations.map((position, i) =>
+      {
         // const icon = "https://developers.google.com/maps/documentation/javascript/examples/full/images/library_maps.png";
         const label = "";
+        let temp:string;
+
+        switch (this.tickets[i]["ticketType"])
+				{
+					case "Electricity Outage":
+						temp = "assets/issue-brokenpower-pin.png";
+						break;
+					case "Water Outage":
+						temp = "assets/issue-water-pin.png";
+						break;
+					case "Pothole":
+						temp = "assets/issue-pothole-pin.png";
+						break;
+					case "Sinkhole":
+						temp = "assets/issue-sinkhole-pin.png";
+						break;
+					case "Broken Traffic Light":
+						temp = "assets/issue-brokenrobot-pin.png";
+						break;
+					case "Broken Street Light":
+						temp = "assets/issue-brokenlight-pin.png";
+						break;
+					default:
+						temp = "assets/issue-maintenance-pin.png";
+						break;
+				}
+
         const marker = new google.maps.Marker({
           position,
-          label
+          label,
+          icon: { 
+						url: temp, 
+						size: new google.maps.Size(52, 66),
+						scaledSize: new google.maps.Size(52, 66),
+						origin: new google.maps.Point(0,0)
+					}
         });
 
-        marker.addListener('click', () => {
+        marker.addListener('click', () =>
+        {
           // const html = 
           // `<div> 
           //   ${this.tickets[i].ticketType}
@@ -84,8 +152,9 @@ export class TicketBodyMapComponent implements OnInit {
           // </div>`;
           const html = document.createElement("div");
           html.innerHTML = this.tickets[i].ticketType;
-          html.onclick = () =>{
-            this.router.navigate(['/viewTicket', {id:this.tickets[i].ticketId}]) ;
+          html.onclick = () =>
+          {
+            this.router.navigate(['/viewTicket', { id: this.tickets[i].ticketId }]);
           };
           infoWindow.setContent(html);
           infoWindow.open(map, marker);

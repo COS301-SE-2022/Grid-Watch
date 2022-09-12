@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatChipsModule } from '@angular/material/chips';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview.component';
 import { DashboardTimelineComponent } from './dashboard-timeline/dashboard-timeline.component';
@@ -36,6 +37,7 @@ import { AdminAppTechTeamModule } from '@grid-watch/admin-app/tech-team';
     MatButtonModule,
     MatDividerModule,
     MatGridListModule,
+    MatChipsModule,
     MatTabsModule,
     MatSlideToggleModule,
     MatRadioModule,

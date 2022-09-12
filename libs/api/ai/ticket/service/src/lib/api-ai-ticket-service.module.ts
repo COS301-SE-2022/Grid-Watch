@@ -34,6 +34,8 @@ import { Tree } from './ai/tree';
               MinNode,
               multNode,
               Node,
+              Number,
+              Array,
               PlusNode,
               Tree,
               Number,

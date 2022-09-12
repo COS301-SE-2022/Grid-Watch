@@ -4,7 +4,7 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
-import { TechTeamProfileService } from '@grid-watch/shared-ui';
+import { TechTeamProfileService, ToastService } from '@grid-watch/shared-ui';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 
 @Component({
@@ -37,7 +37,8 @@ export class RegisterTechTeamComponent implements OnInit{
     private router : Router,
     private http : HttpClient,
     private formBuilder : FormBuilder,
-    private profileService : TechTeamProfileService
+    private profileService : TechTeamProfileService,
+    private toastService : ToastService
   ) {}
 
   ngOnInit(): void {
@@ -72,16 +73,31 @@ export class RegisterTechTeamComponent implements OnInit{
         this.profileService.createTechTeam(this.techProfile).subscribe(
           (response) =>
           {
-            this.showSuccessMessage();
+            this.toastService.show('Technician Team Registered Successfully',{
+              classname: 'bg-success text-light',
+              delay: 5000,
+              autohide: true
+            });
+            this.router.navigateByUrl("/login");
+            //this.showSuccessMessage();
           }
         )
       }
       else
-        this.showErrorMessage("Email already exists")
+        this.toastService.show('Email already exists',{
+          classname: 'bg-danger text-light',
+          delay: 5000,
+          autohide: true
+        });
     }
     else
     {
-      this.showErrorMessage("Passwords dont match")
+      this.toastService.show('Passwords do not match',{
+        classname: 'bg-danger text-light',
+        delay: 5000,
+        autohide: true
+      });
+      //this.showErrorMessage("Passwords dont match")
     }
     
   }

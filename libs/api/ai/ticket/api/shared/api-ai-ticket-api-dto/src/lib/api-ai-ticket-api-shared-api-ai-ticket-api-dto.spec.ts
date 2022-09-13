@@ -1,9 +1,9 @@
-import { apiAiTicketApiSharedApiAiTicketApiDto } from './api-ai-ticket-api-shared-api-ai-ticket-api-dto';
+import { AiDto } from './api-ai-ticket-api-shared-api-ai-ticket-api-dto';
 
-describe('apiAiTicketApiSharedApiAiTicketApiDto', () => {
+describe('AiDto', () => {
   it('should work', () => {
-    expect(apiAiTicketApiSharedApiAiTicketApiDto()).toEqual(
-      'api-ai-ticket-api-shared-api-ai-ticket-api-dto'
+    expect(new AiDto()).toBeDefined(
     );
   });
 });
+

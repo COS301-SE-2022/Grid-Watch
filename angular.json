@@ -43,8 +43,5 @@
     "tech-team-profile": "libs/tech-team/profile",
     "tech-team-ticket": "libs/tech-team/ticket"
   },
-  "styles": [
-    "styles.scss",
-    "node_modules/ngx-toastr/toastr.css"
-  ]
+  "styles": ["styles.scss", "node_modules/ngx-toastr/toastr.css"]
 }

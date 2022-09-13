@@ -143,4 +143,7 @@ model AI{
   dateCreated         DateTime    @default(now())
   data                Json?
   fitness             Float
+  ticketTypes         String[]
+  ticketCities        String[]
+
 }

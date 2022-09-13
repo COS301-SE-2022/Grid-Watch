@@ -3,6 +3,8 @@ import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {GetIssueAIQuery,GetTechTeamSpecialisationQuery,GetAllTicketsQuery} from './queries/api-ai-ticket-query.query';
 import { TechTeam, Ticket } from '@prisma/client';
+import { GP } from './ai/gp';
+import { Node } from './ai/node';
 @Injectable()
 export class ApiAiTicketServiceService {
     constructor (private commandBus : CommandBus,
@@ -37,6 +39,43 @@ export class ApiAiTicketServiceService {
         }
 
         return cost;
+    }
+
+    searchArray(element : string, arr){
+        for(let s=0;s<arr.length;s++){
+            if(element == arr[s]){
+                return s;
+            }
+        }
+    }
+
+    async trainGP(popsize: number, depth: number, generations:number){
+        const arrTicketType = await this.formatInput("ticketType");
+        const arrTicketCity = await this.formatInput("ticketCity");
+        
+        let tickets:Ticket[] = [];
+        tickets = await this.queryBus.execute(new GetAllTicketsQuery());
+
+        const expected: number[] = [];
+        const input: number[][] = [];
+
+        for(let i=0;i<tickets.length;i++){
+            if(tickets[i].ticketCloseDate != null){
+                expected.push(tickets[i].ticketCost);
+
+                const currInput:number[] = [];
+                currInput.push(tickets[i].assignedTechTeam);
+                currInput.push(this.searchArray(tickets[i].ticketType,arrTicketType));
+                currInput.push(this.searchArray(tickets[i].ticketCity,arrTicketCity))
+                currInput.push(tickets[i].ticketUpvotes);
+
+                input.push(currInput);
+            }
+        }
+
+        const gp: GP = new GP(popsize,depth,generations,input,expected);
+        //const bestNode: Node = gp.GPA();
+        //save ai model
     }
 
     async formatInput(attribute : string){

@@ -133,3 +133,14 @@ model AuthorizedOfficials {
   
   @@map("authorizedofficials")
 }
+
+///////////////////////////////////////////////////////////////////////
+// AI model
+///////////////////////////////////////////////////////////////////////
+
+model AI{
+  id                  Int         @id @default(autoincrement())
+  dateCreated         DateTime    @default(now())
+  data                Json?
+  fitness             Float
+}

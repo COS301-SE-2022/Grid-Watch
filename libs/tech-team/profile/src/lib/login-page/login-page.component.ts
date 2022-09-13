@@ -3,7 +3,7 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
-import { SessionManagerService, TechTeamProfileService } from '@grid-watch/shared-ui';
+import { SessionManagerService, TechTeamProfileService, ToastService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-login-page',
@@ -26,7 +26,8 @@ export class LoginPageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private profileService: TechTeamProfileService,
     private router: Router,
-    private sessionService : SessionManagerService
+    private sessionService : SessionManagerService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +56,11 @@ export class LoginPageComponent implements OnInit {
         this.sessionService.setToken(response.access_token)
         this.routeToProfile();
       } else {
-        alert('Wrong email, password combination');
+        this.toastService.show('Wrong email, password combination',{
+          classname: 'bg-danger text-light',
+          delay: 5000,
+          autohide: true
+        });
       }
     });
   }

@@ -15,6 +15,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { LoggedInGuard } from '@grid-watch/shared-ui';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { LoggedInGuard } from '@grid-watch/shared-ui';
     MatMenuModule,
     MatDividerModule,
     MatGridListModule,
+    NgbModule,
     RouterModule.forChild([
       {
         path: 'register',

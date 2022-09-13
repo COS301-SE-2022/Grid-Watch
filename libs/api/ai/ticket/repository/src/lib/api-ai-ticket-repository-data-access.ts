@@ -1,4 +1,4 @@
-import { AiDto } from '@grid-watch/libs/api/ai/ticket/api/shared
+import { AiDto } from '@grid-watch/api/ai/ticket/api/shared/api-ai-ticket-api-dto';
 import { Injectable } from '@nestjs/common';
 import {PrismaClient} from '@prisma/client';
 
@@ -9,12 +9,14 @@ export class ApiAiTicketRepositoryDataAccess {
 
     async saveAI(AIdto : AiDto){
         const AIdata = await this.prisma.aI.create
-
-        ({
-            data            :   AIdto.aiData,
-            fitness         :   AIdto.aiFitness,
-            ticketTypes     :   AIdto.aiTicketTypes,
-            ticketCities    :   AIdto.aiTicketCities
+        ({ 
+            data: 
+            {
+                aiData          :   AIdto.aiData,
+                fitness         :   AIdto.aiFitness,
+                ticketTypes     :   AIdto.aiTicketTypes,
+                ticketCities    :   AIdto.aiTicketCities
+            }
         })
 
         return AIdata
@@ -43,7 +45,7 @@ export class ApiAiTicketRepositoryDataAccess {
             data:
             {
                 dateCreated     :   AIdto.dateCreated,
-                data            :   AIdto.aiData,
+                aiData          :   AIdto.aiData,
                 fitness         :   AIdto.aiFitness,
                 ticketTypes     :   AIdto.aiTicketTypes,
                 ticketCities    :   AIdto.aiTicketCities
@@ -60,7 +62,7 @@ export class ApiAiTicketRepositoryDataAccess {
             },
             data:
             {
-                data        :   AIdto.data,
+                aiData        :   AIdto.aiData,
             }
         })
     }
@@ -74,7 +76,7 @@ export class ApiAiTicketRepositoryDataAccess {
             },
             data:
             {
-                fitness     :   AIdto.fitness,
+                fitness     :   AIdto.aiFitness,
             }
         })
     }

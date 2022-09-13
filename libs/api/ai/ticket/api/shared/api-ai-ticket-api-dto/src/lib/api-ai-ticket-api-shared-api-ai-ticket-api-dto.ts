@@ -1,3 +1,4 @@
+import { JsonValue } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import {  IsDate, 
   IsNotEmpty,
   IsNumber, 
@@ -17,8 +18,8 @@ aiId! : number;
 dateCreated! : Date;
 
 @IsJSON()
-@IsNotEmpty()
-aiData! : JSON;
+@IsOptional()
+aiData! : JsonValue;
 
 @IsArray()
 @IsNotEmpty()

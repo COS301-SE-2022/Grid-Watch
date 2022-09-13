@@ -24,6 +24,9 @@
       ],
       "@grid-watch/admin-app/ticket": ["libs/admin-app/ticket/src/index.ts"],
       "@grid-watch/api/ai/ticket/api": ["libs/api/ai/ticket/api/src/index.ts"],
+      "@grid-watch/api/ai/ticket/api/shared/api-ai-ticket-api-dto": [
+        "libs/api/ai/ticket/api/shared/api-ai-ticket-api-dto/src/index.ts"
+      ],
       "@grid-watch/api/ai/ticket/repository": [
         "libs/api/ai/ticket/repository/src/index.ts"
       ],

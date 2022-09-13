@@ -19,6 +19,11 @@ export class ApiAiTicketApiController {
         return  "Testing Ai Tickets";
     }
 
+    @Get('/train/GP/:popsize&:depth&:generations')
+    async trainGP(@Param() params){
+        return this.apiAiTicketServiceService.trainGP(params.popsize,params.depth,params.generations);
+    }
+
     @Get('/format/:attribute')
     async formatInput(@Param() params){
         return this.apiAiTicketServiceService.formatInput(params.attribute);

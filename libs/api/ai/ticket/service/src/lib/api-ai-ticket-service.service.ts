@@ -52,7 +52,7 @@ export class ApiAiTicketServiceService {
     async trainGP(popsize: number, depth: number, generations:number){
         const arrTicketType = await this.formatInput("ticketType");
         const arrTicketCity = await this.formatInput("ticketCity");
-        
+
         let tickets:Ticket[] = [];
         tickets = await this.queryBus.execute(new GetAllTicketsQuery());
 
@@ -74,7 +74,8 @@ export class ApiAiTicketServiceService {
         }
 
         const gp: GP = new GP(popsize,depth,generations,input,expected);
-        //const bestNode: Node = gp.GPA();
+        const bestNode: Node = await gp.GPA();
+        return bestNode;
         //save ai model
     }
 

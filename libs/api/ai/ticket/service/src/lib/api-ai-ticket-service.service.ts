@@ -75,8 +75,38 @@ export class ApiAiTicketServiceService {
 
         const gp: GP = new GP(popsize,depth,generations,input,expected);
         const bestNode: Node = await gp.GPA();
-        return bestNode;
+
+        return (await this.saveGP(bestNode));
         //save ai model
+    }
+
+    async saveGP(node : Node){
+        const tree = [];
+        tree.push({
+            type: await node.getType(),
+            depth: await node.getDepth(),
+            fitness: await node.getFitness(),
+            left: await this.saveTree(await node.left()),
+            right: await this.saveTree(await node.right()),
+        });
+        
+        
+
+    }
+
+    async saveTree(node: Node){
+        if(node ==null){
+            return null;
+        }else{
+            const tree = [];
+            tree.push({
+                type: await node.getType(),
+                depth: await node.getDepth(),
+                left: await this.saveTree(await node.left()),
+                right: await this.saveTree(await node.right())
+            });
+            return tree;
+        }
     }
 
     async formatInput(attribute : string){

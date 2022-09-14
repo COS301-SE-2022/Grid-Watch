@@ -15,11 +15,16 @@ export class ApiAiTicketRepositoryDataAccess {
                 aiData          :   AIdto.aiData,
                 fitness         :   AIdto.aiFitness,
                 ticketTypes     :   AIdto.aiTicketTypes,
-                ticketCities    :   AIdto.aiTicketCities
+                ticketCities    :   AIdto.aiTicketCities,
+                aiType          :   AIdto.aiType,
             }
         })
 
         return AIdata
+    }
+
+    async getAllAI(){
+        return await this.prisma.aI.findMany()
     }
 
     async readAI(ID : number){
@@ -122,6 +127,20 @@ export class ApiAiTicketRepositoryDataAccess {
             }
         })
     }
+
+    async updateAIType(ID: number, AIdto : AiDto){
+
+        await this.prisma.aI.update({
+            where:
+            {
+                id : ID,
+            },
+            data:
+            {
+                aiType     :   AIdto.aiType,
+            }
+        })
+    }    
 
     async deleteAI(ID: number, ){
 

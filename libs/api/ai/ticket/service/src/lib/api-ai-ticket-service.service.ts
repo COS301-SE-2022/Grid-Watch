@@ -1,7 +1,7 @@
 import { Injectable} from '@nestjs/common';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import {GetIssueAIQuery,GetTechTeamSpecialisationQuery,GetAllTicketsQuery, ReadAIQuery} from './queries/api-ai-ticket-query.query';
+import {GetIssueAIQuery,GetTechTeamSpecialisationQuery,GetAllTicketsQuery, GetAllAIQuery} from './queries/api-ai-ticket-query.query';
 import { TechTeam, Ticket } from '@prisma/client';
 import { GP } from './ai/gp';
 import { Node } from './ai/node';
@@ -23,11 +23,7 @@ export class ApiAiTicketServiceService {
         tickets =  await this.queryBus.execute(new GetIssueAIQuery(ticketDto.ticketType));
         let cost = 0.0;
         let total = 0;
-        
-        //TODO: Calculate estimate cost if not in database
-        //TODO: Save estimate cost in database
-        //TODO: Recalculate esitmate cost(daily) to imporve efficiency
-
+    
         for(let i=0;i<tickets.length;i++){
             if(tickets[i].ticketCost !=null){
                 cost+=tickets[i].ticketCost;
@@ -58,6 +54,8 @@ export class ApiAiTicketServiceService {
         let tickets:Ticket[] = [];
         tickets = await this.queryBus.execute(new GetAllTicketsQuery());
 
+        const saveNode : AiDto = new AiDto();
+
         const expected: number[] = [];
         const input: number[][] = [];
 
@@ -65,12 +63,14 @@ export class ApiAiTicketServiceService {
             if(tickets[i].ticketCloseDate != null){
                 if(bCost){
                     expected.push(tickets[i].ticketCost);
+                    saveNode.aiType = "Cost"
                 }else{
                     const createDate: number = tickets[i].ticketCreateDate.getTime();
                     const closeDate: number= tickets[i].ticketCloseDate.getTime();
                     let diff = Math.abs(closeDate-createDate);
                     diff = Math.ceil(diff/(1000*60*60*24));
                     expected.push(diff)
+                    saveNode.aiType = "Time"
                 }
 
                 const currInput:number[] = [];
@@ -88,7 +88,7 @@ export class ApiAiTicketServiceService {
 
         const aiData =  await this.saveGP(bestNode);
         
-        const saveNode : AiDto = new AiDto();
+
         saveNode.aiData = aiData;
         saveNode.aiFitness = await bestNode.getFitness();
         saveNode.aiTicketCities = arrTicketCity;
@@ -174,10 +174,6 @@ export class ApiAiTicketServiceService {
     async getEstimateTime(ticketDto: TicketDto){
         let tickets:Ticket[] = [];
         tickets =  await this.queryBus.execute(new GetIssueAIQuery(ticketDto.ticketType));
-        
-        //TODO: Calculate estimate Time if not in database
-        //TODO: Add to database 
-        //TODO: Recalculate estimate Time at time intervals to improve efficiency 
         
         let count =0;
         let days = 0;

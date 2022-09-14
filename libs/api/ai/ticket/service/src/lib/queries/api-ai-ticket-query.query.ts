@@ -15,3 +15,6 @@ export class GetAllTicketsQuery{
 export class ReadAIQuery{
     constructor(public readonly aiID: number){}
 }
+
+export class GetAllAIQuery{
+}

@@ -4,10 +4,14 @@ import { TechTeamPageComponent } from './tech-team-page/tech-team-page.component
 import { RouterModule } from '@angular/router';
 import { LoginPageComponent, RegisterPageComponent, AdminProfileComponent } from '@grid-watch/admin-app/profile';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatChip, MatChipsModule } from '@angular/material/chips';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   imports: [CommonModule,
     MatGridListModule,
+    MatChipsModule,
+    MatCardModule,
     RouterModule.forChild([
       { path: 'tech-team', pathMatch: 'full', component: TechTeamPageComponent },
     ])],

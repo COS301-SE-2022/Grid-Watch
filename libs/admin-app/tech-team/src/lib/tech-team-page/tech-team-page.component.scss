@@ -1,3 +1,108 @@
 .companyContainer{
     border: 1px solid red;
+    display: flex;
+}
+
+.techInfo{
+    flex: 100%;
+}
+
+.techInfo.stars {
+	display: flex;
+	justify-content: center;
+    padding-bottom: 10px;
+}
+
+img.upvote_img {
+    height: 100%;
+    width: 100%;
+}
+
+img.settings_icon 
+{
+    height: 25px;
+}
+
+img.pin_location
+{
+    height: 15px;
+}
+
+.cards
+{
+    margin-top: 2%;
+    margin-left: 5%; 
+    margin-right:5%;
+    filter: drop-shadow(0 0 0.3rem #adadad );
+    //box-shadow: 5px 5px #8ec63f;
+    //border: 2px solid;
+    
+}
+
+.ticketImg
+{
+    width:100%;
+    text-align: right;
+}
+
+.ticketEdit
+{
+    position:absolute;
+    right:0px;
+    text-decoration: none;
+    color:#8ec63f;    
+}
+
+.citizenName
+{
+    border-bottom: 1px solid #8ec63f;
+}
+
+.sidenav-container
+{
+    height:20px;
+}
+
+.sidenav-button
+{
+    float:right;
+}
+
+.truncate
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.redText
+{
+    border-color:#8ec63f;
+    box-shadow: inset 10px 0px 0px -1px red;
+    //border-right: -15px red solid;
+}
+
+.orangeText
+{
+    border-color:#8ec63f;
+    box-shadow: inset 10px 0px 0px -1px orange;
+    //border-right: -15px orange solid;
+}
+
+.yellowText
+{
+    border-color:#8ec63f;
+    box-shadow: inset 10px 0px 0px -1px #edcf18;
+    //border-right: -15px #edcf18 solid;
+}
+
+.greenText
+{
+    border-color:#8ec63f;
+    box-shadow: inset 10px 0px 0px -1px #8ec63f;
+    //border-right: -15px #8ec63f solid;
+}
+
+.smallInformation{
+    font-size: small;
 }

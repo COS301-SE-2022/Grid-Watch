@@ -1,7 +1,21 @@
 <div class="TechTeamcontainer">
-    <mat-grid-list cols="4" rowHeight="4:1">
-        <mat-grid-tile *ngFor="let techTeam of techTeams" class="companyContainer">
-            {{techTeam.name}} 
-        </mat-grid-tile>
-    </mat-grid-list>
+  <mat-grid-list cols="3" rowHeight="400px">
+    <mat-grid-tile *ngFor="let techTeam of techTeams" class="companyContainer">
+      <div>
+        <div class="techInfo">
+          <h3>{{ techTeam.name }}</h3>
+        </div>
+        <div class="techInfo stars">
+        </div>
+        <div class="cities pills d-flex justify-content-center">
+          <mat-chip-list>
+            <mat-chip *ngFor="let specialist of techTeam.specialisation">{{specialist}}</mat-chip>
+          </mat-chip-list>
+        </div>
+        <div class="ticketsView">
+          
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>

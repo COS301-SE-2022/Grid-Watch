@@ -6,12 +6,14 @@ import { LoginPageComponent, RegisterPageComponent, AdminProfileComponent } from
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChip, MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [CommonModule,
     MatGridListModule,
     MatChipsModule,
     MatCardModule,
+    MatButtonModule,
     RouterModule.forChild([
       { path: 'tech-team', pathMatch: 'full', component: TechTeamPageComponent },
     ])],

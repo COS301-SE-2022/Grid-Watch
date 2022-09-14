@@ -1,5 +1,5 @@
 .companyContainer{
-    border: 1px solid red;
+    border: 1px solid black;
     display: flex;
 }
 
@@ -105,4 +105,25 @@ img.pin_location
 
 .smallInformation{
     font-size: small;
+}
+
+.teamContainer{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #8ec63f;
+    
+
+}
+
+.buttonContainer{
+    position: absolute; 
+    bottom: 0; 
+    width: 100%; 
+    height: 50px; 
+    // border: 1px solid red
+}
+
+.viewButton{
+    width: 100%;
+    height: 100%;
 }

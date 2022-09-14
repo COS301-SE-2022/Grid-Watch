@@ -3,6 +3,11 @@ import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techt
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TechTeamProfileService, TicketService } from '@grid-watch/shared-ui';
 
+interface Teams {
+  "techTeam" : TechTeamDto,
+  "tickets" : TicketDto[]
+}
+
 @Component({
   selector: 'grid-watch-tech-team-page',
   templateUrl: './tech-team-page.component.html',
@@ -10,8 +15,7 @@ import { TechTeamProfileService, TicketService } from '@grid-watch/shared-ui';
 })
 export class TechTeamPageComponent implements OnInit {
 
-  items: string [] =  ["",""]
-  techTeams! : TechTeamDto [];
+  techTeams! : Teams [];
   ticketStatus! : string[];
   ticketImages! : string[];
   ticketDates! : string[];
@@ -23,27 +27,37 @@ export class TechTeamPageComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    for (let k = 0; k < 10; k++) {
-      this.items.push(k.toString()
-      );
-      
-    }
-
-    this.techTeamService.getAllTechTeams().subscribe(
-      (response) =>{
-        this.techTeams = response;
-        console.log(this.techTeams[0]);
-        this.initaliseTechTeams()
-      }
-    );
-
+    this.techTeams = [];
+    this.ticketStatus = [];
+    this.ticketImages = [];
+    this.ticketDates = [];
+    
     this.ticketService.getTickets().subscribe(
       (response) => 
       {
         this.tickets = response
-        // this.InitialiseTicket(response);
+        this.techTeamService.getAllTechTeams().subscribe(
+          (response) =>{
+            // this.techTeams = response;
+            // console.log(this.techTeams[0]);
+            response.forEach((techTeam) =>{
+              const tempTeam = {
+                "techTeam" : techTeam,
+                "tickets" : [...this.tickets.filter((ticket) =>{
+                  return (ticket.assignedTechTeam === techTeam.id)
+                })]
+              };
+              console.log(tempTeam);
+              
+              this.techTeams.push(tempTeam);
+            })
+            this.initaliseTechTeams()
+          }
+        );
       }
     )
+
+
   }
 
   initaliseTechTeams() {
@@ -52,7 +66,7 @@ export class TechTeamPageComponent implements OnInit {
     this.techTeams.forEach(
       (techTeam , index) =>{
         
-        const stars = techTeam.ratingOfJobs / 2; 
+        const stars = techTeam.techTeam.ratingOfJobs / 2; 
         let numberStars =  Math.round(stars*2)/2;;
         console.log(numberStars);
         

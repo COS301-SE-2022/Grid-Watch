@@ -5,6 +5,8 @@ import {  IsDate,
   IsOptional, 
   IsJSON,
   IsArray,
+  isString,
+  IsString,
 } from 'class-validator';
 
 export class AiDto {
@@ -32,4 +34,8 @@ aiTicketCities!  : string[];
 @IsNumber()
 @IsNotEmpty()
 aiFitness! : number;
+
+@IsString()
+@IsNotEmpty()
+aiType! : string;
 }

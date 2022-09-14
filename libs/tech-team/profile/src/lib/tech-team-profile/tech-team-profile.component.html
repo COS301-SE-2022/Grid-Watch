@@ -1,5 +1,5 @@
 <div class="gridContainer">
-    <div class="userInformation">
+    <div class="userInformation ">
       <div class="avatarContainer">
         <img class="avatar" src="assets/user-solid.svg" alt="avatar" />
       </div>
@@ -7,12 +7,12 @@
         {{ techTeam.name }} <br />
         {{ techTeam.email }}
       </div>
-      <div class="optionsButton">
+      <div class="optionsButton d-flex justify-content-end">
           <button mat-button [matMenuTriggerFor]="menu" class="material-icons settingsIcon">
               <span class="material-icons">settings</span>
           </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>Settings</button>
+          <button mat-menu-item>Profile</button>
           <button mat-menu-item (click)="logout()">Logout</button>
         </mat-menu>
       </div>

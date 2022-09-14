@@ -16,6 +16,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { LoggedInGuard } from '@grid-watch/shared-ui';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 
 @NgModule({
   imports: [
@@ -46,7 +47,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         path: 'profile',
         pathMatch: 'full',
         component: TechTeamProfileComponent,
-        canActivate: [LoggedInGuard]
+        canActivate: [LoggedInGuard],
       },
     ]),
   ],
@@ -54,11 +55,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RegisterTechTeamComponent,
     LoginPageComponent,
     TechTeamProfileComponent,
+    ProfileSettingsComponent,
   ],
   exports: [
     RegisterTechTeamComponent,
     LoginPageComponent,
     TechTeamProfileComponent,
+    ProfileSettingsComponent,
   ],
 })
 export class TechTeamProfileModule {}

@@ -1,6 +1,8 @@
 .companyContainer{
     border: 1px solid black;
     display: flex;
+    border-radius: 15px;
+
 }
 
 .techInfo{
@@ -111,8 +113,7 @@ img.pin_location
     width: 100%;
     height: 100%;
     border: 1px solid #8ec63f;
-    
-
+    border-radius: 15px;
 }
 
 .buttonContainer{

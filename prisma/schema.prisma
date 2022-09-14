@@ -145,5 +145,5 @@ model AI{
   fitness             Float
   ticketTypes         String[]
   ticketCities        String[]
-
+  aiType              String
 }

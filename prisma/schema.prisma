@@ -118,7 +118,7 @@ model TechTeam {
 
 ///////////////////////////////////////////////////////////////////////
 // AuthorizedOfficials
-///////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
 
 model AuthorizedOfficials {
   id                  Int         @id @default(autoincrement())
@@ -132,4 +132,18 @@ model AuthorizedOfficials {
   dateCreated         DateTime    @default(now())
   
   @@map("authorizedofficials")
+}
+
+///////////////////////////////////////////////////////////////////////
+// AI model
+///////////////////////////////////////////////////////////////////////
+
+model AI{
+  id                  Int         @id @default(autoincrement())
+  dateCreated         DateTime    @default(now())
+  aiData              Json?
+  fitness             Float
+  ticketTypes         String[]
+  ticketCities        String[]
+
 }

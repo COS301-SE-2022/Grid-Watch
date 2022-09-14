@@ -5,6 +5,8 @@ import {GetIssueAIQuery,GetTechTeamSpecialisationQuery,GetAllTicketsQuery} from 
 import { TechTeam, Ticket } from '@prisma/client';
 import { GP } from './ai/gp';
 import { Node } from './ai/node';
+import { SaveAICommand } from './commands/api-ai-ticket-command.command';
+import { AiDto } from '@grid-watch/api/ai/ticket/api/shared/api-ai-ticket-api-dto';
 @Injectable()
 export class ApiAiTicketServiceService {
     constructor (private commandBus : CommandBus,
@@ -76,8 +78,15 @@ export class ApiAiTicketServiceService {
         const gp: GP = new GP(popsize,depth,generations,input,expected);
         const bestNode: Node = await gp.GPA();
 
-        return (await this.saveGP(bestNode));
-        //save ai model
+        const aiData =  await this.saveGP(bestNode);
+        
+        const saveNode : AiDto = new AiDto();
+        saveNode.aiData = aiData;
+        saveNode.aiFitness = await bestNode.getFitness();
+        saveNode.aiTicketCities = arrTicketCity;
+        saveNode.aiTicketTypes = arrTicketType;
+        
+        this.commandBus.execute(new SaveAICommand(saveNode));
     }
 
     async saveGP(node : Node){
@@ -90,8 +99,7 @@ export class ApiAiTicketServiceService {
             right: await this.saveTree(await node.right()),
         });
         
-        
-
+        return tree;
     }
 
     async saveTree(node: Node){

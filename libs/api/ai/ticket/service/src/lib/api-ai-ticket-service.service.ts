@@ -85,8 +85,12 @@ export class ApiAiTicketServiceService {
         saveNode.aiFitness = await bestNode.getFitness();
         saveNode.aiTicketCities = arrTicketCity;
         saveNode.aiTicketTypes = arrTicketType;
+
+        if(isNaN(saveNode.aiFitness)){
+            saveNode.aiFitness = 0;
+        }
         
-        this.commandBus.execute(new SaveAICommand(saveNode));
+        await this.commandBus.execute(new SaveAICommand(saveNode));
     }
 
     async saveGP(node : Node){
@@ -122,7 +126,7 @@ export class ApiAiTicketServiceService {
         tickets = await this.queryBus.execute(new GetAllTicketsQuery());
 
         //count # of groups
-        const newgroups:string[]|number[]|Date[] = [];
+        const newgroups:string[]= [];
         let ncount = 0;
         for(let i=0;i<tickets.length;i++){
             if(newgroups.length !=0){
@@ -142,7 +146,7 @@ export class ApiAiTicketServiceService {
                     for(const attr in tickets[i]){
                         if(attr == attribute){
                             const tickettemp: Ticket = tickets[i];
-                            newgroups[ncount] = tickettemp[attr as keyof typeof tickettemp];
+                            newgroups[ncount] = tickettemp[attr as keyof typeof tickettemp].toString();
                             ncount++; 
                         }
                     }
@@ -151,7 +155,7 @@ export class ApiAiTicketServiceService {
                 for(const attr in tickets[i]){
                     if(attr == attribute){
                         const tickettemp: Ticket = tickets[i];
-                        newgroups[0] = tickettemp[attr as keyof typeof tickettemp];
+                        newgroups[0] = tickettemp[attr as keyof typeof tickettemp].toString();
                     }
                 }
             }

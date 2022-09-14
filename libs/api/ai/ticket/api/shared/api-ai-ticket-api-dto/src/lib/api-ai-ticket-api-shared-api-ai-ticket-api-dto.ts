@@ -23,11 +23,11 @@ aiData! : JsonValue;
 
 @IsArray()
 @IsNotEmpty()
-aiTicketTypes! : string[]|number[]|Date[];
+aiTicketTypes! : string[];
 
 @IsArray()
 @IsNotEmpty()
-aiTicketCities!  : string[]|number[]|Date[];
+aiTicketCities!  : string[];
 
 @IsNumber()
 @IsNotEmpty()

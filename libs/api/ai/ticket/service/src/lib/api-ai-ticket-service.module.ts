@@ -5,6 +5,7 @@ import {GetIssueAIHandler,GetTechTeamSpecialisationHandler,GetAllTicketsHandler,
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
 import {DeleteAIHandler,SaveAIHandler,UpdateAIDataHandler,UpdateAIDateCreatedHandler,UpdateAIFitnessHandler,UpdateAIHandler,UpdateAITicketCitiesHandler,UpdateAITicketTypesHandler} from './commands/api-ai-ticket-handler.handler';
 import {ApiProfilesTechTeamRepositoryDataAccess} from '@grid-watch/api/profiles/tech-team/repository';
+import {ApiAiTicketRepositoryDataAccess} from '@grid-watch/api/ai/ticket/repository';
 import { DivNode } from './ai/div-node';
 import { GP } from './ai/gp'; 
 import { InternalNode } from './ai/internal-node';
@@ -19,6 +20,7 @@ import { Tree } from './ai/tree';
   controllers: [],
   imports: [CqrsModule,Number,Array],
   providers: [ApiAiTicketServiceService,
+              ApiAiTicketRepositoryDataAccess,
               ReadAIHandler,
               Number,
               Array,

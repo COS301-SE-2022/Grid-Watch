@@ -40,7 +40,7 @@ export class ReadAIHandler implements IQueryHandler<ReadAIQuery>{
     constructor(private readonly repository: ApiAiTicketRepositoryDataAccess){}
 
     async execute(query: ReadAIQuery){
-        const{aiDto} = query;
-        return this.repository.saveAI(aiDto);
+        const{aiID} = query;
+        return this.repository.readAI(aiID);
     }
 }

@@ -1,7 +1,7 @@
 import { Injectable} from '@nestjs/common';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import {GetIssueAIQuery,GetTechTeamSpecialisationQuery,GetAllTicketsQuery} from './queries/api-ai-ticket-query.query';
+import {GetIssueAIQuery,GetTechTeamSpecialisationQuery,GetAllTicketsQuery, ReadAIQuery} from './queries/api-ai-ticket-query.query';
 import { TechTeam, Ticket } from '@prisma/client';
 import { GP } from './ai/gp';
 import { Node } from './ai/node';
@@ -51,7 +51,7 @@ export class ApiAiTicketServiceService {
         }
     }
 
-    async trainGP(popsize: number, depth: number, generations:number){
+    async trainGP(popsize: number, depth: number, generations:number, bCost : boolean){
         const arrTicketType = await this.formatInput("ticketType");
         const arrTicketCity = await this.formatInput("ticketCity");
 
@@ -63,7 +63,15 @@ export class ApiAiTicketServiceService {
 
         for(let i=0;i<tickets.length;i++){
             if(tickets[i].ticketCloseDate != null){
-                expected.push(tickets[i].ticketCost);
+                if(bCost){
+                    expected.push(tickets[i].ticketCost);
+                }else{
+                    const createDate: number = tickets[i].ticketCreateDate.getTime();
+                    const closeDate: number= tickets[i].ticketCloseDate.getTime();
+                    let diff = Math.abs(closeDate-createDate);
+                    diff = Math.ceil(diff/(1000*60*60*24));
+                    expected.push(diff)
+                }
 
                 const currInput:number[] = [];
                 currInput.push(tickets[i].assignedTechTeam);

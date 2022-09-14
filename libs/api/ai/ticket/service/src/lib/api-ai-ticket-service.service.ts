@@ -3,6 +3,10 @@ import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {GetIssueAIQuery,GetTechTeamSpecialisationQuery,GetAllTicketsQuery} from './queries/api-ai-ticket-query.query';
 import { TechTeam, Ticket } from '@prisma/client';
+import { GP } from './ai/gp';
+import { Node } from './ai/node';
+import { SaveAICommand } from './commands/api-ai-ticket-command.command';
+import { AiDto } from '@grid-watch/api/ai/ticket/api/shared/api-ai-ticket-api-dto';
 @Injectable()
 export class ApiAiTicketServiceService {
     constructor (private commandBus : CommandBus,
@@ -39,12 +43,90 @@ export class ApiAiTicketServiceService {
         return cost;
     }
 
+    searchArray(element : string, arr){
+        for(let s=0;s<arr.length;s++){
+            if(element == arr[s]){
+                return s;
+            }
+        }
+    }
+
+    async trainGP(popsize: number, depth: number, generations:number){
+        const arrTicketType = await this.formatInput("ticketType");
+        const arrTicketCity = await this.formatInput("ticketCity");
+
+        let tickets:Ticket[] = [];
+        tickets = await this.queryBus.execute(new GetAllTicketsQuery());
+
+        const expected: number[] = [];
+        const input: number[][] = [];
+
+        for(let i=0;i<tickets.length;i++){
+            if(tickets[i].ticketCloseDate != null){
+                expected.push(tickets[i].ticketCost);
+
+                const currInput:number[] = [];
+                currInput.push(tickets[i].assignedTechTeam);
+                currInput.push(this.searchArray(tickets[i].ticketType,arrTicketType));
+                currInput.push(this.searchArray(tickets[i].ticketCity,arrTicketCity))
+                currInput.push(tickets[i].ticketUpvotes);
+
+                input.push(currInput);
+            }
+        }
+
+        const gp: GP = new GP(popsize,depth,generations,input,expected);
+        const bestNode: Node = await gp.GPA();
+
+        const aiData =  await this.saveGP(bestNode);
+        
+        const saveNode : AiDto = new AiDto();
+        saveNode.aiData = aiData;
+        saveNode.aiFitness = await bestNode.getFitness();
+        saveNode.aiTicketCities = arrTicketCity;
+        saveNode.aiTicketTypes = arrTicketType;
+
+        if(isNaN(saveNode.aiFitness)){
+            saveNode.aiFitness = 0;
+        }
+        
+        await this.commandBus.execute(new SaveAICommand(saveNode));
+    }
+
+    async saveGP(node : Node){
+        const tree = [];
+        tree.push({
+            type: await node.getType(),
+            depth: await node.getDepth(),
+            fitness: await node.getFitness(),
+            left: await this.saveTree(await node.left()),
+            right: await this.saveTree(await node.right()),
+        });
+        
+        return tree;
+    }
+
+    async saveTree(node: Node){
+        if(node ==null){
+            return null;
+        }else{
+            const tree = [];
+            tree.push({
+                type: await node.getType(),
+                depth: await node.getDepth(),
+                left: await this.saveTree(await node.left()),
+                right: await this.saveTree(await node.right())
+            });
+            return tree;
+        }
+    }
+
     async formatInput(attribute : string){
         let tickets:Ticket[] = [];
         tickets = await this.queryBus.execute(new GetAllTicketsQuery());
 
         //count # of groups
-        const newgroups:string[]|number[]|Date[] = [];
+        const newgroups:string[]= [];
         let ncount = 0;
         for(let i=0;i<tickets.length;i++){
             if(newgroups.length !=0){
@@ -64,7 +146,7 @@ export class ApiAiTicketServiceService {
                     for(const attr in tickets[i]){
                         if(attr == attribute){
                             const tickettemp: Ticket = tickets[i];
-                            newgroups[ncount] = tickettemp[attr as keyof typeof tickettemp];
+                            newgroups[ncount] = tickettemp[attr as keyof typeof tickettemp].toString();
                             ncount++; 
                         }
                     }
@@ -73,7 +155,7 @@ export class ApiAiTicketServiceService {
                 for(const attr in tickets[i]){
                     if(attr == attribute){
                         const tickettemp: Ticket = tickets[i];
-                        newgroups[0] = tickettemp[attr as keyof typeof tickettemp];
+                        newgroups[0] = tickettemp[attr as keyof typeof tickettemp].toString();
                     }
                 }
             }

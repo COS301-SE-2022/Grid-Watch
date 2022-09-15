@@ -158,6 +158,68 @@ export class ApiAiTicketServiceService {
         return newgroups;
     }
 
+    private async getEstimateAI(ticketDto: TicketDto,type:string){
+        let models:AiDto[] = [];
+        models = await this.queryBus.execute(new GetAllAIQuery());
+
+        let bRetrain:boolean;
+        bRetrain = false;
+
+        const typeModel:AiDto[] =[];
+
+        let estimateDto:AiDto;
+
+
+        if(models.length ==0){
+            bRetrain = true;
+        }else{
+            for(let i=0;i<models.length;i++){
+                if(models[i].aiType == type){
+                    typeModel.push(models[i]);
+                }
+            }
+
+            if(typeModel.length == 0){
+                bRetrain = true;
+            }else{
+                estimateDto = typeModel[typeModel.length-1];
+            }
+        }
+
+        
+        if(bRetrain){
+            return 0;
+        }
+
+        const tempTree: Tree = new Tree(0,null,null);
+        const rootNode : Node = await tempTree.reconstruct(estimateDto.aiData);
+
+        const ticketTypes: string[] = estimateDto.aiTicketTypes;
+        const ticketCity: string[] = estimateDto.aiTicketCities;
+
+        const inputVals:number[] = [];
+
+        inputVals.push(ticketDto.assignedTechTeam);
+        inputVals.push(ticketDto.ticketUpvotes);
+        
+        for(let i=0;i<ticketTypes.length;i++){
+            if(ticketTypes[i]==ticketDto.ticketType){
+                inputVals.push(i);
+            }
+        }
+
+        for(let i=0;i<ticketCity.length;i++){
+            if(ticketTypes[i]==ticketDto.ticketCity){
+                inputVals.push(i);
+            }
+        }
+
+        const estimate = await tempTree.getPrediction(rootNode,inputVals);
+
+        return estimate;
+        //if exist use
+        //pass correct input to AI model
+    }
 
 
     // average cost and time to repair grouped by areas to identify problematic areas or severity

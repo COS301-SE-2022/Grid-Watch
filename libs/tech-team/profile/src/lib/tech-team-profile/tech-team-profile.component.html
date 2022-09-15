@@ -12,7 +12,7 @@
               <span class="material-icons">settings</span>
           </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>Profile</button>
+          <button mat-menu-item (click)="goToProfileSettings()">Profile</button>
           <button mat-menu-item (click)="logout()">Logout</button>
         </mat-menu>
       </div>

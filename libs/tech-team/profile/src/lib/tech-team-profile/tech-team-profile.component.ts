@@ -131,7 +131,7 @@ export class TechTeamProfileComponent implements OnInit {
     this.sessionService.logout()
     this.router.navigateByUrl("/login")
   }
-
+  
   goToTicket(id : string)
   {
     this.router.navigate(['/editTicketDetails', {id:id}]) ;
@@ -139,6 +139,9 @@ export class TechTeamProfileComponent implements OnInit {
 
   // IncreaseUpvote(id : number, index: number): void
   // {
-  //   this.ticketService.increaseUpvotes(id, ++this.tickets[index].ticketUpvotes, this.id)
-  // }
+    //   this.ticketService.increaseUpvotes(id, ++this.tickets[index].ticketUpvotes, this.id)
+    // }
+    goToProfileSettings(){
+    this.router.navigateByUrl("/profileSettings")
+  }
 }

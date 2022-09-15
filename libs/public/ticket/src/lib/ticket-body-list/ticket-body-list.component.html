@@ -44,7 +44,7 @@
   </mat-drawer>
   <mat-drawer-content>
     <div>
-        <div class="buttons">
+        <div class="buttons border">
             <div class="buttonContainer">
                 <button class="buttonsSort" mat-raised-button (click)="drawer.toggle(); type = 'filter'">Filter</button>
             </div>
@@ -52,6 +52,7 @@
                 <button class="buttonsFilter" mat-raised-button (click)="drawer.toggle(); type = 'sort'">Sort</button>
             </div>
         </div>
+        <br> <br>
       <mat-card
         class="mt-2 cards {{ ticketStatus[i] }}" 
         *ngFor="let ticket of tickets; index as i"

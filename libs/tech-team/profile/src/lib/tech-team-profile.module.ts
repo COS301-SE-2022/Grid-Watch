@@ -17,6 +17,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { LoggedInGuard } from '@grid-watch/shared-ui';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
+import { ProfileSettingComponent } from '@grid-watch/public/user-profile';
 
 @NgModule({
   imports: [
@@ -47,6 +48,12 @@ import { ProfileSettingsComponent } from './profile-settings/profile-settings.co
         path: 'profile',
         pathMatch: 'full',
         component: TechTeamProfileComponent,
+        canActivate: [LoggedInGuard],
+      },
+      {
+        path: 'profileSettings',
+        pathMatch: 'full',
+        component: ProfileSettingComponent,
         canActivate: [LoggedInGuard],
       },
     ]),

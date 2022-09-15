@@ -221,7 +221,44 @@ export class ApiAiTicketServiceService {
         //pass correct input to AI model
     }
 
+    async getEstimateCost(ticketDto: TicketDto){
+        try {
+            const estimate  =  await this.getEstimateAI(ticketDto,"Cost");
+            let baverage = false;
+            if(estimate == Infinity || estimate < 0 || estimate == -Infinity){
+                baverage = true;
+            }
 
+            if(baverage){
+                return await this.getAverageCost(ticketDto);
+            }
+
+            return estimate;
+        } catch (error) {
+            return await this.getAverageCost(ticketDto);
+        }
+    }
+
+    private async getAverageCost(ticketDto: TicketDto){
+        let tickets:Ticket[] = [];
+        tickets =  await this.queryBus.execute(new GetIssueAIQuery(ticketDto.ticketType));
+        let cost = 0.0;
+        let total = 0;
+    
+        for(let i=0;i<tickets.length;i++){
+            if(tickets[i].ticketCost !=null){
+                cost+=tickets[i].ticketCost;
+                total+=1;
+            }
+        }
+        if(total == 0){
+            cost = 0.0;
+        }else{
+            cost = cost / total;
+        }
+
+        return cost;
+    }
     // average cost and time to repair grouped by areas to identify problematic areas or severity
     async getAverageCostByArea(){
         let tickets:Ticket[] = [];

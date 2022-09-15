@@ -39,6 +39,35 @@ export class Tree {
         return await curr.execute();
     }
 
+    async reconstruct(data):Promise<Node>{
+        if(data==null){
+            return null;
+        }else{
+            const usableData = data[0];
+            let currNode:Node;
+
+
+            if(usableData["type"]=="leaf"){
+                currNode = new LeafNode(0);  
+            }else if(usableData["type"]=="div"){
+                currNode = new DivNode(await this.reconstruct(usableData["left"]),await this.reconstruct(usableData["right"]));
+            }else if(usableData["type"]=="mult"){
+                currNode = new multNode(await this.reconstruct(usableData["left"]),await this.reconstruct(usableData["right"]));
+            }else if(usableData["type"]=="plus"){
+                currNode = new PlusNode(await this.reconstruct(usableData["left"]),await this.reconstruct(usableData["right"]));
+            }else if(usableData["type"]=="min"){
+                currNode = new MinNode(await this.reconstruct(usableData["left"]),await this.reconstruct(usableData["right"]));
+            }
+
+            await currNode.setDepth(usableData["depth"]);
+            if(usableData["fitness"]){
+                await currNode.setFitness(usableData["fitness"]); 
+            }
+
+            return currNode;
+        }
+    }
+
     async generateRandNode(curr : Node) : Promise<void>{//check
         if(await curr.getType() == "leaf"){
             return;

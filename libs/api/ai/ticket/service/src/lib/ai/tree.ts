@@ -226,6 +226,8 @@ export class Tree {
         return maxdepth;
     }
 
+    
+
     async getFitness(curr : Node): Promise<number>{
         let correct=0;
         let all=0;

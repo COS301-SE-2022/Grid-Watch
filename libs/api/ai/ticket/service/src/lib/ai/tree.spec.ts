@@ -36,6 +36,7 @@ describe('Tree', () => {
     }
   })
 
+  
   it('getRandTerminal should return a plusNode',async()=>{
     const tree: Tree = new Tree(6,numbers,expected);
     for(let i=0;i<100;i++){

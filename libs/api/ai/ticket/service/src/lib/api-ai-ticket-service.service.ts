@@ -7,6 +7,7 @@ import { GP } from './ai/gp';
 import { Node } from './ai/node';
 import { SaveAICommand } from './commands/api-ai-ticket-command.command';
 import { AiDto } from '@grid-watch/api/ai/ticket/api/shared/api-ai-ticket-api-dto';
+import { Tree } from './ai/tree';
 @Injectable()
 export class ApiAiTicketServiceService {
     constructor (private commandBus : CommandBus,
@@ -18,28 +19,9 @@ export class ApiAiTicketServiceService {
         return techTeams;
     }
 
-    async getEstimateCost(ticketDto: TicketDto){
-        let tickets:Ticket[] = [];
-        tickets =  await this.queryBus.execute(new GetIssueAIQuery(ticketDto.ticketType));
-        let cost = 0.0;
-        let total = 0;
-    
-        for(let i=0;i<tickets.length;i++){
-            if(tickets[i].ticketCost !=null){
-                cost+=tickets[i].ticketCost;
-                total+=1;
-            }
-        }
-        if(total == 0){
-            cost = 0.0;
-        }else{
-            cost = cost / total;
-        }
 
-        return cost;
-    }
 
-    searchArray(element : string, arr){
+    private searchArray(element : string, arr){
         for(let s=0;s<arr.length;s++){
             if(element == arr[s]){
                 return s;
@@ -97,11 +79,16 @@ export class ApiAiTicketServiceService {
         if(isNaN(saveNode.aiFitness)){
             saveNode.aiFitness = 0;
         }
+
+        if(saveNode.aiType == undefined){
+            saveNode.aiType = "ND";
+        }
         
         await this.commandBus.execute(new SaveAICommand(saveNode));
+        return saveNode;
     }
 
-    async saveGP(node : Node){
+    private async saveGP(node : Node){
         const tree = [];
         tree.push({
             type: await node.getType(),
@@ -114,7 +101,7 @@ export class ApiAiTicketServiceService {
         return tree;
     }
 
-    async saveTree(node: Node){
+    private async saveTree(node: Node){
         if(node ==null){
             return null;
         }else{
@@ -171,32 +158,7 @@ export class ApiAiTicketServiceService {
         return newgroups;
     }
 
-    async getEstimateTime(ticketDto: TicketDto){
-        let tickets:Ticket[] = [];
-        tickets =  await this.queryBus.execute(new GetIssueAIQuery(ticketDto.ticketType));
-        
-        let count =0;
-        let days = 0;
-        for(let i=0;i<tickets.length;i++){
-            if(tickets[i].ticketCreateDate !=null){
-                if(tickets[i].ticketCloseDate != null){
-                    const createDate: number = tickets[i].ticketCreateDate.getTime();
-                    const closeDate: number= tickets[i].ticketCloseDate.getTime();
-                    let diff = Math.abs(closeDate-createDate);
-                    diff = Math.ceil(diff/(1000*60*60*24));
-                    count++;
-                    days += diff;
-                }
-            }
-        }
 
-        if(count!=0){
-            days = days/count;
-        }
-
-
-        return days;
-    }
 
     // average cost and time to repair grouped by areas to identify problematic areas or severity
     async getAverageCostByArea(){

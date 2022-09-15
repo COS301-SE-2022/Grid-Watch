@@ -259,6 +259,53 @@ export class ApiAiTicketServiceService {
 
         return cost;
     }
+
+    async getEstimateTime(ticketDto: TicketDto){
+        try {
+            const estimate  =  await this.getEstimateAI(ticketDto,"Time");
+            let baverage = false;
+            if(estimate == Infinity || estimate < 0 || estimate == -Infinity){
+                baverage = true;
+            }
+
+            if(baverage){
+                return await this.getAverageTime(ticketDto);
+            }
+
+            return estimate;
+        } catch (error) {
+            return await this.getAverageTime(ticketDto);
+        }
+        
+    }
+
+    private async getAverageTime(ticketDto: TicketDto){
+        let tickets:Ticket[] = [];
+        tickets =  await this.queryBus.execute(new GetIssueAIQuery(ticketDto.ticketType));
+        
+        let count =0;
+        let days = 0;
+        for(let i=0;i<tickets.length;i++){
+            if(tickets[i].ticketCreateDate !=null){
+                if(tickets[i].ticketCloseDate != null){
+                    const createDate: number = tickets[i].ticketCreateDate.getTime();
+                    const closeDate: number= tickets[i].ticketCloseDate.getTime();
+                    let diff = Math.abs(closeDate-createDate);
+                    diff = Math.ceil(diff/(1000*60*60*24));
+                    count++;
+                    days += diff;
+                }
+            }
+        }
+
+        if(count!=0){
+            days = days/count;
+        }
+
+
+        return days;
+    }
+
     // average cost and time to repair grouped by areas to identify problematic areas or severity
     async getAverageCostByArea(){
         let tickets:Ticket[] = [];

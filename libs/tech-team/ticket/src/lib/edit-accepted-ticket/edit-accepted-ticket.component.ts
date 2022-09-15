@@ -5,8 +5,8 @@ import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
-
-import { TicketService, GoogleMapsService, SessionManagerService } from '@grid-watch/shared-ui';
+import { Location } from '@angular/common';
+import { TicketService, GoogleMapsService, SessionManagerService, ToastService } from '@grid-watch/shared-ui';
 
 @Component({
 	selector: 'grid-watch-edit-accepted-ticket',
@@ -46,6 +46,8 @@ export class EditAcceptedTicketComponent implements OnInit
 		private formBuilder: FormBuilder,
 		private ticketService: TicketService,
 		private sessionManager: SessionManagerService,
+		private toastService: ToastService,
+		private location: Location
 	) { }
 
 	ngOnInit(): void
@@ -86,6 +88,11 @@ export class EditAcceptedTicketComponent implements OnInit
 		return this.floatLabelControl.value || 'auto';
 	}
 
+	goBack(): void
+	{
+		this.location.back();
+	}
+
 	back(): void
 	{
 		this.router.navigateByUrl('/acceptedTickets');
@@ -116,7 +123,11 @@ export class EditAcceptedTicketComponent implements OnInit
 
 				}
 			)
-		this.showSuccessMessage('Successfully updated ticket');
+		this.toastService.show('Successfully updated ticket',{
+			classname: 'bg-success text-light',
+			delay: 5000,
+			autohide: true
+		});
 
 		this.router.navigateByUrl('/profile');
 

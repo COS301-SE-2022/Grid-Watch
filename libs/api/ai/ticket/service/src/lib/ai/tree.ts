@@ -24,6 +24,21 @@ export class Tree {
         return root;
     }
 
+    async getPrediction(curr:Node, inputVals:number[]):Promise<number>{
+        const arrTest : Node[] =[];
+        await this.getArr(curr,arrTest);
+        let ileaf = 0;
+
+        for(let i=0;i<arrTest.length;i++){
+            if(await arrTest[i].getType() == "leaf"){
+                await arrTest[i].setVal(inputVals[ileaf%(inputVals.length)]);
+                ileaf++;
+            }
+        }
+
+        return await curr.execute();
+    }
+
     async generateRandNode(curr : Node) : Promise<void>{//check
         if(await curr.getType() == "leaf"){
             return;

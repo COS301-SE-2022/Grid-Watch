@@ -20,6 +20,9 @@ import { registerables } from 'chart.js';
 import { MatTabsModule } from '@angular/material/tabs'
 import { FormsModule } from '@angular/forms';
 import { AdminAppTechTeamModule } from '@grid-watch/admin-app/tech-team';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -36,8 +39,11 @@ import { AdminAppTechTeamModule } from '@grid-watch/admin-app/tech-team';
     MatIconModule,
     MatButtonModule,
     MatDividerModule,
+    MatFormFieldModule,
     MatGridListModule,
+    MatSelectModule,
     MatChipsModule,
+    MatProgressSpinnerModule,
     MatTabsModule,
     MatSlideToggleModule,
     MatRadioModule,

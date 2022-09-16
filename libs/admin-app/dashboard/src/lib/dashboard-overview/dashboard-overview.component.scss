@@ -60,6 +60,7 @@ mat-slide-toggle
 
 #pie-chart-container
 {
+    padding-top:40px;
     width:100%;
     align-content: center;
     text-align: center;
@@ -71,7 +72,21 @@ mat-slide-toggle
     margin-left: 45vw;
 }
 
-#chart-select
+
+#line-chart-container
 {
-    
+    padding-top: 10px;
+}
+
+#heat-map-container
+{
+    width:100%;
+    height:100vh;
+}
+
+#heat-map-map-container
+{
+    width:100%;
+    left:20%;
+    height:80%;
 }

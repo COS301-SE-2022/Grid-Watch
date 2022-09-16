@@ -187,19 +187,31 @@ export class DashboardOverviewComponent implements AfterViewInit
                     {
                         if (ticketTypes[a] == "Water outage")
                         {
-                            this.backgroundColor[a] = 'rgb(3,100,180)';
+                            this.backgroundColor[a] = 'rgba(142, 198, 63, 0.6)';
                         }
                         if (ticketTypes[a] == "Electricity outage")
                         {
-                            this.backgroundColor[a] = 'rgb(255,255,0)';
+                            this.backgroundColor[a] = 'rgba(61, 179, 99, 0.6)';
                         }
                         if (ticketTypes[a] == "Sinkhole")
                         {
-                            this.backgroundColor[a] = 'rgb(77,0,50)';
+                            this.backgroundColor[a] = 'rgba(0, 127, 130, 0.6)';
                         }
                         if (ticketTypes[a] == "Pothole")
                         {
-                            this.backgroundColor[a] = 'rgb(127,127,127)';
+                            this.backgroundColor[a] = 'rgba(0, 99, 117, 0.6)';
+                        }
+                        if (ticketTypes[a] == "Broken Street Light")
+                        {
+                            this.backgroundColor[a] = 'rgba(0, 81, 98, 0.6)';
+                        }
+                        if (ticketTypes[a] == "Broken Traffic Light")
+                        {
+                            this.backgroundColor[a] = 'rgba(0, 81, 98, 1)';
+                        }
+                        if (ticketTypes[a] == "Other")
+                        {
+                            this.backgroundColor[a] = 'rgba(0, 155, 194, 0.6)';
                         }
                     }
 
@@ -412,48 +424,48 @@ export class DashboardOverviewComponent implements AfterViewInit
                 this.chart.config.data.datasets.push({
                     label: 'Pothole',
                     data: this.Pothole,
-                    borderColor: 'rgba(235, 12, 148, 0.6)',
-                    backgroundColor: 'rgba(235, 12, 148, 0.6)',
+                    borderColor: 'rgba(142, 198, 63, 0.6)',
+                    backgroundColor: 'rgba(142, 198, 63, 0.6)',
                     yAxisID: 'y',
                 })
             else if (type === "Water outage")
                 this.chart.config.data.datasets.push({
                     label: 'Water outage',
                     data: this.Water,
-                    borderColor: 'rgba(3, 100, 180, 0.6)',
-                    backgroundColor: 'rgba(3, 100, 180, 0.6)',
+                    borderColor: 'rgba(61, 179, 99, 0.6)',
+                    backgroundColor: 'rgba(61, 179, 99, 0.6)',
                     yAxisID: 'y',
                 })
             else if (type === "Electricity outage")
                 this.chart.config.data.datasets.push({
                     label: 'Electricity outage',
                     data: this.Electricity,
-                    borderColor: 'rgba(1, 235, 194, 0.6)',
-                    backgroundColor: 'rgba(0, 255, 0, 0.6)',
+                    borderColor: 'rgba(0, 154, 124)',
+                    backgroundColor: 'rgba(0, 154, 124)',
                     yAxisID: 'y',
                 })
             else if (type === "Broken Street Light")
                 this.chart.config.data.datasets.push({
                     label: 'Broken Street Light',
                     data: this.StreetLights,
-                    borderColor: this.backgroundColor[3],
-                    backgroundColor: this.backgroundColor[3],
+                    borderColor: "rgba(47, 72, 88, 0.6)",
+                    backgroundColor: "rgba(47, 72, 88, 0.6)",
                     yAxisID: 'y',
                 })
             else if (type === "Broken Traffic Light")
                 this.chart.config.data.datasets.push({
                     label: 'Broken Traffic Light',
                     data: this.TrafficLights,
-                    borderColor: this.backgroundColor[4],
-                    backgroundColor: this.backgroundColor[4],
+                    borderColor: "rgba(0, 155, 194, 0.6)",
+                    backgroundColor: "rgba(0, 155, 194, 0.6)",
                     yAxisID: 'y',
                 })
             else if (type === "Other")
                 this.chart.config.data.datasets.push({
                     label: 'Other',
                     data: this.Other,
-                    borderColor: 'rgba(40,235,23, 0.6)',
-                    backgroundColor: 'rgba(40,235,23, 0.6)',
+                    borderColor: 'rgba(0, 127, 130, 0.6)',
+                    backgroundColor: 'rgba(0, 127, 130, 0.6)',
                     yAxisID: 'y',
                 })
             this.chart.update();
@@ -480,13 +492,13 @@ export class DashboardOverviewComponent implements AfterViewInit
         const lc = document.getElementById("line-chart-container");
         const pc = document.getElementById("pieChart");
         const pcl = document.getElementById("pie-chart-loading-container");
-        const hm = document.getElementById("lineheat-map-container");
+        const hm = document.getElementById("heat-map-container");
 
         lc?.classList.add("hidden");
         pc?.classList.add("hidden");
         hm?.classList.add("hidden");
         pcl?.classList.add("hidden");
-
+ 
         const temp = document.getElementById(id); 
 
         temp?.classList.remove("hidden");

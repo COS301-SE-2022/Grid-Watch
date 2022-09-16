@@ -1,18 +1,28 @@
-<mat-form-field appearance="fill" id="chart-selector">
-    <mat-label>Select an option</mat-label>
-    <mat-select (selectionChange)="toggleElement($event.value)" [(value)]="selected">
-        <mat-option>None</mat-option>
-        <mat-option value="line-chart-container">Line Chart</mat-option>
-        <mat-option value="pie-chart-container">Pie Chart</mat-option>
-        <mat-option value="heat-map-container">Heat Map</mat-option>
-    </mat-select>
-</mat-form-field>
+<mat-grid-list cols="12" rowHeight="40px">
+    <mat-grid-tile colspan="3">
+        <h3>Choose a Graph</h3>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="3">
+        <mat-form-field appearance="fill" id="chart-selector" style="padding-left:40px">
+            <mat-select (selectionChange)="toggleElement($event.value)" [(value)]="selected" placeholder="Line Chart">
+                <mat-option value="line-chart-container">Line Chart</mat-option>
+                <mat-option value="pie-chart-container">Pie Chart</mat-option>
+                <mat-option value="heat-map-container">Heat Map</mat-option>            
+            </mat-select>
+        </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="6">
+    </mat-grid-tile>
+</mat-grid-list>
+
+
 
 <div id="pie-chart-container" class="hidden">
-    <div id="pie-chart-loading-container" class="hidden"> <mat-spinner value="accent"></mat-spinner> </div>
+    <div id="pie-chart-loading-container" class="hidden">
+        <mat-spinner value="accent"></mat-spinner>
+    </div>
     <canvas id="pieChart" style="height:300px;max-height: 300px;"></canvas>
 </div>
-
 <div id="line-chart-container">
     <mat-grid-list cols="12" rowHeight="100">
         <mat-radio-group aria-label="Select an option">
@@ -38,14 +48,16 @@
                 <mat-slide-toggle (change)="showLineGraph('Other', $event)">Miscellaneous</mat-slide-toggle>
             </mat-grid-tile>
         </mat-radio-group>
-        <mat-grid-tile colspan="12" rowspan="3">
-            <canvas id="lineChart" style="max-height: 300px;"></canvas>
+        <mat-grid-tile colspan="1"></mat-grid-tile>
+        <mat-grid-tile colspan="10" rowspan="4">
+            <canvas id="lineChart" style="max-height: 400px;"></canvas>
         </mat-grid-tile>
+        <mat-grid-tile colspan="1"></mat-grid-tile>
     </mat-grid-list>
 </div>
 
 <div id="heat-map-container" class="hidden">
-    <div class="heatmap" style="margin-bottom:40px;">
+    <div id="heat-map-map-container" style="margin-bottom:40px;">
         <div id="heatmap"></div>
     </div>
 </div>

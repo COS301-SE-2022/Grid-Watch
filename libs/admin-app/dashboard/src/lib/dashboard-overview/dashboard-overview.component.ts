@@ -18,27 +18,28 @@ export class DashboardOverviewComponent implements AfterViewInit
     constructor(
         private ticketService: TicketService,
         private googleMapsService: GoogleMapsService,
-    ){}
-    Pothole: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
-    TrafficLights: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
-    StreetLights: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
-    Electricity: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
-    Water: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
-    Other: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
-
+    ) { }
+    Pothole: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    TrafficLights: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    StreetLights: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    Electricity: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    Water: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    Other: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    
+    selected = "Line Chart";
     map!: google.maps.Map;
-    tickets : Array<TicketDto> = [];
-    ticketTypes : Array<string> = [];
-    ticketTypesCount : Array<number> = [];
+    tickets: Array<TicketDto> = [];
+    ticketTypes: Array<string> = [];
+    ticketTypesCount: Array<number> = [];
     filterChecked: string[] = [];
     sortoptions: string[] = [
-      'Original',
-      'Date',
-      'Issue',
-      'Location',
-      'City',
-      'Status',
-      'Upvotes',
+        'Original',
+        'Date',
+        'Issue',
+        'Location',
+        'City',
+        'Status',
+        'Upvotes',
     ];
     chart!: Chart;
     pieChart!: Chart;
@@ -64,51 +65,58 @@ export class DashboardOverviewComponent implements AfterViewInit
         const loader = new Loader({
             apiKey: 'AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE',
             version: 'weekly',
-            libraries: ['places','visualization'],
-          });
-      
-          loader.load().then(
-            () => {
-              this.initMap();
+            libraries: ['places', 'visualization'],
+        });
+
+        loader.load().then(
+            () =>
+            {
+                this.initMap();
             },
-            (error) => {
-              console.log(error);
+            (error) =>
+            {
+                console.log(error);
             }
-          );
+        );
     }
 
     initMap(): void
     {
         const locations: google.maps.LatLng[] = [];
-        this.ticketService.getTickets().subscribe(async (tickets) => {
+        this.ticketService.getTickets().subscribe(async (tickets) =>
+        {
             this.tickets = tickets;
-            this.tickets.forEach((value) =>{
-              locations.push(new google.maps.LatLng(value.ticketLat, value.ticketLong));
+            this.tickets.forEach((value) =>
+            {
+                locations.push(new google.maps.LatLng(value.ticketLat, value.ticketLong));
             })
 
-            
-        
+
+
             const map = new google.maps.Map(
-              document.getElementById('heatmap') as HTMLElement,
-              {
-                zoom: 13,
-                center: { lat: -25.748733, lng: 28.238043},
-                mapTypeId: 'satellite',
-              }
+                document.getElementById('heatmap') as HTMLElement,
+                {
+                    zoom: 13,
+                    center: { lat: -25.748733, lng: 28.238043 },
+                    mapTypeId: 'satellite',
+                }
             );
 
-            this.tickets.forEach((value) => {
+            this.tickets.forEach((value) =>
+            {
                 const infoWindow = new google.maps.InfoWindow({
                     content: value.ticketType,
-                    
-                })
-                google.maps.event.addListener(map,'mouseover', function(event: { value: { ticketLat: any; ticketLong: any; }; }) {
-                infoWindow.setPosition({lat: event.value.ticketLat,lng:event.value.ticketLong})
-                infoWindow.open(map);});
-            });
-      
 
-            const heatmap = new google.maps.visualization.HeatmapLayer({data: locations});
+                })
+                google.maps.event.addListener(map, 'mouseover', function (event: { value: { ticketLat: any; ticketLong: any; }; })
+                {
+                    infoWindow.setPosition({ lat: event.value.ticketLat, lng: event.value.ticketLong })
+                    infoWindow.open(map);
+                });
+            });
+
+
+            const heatmap = new google.maps.visualization.HeatmapLayer({ data: locations });
             heatmap.setMap(map);
             heatmap.set("radius", heatmap.get("radius") ? null : 30);
         });
@@ -119,26 +127,33 @@ export class DashboardOverviewComponent implements AfterViewInit
     {
         let tcount = 0;
 
-        const ticketTypes:string[] = [];
+        const ticketTypes: string[] = [];
 
-        if (tcount == 0){
-
-           this.ticketService.getTickets().subscribe(
-                async (response) => {
-        //calculate # of different ticket types
-                    for (let i = 0; i < response.length; i++) {
-                        if (ticketTypes.length != 0) {
+        if (tcount == 0)
+        {
+            this.ticketService.getTickets().subscribe(
+                async (response) =>
+                {
+                    //calculate # of different ticket types
+                    for (let i = 0; i < response.length; i++)
+                    {
+                        if (ticketTypes.length != 0)
+                        {
                             let bexist = false;
-                            for (let j = 0; j < ticketTypes.length; j++) {
-                                if (response[i].ticketType == ticketTypes[j]) {
+                            for (let j = 0; j < ticketTypes.length; j++)
+                            {
+                                if (response[i].ticketType == ticketTypes[j])
+                                {
                                     bexist = true;
                                 }
                             }
-                            if (!bexist) {
+                            if (!bexist)
+                            {
                                 ticketTypes.push(response[i].ticketType);
                                 tcount++;
                             }
-                        } else {
+                        } else
+                        {
                             ticketTypes.push(response[i].ticketType);
                             tcount++;
                         }
@@ -146,64 +161,64 @@ export class DashboardOverviewComponent implements AfterViewInit
 
                     const ticketCount: number[] = [];
 
-                    for (let k = 0; k < ticketTypes.length; k++) {
+                    for (let k = 0; k < ticketTypes.length; k++)
+                    {
                         ticketCount[k] = 0;
                     }
 
-                    for (let i = 0; i < response.length; i++) {
-                        
-                        for (let j = 0; j < ticketTypes.length; j++) {
-                            
-                            if (response[i].ticketType == ticketTypes[j]) {
-                               ticketCount[j] += 1;
+                    for (let i = 0; i < response.length; i++)
+                    {
+
+                        for (let j = 0; j < ticketTypes.length; j++)
+                        {
+
+                            if (response[i].ticketType == ticketTypes[j])
+                            {
+                                ticketCount[j] += 1;
                             }
-                            
+
                         }
-                        
+
                     }
 
                     //draw piechart
 
-                    for (let a = 0; a < ticketTypes.length; a++) {
-
-                        if (a+1 < ticketTypes.length){
-                            if (ticketTypes[a] == "Water outage"){
-                                this.backgroundColor[a+1] = this.backgroundColor[a];
-                                this.backgroundColor[a] = 'rgb(3,100,180)';
-                            }
-                            if (ticketTypes[a] == "Electricity outage"){
-                                this.backgroundColor[a+1] = this.backgroundColor[a];
-                                this.backgroundColor[a] = 'rgb(255,255,0)';
-                            }
-                            if (ticketTypes[a] == "Sinkhole"){
-                                this.backgroundColor[a+1] = this.backgroundColor[a];
-                                this.backgroundColor[a] = 'rgb(77,0,50)';
-                            }
-                            if (ticketTypes[a] == "Pothole"){
-                                this.backgroundColor[a+1] = this.backgroundColor[a];
-                                this.backgroundColor[a] = 'rgb(127,127,127)';
-                            }
+                    for (let a = 0; a < ticketTypes.length; a++)
+                    {
+                        if (ticketTypes[a] == "Water outage")
+                        {
+                            this.backgroundColor[a] = 'rgba(142, 198, 63, 0.6)';
                         }
-                        else{
-                            if (ticketTypes[a] == "Water outage"){
-                                this.backgroundColor[a] = 'rgb(3,100,180)';
-                            }
-                            if (ticketTypes[a] == "Electricity outage"){
-                                this.backgroundColor[a] = 'rgb(255,255,0)';
-                            }
-                            if (ticketTypes[a] == "Sinkhole"){
-                                this.backgroundColor[a] = 'rgb(77,0,50)';
-                            }
-                            if (ticketTypes[a] == "Pothole"){
-                                this.backgroundColor[a] = 'rgb(127,127,127)';
-                            } 
+                        if (ticketTypes[a] == "Electricity outage")
+                        {
+                            this.backgroundColor[a] = 'rgba(61, 179, 99, 0.6)';
                         }
-                    }                         
+                        if (ticketTypes[a] == "Sinkhole")
+                        {
+                            this.backgroundColor[a] = 'rgba(0, 127, 130, 0.6)';
+                        }
+                        if (ticketTypes[a] == "Pothole")
+                        {
+                            this.backgroundColor[a] = 'rgba(0, 99, 117, 0.6)';
+                        }
+                        if (ticketTypes[a] == "Broken Street Light")
+                        {
+                            this.backgroundColor[a] = 'rgba(0, 81, 98, 0.6)';
+                        }
+                        if (ticketTypes[a] == "Broken Traffic Light")
+                        {
+                            this.backgroundColor[a] = 'rgba(0, 81, 98, 1)';
+                        }
+                        if (ticketTypes[a] == "Other")
+                        {
+                            this.backgroundColor[a] = 'rgba(0, 155, 194, 0.6)';
+                        }
+                    }
 
-                    const typesdata = 
+                    const typesdata =
                     {
                         labels: ticketTypes,
-                        datasets:[{
+                        datasets: [{
                             labels: "Types of issues",
                             data: ticketCount,
                             backgroundColor: this.backgroundColor,
@@ -211,27 +226,36 @@ export class DashboardOverviewComponent implements AfterViewInit
                         }]
                     };
 
-                     ///// Draw the piechart /////
-         const canvas1 = <HTMLCanvasElement>document.getElementById('pieChart');
-         const ctx1 = canvas1.getContext('2d');
-         
-                    if (ctx1 !== null) {
-                        this.pieChart = new Chart(ctx1,{
+                    ///// Draw the piechart /////
+                    const canvas1 = <HTMLCanvasElement>document.getElementById('pieChart');
+                    const ctx1 = canvas1.getContext('2d');
+
+                    if (ctx1 !== null)
+                    {
+                        this.pieChart = new Chart(ctx1, {
                             type: 'pie',
                             data: typesdata,
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: "right",
+                                        labels: {
+                                            boxWidth: 20,
+                                            boxHeight: 20
+                                        }
+                                    }
+                                }
+                            },
                         })
                     }
-                }, 
-
+                },
             )
-            
         }
-
     }
 
     initiateGraphs(): void
     {
-        const c = document.getElementById('pieChart');
         this.getDatabaseData();
 
         const labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -278,8 +302,8 @@ export class DashboardOverviewComponent implements AfterViewInit
                             type: 'linear',
                             display: true,
                             position: 'right',
-                            suggestedMin : 0,
-                            suggestedMax : 10,
+                            suggestedMin: 0,
+                            suggestedMax: 10,
                         },
                     },
 
@@ -289,26 +313,31 @@ export class DashboardOverviewComponent implements AfterViewInit
         }
     }
 
-    setCount(){
-        this.ticketService.getTickets().subscribe((ticket)=>{
+    setCount()
+    {
+        this.ticketService.getTickets().subscribe((ticket) =>
+        {
             console.log(ticket);
-            for(let i=0; i < ticket.length; i++){
+            for (let i = 0; i < ticket.length; i++)
+            {
                 const tick = ticket.at(i);
 
-                if (tick != undefined) {
-                    const date =  new Date( tick.ticketCreateDate);           
+                if (tick != undefined)
+                {
+                    const date = new Date(tick.ticketCreateDate);
                     const month = date.getMonth();
-                    const type = tick.ticketType;   
+                    const type = tick.ticketType;
 
-                    if (month !=undefined){
-                        
-                        if(type == "Pothole")
+                    if (month != undefined)
+                    {
+
+                        if (type == "Pothole")
                         {
                             this.Pothole[month]++;
                         }
                         else if (type == "Water outage")
                         {
-                        // console.log("Water");
+                            // console.log("Water");
                             this.Water[month]++;
                         }
                         else if (type == "Broken Street Light")
@@ -323,30 +352,34 @@ export class DashboardOverviewComponent implements AfterViewInit
                         {
                             this.Electricity[month]++;
                         }
-                        else if(type == "Sinkholes" || type == "Other")
+                        else if (type == "Sinkholes" || type == "Other")
                         {
                             this.Other[month]++;
-                        }  
+                        }
                     }
                 }
             }
-                
+
         })
     }
 
-    showChart(type: string, e: any): void{
+    showChart(type: string, e: any): void
+    {
         if (!e.checked)
         {
             const c = document.getElementById('pieChart');
-            if(c != undefined){
+            if (c != undefined)
+            {
                 c.style.display = 'none';
             }
         }
-        else{
+        else
+        {
             const c = document.getElementById('pieChart');
             // const ch = document.getElementById('chart');
-            if(c != undefined ){
-               // ch.innerHTML = 'Hide graph';ch != undefined
+            if (c != undefined)
+            {
+                // ch.innerHTML = 'Hide graph';ch != undefined
                 c.style.display = '';
             }
         }
@@ -391,48 +424,48 @@ export class DashboardOverviewComponent implements AfterViewInit
                 this.chart.config.data.datasets.push({
                     label: 'Pothole',
                     data: this.Pothole,
-                    borderColor: 'rgba(235, 12, 148, 0.6)',
-                    backgroundColor: 'rgba(235, 12, 148, 0.6)',
+                    borderColor: 'rgba(142, 198, 63, 0.6)',
+                    backgroundColor: 'rgba(142, 198, 63, 0.6)',
                     yAxisID: 'y',
                 })
             else if (type === "Water outage")
                 this.chart.config.data.datasets.push({
                     label: 'Water outage',
                     data: this.Water,
-                    borderColor: 'rgba(3, 100, 180, 0.6)',
-                    backgroundColor: 'rgba(3, 100, 180, 0.6)',
+                    borderColor: 'rgba(61, 179, 99, 0.6)',
+                    backgroundColor: 'rgba(61, 179, 99, 0.6)',
                     yAxisID: 'y',
                 })
             else if (type === "Electricity outage")
                 this.chart.config.data.datasets.push({
                     label: 'Electricity outage',
                     data: this.Electricity,
-                    borderColor: 'rgba(1, 235, 194, 0.6)',
-                    backgroundColor: 'rgba(0, 255, 0, 0.6)',
+                    borderColor: 'rgba(0, 154, 124)',
+                    backgroundColor: 'rgba(0, 154, 124)',
                     yAxisID: 'y',
                 })
             else if (type === "Broken Street Light")
                 this.chart.config.data.datasets.push({
                     label: 'Broken Street Light',
                     data: this.StreetLights,
-                    borderColor: this.backgroundColor[3],
-                    backgroundColor: this.backgroundColor[3],
+                    borderColor: "rgba(47, 72, 88, 0.6)",
+                    backgroundColor: "rgba(47, 72, 88, 0.6)",
                     yAxisID: 'y',
-            })
+                })
             else if (type === "Broken Traffic Light")
                 this.chart.config.data.datasets.push({
                     label: 'Broken Traffic Light',
                     data: this.TrafficLights,
-                    borderColor: this.backgroundColor[4],
-                    backgroundColor: this.backgroundColor[4],
+                    borderColor: "rgba(0, 155, 194, 0.6)",
+                    backgroundColor: "rgba(0, 155, 194, 0.6)",
                     yAxisID: 'y',
-            })
+                })
             else if (type === "Other")
                 this.chart.config.data.datasets.push({
                     label: 'Other',
                     data: this.Other,
-                    borderColor: 'rgba(40,235,23, 0.6)',
-                    backgroundColor: 'rgba(40,235,23, 0.6)',
+                    borderColor: 'rgba(0, 127, 130, 0.6)',
+                    backgroundColor: 'rgba(0, 127, 130, 0.6)',
                     yAxisID: 'y',
                 })
             this.chart.update();
@@ -452,8 +485,33 @@ export class DashboardOverviewComponent implements AfterViewInit
         return index;
     }
 
-    toggleElement(id: string)
+    toggleElement(id: string)    
     {
-        console.log();
+        console.log(id);
+
+        const lc = document.getElementById("line-chart-container");
+        const pc = document.getElementById("pieChart");
+        const pcl = document.getElementById("pie-chart-loading-container");
+        const hm = document.getElementById("heat-map-container");
+
+        lc?.classList.add("hidden");
+        pc?.classList.add("hidden");
+        hm?.classList.add("hidden");
+        pcl?.classList.add("hidden");
+ 
+        const temp = document.getElementById(id); 
+
+        temp?.classList.remove("hidden");
+        
+
+        if(id == "pie-chart-container")
+        {
+            pc?.classList.add("hidden");
+            pcl?.classList.remove("hidden");
+            setTimeout(() => {
+                pc?.classList.remove("hidden");
+                pcl?.classList.add("hidden");
+            }, 1000);
+        }
     }
 }

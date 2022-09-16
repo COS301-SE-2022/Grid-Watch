@@ -25,7 +25,8 @@ export class DashboardOverviewComponent implements AfterViewInit
     Electricity: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     Water: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     Other: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
+    
+    selected = "Line Chart";
     map!: google.maps.Map;
     tickets: Array<TicketDto> = [];
     ticketTypes: Array<string> = [];
@@ -222,6 +223,18 @@ export class DashboardOverviewComponent implements AfterViewInit
                         this.pieChart = new Chart(ctx1, {
                             type: 'pie',
                             data: typesdata,
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: "right",
+                                        labels: {
+                                            boxWidth: 20,
+                                            boxHeight: 20
+                                        }
+                                    }
+                                }
+                            },
                         })
                     }
                 },
@@ -460,8 +473,33 @@ export class DashboardOverviewComponent implements AfterViewInit
         return index;
     }
 
-    toggleElement(id: string)
+    toggleElement(id: string)    
     {
-        console.log();
+        console.log(id);
+
+        const lc = document.getElementById("line-chart-container");
+        const pc = document.getElementById("pieChart");
+        const pcl = document.getElementById("pie-chart-loading-container");
+        const hm = document.getElementById("lineheat-map-container");
+
+        lc?.classList.add("hidden");
+        pc?.classList.add("hidden");
+        hm?.classList.add("hidden");
+        pcl?.classList.add("hidden");
+
+        const temp = document.getElementById(id); 
+
+        temp?.classList.remove("hidden");
+        
+
+        if(id == "pie-chart-container")
+        {
+            pc?.classList.add("hidden");
+            pcl?.classList.remove("hidden");
+            setTimeout(() => {
+                pc?.classList.remove("hidden");
+                pcl?.classList.add("hidden");
+            }, 1000);
+        }
     }
 }

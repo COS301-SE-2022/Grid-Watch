@@ -1,7 +1,7 @@
 <mat-drawer-container class="drawerContainer" hasBackdrop="true">
 	<mat-drawer #drawer mode="over">
 		<div class="sortContainer" *ngIf="type === 'sort'">
-			Sort
+			<h4>Sort</h4>
 			<div *ngFor="let sortItem of sortLabels">
 				<mat-radio-button value="{{sortItem}}" (change)="sort(sortItem)" (click)="sort(sortItem)">{{sortItem}}
 				</mat-radio-button>

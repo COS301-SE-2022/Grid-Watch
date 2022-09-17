@@ -16,7 +16,7 @@ export class RegisterTechTeamComponent implements OnInit{
 
   techProfile! : TechTeamDto;
   
-  issue_options = ["Pothole", "Sinkhole", "Water Outage", "Electricity Outage", "Other"];
+  issue_options = ["Pothole", "Sinkhole", "Water Outage", "Broken Street Light", "Electricity Outage", "Other"];
   @Input() confirmPassword! : string;
   specialisationSelected! : boolean[]
 

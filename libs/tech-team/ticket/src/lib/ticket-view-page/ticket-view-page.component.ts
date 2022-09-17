@@ -66,9 +66,9 @@ export class TicketViewPageComponent implements OnInit {
 
     this.ticketService.getTicketsType('Dispatched').subscribe(
       (response) => {
-        console.log(response);
         
-      this.tickets = response;
+        this.tickets = response;
+        console.log(this.tickets);
       this.initialiseTicket(response);
       this.ticketsPerm = response;
       this.filterTicketsToTeam();
@@ -85,14 +85,15 @@ export class TicketViewPageComponent implements OnInit {
       this.specialisation.forEach((specialty) => {
          console.log(specialty);
          this.tickets.push(...this.ticketsPerm.filter((ticket) => {
-           return ticket.ticketType === specialty;
+           return ticket.ticketType.includes(specialty) || 
+                  ticket.ticketType === "Other" ;
          }))
         
       });
       this.loadSortLabels();
       this.loadFilterLabels();
       this.initialiseTicket(this.tickets);
-
+      this.ticketsPerm = this.tickets;
     });
   }
 

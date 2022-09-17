@@ -100,14 +100,17 @@ img.pin_location
 .buttonsSort{
     width: 100%;
     height: 100%;
+    border-radius: 0px !important;
 }
 
 .buttonsFilter{
     width: 100%;
     height: 100%;
+    border-radius: 0px !important;
 }
 
 .buttonContainer{
+    padding-top: 40px;
     flex: 50%;
 }
 
@@ -115,19 +118,19 @@ mat-drawer{
     width: 70%;
 }
 
-.sortContainer{
-    
+.sortContainer
+{    
+    padding-top: 40px !important;
     padding: 1rem;
 }
 
 .filterContainer{
     padding: 1rem;
-    
+    padding-top: 40px;
 }
 
 .drawerContainer{
     // overflow-y: scroll;
-    // height: 82.5vh;
     z-index: 0;
 }
 
@@ -159,4 +162,10 @@ span.upvoteContainer {
 
 .upVoteDivContainer{
     display: flex;
+}
+
+.filterOption
+{
+    padding-top: 20px;
+    padding-bottom: 20px;
 }

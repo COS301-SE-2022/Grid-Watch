@@ -1,4 +1,4 @@
-import { formatDate } from '@angular/common';
+import { formatDate, Location } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -39,6 +39,7 @@ export class ViewTicketDetailsComponent implements OnInit {
               private formBuilder: FormBuilder,
               private ticketService : TicketService,
               private toastService : ToastService,
+              private location: Location,
               private googleMapsService : GoogleMapsService) {}
 
   ngOnInit(): void {
@@ -124,6 +125,11 @@ export class ViewTicketDetailsComponent implements OnInit {
     )
     console.log(this.ticket);
     
+  }
+
+  GoBack() : void
+  {
+    this.location.back();
   }
 
   back() : void

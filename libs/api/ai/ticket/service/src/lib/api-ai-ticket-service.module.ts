@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ApiAiTicketServiceService } from './api-ai-ticket-service.service';
-import {GetIssueAIHandler,GetTechTeamSpecialisationHandler,GetAllTicketsHandler,ReadAIHandler} from './queries/api-ai-ticket-query-handler.handler';
+import {GetIssueAIHandler,GetAllAIHandler,GetTechTeamSpecialisationHandler,GetAllTicketsHandler,ReadAIHandler} from './queries/api-ai-ticket-query-handler.handler';
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
 import {DeleteAIHandler,SaveAIHandler,UpdateAIDataHandler,UpdateAIDateCreatedHandler,UpdateAIFitnessHandler,UpdateAIHandler,UpdateAITicketCitiesHandler,UpdateAITicketTypesHandler} from './commands/api-ai-ticket-handler.handler';
 import {ApiProfilesTechTeamRepositoryDataAccess} from '@grid-watch/api/profiles/tech-team/repository';
@@ -24,6 +24,7 @@ import { Tree } from './ai/tree';
               ReadAIHandler,
               Number,
               Array,
+              GetAllAIHandler,
               ApiTicketRepositoryDataAccess,
               ApiProfilesTechTeamRepositoryDataAccess,
               GetIssueAIHandler,

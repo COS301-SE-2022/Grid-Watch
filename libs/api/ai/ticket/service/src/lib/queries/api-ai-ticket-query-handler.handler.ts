@@ -1,5 +1,5 @@
 import {IQueryHandler, QueryHandler} from '@nestjs/cqrs';
-import { GetAllTicketsQuery,ReadAIQuery, GetIssueAIQuery,GetTechTeamSpecialisationQuery} from './api-ai-ticket-query.query';
+import { GetAllTicketsQuery,ReadAIQuery, GetAllAIQuery,GetIssueAIQuery,GetTechTeamSpecialisationQuery} from './api-ai-ticket-query.query';
 import {ApiTicketRepositoryDataAccess} from '@grid-watch/api/ticket/repository';
 import {ApiProfilesTechTeamRepositoryDataAccess} from '@grid-watch/api/profiles/tech-team/repository';
 import {ApiAiTicketRepositoryDataAccess} from '@grid-watch/api/ai/ticket/repository';
@@ -40,7 +40,16 @@ export class ReadAIHandler implements IQueryHandler<ReadAIQuery>{
     constructor(private readonly repository: ApiAiTicketRepositoryDataAccess){}
 
     async execute(query: ReadAIQuery){
-        const{aiDto} = query;
-        return this.repository.saveAI(aiDto);
+        const{aiID} = query;
+        return this.repository.readAI(aiID);
+    }
+}
+
+@QueryHandler(GetAllAIQuery)
+export class GetAllAIHandler implements IQueryHandler<GetAllAIQuery>{
+    constructor(private readonly repository: ApiAiTicketRepositoryDataAccess){}
+
+    async execute(query: GetAllAIQuery){
+        return this.repository.getAllAI();
     }
 }

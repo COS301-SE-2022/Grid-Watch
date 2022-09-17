@@ -1,12 +1,13 @@
 import { Injectable} from '@nestjs/common';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import {GetIssueAIQuery,GetTechTeamSpecialisationQuery,GetAllTicketsQuery} from './queries/api-ai-ticket-query.query';
+import {GetIssueAIQuery,GetTechTeamSpecialisationQuery,GetAllTicketsQuery, GetAllAIQuery} from './queries/api-ai-ticket-query.query';
 import { TechTeam, Ticket } from '@prisma/client';
 import { GP } from './ai/gp';
 import { Node } from './ai/node';
 import { SaveAICommand } from './commands/api-ai-ticket-command.command';
 import { AiDto } from '@grid-watch/api/ai/ticket/api/shared/api-ai-ticket-api-dto';
+import { Tree } from './ai/tree';
 @Injectable()
 export class ApiAiTicketServiceService {
     constructor (private commandBus : CommandBus,
@@ -18,32 +19,9 @@ export class ApiAiTicketServiceService {
         return techTeams;
     }
 
-    async getEstimateCost(ticketDto: TicketDto){
-        let tickets:Ticket[] = [];
-        tickets =  await this.queryBus.execute(new GetIssueAIQuery(ticketDto.ticketType));
-        let cost = 0.0;
-        let total = 0;
-        
-        //TODO: Calculate estimate cost if not in database
-        //TODO: Save estimate cost in database
-        //TODO: Recalculate esitmate cost(daily) to imporve efficiency
 
-        for(let i=0;i<tickets.length;i++){
-            if(tickets[i].ticketCost !=null){
-                cost+=tickets[i].ticketCost;
-                total+=1;
-            }
-        }
-        if(total == 0){
-            cost = 0.0;
-        }else{
-            cost = cost / total;
-        }
 
-        return cost;
-    }
-
-    searchArray(element : string, arr){
+    private searchArray(element : string, arr){
         for(let s=0;s<arr.length;s++){
             if(element == arr[s]){
                 return s;
@@ -51,19 +29,31 @@ export class ApiAiTicketServiceService {
         }
     }
 
-    async trainGP(popsize: number, depth: number, generations:number){
+    async trainGP(popsize: number, depth: number, generations:number, bCost : boolean){
         const arrTicketType = await this.formatInput("ticketType");
         const arrTicketCity = await this.formatInput("ticketCity");
 
         let tickets:Ticket[] = [];
         tickets = await this.queryBus.execute(new GetAllTicketsQuery());
 
+        const saveNode : AiDto = new AiDto();
+
         const expected: number[] = [];
         const input: number[][] = [];
 
         for(let i=0;i<tickets.length;i++){
             if(tickets[i].ticketCloseDate != null){
-                expected.push(tickets[i].ticketCost);
+                if(bCost){
+                    expected.push(tickets[i].ticketCost);
+                    saveNode.aiType = "Cost"
+                }else{
+                    const createDate: number = tickets[i].ticketCreateDate.getTime();
+                    const closeDate: number= tickets[i].ticketCloseDate.getTime();
+                    let diff = Math.abs(closeDate-createDate);
+                    diff = Math.ceil(diff/(1000*60*60*24));
+                    expected.push(diff)
+                    saveNode.aiType = "Time"
+                }
 
                 const currInput:number[] = [];
                 currInput.push(tickets[i].assignedTechTeam);
@@ -80,7 +70,7 @@ export class ApiAiTicketServiceService {
 
         const aiData =  await this.saveGP(bestNode);
         
-        const saveNode : AiDto = new AiDto();
+
         saveNode.aiData = aiData;
         saveNode.aiFitness = await bestNode.getFitness();
         saveNode.aiTicketCities = arrTicketCity;
@@ -89,11 +79,16 @@ export class ApiAiTicketServiceService {
         if(isNaN(saveNode.aiFitness)){
             saveNode.aiFitness = 0;
         }
+
+        if(saveNode.aiType == undefined){
+            saveNode.aiType = "ND";
+        }
         
         await this.commandBus.execute(new SaveAICommand(saveNode));
+        return saveNode;
     }
 
-    async saveGP(node : Node){
+    private async saveGP(node : Node){
         const tree = [];
         tree.push({
             type: await node.getType(),
@@ -106,7 +101,7 @@ export class ApiAiTicketServiceService {
         return tree;
     }
 
-    async saveTree(node: Node){
+    private async saveTree(node: Node){
         if(node ==null){
             return null;
         }else{
@@ -163,13 +158,130 @@ export class ApiAiTicketServiceService {
         return newgroups;
     }
 
-    async getEstimateTime(ticketDto: TicketDto){
+    private async getEstimateAI(ticketDto: TicketDto,type:string){
+        let models:AiDto[] = [];
+        models = await this.queryBus.execute(new GetAllAIQuery());
+
+        let bRetrain:boolean;
+        bRetrain = false;
+
+        const typeModel:AiDto[] =[];
+
+        let estimateDto:AiDto;
+
+
+        if(models.length ==0){
+            bRetrain = true;
+        }else{
+            for(let i=0;i<models.length;i++){
+                if(models[i].aiType == type){
+                    typeModel.push(models[i]);
+                }
+            }
+
+            if(typeModel.length == 0){
+                bRetrain = true;
+            }else{
+                estimateDto = typeModel[typeModel.length-1];
+            }
+        }
+
+        
+        if(bRetrain){
+            return 0;
+        }
+
+        const tempTree: Tree = new Tree(0,null,null);
+        const rootNode : Node = await tempTree.reconstruct(estimateDto.aiData);
+
+        const ticketTypes: string[] = estimateDto.aiTicketTypes;
+        const ticketCity: string[] = estimateDto.aiTicketCities;
+
+        const inputVals:number[] = [];
+
+        inputVals.push(ticketDto.assignedTechTeam);
+        inputVals.push(ticketDto.ticketUpvotes);
+        
+        for(let i=0;i<ticketTypes.length;i++){
+            if(ticketTypes[i]==ticketDto.ticketType){
+                inputVals.push(i);
+            }
+        }
+
+        for(let i=0;i<ticketCity.length;i++){
+            if(ticketTypes[i]==ticketDto.ticketCity){
+                inputVals.push(i);
+            }
+        }
+
+        const estimate = await tempTree.getPrediction(rootNode,inputVals);
+
+        return estimate;
+        //if exist use
+        //pass correct input to AI model
+    }
+
+    async getEstimateCost(ticketDto: TicketDto){
+        try {
+            const estimate  =  await this.getEstimateAI(ticketDto,"Cost");
+            let baverage = false;
+            if(estimate == Infinity || estimate < 0 || estimate == -Infinity){
+                baverage = true;
+            }
+
+            if(baverage){
+                return await this.getAverageCost(ticketDto);
+            }
+
+            return estimate;
+        } catch (error) {
+            return await this.getAverageCost(ticketDto);
+        }
+    }
+
+    private async getAverageCost(ticketDto: TicketDto){
         let tickets:Ticket[] = [];
         tickets =  await this.queryBus.execute(new GetIssueAIQuery(ticketDto.ticketType));
+        let cost = 0.0;
+        let total = 0;
+    
+        for(let i=0;i<tickets.length;i++){
+            if(tickets[i].ticketCost !=null){
+                cost+=tickets[i].ticketCost;
+                total+=1;
+            }
+        }
+        if(total == 0){
+            cost = 0.0;
+        }else{
+            cost = cost / total;
+        }
+
+        return cost;
+    }
+
+    async getEstimateTime(ticketDto: TicketDto){
+        try {
+            const estimate  =  await this.getEstimateAI(ticketDto,"Time");
+            let baverage = false;
+            if(estimate == Infinity || estimate < 0 || estimate == -Infinity){
+                baverage = true;
+            }
+
+            if(baverage){
+                return await this.getAverageTime(ticketDto);
+            }
+
+            return estimate;
+        } catch (error) {
+            return await this.getAverageTime(ticketDto);
+        }
         
-        //TODO: Calculate estimate Time if not in database
-        //TODO: Add to database 
-        //TODO: Recalculate estimate Time at time intervals to improve efficiency 
+    }
+
+    private async getAverageTime(ticketDto: TicketDto){
+        let tickets:Ticket[] = [];
+        tickets =  await this.queryBus.execute(new GetIssueAIQuery(ticketDto.ticketType));
         
         let count =0;
         let days = 0;

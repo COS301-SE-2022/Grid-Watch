@@ -36,6 +36,169 @@ describe('Tree', () => {
     }
   })
 
+  it('reconstruct should return a tree from json',async()=>{
+    const tree: Tree = new Tree(6,numbers,expected);
+    const injson = [{
+      "type": "div",
+      "depth": 0,
+      "fitness": null,
+      "left": [{
+          "type": "leaf",
+          "depth": 1,
+          "left": null,
+          "right": null
+      }],
+      "right": [{
+          "type": "mult",
+          "depth": 1,
+          "left": [{
+              "type": "plus",
+              "depth": 2,
+              "left": [{
+                  "type": "plus",
+                  "depth": 3,
+                  "left": [{
+                      "type": "leaf",
+                      "depth": 4,
+                      "left": null,
+                      "right": null
+                  }],
+                  "right": [{
+                      "type": "min",
+                      "depth": 4,
+                      "left": [{
+                          "type": "leaf",
+                          "depth": 5,
+                          "left": null,
+                          "right": null
+                      }],
+                      "right": [{
+                          "type": "leaf",
+                          "depth": 5,
+                          "left": null,
+                          "right": null
+                      }]
+                  }]
+              }],
+              "right": [{
+                  "type": "min",
+                  "depth": 3,
+                  "left": [{
+                      "type": "mult",
+                      "depth": 4,
+                      "left": [{
+                          "type": "leaf",
+                          "depth": 5,
+                          "left": null,
+                          "right": null
+                      }],
+                      "right": [{
+                          "type": "leaf",
+                          "depth": 5,
+                          "left": null,
+                          "right": null
+                      }]
+                  }],
+                  "right": [{
+                      "type": "mult",
+                      "depth": 4,
+                      "left": [{
+                          "type": "leaf",
+                          "depth": 5,
+                          "left": null,
+                          "right": null
+                      }],
+                      "right": [{
+                          "type": "leaf",
+                          "depth": 5,
+                          "left": null,
+                          "right": null
+                      }]
+                  }]
+              }]
+          }],
+          "right": [{
+              "type": "div",
+              "depth": 2,
+              "left": [{
+                  "type": "mult",
+                  "depth": 3,
+                  "left": [{
+                      "type": "plus",
+                      "depth": 4,
+                      "left": [{
+                          "type": "leaf",
+                          "depth": 5,
+                          "left": null,
+                          "right": null
+                      }],
+                      "right": [{
+                          "type": "leaf",
+                          "depth": 5,
+                          "left": null,
+                          "right": null
+                      }]
+                  }],
+                  "right": [{
+                      "type": "plus",
+                      "depth": 4,
+                      "left": [{
+                          "type": "leaf",
+                          "depth": 5,
+                          "left": null,
+                          "right": null
+                      }],
+                      "right": [{
+                          "type": "leaf",
+                          "depth": 5,
+                          "left": null,
+                          "right": null
+                      }]
+                  }]
+              }],
+              "right": [{
+                  "type": "plus",
+                  "depth": 3,
+                  "left": [{
+                      "type": "min",
+                      "depth": 4,
+                      "left": [{
+                          "type": "leaf",
+                          "depth": 5,
+                          "left": null,
+                          "right": null
+                      }],
+                      "right": [{
+                          "type": "leaf",
+                          "depth": 5,
+                          "left": null,
+                          "right": null
+                      }]
+                  }],
+                  "right": [{
+                      "type": "plus",
+                      "depth": 4,
+                      "left": [{
+                          "type": "leaf",
+                          "depth": 5,
+                          "left": null,
+                          "right": null
+                      }],
+                      "right": [{
+                          "type": "leaf",
+                          "depth": 5,
+                          "left": null,
+                          "right": null
+                      }]
+                  }]
+              }]
+          }]
+      }]
+  }];
+    expect(await tree.reconstruct(injson)).toEqual({"depth": 0, "leftNode": {"depth": 1, "val": 0}, "rightNode": {"depth": 1, "leftNode": {"depth": 2, "leftNode": {"depth": 3, "leftNode": {"depth": 4, "val": 0}, "rightNode": {"depth": 4, "leftNode": {"depth": 5, "val": 0}, "rightNode": {"depth": 5, "val": 0}}}, "rightNode": {"depth": 3, "leftNode": {"depth": 4, "leftNode": {"depth": 5, "val": 0}, "rightNode": {"depth": 5, "val": 0}}, "rightNode": {"depth": 4, "leftNode": {"depth": 5, "val": 0}, "rightNode": {"depth": 5, "val": 0}}}}, "rightNode": {"depth": 2, "leftNode": {"depth": 3, "leftNode": {"depth": 4, "leftNode": {"depth": 5, "val": 0}, "rightNode": {"depth": 5, "val": 0}}, "rightNode": {"depth": 4, "leftNode": {"depth": 5, "val": 0}, "rightNode": {"depth": 5, "val": 0}}}, "rightNode": {"depth": 3, "leftNode": {"depth": 4, "leftNode": {"depth": 5, "val": 0}, "rightNode": {"depth": 5, "val": 0}}, "rightNode": {"depth": 4, "leftNode": {"depth": 5, "val": 0}, "rightNode": {"depth": 5, "val": 0}}}}}});
+  })
+
+
   it('getRandTerminal should return a plusNode',async()=>{
     const tree: Tree = new Tree(6,numbers,expected);
     for(let i=0;i<100;i++){

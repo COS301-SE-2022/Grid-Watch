@@ -1,4 +1,75 @@
-<div class="containerProfile">
-    Testing the rear profile
-    
-</div>
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <span class="avatar">{{techTeam.name.slice(0,1)}}</span>
+        <span >{{techTeam.name}}</span>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="inputFields">
+          <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+              <mat-label>Name</mat-label>
+              <input type="name" [disabled]="nameStatus" matInput placeholder="Enter name" [(ngModel)]="techTeam.name"/>
+              <button mat-icon-button matSuffix  (click)="toggleName()">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </mat-form-field>
+      </div>
+      <div class="inputFields">
+          <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+              <mat-label>Email</mat-label>
+              <input type="email" [disabled]="emailStatus" matInput placeholder="Enter email" [(ngModel)]="techTeam.email"/>
+              <button mat-icon-button matSuffix  (click)="toggleEmail()">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </mat-form-field>
+      </div>
+      <div class="inputFields">
+          <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+              <mat-label>Contact Number</mat-label>
+              <input type="text" [disabled]="contactStatus" matInput placeholder="Enter contact number" [(ngModel)]="techTeam.contactNumber"/>
+              <button mat-icon-button matSuffix (click)="toggleContact()">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </mat-form-field>
+      </div>
+      <div class="inputFields">
+        <mat-label>Specialisation</mat-label> <br />
+        <section *ngFor="let issue of issue_options, index as i">
+          <mat-checkbox [(ngModel)]="specialisationSelected[i]"
+            >{{issue}}
+          </mat-checkbox>
+        </section>
+        <br />
+      </div>
+      <div class="inputFields">
+          <mat-form-field class="cityField" appearance="outline" [floatLabel]="getFloatLabelValue()">
+              <mat-label>Cities</mat-label>
+              <input type="text" id="pac-input" matInput placeholder="Add Cities" [(ngModel)]="city"/>
+              <button mat-icon-button matSuffix >
+                <mat-icon>add</mat-icon>
+              </button>
+            </mat-form-field>
+            <mat-chip-list aria-label="Fish selection">
+              <mat-chip *ngFor="let city of techTeam.cities, index as i" (click)="remove(i)">{{city}}</mat-chip>
+            </mat-chip-list>
+      </div>
+      <!-- <div class="inputFields changePassword">
+        <p (click)="togglePassword()">Change Password?</p>
+        <div *ngIf="changePassword">
+          <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput placeholder="Enter password" [(ngModel)]="techTeam.password"/>
+          </mat-form-field>
+          <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+            <mat-label>Confirm Password</mat-label>
+            <input type="password" matInput placeholder="Confirm password" [(ngModel)]="confirmPassword"/>
+          </mat-form-field>
+        </div>
+      </div> -->
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button id="buttonUpdate" (click)="update()">Update</button>
+    </mat-card-actions>
+  </mat-card>
+  

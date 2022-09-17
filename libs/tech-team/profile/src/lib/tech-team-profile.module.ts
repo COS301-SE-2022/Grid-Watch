@@ -18,6 +18,7 @@ import { LoggedInGuard } from '@grid-watch/shared-ui';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 import { ProfileSettingComponent } from '@grid-watch/public/user-profile';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { ProfileSettingComponent } from '@grid-watch/public/user-profile';
     MatDividerModule,
     MatGridListModule,
     NgbModule,
+    MatChipsModule,
     RouterModule.forChild([
       {
         path: 'register',
@@ -53,7 +55,7 @@ import { ProfileSettingComponent } from '@grid-watch/public/user-profile';
       {
         path: 'profileSettings',
         pathMatch: 'full',
-        component: ProfileSettingComponent,
+        component: ProfileSettingsComponent,
         canActivate: [LoggedInGuard],
       },
     ]),

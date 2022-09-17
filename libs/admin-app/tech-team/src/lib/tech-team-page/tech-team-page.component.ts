@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TechTeamProfileService, TicketService } from '@grid-watch/shared-ui';
@@ -22,7 +23,8 @@ export class TechTeamPageComponent implements OnInit {
   constructor(
     private techTeamService: TechTeamProfileService,
     private cdRef: ChangeDetectorRef,
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private router : Router
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -89,7 +91,8 @@ export class TechTeamPageComponent implements OnInit {
   }
 
   goToTicket(id: string) {
-    console.log('go to tickets');
+    const url = '/adminViewTicketDetails';
+    this.router.navigate([url, { id: id }]);
   }
 
   IncreaseUpvote(id: number, i: number) {

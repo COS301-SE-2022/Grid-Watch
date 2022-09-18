@@ -115,14 +115,13 @@ export class DashboardOverviewComponent implements AfterViewInit
                 });
             });
 
-
             const heatmap = new google.maps.visualization.HeatmapLayer({ data: locations });
             heatmap.setMap(map);
             heatmap.set("radius", heatmap.get("radius") ? null : 30);
         });
 
     }
-
+    
     async getDatabaseData() 
     {
         let tcount = 0;
@@ -258,6 +257,7 @@ export class DashboardOverviewComponent implements AfterViewInit
     {
         this.getDatabaseData();
 
+        this.createSummaryTable();
         const labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const dataExample = {
             labels: labels,
@@ -512,6 +512,40 @@ export class DashboardOverviewComponent implements AfterViewInit
                 pc?.classList.remove("hidden");
                 pcl?.classList.add("hidden");
             }, 1000);
+        }
+    }
+
+    createSummaryTable(ticketss : TicketDto[], ticketTypes : String[]){
+        const table = document.getElementById("sumtable");
+        const time = 0;
+
+        switch (time)
+            case 0:
+                
+        for (let i = 0; i < ticketss.length; i++)
+        {
+            for (let j = 0; j < ticketTypes.length; j++) {
+                if(ticketss[i].ticketType == ticketTypes[j])
+                {
+                    this.ticketTypesCount[j] +=1;
+                }
+            }
+        }
+
+        if (table != undefined){
+            for (let j = 0; j < ticketTypes.length; j++) {
+                table.innerHTML += "<tr>\n";
+                    <td>ticketTypes[i]</td>
+                    <td>1 hour</td>
+                    <td>24 hours</td>
+                    <td>3 days</td>
+                    <td>7 days</td>
+                    <td>30 days</td>
+                    <td>3 months</td>
+                    <td>6 months</td>
+                    <td>12 months</td>
+                </tr>
+            }
         }
     }
 }

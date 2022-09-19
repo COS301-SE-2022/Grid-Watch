@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "ticket" ALTER COLUMN "ticketCreateDate" SET DEFAULT CURRENT_TIMESTAMP;

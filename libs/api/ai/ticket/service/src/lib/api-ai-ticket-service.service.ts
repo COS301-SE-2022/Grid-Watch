@@ -56,7 +56,11 @@ export class ApiAiTicketServiceService {
                 }
 
                 const currInput:number[] = [];
-                currInput.push(tickets[i].assignedTechTeam);
+                if(tickets[i].assignedTechTeam == null){
+                    currInput.push(1);
+                }else{
+                    currInput.push(tickets[i].assignedTechTeam);
+                }
                 currInput.push(this.searchArray(tickets[i].ticketType,arrTicketType));
                 currInput.push(this.searchArray(tickets[i].ticketCity,arrTicketCity))
                 currInput.push(tickets[i].ticketUpvotes);

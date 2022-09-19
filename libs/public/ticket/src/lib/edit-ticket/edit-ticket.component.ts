@@ -118,19 +118,21 @@ export class EditTicketComponent implements OnInit {
 
       
       const place = this.autocomplete.getPlace()
+      console.log(place);
       if (place !== undefined)
       if (place.place_id !== undefined)
       {
         this.ticket.ticketLocation = place.place_id;
         this.ticket.ticketCity = this.googleMapsService.getAutocompleteCity(place.address_components)
+        this.ticket.ticketStreetAddress = place.formatted_address || "";
       }
-
+      
+      
       if (this.placeID != "")
       {
         this.ticket.ticketLocation = this.placeID;
       }
       
-    console.log(this.ticket);
     
 
     if (this.file !== undefined)
@@ -228,7 +230,6 @@ export class EditTicketComponent implements OnInit {
       lat: this.ticket.ticketLat,
       lng: this.ticket.ticketLong
     }
-    console.log(pos);
     
     // this.googleMapsService.createMarkerObject(pos, this.map, this.ticket.ticketType)
     this.createMapMarker(pos)
@@ -240,7 +241,8 @@ export class EditTicketComponent implements OnInit {
           lat: place.geometry?.location?.lat(),
           lng: place.geometry?.location?.lng()
         }
-        this.createMapMarker(pos)
+        this.createMapMarker(pos);
+
       }
     })
   }

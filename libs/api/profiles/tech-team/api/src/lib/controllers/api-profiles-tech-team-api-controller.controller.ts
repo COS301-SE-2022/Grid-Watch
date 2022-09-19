@@ -170,6 +170,13 @@ export class ApiProfilesTechTeamApiControllerController {
         return this.apiTechTeamService.updateTechTeamRatingJobs(parseInt(params.id),ratingJobs["ratingJobs"]);
     }
 
+    //update Tech Team rating endpoint
+    // @UseGuards(JwtAuthGuard)
+    // @Put('/update/password/:id')
+    // async changePassword(@Param() params,@Body() ratingJobs: number):Promise<boolean> {
+    //     return this.apiTechTeamService.changePassword(parseInt(params.id),ratingJobs["ratingJobs"]);
+    // }
+
     //Delete specified techTeam
     @UseGuards(JwtAuthGuard)
     @Delete('/delete')

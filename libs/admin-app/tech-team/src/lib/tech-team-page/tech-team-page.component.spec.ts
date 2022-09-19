@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {RouterTestingModule} from '@angular/router/testing'
 import { TechTeamPageComponent } from './tech-team-page.component';
 
 describe('TechTeamPageComponent', () => {
@@ -10,7 +10,7 @@ describe('TechTeamPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TechTeamPageComponent],
-      imports: [HttpClientModule]
+      imports: [HttpClientModule, RouterTestingModule]
     }).compileComponents();
   });
 

@@ -6,6 +6,8 @@ import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { response } from 'express';
 import { Loader } from '@googlemaps/js-api-loader';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
+import { type } from 'os';
+import { count, time } from 'console';
 
 
 @Component({
@@ -90,8 +92,6 @@ export class DashboardOverviewComponent implements AfterViewInit
             {
                 locations.push(new google.maps.LatLng(value.ticketLat, value.ticketLong));
             })
-
-
 
             const map = new google.maps.Map(
                 document.getElementById('heatmap') as HTMLElement,
@@ -256,8 +256,6 @@ export class DashboardOverviewComponent implements AfterViewInit
     initiateGraphs(): void
     {
         this.getDatabaseData();
-
-        this.createSummaryTable();
         const labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const dataExample = {
             labels: labels,
@@ -317,6 +315,7 @@ export class DashboardOverviewComponent implements AfterViewInit
     {
         this.ticketService.getTickets().subscribe((ticket) =>
         {
+            this.createSummaryTable(ticket,this.ticketTypes);
             console.log(ticket);
             for (let i = 0; i < ticket.length; i++)
             {
@@ -517,35 +516,49 @@ export class DashboardOverviewComponent implements AfterViewInit
 
     createSummaryTable(ticketss : TicketDto[], ticketTypes : String[]){
         const table = document.getElementById("sumtable");
-        const time = 0;
+        const range:number[] = [3600,86400,604800,2592000,7776000,15552000,31536000]
 
-        switch (time)
-            case 0:
-                
-        for (let i = 0; i < ticketss.length; i++)
-        {
-            for (let j = 0; j < ticketTypes.length; j++) {
-                if(ticketss[i].ticketType == ticketTypes[j])
+        let count:number[] = [];
+        
+        for (let j = 0; j < ticketTypes.length; j++) {
+         count = []
+            for (let i = 0; i < range.length; i++) {
+                count[j] = this.getTicketsInDateRange(ticketss,ticketTypes,range[i])[j]  
+            }
+            console.log(count)
+            if (table != undefined) {
+            
+                table.innerHTML += 
+                `<tr>`+
+                    `<td>` + count[0] + `</td>`+
+                    `<td>` + count[1] + `</td>`+
+                    `<td>` + count[2] + `</td>`+
+                    `<td>` + count[3] + `</td>`+
+                    `<td>` + count[4] + `</td>`+
+                    `<td>` + count[5] + `</td>`+
+                    `<td>` + count[6] + `</td>`+
+                `</tr>`
+                ;
+            }
+        }
+        
+    }
+
+    getTicketsInDateRange(ticketss : TicketDto[], ticketTypes : String[], time:number){
+        const count:number[] = [];
+
+        for (let j = 0; j < ticketTypes.length; j++) // for each type
+        {                
+            for (let i = 0; i < ticketss.length; i++) // count tickets
+            {
+                if (ticketss[i].ticketType == ticketTypes[j] ||
+                    ticketss[i].ticketCreateDate.getSeconds() > new Date().getSeconds() - time) //3600sec = hour)
                 {
-                    this.ticketTypesCount[j] +=1;
+                    count[j]++;
                 }
             }
         }
 
-        if (table != undefined){
-            for (let j = 0; j < ticketTypes.length; j++) {
-                table.innerHTML += "<tr>\n";
-                    <td>ticketTypes[i]</td>
-                    <td>1 hour</td>
-                    <td>24 hours</td>
-                    <td>3 days</td>
-                    <td>7 days</td>
-                    <td>30 days</td>
-                    <td>3 months</td>
-                    <td>6 months</td>
-                    <td>12 months</td>
-                </tr>
-            }
-        }
+        return count;
     }
 }

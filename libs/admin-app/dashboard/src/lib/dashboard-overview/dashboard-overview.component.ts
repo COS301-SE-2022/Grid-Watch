@@ -315,7 +315,7 @@ export class DashboardOverviewComponent implements AfterViewInit
     {
         this.ticketService.getTickets().subscribe((ticket) =>
         {
-            this.createSummaryTable(ticket,this.ticketTypes);
+            this.createSummaryTable(ticket);
             console.log(ticket);
             for (let i = 0; i < ticket.length; i++)
             {
@@ -501,7 +501,6 @@ export class DashboardOverviewComponent implements AfterViewInit
         const temp = document.getElementById(id); 
 
         temp?.classList.remove("hidden");
-        
 
         if(id == "pie-chart-container")
         {
@@ -514,22 +513,41 @@ export class DashboardOverviewComponent implements AfterViewInit
         }
     }
 
-    createSummaryTable(ticketss : TicketDto[], ticketTypes : String[]){
+    createSummaryTable(ticketss : TicketDto[]){
         const table = document.getElementById("sumtable");
         const range:number[] = [3600,86400,604800,2592000,7776000,15552000,31536000]
 
-        let count:number[] = [];
+        const types:string[] = [];
+
+        console.log(ticketss)
+
+        types.push(ticketss[0].ticketType)
         
-        for (let j = 0; j < ticketTypes.length; j++) {
-         count = []
-            for (let i = 0; i < range.length; i++) {
-                count[j] = this.getTicketsInDateRange(ticketss,ticketTypes,range[i])[j]  
-            }
+        for (let a = 1; a < ticketss.length; a++) {
+           let found = false;
+
+           for (let b = 0; b < types.length; b++) {
+
+                if (ticketss[a].ticketType == types[b]) {
+                    found = true
+                }
+           }
+           if (!found){
+                types.push(ticketss[a].ticketType)
+           }
+        }
+
+        console.log(types)
+
+        for (let j = 0; j < types.length; j++) {
+            const count:number[]= this.getTicketsInDateRange(ticketss,types[j],range); 
+
             console.log(count)
             if (table != undefined) {
             
                 table.innerHTML += 
                 `<tr>`+
+                    `<td>` + types[j] + `</td>`+
                     `<td>` + count[0] + `</td>`+
                     `<td>` + count[1] + `</td>`+
                     `<td>` + count[2] + `</td>`+
@@ -544,21 +562,22 @@ export class DashboardOverviewComponent implements AfterViewInit
         
     }
 
-    getTicketsInDateRange(ticketss : TicketDto[], ticketTypes : String[], time:number){
-        const count:number[] = [];
-
-        for (let j = 0; j < ticketTypes.length; j++) // for each type
-        {                
+    getTicketsInDateRange(ticketss : TicketDto[], ticketTypes : string, range:number[]){
+        const count:number[] = [];   
+        for(let j=0;j<range.length;j++){ 
+            count[j]=0;         
             for (let i = 0; i < ticketss.length; i++) // count tickets
             {
-                if (ticketss[i].ticketType == ticketTypes[j] ||
-                    ticketss[i].ticketCreateDate.getSeconds() > new Date().getSeconds() - time) //3600sec = hour)
+                const dates:Date =  new Date(ticketss[i].ticketCreateDate);
+
+                const testRange = (new Date()).getTime()/1000 - range[j];
+                if (ticketss[i].ticketType == ticketTypes && testRange>0 && dates.getTime()/1000 > testRange) //3600sec = hour)
                 {
-                    count[j]++;
+                    count[j] += 1;
                 }
             }
+            
         }
-
         return count;
     }
 }

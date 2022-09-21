@@ -173,4 +173,36 @@ export class DecisionTree {
         return reduction
     }
 
+    calculate_leaf_value(expected:number[]){
+        if(expected.length == 0){
+            return 0;
+        }
+        let average = 0;
+        for(let i=0;i<expected.length;i++){
+            average += expected[i];
+        }
+        const val = average / expected.length;
+        return val
+    }
+
+    fit(dataset:number[][]){
+        
+        this.root = this.build_tree(dataset,0)
+    }
+    
+    make_prediction(input:number[], tree:Node){
+        
+        if(tree!=null){
+            if(tree.value!=-1){
+                return tree.value;
+            }
+            const feature_val = input[tree.feature_index];
+            if(feature_val <= tree.threshold){
+                return this.make_prediction(input,tree.left);
+            }else{
+                return this.make_prediction(input,tree.right);
+            }
+        }
+        return 0;
+    }
 }

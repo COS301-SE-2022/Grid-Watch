@@ -3,12 +3,9 @@ import { Chart, registerables } from 'chart.js';
 import { TicketService } from '@grid-watch/shared-ui';
 import { } from 'chart.js/auto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { response } from 'express';
 import { Loader } from '@googlemaps/js-api-loader';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
-import { type } from 'os';
-import { count, time } from 'console';
-
+import { MatTableModule } from '@angular/material/table'
 
 @Component({
     selector: 'grid-watch-dashboard-overview',
@@ -21,6 +18,10 @@ export class DashboardOverviewComponent implements AfterViewInit
         private ticketService: TicketService,
         private googleMapsService: GoogleMapsService,
     ) { }
+
+    tableData:string[][]=[];
+    colNames:string[] = ["Issue type","Past hour","Past 24 hours","Past 7 days","Past 30 days","Past 3 months","Past 6 months","Past year"]
+  
     Pothole: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     TrafficLights: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     StreetLights: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -538,27 +539,22 @@ export class DashboardOverviewComponent implements AfterViewInit
         }
 
         console.log(types)
-
+        const retCount:string[][]=[];
         for (let j = 0; j < types.length; j++) {
             const count:number[]= this.getTicketsInDateRange(ticketss,types[j],range); 
+            const str:string[]=[];
+            str.push(types[j]);
 
-            console.log(count)
-            if (table != undefined) {
-            
-                table.innerHTML += 
-                `<tr>`+
-                    `<td>` + types[j] + `</td>`+
-                    `<td>` + count[0] + `</td>`+
-                    `<td>` + count[1] + `</td>`+
-                    `<td>` + count[2] + `</td>`+
-                    `<td>` + count[3] + `</td>`+
-                    `<td>` + count[4] + `</td>`+
-                    `<td>` + count[5] + `</td>`+
-                    `<td>` + count[6] + `</td>`+
-                `</tr>`
-                ;
+            for(let i=0;i<count.length;i++){
+                str.push(count[i].toString());
             }
+
+            retCount.push(str);
+
         }
+        console.log(retCount)
+        this.tableData = retCount;
+
         
     }
 

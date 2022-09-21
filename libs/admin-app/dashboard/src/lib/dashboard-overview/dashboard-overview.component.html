@@ -60,17 +60,20 @@
     </div>
 </div>
 
-<div id="summary-table-container" style="overflow-x:auto" class="">
-    <table id = "sumtable">
+
+<div id="sumtable"*ngIf="tableData" style = "overflow: auto;">
+    <table>
         <tr>
-            <th>Issue type</th>
-            <th> Past hour </th>
-            <th> Past 24 hours </th>
-            <th> Past 7 days </th>
-            <th> Past 30 days </th>
-            <th> Past 3 months </th>
-            <th> Past 6 months </th>
-            <th> Past year </th>
+            <th *ngFor="let heading of colNames">
+                {{heading}}
+            </th>
+        </tr>
+        <tr *ngFor="let row of tableData">
+            <td  *ngFor="let data of row">
+                {{data}}
+            </td>
         </tr>
     </table>
 </div>
+
+

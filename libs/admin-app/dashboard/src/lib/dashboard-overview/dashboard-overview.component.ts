@@ -6,6 +6,8 @@ import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { response } from 'express';
 import { Loader } from '@googlemaps/js-api-loader';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
+import { type } from 'os';
+import { count, time } from 'console';
 
 
 @Component({
@@ -91,8 +93,6 @@ export class DashboardOverviewComponent implements AfterViewInit
                 locations.push(new google.maps.LatLng(value.ticketLat, value.ticketLong));
             })
 
-
-
             const map = new google.maps.Map(
                 document.getElementById('heatmap') as HTMLElement,
                 {
@@ -115,14 +115,13 @@ export class DashboardOverviewComponent implements AfterViewInit
                 });
             });
 
-
             const heatmap = new google.maps.visualization.HeatmapLayer({ data: locations });
             heatmap.setMap(map);
             heatmap.set("radius", heatmap.get("radius") ? null : 30);
         });
 
     }
-
+    
     async getDatabaseData() 
     {
         let tcount = 0;
@@ -257,7 +256,6 @@ export class DashboardOverviewComponent implements AfterViewInit
     initiateGraphs(): void
     {
         this.getDatabaseData();
-
         const labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const dataExample = {
             labels: labels,
@@ -317,6 +315,7 @@ export class DashboardOverviewComponent implements AfterViewInit
     {
         this.ticketService.getTickets().subscribe((ticket) =>
         {
+            this.createSummaryTable(ticket);
             console.log(ticket);
             for (let i = 0; i < ticket.length; i++)
             {
@@ -502,7 +501,6 @@ export class DashboardOverviewComponent implements AfterViewInit
         const temp = document.getElementById(id); 
 
         temp?.classList.remove("hidden");
-        
 
         if(id == "pie-chart-container")
         {
@@ -513,5 +511,73 @@ export class DashboardOverviewComponent implements AfterViewInit
                 pcl?.classList.add("hidden");
             }, 1000);
         }
+    }
+
+    createSummaryTable(ticketss : TicketDto[]){
+        const table = document.getElementById("sumtable");
+        const range:number[] = [3600,86400,604800,2592000,7776000,15552000,31536000]
+
+        const types:string[] = [];
+
+        console.log(ticketss)
+
+        types.push(ticketss[0].ticketType)
+        
+        for (let a = 1; a < ticketss.length; a++) {
+           let found = false;
+
+           for (let b = 0; b < types.length; b++) {
+
+                if (ticketss[a].ticketType == types[b]) {
+                    found = true
+                }
+           }
+           if (!found){
+                types.push(ticketss[a].ticketType)
+           }
+        }
+
+        console.log(types)
+
+        for (let j = 0; j < types.length; j++) {
+            const count:number[]= this.getTicketsInDateRange(ticketss,types[j],range); 
+
+            console.log(count)
+            if (table != undefined) {
+            
+                table.innerHTML += 
+                `<tr>`+
+                    `<td>` + types[j] + `</td>`+
+                    `<td>` + count[0] + `</td>`+
+                    `<td>` + count[1] + `</td>`+
+                    `<td>` + count[2] + `</td>`+
+                    `<td>` + count[3] + `</td>`+
+                    `<td>` + count[4] + `</td>`+
+                    `<td>` + count[5] + `</td>`+
+                    `<td>` + count[6] + `</td>`+
+                `</tr>`
+                ;
+            }
+        }
+        
+    }
+
+    getTicketsInDateRange(ticketss : TicketDto[], ticketTypes : string, range:number[]){
+        const count:number[] = [];   
+        for(let j=0;j<range.length;j++){ 
+            count[j]=0;         
+            for (let i = 0; i < ticketss.length; i++) // count tickets
+            {
+                const dates:Date =  new Date(ticketss[i].ticketCreateDate);
+
+                const testRange = (new Date()).getTime()/1000 - range[j];
+                if (ticketss[i].ticketType == ticketTypes && testRange>0 && dates.getTime()/1000 > testRange) //3600sec = hour)
+                {
+                    count[j] += 1;
+                }
+            }
+            
+        }
+        return count;
     }
 }

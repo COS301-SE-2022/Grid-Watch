@@ -52,8 +52,9 @@ export class TechTeamProfileService {
   }
 
   public getTechTeam(email: string) {
-    const tempURL = this.getTechTeamIDURL + email;
-
+    const tempURL = this.getTechTeamURL + email;
+    console.log(tempURL+"temp");
+    console.log(email+"email");
     return this.http
       .get<TechTeamDto[]>(tempURL)
       .pipe(catchError(this.handleError<TechTeamDto[]>('getTechTeam', [])));

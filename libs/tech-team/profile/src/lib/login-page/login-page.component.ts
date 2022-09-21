@@ -69,7 +69,6 @@ export class LoginPageComponent implements OnInit {
     this.profileService
       .getTechTeam(this.techProfile.email)
       .subscribe((response) => {
-        console.log(response);
         this.sessionService.login(response[0].id.toString())
         this.router.navigateByUrl('/profile');
       });

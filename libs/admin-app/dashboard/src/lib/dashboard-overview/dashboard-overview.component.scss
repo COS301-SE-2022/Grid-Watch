@@ -90,3 +90,23 @@ mat-slide-toggle
     left:20%;
     height:80%;
 }
+
+#summary-table-container
+{
+
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid rgb(98, 96, 96);
+  }
+  
+  th, td {
+    text-align: left;
+    border: #aeaeae;
+    padding: 8px;
+  }
+  
+  tr:nth-child(1){background-color: rgb(142, 198, 63)}

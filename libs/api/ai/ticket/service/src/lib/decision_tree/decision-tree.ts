@@ -125,4 +125,52 @@ export class DecisionTree {
         return best_split
     }
 
+    private splitleft(dataset:number[][], feature_index:number, threshold:number){
+        const dataset_left:number[][] = [];
+
+        for(let i=0;i<dataset.length;i++){
+            if(dataset[i][feature_index]<=threshold){
+                dataset_left.push(dataset[i]);
+            }
+        }
+
+        return dataset_left;
+    }
+
+    private splitright(dataset:number[][],feature_index:number,threshold:number){
+        const dataset_right:number[][] = [];
+
+        for(let i=0;i<dataset.length;i++){
+            if(dataset[i][feature_index]>threshold){
+                dataset_right.push(dataset[i]);
+            }
+        }
+
+        return dataset_right;
+    }
+
+    variance(arrinput : number[]){
+        let average =0;
+        for(let i=0;i<arrinput.length;i++){
+            average += arrinput[i];
+        }
+        average = average /arrinput.length;
+        
+        let meanSquare = 0;
+        for(let i=0;i<arrinput.length;i++){
+            meanSquare += Math.pow((arrinput[i] - average),2);
+        }
+
+        const variance = meanSquare/arrinput.length;
+        return variance;
+    }
+
+    private variance_reduction(parent:number[], l_child:number[], r_child:number[]){
+
+        const weight_l = l_child.length/parent.length;
+        const weight_r = r_child.length/parent.length;
+        const reduction = this.variance(parent) - (weight_l * this.variance(l_child) + weight_r * this.variance(r_child));
+        return reduction
+    }
+
 }

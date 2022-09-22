@@ -185,11 +185,11 @@ export class DashboardOverviewComponent implements AfterViewInit
 
                     for (let a = 0; a < ticketTypes.length; a++)
                     {
-                        if (ticketTypes[a] == "Water outage")
+                        if (ticketTypes[a] == "Water Outage")
                         {
                             this.backgroundColor[a] = 'rgba(142, 198, 63, 0.6)';
                         }
-                        if (ticketTypes[a] == "Electricity outage")
+                        if (ticketTypes[a] == "Electricity Outage")
                         {
                             this.backgroundColor[a] = 'rgba(61, 179, 99, 0.6)';
                         }
@@ -335,9 +335,8 @@ export class DashboardOverviewComponent implements AfterViewInit
                         {
                             this.Pothole[month]++;
                         }
-                        else if (type == "Water outage")
+                        else if (type == "Water Outage")
                         {
-                            // console.log("Water");
                             this.Water[month]++;
                         }
                         else if (type == "Broken Street Light")
@@ -348,11 +347,11 @@ export class DashboardOverviewComponent implements AfterViewInit
                         {
                             this.TrafficLights[month]++;
                         }
-                        else if (type == "Electricity outage")
+                        else if (type == "Electricity Outage")
                         {
                             this.Electricity[month]++;
                         }
-                        else if (type == "Sinkholes" || type == "Other")
+                        else if (type == "Sinkhole" || type == "Other")
                         {
                             this.Other[month]++;
                         }
@@ -397,11 +396,11 @@ export class DashboardOverviewComponent implements AfterViewInit
                 case "Pothole":
                     typeIndex = this.getTypeIndex("Pothole");
                     break;
-                case "Water outage":
-                    typeIndex = this.getTypeIndex("Water outage");
+                case "Water Outage":
+                    typeIndex = this.getTypeIndex("Water Outage");
                     break;
-                case "Electricity outage":
-                    typeIndex = this.getTypeIndex("Electricity outage");
+                case "Electricity Outage":
+                    typeIndex = this.getTypeIndex("Electricity Outage");
                     break;
                 case "Broken Street Light":
                     typeIndex = this.getTypeIndex("Broken Street Light");
@@ -428,17 +427,17 @@ export class DashboardOverviewComponent implements AfterViewInit
                     backgroundColor: 'rgba(142, 198, 63, 0.6)',
                     yAxisID: 'y',
                 })
-            else if (type === "Water outage")
+            else if (type === "Water Outage")
                 this.chart.config.data.datasets.push({
-                    label: 'Water outage',
+                    label: 'Water Outage',
                     data: this.Water,
                     borderColor: 'rgba(61, 179, 99, 0.6)',
                     backgroundColor: 'rgba(61, 179, 99, 0.6)',
                     yAxisID: 'y',
                 })
-            else if (type === "Electricity outage")
+            else if (type === "Electricity Outage")
                 this.chart.config.data.datasets.push({
-                    label: 'Electricity outage',
+                    label: 'Electricity Outage',
                     data: this.Electricity,
                     borderColor: 'rgba(0, 154, 124)',
                     backgroundColor: 'rgba(0, 154, 124)',
@@ -515,7 +514,7 @@ export class DashboardOverviewComponent implements AfterViewInit
     }
 
     createSummaryTable(ticketss : TicketDto[]){
-        const table = document.getElementById("sumtable");
+
         const range:number[] = [3600,86400,604800,2592000,7776000,15552000,31536000]
 
         const types:string[] = [];
@@ -555,7 +554,6 @@ export class DashboardOverviewComponent implements AfterViewInit
         console.log(retCount)
         this.tableData = retCount;
 
-        
     }
 
     getTicketsInDateRange(ticketss : TicketDto[], ticketTypes : string, range:number[]){

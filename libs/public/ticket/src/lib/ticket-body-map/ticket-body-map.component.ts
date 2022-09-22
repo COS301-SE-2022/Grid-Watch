@@ -109,14 +109,14 @@ export class TicketBodyMapComponent implements OnInit
 
         switch (this.tickets[i]["ticketType"])
 				{
-					case "Electricity Outage":
+					case "Electricity outage":
 						temp = "assets/issue-brokenpower-pin.png";
 						break;
-					case "Water Outage":
+					case "Water outage":
 						temp = "assets/issue-water-pin.png";
 						break;
 					case "Pothole":
-						temp = "assets/issue-pothole-pin.png";
+						temp = "assets/issue-pothole-pin.jpg";
 						break;
 					case "Sinkhole":
 						temp = "assets/issue-sinkhole-pin.png";
@@ -125,7 +125,7 @@ export class TicketBodyMapComponent implements OnInit
 						temp = "assets/issue-brokenrobot-pin.png";
 						break;
 					case "Broken Street Light":
-						temp = "assets/issue-brokenlight-pin.png";
+						temp = "assets/issue-brokenlight-pin1.png";
 						break;
 					default:
 						temp = "assets/issue-maintenance-pin.png";
@@ -137,8 +137,8 @@ export class TicketBodyMapComponent implements OnInit
           label,
           icon: { 
 						url: temp, 
-						size: new google.maps.Size(52, 66),
-						scaledSize: new google.maps.Size(52, 66),
+						size: new google.maps.Size(42, 56),
+						scaledSize: new google.maps.Size(42, 56),
 						origin: new google.maps.Point(0,0)
 					}
         });

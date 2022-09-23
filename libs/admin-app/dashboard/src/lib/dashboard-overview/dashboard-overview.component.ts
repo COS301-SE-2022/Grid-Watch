@@ -3,12 +3,9 @@ import { Chart, registerables } from 'chart.js';
 import { TicketService } from '@grid-watch/shared-ui';
 import { } from 'chart.js/auto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { response } from 'express';
 import { Loader } from '@googlemaps/js-api-loader';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
-import { type } from 'os';
-import { count, time } from 'console';
-
+import { MatTableModule } from '@angular/material/table'
 
 @Component({
     selector: 'grid-watch-dashboard-overview',
@@ -21,6 +18,10 @@ export class DashboardOverviewComponent implements AfterViewInit
         private ticketService: TicketService,
         private googleMapsService: GoogleMapsService,
     ) { }
+
+    tableData:string[][]=[];
+    colNames:string[] = ["Issue type","Past hour","Past 24 hours","Past 7 days","Past 30 days","Past 3 months","Past 6 months","Past year"]
+  
     Pothole: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     TrafficLights: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     StreetLights: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -184,11 +185,11 @@ export class DashboardOverviewComponent implements AfterViewInit
 
                     for (let a = 0; a < ticketTypes.length; a++)
                     {
-                        if (ticketTypes[a] == "Water outage")
+                        if (ticketTypes[a] == "Water Outage")
                         {
                             this.backgroundColor[a] = 'rgba(142, 198, 63, 0.6)';
                         }
-                        if (ticketTypes[a] == "Electricity outage")
+                        if (ticketTypes[a] == "Electricity Outage")
                         {
                             this.backgroundColor[a] = 'rgba(61, 179, 99, 0.6)';
                         }
@@ -334,9 +335,8 @@ export class DashboardOverviewComponent implements AfterViewInit
                         {
                             this.Pothole[month]++;
                         }
-                        else if (type == "Water outage")
+                        else if (type == "Water Outage")
                         {
-                            // console.log("Water");
                             this.Water[month]++;
                         }
                         else if (type == "Broken Street Light")
@@ -347,11 +347,11 @@ export class DashboardOverviewComponent implements AfterViewInit
                         {
                             this.TrafficLights[month]++;
                         }
-                        else if (type == "Electricity outage")
+                        else if (type == "Electricity Outage")
                         {
                             this.Electricity[month]++;
                         }
-                        else if (type == "Sinkholes" || type == "Other")
+                        else if (type == "Sinkhole" || type == "Other")
                         {
                             this.Other[month]++;
                         }
@@ -396,11 +396,11 @@ export class DashboardOverviewComponent implements AfterViewInit
                 case "Pothole":
                     typeIndex = this.getTypeIndex("Pothole");
                     break;
-                case "Water outage":
-                    typeIndex = this.getTypeIndex("Water outage");
+                case "Water Outage":
+                    typeIndex = this.getTypeIndex("Water Outage");
                     break;
-                case "Electricity outage":
-                    typeIndex = this.getTypeIndex("Electricity outage");
+                case "Electricity Outage":
+                    typeIndex = this.getTypeIndex("Electricity Outage");
                     break;
                 case "Broken Street Light":
                     typeIndex = this.getTypeIndex("Broken Street Light");
@@ -427,17 +427,17 @@ export class DashboardOverviewComponent implements AfterViewInit
                     backgroundColor: 'rgba(142, 198, 63, 0.6)',
                     yAxisID: 'y',
                 })
-            else if (type === "Water outage")
+            else if (type === "Water Outage")
                 this.chart.config.data.datasets.push({
-                    label: 'Water outage',
+                    label: 'Water Outage',
                     data: this.Water,
                     borderColor: 'rgba(61, 179, 99, 0.6)',
                     backgroundColor: 'rgba(61, 179, 99, 0.6)',
                     yAxisID: 'y',
                 })
-            else if (type === "Electricity outage")
+            else if (type === "Electricity Outage")
                 this.chart.config.data.datasets.push({
-                    label: 'Electricity outage',
+                    label: 'Electricity Outage',
                     data: this.Electricity,
                     borderColor: 'rgba(0, 154, 124)',
                     backgroundColor: 'rgba(0, 154, 124)',
@@ -514,7 +514,7 @@ export class DashboardOverviewComponent implements AfterViewInit
     }
 
     createSummaryTable(ticketss : TicketDto[]){
-        const table = document.getElementById("sumtable");
+
         const range:number[] = [3600,86400,604800,2592000,7776000,15552000,31536000]
 
         const types:string[] = [];
@@ -538,28 +538,22 @@ export class DashboardOverviewComponent implements AfterViewInit
         }
 
         console.log(types)
-
+        const retCount:string[][]=[];
         for (let j = 0; j < types.length; j++) {
             const count:number[]= this.getTicketsInDateRange(ticketss,types[j],range); 
+            const str:string[]=[];
+            str.push(types[j]);
 
-            console.log(count)
-            if (table != undefined) {
-            
-                table.innerHTML += 
-                `<tr>`+
-                    `<td>` + types[j] + `</td>`+
-                    `<td>` + count[0] + `</td>`+
-                    `<td>` + count[1] + `</td>`+
-                    `<td>` + count[2] + `</td>`+
-                    `<td>` + count[3] + `</td>`+
-                    `<td>` + count[4] + `</td>`+
-                    `<td>` + count[5] + `</td>`+
-                    `<td>` + count[6] + `</td>`+
-                `</tr>`
-                ;
+            for(let i=0;i<count.length;i++){
+                str.push(count[i].toString());
             }
+
+            retCount.push(str);
+
         }
-        
+        console.log(retCount)
+        this.tableData = retCount;
+
     }
 
     getTicketsInDateRange(ticketss : TicketDto[], ticketTypes : string, range:number[]){

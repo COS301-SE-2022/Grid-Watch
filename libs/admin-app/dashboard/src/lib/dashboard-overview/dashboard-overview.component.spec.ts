@@ -4,7 +4,6 @@ import {Chart, registerables} from 'chart.js';
 import {HttpClientModule} from '@angular/common/http';
 import {GoogleMapsService} from '@grid-watch/shared-ui';
 
-
 describe('DashboardOverviewComponent', () => {
   let component: DashboardOverviewComponent;
   let fixture: ComponentFixture<DashboardOverviewComponent>;

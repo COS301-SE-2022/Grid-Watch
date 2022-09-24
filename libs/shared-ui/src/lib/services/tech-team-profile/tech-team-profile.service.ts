@@ -52,7 +52,7 @@ export class TechTeamProfileService {
   }
 
   public getTechTeam(email: string) {
-    const tempURL = this.getTechTeamIDURL + email;
+    const tempURL = this.getTechTeamURL + email;
 
     return this.http
       .get<TechTeamDto[]>(tempURL)

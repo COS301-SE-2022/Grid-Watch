@@ -20,12 +20,12 @@ COPY . .
 RUN yarn install
 
 # Set environment variable PORT which is the PORT the container will run on
-ENV PORT=3333
+ENV PORT=4201
 ENV DATABASE_URL="postgresql://gridwatchroot@grid-watch-server:Ntsyug@5@grid-watch-server.postgres.database.azure.com:5432/grid-watch-server"
 
 
 # Expose the PORT
-EXPOSE 3333
+EXPOSE 4201
 
 # Start the client application
-CMD ["yarn", "start:api"]
+CMD ["yarn", "start:admin"]

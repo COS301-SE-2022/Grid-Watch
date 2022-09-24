@@ -1,26 +1,5 @@
-# Base Image
-FROM node
+FROM nginx
 
-# Set working directory
-WORKDIR /app
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
-# Copy package.json to the working directory
-COPY package*.json ./
-
-COPY nx.json ./
-
-# Copy yarn.lock to the working directory
-COPY yarn.lock ./
-
-
-# Copy project files to the working directory
-COPY . .
-
-# Install dependencies using package.json
-RUN yarn install
-
-# Expose the PORT
-EXPOSE 4200
-
-# Start the client application
-CMD ["yarn", "start:public"]
+COPY dist/apps/public usr/share/nginx/html

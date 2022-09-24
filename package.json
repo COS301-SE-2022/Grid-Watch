@@ -7,7 +7,8 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
     "start": "nx serve",
     "start:api": "nx run api:serve",
-    "start:public": "nx run public:serve:production --host 0.0.0.0 --disableHostCheck" ,
+    "start:public": "nx run public:serve:production",
+    "start:admin": "nx run admin:serve:production --host 0.0.0.0 --disableHostCheck",
     "build": "nx build",
     "test": "nx test",
     "studio": "prisma studio"
@@ -52,6 +53,7 @@
     "@types/passport-jwt": "^3.0.6",
     "@types/passport-local": "^1.0.34",
     "Express": "^3.0.1",
+    "angular-http-server": "^1.11.0",
     "babel-loader": "^8.0.2",
     "bcrypt": "^5.0.1",
     "bootstrap": "^5.1.3",

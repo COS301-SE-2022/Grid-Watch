@@ -16,57 +16,60 @@ import { NoopScrollStrategy } from '@angular/cdk/overlay';
   templateUrl: './create-ticket.component.html',
   styleUrls: ['./create-ticket.component.scss'],
 })
-export class CreateTicketComponent{
+export class CreateTicketComponent
+{
 
-    hideRequiredControl = new FormControl(false);
-    floatLabelControl = new FormControl('auto' as FloatLabelType);
-    formOptions = this.formBuilder.group({
-      hideRequired: this.hideRequiredControl,
-      floatLabel: this.floatLabelControl,
-    });
+  hideRequiredControl = new FormControl(false);
+  floatLabelControl = new FormControl('auto' as FloatLabelType);
+  formOptions = this.formBuilder.group({
+    hideRequired: this.hideRequiredControl,
+    floatLabel: this.floatLabelControl,
+  });
 
-  @Input() ticket : TicketDto = new TicketDto();
+  @Input() ticket: TicketDto = new TicketDto();
 
-  file! : File;
+  file!: File;
 
   autocomplete!: google.maps.places.Autocomplete;
   marker!: google.maps.Marker
 
-  zoom! : number;
-  center! : google.maps.LatLngLiteral
+  zoom!: number;
+  center!: google.maps.LatLngLiteral
   options!: google.maps.MapOptions;
   placeID!: string;
 
-  defaultUpload! : string;
+  defaultUpload!: string;
   other!: boolean;
   otherDetails!: string;
   map!: google.maps.Map;
-  
-  user! : UserDto
+
+  user!: UserDto
 
   issueOptions = ["Pothole", "Sinkhole", "Broken Street Light", "Broken Traffic Light", "Water Outage", "Electricity Outage", "Other"]
-  dialogRef! : MatDialogRef<MessageDialogComponent>;
+  dialogRef!: MatDialogRef<MessageDialogComponent>;
 
   issue = new FormControl('', [Validators.required]);
   location = new FormControl('', [Validators.required]);
   description = new FormControl('', [Validators.required]);
 
-  
+
 
   constructor(
-              private router: Router,
-              private ticketService : TicketService,
-              private googleMapsService: GoogleMapsService,
-              private formBuilder: FormBuilder,
-              private profileService : PublicProfileService,
-              public dialog: MatDialog,
-              private toast: ToastService,
-              private sesssionService: SessionManagerService) {
-              }
-              
-  async ngOnInit(): Promise<void> {    
+    private router: Router,
+    private ticketService: TicketService,
+    private googleMapsService: GoogleMapsService,
+    private formBuilder: FormBuilder,
+    private profileService: PublicProfileService,
+    public dialog: MatDialog,
+    private toast: ToastService,
+    private sesssionService: SessionManagerService)
+  {
+  }
+
+  async ngOnInit(): Promise<void>
+  {
     this.zoom = 5.5;
-    this.center =  {
+    this.center = {
       lat: -30.5595,
       lng: 22.9375,
     };
@@ -85,109 +88,117 @@ export class CreateTicketComponent{
     const loader = new Loader({
       apiKey: "AIzaSyDoV4Ksi2XO7UmYfl4Tue5JhDjKW57DlTE",
       version: "weekly",
-      libraries: ["places","visualization"]
+      libraries: ["places", "visualization"]
     });
-    
-    loader.load().then(() => {
+
+    loader.load().then(() =>
+    {
 
       this.initMap();
-      
-      }, (error) =>{console.log(error);
-      });
-    
+
+    }, (error) =>
+    {
+      console.log(error);
+    });
+
     // this.initMap()
   }
 
 
-  getFloatLabelValue(): FloatLabelType {
+  getFloatLabelValue(): FloatLabelType
+  {
     return this.floatLabelControl.value || 'auto';
   }
 
-  async fileUploaded(e: any) : Promise<void>
+  async fileUploaded(e: any): Promise<void>
   {
 
     this.file = e.target.files[0];
-    
-    
+
+
     const reader = new FileReader();
-    reader.onload = () => {
+    reader.onload = () =>
+    {
       this.defaultUpload = reader.result as string;
     }
-    await this.delay(2000)    
+    await this.delay(2000)
     reader.readAsDataURL(this.file)
-    
-    
+
+
   }
 
-  showErrorMessage(title :string, info : string ) : void{
+  showErrorMessage(title: string, info: string): void
+  {
     const temp = window.innerWidth;
-      const pageData = title;
-      const pageInfo = info;
-      this.dialogRef = this.dialog.open(MessageDialogComponent,{
-        panelClass: ['full-screen'],
-        data: {pageData: pageData, pageInfo : pageInfo, return: ""},
-        width: temp.toString(), 
-        height: "150",
-        scrollStrategy: new NoopScrollStrategy()
-      },);
-    
+    const pageData = title;
+    const pageInfo = info;
+    this.dialogRef = this.dialog.open(MessageDialogComponent, {
+      panelClass: ['full-screen'],
+      data: { pageData: pageData, pageInfo: pageInfo, return: "" },
+      width: temp.toString(),
+      height: "150",
+      scrollStrategy: new NoopScrollStrategy()
+    });
+
   }
 
 
-  async createTicket() : Promise<void>
+  async createTicket(): Promise<void>
   {
     console.log(this.ticket);
-    
+
     if (this.ticket.ticketType === "" || this.ticket.ticketDescription === "") //&& this.location.hasError !== null )
     {
       this.showErrorMessage("Fields", "Complete all mandatory fields")
       return;
     }
-    
-    if (( this.ticket.ticketLocation == ""))
-    {
-      
-      this.showErrorMessage("Location","Location not found")
-      return;
-    }
-    
-    if ((this.autocomplete.getPlace() === undefined) && (( this.placeID === "")))
+
+    if ((this.ticket.ticketLocation == ""))
     {
 
-      this.showErrorMessage("Location","Location not found")
+      this.showErrorMessage("Location", "Location not found")
+      return;
+    }
+
+    if ((this.autocomplete.getPlace() === undefined) && ((this.placeID === "")))
+    {
+
+      this.showErrorMessage("Location", "Location not found")
       return;
     }
     const userId = this.sesssionService.getID();
     const loggedIn = this.sesssionService.getLoggedIn();
     if (userId == null && loggedIn === null)
-    {            
-      this.showErrorMessage("Login","Not logged in, would you like to post as a guest?")
-      
-      this.dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
-        this.createGuest();
-      });
-      return;
-    }
-    else if(loggedIn === "false")
     {
-      this.showErrorMessage("Login","Not logged in, would you like to post as a guest?")
-      
-      this.dialogRef.afterClosed().subscribe(result => {
+      this.showErrorMessage("Login", "Not logged in, would you like to post as a guest?")
+
+      this.dialogRef.afterClosed().subscribe(result =>
+      {
         console.log(`Dialog result: ${result}`);
         this.createGuest();
       });
       return;
     }
-    
+    else if (loggedIn === "false")
+    {
+      this.showErrorMessage("Login", "Not logged in, would you like to post as a guest?")
+
+      this.dialogRef.afterClosed().subscribe(result =>
+      {
+        console.log(`Dialog result: ${result}`);
+        this.createGuest();
+      });
+      return;
+    }
+
     // if (this.placeID == "")
     // {
-      this.placeID = this.autocomplete.getPlace().place_id as string;
-      this.ticket.ticketCity = this.googleMapsService.getAutocompleteCity(this.autocomplete.getPlace().address_components);
-      this.ticket.ticketLat = this.autocomplete.getPlace().geometry?.location?.lat() || 0;
-      this.ticket.ticketLong = this.autocomplete.getPlace().geometry?.location?.lng() || 0;
-      console.log(this.autocomplete.getPlace());
-      this.ticket.ticketStreetAddress = this.autocomplete.getPlace().formatted_address || "";
+    this.placeID = this.autocomplete.getPlace().place_id as string;
+    this.ticket.ticketCity = this.googleMapsService.getAutocompleteCity(this.autocomplete.getPlace().address_components);
+    this.ticket.ticketLat = this.autocomplete.getPlace().geometry?.location?.lat() || 0;
+    this.ticket.ticketLong = this.autocomplete.getPlace().geometry?.location?.lng() || 0;
+    console.log(this.autocomplete.getPlace());
+    this.ticket.ticketStreetAddress = this.autocomplete.getPlace().formatted_address || "";
     // }
     this.ticket.ticketLocation = this.placeID;
     this.ticket.ticketStatus = "Created";
@@ -195,12 +206,12 @@ export class CreateTicketComponent{
     this.ticket.ticketUpvotes = 0;
     if (userId != null)
       this.ticket.userId = parseInt(userId);
-    
+
     if (this.file)
     {
       const formData = new FormData();
       formData.append("photo", this.file, this.file.name);
-  
+
       this.ticketService.postImage(formData).subscribe(
         (response) =>
         {
@@ -211,23 +222,24 @@ export class CreateTicketComponent{
     }
     else
     {
-      this.toast.show('Ticket Created Successfully',{
+      this.toast.show('Ticket Created Successfully', {
         classname: 'bg-success text-light',
         delay: 5000,
         autohide: true
       });
       this.uploadTicket();
     }
-     
+
   }
 
 
-  async initMap() : Promise<void>
+  async initMap(): Promise<void>
   {
-    this.map = this.googleMapsService.createMapObject("map",this.center,this.zoom)
+    this.map = this.googleMapsService.createMapObject("map", this.center, this.zoom)
     this.autocomplete = this.googleMapsService.createAutoCompleteObject("pac-input");
-    google.maps.event.addListener(this.autocomplete, "place_changed" , 
-      () =>{
+    google.maps.event.addListener(this.autocomplete, "place_changed",
+      () =>
+      {
         const place = this.autocomplete.getPlace()
         if (place.geometry?.location !== undefined)
         {
@@ -235,27 +247,73 @@ export class CreateTicketComponent{
             lat: place.geometry?.location?.lat(),
             lng: place.geometry?.location?.lng()
           }
-          
+
           this.createMapMarker(pos)
         }
       })
-    this.map.addListener("click", (e: { latLng: any; }) => {
+
+    this.map.addListener("click", (e: { latLng: any; }) =>
+    {
       this.placeMarkerAndPanTo(e.latLng, this.map);
     });
 
     this.ticketService.getTickets().subscribe(
-      (response) =>{
+      (response) =>
+      {
+
         const tickets = response;
-        tickets.forEach((ticket) =>{
-            const marker = new google.maps.Marker({
-            position: {lat: ticket.ticketLat, lng: ticket.ticketLong},
+
+        const label = "";
+        let temp: string;
+
+
+
+        tickets.forEach((ticket) =>
+        {
+          switch (ticket["ticketType"])
+          {
+            case "Electricity Outage":
+              temp = "assets/issue-brokenpower-pin1.png";
+              break;
+            case "Water Outage":
+              temp = "assets/issue-water-pin1.png";
+              break;
+            case "Pothole":
+              temp = "assets/issue-pothole-pin1.jpg";
+              break;
+            case "Sinkhole":
+              temp = "assets/issue-sinkhole-pin1.png";
+              break;
+            case "Broken Traffic Light":
+              temp = "assets/issue-brokenrobot-pin1.png";
+              break;
+            case "Broken Street Light":
+              temp = "assets/issue-brokenlight-pin1.png";
+              break;
+            default:
+              temp = "assets/issue-maintenance-pin1.png";
+              break;
+          }
+
+          const marker = new google.maps.Marker({
+            position: { lat: ticket.ticketLat, lng: ticket.ticketLong },
             map: this.map,
+            icon: { 
+              url: temp, 
+              size: new google.maps.Size(43, 56),
+              scaledSize: new google.maps.Size(43, 56),
+              origin: new google.maps.Point(0,0)
+            }
           });
           const infoWindow = new google.maps.InfoWindow({
             content: '',
             disableAutoPan: true,
           });
-          marker.addListener('click', () => {
+
+
+
+          marker.addListener('click', () =>
+          {
             // const html = 
             // `<div> 
             //   ${this.tickets[i].ticketType}
@@ -263,8 +321,9 @@ export class CreateTicketComponent{
             // </div>`;
             const html = document.createElement("div");
             html.innerHTML = ticket.ticketType;
-            html.onclick = () =>{
-              this.router.navigate(['/viewTicket', {id: ticket.ticketId}]) ;
+            html.onclick = () =>
+            {
+              this.router.navigate(['/viewTicket', { id: ticket.ticketId }]);
             };
             infoWindow.setContent(html);
             infoWindow.open(this.map, marker);
@@ -272,22 +331,23 @@ export class CreateTicketComponent{
         })
       }
     )
-    
-    
-    
+
+
+
   }
 
 
 
-  placeMarkerAndPanTo(latLng: google.maps.LatLng, map: google.maps.Map) {
+  placeMarkerAndPanTo(latLng: google.maps.LatLng, map: google.maps.Map)
+  {
     // new google.maps.Marker({
     //   position: latLng,
     //   map: map,
     // });
-    this.createMapMarker({lat: latLng.lat(), lng: latLng.lng()})
+    this.createMapMarker({ lat: latLng.lat(), lng: latLng.lng() })
   }
-    
-  
+
+
 
 
   createGuest()
@@ -298,18 +358,21 @@ export class CreateTicketComponent{
     guestUser.name = "guest" + Date.now();
     const string_length = 12;
     let randomstring = '';
-    for (let i=0; i<string_length; i++) {
-        randomstring = Math.random().toString(36).slice(-8);
+    for (let i = 0; i < string_length; i++)
+    {
+      randomstring = Math.random().toString(36).slice(-8);
     }
     guestUser.password = randomstring;
     console.log(guestUser);
 
     this.profileService.createUser(guestUser).subscribe(
-      (response) => {
+      (response) =>
+      {
         console.log(response);
         this.sesssionService.login(response.id.toString());
         this.profileService.login(guestUser).then(
-          (response)=>{
+          (response) =>
+          {
             this.sesssionService.setToken(response.access_token)
           }
         )
@@ -317,10 +380,10 @@ export class CreateTicketComponent{
       }
     )
 
-    
+
   }
 
-  getCurrentLocation() : void
+  getCurrentLocation(): void
   {
     this.googleMapsService.getCurrentLocation().then(
       async (response) =>
@@ -331,7 +394,7 @@ export class CreateTicketComponent{
           lng: response.longitude
         }
         this.createMapMarker(pos);
-        this.placeID  = await this.googleMapsService.getLocationCoord(pos);
+        this.placeID = await this.googleMapsService.getLocationCoord(pos);
         this.ticket.ticketLocation = await this.googleMapsService.getLocation(this.placeID);
         this.ticket.ticketStreetAddress = await this.googleMapsService.getLocation(this.placeID);
         this.ticket.ticketLat = response.latitude;
@@ -342,25 +405,26 @@ export class CreateTicketComponent{
     );
   }
 
-  uploadTicket() {
+  uploadTicket()
+  {
     this.ticketService.createNewTicket(this.ticket).subscribe(
       (response) =>
       {
         console.log(response);
         this.ticket.ticketId = response.ticketId;
         if (this.file !== undefined)
-            this.uploadPhoto();
+          this.uploadPhoto();
       }
     )
   }
 
-  showSuccessMessage() : void
+  showSuccessMessage(): void
   {
     alert("Created Ticket successfully");
     this.router.navigateByUrl("/tickets");
   }
 
-  uploadPhoto() : void
+  uploadPhoto(): void
   {
     this.ticketService.uploadImage(this.ticket.ticketImg, this.ticket.ticketId).subscribe(
       () =>
@@ -368,16 +432,17 @@ export class CreateTicketComponent{
         this.showSuccessMessage();
         this.router.navigateByUrl("/tickets")
       },
-      () => {
-        this.showErrorMessage("Ticket","Failed to create ticket");
+      () =>
+      {
+        this.showErrorMessage("Ticket", "Failed to create ticket");
       }
     );
   }
 
-  createMapMarker(place: {lat:number, lng:number}) : void
+  createMapMarker(place: { lat: number, lng: number }): void
   {
     if (this.marker !== undefined)
-    this.marker.setMap(null);
+      this.marker.setMap(null);
     this.map.unbind("marker");
     this.map.setCenter(place);
     // this.map.panTo(place);
@@ -387,17 +452,20 @@ export class CreateTicketComponent{
 
   }
 
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
+  delay(ms: number)
+  {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  initiateFileUpload() : void {
+  initiateFileUpload(): void
+  {
     document.getElementById("issue_uploaded_img")?.click();
   }
 
-  getErrorMessage() {
+  getErrorMessage()
+  {
     // if (this.issue.hasError('required')) {
-      return 'You must enter a value';
+    return 'You must enter a value';
     // }
   }
 }

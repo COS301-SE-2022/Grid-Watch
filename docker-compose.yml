@@ -1,0 +1,39 @@
+version: '3.4'
+
+services:
+  gridwatch-api:
+    image: gridwatch-api
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3333:3333
+    volumes:
+      - .:/app
+      - app/node_modules
+  gridwatch-public:
+    image: gridwatch-public
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 4200:4200
+    volumes:
+      - .:/app
+      - app/node_modules
+  gridwatch-admin:
+    image: gridwatch-public
+    build:
+      context: .
+      dockerfile: ./apps/admin/Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 4201:4201
+    volumes:
+      - .:/app
+      - app/node_modules

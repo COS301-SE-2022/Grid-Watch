@@ -15,6 +15,9 @@ import { multNode } from './ai/mult-node';
 import { Node } from './ai/node';
 import { PlusNode } from './ai/plus-node';
 import { Tree } from './ai/tree';
+import {BestSplit} from './decision_tree/best-split';
+import {DecisionTree} from './decision_tree/decision-tree';
+import {Node as NodeDT} from './decision_tree/node';
 
 @Module({
   controllers: [],
@@ -22,6 +25,8 @@ import { Tree } from './ai/tree';
   providers: [ApiAiTicketServiceService,
               ApiAiTicketRepositoryDataAccess,
               ReadAIHandler,
+              BestSplit,
+              DecisionTree,
               Number,
               Array,
               GetAllAIHandler,

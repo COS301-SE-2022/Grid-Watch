@@ -283,15 +283,14 @@ export class Tree {
                 let cinput =0;
                 for(let i=0;i<arrTest.length;i++){
                     if(await arrTest[i].getType() == "leaf"){
-                        const temp : number = this.input[a][cinput%(this.input.length)];
-                        await arrTest[i].setVal(this.input[a][cinput%(this.input.length)]);
+                        await arrTest[i].setVal(this.input[a][cinput%(this.input[a].length)]);
                         cinput++;
                     }
                 }
 
                 const res = await curr.execute();
-                const epsilon : number = Math.abs(res-this.expected[a]);
-                if(epsilon<res*0.1){
+                const epsilon : number =   Math.abs(res-this.expected[a]);
+                if(epsilon<this.expected[a]*0.4){
                     correct++;
                 }
                 all++;

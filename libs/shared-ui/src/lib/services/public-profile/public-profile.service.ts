@@ -23,6 +23,9 @@ export class PublicProfileService {
   private getUserEmailURL = this.apiURL +  '/api/public/email/';
   private verifyLoginURL = this.apiURL +  '/api/public/verify';
   private getUserIDURL = this.apiURL +  '/api/public/';
+  private getUserUsernameURL = this.apiURL +  '/api/public/name/';
+  private updateUserUsernameURL = this.apiURL +  '/api/public/update/name/';
+  private updateEmailURL = this.apiURL +  '/api/public/update/email/';
 
   constructor(private http: HttpClient) {}
 
@@ -86,5 +89,49 @@ export class PublicProfileService {
     const tempURL = this.getUserIDURL + id;
     return this.http.get<UserDto[]>(tempURL, this.httpOptions)
     .pipe(catchError(this.handleError<UserDto[]>('getUser', [])));
+  }
+
+  public getUsername(username : string)
+  {
+    const tempURL = this.getUserUsernameURL + username;
+    return this.http
+      .get<UserDto[]>(tempURL)
+      .pipe(catchError(this.handleError<UserDto[]>('getUsername', [])));
+  }
+
+  public async checkUsernameExists(username : string)
+  {
+    const users = await new Promise<UserDto[]>((resolve, reject) => {
+      this.getUsername(username).subscribe((res) => {
+        return resolve(res);
+      });
+    });
+
+    // console.log(users);
+
+    if (users.length > 0) return true;
+    else return false;
+  }
+
+  public updateUsername(username : string, id : string)
+  {
+    const tempURL = this.updateUserUsernameURL + id;
+    const body ={
+      "name" : username 
+    };
+    return this.http.put<JSON>(tempURL, body)
+    .pipe(catchError(this.handleError<boolean>('updateUsername', false)));
+
+  }
+
+  public updateEmail(email : string, id : string)
+  {
+    const tempURL = this.updateEmailURL + id;
+    const body ={
+      "email" : email 
+    };
+    return this.http.put<JSON>(tempURL, body)
+    .pipe(catchError(this.handleError<boolean>('updateEmail', false)));
+
   }
 }

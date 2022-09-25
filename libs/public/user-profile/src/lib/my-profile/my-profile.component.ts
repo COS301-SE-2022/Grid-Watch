@@ -30,7 +30,7 @@ export class MyProfileComponent implements OnInit
         (response) =>
         {
           this.user = response[0];
-          console.log(this.user);
+          // console.log(this.user);
           if (this.user.email.includes("@gridwatch.com"))
           {
             this.user.name = "Guest";

@@ -8,17 +8,17 @@ import { catchError, Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class AdminProfileService {
-
-  private createAdminURL = "api/admin/create";
-  private getAdminEmailURL = "api/admin/email/";
-  private getAdminContactURL = "api/admin/cell/";
-  private loginURL = "api/admin/verify/";
-  private getAdminURL = "api/admin/";
-  private updateAdminURL = "api/admin/update/admin/";
-  private updateEmailURL = "api/admin/update/email/";
-  private updateContactNumberURL = "api/admin/update/cell/";
-  private updateCitiesURL = "api/admin/update/cities/";
-  private updatePasswordURL = "api/admin/update/password/";
+  private apiURL = "https://grid-watch-api.azurewebsites.net"
+  private createAdminURL = this.apiURL +  "/api/admin/create";
+  private getAdminEmailURL = this.apiURL +  "/api/admin/email/";
+  private getAdminContactURL = this.apiURL +  "/api/admin/cell/";
+  private loginURL = this.apiURL +  "/api/admin/verify/";
+  private getAdminURL = this.apiURL +  "/api/admin/";
+  private updateAdminURL = this.apiURL +  "/api/admin/update/admin/";
+  private updateEmailURL = this.apiURL +  "/api/admin/update/email/";
+  private updateContactNumberURL = this.apiURL +  "/api/admin/update/cell/";
+  private updateCitiesURL = this.apiURL +  "/api/admin/update/cities/";
+  private updatePasswordURL = this.apiURL +  "/api/admin/update/password/";
   
   constructor(
     private http : HttpClient

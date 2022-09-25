@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Token } from '@grid-watch/api/authentication';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
@@ -10,10 +10,19 @@ import { catchError, Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class PublicProfileService {
-  private createUserURL = 'api/public/create';
-  private getUserEmailURL = 'api/public/email/';
-  private verifyLoginURL = 'api/public/verify';
-  private getUserIDURL = 'api/public/';
+
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin": "https://grid-watch-api.azurewebsites.net/"
+    }),
+  };
+
+  private apiURL = "https://grid-watch-api.azurewebsites.net"
+  private createUserURL = this.apiURL +  '/api/public/create';
+  private getUserEmailURL = this.apiURL +  '/api/public/email/';
+  private verifyLoginURL = this.apiURL +  '/api/public/verify';
+  private getUserIDURL = this.apiURL +  '/api/public/';
 
   constructor(private http: HttpClient) {}
 
@@ -75,7 +84,7 @@ export class PublicProfileService {
   public getUser(id : string )
   {
     const tempURL = this.getUserIDURL + id;
-    return this.http.get<UserDto[]>(tempURL)
+    return this.http.get<UserDto[]>(tempURL, this.httpOptions)
     .pipe(catchError(this.handleError<UserDto[]>('getUser', [])));
   }
 }

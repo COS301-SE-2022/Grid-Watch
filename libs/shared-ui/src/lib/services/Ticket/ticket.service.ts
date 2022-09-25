@@ -15,29 +15,31 @@ export class TicketService {
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin": "https://grid-watch-api.azurewebsites.net"
     }),
   };
 
-  private getAllURL = '/api/ticket/all/tickets';
-  private upvoteURL = '/api/ticket/update/upvotes/';
-  private upvoteURLUser = '/api/public/add/upvote/';
-  private getTicketIssue = '/api/ticket/issue/';
-  private getPictureURL = '/api/ticket/picture/';
-  private getTicketURL = '/api/ticket/';
-  private getSubtaskURL = 'api/ticket/subtasks/';
-  private createSubtaskURL = 'api/ticket/subtask/create/';
-  private uploadURL = '/api/ticket/upload';
-  private updateURL = '/api/ticket/update/';
-  private createPictureURL = '/api/ticket/picture/create/';
-  private createTicketURL = '/api/ticket/create';
-  private UpdateStatusURL = '/api/ticket/update/status/';
-  private getTicketStatus = '/api/ticket/status/';
-  private updateRepairURL = '/api/ticket/update/repair/';
-  private updateCostURL = '/api/ticket/update/cost/';
-  private updateAssignedTechTeamURL =
+  private apiURL = "https://grid-watch-api.azurewebsites.net"
+  private getAllURL = this.apiURL +  '/api/ticket/all/tickets';
+  private upvoteURL = this.apiURL +  '/api/ticket/update/upvotes/';
+  private upvoteURLUser = this.apiURL +  '/api/public/add/upvote/';
+  private getTicketIssue = this.apiURL +  '/api/ticket/issue/';
+  private getPictureURL = this.apiURL +  '/api/ticket/picture/';
+  private getTicketURL = this.apiURL +  '/api/ticket/';
+  private getSubtaskURL = this.apiURL +  '/api/ticket/subtasks/';
+  private createSubtaskURL = this.apiURL +  '/api/ticket/subtask/create/';
+  private uploadURL = this.apiURL +  '/api/ticket/upload';
+  private updateURL = this.apiURL +  '/api/ticket/update/';
+  private createPictureURL = this.apiURL +  '/api/ticket/picture/create/';
+  private createTicketURL = this.apiURL +  '/api/ticket/create';
+  private UpdateStatusURL = this.apiURL +  '/api/ticket/update/status/';
+  private getTicketStatus = this.apiURL +  '/api/ticket/status/';
+  private updateRepairURL = this.apiURL +  '/api/ticket/update/repair/';
+  private updateCostURL = this.apiURL +  '/api/ticket/update/cost/';
+  private updateAssignedTechTeamURL = this.apiURL + 
     '/api/ticket/update/assignedTeam//techTeam';
-  private getAITicketCostURL = '/api/ticketAI/estimate/cost';
-  private getAITicketTimeURL = '/api/ticketAI/estimate/time';
+  private getAITicketCostURL = this.apiURL +  '/api/ticketAI/estimate/cost';
+  private getAITicketTimeURL = this.apiURL +  '/api/ticketAI/estimate/time';
 
   constructor(private http: HttpClient) {}
 

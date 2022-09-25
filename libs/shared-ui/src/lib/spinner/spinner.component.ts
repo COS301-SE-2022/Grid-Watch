@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {  ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { SpinnerService } from '../services/spinner/spinner.service';
 
 @Component({
   selector: 'grid-watch-spinner',
@@ -6,7 +7,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./spinner.component.scss'],
 })
 export class SpinnerComponent implements OnInit {
-  constructor() {}
 
-  ngOnInit(): void {}
+  showSpinner = false;
+
+  constructor(
+    private spinnerService : SpinnerService,
+    private cdref : ChangeDetectorRef
+
+  ) {}
+
+  ngOnInit(): void {
+    this.initalise()
+  }
+
+
+  initalise() {
+    this.spinnerService.getSpinnerObservable().subscribe(
+      (status) =>{
+        console.log(status);
+        
+        this.showSpinner = status === "start";
+        this.cdref.detectChanges();
+      }
+    )
+  }
 }

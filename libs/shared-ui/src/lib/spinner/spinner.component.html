@@ -1,1 +1,6 @@
-<p>spinner works!</p>
+<div class="spinnerContainer" *ngIf="showSpinner">
+    <mat-spinner
+        [value]="100"
+        color="red">
+    </mat-spinner>
+</div>

@@ -17,6 +17,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastComponent } from './toast/toast.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     MatIconModule,
     MatGridListModule,
     MatTabsModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
     NavBarComponent,

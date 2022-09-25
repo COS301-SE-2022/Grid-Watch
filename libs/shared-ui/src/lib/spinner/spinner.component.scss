@@ -1,0 +1,15 @@
+.spinnerContainer {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.spinnerContainer ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #8ec63f;
+}

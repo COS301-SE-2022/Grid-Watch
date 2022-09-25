@@ -180,15 +180,15 @@ export class CreateTicketComponent{
       return;
     }
     
-    // if (this.placeID == "")
-    // {
+    if (this.placeID == "")
+    {
       this.placeID = this.autocomplete.getPlace().place_id as string;
       this.ticket.ticketCity = this.googleMapsService.getAutocompleteCity(this.autocomplete.getPlace().address_components);
       this.ticket.ticketLat = this.autocomplete.getPlace().geometry?.location?.lat() || 0;
       this.ticket.ticketLong = this.autocomplete.getPlace().geometry?.location?.lng() || 0;
       // console.log(this.autocomplete.getPlace());
       this.ticket.ticketStreetAddress = this.autocomplete.getPlace().formatted_address || "";
-    // }
+    }
     this.ticket.ticketLocation = this.placeID;
     this.ticket.ticketStatus = "Created";
     this.ticket.ticketCreateDate = new Date();
@@ -338,6 +338,8 @@ export class CreateTicketComponent{
         this.ticket.ticketLong = response.longitude;
         this.ticket.ticketCity = await this.googleMapsService.getCity(this.placeID);
         // this.placeID  
+        console.log(this.placeID);
+        
       }
     );
   }

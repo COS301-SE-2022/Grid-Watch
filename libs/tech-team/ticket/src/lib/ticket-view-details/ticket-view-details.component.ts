@@ -15,9 +15,6 @@ import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
 })
 export class TicketViewDetailsComponent implements OnInit {
 
-  getAllURL = "http://localhost:3333/api/ticket/"
-  UpdateStatusURL = "http://localhost:3333/api/ticket/update/status/";
-  getPictureURL = "http://localhost:3333/api/ticket/picture/";
 
 
   ticket! : TicketDto;
@@ -70,11 +67,11 @@ export class TicketViewDetailsComponent implements OnInit {
 
   async loadImage() : Promise<void> 
   {
-    await this.delay(3000)
-    this.getPictureURL += this.ticket.ticketId;
-    this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
+    // await this.delay(3000)
+    // this.getPictureURL += ;
+    this.ticketService.getImages(this.ticket.ticketId).subscribe(
       (data) => {
-      // console.log(data);
+      console.log(data);
       
         if (data.length > 0)
       {

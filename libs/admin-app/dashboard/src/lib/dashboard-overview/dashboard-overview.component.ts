@@ -552,7 +552,7 @@ export class DashboardOverviewComponent implements AfterViewInit
         }
 
         // if other not last
-        var pos = 0;
+        let pos = 0;
         for (let i = 0; i < retCount.length; i++) {
             if (retCount[i][0] == "Other") {
                 pos = i;

@@ -30,7 +30,7 @@ export class DivNode extends InternalNode{
 
     async execute() : Promise<number> {
         if(await this.rightNode.execute()==0){
-            return 0;
+            return 1;
         }else {
             return await this.leftNode.execute()/await this.rightNode.execute();
         }

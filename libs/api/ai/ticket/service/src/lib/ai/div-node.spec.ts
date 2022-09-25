@@ -26,7 +26,7 @@ describe('DivNode', () => {
 
   it('Try executing tree with invalid division',async ()=>{
     const divNode : Node = new DivNode(new LeafNode(15),new LeafNode(0))
-    expect(await divNode.execute()).toEqual(0);
+    expect(await divNode.execute()).toEqual(1);
   })
 
   it('Executing the tree',async() =>{

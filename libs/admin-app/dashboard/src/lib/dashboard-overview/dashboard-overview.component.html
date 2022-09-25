@@ -15,8 +15,6 @@
     </mat-grid-tile>
 </mat-grid-list>
 
-
-
 <div id="pie-chart-container" class="hidden">
     <div id="pie-chart-loading-container" class="hidden">
         <mat-spinner value="accent"></mat-spinner>
@@ -30,10 +28,10 @@
                 <mat-slide-toggle (change)="showLineGraph('Pothole', $event)">Potholes</mat-slide-toggle>
             </mat-grid-tile>
             <mat-grid-tile colspan="2">
-                <mat-slide-toggle (change)="showLineGraph('Water outage', $event)">Water outages</mat-slide-toggle>
+                <mat-slide-toggle (change)="showLineGraph('Water Outage', $event)">Water outages</mat-slide-toggle>
             </mat-grid-tile>
             <mat-grid-tile colspan="2">
-                <mat-slide-toggle (change)="showLineGraph('Electricity outage', $event)">Electricity outages
+                <mat-slide-toggle (change)="showLineGraph('Electricity Outage', $event)">Electricity outages
                 </mat-slide-toggle>
             </mat-grid-tile>
             <mat-grid-tile colspan="2">
@@ -61,3 +59,20 @@
         <div id="heatmap"></div>
     </div>
 </div>
+
+<div id="sumtable"*ngIf="tableData" style = "overflow: auto;">
+    <table>
+        <tr>
+            <th *ngFor="let heading of colNames">
+                {{heading}}
+            </th>
+        </tr>
+        <tr *ngFor="let row of tableData">
+            <td  *ngFor="let data of row">
+                {{data}}
+            </td>
+        </tr>
+    </table>
+</div>
+
+

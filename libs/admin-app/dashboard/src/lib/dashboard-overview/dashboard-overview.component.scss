@@ -90,3 +90,37 @@ mat-slide-toggle
     left:20%;
     height:80%;
 }
+
+.sumtable{
+padding-top: 150px;
+}
+
+table 
+{
+    border-collapse: collapse;
+    border-spacing: 0;
+    align-self: center;
+    width: 99%;
+    border: 1px solid rgb(98, 96, 96);
+}
+
+tr:hover {background-color: rgba(142, 198, 63,0.8);}
+
+th, td {
+    text-align: center;
+    border: #aeaeae;
+    border-bottom: 1px solid rgb(0, 0, 0);
+    padding: 8px;
+}
+
+td:nth-child(1)
+{
+    background-color: rgb(244, 244, 244);
+    border-right: 0.5px solid rgb(0, 0, 0);
+    font-weight: bold;
+}
+  
+tr:nth-child(1)
+{
+    background-color: rgb(142, 198, 63)
+}

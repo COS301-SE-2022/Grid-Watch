@@ -133,7 +133,7 @@ export class MyTicketsListComponent implements OnInit
         }
       );
     }
-    console.log(this.tickets);
+    // console.log(this.tickets);
   }
   
   

@@ -38,13 +38,13 @@ export class LoginPageComponent implements OnInit {
   }
 
   login() : void {
-    console.log(this.admin);
+    // console.log(this.admin);
     
     this.profileService.login(this.admin).subscribe(
       (response) => {
         if (response)
         {
-          console.log(response);
+          // console.log(response);
           this.toastService.show('Successfully logged in',{
             classname:'bg-success text-light',
             delay: 5000,

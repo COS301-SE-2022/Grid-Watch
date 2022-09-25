@@ -49,7 +49,7 @@ export class AdminProfileService {
       });
     });
 
-    console.log(admins);
+    // console.log(admins);
 
     if (admins.length > 0) return true;
     else return false;

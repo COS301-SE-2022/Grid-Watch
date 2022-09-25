@@ -119,7 +119,7 @@ export class EditAcceptedTicketComponent implements OnInit
 			this.ticketService.assignTechTeam(this.ticket.ticketId, parseInt(techTeamId)).subscribe(
 				(response) =>
 				{
-					console.log(response);
+					// console.log(response);
 
 				}
 			)
@@ -176,7 +176,7 @@ export class EditAcceptedTicketComponent implements OnInit
 			this.ticketService.updateTicketStatus(this.issue_id, this.status).subscribe(
 				(resp) =>
 				{
-					console.log(resp);
+					// console.log(resp);
 
 				}
 			)
@@ -188,7 +188,7 @@ export class EditAcceptedTicketComponent implements OnInit
 			this.ticketService.updateTicketCost(this.issue_id, this.cost).subscribe(
 				(resp) =>
 				{
-					console.log(resp);
+					// console.log(resp);
 
 				}
 			)
@@ -210,7 +210,7 @@ export class EditAcceptedTicketComponent implements OnInit
 		this.getPictureURL += this.ticket.ticketId;
 		this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe((data) =>
 		{
-			console.log(data);
+			// console.log(data);
 			if (data.length > 0)
 			{
 				this.ticket.ticketImg = data[0].pictureLink;

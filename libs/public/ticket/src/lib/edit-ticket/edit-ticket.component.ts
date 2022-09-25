@@ -68,7 +68,7 @@ export class EditTicketComponent implements OnInit {
     if (tempID)
       this.ticketService.getTicket(tempID).subscribe(
         (response) => {
-          console.log(response);
+          // console.log(response);
           this.ticket = response[0];
           this.initialiseFields(response[0]);
           this.initMap();
@@ -118,7 +118,7 @@ export class EditTicketComponent implements OnInit {
 
       
       const place = this.autocomplete.getPlace()
-      console.log(place);
+      // console.log(place);
       if (place !== undefined)
       if (place.place_id !== undefined)
       {
@@ -143,7 +143,7 @@ export class EditTicketComponent implements OnInit {
         (response) =>
         {
 
-          console.log(response.filename);
+          // console.log(response.filename);
           this.updateTicket(response.filename)
         }
       );
@@ -182,7 +182,7 @@ export class EditTicketComponent implements OnInit {
    
     this.ticketService.getImages(data.ticketId).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         if (response[response.length - 1])
         {
           this.ticket.ticketImg = response[response.length - 1].pictureLink;
@@ -252,7 +252,7 @@ export class EditTicketComponent implements OnInit {
     this.googleMapsService.getCurrentLocation().then(
       async (response) =>
       {
-        console.log(response);
+        // console.log(response);
         const pos = {
           lat: response.latitude,
           lng: response.longitude

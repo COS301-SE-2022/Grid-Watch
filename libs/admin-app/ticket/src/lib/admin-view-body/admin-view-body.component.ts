@@ -83,7 +83,7 @@ export class AdminViewBodyComponent implements OnInit {
   }
 
   announceSortChange(sortState: Sort) {
-    console.log(sortState);
+    // console.log(sortState);
 
     if (sortState.direction === '') {
       this.tickets = [];
@@ -102,7 +102,7 @@ export class AdminViewBodyComponent implements OnInit {
   getDatabaseData(filters: boolean) {
     this.ticketService.getTickets().subscribe(
       async (response) => {
-        console.log(response);
+        // console.log(response);
         await this.initialiseTicket(response);
         this.adjustDates();
         if (filters) this.initialiseFilters();
@@ -134,7 +134,7 @@ export class AdminViewBodyComponent implements OnInit {
   viewTicket(id: number): void {
     // console.log('GO to ticket view admin');
     const url = '/adminViewTicketDetails';
-    console.log(id);
+    // console.log(id);
     this.router.navigate([url, { id: id }]);
   }
 
@@ -180,7 +180,7 @@ export class AdminViewBodyComponent implements OnInit {
   }
 
   filter(event: any, category : string) {
-    console.log(event);
+    // console.log(event);
     if (!this.filterChecked.includes(event.source.name)) {
       this.filterChecked.push(event.source.name);
     } else {

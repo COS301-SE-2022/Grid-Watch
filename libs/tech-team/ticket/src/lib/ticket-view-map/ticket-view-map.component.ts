@@ -52,7 +52,7 @@ export class TicketViewMapComponent implements OnInit {
       this.tickets.forEach((value) =>{
         this.locations.push({lat : value.ticketLat, lng : value.ticketLong})
       })
-      console.log(this.tickets);
+      // console.log(this.tickets);
       const myLocation = await this.googleMapsService.getCurrentLocation();
       const map = new google.maps.Map(
         document.getElementById('mapContainer') as HTMLElement,

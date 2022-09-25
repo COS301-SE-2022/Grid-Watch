@@ -42,7 +42,7 @@ export class ViewTicketComponent implements OnInit
         async (response) =>
         {
           this.ticket = response[0];
-          console.log(response);
+          // console.log(response);
           this.initialiseUser();
           this.initialiseImage();
           this.getSubtasks();
@@ -78,7 +78,7 @@ export class ViewTicketComponent implements OnInit
       (response) =>
       {
         this.user = response[0];
-        console.log(this.ticketID);
+        // console.log(this.ticketID);
         if (this.userId)
         {
           this.profileService.getUser(this.userId).subscribe(
@@ -88,7 +88,7 @@ export class ViewTicketComponent implements OnInit
               if (this.loggedUser.ticketsUpvoted.includes(parseInt(this.ticketID)))
               {
                 const element = document.getElementById("upvotesContainer");
-                console.log(element);
+                // console.log(element);
                 element?.classList.add("liked")
               }
             }
@@ -115,7 +115,7 @@ export class ViewTicketComponent implements OnInit
       this.loggedUser.ticketsUpvoted.push(this.ticket.ticketId)
       this.ticketService.increaseUpvotes(id, ++this.ticket.ticketUpvotes, this.loggedUser.id.toString())
       const card = document.getElementById("upvotesContainer");
-      console.log(card);
+      // console.log(card);
       card?.classList.add("liked")
       
     }

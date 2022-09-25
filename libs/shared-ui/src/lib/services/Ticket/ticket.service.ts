@@ -44,13 +44,13 @@ export class TicketService {
   constructor(private http: HttpClient) {}
 
   public print(message: string) {
-    console.log(message);
+    // console.log(message);
   }
 
   updateTicketStatus(issueID: string, status_: string) {
     const temp = { status: status_ };
     const tempURL = this.UpdateStatusURL + issueID;
-    console.log(temp);
+    // console.log(temp);
 
     return this.http
       .put<string>(tempURL, temp, this.httpOptions)
@@ -172,7 +172,7 @@ export class TicketService {
     this.http
       .put<TicketDto[]>(tempURL, ticket, this.httpOptions)
       .subscribe((response) => {
-        console.log(response);
+        // console.log(response);
       });
     return true;
   }

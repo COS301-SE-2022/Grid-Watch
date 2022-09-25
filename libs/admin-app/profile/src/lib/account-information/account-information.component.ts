@@ -50,7 +50,7 @@ export class AccountInformationComponent implements OnInit {
     if (this.adminId)
      this.profileService.getAdmin(this.adminId).subscribe(
       (response) =>{
-        console.log(response);
+        // console.log(response);
         this.admin = response[0];
         this.admin.password = "";
         this.adminPerm.email = this.admin.email;

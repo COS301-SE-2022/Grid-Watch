@@ -47,7 +47,7 @@ export class TicketViewDetailsComponent implements OnInit {
     if (this.issue_id)
       this.ticketService.getTicket(this.issue_id).subscribe(
         async (data) => {
-          console.log(data);
+          // console.log(data);
           this.ticket = data[0];
           this.ticket.ticketImg = "";
           this.ticket.ticketCreateDate = new Date(this.ticket.ticketCreateDate);
@@ -74,7 +74,7 @@ export class TicketViewDetailsComponent implements OnInit {
     this.getPictureURL += this.ticket.ticketId;
     this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
       (data) => {
-      console.log(data);
+      // console.log(data);
       
         if (data.length > 0)
       {
@@ -90,7 +90,7 @@ export class TicketViewDetailsComponent implements OnInit {
 
   reject() : void
   {
-    console.log("Here")
+    // console.log("Here")
     const dialogRef = this.dialog.open(DialogComponent);
 
     dialogRef.afterClosed().subscribe(async result => {

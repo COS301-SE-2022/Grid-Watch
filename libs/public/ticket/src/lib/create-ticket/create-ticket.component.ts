@@ -136,7 +136,7 @@ export class CreateTicketComponent{
 
   async createTicket() : Promise<void>
   {
-    console.log(this.ticket);
+    // console.log(this.ticket);
     
     if (this.ticket.ticketType === "" || this.ticket.ticketDescription === "") //&& this.location.hasError !== null )
     {
@@ -164,7 +164,7 @@ export class CreateTicketComponent{
       this.showErrorMessage("Login","Not logged in, would you like to post as a guest?")
       
       this.dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
+        // console.log(`Dialog result: ${result}`);
         this.createGuest();
       });
       return;
@@ -174,7 +174,7 @@ export class CreateTicketComponent{
       this.showErrorMessage("Login","Not logged in, would you like to post as a guest?")
       
       this.dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
+        // console.log(`Dialog result: ${result}`);
         this.createGuest();
       });
       return;
@@ -186,7 +186,7 @@ export class CreateTicketComponent{
       this.ticket.ticketCity = this.googleMapsService.getAutocompleteCity(this.autocomplete.getPlace().address_components);
       this.ticket.ticketLat = this.autocomplete.getPlace().geometry?.location?.lat() || 0;
       this.ticket.ticketLong = this.autocomplete.getPlace().geometry?.location?.lng() || 0;
-      console.log(this.autocomplete.getPlace());
+      // console.log(this.autocomplete.getPlace());
       this.ticket.ticketStreetAddress = this.autocomplete.getPlace().formatted_address || "";
     // }
     this.ticket.ticketLocation = this.placeID;
@@ -302,11 +302,11 @@ export class CreateTicketComponent{
         randomstring = Math.random().toString(36).slice(-8);
     }
     guestUser.password = randomstring;
-    console.log(guestUser);
+    // console.log(guestUser);
 
     this.profileService.createUser(guestUser).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.sesssionService.login(response.id.toString());
         this.profileService.login(guestUser).then(
           (response)=>{
@@ -325,7 +325,7 @@ export class CreateTicketComponent{
     this.googleMapsService.getCurrentLocation().then(
       async (response) =>
       {
-        console.log(response);
+        // console.log(response);
         const pos = {
           lat: response.latitude,
           lng: response.longitude
@@ -346,7 +346,7 @@ export class CreateTicketComponent{
     this.ticketService.createNewTicket(this.ticket).subscribe(
       (response) =>
       {
-        console.log(response);
+        // console.log(response);
         this.ticket.ticketId = response.ticketId;
         if (this.file !== undefined)
             this.uploadPhoto();

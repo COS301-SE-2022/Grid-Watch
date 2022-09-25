@@ -35,7 +35,7 @@ export class GoogleMapsService {
     const geocoder = new google.maps.Geocoder();
     const temp = await geocoder.geocode({placeId : placeID}).then(
       ({results}) => {
-        console.log(results);
+        // console.log(results);
         return this.getAutocompleteCity(results[0].address_components);
       }
     )
@@ -150,11 +150,11 @@ public createMarkerObject(position: google.maps.LatLngLiteral, map: google.maps.
 
 public async getCoordinates(placeID : string)
 {
-  console.log(placeID);
+  // console.log(placeID);
   const geocoder = new google.maps.Geocoder();
     const temp = await geocoder.geocode({placeId : placeID}).then(
       ({results}) => {
-        console.log(results[0]);
+        // console.log(results[0]);
         return results[0].geometry.location;
       },
       (error) =>

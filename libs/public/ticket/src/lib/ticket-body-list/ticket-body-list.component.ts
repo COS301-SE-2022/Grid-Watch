@@ -92,7 +92,7 @@ export class TicketBodyListComponent implements OnInit {
   initialiseUpvotes() {
     if (this.user)
     {
-      console.log(this.user);
+      // console.log(this.user);
       this.user.ticketsUpvoted.forEach((id) =>{
         const cardElement = document.getElementById(id.toString());
         cardElement?.classList.add("liked");
@@ -149,7 +149,7 @@ export class TicketBodyListComponent implements OnInit {
         this.user.ticketsUpvoted.push(this.tickets[index].ticketId)
         this.ticketService.increaseUpvotes(id, ++this.tickets[index].ticketUpvotes, this.id)
         const card = document.getElementById(id.toString());
-        console.log(card);
+        // console.log(card);
         card?.classList.add("liked")
         
       }

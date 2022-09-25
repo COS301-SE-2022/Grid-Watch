@@ -127,7 +127,7 @@ export class TechTeamProfileService {
 
   public updateEmail(email: string, id: string) {
     const tempUrl = this.updateEmailURL + id;
-    console.log(tempUrl);
+    // console.log(tempUrl);
 
     const body = {
       email: email,
@@ -139,7 +139,7 @@ export class TechTeamProfileService {
 
   public updateContact(contact: string, id: string) {
     const tempUrl = this.updateContactURL + id;
-    console.log(tempUrl);
+    // console.log(tempUrl);
 
     const body = {
       ContactNr: contact,
@@ -163,7 +163,7 @@ export class TechTeamProfileService {
     const body = {
       specialisation: specialisation,
     };
-    console.log(body);
+    // console.log(body);
     
     return this.http
       .put<JSON>(tempURL, body)

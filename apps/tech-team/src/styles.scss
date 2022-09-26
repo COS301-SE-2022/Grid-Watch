@@ -14,3 +14,7 @@ $my-theme: mat.define-light-theme((
 ));
 
 @include mat.all-component-themes($my-theme);
+
+:root{
+  --primary: #8ec63f
+}

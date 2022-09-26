@@ -62,8 +62,8 @@ export class ProfileSettingsComponent implements OnInit {
     this.techTeam.specialisation = [];
 
     if (this.id !== null) {
-      this.profileService.getTechTeam(this.id).subscribe((response) => {
-        // console.log(response);
+      this.profileService.getTechTeamID(this.id).subscribe((response) => {
+        console.log(response);
         // console.log(this.id);
         this.techTeam = response[0];
         this.techTeamPerm.name = this.techTeam.name;

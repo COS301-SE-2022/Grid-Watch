@@ -34,7 +34,7 @@ export class MyProfileComponent implements OnInit
           if (this.user.email.includes("@gridwatch.com"))
           {
             this.user.name = "Guest";
-            this.user.email = "";
+            this.user.email = "guest@gridwatch.com";
           }
         }
       )

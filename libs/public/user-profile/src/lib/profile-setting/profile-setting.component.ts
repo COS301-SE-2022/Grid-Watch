@@ -58,8 +58,6 @@ export class ProfileSettingComponent {//implements OnInit {
 
     if (!this.updateUsername)
     {
-      console.log("username");
-      console.log(await this.checkUsernameExists());
 
       if (await this.checkUsernameExists() == false)
       {
@@ -78,7 +76,6 @@ export class ProfileSettingComponent {//implements OnInit {
     }
     if (!this.updateEmail)
     {
-      console.log("email");
       
       if (await this.checkEmailExists()  == false)
       {
@@ -93,6 +90,18 @@ export class ProfileSettingComponent {//implements OnInit {
       else
       {
         alert("Email already exists");
+      }
+    }
+    if (this.updatePassword)
+    {
+      if (this.password == this.confirmPassword)
+      {
+        this.profileService.updatePassword(this.password, this.id).subscribe(
+          (res) =>{
+            console.log(res);
+            
+          }
+        )
       }
     }
 

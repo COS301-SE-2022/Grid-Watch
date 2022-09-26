@@ -31,6 +31,9 @@ export class AuthInterceptor implements HttpInterceptor {
           (event) =>{
             if (event instanceof HttpResponse)
               this.spinnerService.requestEnded();
+          },
+          () =>{
+            this.spinnerService.resetSpinner();
           }
         )
       );
@@ -41,6 +44,9 @@ export class AuthInterceptor implements HttpInterceptor {
           (event) =>{
             if (event instanceof HttpResponse)
               this.spinnerService.requestEnded();
+          },
+          () =>{
+            this.spinnerService.resetSpinner();
           }
         )
       );;

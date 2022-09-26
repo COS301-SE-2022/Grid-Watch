@@ -26,6 +26,7 @@ export class PublicProfileService {
   private getUserUsernameURL = this.apiURL +  '/api/public/name/';
   private updateUserUsernameURL = this.apiURL +  '/api/public/update/name/';
   private updateEmailURL = this.apiURL +  '/api/public/update/email/';
+  private updatePasswordURL = this.apiURL +  '/api/public/update/password/';
 
   constructor(private http: HttpClient) {}
 
@@ -132,6 +133,17 @@ export class PublicProfileService {
     };
     return this.http.put<JSON>(tempURL, body)
     .pipe(catchError(this.handleError<boolean>('updateEmail', false)));
+
+  }
+
+  public updatePassword(password : string, id : string)
+  {
+    const tempURL = this.updateEmailURL + id;
+    const body ={
+      "password" : password 
+    };
+    return this.http.put<JSON>(tempURL, body)
+    .pipe(catchError(this.handleError<boolean>('updatePassword', false)));
 
   }
 }

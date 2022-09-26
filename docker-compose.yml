@@ -37,3 +37,15 @@ services:
     volumes:
       - .:/app
       - app/node_modules
+  gridwatch-admin:
+    image: gridwatch-public
+    build:
+      context: .
+      dockerfile: ./apps/admin/Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 4201:4201
+    volumes:
+      - .:/app
+      - app/node_modules

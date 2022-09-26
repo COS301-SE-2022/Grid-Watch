@@ -49,7 +49,7 @@
                         Date
                     </th>
                     <td mat-cell *matCellDef="let element, index as i">
-                        {{ ticketDates[i] }}
+                        {{ element.ticketCreateDate | date:"dd/MM/yyyy" }}
                     </td>
                 </ng-container>
 

@@ -30,6 +30,7 @@ export class DashboardOverviewComponent implements AfterViewInit
     Other: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     
     selected = "Line Chart";
+    heatmap!: google.maps.visualization.HeatmapLayer;
     map!: google.maps.Map;
     tickets: Array<TicketDto> = [];
     ticketTypes: Array<string> = [];
@@ -97,28 +98,246 @@ export class DashboardOverviewComponent implements AfterViewInit
             const map = new google.maps.Map(
                 document.getElementById('heatmap') as HTMLElement,
                 {
-                    zoom: 13,
+                    zoom: 12,
                     center: { lat: -25.748733, lng: 28.238043 },
                     mapTypeId: 'satellite',
                 }
             );
 
-            this.tickets.forEach((value) =>
+            this.heatmap = new google.maps.visualization.HeatmapLayer({ data: locations });
+            this.heatmap.setMap(map);
+            this.heatmap.set("radius", this.heatmap.get("radius") ? null : 30);
+            
+            document.getElementById("all")?.addEventListener("click",()=>
             {
-                const infoWindow = new google.maps.InfoWindow({
-                    content: value.ticketType,
-
-                })
-                google.maps.event.addListener(map, 'mouseover', function (event: { value: { ticketLat: any; ticketLong: any; }; })
+                const locations: google.maps.LatLng[] = [];
+                this.ticketService.getTickets().subscribe(async (tickets) =>
                 {
-                    infoWindow.setPosition({ lat: event.value.ticketLat, lng: event.value.ticketLong })
-                    infoWindow.open(map);
-                });
+                    tickets.forEach((value) =>
+                    {
+                        
+                      locations.push(new google.maps.LatLng(value.ticketLat, value.ticketLong));
+                        
+                    })
+        
+                    const map = new google.maps.Map(
+                        document.getElementById('heatmap') as HTMLElement,
+                        {
+                            zoom: 12,
+                            center: { lat: -25.748733, lng: 28.238043 },
+                            mapTypeId: 'satellite',
+                        }
+                    );
+        
+                    const heatmap = new google.maps.visualization.HeatmapLayer({ data: locations });
+                    heatmap.setMap(map);
+                    heatmap.set("radius", heatmap.get("radius") ? null : 30);
+                })
             });
 
-            const heatmap = new google.maps.visualization.HeatmapLayer({ data: locations });
-            heatmap.setMap(map);
-            heatmap.set("radius", heatmap.get("radius") ? null : 30);
+
+
+
+
+            document.getElementById("sinkholes")?.addEventListener("click",()=>
+            {
+                const locations: google.maps.LatLng[] = [];
+                this.ticketService.getTickets().subscribe(async (tickets) =>
+                {
+                    tickets.forEach((value) =>
+                    {
+                        if(value.ticketType == "Sinkhole")
+                        {
+                            locations.push(new google.maps.LatLng(value.ticketLat, value.ticketLong));
+                        }
+                    })
+        
+                    const map = new google.maps.Map(
+                        document.getElementById('heatmap') as HTMLElement,
+                        {
+                            zoom: 12,
+                            center: { lat: -25.748733, lng: 28.238043 },
+                            mapTypeId: 'satellite',
+                        }
+                    );
+        
+                    const heatmap = new google.maps.visualization.HeatmapLayer({ data: locations });
+                    heatmap.setMap(map);
+                    heatmap.set("radius", heatmap.get("radius") ? null : 30);
+                })
+            });
+
+
+
+
+            document.getElementById("potholes")?.addEventListener("click",()=>
+            {
+                const locations: google.maps.LatLng[] = [];
+                this.ticketService.getTickets().subscribe(async (tickets) =>
+                {
+                    tickets.forEach((value) =>
+                    {
+                        if(value.ticketType == "Pothole")
+                        {
+                            locations.push(new google.maps.LatLng(value.ticketLat, value.ticketLong));
+                        }
+                    })
+        
+                    const map = new google.maps.Map(
+                        document.getElementById('heatmap') as HTMLElement,
+                        {
+                            zoom: 12,
+                            center: { lat: -25.748733, lng: 28.238043 },
+                            mapTypeId: 'satellite',
+                        }
+                    );
+        
+                    const heatmap = new google.maps.visualization.HeatmapLayer({ data: locations });
+                    heatmap.setMap(map);
+                    heatmap.set("radius", heatmap.get("radius") ? null : 30);
+                })
+            });
+
+
+            document.getElementById("water")?.addEventListener("click",()=>
+            {
+                const locations: google.maps.LatLng[] = [];
+                this.ticketService.getTickets().subscribe(async (tickets) =>
+                {
+                    tickets.forEach((value) =>
+                    {
+                        if(value.ticketType == "Water Outage")
+                        {
+                            locations.push(new google.maps.LatLng(value.ticketLat, value.ticketLong));
+                        }
+                    })
+                    const map = new google.maps.Map(
+                        document.getElementById('heatmap') as HTMLElement,
+                        {
+                            zoom: 12,
+                            center: { lat: -25.748733, lng: 28.238043 },
+                            mapTypeId: 'satellite',
+                        }
+                    );
+        
+                    const heatmap = new google.maps.visualization.HeatmapLayer({ data: locations });
+                    heatmap.setMap(map);
+                    heatmap.set("radius", heatmap.get("radius") ? null : 30);
+                })
+            });
+
+
+            document.getElementById("other")?.addEventListener("click",()=>
+            {
+                const locations: google.maps.LatLng[] = [];
+                this.ticketService.getTickets().subscribe(async (tickets) =>
+                {
+                    tickets.forEach((value) =>
+                    {
+                        if(value.ticketType == "Other")
+                        {
+                            locations.push(new google.maps.LatLng(value.ticketLat, value.ticketLong));
+                        }
+                    })
+                    const map = new google.maps.Map(
+                        document.getElementById('heatmap') as HTMLElement,
+                        {
+                            zoom: 12,
+                            center: { lat: -25.748733, lng: 28.238043 },
+                            mapTypeId: 'satellite',
+                        }
+                    );
+        
+                    const heatmap = new google.maps.visualization.HeatmapLayer({ data: locations });
+                    heatmap.setMap(map);
+                    heatmap.set("radius", heatmap.get("radius") ? null : 30);
+                })
+            });
+
+
+            document.getElementById("electricity")?.addEventListener("click",()=>
+            {
+                const locations: google.maps.LatLng[] = [];
+                this.ticketService.getTickets().subscribe(async (tickets) =>
+                {
+                    tickets.forEach((value) =>
+                    {
+                        if(value.ticketType == "Electricity Outage")
+                        {
+                            locations.push(new google.maps.LatLng(value.ticketLat, value.ticketLong));
+                        }
+                    })
+                    const map = new google.maps.Map(
+                        document.getElementById('heatmap') as HTMLElement,
+                        {
+                            zoom: 12,
+                            center: { lat: -25.748733, lng: 28.238043 },
+                            mapTypeId: 'satellite',
+                        }
+                    );
+        
+                    const heatmap = new google.maps.visualization.HeatmapLayer({ data: locations });
+                    heatmap.setMap(map);
+                    heatmap.set("radius", heatmap.get("radius") ? null : 30);
+                })
+            });
+
+            document.getElementById("streetlight")?.addEventListener("click",()=>
+            {
+                const locations: google.maps.LatLng[] = [];
+                this.ticketService.getTickets().subscribe(async (tickets) =>
+                {
+                    tickets.forEach((value) =>
+                    {
+                        if(value.ticketType == "Broken Street Light")
+                        {
+                            locations.push(new google.maps.LatLng(value.ticketLat, value.ticketLong));
+                        }
+                    })
+                    
+                    const map = new google.maps.Map(
+                        document.getElementById('heatmap') as HTMLElement,
+                        {
+                            zoom: 12,
+                            center: { lat: -25.748733, lng: 28.238043 },
+                            mapTypeId: 'satellite',
+                        }
+                    );
+        
+                    const heatmap = new google.maps.visualization.HeatmapLayer({ data: locations });
+                    heatmap.setMap(map);
+                    heatmap.set("radius", heatmap.get("radius") ? null : 30);
+                })
+            });
+
+
+            document.getElementById("trafficlight")?.addEventListener("click",()=>
+            {
+                const locations: google.maps.LatLng[] = [];
+                this.ticketService.getTickets().subscribe(async (tickets) =>
+                {
+                    tickets.forEach((value) =>
+                    {
+                        if(value.ticketType == "Broken Traffic Light")
+                        {
+                            locations.push(new google.maps.LatLng(value.ticketLat, value.ticketLong));
+                        }
+                    })
+                    const map = new google.maps.Map(
+                        document.getElementById('heatmap') as HTMLElement,
+                        {
+                            zoom: 12,
+                            center: { lat: -25.748733, lng: 28.238043 },
+                            mapTypeId: 'satellite',
+                        }
+                    );
+        
+                    const heatmap = new google.maps.visualization.HeatmapLayer({ data: locations });
+                    heatmap.setMap(map);
+                    heatmap.set("radius", heatmap.get("radius") ? null : 30);
+                })
+            });
+
         });
 
     }

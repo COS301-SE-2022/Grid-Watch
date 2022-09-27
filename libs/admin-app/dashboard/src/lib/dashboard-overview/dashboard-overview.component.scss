@@ -48,6 +48,15 @@ img.tileImage {
     width:100%;
 }
 
+#floating-panel{
+    z-index: 5;
+    position: absolute;
+    margin-top: 13px;
+    margin-left: 200px;
+    background-color: white;
+    border: 1px solid;
+}
+
 .hidden
 {
     display:none !important;

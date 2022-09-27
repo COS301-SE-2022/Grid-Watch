@@ -335,7 +335,7 @@ export class DashboardOverviewComponent implements AfterViewInit
                         {
                             this.Pothole[month]++;
                         }
-                        else if (type == "Water outage")
+                        else if (type == "Water Outage")
                         {
                             this.Water[month]++;
                         }
@@ -347,7 +347,7 @@ export class DashboardOverviewComponent implements AfterViewInit
                         {
                             this.TrafficLights[month]++;
                         }
-                        else if (type == "Electricity outage")
+                        else if (type == "Electricity Outage")
                         {
                             this.Electricity[month]++;
                         }

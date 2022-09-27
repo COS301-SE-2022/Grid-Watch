@@ -6,7 +6,7 @@
   <mat-drawer-container hasBackdrop="false">
     <mat-drawer #drawer mode="over">
       <div class="filterContainers">
-        <div class="filterHeading"><b> City</b></div>
+        <div class="filterHeading"><strong> City</strong></div>
         <mat-radio-group>
           <div *ngFor="let city of cities">
             <mat-radio-button
@@ -21,7 +21,7 @@
       </div>
       <mat-divider></mat-divider>
       <div class="filterContainers">
-        <div class="filterHeading"><b> Issues</b></div>
+        <div class="filterHeading"><strong> Issues</strong></div>
         <mat-radio-group>
           <div *ngFor="let issue of issues">
             <mat-radio-button
@@ -36,7 +36,7 @@
       </div>
       <mat-divider></mat-divider>
       <div class="filterContainers">
-        <div class="filterHeading"><b> Status</b></div>
+        <div class="filterHeading"><strong> Status</strong></div>
         <mat-radio-group>
           <div *ngFor="let status of statuses">
             <mat-radio-button
@@ -60,6 +60,8 @@
       <div class="tableContainer">
         <div class="ticketTableContaner">
           <table
+            aria-describedby="tickets"
+            
             mat-table
             [dataSource]="dataSource"
             class="mat-elevation-z8"

@@ -21,6 +21,7 @@ export class ViewTicketComponent implements OnInit
   user!: UserDto;
   userId!: string | null;
   loggedUser!: UserDto;
+  ticketStatus!: string;
 
   constructor(
     private ticketService: TicketService,
@@ -43,11 +44,32 @@ export class ViewTicketComponent implements OnInit
         {
           this.ticket = response[0];
           // console.log(response);
+          this.intialiseTicket();
           this.initialiseUser();
           this.initialiseImage();
           this.getSubtasks();
         }
       )
+    }
+  }
+
+  private intialiseTicket(){
+    switch (this.ticket.ticketStatus) {
+      case 'Created':
+        this.ticketStatus = 'redText';
+        break;
+      case 'Dispatched':
+        this.ticketStatus = 'orangeText';
+        break;
+      case 'In Progress':
+        this.ticketStatus = 'yellowText';
+        break;
+      case 'Closed':
+        this.ticketStatus = 'greenText';
+        break;
+      default:
+        this.ticketStatus = 'yellowText';
+        break;
     }
   }
 

@@ -1,14 +1,9 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { ErrorHandler, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { catchError, finalize, Observable, of } from 'rxjs';
-import { Express } from 'express';
-import { Multer } from 'multer';
-import { ImageResponse } from './image-response';
-import { id } from '@swimlane/ngx-charts';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Body } from '@nestjs/common';
 
 
 @Injectable({

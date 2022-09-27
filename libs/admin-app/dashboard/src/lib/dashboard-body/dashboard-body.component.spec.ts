@@ -12,6 +12,10 @@ import { DashboardTimelineComponent } from '../dashboard-timeline/dashboard-time
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DashboardOverviewComponent } from '../dashboard-overview/dashboard-overview.component';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireModule } from '@angular/fire/compat';
+ '@grid-watch/environments';
+
 
 describe('DashboardBodyComponent', () => {
   let component: DashboardBodyComponent;
@@ -32,7 +36,17 @@ describe('DashboardBodyComponent', () => {
         MatIconModule,
         MatMenuModule,
         HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule, 
+        AngularFireStorageModule, 
+        AngularFireModule.initializeApp({
+    apiKey: "AIzaSyB5VKBU78lomWEVrtiUOYIglrM2VdC0jI8",
+    authDomain: "epi-use-c9dfa.firebaseapp.com",
+    projectId: "epi-use-c9dfa",
+    storageBucket: "epi-use-c9dfa.appspot.com",
+    messagingSenderId: "342205045804",
+    appId: "1:342205045804:web:b401e9bde4216d489a8589",
+    measurementId: "G-JW453VRZD1"
+  })
       ],
       providers: [GoogleMapsService],
     }).compileComponents();

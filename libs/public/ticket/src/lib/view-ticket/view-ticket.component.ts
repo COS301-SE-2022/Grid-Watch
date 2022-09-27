@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { PublicProfileService, SessionManagerService, TicketService } from '@grid-watch/shared-ui';
 import { id } from '@swimlane/ngx-charts';
 

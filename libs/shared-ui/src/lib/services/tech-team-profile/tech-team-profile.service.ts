@@ -1,10 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Token } from '@grid-watch/api/authentication';
-import { AdminDto } from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
-import { id } from '@swimlane/ngx-charts';
 import { catchError, Observable, of } from 'rxjs';
 
 @Injectable({

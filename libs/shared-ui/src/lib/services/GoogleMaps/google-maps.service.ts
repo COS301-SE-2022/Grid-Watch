@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { GoogleMapsModule } from '@angular/google-maps';
-import { Delete } from '@nestjs/common';
 
 @Injectable()
 export class GoogleMapsService {

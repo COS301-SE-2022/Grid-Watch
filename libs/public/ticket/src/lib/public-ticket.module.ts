@@ -16,8 +16,8 @@ import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatIconModule } from '@angular/material/icon';
-import { GoogleMapsService, LoggedInGuard } from '@grid-watch/shared-ui';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+// import { GoogleMapsService, LoggedInGuard } from '@grid-watch/shared-ui';
+import { MatDialogModule } from '@angular/material/dialog';
 import { ViewTicketComponent } from './view-ticket/view-ticket.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -26,6 +26,8 @@ import { TicketBodyMapComponent } from './ticket-body-map/ticket-body-map.compon
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { LoggedInGuard } from 'libs/shared-ui/src/lib/guards/logged-in/logged-in.guard';
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
@@ -93,6 +95,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TicketBodyListComponent,
     TicketBodyMapComponent,
   ],
-  providers: [FormBuilder, GoogleMapsService, LoggedInGuard],
+  providers: [FormBuilder, LoggedInGuard],
 })
 export class PublicTicketModule {}

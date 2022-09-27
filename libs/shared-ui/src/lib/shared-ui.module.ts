@@ -18,10 +18,6 @@ import { ToastComponent } from './toast/toast.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {AngularFireModule} from '@angular/fire/compat'
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {environment} from 'apps/public/src/environments/environment';
 
 
 @NgModule({
@@ -42,9 +38,6 @@ import {environment} from 'apps/public/src/environments/environment';
     MatGridListModule,
     MatTabsModule,
     MatProgressSpinnerModule,
-    AngularFireModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
   ],
   declarations: [
     NavBarComponent,
@@ -62,6 +55,6 @@ import {environment} from 'apps/public/src/environments/environment';
     ToastComponent,
     SpinnerComponent,
   ],
-  providers: [Router],
+  providers: [],
 })
 export class SharedUiModule {}

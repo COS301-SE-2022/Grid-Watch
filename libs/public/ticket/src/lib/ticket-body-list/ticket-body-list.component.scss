@@ -141,31 +141,36 @@ mat-drawer-content{
 span.upvoteContainer.liked {
     // border-radius: 13px;
     background: #8ec63f;
-  
+    // height: 50%;
+    // width: 50%;
 }
 
 span.upvoteContainer {
     border-radius: 13px;
     background: white;
-    // height: 30px;
-    // width: 30px;
-    flex: 50%;
+    height: 100%;
+    width: 45%;
     
 }
 
-.upvoteCount{
-    // position: relative;
-    // top: 8px;
-    height: 100%;
-    flex: 50%;
-}
-
-.upVoteDivContainer{
-    display: flex;
-}
+.upvoteNumber {
+    max-width: 15px;
+    margin-right: 1rem;
+  }
 
 .filterOption
 {
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
+.resetButtonContainer{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.resetButton{
+    width: 80%;
+}
+

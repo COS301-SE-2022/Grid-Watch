@@ -1,1 +1,55 @@
-<p>profile-setting works!</p>
+
+<div class="bodyContainer">
+    <div class="cardContainer">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Update Profile</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                    <mat-label>Username</mat-label>
+                    <input type="text" matInput placeholder="Enter user name"  [(ngModel)]="user.name" [disabled]="updateUsername">
+                    <button mat-icon-button matSuffix (click)="toggleUsername()">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </mat-form-field> 
+                <!-- <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+                    <mat-label>Last Name</mat-label>
+                    <input type="text" matInput placeholder="Enter last name" >
+                  </mat-form-field>  -->
+                <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()" >
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput placeholder="Enter email"  [(ngModel)]="user.email" [disabled]="updateEmail">
+                    <button mat-icon-button matSuffix (click)="toggleEmail()">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </mat-form-field> 
+                <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()" *ngIf="updatePassword">
+                    <mat-label>Password</mat-label>
+                    <input  type="password" matInput placeholder="Enter password"  [(ngModel)]="password">
+                    
+                </mat-form-field> 
+                <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()" *ngIf="updatePassword">
+                    <mat-label>Confirm Password</mat-label>
+                    <input  type="password" matInput placeholder="Enter password again"  [(ngModel)]="confirmPassword" >
+                    
+                </mat-form-field> 
+                <div class="mb-3 changePassword" >
+                    <span  (click)="togglePassword()">
+                        <span *ngIf="!updatePassword">
+                            Change Password?
+                        </span>
+                        <span *ngIf="updatePassword">
+                            Cancel password change
+                        </span>
+                    </span>
+                </div>
+                <div class="buttonContainer">
+                    <div class="buttons">
+                        <button mat-stroked-button (click)="update()">Update</button>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

@@ -23,6 +23,7 @@ import { AdminAppTechTeamModule } from '@grid-watch/admin-app/tech-team';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoggedInGuard } from '@grid-watch/shared-ui';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     CommonModule,
     
     RouterModule.forChild([
-      { path: 'dashboard', pathMatch: 'full', component: DashboardOverviewComponent },
+      { path: 'dashboard', pathMatch: 'full', component: DashboardOverviewComponent, canActivate: [LoggedInGuard] },
     ]),
     MatGridListModule,
     AdminAppTicketModule,

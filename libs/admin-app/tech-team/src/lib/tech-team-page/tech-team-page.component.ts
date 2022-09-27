@@ -35,7 +35,7 @@ export class TechTeamPageComponent implements OnInit {
       this.techTeamService.getAllTechTeams().subscribe((response) => {
         // this.techTeams = response;
         response.forEach((techTeam) => {
-          console.log(techTeam);
+          // console.log(techTeam);
           // const tempTeam = {
           //   "techTeam" : techTeam,
           //   "tickets" : [...this.tickets.filter((ticket) =>{
@@ -61,7 +61,7 @@ export class TechTeamPageComponent implements OnInit {
     this.techTeams.forEach((techTeam, index) => {
       const stars = techTeam.techTeam.ratingOfJobs / 2;
       let numberStars = Math.round(stars * 2) / 2;
-      console.log(numberStars);
+      // console.log(numberStars);
 
       for (let k = 1; k <= numberStars; k++) {
         // console.log(k);
@@ -87,7 +87,7 @@ export class TechTeamPageComponent implements OnInit {
         ratingsElements[index].appendChild(span);
       }
     });
-    console.log(ratingsElements);
+    // console.log(ratingsElements);
   }
 
   goToTicket(id: string) {
@@ -96,7 +96,7 @@ export class TechTeamPageComponent implements OnInit {
   }
 
   IncreaseUpvote(id: number, i: number) {
-    console.log('increase upvotes');
+    // console.log('increase upvotes');
   }
 
   async InitialiseTicket(techTeam: Teams): Promise<void> {

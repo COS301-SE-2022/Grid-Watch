@@ -15,11 +15,6 @@ import { TicketService, GoogleMapsService, SessionManagerService, ToastService }
 })
 export class EditAcceptedTicketComponent implements OnInit
 {
-	getAllURL = 'http://localhost:3333/api/ticket/';
-	UpdateStatusURL = 'http://localhost:3333/api/ticket/update/status/';
-	UpdateRepairURL = 'http://localhost:3333/api/ticket/update/repair/';
-	UpdateCostURL = 'http://localhost:3333/api/ticket/update/cost/';
-	getPictureURL = 'http://localhost:3333/api/ticket/picture/';
 
 	hideRequiredControl = new FormControl(false);
 	floatLabelControl = new FormControl('auto' as FloatLabelType);
@@ -54,10 +49,6 @@ export class EditAcceptedTicketComponent implements OnInit
 	{
 		this.issue_id = this.route.snapshot.paramMap.get('id');
 		this.ticket.ticketImg = '';
-		this.getAllURL += this.issue_id;
-		this.UpdateStatusURL += this.issue_id;
-		this.UpdateRepairURL += this.issue_id;
-		this.UpdateCostURL += this.issue_id;
 		if (this.issue_id)
 			this.ticketService.getTicket(this.issue_id).subscribe((data) =>
 			{
@@ -119,7 +110,7 @@ export class EditAcceptedTicketComponent implements OnInit
 			this.ticketService.assignTechTeam(this.ticket.ticketId, parseInt(techTeamId)).subscribe(
 				(response) =>
 				{
-					console.log(response);
+					// console.log(response);
 
 				}
 			)
@@ -176,7 +167,7 @@ export class EditAcceptedTicketComponent implements OnInit
 			this.ticketService.updateTicketStatus(this.issue_id, this.status).subscribe(
 				(resp) =>
 				{
-					console.log(resp);
+					// console.log(resp);
 
 				}
 			)
@@ -188,7 +179,7 @@ export class EditAcceptedTicketComponent implements OnInit
 			this.ticketService.updateTicketCost(this.issue_id, this.cost).subscribe(
 				(resp) =>
 				{
-					console.log(resp);
+					// console.log(resp);
 
 				}
 			)
@@ -206,11 +197,9 @@ export class EditAcceptedTicketComponent implements OnInit
 
 	async loadImage(): Promise<void>
 	{
-		await this.delay(3000);
-		this.getPictureURL += this.ticket.ticketId;
-		this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe((data) =>
+		this.ticketService.getImages(this.ticket.ticketId).subscribe((data) =>
 		{
-			console.log(data);
+			// console.log(data);
 			if (data.length > 0)
 			{
 				this.ticket.ticketImg = data[0].pictureLink;

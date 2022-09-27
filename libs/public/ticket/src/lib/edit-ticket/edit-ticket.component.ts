@@ -10,6 +10,7 @@ import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
 import { Loader } from '@googlemaps/js-api-loader';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
+import { log } from 'console';
 
 @Component({
   selector: 'grid-watch-edit-ticket',
@@ -68,7 +69,7 @@ export class EditTicketComponent implements OnInit {
     if (tempID)
       this.ticketService.getTicket(tempID).subscribe(
         (response) => {
-          console.log(response);
+          // console.log(response);
           this.ticket = response[0];
           this.initialiseFields(response[0]);
           this.initMap();
@@ -90,6 +91,7 @@ export class EditTicketComponent implements OnInit {
   async fileUploaded(e: any)
   {
 
+    this.defaultUpload ="";
     this.file  = e.target.files[0];
     this.waiting = true;
     await this.delay(2000)
@@ -118,7 +120,7 @@ export class EditTicketComponent implements OnInit {
 
       
       const place = this.autocomplete.getPlace()
-      console.log(place);
+      // console.log(place);
       if (place !== undefined)
       if (place.place_id !== undefined)
       {
@@ -137,14 +139,11 @@ export class EditTicketComponent implements OnInit {
 
     if (this.file !== undefined)
     {
-      const formData = new FormData();
-      formData.append("photo", this.file, this.file.name);
-      this.ticketService.postImage(formData).subscribe(
+      this.ticketService.postImage(this.file).then(
         (response) =>
         {
-
-          console.log(response.filename);
-          this.updateTicket(response.filename)
+          console.log(response);
+          this.updateTicket(response)
         }
       );
     }
@@ -156,6 +155,8 @@ export class EditTicketComponent implements OnInit {
   
   updateTicket(link : string) {
     this.ticket.ticketImg = link;
+    console.log(this.ticket);
+    
     if (this.ticketService.updateTicket(this.ticket))
     {
       this.uploadPhoto();
@@ -186,7 +187,7 @@ export class EditTicketComponent implements OnInit {
         if (response[response.length - 1])
         {
           this.ticket.ticketImg = response[response.length - 1].pictureLink;
-          this.defaultUpload = "assets/" + this.ticket.ticketImg;
+          this.defaultUpload = this.ticket.ticketImg;
         }
       }
     );
@@ -252,7 +253,7 @@ export class EditTicketComponent implements OnInit {
     this.googleMapsService.getCurrentLocation().then(
       async (response) =>
       {
-        console.log(response);
+        // console.log(response);
         const pos = {
           lat: response.latitude,
           lng: response.longitude
@@ -278,7 +279,12 @@ export class EditTicketComponent implements OnInit {
 
   uploadPhoto() : void
   {
-    this.ticketService.uploadImage(this.ticket.ticketImg, this.ticket.ticketId);
+    this.ticketService.uploadImage(this.ticket.ticketImg, this.ticket.ticketId).subscribe(
+      (response) =>{
+        console.log(response);
+        
+      }
+    );
   }
 
   initiateFileUpload() : void {

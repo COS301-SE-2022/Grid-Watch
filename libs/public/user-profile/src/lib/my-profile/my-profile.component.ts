@@ -12,7 +12,6 @@ export class MyProfileComponent implements OnInit
 {
 
   @Input() user!: UserDto;
-  items = ["", "", "", "", "", "", "", "", "", "", ""]
   viewSelected!: string;
   constructor(
     private profileService : PublicProfileService,
@@ -30,11 +29,11 @@ export class MyProfileComponent implements OnInit
         (response) =>
         {
           this.user = response[0];
-          console.log(this.user);
+          // console.log(this.user);
           if (this.user.email.includes("@gridwatch.com"))
           {
             this.user.name = "Guest";
-            this.user.email = "";
+            this.user.email = "guest@gridwatch.com";
           }
         }
       )

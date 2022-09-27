@@ -38,11 +38,11 @@ export class TechTeamProfileComponent implements OnInit {
     this.profileService.getTechTeamID(this.id).subscribe(
       async (response) =>
       {
-        console.log(response);
+        // console.log(response);
         this.techTeam = response[0];
         this.ticketService.getTickets().subscribe(
         (response) => {
-          console.log(response);
+          // console.log(response);
           
           this.initialiseTicket(response);
         }
@@ -127,7 +127,7 @@ export class TechTeamProfileComponent implements OnInit {
 
   logout()
   {
-    console.log("logout");
+    // console.log("logout");
     this.sessionService.logout()
     this.router.navigateByUrl("/login")
   }

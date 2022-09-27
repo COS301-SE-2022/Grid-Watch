@@ -71,9 +71,43 @@ export class TicketViewMapComponent implements OnInit {
       const markers = this.locations.map((position, i) => {
         // const icon = "https://developers.google.com/maps/documentation/javascript/examples/full/images/library_maps.png";
         const label = "";
+        let temp:string;
+
+        switch (this.tickets[i]["ticketType"])
+				{
+					case "Electricity Outage":
+						temp = "assets/issue-brokenpower-pin.png";
+						break;
+					case "Water Outage":
+						temp = "assets/issue-water-pin.png";
+						break;
+					case "Pothole":
+						temp = "assets/issue-pothole-pin.png";
+						break;
+					case "Sinkhole":
+						temp = "assets/issue-sinkhole-pin.png";
+						break;
+					case "Broken Traffic Light":
+						temp = "assets/issue-brokenrobot-pin.png";
+						break;
+					case "Broken Street Light":
+						temp = "assets/issue-brokenlight-pin.png";
+						break;
+					default:
+						temp = "assets/issue-maintenance-pin.png";
+						break;
+				}
+
+
         const marker = new google.maps.Marker({
           position,
-          label
+          label,
+          icon: { 
+						url: temp, 
+						size: new google.maps.Size(43, 56),
+						scaledSize: new google.maps.Size(43, 56),
+						origin: new google.maps.Point(0,0)
+					}
         });
 
         marker.addListener('click', () => {

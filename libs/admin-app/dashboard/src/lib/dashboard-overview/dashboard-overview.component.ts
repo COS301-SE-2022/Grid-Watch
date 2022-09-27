@@ -189,7 +189,7 @@ export class DashboardOverviewComponent implements AfterViewInit
                         {
                             this.backgroundColor[a] = 'rgba(142, 198, 63, 0.6)';
                         }
-                        if (ticketTypes[a] == "Electricity Outage")
+                        if (ticketTypes[a] == "Electricity outage")
                         {
                             this.backgroundColor[a] = 'rgba(61, 179, 99, 0.6)';
                         }
@@ -491,11 +491,13 @@ export class DashboardOverviewComponent implements AfterViewInit
         const pc = document.getElementById("pieChart");
         const pcl = document.getElementById("pie-chart-loading-container");
         const hm = document.getElementById("heat-map-container");
+        const st = document.getElementById("sum-table-container");
 
         lc?.classList.add("hidden");
         pc?.classList.add("hidden");
         hm?.classList.add("hidden");
         pcl?.classList.add("hidden");
+        st?.classList.add("hidden");
  
         const temp = document.getElementById(id); 
 

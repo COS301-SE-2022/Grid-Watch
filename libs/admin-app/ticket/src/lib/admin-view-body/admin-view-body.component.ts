@@ -2,6 +2,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -58,6 +59,7 @@ export class AdminViewBodyComponent implements OnInit {
 
   dataSource!: MatTableDataSource<TicketDto>;
   @ViewChild(MatTable) table!: MatTable<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private router: Router,
@@ -102,6 +104,7 @@ export class AdminViewBodyComponent implements OnInit {
       this.tickets = this.ticketService.sort(sortState.active, sortState.direction, this.tickets);
     }
     this.dataSource = new MatTableDataSource<TicketDto>(this.tickets);
+    this.dataSource = new MatTableDataSource(this.tickets);
     this.table.renderRows();
   }
 
@@ -164,6 +167,7 @@ export class AdminViewBodyComponent implements OnInit {
       this.ticketDates.push(y + "/" + m + "/" + d);
     }
     this.dataSource = new MatTableDataSource(this.tickets);
+    this.dataSource.paginator = this.paginator;
     // this.table.renderRows();
   }
 
@@ -227,12 +231,14 @@ export class AdminViewBodyComponent implements OnInit {
 
       this.tickets = filterdTickets;
       this.dataSource = new MatTableDataSource<TicketDto>(this.tickets);
+      this.dataSource = new MatTableDataSource(this.tickets);
       this.table.renderRows();
     }
     else
     {
       this.tickets = [...this.ticketsPERM];
       this.dataSource = new MatTableDataSource<TicketDto>(this.tickets);
+      this.dataSource = new MatTableDataSource(this.tickets);
       this.table.renderRows();
     }
 
@@ -263,6 +269,7 @@ export class AdminViewBodyComponent implements OnInit {
       this.tickets[index] = this.copy(this.ticketsPERM[index]);
     }
     this.dataSource = new MatTableDataSource(this.ticketsPERM);
+    this.dataSource = new MatTableDataSource(this.tickets);
     this.table.renderRows();
   }
 

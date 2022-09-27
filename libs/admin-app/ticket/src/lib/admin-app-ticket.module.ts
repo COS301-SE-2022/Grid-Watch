@@ -21,6 +21,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { LoggedInGuard } from '@grid-watch/shared-ui';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { MatRadioGroup, MatRadioModule } from '@angular/material/radio';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   imports: [
@@ -56,7 +57,8 @@ import { MatRadioGroup, MatRadioModule } from '@angular/material/radio';
     MatFormFieldModule,
     MatCheckboxModule,
     MatInputModule,
-    MatRadioModule
+    MatRadioModule,
+    MatPaginatorModule
   ],
   declarations: [
     AdminViewBodyComponent,

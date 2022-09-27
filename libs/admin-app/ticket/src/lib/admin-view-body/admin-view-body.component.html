@@ -57,90 +57,95 @@
       </div>
     </mat-drawer>
     <mat-drawer-content>
-      <table
-        mat-table
-        [dataSource]="dataSource"
-        class="mat-elevation-z8"
-        matSort
-        (matSortChange)="announceSortChange($event)"
-      >
-        <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
-        <!-- Date Column -->
-        <ng-container matColumnDef="Date">
-          <th
-            style="width: 10%"
-            mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header
+      <div class="tableContainer">
+        <div class="ticketTableContaner">
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            class="mat-elevation-z8"
+            matSort
+            (matSortChange)="announceSortChange($event)"
           >
-            Date
-          </th>
-          <td mat-cell *matCellDef="let element; index as i">
-            {{ element.ticketCreateDate | date: 'dd/MM/yyyy' }}
-          </td>
-        </ng-container>
-
-        <!-- Issue Column -->
-        <ng-container matColumnDef="Issue">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Issue</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.ticketType }}
-          </td>
-        </ng-container>
-
-        <!-- Location Column -->
-        <ng-container matColumnDef="Location">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.ticketStreetAddress }}
-          </td>
-        </ng-container>
-
-        <!-- City Column -->
-        <ng-container matColumnDef="City">
-          <th
-            style="width: 10%"
-            mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header
-          >
-            City
-          </th>
-          <td mat-cell *matCellDef="let element">{{ element.ticketCity }}</td>
-        </ng-container>
-
-        <!-- Status Column -->
-        <ng-container matColumnDef="Status">
-          <th
-            style="width: 10%"
-            mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header
-          >
-            Status
-          </th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.ticketStatus }}
-          </td>
-        </ng-container>
-
-        <!-- Upvotes Column -->
-        <ng-container matColumnDef="Upvotes">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Upvotes</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.ticketUpvotes }}
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr
-          mat-row
-          *matRowDef="let row; columns: displayedColumns"
-          (click)="viewTicket(row.ticketId)"
-        ></tr>
-      </table>
+            <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+    
+            <!-- Date Column -->
+            <ng-container matColumnDef="Date">
+              <th
+                style="width: 10%"
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+              >
+                Date
+              </th>
+              <td mat-cell *matCellDef="let element; index as i">
+                {{ element.ticketCreateDate | date: 'dd/MM/yyyy' }}
+              </td>
+            </ng-container>
+    
+            <!-- Issue Column -->
+            <ng-container matColumnDef="Issue">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Issue</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.ticketType }}
+              </td>
+            </ng-container>
+    
+            <!-- Location Column -->
+            <ng-container matColumnDef="Location">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.ticketStreetAddress }}
+              </td>
+            </ng-container>
+    
+            <!-- City Column -->
+            <ng-container matColumnDef="City">
+              <th
+                style="width: 10%"
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+              >
+                City
+              </th>
+              <td mat-cell *matCellDef="let element">{{ element.ticketCity }}</td>
+            </ng-container>
+    
+            <!-- Status Column -->
+            <ng-container matColumnDef="Status">
+              <th
+                style="width: 10%"
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+              >
+                Status
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.ticketStatus }}
+              </td>
+            </ng-container>
+    
+            <!-- Upvotes Column -->
+            <ng-container matColumnDef="Upvotes">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Upvotes</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.ticketUpvotes }}
+              </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumns"
+              (click)="viewTicket(row.ticketId)"
+            ></tr>
+          </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="[15, 30, 50]" showFirstLastButtons></mat-paginator>
+      </div>
     </mat-drawer-content>
   </mat-drawer-container>
 </div>

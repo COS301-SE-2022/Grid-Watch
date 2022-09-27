@@ -218,9 +218,10 @@ export class TicketController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Delete('/delete')
-    async deleteTicket(@Body() ticketNum: number):Promise<boolean> {
-        return this.apiTicketService.deleteTicket(ticketNum["ticketNum"]);
+    @Delete('/delete/:id')
+    async deleteTicket(@Param() params):Promise<boolean> {
+        Logger.log(params);
+        return this.apiTicketService.deleteTicket(parseInt(params.id));
     
     }
 

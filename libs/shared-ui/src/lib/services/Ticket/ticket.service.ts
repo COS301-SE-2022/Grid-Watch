@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ErrorHandler, Injectable } from '@angular/core';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
@@ -8,6 +8,7 @@ import { Multer } from 'multer';
 import { ImageResponse } from './image-response';
 import { id } from '@swimlane/ngx-charts';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Body } from '@nestjs/common';
 
 
 @Injectable({
@@ -43,6 +44,7 @@ export class TicketService {
     '/api/ticket/update/assignedTeam//techTeam';
   private getAITicketCostURL = this.apiURL +  '/api/ticketAI/estimate/cost';
   private getAITicketTimeURL = this.apiURL +  '/api/ticketAI/estimate/time';
+  private deleteURL = this.apiURL + "/api/ticket/delete/"; 
 
   constructor(private http: HttpClient,  private storage : AngularFireStorage) {}
 
@@ -287,6 +289,12 @@ export class TicketService {
       ).subscribe()
   
     })
+  }
+
+  public deleteTicket(ticketId : string){
+    return this.http.delete<JSON>(this.deleteURL + ticketId )
+    .pipe(catchError(this.handleError<boolean>('deleteTicket', false)));
+
   }
 
   public sort(

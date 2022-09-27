@@ -12,7 +12,6 @@ export class MyProfileComponent implements OnInit
 {
 
   @Input() user!: UserDto;
-  items = ["", "", "", "", "", "", "", "", "", "", ""]
   viewSelected!: string;
   constructor(
     private profileService : PublicProfileService,
@@ -23,7 +22,7 @@ export class MyProfileComponent implements OnInit
   ngOnInit(): void
   {
     this.user = new UserDto();
-    this.viewSelected = "list"
+    this.viewSelected = "grid"
     const id = this.sessionService.getID();
     if (id)
       this.profileService.getUser(id).subscribe(

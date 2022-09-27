@@ -177,6 +177,10 @@ export class TicketBodyListComponent implements OnInit {
     this.ticketStatus = [];
     for (let index = 0; index < data.length; index++) {
       // this.tickets.push(data[index]);
+      let temp = this.tickets[index].ticketStreetAddress.split(",")[0];
+      if (this.tickets[index].ticketStreetAddress.split(",")[1] !== undefined)
+        temp += this.tickets[index].ticketStreetAddress.split(",")[1];
+      this.tickets[index].ticketStreetAddress = temp;
       const date = new Date(this.tickets[index]['ticketCreateDate']);
       const m = date.getUTCMonth() + 1;
       const y = date.getUTCFullYear();

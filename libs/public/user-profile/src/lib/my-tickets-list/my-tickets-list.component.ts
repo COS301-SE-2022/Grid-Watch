@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
+import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { GoogleMapsService, SessionManagerService, TicketService } from '@grid-watch/shared-ui';
+import { GoogleMapsService, PublicProfileService, SessionManagerService, TicketService } from '@grid-watch/shared-ui';
 
 @Component({
   selector: 'grid-watch-my-tickets-list',
@@ -18,11 +19,13 @@ export class MyTicketsListComponent implements OnInit
   ticketStatus: string[] = [];
   
   avatar!: string;
+  user!: UserDto;
   constructor(
     private ticketService: TicketService,
     private googleMapsService: GoogleMapsService,
     private router : Router,
-    private sessionService : SessionManagerService
+    private sessionService : SessionManagerService,
+    private profileService : PublicProfileService
   ) { }
 
   ngOnInit(): void
@@ -48,6 +51,7 @@ export class MyTicketsListComponent implements OnInit
               return false;
           });
           this.InitialiseTicket(response);
+          this.initaliseLikes();
         }
       )
     }, (error) =>
@@ -57,16 +61,33 @@ export class MyTicketsListComponent implements OnInit
 
   }
 
-  filterTickets()
-  {
-    return 
+  initaliseLikes(){
+    const userId = this.sessionService.getID() || "";
+    this.profileService.getUser(userId).subscribe(
+      (response) =>{
+        this.user = response[0];
+        console.log(response);
+        this.user.ticketsUpvoted.forEach(
+          (id)=>{
+            const cardElement = document.getElementById(id.toString());
+            console.log(cardElement);
+            cardElement?.classList.add('liked');
+          }
+        )
+      }
+    )
   }
+
 
   async InitialiseTicket(data : TicketDto []) : Promise<void> 
   {
     for (let index = 0; index < data.length; index++) 
     {      
       this.tickets.push(data[index]);
+      let temp = this.tickets[index].ticketStreetAddress.split(",")[0];
+      if (this.tickets[index].ticketStreetAddress.split(",")[1] !== undefined)
+        temp += this.tickets[index].ticketStreetAddress.split(",")[1];
+      this.tickets[index].ticketStreetAddress = temp;
       const date = new Date(this.tickets[index]["ticketCreateDate"]);      
       const m = date.getUTCMonth() + 1;
       const y = date.getUTCFullYear();

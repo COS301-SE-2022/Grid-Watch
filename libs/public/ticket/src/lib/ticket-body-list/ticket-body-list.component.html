@@ -139,7 +139,7 @@
             <span class="upvoteNumber">
               {{ticket.ticketUpvotes}}  
             </span>
-             <span class="upvoteContainer liked">
+             <span class="upvoteContainer" id="{{ticket.ticketId}}">
                 <img (click)="IncreaseUpvote(ticket.ticketId, i)" class="upvote_img" src="assets/circle-up-solid.svg" alt="upvote icon">      
               </span>
               </mat-grid-tile> 
@@ -155,7 +155,7 @@
               src="assets/location-pin-solid.svg"
               alt=""
             />
-            <span class="location_heading">&ensp;{{ ticket.ticketCity }}</span>
+            <span class="location_heading">&ensp;{{ ticket.ticketStreetAddress }}</span>
           </mat-grid-tile>
           <mat-grid-tile
             rowspan="1"

@@ -34,15 +34,15 @@ export class MyTicketsBlockComponent implements OnInit {
       this.ticketService.getTickets().subscribe(
         (response) => {
           this.tickets = response;
-          this.getImage();
           this.tickets = this.tickets.filter((ticket) => {
             const userId = this.sessionService.getID();
             if (userId)
-              return ticket.userId === parseInt(userId);
+            return ticket.userId === parseInt(userId);
             else
-              return false;
-          
+            return false;
+            
           });
+          this.getImage();
         }
       )
       
@@ -53,20 +53,31 @@ export class MyTicketsBlockComponent implements OnInit {
 
   getImage()
   {
-    for(let i = 0; i < this.tickets.length; i++)
-    {
-      this.ticketService.getImages(this.tickets[i].ticketId).subscribe(
+    this.tickets.forEach((ticket) =>{
+      this.ticketService.getImages(ticket.ticketId).subscribe(
         (response) =>
         {
-          this.tickets[i].ticketImg = response[0].pictureLink;
+          if (response[response.length -1].pictureLink)
+            ticket.ticketImg = response[response.length -1].pictureLink;
         }
       );
+    
     }
+    )
     
   }
     
   goToTicket(id : string)
   {
     this.router.navigate(['/viewTicket', {id:id}]) ;
+  }
+
+  delete(id: string){
+    console.log("deleting ticket " + id);
+    this.ticketService.deleteTicket(id).subscribe((res)=>{
+      console.log(res);
+      
+    })
+    
   }
 }

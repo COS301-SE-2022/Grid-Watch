@@ -7,6 +7,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChip, MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { LoggedInGuard } from '@grid-watch/shared-ui';
 
 @NgModule({
   imports: [CommonModule,
@@ -15,7 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatCardModule,
     MatButtonModule,
     RouterModule.forChild([
-      { path: 'tech-team', pathMatch: 'full', component: TechTeamPageComponent },
+      { path: 'tech-team', pathMatch: 'full', component: TechTeamPageComponent, canActivate: [LoggedInGuard] },
     ])],
   declarations: [TechTeamPageComponent],
   exports: [TechTeamPageComponent],

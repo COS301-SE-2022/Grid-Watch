@@ -69,7 +69,7 @@ export class RegisterPageComponent implements OnInit {
         {
           this.profileService.createAdmin(this.admin).subscribe(
             (response) => {
-              console.log(response);
+              // console.log(response);
               if (response !== false)
               {
                 this.toastService.show('Created Admin Successfully',{

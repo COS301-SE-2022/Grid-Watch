@@ -11,6 +11,8 @@ import { AdminAppProfileModule } from '@grid-watch/admin-app/profile';
 import { AdminAppTechTeamModule } from '@grid-watch/admin-app/tech-team';
 import { ToastService} from '@grid-watch/shared-ui';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
@@ -31,7 +33,18 @@ const routes: Routes = [
     AdminAppProfileModule,
     AdminAppTechTeamModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    AngularFireModule,
+    AngularFireModule.initializeApp({
+    apiKey: "AIzaSyB5VKBU78lomWEVrtiUOYIglrM2VdC0jI8",
+    authDomain: "epi-use-c9dfa.firebaseapp.com",
+    projectId: "epi-use-c9dfa",
+    storageBucket: "epi-use-c9dfa.appspot.com",
+    messagingSenderId: "342205045804",
+    appId: "1:342205045804:web:b401e9bde4216d489a8589",
+    measurementId: "G-JW453VRZD1"
+  }),
+    AngularFirestoreModule,
   ],
   providers: [GoogleMapsService, LoggedInGuard,ToastService ,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true} ],
   bootstrap: [AppComponent],

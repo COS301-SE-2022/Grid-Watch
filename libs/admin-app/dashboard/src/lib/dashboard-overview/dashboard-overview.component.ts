@@ -233,7 +233,7 @@ export class DashboardOverviewComponent implements AfterViewInit
                     if (ctx1 !== null)
                     {
                         this.pieChart = new Chart(ctx1, {
-                            type: 'pie',
+                            type: 'polarArea',
                             data: typesdata,
                             options: {
                                 responsive: true,
@@ -316,8 +316,7 @@ export class DashboardOverviewComponent implements AfterViewInit
     {
         this.ticketService.getTickets().subscribe((ticket) =>
         {
-            this.createSummaryTable(ticket);
-            console.log(ticket);
+            // console.log(ticket);
             for (let i = 0; i < ticket.length; i++)
             {
                 const tick = ticket.at(i);
@@ -486,7 +485,7 @@ export class DashboardOverviewComponent implements AfterViewInit
 
     toggleElement(id: string)    
     {
-        console.log(id);
+        // console.log(id);
 
         const lc = document.getElementById("line-chart-container");
         const pc = document.getElementById("pieChart");

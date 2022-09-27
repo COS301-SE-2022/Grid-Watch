@@ -13,9 +13,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MessageDialogComponent } from './message-dialog/message-dialog.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastComponent } from './toast/toast.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 @NgModule({
   imports: [
@@ -33,7 +36,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatButtonModule,
     MatIconModule,
     MatGridListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatProgressSpinnerModule,
   ],
   declarations: [
     NavBarComponent,
@@ -41,14 +45,16 @@ import { MatTabsModule } from '@angular/material/tabs';
     AppHeaderComponent,
     MessageDialogComponent,
     ToastComponent,
+    SpinnerComponent,
   ],
   exports: [
     NavBarComponent,
     MenuOptionsComponent,
     AppHeaderComponent,
     MessageDialogComponent,
-    ToastComponent
+    ToastComponent,
+    SpinnerComponent,
   ],
-  providers: [Router]
+  providers: [],
 })
 export class SharedUiModule {}

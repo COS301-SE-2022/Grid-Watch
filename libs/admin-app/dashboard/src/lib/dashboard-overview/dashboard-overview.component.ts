@@ -549,10 +549,23 @@ export class DashboardOverviewComponent implements AfterViewInit
             for(let i=0;i<count.length;i++){
                 str.push(count[i].toString());
             }
-
             retCount.push(str);
 
         }
+
+        // if other not last
+        let pos = 0;
+        for (let i = 0; i < retCount.length; i++) {
+            if (retCount[i][0] == "Other") {
+                pos = i;
+                break;
+            }
+        }
+
+        if (pos != retCount.length-1) {
+            [retCount[pos],retCount[retCount.length-1]] = [retCount[retCount.length-1],retCount[pos]]
+        }
+
         console.log(retCount)
         this.tableData = retCount;
 

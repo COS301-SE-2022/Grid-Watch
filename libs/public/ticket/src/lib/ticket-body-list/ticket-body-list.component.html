@@ -1,98 +1,190 @@
 <mat-drawer-container class="drawerContainer" hasBackdrop="true">
-	<mat-drawer #drawer mode="over">
-		<div class="sortContainer" *ngIf="type === 'sort'">
-			<h4>Sort</h4>
-			<div *ngFor="let sortItem of sortLabels">
-				<mat-radio-button value="{{sortItem}}" (change)="sort(sortItem)" (click)="sort(sortItem)">{{sortItem}}
-				</mat-radio-button>
-			</div>
-			<div>
-				<mat-select class="border" value="asc" [(ngModel)]="sortDirection">
-					<mat-option value="asc">
-						Ascending
-					</mat-option>
-					<mat-option value="desc">
-						Descending
-					</mat-option>
-				</mat-select>
-			</div>
-		</div>
-		<div class="filterContainer" *ngIf="type === 'filter'">
-			<div class="filterOption" *ngFor="let filters of filterLabels">
-				<h4>City</h4>
-				<div *ngFor="let city of filters.city">
-					<mat-checkbox value="{{city}}" (click)="filter(city)">{{city}}</mat-checkbox>
-				</div>
-			</div>
-			<mat-divider>
-			</mat-divider>
-			<div class = "filterOption" *ngFor="let filters of filterLabels">
-				<h4>Issue Type</h4>
-				<div *ngFor="let type of filters.type">
-					<mat-checkbox value="{{type}}" (click)="filter(type)">{{type}}</mat-checkbox>
-				</div>
-			</div>
-			<mat-divider>
-			</mat-divider>
-			<div class = "filterOption" *ngFor="let filters of filterLabels">
-				<h4>Months</h4>
-				<div *ngFor="let month of filters.month">
-					<mat-checkbox value="{{month}}" (click)="filter(month)">{{month}}</mat-checkbox>
-				</div>
-			</div>
-		</div>
-	</mat-drawer>
-	<mat-drawer-content>
-		<div>
-			<div class="buttons border">
-				<div class="buttonContainer">
-					<button class="buttonsSort" mat-raised-button
-						(click)="drawer.toggle(); type = 'filter'">Filter</button>
-				</div>
-				<div class="buttonContainer">
-					<button class="buttonsFilter" mat-raised-button
-						(click)="drawer.toggle(); type = 'sort'">Sort</button>
-				</div>
-			</div>
-			<mat-card class="mt-4 cards {{ ticketStatus[i] }}" *ngFor="let ticket of tickets; index as i">
-				<mat-grid-list cols="12" rowHeight="30px">
-					<mat-grid-tile (click)="goToTicket(ticket.ticketId.toString())" colspan="2" rowspan="2">
-						<img [ngClass]="'ticketImg'" src="{{ ticketImages[i] }}"
-							onerror="this.src='assets/solid_example.png'" />
-					</mat-grid-tile>
-					<mat-grid-tile (click)="goToTicket(ticket.ticketId.toString())" colspan="8" class="citizenName">
-						{{ ticket.ticketType }}
-					</mat-grid-tile>
-					<mat-grid-tile rowspan="1" colspan="2" class="upVoteDivContainer">
-						<span class="upvoteCount">
-							{{ ticket.ticketUpvotes }} &nbsp;
-						</span>
-						<span class="upvoteContainer" id="{{ticket.ticketId}}" aria-disabled="true">
-
-							<img (click)="IncreaseUpvote(ticket.ticketId, i)" class="upvote_img"
-								src="assets/circle-up-solid.svg" alt="upvote icon" />
-						</span>
-					</mat-grid-tile>
-					<mat-grid-tile (click)="goToTicket(ticket.ticketId.toString())" colspan="8" class="ml-5 mr-5"
-						style="text-align: center; font-size: small">
-						<img class="pin_location" src="assets/location-pin-solid.svg" alt="" />
-						<span class="location_heading">&ensp;{{ ticket.ticketCity }}</span>
-					</mat-grid-tile>
-					<mat-grid-tile rowspan="1" colspan="2" (click)="goToTicket(ticket.ticketId.toString())">
-					</mat-grid-tile>
-					<mat-grid-tile colspan="3" class="smallInformation"
-						(click)="goToTicket(ticket.ticketId.toString())">
-						{{ ticketDates[i] }}
-					</mat-grid-tile>
-					<mat-grid-tile colspan="5" (click)="goToTicket(ticket.ticketId.toString())">
-					</mat-grid-tile>
-					<mat-grid-tile colspan="4" class="truncate smallInformation"
-						(click)="goToTicket(ticket.ticketId.toString())">
-						{{ ticket.ticketStatus }}
-					</mat-grid-tile>
-					<!--<mat-grid-tile colspan="2"><a [ngClass] = "'ticketEdit'" [routerLink]="['/editTicket', {id:ticket.ticketId}]">Edit </a></mat-grid-tile>-->
-				</mat-grid-list>
-			</mat-card>
-		</div>
-	</mat-drawer-content>
+  <mat-drawer #drawer mode="over">
+    <div class="sortContainer" *ngIf="type === 'sort'">
+      <h4>Sort</h4>
+      <div *ngFor="let sortItem of sortLabels">
+        <mat-radio-button
+        color="primary"
+          value="{{ sortItem }}"
+          (change)="sort(sortItem)"
+          (click)="sort(sortItem)"
+          >{{ sortItem }}
+        </mat-radio-button>
+      </div>
+      <div>
+        <mat-select class="border" value="asc" [(ngModel)]="sortDirection">
+          <mat-option value="asc"> Ascending </mat-option>
+          <mat-option value="desc"> Descending </mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <div class="filterContainer" *ngIf="type === 'filter'">
+      <div class="filterOption" *ngFor="let filters of filterLabels">
+        <h4>City</h4>
+        <mat-radio-group>
+          <div *ngFor="let city of filters.city">
+            <mat-radio-button
+			color="primary"
+              value="{{ city.name }}"
+              (change)="filter(city.name, 'city'); city.checked = !city.checked"
+              [checked]="city.checked">{{ city.name }}
+			</mat-radio-button>
+          </div>
+        </mat-radio-group>
+        <!-- <div *ngFor="let city of filters.city">
+					<mat-checkbox value="{{city}}" (click)="filter(city.name)">{{city.name}}</mat-checkbox>
+				</div> -->
+      </div>
+      <mat-divider> </mat-divider>
+      <div class="filterOption" *ngFor="let filters of filterLabels">
+        <h4>Issue Type</h4>
+        <mat-radio-group>
+          <div *ngFor="let type of filters.type">
+            <mat-radio-button
+				color="primary"
+              value="{{ type.name }}"
+              (change)="filter(type.name, 'issue'); type.checked = true"
+              [checked]="type.checked"
+              >{{ type.name }}</mat-radio-button
+            >
+          </div>
+        </mat-radio-group>
+        <!-- <div *ngFor="let type of filters.type">
+					<mat-checkbox value="{{type}}" (click)="filter(type.name)">{{type.name}}</mat-checkbox>
+				</div> -->
+      </div>
+      <mat-divider> </mat-divider>
+      <div class="filterOption" *ngFor="let filters of filterLabels">
+        <h4>Months</h4>
+        <mat-radio-group>
+          <div *ngFor="let month of filters.month">
+            <mat-radio-button
+				color="primary"
+              value="{{ month.name }}"
+              (change)="filter(month.name, 'month'); month.checked = !month.checked"
+              [checked]="month.checked"
+              >{{ month.name }}</mat-radio-button
+            >
+          </div>
+        </mat-radio-group>
+      </div>
+      <mat-divider>
+      </mat-divider>
+      <div class="resetButtonContainer">
+        <button mat-raised-button color="primary" class="resetButton" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div>
+      <div class="buttons border">
+        <div class="buttonContainer">
+          <button
+            class="buttonsSort"
+            mat-raised-button
+            (click)="drawer.toggle(); type = 'filter'"
+          >
+            Filter
+          </button>
+        </div>
+        <div class="buttonContainer">
+          <button
+            class="buttonsFilter"
+            mat-raised-button
+            (click)="drawer.toggle(); type = 'sort'"
+          >
+            Sort
+          </button>
+        </div>
+      </div>
+      <mat-card
+        class="mt-4 cards {{ ticketStatus[i] }}"
+        *ngFor="let ticket of tickets; index as i"
+      >
+        <mat-grid-list cols="12" rowHeight="30px">
+          <mat-grid-tile
+            (click)="goToTicket(ticket.ticketId.toString())"
+            colspan="2"
+            rowspan="2"
+          >
+            <img
+              [ngClass]="'ticketImg'"
+              src="{{ ticketImages[i] }}"
+              onerror="this.src='assets/solid_example.png'"
+            />
+          </mat-grid-tile>
+          <mat-grid-tile
+            (click)="goToTicket(ticket.ticketId.toString())"
+            colspan="8"
+            class="citizenName"
+          >
+            {{ ticket.ticketType }}
+          </mat-grid-tile>
+          <!-- <mat-grid-tile rowspan="1" colspan="2" class="upVoteDivContainer">
+            <span class="upvoteCount"> {{ ticket.ticketUpvotes }} &nbsp; </span>
+            <span
+              class="upvoteContainer"
+              id="{{ ticket.ticketId }}"
+              aria-disabled="true"
+            >
+              <img
+                (click)="IncreaseUpvote(ticket.ticketId, i)"
+                class="upvote_img"
+                src="assets/circle-up-solid.svg"
+                alt="upvote icon"
+              />
+            </span>
+          </mat-grid-tile> -->
+          <mat-grid-tile rowspan = "1" colspan="2">
+            <span class="upvoteNumber">
+              {{ticket.ticketUpvotes}}  
+            </span>
+             <span class="upvoteContainer liked">
+                <img (click)="IncreaseUpvote(ticket.ticketId, i)" class="upvote_img" src="assets/circle-up-solid.svg" alt="upvote icon">      
+              </span>
+              </mat-grid-tile> 
+          
+          <mat-grid-tile
+            (click)="goToTicket(ticket.ticketId.toString())"
+            colspan="8"
+            class="ml-5 mr-5"
+            style="text-align: center; font-size: small"
+          >
+            <img
+              class="pin_location"
+              src="assets/location-pin-solid.svg"
+              alt=""
+            />
+            <span class="location_heading">&ensp;{{ ticket.ticketCity }}</span>
+          </mat-grid-tile>
+          <mat-grid-tile
+            rowspan="1"
+            colspan="2"
+            (click)="goToTicket(ticket.ticketId.toString())"
+          >
+          </mat-grid-tile>
+          <mat-grid-tile
+            colspan="3"
+            class="smallInformation"
+            (click)="goToTicket(ticket.ticketId.toString())"
+          >
+            {{ ticketDates[i] }}
+          </mat-grid-tile>
+          <mat-grid-tile
+            colspan="5"
+            (click)="goToTicket(ticket.ticketId.toString())"
+          >
+          </mat-grid-tile>
+          <mat-grid-tile
+            colspan="4"
+            class="truncate smallInformation"
+            (click)="goToTicket(ticket.ticketId.toString())"
+          >
+            {{ ticket.ticketStatus }}
+          </mat-grid-tile>
+          <!--<mat-grid-tile colspan="2"><a [ngClass] = "'ticketEdit'" [routerLink]="['/editTicket', {id:ticket.ticketId}]">Edit </a></mat-grid-tile>-->
+        </mat-grid-list>
+      </mat-card>
+    </div>
+  </mat-drawer-content>
 </mat-drawer-container>

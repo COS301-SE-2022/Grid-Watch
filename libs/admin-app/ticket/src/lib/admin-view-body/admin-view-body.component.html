@@ -12,7 +12,7 @@
             <mat-radio-button
               color="primary"
               value="{{ city.name }}"
-              (change)="filter(city.name, 'city'); city.checked = true"
+              (change)="filter(city.name, 'city'); city.checked = !city.checked"
               [checked]="city.checked"
               >{{ city.name }}</mat-radio-button
             >
@@ -27,7 +27,7 @@
             <mat-radio-button
               color="primary"
               value="{{ issue.name }}"
-              (change)="filter(issue.name, 'issue'); issue.checked = true"
+              (change)="filter(issue.name, 'issue'); issue.checked = !issue.checked"
               [checked]="issue.checked"
               >{{ issue.name }}</mat-radio-button
             >
@@ -42,7 +42,7 @@
             <mat-radio-button
               color="primary"
               value="{{ status.name }}"
-              (change)="filter(status.name, 'status'); status.checked = true"
+              (change)="filter(status.name, 'status'); status.checked = !status.checked"
               [checked]="status.checked"
               >{{ status.name }}</mat-radio-button
             >

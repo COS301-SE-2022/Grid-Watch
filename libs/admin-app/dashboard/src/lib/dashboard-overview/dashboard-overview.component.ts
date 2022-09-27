@@ -233,7 +233,7 @@ export class DashboardOverviewComponent implements AfterViewInit
                     if (ctx1 !== null)
                     {
                         this.pieChart = new Chart(ctx1, {
-                            type: 'pie',
+                            type: 'polarArea',
                             data: typesdata,
                             options: {
                                 responsive: true,

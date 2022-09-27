@@ -1,27 +1,34 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Token } from '@grid-watch/api/authentication';
-import { AdminDto } from '@grid-watch/api/profiles/admin/api/shared/api-profiles-admin-api-dto';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
-import { id } from '@swimlane/ngx-charts';
 import { catchError, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TechTeamProfileService {
-  private createTechTeamURL = 'api/techteam/create';
-  private getTechTeamURL = 'api/techteam/email/';
-  private getTechTeamIDURL = 'api/techteam/';
-  private loginURL = 'api/techteam/verify';
-  private getAllTechTeamsURL = 'api/techteam/all';
-  private updateNameURL = 'api/techteam/update/name/';
-  private updateEmailURL = 'api/techteam/update/email/';
-  private updateContactURL = 'api/techteam/update/contactnr/';
-  private getContactURL = 'api/techteam/contactnr/';
-  private updateSpecialisationURL = 'api/techteam/update/specialisation/';
-  private updateTeamURL = 'api/techteam/update/';
+
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin": "https://grid-watch-api.azurewebsites.net/"
+    }),
+  };
+
+  private apiURL = "https://grid-watch-api.azurewebsites.net"
+  private createTechTeamURL = this.apiURL +  '/api/techteam/create';
+  private getTechTeamURL = this.apiURL +  '/api/techteam/email/';
+  private getTechTeamIDURL = this.apiURL +  '/api/techteam/';
+  private loginURL = this.apiURL +  '/api/techteam/verify';
+  private getAllTechTeamsURL = this.apiURL +  '/api/techteam/all';
+  private updateNameURL = this.apiURL +  '/api/techteam/update/name/';
+  private updateEmailURL = this.apiURL +  '/api/techteam/update/email/';
+  private updateContactURL = this.apiURL +  '/api/techteam/update/contactnr/';
+  private getContactURL = this.apiURL +  '/api/techteam/contactnr/';
+  private updateSpecialisationURL = this.apiURL +  '/api/techteam/update/specialisation/';
+  private updateTeamURL = this.apiURL +  '/api/techteam/update/';
 
   constructor(private http: HttpClient) {}
 
@@ -53,8 +60,6 @@ export class TechTeamProfileService {
 
   public getTechTeam(email: string) {
     const tempURL = this.getTechTeamURL + email;
-    console.log(tempURL+"temp");
-    console.log(email+"email");
     return this.http
       .get<TechTeamDto[]>(tempURL)
       .pipe(catchError(this.handleError<TechTeamDto[]>('getTechTeam', [])));
@@ -119,7 +124,7 @@ export class TechTeamProfileService {
 
   public updateEmail(email: string, id: string) {
     const tempUrl = this.updateEmailURL + id;
-    console.log(tempUrl);
+    // console.log(tempUrl);
 
     const body = {
       email: email,
@@ -131,7 +136,7 @@ export class TechTeamProfileService {
 
   public updateContact(contact: string, id: string) {
     const tempUrl = this.updateContactURL + id;
-    console.log(tempUrl);
+    // console.log(tempUrl);
 
     const body = {
       ContactNr: contact,
@@ -155,7 +160,7 @@ export class TechTeamProfileService {
     const body = {
       specialisation: specialisation,
     };
-    console.log(body);
+    // console.log(body);
     
     return this.http
       .put<JSON>(tempURL, body)

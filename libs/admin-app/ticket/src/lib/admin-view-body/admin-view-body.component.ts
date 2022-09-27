@@ -1,7 +1,8 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -14,6 +15,11 @@ import { table } from 'console';
 export interface Filters {
   name : string,
   checked: boolean
+}
+
+export interface FilterChecked {
+  name : string,
+  category: string
 }
 
 @Component({
@@ -30,7 +36,7 @@ export class AdminViewBodyComponent implements OnInit {
   issues: Filters[] = [];
   cities: Filters[] = [];
   dates: Date[] = [];
-  filterChecked: string[] = [];
+  filterChecked: FilterChecked [] = [];
   sortoptions: string[] = [
     'Original',
     'Date',
@@ -53,12 +59,14 @@ export class AdminViewBodyComponent implements OnInit {
 
   dataSource!: MatTableDataSource<TicketDto>;
   @ViewChild(MatTable) table!: MatTable<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private router: Router,
     private http: HttpClient,
     private ticketService: TicketService,
-    private googleMapsService: GoogleMapsService
+    private googleMapsService: GoogleMapsService,
+    private cdref : ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -83,7 +91,7 @@ export class AdminViewBodyComponent implements OnInit {
   }
 
   announceSortChange(sortState: Sort) {
-    console.log(sortState);
+    // console.log(sortState);
 
     if (sortState.direction === '') {
       this.tickets = [];
@@ -96,13 +104,14 @@ export class AdminViewBodyComponent implements OnInit {
       this.tickets = this.ticketService.sort(sortState.active, sortState.direction, this.tickets);
     }
     this.dataSource = new MatTableDataSource<TicketDto>(this.tickets);
+    this.dataSource = new MatTableDataSource(this.tickets);
     this.table.renderRows();
   }
 
   getDatabaseData(filters: boolean) {
     this.ticketService.getTickets().subscribe(
       async (response) => {
-        console.log(response);
+        // console.log(response);
         await this.initialiseTicket(response);
         this.adjustDates();
         if (filters) this.initialiseFilters();
@@ -134,7 +143,7 @@ export class AdminViewBodyComponent implements OnInit {
   viewTicket(id: number): void {
     // console.log('GO to ticket view admin');
     const url = '/adminViewTicketDetails';
-    console.log(id);
+    // console.log(id);
     this.router.navigate([url, { id: id }]);
   }
 
@@ -158,6 +167,7 @@ export class AdminViewBodyComponent implements OnInit {
       this.ticketDates.push(y + "/" + m + "/" + d);
     }
     this.dataSource = new MatTableDataSource(this.tickets);
+    this.dataSource.paginator = this.paginator;
     // this.table.renderRows();
   }
 
@@ -179,53 +189,56 @@ export class AdminViewBodyComponent implements OnInit {
     return newTicket;
   }
 
-  filter(event: any, category : string) {
-    console.log(event);
-    if (!this.filterChecked.includes(event.source.name)) {
-      this.filterChecked.push(event.source.name);
+  filter(event: string, category : string) {
+    const temp = {"name":event, "category" : category}
+    const isThere = this.filterChecked.filter((filter) =>{
+      return filter.category === temp.category
+    })
+    // console.log(isThere);
+    
+    if (isThere.length === 0) {
+      this.filterChecked.push(temp);
     } else {
       this.filterChecked = this.filterChecked.filter((val) => {
-        return !val.match(event.source.name);
+        return val.category !== temp.category
       });
+      this.filterChecked.push(temp);
     }
+
+    console.log(this.filterChecked);
+
+    
 
     if (this.filterChecked.length > 0)
     {
-      let filterdTickets: TicketDto[] = [];
-      if (category == 'city')
-      for (let index = 0; index < this.filterChecked.length; index++) {
-        const temp = this.tickets.filter((ticket) => {
-          return ticket.ticketCity === this.filterChecked[index];
-        });
-        filterdTickets = filterdTickets.concat(temp);
-      }
-      
-      if (category == 'status')
-      for (let index = 0; index < this.filterChecked.length; index++) {
-        const temp = this.tickets.filter((ticket) => {
-          return ticket.ticketStatus === this.filterChecked[index];
-        });
-        filterdTickets = filterdTickets.concat(temp);
-      }
-      
-      if (category == 'issue')
-      for (let index = 0; index < this.filterChecked.length; index++) {
-        const temp = this.tickets.filter((ticket) => {
-          return ticket.ticketType === this.filterChecked[index];
-        });
-        filterdTickets = filterdTickets.concat(temp);
-      }
+      // const filterdTickets = this.tickets.filter((ticket) =>{
+      //   return ticket.
+      // })
+      this.tickets = this.ticketsPERM;
+      let filterdTickets = this.tickets;
+      this.filterChecked.forEach((filter) =>{
+        
+      filterdTickets = [...filterdTickets.filter((ticket) =>{
+        return (
+          ticket.ticketStatus === filter.name ||
+          ticket.ticketCity === filter.name ||
+          ticket.ticketType === filter.name
+          );
+      })]; 
+        
+
+      })
+
       this.tickets = filterdTickets;
       this.dataSource = new MatTableDataSource<TicketDto>(this.tickets);
+      this.dataSource = new MatTableDataSource(this.tickets);
       this.table.renderRows();
     }
     else
     {
-      this.tickets = [];
-      for (let index = 0; index < this.ticketsPERM.length; index++) {
-        this.tickets[index] = this.copy(this.ticketsPERM[index]);
-      }
+      this.tickets = [...this.ticketsPERM];
       this.dataSource = new MatTableDataSource<TicketDto>(this.tickets);
+      this.dataSource = new MatTableDataSource(this.tickets);
       this.table.renderRows();
     }
 
@@ -234,6 +247,8 @@ export class AdminViewBodyComponent implements OnInit {
 
   resetFilters() : void
   {
+    console.log(this.statuses);
+    
     this.statuses.forEach((item) =>
     {
       item.checked = false;
@@ -246,6 +261,7 @@ export class AdminViewBodyComponent implements OnInit {
     {
       item.checked = false;
     })
+    this.cdref.detectChanges()
 
     this.tickets = [];
     this.filterChecked = [];
@@ -253,6 +269,7 @@ export class AdminViewBodyComponent implements OnInit {
       this.tickets[index] = this.copy(this.ticketsPERM[index]);
     }
     this.dataSource = new MatTableDataSource(this.ticketsPERM);
+    this.dataSource = new MatTableDataSource(this.tickets);
     this.table.renderRows();
   }
 

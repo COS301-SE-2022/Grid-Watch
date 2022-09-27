@@ -27,3 +27,5 @@ export * from './lib/toast/toast.component';
 export * from './lib/guards/logged-in/logged-in.guard';
 
 export * from './lib/interceptors/auth.interceptor';
+
+export * from './lib/spinner/spinner.component';

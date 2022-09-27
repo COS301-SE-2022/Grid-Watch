@@ -43,7 +43,7 @@ export class RegisterPageComponent implements OnInit {
     if (this.user.password === this.confirmPassword)
     {
      
-      console.log(await this.checkEmailExist());
+      // console.log(await this.checkEmailExist());
       
       if (await this.checkEmailExist())
       {

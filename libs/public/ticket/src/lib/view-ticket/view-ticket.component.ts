@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { PublicProfileService, SessionManagerService, TicketService } from '@grid-watch/shared-ui';
 import { id } from '@swimlane/ngx-charts';
 
@@ -21,6 +22,7 @@ export class ViewTicketComponent implements OnInit
   user!: UserDto;
   userId!: string | null;
   loggedUser!: UserDto;
+  ticketStatus!: string;
 
   constructor(
     private ticketService: TicketService,
@@ -42,12 +44,33 @@ export class ViewTicketComponent implements OnInit
         async (response) =>
         {
           this.ticket = response[0];
-          console.log(response);
+          // console.log(response);
+          this.intialiseTicket();
           this.initialiseUser();
           this.initialiseImage();
           this.getSubtasks();
         }
       )
+    }
+  }
+
+  private intialiseTicket(){
+    switch (this.ticket.ticketStatus) {
+      case 'Created':
+        this.ticketStatus = 'redText';
+        break;
+      case 'Dispatched':
+        this.ticketStatus = 'orangeText';
+        break;
+      case 'In Progress':
+        this.ticketStatus = 'yellowText';
+        break;
+      case 'Closed':
+        this.ticketStatus = 'greenText';
+        break;
+      default:
+        this.ticketStatus = 'yellowText';
+        break;
     }
   }
 
@@ -78,7 +101,7 @@ export class ViewTicketComponent implements OnInit
       (response) =>
       {
         this.user = response[0];
-        console.log(this.ticketID);
+        // console.log(this.ticketID);
         if (this.userId)
         {
           this.profileService.getUser(this.userId).subscribe(
@@ -88,7 +111,7 @@ export class ViewTicketComponent implements OnInit
               if (this.loggedUser.ticketsUpvoted.includes(parseInt(this.ticketID)))
               {
                 const element = document.getElementById("upvotesContainer");
-                console.log(element);
+                // console.log(element);
                 element?.classList.add("liked")
               }
             }
@@ -103,8 +126,8 @@ export class ViewTicketComponent implements OnInit
     this.ticketService.getImages(this.ticket.ticketId).subscribe(
       (response) =>
       {
-        if (response[0].pictureLink)
-          this.ticket.ticketImg = response[0].pictureLink;
+        if (response[response.length - 1].pictureLink)
+          this.ticket.ticketImg = response[response.length - 1].pictureLink;
       }
     )
   }
@@ -115,7 +138,7 @@ export class ViewTicketComponent implements OnInit
       this.loggedUser.ticketsUpvoted.push(this.ticket.ticketId)
       this.ticketService.increaseUpvotes(id, ++this.ticket.ticketUpvotes, this.loggedUser.id.toString())
       const card = document.getElementById("upvotesContainer");
-      console.log(card);
+      // console.log(card);
       card?.classList.add("liked")
       
     }

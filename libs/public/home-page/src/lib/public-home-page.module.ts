@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { HomePageBodyComponent } from './home-page-body/home-page-body.component';
 import { GoogleMapsModule } from '@angular/google-maps'
 import { BrowserModule } from '@angular/platform-browser';
-import { GoogleMapsService } from '@grid-watch/shared-ui';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 
@@ -21,6 +20,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
   ],
   declarations: [HomePageBodyComponent],
   exports: [HomePageBodyComponent],
-  providers : [GoogleMapsService]
+  providers : []
 })
 export class PublicHomePageModule {}

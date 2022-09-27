@@ -34,7 +34,7 @@ export class LoginPageComponent implements OnInit {
     this.techProfile = new TechTeamDto();
     this.techProfile.dateCreated = new Date();
     this.techProfile.specialisation = [];
-    console.log(this.techProfile);
+    // console.log(this.techProfile);
 
     if (
       this.sessionService.getID() !== null &&
@@ -51,7 +51,7 @@ export class LoginPageComponent implements OnInit {
 
   async login(): Promise<void> {
     this.profileService.login(this.techProfile).subscribe((response) => {
-      console.log(response);
+      // console.log(response);
       if (response) {
         this.sessionService.setToken(response.access_token)
         this.routeToProfile();
@@ -69,6 +69,7 @@ export class LoginPageComponent implements OnInit {
     this.profileService
       .getTechTeam(this.techProfile.email)
       .subscribe((response) => {
+        // console.log(response);
         this.sessionService.login(response[0].id.toString())
         this.router.navigateByUrl('/profile');
       });

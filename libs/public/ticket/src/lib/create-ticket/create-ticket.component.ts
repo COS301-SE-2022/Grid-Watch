@@ -210,10 +210,12 @@ export class CreateTicketComponent
       const formData = new FormData();
       formData.append("photo", this.file, this.file.name);
 
-      this.ticketService.postImage(formData).subscribe(
+      this.ticketService.postImage(this.file).then(
         (response) =>
         {
-          this.ticket.ticketImg = response.filename
+          console.log(response);
+          
+          this.ticket.ticketImg = response
           this.uploadTicket()
         }
       );

@@ -2,11 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ErrorHandler, Injectable } from '@angular/core';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, finalize, Observable, of } from 'rxjs';
 import { Express } from 'express';
 import { Multer } from 'multer';
 import { ImageResponse } from './image-response';
 import { id } from '@swimlane/ngx-charts';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +33,7 @@ export class TicketService {
   private uploadURL = this.apiURL +  '/api/ticket/upload';
   private updateURL = this.apiURL +  '/api/ticket/update/';
   private createPictureURL = this.apiURL +  '/api/ticket/picture/create/';
+  private updatePictureURL = this.apiURL +  '/api/ticket/picture/update/';
   private createTicketURL = this.apiURL +  '/api/ticket/create';
   private UpdateStatusURL = this.apiURL +  '/api/ticket/update/status/';
   private getTicketStatus = this.apiURL +  '/api/ticket/status/';
@@ -41,7 +44,7 @@ export class TicketService {
   private getAITicketCostURL = this.apiURL +  '/api/ticketAI/estimate/cost';
   private getAITicketTimeURL = this.apiURL +  '/api/ticketAI/estimate/time';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,  private storage : AngularFireStorage) {}
 
   public print(message: string) {
     // console.log(message);
@@ -211,11 +214,11 @@ export class TicketService {
       .pipe(catchError(this.handleError<boolean>('assignTechTeam', false)));
   }
 
-  public uploadImage(ticketImg: string, ticketID: number): Observable<string> {
+  public uploadImage(ticketImg: string, ticketID: number) {
     const tempURL = this.createPictureURL + ticketID;
-    const body = JSON.parse('{ "imgLink" : "' + ticketImg + '"}');
+    const body = { "imgLink" : ticketImg };
     return this.http
-      .post<string>(tempURL, body, this.httpOptions)
+      .post<JSON>(tempURL, body, this.httpOptions)
       .pipe(catchError(this.handleError<string>('getTickets', 'failed')));
   }
 
@@ -257,17 +260,33 @@ export class TicketService {
       .pipe(catchError(this.handleError<TicketPictureDto[]>('getImages', [])));
   }
 
-  public postImage(formData: FormData): Observable<ImageResponse> {
-    // console.log("OVER HERE NOW");
+  // public postImage(formData: FormData): Observable<ImageResponse> {
+  //   // console.log("OVER HERE NOW");
 
-    return this.http.post<Express.Multer.File>(this.uploadURL, formData).pipe(
-      catchError(
-        this.handleError<ImageResponse>('postImage', {
-          originalname: '',
-          filename: '',
+  //   return this.http.post<Express.Multer.File>(this.uploadURL, formData).pipe(
+  //     catchError(
+  //       this.handleError<ImageResponse>('postImage', {
+  //         originalname: '',
+  //         filename: '',
+  //       })
+  //     )
+  //   );
+  // }
+
+  public postImage(file : File) : Promise<string> {
+    return new Promise<string>((resolve, reject) =>{
+      const filePath = file.name;
+      const storageRef = this.storage.ref(filePath);
+      const uploadTask = this.storage.upload(filePath, file);
+      uploadTask.snapshotChanges().pipe(
+        finalize(() =>{
+            storageRef.getDownloadURL().subscribe(async downloadURL => {
+            resolve(downloadURL)
+          });
         })
-      )
-    );
+      ).subscribe()
+  
+    })
   }
 
   public sort(

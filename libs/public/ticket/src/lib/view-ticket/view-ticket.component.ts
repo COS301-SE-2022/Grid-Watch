@@ -103,8 +103,8 @@ export class ViewTicketComponent implements OnInit
     this.ticketService.getImages(this.ticket.ticketId).subscribe(
       (response) =>
       {
-        if (response[0].pictureLink)
-          this.ticket.ticketImg = response[0].pictureLink;
+        if (response[response.length - 1].pictureLink)
+          this.ticket.ticketImg = response[response.length - 1].pictureLink;
       }
     )
   }

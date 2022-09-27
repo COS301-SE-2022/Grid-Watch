@@ -20,6 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { LoggedInGuard } from '@grid-watch/shared-ui';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { MatRadioGroup, MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   imports: [
@@ -54,7 +55,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MatDividerModule,
     MatFormFieldModule,
     MatCheckboxModule,
-    MatInputModule
+    MatInputModule,
+    MatRadioModule
   ],
   declarations: [
     AdminViewBodyComponent,

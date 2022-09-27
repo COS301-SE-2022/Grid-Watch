@@ -1,101 +1,146 @@
-<div class="bodyContainer" id = "all-tickets-table">
-    <button class="filterButton" (click)="drawer.toggle()" mat-button>
-        Filter
-    </button>
+<div class="bodyContainer" id="all-tickets-table">
+  <button class="filterButton" (click)="drawer.toggle()" mat-button>
+    Filter
+  </button>
 
-    <mat-drawer-container hasBackdrop="false">
-        <mat-drawer #drawer mode="over">
-            <div class="filterContainers">
-                <div> <b> City</b></div>
-                <div *ngFor="let city of cities, index as i">
-                    <mat-checkbox name="{{city.name}}" id="cityFilter{{i}}" (change)="filter($event, 'city')" [(ngModel)]="city.checked"
-                        color="primary">{{city.name}}
-                    </mat-checkbox>
-                </div>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="filterContainers">
-                <div> <b> Issues</b></div>
-                <div *ngFor="let issue of issues, index as i">
-                    <mat-checkbox color="primary"  id="issueFilter{{i}}" name="{{issue.name}}" (change)="filter($event, 'issue')"
-                        [(ngModel)]="issue.checked">
-                        {{issue.name}}
-                    </mat-checkbox>
-                </div>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="filterContainers">
-                <div> <b> Status</b></div>
-                <div *ngFor="let status of statuses, index as i">
-                    <mat-checkbox color="primary" name="{{status.name}}" (change)="filter($event, 'status')"
-                        [(ngModel)]="status.checked" id="statusFilter{{i}}">
-                        {{status.name}}
-                    </mat-checkbox>
-                </div>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="filterContainers">
-                <button mat-button id="resetButton" (click)="resetFilters()">Reset</button>
-            </div>
-        </mat-drawer>
-        <mat-drawer-content>
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="announceSortChange($event)">
-                <!--- Note that these columns can be defined in any order.
+  <mat-drawer-container hasBackdrop="false">
+    <mat-drawer #drawer mode="over">
+      <div class="filterContainers">
+        <div class="filterHeading"><b> City</b></div>
+        <mat-radio-group>
+          <div *ngFor="let city of cities">
+            <mat-radio-button
+              color="primary"
+              value="{{ city.name }}"
+              (change)="filter(city.name, 'city'); city.checked = true"
+              [checked]="city.checked"
+              >{{ city.name }}</mat-radio-button
+            >
+          </div>
+        </mat-radio-group>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="filterContainers">
+        <div class="filterHeading"><b> Issues</b></div>
+        <mat-radio-group>
+          <div *ngFor="let issue of issues">
+            <mat-radio-button
+              color="primary"
+              value="{{ issue.name }}"
+              (change)="filter(issue.name, 'issue'); issue.checked = true"
+              [checked]="issue.checked"
+              >{{ issue.name }}</mat-radio-button
+            >
+          </div>
+        </mat-radio-group>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="filterContainers">
+        <div class="filterHeading"><b> Status</b></div>
+        <mat-radio-group>
+          <div *ngFor="let status of statuses">
+            <mat-radio-button
+              color="primary"
+              value="{{ status.name }}"
+              (change)="filter(status.name, 'status'); status.checked = true"
+              [checked]="status.checked"
+              >{{ status.name }}</mat-radio-button
+            >
+          </div>
+        </mat-radio-group>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="filterContainers">
+        <button mat-button id="resetButton" (click)="resetFilters()">
+          Reset
+        </button>
+      </div>
+    </mat-drawer>
+    <mat-drawer-content>
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z8"
+        matSort
+        (matSortChange)="announceSortChange($event)"
+      >
+        <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
-                <!-- Date Column -->
-                <ng-container matColumnDef="Date">
-                    <th style="width: 10% " mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Date
-                    </th>
-                    <td mat-cell *matCellDef="let element, index as i">
-                        {{ element.ticketCreateDate | date:"dd/MM/yyyy" }}
-                    </td>
-                </ng-container>
+        <!-- Date Column -->
+        <ng-container matColumnDef="Date">
+          <th
+            style="width: 10%"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            Date
+          </th>
+          <td mat-cell *matCellDef="let element; index as i">
+            {{ element.ticketCreateDate | date: 'dd/MM/yyyy' }}
+          </td>
+        </ng-container>
 
-                <!-- Issue Column -->
-                <ng-container matColumnDef="Issue">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Issue
-                    </th>
-                    <td mat-cell *matCellDef="let element">
-                        {{ element.ticketType }}
-                    </td>
-                </ng-container>
+        <!-- Issue Column -->
+        <ng-container matColumnDef="Issue">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Issue</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.ticketType }}
+          </td>
+        </ng-container>
 
-                <!-- Location Column -->
-                <ng-container matColumnDef="Location">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
-                    <td mat-cell *matCellDef="let element">
-                        {{ element.ticketStreetAddress }}
-                    </td>
-                </ng-container>
+        <!-- Location Column -->
+        <ng-container matColumnDef="Location">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.ticketStreetAddress }}
+          </td>
+        </ng-container>
 
-                <!-- City Column -->
-                <ng-container matColumnDef="City">
-                    <th style="width: 10%" mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
-                    <td mat-cell *matCellDef="let element">{{ element.ticketCity }}</td>
-                </ng-container>
+        <!-- City Column -->
+        <ng-container matColumnDef="City">
+          <th
+            style="width: 10%"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            City
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.ticketCity }}</td>
+        </ng-container>
 
-                <!-- Status Column -->
-                <ng-container matColumnDef="Status">
-                    <th style="width: 10%" mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-                    <td mat-cell *matCellDef="let element">
-                        {{ element.ticketStatus }}
-                    </td>
-                </ng-container>
+        <!-- Status Column -->
+        <ng-container matColumnDef="Status">
+          <th
+            style="width: 10%"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            Status
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.ticketStatus }}
+          </td>
+        </ng-container>
 
-                <!-- Upvotes Column -->
-                <ng-container matColumnDef="Upvotes">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Upvotes</th>
-                    <td mat-cell *matCellDef="let element">
-                        {{ element.ticketUpvotes }}
-                    </td>
-                </ng-container>
+        <!-- Upvotes Column -->
+        <ng-container matColumnDef="Upvotes">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Upvotes</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.ticketUpvotes }}
+          </td>
+        </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="viewTicket(row.ticketId)"></tr>
-            </table>
-        </mat-drawer-content>
-    </mat-drawer-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="viewTicket(row.ticketId)"
+        ></tr>
+      </table>
+    </mat-drawer-content>
+  </mat-drawer-container>
 </div>

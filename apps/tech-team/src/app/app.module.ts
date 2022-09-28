@@ -13,6 +13,10 @@ import { TicketBodyComponent } from '@grid-watch/public/ticket';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+
+
 const routes: Routes = [
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: TicketViewBodyComponent, canActivate: [LoggedInGuard] },
@@ -33,6 +37,18 @@ const routes: Routes = [
     HttpClientModule,
     NgbModule,
     RouterModule.forRoot(routes),
+    
+    AngularFireModule,
+    AngularFireModule.initializeApp({
+    apiKey: "AIzaSyB5VKBU78lomWEVrtiUOYIglrM2VdC0jI8",
+    authDomain: "epi-use-c9dfa.firebaseapp.com",
+    projectId: "epi-use-c9dfa",
+    storageBucket: "epi-use-c9dfa.appspot.com",
+    messagingSenderId: "342205045804",
+    appId: "1:342205045804:web:b401e9bde4216d489a8589",
+    measurementId: "G-JW453VRZD1"
+  }),
+    AngularFirestoreModule,
   ],
   providers: [GoogleMapsService,ToastService, LoggedInGuard, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],

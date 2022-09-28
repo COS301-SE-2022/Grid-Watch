@@ -116,7 +116,7 @@ export class ViewTicketDetailsComponent implements OnInit {
     this.ticketService.getImages(id).subscribe(
       (response) =>
       {
-        // console.log(response.length );
+        console.log(response );
         if (response.length !== 0)
           this.ticket.ticketImg = response[response.length -1].pictureLink;
           else 

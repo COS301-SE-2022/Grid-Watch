@@ -35,31 +35,92 @@
   <!-- <mat-divider> </mat-divider> -->
   
    
-<mat-card *ngFor="let ticket of tickets, index as i"  class="mt-2 cards {{ticketStatus[i]}}">
-    <mat-grid-list cols = "12" rowHeight = "30px">
-        <mat-grid-tile (click)="goToTicket(ticket.ticketId.toString())" colspan ="2" rowspan="2">
-            <img  [ngClass] = "'ticketImg'" src="{{ticketImages[i]}}" onerror="this.src='assets/solid_example.png'">
-        </mat-grid-tile>
-        <mat-grid-tile (click)="goToTicket(ticket.ticketId.toString())" colspan="8" class="citizenName">
-            {{ticket.ticketType}}             
-        </mat-grid-tile>
-        <mat-grid-tile rowspan = "1" colspan="2">
-            {{ticket.ticketUpvotes}}  &nbsp; <img  class="upvote_img" src="assets/circle-up-solid.svg" alt="upvote icon">      
-        </mat-grid-tile>     
-        <mat-grid-tile (click)="goToTicket(ticket.ticketId.toString())" colspan="8" class="ml-5 mr-5" style="text-align: center;font-size: small;">            
-            <img class="pin_location" src="assets/location-pin-solid.svg" alt="">
-            <span class="location_heading">&ensp;{{ticket.ticketCity}}</span>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan = "1" colspan="2" (click)="goToTicket(ticket.ticketId.toString())">
-        </mat-grid-tile>     
-        <mat-grid-tile colspan = "3" class="smallInformation" (click)="goToTicket(ticket.ticketId.toString())">
-            {{ticketDates[i]}}
-        </mat-grid-tile>
-        <mat-grid-tile colspan = "6" (click)="goToTicket(ticket.ticketId.toString())">
-        </mat-grid-tile>
-        <mat-grid-tile colspan = "3" class = "truncate smallInformation" (click)="goToTicket(ticket.ticketId.toString())">
-            {{ticket.ticketStatus}}
-        </mat-grid-tile>
-        <!--<mat-grid-tile colspan="2"><a [ngClass] = "'ticketEdit'" [routerLink]="['/editTicket', {id:ticket.ticketId}]">Edit </a></mat-grid-tile>-->
-    </mat-grid-list>
+  <mat-card
+  class="mt-4 cards {{ ticketStatus[i] }}"
+  *ngFor="let ticket of tickets; index as i"
+>
+  <mat-grid-list cols="12" rowHeight="30px">
+    <mat-grid-tile
+      (click)="goToTicket(ticket.ticketId.toString())"
+      colspan="2"
+      rowspan="2"
+    >
+      <img
+        [ngClass]="'ticketImg'"
+        src="{{ ticketImages[i] }}"
+        onerror="this.src='assets/solid_example.png'"
+        alt="ticketImage"
+      />
+    </mat-grid-tile>
+    <mat-grid-tile
+      (click)="goToTicket(ticket.ticketId.toString())"
+      colspan="8"
+      class="citizenName"
+    >
+      {{ ticket.ticketType }}
+    </mat-grid-tile>
+    <!-- <mat-grid-tile rowspan="1" colspan="2" class="upVoteDivContainer">
+      <span class="upvoteCount"> {{ ticket.ticketUpvotes }} &nbsp; </span>
+      <span
+        class="upvoteContainer"
+        id="{{ ticket.ticketId }}"
+        aria-disabled="true"
+      >
+        <img
+          (click)="IncreaseUpvote(ticket.ticketId, i)"
+          class="upvote_img"
+          src="assets/circle-up-solid.svg"
+          alt="upvote icon"
+        />
+      </span>
+    </mat-grid-tile> -->
+    <mat-grid-tile rowspan = "1" colspan="2">
+      <span class="upvoteNumber">
+        {{ticket.ticketUpvotes}}  
+      </span>
+       <span class="upvoteContainer" id="{{ticket.ticketId}}">
+          <img class="upvote_img" src="assets/circle-up-solid.svg" alt="upvote icon">      
+        </span>
+        </mat-grid-tile> 
+    
+    <mat-grid-tile
+      (click)="goToTicket(ticket.ticketId.toString())"
+      colspan="8"
+      class="ml-5 mr-5"
+      style="text-align: center; font-size: small"
+    >
+      <img
+        class="pin_location"
+        src="assets/location-pin-solid.svg"
+        alt=""
+      />
+      <span class="location_heading">&ensp;{{ ticket.ticketStreetAddress }}</span>
+    </mat-grid-tile>
+    <mat-grid-tile
+      rowspan="1"
+      colspan="2"
+      (click)="goToTicket(ticket.ticketId.toString())"
+    >
+    </mat-grid-tile>
+    <mat-grid-tile
+      colspan="3"
+      class="smallInformation"
+      (click)="goToTicket(ticket.ticketId.toString())"
+    >
+      {{ ticketDates[i] }}
+    </mat-grid-tile>
+    <mat-grid-tile
+      colspan="5"
+      (click)="goToTicket(ticket.ticketId.toString())"
+    >
+    </mat-grid-tile>
+    <mat-grid-tile
+      colspan="4"
+      class="truncate smallInformation"
+      (click)="goToTicket(ticket.ticketId.toString())"
+    >
+      {{ ticket.ticketStatus }}
+    </mat-grid-tile>
+    <!--<mat-grid-tile colspan="2"><a [ngClass] = "'ticketEdit'" [routerLink]="['/editTicket', {id:ticket.ticketId}]">Edit </a></mat-grid-tile>-->
+  </mat-grid-list>
 </mat-card>

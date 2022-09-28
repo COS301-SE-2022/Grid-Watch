@@ -15,10 +15,10 @@ mat-form-field{
 }
 
 mat-card{
-    margin: 5vh 5vw;
-    margin-bottom: 20px;
+    margin: 5vh 5vh 5vw 5vw;
+    margin-bottom: 100px;
     padding-bottom: 50px;
-    width: 90vw;
+    width: 85vw;
 }
 
 span.avatar {
@@ -46,4 +46,13 @@ width : 80vw;
 .mat-card-actions {
 	display: flex;
 	justify-content: center;
+}
+
+.chips{
+    background: var(--primary);
+}
+
+.mat-card-header .mat-card-title {
+	margin-bottom: 12px;
+	margin-top: 10px;
 }

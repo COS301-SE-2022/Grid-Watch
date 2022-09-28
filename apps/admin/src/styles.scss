@@ -82,5 +82,5 @@ $bv-theme: mat-light-theme($bv-palette-primary, $bv-palette-accent);
 @include angular-material-theme($bv-theme);
 
 :root{
-  --primary : #8ec63f
+  --primary : #8ec63f;
 }

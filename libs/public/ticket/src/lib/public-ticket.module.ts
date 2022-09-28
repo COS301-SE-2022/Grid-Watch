@@ -97,5 +97,6 @@ import { GoogleMapsService } from '@grid-watch/shared-ui';
     TicketBodyMapComponent,
   ],
   providers: [FormBuilder, LoggedInGuard, GoogleMapsService],
+
 })
 export class PublicTicketModule {}

@@ -120,7 +120,7 @@ img.pin_location
     position: absolute; 
     bottom: 0; 
     width: 100%; 
-    height: 35px; 
+    height: 10%; 
     // border: 1px solid red
 }
 
@@ -168,5 +168,12 @@ span.upvoteContainer {
 
 .ticketsView{
     overflow-y: scroll;
-    height: 100%;
+    margin-bottom: 5px;
+    height: 44%;
+}
+
+.information{
+    height: 45%;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }

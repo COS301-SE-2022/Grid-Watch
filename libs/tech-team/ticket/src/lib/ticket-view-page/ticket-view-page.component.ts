@@ -10,10 +10,20 @@ import {
   TicketService,
 } from '@grid-watch/shared-ui';
 
-interface filterInterface {
-  city: string[];
-  type: string[];
-  month: string[];
+interface Filter {
+  name: string;
+  checked: boolean;
+}
+
+interface filtersInterface {
+  city: Filter[];
+  type: Filter[];
+  month: Filter[];
+}
+
+export interface FilterChecked {
+  name : string,
+  category: string
 }
 
 @Component({
@@ -27,9 +37,10 @@ export class TicketViewPageComponent implements OnInit {
   ticketDates!: string[];
   ticketImages!: string[];
   ticketStatus!: string[];
+  filterChecked: FilterChecked[] = [];
 
   type!: string;
-  filterLabels: filterInterface[] = [];
+  filterLabels: filtersInterface[] = [];
   sortLabels: string[] = [];
   months = [
     'January',
@@ -49,6 +60,7 @@ export class TicketViewPageComponent implements OnInit {
   filterList: string[] = [];
   sortDirection!: 'asc' | 'desc';
   specialisation!: string[];
+
 
   constructor(
     private router: Router,
@@ -109,6 +121,10 @@ export class TicketViewPageComponent implements OnInit {
     this.ticketStatus = [];
     for (let index = 0; index < data.length; index++) {
       // this.tickets.push(data[index]);
+      let temp = this.tickets[index].ticketStreetAddress.split(",")[0];
+      if (this.tickets[index].ticketStreetAddress.split(",")[1] !== undefined)
+        temp +="," +  this.tickets[index].ticketStreetAddress.split(",")[1];
+        this.tickets[index].ticketStreetAddress = temp;
       const date = new Date(data[index]['ticketCreateDate']);
       const m = date.getUTCMonth() + 1;
       const y = date.getUTCFullYear();
@@ -178,23 +194,35 @@ export class TicketViewPageComponent implements OnInit {
   }
 
   loadFilterLabels() {
-    const cities: string[] = [];
-    const types: string[] = [];
-    const months: string[] = [];
+    let cities: Filter[] = [];
+    let types: Filter[] = [];
+    let months: Filter[] = [];
     this.tickets.forEach((ticket) => {
-      if (!cities.includes(ticket.ticketCity)) {
-        cities.push(ticket.ticketCity);
-      }
-      if (!types.includes(ticket.ticketType)) {
-        types.push(ticket.ticketType);
-      }
+      cities.push({ name: ticket.ticketCity, checked: false });
+
+      types.push({ name: ticket.ticketType, checked: false });
+
       const date = new Date(ticket.ticketCreateDate);
       const dateString = this.months[date.getMonth()];
-      if (!months.includes(dateString)) {
-        months.push(dateString);
-      }
+
+      months.push({ name: dateString, checked: false });
+
       // console.log(date.toDateString());
     });
+
+    cities = cities.filter(
+      (value, index, self) =>
+        index === self.findIndex((t) => t.name === value.name)
+    );
+    months = months.filter(
+      (value, index, self) =>
+        index === self.findIndex((t) => t.name === value.name)
+    );
+    types = types.filter(
+      (value, index, self) =>
+        index === self.findIndex((t) => t.name === value.name)
+    );
+
     const tempFilter = {
       city: cities,
       type: types,
@@ -203,30 +231,89 @@ export class TicketViewPageComponent implements OnInit {
     this.filterLabels.push(tempFilter);
   }
 
-  filter(search: string): void {
-    this.tickets = this.ticketsPerm;
-    if (!this.filterList.includes(search)) {
-      this.filterList.push(search);
+  // filter(search: string): void {
+  //   this.tickets = this.ticketsPerm;
+  //   if (!this.filterList.includes(search)) {
+  //     this.filterList.push(search);
+  //   } else {
+  //     this.filterList.splice(this.filterList.indexOf(search), 1);
+  //   }
+
+  //   if (this.filterList.length == 0) {
+  //     this.tickets = this.ticketsPerm;
+  //   }
+
+  //   this.filterList.forEach((filter) => {
+  //     this.tickets = this.tickets.filter((ticket) => {
+  //       return (
+  //         ticket.ticketCity == filter ||
+  //         this.months[new Date(ticket.ticketCreateDate).getMonth()] == filter ||
+  //         ticket.ticketType == filter
+  //       );
+  //     });
+  //     // this.tickets = [...this.tickets ,...tempTickets]
+  //   });
+  //   this.initialiseTicket(this.tickets);
+  // }
+
+  filter(event: string, category : string) {
+    const temp = {"name":event, "category" : category}
+    const isThere = this.filterChecked.filter((filter) =>{
+      return filter.category === temp.category
+    })
+    // console.log(isThere);
+    
+    if (isThere.length === 0) {
+      this.filterChecked.push(temp);
     } else {
-      this.filterList.splice(this.filterList.indexOf(search), 1);
-    }
-
-    if (this.filterList.length == 0) {
-      this.tickets = this.ticketsPerm;
-    }
-
-    this.filterList.forEach((filter) => {
-      this.tickets = this.tickets.filter((ticket) => {
-        return (
-          ticket.ticketCity == filter ||
-          this.months[new Date(ticket.ticketCreateDate).getMonth()] == filter ||
-          ticket.ticketType == filter
-        );
+      this.filterChecked = this.filterChecked.filter((val) => {
+        return val.category !== temp.category
       });
-      // this.tickets = [...this.tickets ,...tempTickets]
-    });
-    this.initialiseTicket(this.tickets);
+      this.filterChecked.push(temp);
+    }
+
+    console.log(this.filterChecked);
+
+    
+
+    if (this.filterChecked.length > 0)
+    {
+      // const filterdTickets = this.tickets.filter((ticket) =>{
+      //   return ticket.
+      // })
+      this.tickets = this.ticketsPerm;
+      let filterdTickets = this.tickets;
+      this.filterChecked.forEach((filter) =>{
+        
+        
+        console.log();
+      filterdTickets = [...filterdTickets.filter((ticket) =>{
+        const temp = ticket.ticketCreateDate.toString().split('T')[0].split("-")[1];
+        const num = parseInt(temp)
+        console.log(num);
+        console.log("this.months[" + num + "] " + this.months[num]);
+        
+        return (
+          this.months[num-1] === filter.name ||
+          ticket.ticketCity === filter.name ||
+          ticket.ticketType === filter.name
+          );
+      })]; 
+        
+
+      })
+
+      this.tickets = filterdTickets;
+      this.initialiseTicket(this.tickets)
+    }
+    else
+    {
+      this.tickets = [...this.ticketsPerm];
+    }
+
+
   }
+
 
   sort(sortType: string): void {
     // this.sortLabels.push("Issue Type")
@@ -239,5 +326,15 @@ export class TicketViewPageComponent implements OnInit {
       this.tickets
     );
     this.initialiseTicket(this.tickets);
+  }
+
+  reset(){
+    this.filterLabels.forEach((filter) =>{
+      filter.city.forEach((value) =>{value.checked = false;})
+      filter.month.forEach((value) =>{value.checked = false;})
+      filter.type.forEach((value) =>{value.checked = false;})
+    })
+    this.tickets = this.ticketsPerm;
+    this.initialiseTicket(this.tickets)
   }
 }

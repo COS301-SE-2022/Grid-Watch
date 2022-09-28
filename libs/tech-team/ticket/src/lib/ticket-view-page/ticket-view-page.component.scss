@@ -131,6 +131,7 @@ mat-drawer{
 .drawerContainer{
     // overflow-y: scroll;
     z-index: 0;
+    height: 100vh;
 }
 
 mat-drawer-content{

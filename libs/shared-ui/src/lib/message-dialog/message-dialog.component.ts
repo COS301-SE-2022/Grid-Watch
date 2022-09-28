@@ -27,6 +27,8 @@ export class MessageDialogComponent implements OnInit {
       this.closeButton= false
     if (this.dataType === 'Login Admin')
       this.closeButton= false
+    if (this.dataType === 'Remove Technicians')
+      this.closeButton= false
     
   }
 
@@ -43,5 +45,9 @@ export class MessageDialogComponent implements OnInit {
 
   guest(){
     this.dialogRef.close("Guest");
+  }
+  
+  remove(){
+    this.dialogRef.close("true");
   }
 }

@@ -75,7 +75,7 @@ export class TicketViewDetailsComponent implements OnInit {
       
         if (data.length > 0)
       {
-        this.picture = data[0];
+        this.picture = data[data.length - 1];
       }
       else
       {

@@ -29,6 +29,7 @@ export class TechTeamProfileService {
   private getContactURL = this.apiURL +  '/api/techteam/contactnr/';
   private updateSpecialisationURL = this.apiURL +  '/api/techteam/update/specialisation/';
   private updateTeamURL = this.apiURL +  '/api/techteam/update/';
+  private deleteTeamURL = this.apiURL +  '/api/techteam/delete/';
 
   constructor(private http: HttpClient) {}
 
@@ -174,5 +175,10 @@ export class TechTeamProfileService {
     return this.http
       .put<JSON>(tempURL, techTeam)
       .pipe(catchError(this.handleError<boolean>('updateCities', false)));
+  }
+
+  public deleteTechTeam(id : string){
+    return this.http.delete(this.deleteTeamURL + id)
+    .pipe(catchError(this.handleError<boolean>('deleteTechTeam', false)));
   }
 }

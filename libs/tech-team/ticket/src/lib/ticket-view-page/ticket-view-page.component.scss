@@ -1,6 +1,6 @@
-img.upvote_img
-{
-    height:80%;
+img.upvote_img {
+    height: 100%;
+    width: 100%;
 }
 
 img.settings_icon 
@@ -19,6 +19,9 @@ img.pin_location
     margin-left: 5%; 
     margin-right:5%;
     filter: drop-shadow(0 0 0.3rem #adadad );
+    //box-shadow: 5px 5px #8ec63f;
+    //border: 2px solid;
+    
 }
 
 .ticketImg
@@ -85,6 +88,11 @@ img.pin_location
     //border-right: -15px #8ec63f solid;
 }
 
+.smallInformation{
+    font-size: small;
+}
+
+
 .buttons{
     display: flex;
 }
@@ -109,25 +117,60 @@ mat-drawer{
     width: 70%;
 }
 
-.sortContainer{
-    
+.sortContainer
+{    
     padding: 1rem;
+    padding-top: 40px !important;
 }
 
 .filterContainer{
     padding: 1rem;
-    
+    padding-top: 40px;
 }
 
 .drawerContainer{
-    overflow-y: scroll;
+    // overflow-y: scroll;
     z-index: 0;
+    height: 100vh;
 }
 
 mat-drawer-content{
     padding-bottom: 100px ;
 }
 
-mat-drawer-container{
-    height: 100vh;
+span.upvoteContainer.liked {
+    // border-radius: 13px;
+    background: #8ec63f;
+    // height: 50%;
+    // width: 50%;
 }
+
+span.upvoteContainer {
+    border-radius: 13px;
+    background: white;
+    height: 100%;
+    width: 45%;
+    
+}
+
+.upvoteNumber {
+    max-width: 15px;
+    margin-right: 1rem;
+  }
+
+.filterOption
+{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.resetButtonContainer{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.resetButton{
+    width: 80%;
+}
+

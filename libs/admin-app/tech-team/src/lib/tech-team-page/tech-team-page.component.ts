@@ -1,8 +1,10 @@
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { TechTeamProfileService, TicketService } from '@grid-watch/shared-ui';
+import { MessageDialogComponent, TechTeamProfileService, TicketService } from '@grid-watch/shared-ui';
 
 interface Teams {
   techTeam: TechTeamDto;
@@ -20,11 +22,13 @@ interface Teams {
 export class TechTeamPageComponent implements OnInit {
   techTeams!: Teams[];
   tickets!: TicketDto[];
+  dialogRef! : MatDialogRef<MessageDialogComponent>;
   constructor(
     private techTeamService: TechTeamProfileService,
     private cdRef: ChangeDetectorRef,
     private ticketService: TicketService,
-    private router : Router
+    private router : Router,
+    public dialog: MatDialog,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -156,5 +160,40 @@ export class TechTeamPageComponent implements OnInit {
           break;
       }
     });
+  }
+
+  remove(email : string){
+    this.showMessage("Remove Technicians", "Are you sure you want to permanently remove this Technican?");
+    this.dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if (result === "true")
+      {
+        const toDelete = this.techTeams.filter((team) =>{
+          return (team.techTeam.email === email);
+        })[0]
+        this.techTeams = this.techTeams.filter((team) =>{
+          return (team.techTeam.email !== email);
+        })
+        this.techTeamService.deleteTechTeam(toDelete.techTeam.id.toString()).subscribe(
+          (res)=>{
+            console.log(res);
+          }
+        );
+      }
+    });
+  }
+
+  showMessage(title :string, info : string ) : void{
+    const temp = window.innerWidth;
+      const pageData = title;
+      const pageInfo = info;
+      this.dialogRef = this.dialog.open(MessageDialogComponent,{
+        panelClass: ['full-screen'],
+        data: {pageData: pageData, pageInfo : pageInfo, return: ""},
+        width: temp.toString(), 
+        height: "150",
+        scrollStrategy: new NoopScrollStrategy()
+      },);
+    
   }
 }

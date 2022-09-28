@@ -11,7 +11,7 @@
         </mat-card-header>
         <mat-card-content>
             <div class="imageContainer">
-                <img src="assets/{{ ticket.ticketImg }}" alt="IssueImage" onerror="" *ngIf="ticket.ticketImg !== ''" />
+                <img src="{{ ticket.ticketImg }}" alt="IssueImage" onerror="'assets/image-solid.svg'" *ngIf="ticket.ticketImg !== ''" />
                 <div class="centeredElement" *ngIf="ticket.ticketImg === ''">
                     <mat-spinner mode="indeterminate"> </mat-spinner>
                 </div>

@@ -7,6 +7,8 @@ img#ticketImage {
 .viewContainer
 {
    padding: 20px; 
+   overflow-y: scroll;
+   height: 80vh;
 }
 
 mat-form-field

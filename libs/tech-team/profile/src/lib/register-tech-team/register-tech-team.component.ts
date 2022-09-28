@@ -59,7 +59,7 @@ export class RegisterTechTeamComponent implements OnInit{
   async register() : Promise<void> {
     if (this.techProfile.password === this.confirmPassword)
     {
-      console.log(await this.checkEmailExists(this.techProfile.email));
+      // console.log(await this.checkEmailExists(this.techProfile.email));
       
       if (await this.checkEmailExists(this.techProfile.email) !== true)
       {

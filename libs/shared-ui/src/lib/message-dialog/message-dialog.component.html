@@ -2,18 +2,23 @@
 <div mat-dialog-content>
     {{dataInfo}}
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions >
     <div *ngIf="closeButton">
-        <button mat-button (click)="close()" >Close</button>
+        <button mat-button color="primary" (click)="close()" >Close</button>
     </div>
   
   <div class="buttonsLogInContainer" *ngIf="dataType ==='Login'">
-      <button mat-button class="buttonsLogIn" (click)="login()" >Login</button>
-      <button mat-button class="buttonsLogIn" (click)="guest()">Guest</button>
+      <button mat-button color="primary" class="buttonsLogIn" (click)="login()" >Login</button>
+      <button mat-button color="primary" class="buttonsLogIn" (click)="guest()">Guest</button>
+</div>
+
+  <div class="buttonsLogInContainer" *ngIf="dataType ==='Remove Technicians'">
+      <button mat-button class="buttonsLogIn" (click)="remove()" style="color: red;">Remove</button>
+      <button mat-button color="primary" class="buttonsLogIn" (click)="close()">Cancel</button>
 </div>
 
   <div class="buttonsLogInContainer" *ngIf="dataType ==='Login Admin'">
-      <button mat-button class="buttonsLogIn" (click)="login()" >Login</button>
+      <button mat-button color="primary" class="buttonsLogIn" (click)="login()" >Login</button>
 </div>
 
 </div>

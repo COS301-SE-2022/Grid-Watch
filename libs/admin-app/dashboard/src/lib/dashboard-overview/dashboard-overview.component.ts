@@ -452,9 +452,23 @@ export class DashboardOverviewComponent implements AfterViewInit
                     if (ctx1 !== null)
                     {
                         this.pieChart = new Chart(ctx1, {
-                            type: 'pie',
+                            type: 'polarArea',
                             data: typesdata,
                             options: {
+                        
+                                scales:{
+                                    r:{
+                                        grid:{
+                                            color:  "rgb(142, 198, 63,0.4)",
+                                        },
+                                        ticks:{
+                                            font:{
+                                                weight: '700',                                                
+                                            },
+                                            z:1,
+                                        },
+                                    },
+                                },
                                 responsive: true,
                                 plugins: {
                                     legend: {
@@ -463,6 +477,7 @@ export class DashboardOverviewComponent implements AfterViewInit
                                             boxWidth: 20,
                                             boxHeight: 20
                                         }
+                                        
                                     }
                                 }
                             },
@@ -535,8 +550,8 @@ export class DashboardOverviewComponent implements AfterViewInit
     {
         this.ticketService.getTickets().subscribe((ticket) =>
         {
-            this.createSummaryTable(ticket);
-            console.log(ticket);
+            this.createSummaryTable(ticket)
+            // console.log(ticket);
             for (let i = 0; i < ticket.length; i++)
             {
                 const tick = ticket.at(i);
@@ -705,7 +720,7 @@ export class DashboardOverviewComponent implements AfterViewInit
 
     toggleElement(id: string)    
     {
-        console.log(id);
+        // console.log(id);
 
         const lc = document.getElementById("line-chart-container");
         const pc = document.getElementById("pieChart");
@@ -730,7 +745,7 @@ export class DashboardOverviewComponent implements AfterViewInit
             setTimeout(() => {
                 pc?.classList.remove("hidden");
                 pcl?.classList.add("hidden");
-            }, 1000);
+            }, 0);
         }
     }
 

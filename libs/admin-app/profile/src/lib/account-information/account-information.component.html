@@ -32,8 +32,8 @@
                 <mat-icon>add</mat-icon>
               </button>
             </mat-form-field>
-            <mat-chip-list aria-label="Fish selection">
-              <mat-chip *ngFor="let city of admin.cities, index as i" (click)="remove(i)">{{city}}</mat-chip>
+            <mat-chip-list aria-label="Fish selection" color="primary">
+              <mat-chip color="primary" *ngFor="let city of admin.cities, index as i" (click)="remove(i)">{{city}}</mat-chip>
             </mat-chip-list>
       </div>
       <div class="inputFields changePassword">
@@ -51,7 +51,7 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-stroked-button (click)="update()">Update</button>
+      <button mat-stroked-button (click)="update()" color="primary">Update</button>
     </mat-card-actions>
   </mat-card>
   

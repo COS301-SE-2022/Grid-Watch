@@ -6,7 +6,7 @@
         <mat-form-field appearance="fill" id="chart-selector" style="padding-left:40px">
             <mat-select (selectionChange)="toggleElement($event.value)" [(value)]="selected" placeholder="Line Chart">
                 <mat-option value="line-chart-container">Line Chart</mat-option>
-                <mat-option value="pie-chart-container">Pie Chart</mat-option>
+                <mat-option value="pie-chart-container">Polar Area Chart</mat-option>
                 <mat-option value="heat-map-container">Heat Map</mat-option>  
                 <mat-option value="sum-table-container">Summarised Statistics</mat-option>          
             </mat-select>
@@ -27,25 +27,25 @@
     <mat-grid-list cols="12" rowHeight="100">
         <mat-radio-group aria-label="Select an option">
             <mat-grid-tile colspan="2">
-                <mat-slide-toggle (change)="showLineGraph('Pothole', $event)">Potholes</mat-slide-toggle>
+                <mat-slide-toggle color="primary" (change)="showLineGraph('Pothole', $event)">Potholes</mat-slide-toggle>
             </mat-grid-tile>
             <mat-grid-tile colspan="2">
-                <mat-slide-toggle (change)="showLineGraph('Water Outage', $event)">Water outages</mat-slide-toggle>
+                <mat-slide-toggle color="primary" (change)="showLineGraph('Water Outage', $event)">Water outages</mat-slide-toggle>
             </mat-grid-tile>
             <mat-grid-tile colspan="2">
-                <mat-slide-toggle (change)="showLineGraph('Electricity Outage', $event)">Electricity outages
+                <mat-slide-toggle color="primary" (change)="showLineGraph('Electricity Outage', $event)">Electricity outages
                 </mat-slide-toggle>
             </mat-grid-tile>
             <mat-grid-tile colspan="2">
-                <mat-slide-toggle (change)="showLineGraph('Broken Traffic Light', $event)">Robot outages
+                <mat-slide-toggle color="primary" (change)="showLineGraph('Broken Traffic Light', $event)">Robot outages
                 </mat-slide-toggle>
             </mat-grid-tile>
             <mat-grid-tile colspan="2">
-                <mat-slide-toggle (change)="showLineGraph('Broken Street Light', $event)">Street light outages
+                <mat-slide-toggle color="primary" (change)="showLineGraph('Broken Street Light', $event)">Street light outages
                 </mat-slide-toggle>
             </mat-grid-tile>
             <mat-grid-tile colspan="2">
-                <mat-slide-toggle (change)="showLineGraph('Other', $event)">Miscellaneous</mat-slide-toggle>
+                <mat-slide-toggle color="primary" (change)="showLineGraph('Other', $event)">Miscellaneous</mat-slide-toggle>
             </mat-grid-tile>
         </mat-radio-group>
         <mat-grid-tile colspan="1"></mat-grid-tile>

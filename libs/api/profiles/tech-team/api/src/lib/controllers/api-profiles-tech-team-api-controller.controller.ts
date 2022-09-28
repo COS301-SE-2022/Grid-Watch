@@ -179,9 +179,9 @@ export class ApiProfilesTechTeamApiControllerController {
 
     //Delete specified techTeam
     @UseGuards(JwtAuthGuard)
-    @Delete('/delete')
-    async deleteTicket(@Body() techTeamId: number):Promise<boolean> {
-        return this.apiTechTeamService.deleteTechTeam(techTeamId["techTeamId"]);
+    @Delete('/delete/:id')
+    async deleteTicket(@Param() params):Promise<boolean> {
+        return this.apiTechTeamService.deleteTechTeam(parseInt(params.id));
     
     }
 }

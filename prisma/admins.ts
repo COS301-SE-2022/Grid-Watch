@@ -4,7 +4,7 @@ export const admins = [
         email             : "testadmin@gmail.com",
         contactNumber     : "0783397283",
         cities            : ["Pretoria","Johannesburg"],
-        password          : "$2b$06$8mkuSpvlJUj/bTPeAqJyH.CspmfkOkEvpCRAbNZhf6CBY0M86uJpm", //@dmin#21
+        password          : "$2b$06$8mkuSpvlJUj/bTPeAqJyH.CspmfkOkEvpCRAbNZhf6CBY0M86uJpm", //  
         passwordSalt      : "$2b$06$8mkuSpvlJUj/bTPeAqJyH."
     },
     {

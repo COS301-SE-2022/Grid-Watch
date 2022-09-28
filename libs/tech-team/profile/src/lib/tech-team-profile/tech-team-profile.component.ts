@@ -38,11 +38,11 @@ export class TechTeamProfileComponent implements OnInit {
     this.profileService.getTechTeamID(this.id).subscribe(
       async (response) =>
       {
-        console.log(response);
+        // console.log(response);
         this.techTeam = response[0];
         this.ticketService.getTickets().subscribe(
         (response) => {
-          console.log(response);
+          // console.log(response);
           
           this.initialiseTicket(response);
         }
@@ -65,6 +65,10 @@ export class TechTeamProfileComponent implements OnInit {
     for (let index = 0; index < data.length; index++) 
     {      
       this.tickets.push(data[index]);
+      let temp = this.tickets[index].ticketStreetAddress.split(",")[0];
+      if (this.tickets[index].ticketStreetAddress.split(",")[1] !== undefined)
+        temp +="," +  this.tickets[index].ticketStreetAddress.split(",")[1];
+      this.tickets[index].ticketStreetAddress = temp;
       const date = new Date(this.tickets[index]["ticketCreateDate"]);      
       const m = date.getUTCMonth() + 1;
       const y = date.getUTCFullYear();
@@ -127,7 +131,7 @@ export class TechTeamProfileComponent implements OnInit {
 
   logout()
   {
-    console.log("logout");
+    // console.log("logout");
     this.sessionService.logout()
     this.router.navigateByUrl("/login")
   }

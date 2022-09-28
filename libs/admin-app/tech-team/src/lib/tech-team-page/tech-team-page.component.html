@@ -1,24 +1,26 @@
 <div class="TechTeamcontainer">
-  <mat-grid-list cols="2" rowHeight="400px">
+  <mat-grid-list cols="2" rowHeight="50%">
     <mat-grid-tile *ngFor="let techTeam of techTeams" class="companyContainer">
       <div class="teamContainer">
-        <div class="techInfo d-flex justify-content-center">
-          <h3>{{ techTeam.techTeam.name }}</h3>
-        </div>
-        <div class="techInfo d-flex justify-content-center">
-          <h5>{{ techTeam.techTeam.email }}</h5>
-        </div>
-        <div class="techInfo d-flex justify-content-center">
-          <h6>{{ techTeam.techTeam.contactNumber }}</h6>
-        </div>
-        <div class="techInfo stars"></div>
-        <div class="cities pills d-flex justify-content-center">
-          <mat-chip-list>
-            <mat-chip
-              *ngFor="let specialist of techTeam.techTeam.specialisation"
-              >{{ specialist }}</mat-chip
-            >
-          </mat-chip-list>
+        <div class="information">
+          <div class="techInfo d-flex justify-content-center">
+            <h3>{{ techTeam.techTeam.name }}</h3>
+          </div>
+          <div class="techInfo d-flex justify-content-center">
+            <h5>{{ techTeam.techTeam.email }}</h5>
+          </div>
+          <div class="techInfo d-flex justify-content-center">
+            <h6>{{ techTeam.techTeam.contactNumber }}</h6>
+          </div>
+          <div class="techInfo stars"></div>
+          <div class="cities pills d-flex justify-content-center">
+            <mat-chip-list>
+              <mat-chip
+                *ngFor="let specialist of techTeam.techTeam.specialisation"
+                >{{ specialist }}</mat-chip
+              >
+            </mat-chip-list>
+          </div>  
         </div>
         <div class="ticketsView">
           <mat-card
@@ -105,9 +107,9 @@
             </mat-grid-list>
           </mat-card>
         </div>
-        <!-- <div class="buttonContainer">
-          <button mat-raised-button class="viewButton">View</button>
-        </div> -->
+        <div class="buttonContainer">
+          <button mat-stroked-button color="primary" class="viewButton" (click)="remove(techTeam.techTeam.email)">Remove</button>
+        </div>
       </div>
     </mat-grid-tile>
   </mat-grid-list>

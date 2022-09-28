@@ -1,8 +1,10 @@
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { TechTeamProfileService, TicketService } from '@grid-watch/shared-ui';
+import { MessageDialogComponent, TechTeamProfileService, TicketService } from '@grid-watch/shared-ui';
 
 interface Teams {
   techTeam: TechTeamDto;
@@ -20,11 +22,13 @@ interface Teams {
 export class TechTeamPageComponent implements OnInit {
   techTeams!: Teams[];
   tickets!: TicketDto[];
+  dialogRef! : MatDialogRef<MessageDialogComponent>;
   constructor(
     private techTeamService: TechTeamProfileService,
     private cdRef: ChangeDetectorRef,
     private ticketService: TicketService,
-    private router : Router
+    private router : Router,
+    public dialog: MatDialog,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -35,7 +39,7 @@ export class TechTeamPageComponent implements OnInit {
       this.techTeamService.getAllTechTeams().subscribe((response) => {
         // this.techTeams = response;
         response.forEach((techTeam) => {
-          console.log(techTeam);
+          // console.log(techTeam);
           // const tempTeam = {
           //   "techTeam" : techTeam,
           //   "tickets" : [...this.tickets.filter((ticket) =>{
@@ -61,7 +65,7 @@ export class TechTeamPageComponent implements OnInit {
     this.techTeams.forEach((techTeam, index) => {
       const stars = techTeam.techTeam.ratingOfJobs / 2;
       let numberStars = Math.round(stars * 2) / 2;
-      console.log(numberStars);
+      // console.log(numberStars);
 
       for (let k = 1; k <= numberStars; k++) {
         // console.log(k);
@@ -87,7 +91,7 @@ export class TechTeamPageComponent implements OnInit {
         ratingsElements[index].appendChild(span);
       }
     });
-    console.log(ratingsElements);
+    // console.log(ratingsElements);
   }
 
   goToTicket(id: string) {
@@ -96,7 +100,7 @@ export class TechTeamPageComponent implements OnInit {
   }
 
   IncreaseUpvote(id: number, i: number) {
-    console.log('increase upvotes');
+    // console.log('increase upvotes');
   }
 
   async InitialiseTicket(techTeam: Teams): Promise<void> {
@@ -156,5 +160,40 @@ export class TechTeamPageComponent implements OnInit {
           break;
       }
     });
+  }
+
+  remove(email : string){
+    this.showMessage("Remove Technicians", "Are you sure you want to permanently remove this Technican?");
+    this.dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if (result === "true")
+      {
+        const toDelete = this.techTeams.filter((team) =>{
+          return (team.techTeam.email === email);
+        })[0]
+        this.techTeams = this.techTeams.filter((team) =>{
+          return (team.techTeam.email !== email);
+        })
+        this.techTeamService.deleteTechTeam(toDelete.techTeam.id.toString()).subscribe(
+          (res)=>{
+            console.log(res);
+          }
+        );
+      }
+    });
+  }
+
+  showMessage(title :string, info : string ) : void{
+    const temp = window.innerWidth;
+      const pageData = title;
+      const pageInfo = info;
+      this.dialogRef = this.dialog.open(MessageDialogComponent,{
+        panelClass: ['full-screen'],
+        data: {pageData: pageData, pageInfo : pageInfo, return: ""},
+        width: temp.toString(), 
+        height: "150",
+        scrollStrategy: new NoopScrollStrategy()
+      },);
+    
   }
 }

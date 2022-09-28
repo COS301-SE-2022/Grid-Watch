@@ -85,7 +85,7 @@ export class TicketBodyMapComponent implements OnInit
       {
         this.locations.push({ lat: value.ticketLat, lng: value.ticketLong })
       })
-      console.log(this.tickets);
+      // console.log(this.tickets);
       const myLocation = await this.googleMapsService.getCurrentLocation();
       const map = new google.maps.Map(
         document.getElementById('mapContainer') as HTMLElement,
@@ -116,7 +116,7 @@ export class TicketBodyMapComponent implements OnInit
 						temp = "assets/issue-water-pin1.png";
 						break;
 					case "Pothole":
-						temp = "assets/issue-pothole-pin1.jpg";
+						temp = "assets/issue-pothole-pin1.png";
 						break;
 					case "Sinkhole":
 						temp = "assets/issue-sinkhole-pin1.png";

@@ -305,7 +305,7 @@ export class ApiProfilesPublicRepositoryDataAccess{
             },
             data:
             {
-                name : userEmail,
+                email : userEmail,
             },
         });
     }

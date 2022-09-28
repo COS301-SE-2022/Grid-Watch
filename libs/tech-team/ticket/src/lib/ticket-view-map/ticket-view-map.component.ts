@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
-import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
+import { GoogleMapsService, SessionManagerService, TechTeamProfileService, TicketService } from '@grid-watch/shared-ui';
 // import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { MarkerClusterer } from '@googlemaps/markerclusterer';
 import { Router } from '@angular/router';
@@ -18,13 +18,17 @@ export class TicketViewMapComponent implements OnInit {
   zoom!: number;
   center!: google.maps.LatLngLiteral;
 
-  tickets!: TicketDto[];
+  tickets: TicketDto[] = [];
   // markers!: google.maps.Marker[];
   infoWindow!: google.maps.InfoWindow;
+  specialisation: string[] = [];
+  ticketsPerm: TicketDto[] = [];
   constructor(
     private googleMapsService: GoogleMapsService,
     private ticketService: TicketService,
-    private router : Router
+    private router : Router,
+    private userService: TechTeamProfileService,
+    private sessionService: SessionManagerService
   ) {}
 
   ngOnInit(): void {
@@ -38,7 +42,17 @@ export class TicketViewMapComponent implements OnInit {
 
     loader.load().then(
       () => {
-        this.initMap();
+        this.ticketService.getTickets().subscribe(
+          (res) =>{
+            this.ticketsPerm = res;
+            this.ticketsPerm = this.ticketsPerm.filter((ticket) =>{
+              return (ticket.ticketStatus === "Dispatched")
+            })
+            console.log(this.ticketsPerm);
+            
+            this.initTicket();
+          }
+        )
       },
       (error) => {
         console.log(error);
@@ -46,9 +60,24 @@ export class TicketViewMapComponent implements OnInit {
     );
   }
 
-  initMap(): void {
-    this.ticketService.getTickets().subscribe(async (response) => {
-      this.tickets = response;
+  initTicket(){
+    this.userService
+    .getTechTeamID(this.sessionService.getID() || '')
+    .subscribe((response) => {
+      this.specialisation = response[0].specialisation;
+      console.log(this.specialisation);
+      this.specialisation.forEach((specialty) => {
+        //  console.log(specialty);
+         this.tickets.push(...this.ticketsPerm.filter((ticket) => {
+           return ticket.ticketType.includes(specialty)
+         }))
+        
+      });
+      this.initMap();
+    });
+  }
+
+  async initMap(): Promise<void> {
       this.tickets.forEach((value) =>{
         this.locations.push({lat : value.ticketLat, lng : value.ticketLong})
       })
@@ -133,6 +162,5 @@ export class TicketViewMapComponent implements OnInit {
       });
 
       new MarkerClusterer({ markers, map });
-    });
   }
 }

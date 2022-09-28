@@ -62,9 +62,9 @@ export class ProfileSettingsComponent implements OnInit {
     this.techTeam.specialisation = [];
 
     if (this.id !== null) {
-      this.profileService.getTechTeam(this.id).subscribe((response) => {
+      this.profileService.getTechTeamID(this.id).subscribe((response) => {
         console.log(response);
-        console.log(this.id);
+        // console.log(this.id);
         this.techTeam = response[0];
         this.techTeamPerm.name = this.techTeam.name;
         this.techTeamPerm.email = this.techTeam.email;
@@ -112,7 +112,7 @@ export class ProfileSettingsComponent implements OnInit {
       
       this.profileService.updateName(this.techTeam.name, this.id || "").subscribe(
         (response) =>{
-          console.log(response);
+          // console.log(response);
         }
       )
     }
@@ -120,7 +120,7 @@ export class ProfileSettingsComponent implements OnInit {
     {
       this.profileService.updateEmail(this.techTeam.email, this.id || "").subscribe(
         (response) =>{
-          console.log(response);
+          // console.log(response);
         }
       )
     }
@@ -128,28 +128,28 @@ export class ProfileSettingsComponent implements OnInit {
     {
       this.profileService.updateContact(this.techTeam.contactNumber, this.id || "").subscribe(
         (response) =>{
-          console.log(response);
+          // console.log(response);
         }
       )
     }
     if (!this.equalsArray(this.techTeam.specialisation, this.techTeamPerm.specialisation))
     {
-      console.log(this.specialisationSelected);
+      // console.log(this.specialisationSelected);
       
       this.profileService.updateSpecialisation(this.techTeam.specialisation, this.id || "").subscribe(
         (response) =>{
-          console.log(response);
+          // console.log(response);
           
         }
       );
     }
     if (!this.equalsArray(this.techTeam.cities, this.techTeamPerm.cities))
     {
-      console.log(this.specialisationSelected);
+      // console.log(this.specialisationSelected);
       
       this.profileService.updateCities(this.techTeam, this.id || "").subscribe(
         (response) =>{
-          console.log(response);
+          // console.log(response);
           
         }
       );

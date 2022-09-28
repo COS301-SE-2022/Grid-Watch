@@ -97,8 +97,7 @@ export class TicketViewPageComponent implements OnInit {
       this.specialisation.forEach((specialty) => {
         //  console.log(specialty);
          this.tickets.push(...this.ticketsPerm.filter((ticket) => {
-           return ticket.ticketType.includes(specialty) || 
-                  ticket.ticketType === "Other" ;
+           return ticket.ticketType.includes(specialty) 
          }))
         
       });

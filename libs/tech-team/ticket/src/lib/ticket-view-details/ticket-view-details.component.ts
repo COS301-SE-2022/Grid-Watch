@@ -15,9 +15,6 @@ import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
 })
 export class TicketViewDetailsComponent implements OnInit {
 
-  getAllURL = "http://localhost:3333/api/ticket/"
-  UpdateStatusURL = "http://localhost:3333/api/ticket/update/status/";
-  getPictureURL = "http://localhost:3333/api/ticket/picture/";
 
 
   ticket! : TicketDto;
@@ -47,7 +44,7 @@ export class TicketViewDetailsComponent implements OnInit {
     if (this.issue_id)
       this.ticketService.getTicket(this.issue_id).subscribe(
         async (data) => {
-          console.log(data);
+          // console.log(data);
           this.ticket = data[0];
           this.ticket.ticketImg = "";
           this.ticket.ticketCreateDate = new Date(this.ticket.ticketCreateDate);
@@ -70,9 +67,9 @@ export class TicketViewDetailsComponent implements OnInit {
 
   async loadImage() : Promise<void> 
   {
-    await this.delay(3000)
-    this.getPictureURL += this.ticket.ticketId;
-    this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
+    // await this.delay(3000)
+    // this.getPictureURL += ;
+    this.ticketService.getImages(this.ticket.ticketId).subscribe(
       (data) => {
       console.log(data);
       
@@ -90,7 +87,7 @@ export class TicketViewDetailsComponent implements OnInit {
 
   reject() : void
   {
-    console.log("Here")
+    // console.log("Here")
     const dialogRef = this.dialog.open(DialogComponent);
 
     dialogRef.afterClosed().subscribe(async result => {

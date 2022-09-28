@@ -27,8 +27,13 @@ span.avatar {
 }
 
 .changePassword:hover{
-    color: blue;
+    color: var(--primary);
     text-decoration: underline;
     font-style: oblique;
     cursor: pointer;
 }
+
+.mat-chip.mat-standard-chip {
+    background-color: var(--primary);
+    color: rgba(0, 0, 0, 0.87);
+  }

@@ -20,7 +20,7 @@ export class DashboardTimelineComponent implements OnInit {
     this.ticketService.getTickets().subscribe(
       (response) =>
       {
-        console.log(response);
+        // console.log(response);
         this.tickets = response;
       } 
     );
@@ -29,7 +29,7 @@ export class DashboardTimelineComponent implements OnInit {
   viewTicketDetails(id : number) : void
   {
     const url = '/adminViewTicketDetails';
-    console.log(id);
+    // console.log(id);
     this.router.navigate([url, { id: id }]);
   }
 }

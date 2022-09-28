@@ -68,7 +68,7 @@ export class TicketViewPageComponent implements OnInit {
       (response) => {
         
         this.tickets = response;
-        console.log(this.tickets);
+        // console.log(this.tickets);
       this.initialiseTicket(response);
       this.ticketsPerm = response;
       this.filterTicketsToTeam();
@@ -81,9 +81,9 @@ export class TicketViewPageComponent implements OnInit {
     .getTechTeamID(this.sessionService.getID() || '')
     .subscribe((response) => {
       this.specialisation = response[0].specialisation;
-      console.log(this.specialisation);
+      // console.log(this.specialisation);
       this.specialisation.forEach((specialty) => {
-         console.log(specialty);
+        //  console.log(specialty);
          this.tickets.push(...this.ticketsPerm.filter((ticket) => {
            return ticket.ticketType.includes(specialty) || 
                   ticket.ticketType === "Other" ;
@@ -163,7 +163,7 @@ export class TicketViewPageComponent implements OnInit {
       //         response[response.length - 1].pictureLink;
       //   });
     }
-    console.log(this.tickets);
+    // console.log(this.tickets);
   }
 
   goToTicket(id: string) {

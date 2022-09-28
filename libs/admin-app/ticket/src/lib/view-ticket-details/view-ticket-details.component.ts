@@ -116,14 +116,14 @@ export class ViewTicketDetailsComponent implements OnInit {
     this.ticketService.getImages(id).subscribe(
       (response) =>
       {
-        console.log(response.length );
+        // console.log(response.length );
         if (response.length !== 0)
           this.ticket.ticketImg = response[response.length -1].pictureLink;
           else 
           this.ticket.ticketImg = "image-solid.svg"; 
       }
     )
-    console.log(this.ticket);
+    // console.log(this.ticket);
     
   }
 
@@ -148,7 +148,7 @@ export class ViewTicketDetailsComponent implements OnInit {
       this.ticketService.updateTicketStatus(this.issueId, "Dispatched").subscribe(
         (response) =>
         {
-          console.log(response);
+          // console.log(response);
           this.showSuccessMessage();
           this.router.navigateByUrl("/adminViewTicket");
         }, 

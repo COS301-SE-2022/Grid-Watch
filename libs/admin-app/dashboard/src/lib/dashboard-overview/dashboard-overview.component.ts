@@ -455,6 +455,20 @@ export class DashboardOverviewComponent implements AfterViewInit
                             type: 'polarArea',
                             data: typesdata,
                             options: {
+                        
+                                scales:{
+                                    r:{
+                                        grid:{
+                                            color:  "rgb(142, 198, 63,0.4)",
+                                        },
+                                        ticks:{
+                                            font:{
+                                                weight: '700',                                                
+                                            },
+                                            z:1,
+                                        },
+                                    },
+                                },
                                 responsive: true,
                                 plugins: {
                                     legend: {
@@ -463,6 +477,7 @@ export class DashboardOverviewComponent implements AfterViewInit
                                             boxWidth: 20,
                                             boxHeight: 20
                                         }
+                                        
                                     }
                                 }
                             },
@@ -535,6 +550,7 @@ export class DashboardOverviewComponent implements AfterViewInit
     {
         this.ticketService.getTickets().subscribe((ticket) =>
         {
+            this.createSummaryTable(ticket)
             // console.log(ticket);
             for (let i = 0; i < ticket.length; i++)
             {
@@ -729,7 +745,7 @@ export class DashboardOverviewComponent implements AfterViewInit
             setTimeout(() => {
                 pc?.classList.remove("hidden");
                 pcl?.classList.add("hidden");
-            }, 1000);
+            }, 0);
         }
     }
 

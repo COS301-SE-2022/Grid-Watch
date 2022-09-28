@@ -37,6 +37,8 @@ The system will also make use of predictive analytics powered by AI modules that
 
 [SRS Document Demo 3 (PDF).pdf](https://github.com/COS301-SE-2022/Grid-Watch/files/9212810/SRS.Requirements.Demo.3.pdf)
 
+[SRS Document Demo 4](https://github.com/COS301-SE-2022/Grid-Watch/wiki/SRS-Documentation-(Demo-4))
+
 
 ### Project Board
 [Our Teams Project Board](https://github.com/COS301-SE-2022/Grid-Watch/projects)

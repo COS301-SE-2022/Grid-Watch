@@ -28,6 +28,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { LoggedInGuard } from 'libs/shared-ui/src/lib/guards/logged-in/logged-in.guard';
+import { GoogleMapsService } from '@grid-watch/shared-ui';
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
@@ -95,6 +96,6 @@ import { LoggedInGuard } from 'libs/shared-ui/src/lib/guards/logged-in/logged-in
     TicketBodyListComponent,
     TicketBodyMapComponent,
   ],
-  providers: [FormBuilder, LoggedInGuard],
+  providers: [FormBuilder, LoggedInGuard, GoogleMapsService],
 })
 export class PublicTicketModule {}

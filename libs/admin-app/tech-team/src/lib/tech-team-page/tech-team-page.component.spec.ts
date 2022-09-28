@@ -5,6 +5,7 @@ import { TechTeamPageComponent } from './tech-team-page.component';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { MatDialog } from '@angular/material/dialog';
  '@grid-watch/environments';
 
 describe('TechTeamPageComponent', () => {
@@ -15,6 +16,7 @@ describe('TechTeamPageComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [TechTeamPageComponent],
       imports: [HttpClientModule, RouterTestingModule,
+        MatDialog,
         AngularFireModule,
         AngularFireModule.initializeApp({
     apiKey: "AIzaSyB5VKBU78lomWEVrtiUOYIglrM2VdC0jI8",

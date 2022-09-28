@@ -29,7 +29,7 @@ export class TechTeamProfileService {
   private getContactURL = this.apiURL +  '/api/techteam/contactnr/';
   private updateSpecialisationURL = this.apiURL +  '/api/techteam/update/specialisation/';
   private updateTeamURL = this.apiURL +  '/api/techteam/update/';
-  private deleteTeamURL = "http://localhost:3333" +  '/api/techteam/delete/';
+  private deleteTeamURL = this.apiURL +  '/api/techteam/delete/';
 
   constructor(private http: HttpClient) {}
 

@@ -217,16 +217,12 @@ export class CreateTicketComponent
           
           this.ticket.ticketImg = response
           this.uploadTicket()
+          
         }
       );
     }
     else
-    {
-      this.toast.show('Ticket Created Successfully', {
-        classname: 'bg-success text-light',
-        delay: 5000,
-        autohide: true
-      });
+    {      
       this.uploadTicket();
     }
 
@@ -417,11 +413,16 @@ export class CreateTicketComponent
           this.uploadPhoto();
       }
     )
+
+    this.toast.show('Ticket Created Successfully', {
+      classname: 'bg-success text-light',
+      delay: 5000,
+      autohide: true
+    });
   }
 
   showSuccessMessage(): void
   {
-    alert("Created Ticket successfully");
     this.router.navigateByUrl("/tickets");
   }
 

@@ -57,6 +57,10 @@ The system will also make use of predictive analytics powered by AI modules that
 ### User Manual
 [Grid Watch User Manual](https://drive.google.com/file/d/1Uv2K0BQI1hVqUTOibVpMgImo-9ssm-Sp/view?usp=sharing)
 
+### Testing Policy
+[Testing Policy.pdf](https://github.com/COS301-SE-2022/Grid-Watch/files/9682832/Testing.Policy.pdf)
+
+
 ### About Us
 #### Leonardo Wessels
 * Personally: I'm Leo and I'm trying to get finish my last year of my BSc Comp Sci degree. I enjoy gaming and coding as a past time and I'm looking forward to working on this project. I fully see this being a solution to a lot of peoples annoyances and I'm already enjoying seeing aspects of the project coming together

@@ -217,16 +217,12 @@ export class CreateTicketComponent
           
           this.ticket.ticketImg = response
           this.uploadTicket()
+          
         }
       );
     }
     else
-    {
-      this.toast.show('Ticket Created Successfully', {
-        classname: 'bg-success text-light',
-        delay: 5000,
-        autohide: true
-      });
+    {      
       this.uploadTicket();
     }
 
@@ -279,7 +275,7 @@ export class CreateTicketComponent
               temp = "assets/issue-water-pin1.png";
               break;
             case "Pothole":
-              temp = "assets/issue-pothole-pin1.jpg";
+              temp = "assets/issue-pothole-pin1.png";
               break;
             case "Sinkhole":
               temp = "assets/issue-sinkhole-pin1.png";
@@ -417,11 +413,16 @@ export class CreateTicketComponent
           this.uploadPhoto();
       }
     )
+
+    this.toast.show('Ticket Created Successfully', {
+      classname: 'bg-success text-light',
+      delay: 5000,
+      autohide: true
+    });
   }
 
   showSuccessMessage(): void
   {
-    alert("Created Ticket successfully");
     this.router.navigateByUrl("/tickets");
   }
 
@@ -468,5 +469,14 @@ export class CreateTicketComponent
     // if (this.issue.hasError('required')) {
     return 'You must enter a value';
     // }
+  }
+
+  showToast()
+  {
+    this.toast.show('Ticket Created Successfully', {
+      classname: 'bg-success text-light',
+      delay: 5000,
+      autohide: true
+    });
   }
 }

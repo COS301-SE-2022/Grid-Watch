@@ -1,68 +1,153 @@
-<div class="container">
+<div class="bodyContainer" id="all-tickets-table">
+  <button class="filterButton" (click)="drawer.toggle()" mat-raised-button color="primary">
+    Filter
+  </button>
 
-  <div class="row mt-3">
-    <div class="col-4">
-      <button data-bs-toggle="collapse" data-bs-target="#filter_options" class="btn btn-outline-dark btn-block">
-        Filter
-      </button>
-    </div>
-    <div class="col-4">
-      
-    </div>
-    <div class="col-4">
-      <select class="form-select" (change)="sort()" id="sort_select" [(ngModel)]="selected_option">
-        <option *ngFor="let option of sort_options" value="{{option}}">{{option}}</option>
-      </select>
-    </div>
-  </div>
-
-  <div id="filter_options" class="collapse">
-    <div class="row mt-2">
-      <div class="col-4">
-        <b>Issue Type</b>
-        <div class="form-check" *ngFor="let option of issues, index as i">
-          <input class="form-check-input" type="checkbox" id="issue_filter{{i}}" value="{{option}}" (click)="filterByType('issue_filter' + i, option)">
-          <label class="form-check-label">{{option}}</label>
-        </div>
+  <mat-drawer-container hasBackdrop="false">
+    <mat-drawer #drawer mode="over">
+      <div class="filterContainers">
+        <div class="filterHeading"><strong> City</strong></div>
+        <mat-radio-group>
+          <div *ngFor="let city of cities">
+            <mat-radio-button
+              color="primary"
+              value="{{ city.name }}"
+              (change)="filter(city.name, 'city'); city.checked = !city.checked"
+              [checked]="city.checked"
+              >{{ city.name }}</mat-radio-button
+            >
+          </div>
+        </mat-radio-group>
       </div>
-      <div class="col-4">
-        <b>City</b>
-        <div class="form-check" *ngFor="let city of cities, index as i">
-          <input class="form-check-input" type="checkbox" id="city_filter{{i}}" value="{{city}}" (click)="filterByCity('city_filter' + i, city)">
-          <label class="form-check-label">{{city}}</label>
-        </div>
+      <mat-divider></mat-divider>
+      <div class="filterContainers">
+        <div class="filterHeading"><strong> Issues</strong></div>
+        <mat-radio-group>
+          <div *ngFor="let issue of issues">
+            <mat-radio-button
+              color="primary"
+              value="{{ issue.name }}"
+              (change)="filter(issue.name, 'issue'); issue.checked = !issue.checked"
+              [checked]="issue.checked"
+              >{{ issue.name }}</mat-radio-button
+            >
+          </div>
+        </mat-radio-group>
       </div>
-      <div class="col-4">
-        <b>Status</b>
-        <div class="form-check" *ngFor="let status of statuses, index as i">
-          <input class="form-check-input status_inputs" type="checkbox" id="status_input_filter{{i}}" value="{{status}}" (click)="filterByStatus('status_input_filter' + i)">
-          <label class="form-check-label">{{status}}</label>
-        </div>
+      <mat-divider></mat-divider>
+      <div class="filterContainers">
+        <div class="filterHeading"><strong> Status</strong></div>
+        <mat-radio-group>
+          <div *ngFor="let status of statuses">
+            <mat-radio-button
+              color="primary"
+              value="{{ status.name }}"
+              (change)="filter(status.name, 'status'); status.checked = !status.checked"
+              [checked]="status.checked"
+              >{{ status.name }}</mat-radio-button
+            >
+          </div>
+        </mat-radio-group>
       </div>
-    </div>
-  </div>
-
-  <table class="table table-hover mt-2">
-    <thead>
-      <tr>
-        <th>Date Created</th>
-        <th>Issue Type</th>
-        <th>Location</th>
-        <th>city</th>
-        <th>status</th>
-        <th>Upvotes</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let ticket of tickets, index as i" (click)="viewTicket(ticket.ticket_id)" id="row{{i}}">
-        <div class="d-none"></div>
-        <td>{{dates[i].toLocaleString()}}</td>
-        <td>{{ticket.ticket_type}}</td>
-        <td>{{ticket.ticket_location}}</td>
-        <td>{{ticket.ticket_city}}</td>
-        <td>{{ticket.ticket_status}}</td>
-        <td>{{ticket.ticket_upvotes}}</td>
-      </tr>
-    </tbody>
-  </table>
+      <mat-divider></mat-divider>
+      <div class="filterContainers">
+        <button mat-button id="resetButton" (click)="resetFilters()">
+          Reset
+        </button>
+      </div>
+    </mat-drawer>
+    <mat-drawer-content>
+      <div class="tableContainer">
+        <div class="ticketTableContaner">
+          <table
+            aria-describedby="tickets"
+            
+            mat-table
+            [dataSource]="dataSource"
+            class="mat-elevation-z8"
+            matSort
+            (matSortChange)="announceSortChange($event)"
+          >
+            <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+    
+            <!-- Date Column -->
+            <ng-container matColumnDef="Date">
+              <th
+                style="width: 10%"
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+              >
+                Date
+              </th>
+              <td mat-cell *matCellDef="let element; index as i">
+                {{ element.ticketCreateDate | date: 'dd/MM/yyyy' }}
+              </td>
+            </ng-container>
+    
+            <!-- Issue Column -->
+            <ng-container matColumnDef="Issue">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Issue</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.ticketType }}
+              </td>
+            </ng-container>
+    
+            <!-- Location Column -->
+            <ng-container matColumnDef="Location">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.ticketStreetAddress }}
+              </td>
+            </ng-container>
+    
+            <!-- City Column -->
+            <ng-container matColumnDef="City">
+              <th
+                style="width: 10%"
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+              >
+                City
+              </th>
+              <td mat-cell *matCellDef="let element">{{ element.ticketCity }}</td>
+            </ng-container>
+    
+            <!-- Status Column -->
+            <ng-container matColumnDef="Status">
+              <th
+                style="width: 10%"
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+              >
+                Status
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.ticketStatus }}
+              </td>
+            </ng-container>
+    
+            <!-- Upvotes Column -->
+            <ng-container matColumnDef="Upvotes">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Upvotes</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.ticketUpvotes }}
+              </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumns"
+              (click)="viewTicket(row.ticketId)"
+            ></tr>
+          </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="[15, 30, 50]" showFirstLastButtons></mat-paginator>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
 </div>

@@ -1,0 +1,12 @@
+<div class="buttonContainers">
+    <mat-button-toggle-group class="buttonGroup" [(ngModel)]="viewValue">
+        <mat-button-toggle value="list">
+            <mat-icon>list</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="map">
+            <mat-icon>public</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group> 
+</div>
+<grid-watch-ticket-view-page *ngIf="viewValue === 'list'"></grid-watch-ticket-view-page>
+<grid-watch-ticket-view-map *ngIf="viewValue === 'map'"></grid-watch-ticket-view-map>

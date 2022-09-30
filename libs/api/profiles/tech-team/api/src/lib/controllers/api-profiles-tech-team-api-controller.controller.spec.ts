@@ -1,10 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ApiProfilesTechTeamApiControllerController } from './api-profiles-tech-team-api-controller.controller';
 import { ApiProfilesTechTeamServiceService} from '@grid-watch/api/profiles/tech-team/service';
-import { techTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
+import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { JwtService } from '@nestjs/jwt';
 
-const techTeamDtoMock: jest.Mocked<techTeamDto> = new techTeamDto() as techTeamDto;
+const techTeamDtoMock: jest.Mocked<TechTeamDto> = new TechTeamDto() as TechTeamDto;
 
 describe('ApiProfilesTechTeamApiControllerController', () => {
   let controller: ApiProfilesTechTeamApiControllerController;
@@ -12,7 +13,7 @@ describe('ApiProfilesTechTeamApiControllerController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ApiProfilesTechTeamApiControllerController],
-      providers: [ApiProfilesTechTeamServiceService,CommandBus,QueryBus],
+      providers: [ApiProfilesTechTeamServiceService,CommandBus,QueryBus, JwtService],
     }).compile();
 
     controller = module.get<ApiProfilesTechTeamApiControllerController>(
@@ -24,124 +25,124 @@ describe('ApiProfilesTechTeamApiControllerController', () => {
     expect(controller).toBeDefined();
   });
 
-  //CreateTechTeam endpoint
-  describe('CreateTechTeam',()=>{
+  //createTechTeam endpoint
+  describe('createTechTeam',()=>{
     it('should return true ',async ()=>{
       jest
-      .spyOn(controller,'CreateTechTeam')
+      .spyOn(controller,'createTechTeam')
       .mockImplementation(():Promise<boolean> => Promise.resolve(true));
 
-      expect(await controller.CreateTechTeam(techTeamDtoMock)).toEqual(
+      expect(await controller.createTechTeam(techTeamDtoMock)).toEqual(
         true
       )
     });
 
     it('should return false', async () => {
-      jest.spyOn(controller, 'CreateTechTeam').mockResolvedValue(false);
+      jest.spyOn(controller, 'createTechTeam').mockResolvedValue(false);
   
-      expect(await controller.CreateTechTeam(techTeamDtoMock)).toEqual(false);
+      expect(await controller.createTechTeam(techTeamDtoMock)).toEqual(false);
     });
   })
 
-  //Update Tech Team endpoint
-  describe('UpdateTechTeam',()=>{
+  //update Tech Team endpoint
+  describe('updateTechTeam',()=>{
     it('should return true',async ()=>{
       jest
-      .spyOn(controller,'UpdateTechTeam')
+      .spyOn(controller,'updateTechTeam')
       .mockImplementation(():Promise<boolean> => Promise.resolve(true));
 
-      expect(await controller.UpdateTechTeam(1,techTeamDtoMock)).toEqual(true);
+      expect(await controller.updateTechTeam(1,techTeamDtoMock)).toEqual(true);
     });
 
     it('should return false', async () => {
-      jest.spyOn(controller, 'UpdateTechTeam').mockResolvedValue(false);
+      jest.spyOn(controller, 'updateTechTeam').mockResolvedValue(false);
   
-      expect(await controller.UpdateTechTeam(1,null)).toEqual(false);
+      expect(await controller.updateTechTeam(1,null)).toEqual(false);
     });
   })
 
-  //UpdateTechTeamName endpoint
-  describe('UpdateTechTeamName',()=>{
+  //updateTechTeamName endpoint
+  describe('updateTechTeamName',()=>{
     it('should return true',async ()=>{
       jest
-      .spyOn(controller,'UpdateTechTeamName')
+      .spyOn(controller,'updateTechTeamName')
       .mockImplementation(():Promise<boolean> => Promise.resolve(true));
 
-      expect(await controller.UpdateTechTeamName(1,"name")).toEqual(true);
+      expect(await controller.updateTechTeamName(1,"name")).toEqual(true);
     });
 
     it('should return false', async () => {
-      jest.spyOn(controller, 'UpdateTechTeamName').mockResolvedValue(false);
+      jest.spyOn(controller, 'updateTechTeamName').mockResolvedValue(false);
   
-      expect(await controller.UpdateTechTeamName(1,null)).toEqual(false);
+      expect(await controller.updateTechTeamName(1,null)).toEqual(false);
     });
   })
 
-  //UpdateTechTeamSpecialisation endpoint
-  describe('UpdateTechTeamSpecialisation',()=>{
+  //updateTechTeamSpecialisation endpoint
+  describe('updateTechTeamSpecialisation',()=>{
     it('should return true',async ()=>{
       jest
-      .spyOn(controller,'UpdateTechTeamSpecialisation')
+      .spyOn(controller,'updateTechTeamSpecialisation')
       .mockImplementation(():Promise<boolean> => Promise.resolve(true));
 
-      expect(await controller.UpdateTechTeamSpecialisation(1,"specialisation")).toEqual(true);
+      expect(await controller.updateTechTeamSpecialisation(1,"specialisation")).toEqual(true);
     });
 
     it('should return false', async () => {
-      jest.spyOn(controller, 'UpdateTechTeamSpecialisation').mockResolvedValue(false);
+      jest.spyOn(controller, 'updateTechTeamSpecialisation').mockResolvedValue(false);
   
-      expect(await controller.UpdateTechTeamSpecialisation(1,null)).toEqual(false);
+      expect(await controller.updateTechTeamSpecialisation(1,null)).toEqual(false);
     });
   })  
 
-  //UpdateTechTeamContactNr endpoint
-  describe('UpdateTechTeamContactNr',()=>{
+  //updateTechTeamContactNr endpoint
+  describe('updateTechTeamContactNr',()=>{
     it('should return true',async ()=>{
       jest
-      .spyOn(controller,'UpdateTechTeamContactNr')
+      .spyOn(controller,'updateTechTeamContactNr')
       .mockImplementation(():Promise<boolean> => Promise.resolve(true));
 
-      expect(await controller.UpdateTechTeamContactNr(1,"0714210800")).toEqual(true);
+      expect(await controller.updateTechTeamContactNr(1,"0714210800")).toEqual(true);
     });
 
     it('should return false', async () => {
-      jest.spyOn(controller, 'UpdateTechTeamContactNr').mockResolvedValue(false);
+      jest.spyOn(controller, 'updateTechTeamContactNr').mockResolvedValue(false);
   
-      expect(await controller.UpdateTechTeamContactNr(1,null)).toEqual(false);
+      expect(await controller.updateTechTeamContactNr(1,null)).toEqual(false);
     });
   })  
 
-  //UpdateTechTeamNrJobsCompleted endpoint
-  describe('UpdateTechTeamNrJobsCompleted',()=>{
+  //updateTechTeamNrJobsCompleted endpoint
+  describe('updateTechTeamNrJobsCompleted',()=>{
     it('should return true',async ()=>{
       jest
-      .spyOn(controller,'UpdateTechTeamNrJobsCompleted')
+      .spyOn(controller,'updateTechTeamNrJobsCompleted')
       .mockImplementation(():Promise<boolean> => Promise.resolve(true));
 
-      expect(await controller.UpdateTechTeamNrJobsCompleted(1,20)).toEqual(true);
+      expect(await controller.updateTechTeamNrJobsCompleted(1,20)).toEqual(true);
     });
 
     it('should return false', async () => {
-      jest.spyOn(controller, 'UpdateTechTeamNrJobsCompleted').mockResolvedValue(false);
+      jest.spyOn(controller, 'updateTechTeamNrJobsCompleted').mockResolvedValue(false);
   
-      expect(await controller.UpdateTechTeamNrJobsCompleted(1,null)).toEqual(false);
+      expect(await controller.updateTechTeamNrJobsCompleted(1,null)).toEqual(false);
     });
   })    
 
-  //UpdateTechTeamRatingJobs endpoint
-  describe('UpdateTechTeamRatingJobs',()=>{
+  //updateTechTeamRatingJobs endpoint
+  describe('updateTechTeamRatingJobs',()=>{
     it('should return true',async ()=>{
       jest
-      .spyOn(controller,'UpdateTechTeamRatingJobs')
+      .spyOn(controller,'updateTechTeamRatingJobs')
       .mockImplementation(():Promise<boolean> => Promise.resolve(true));
 
-      expect(await controller.UpdateTechTeamRatingJobs(1,70)).toEqual(true);
+      expect(await controller.updateTechTeamRatingJobs(1,70)).toEqual(true);
     });
 
     it('should return false', async () => {
-      jest.spyOn(controller, 'UpdateTechTeamRatingJobs').mockResolvedValue(false);
+      jest.spyOn(controller, 'updateTechTeamRatingJobs').mockResolvedValue(false);
   
-      expect(await controller.UpdateTechTeamRatingJobs(1,null)).toEqual(false);
+      expect(await controller.updateTechTeamRatingJobs(1,null)).toEqual(false);
     });
   })    
 

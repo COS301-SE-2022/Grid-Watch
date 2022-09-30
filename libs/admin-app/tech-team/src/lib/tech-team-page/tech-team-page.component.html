@@ -1,0 +1,116 @@
+<div class="TechTeamcontainer">
+  <mat-grid-list cols="2" rowHeight="50%">
+    <mat-grid-tile *ngFor="let techTeam of techTeams" class="companyContainer">
+      <div class="teamContainer">
+        <div class="information">
+          <div class="techInfo d-flex justify-content-center">
+            <h3>{{ techTeam.techTeam.name }}</h3>
+          </div>
+          <div class="techInfo d-flex justify-content-center">
+            <h5>{{ techTeam.techTeam.email }}</h5>
+          </div>
+          <div class="techInfo d-flex justify-content-center">
+            <h6>{{ techTeam.techTeam.contactNumber }}</h6>
+          </div>
+          <div class="techInfo stars"></div>
+          <div class="cities pills d-flex justify-content-center">
+            <mat-chip-list>
+              <mat-chip
+                *ngFor="let specialist of techTeam.techTeam.specialisation"
+                >{{ specialist }}</mat-chip
+              >
+            </mat-chip-list>
+          </div>  
+        </div>
+        <div class="ticketsView">
+          <mat-card
+            class="mt-2 cards {{ techTeam.ticketStatus[i] }}"
+            *ngFor="let ticket of techTeam.tickets; index as i"
+          >
+            <mat-grid-list cols="12" rowHeight="30px">
+              <mat-grid-tile
+                (click)="goToTicket(ticket.ticketId.toString())"
+                colspan="2"
+                rowspan="2"
+              >
+                <img
+                  [ngClass]="'ticketImg'"
+                  src="{{ techTeam.ticketImage[i] }}"
+                  onerror="this.src='assets/solid_example.png'"
+                />
+              </mat-grid-tile>
+              <mat-grid-tile
+                (click)="goToTicket(ticket.ticketId.toString())"
+                colspan="8"
+                class="citizenName"
+              >
+                {{ ticket.ticketType }}
+              </mat-grid-tile>
+              <mat-grid-tile rowspan="1" colspan="2" class="upVoteDivContainer">
+                <span class="upvoteCount">
+                  {{ ticket.ticketUpvotes }} &nbsp;
+                </span>
+                <span
+                  class="upvoteContainer"
+                  id="{{ ticket.ticketId }}"
+                  aria-disabled="true"
+                >
+                  <img
+                    (click)="IncreaseUpvote(ticket.ticketId, i)"
+                    class="upvote_img"
+                    src="assets/circle-up-solid.svg"
+                    alt="upvote icon"
+                  />
+                </span>
+              </mat-grid-tile>
+              <mat-grid-tile
+                (click)="goToTicket(ticket.ticketId.toString())"
+                colspan="8"
+                class="ml-5 mr-5"
+                style="text-align: center; font-size: small"
+              >
+                <img
+                  class="pin_location"
+                  src="assets/location-pin-solid.svg"
+                  alt=""
+                />
+                <span class="location_heading"
+                  >&ensp;{{ ticket.ticketCity }}</span
+                >
+              </mat-grid-tile>
+              <mat-grid-tile
+                rowspan="1"
+                colspan="2"
+                (click)="goToTicket(ticket.ticketId.toString())"
+              >
+              </mat-grid-tile>
+              <mat-grid-tile
+                colspan="3"
+                class="smallInformation"
+                (click)="goToTicket(ticket.ticketId.toString())"
+              >
+                {{ techTeam.ticketDate[i] }}
+              </mat-grid-tile>
+              <mat-grid-tile
+                colspan="5"
+                (click)="goToTicket(ticket.ticketId.toString())"
+              >
+              </mat-grid-tile>
+              <mat-grid-tile
+                colspan="4"
+                class="truncate smallInformation"
+                (click)="goToTicket(ticket.ticketId.toString())"
+              >
+                {{ ticket.ticketStatus }}
+              </mat-grid-tile>
+              <!--<mat-grid-tile colspan="2"><a [ngClass] = "'ticketEdit'" [routerLink]="['/editTicket', {id:ticket.ticketId}]">Edit </a></mat-grid-tile>-->
+            </mat-grid-list>
+          </mat-card>
+        </div>
+        <div class="buttonContainer">
+          <button mat-stroked-button color="primary" class="viewButton" (click)="remove(techTeam.techTeam.email)">Remove</button>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

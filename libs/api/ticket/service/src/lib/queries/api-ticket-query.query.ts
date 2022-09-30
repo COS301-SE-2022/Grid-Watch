@@ -35,7 +35,7 @@ export class GetTicketsDispatchedQuery{
 }
 
 export class GetStatusQuery{
-    constructor(public readonly Status){}
+    constructor(public readonly status){}
 }
 
 export class GetIssueQuery{
@@ -43,17 +43,21 @@ export class GetIssueQuery{
 }
 
 export class GetCityTicketQuery{
-    constructor(public readonly City){}
+    constructor(public readonly city){}
 }
 
 export class CloseTicketQuery{
-    constructor(public readonly TicketId){}
+    constructor(public readonly ticketId){}
 }
 
 export class GetAllPicturesQuery{
-    constructor(public readonly TicketId){}
+    constructor(public readonly ticketId){}
 }
 
 export class GetPictureQuery{
-    constructor(public readonly TicketId){}
+    constructor(public readonly ticketId){}
+}
+
+export class GetAllSubtasksQuery{
+    constructor(public readonly ticketId){}
 }

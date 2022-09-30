@@ -6,51 +6,76 @@ import {  IsDate,
 } from 'class-validator';
 
 export class TicketDto {
+
+@IsNumber()
+@IsOptional()
+ticketId! : number;
+
+@IsNumber()
+@IsOptional()
+assignedTechTeam! : number;
+
 @IsString()
 @IsNotEmpty()
-ticket_status! : string;
+ticketStatus! : string;
 
 @IsDate()
 @IsNotEmpty()
-ticket_create_date! : Date;
+ticketCreateDate! : Date;
 
 @IsDate()
 @IsOptional()
-ticket_close_date! : Date;
+ticketCloseDate! : Date;
 
 @IsString()
 @IsNotEmpty()
-ticket_type! : string;
+ticketType! : string;
+
+@IsString()
+@IsNotEmpty()
+ticketStreetAddress! : string;
 
 @IsString()
 @IsOptional()
-ticket_city!  : string;
+ticketCity!  : string;
 
 @IsString()
-@IsNotEmpty()
-ticket_location! : string;
+@IsOptional()
+ticketLocation! : string;
+
+@IsString()
+@IsOptional()
+ticketLong! : number;
+
+@IsString()
+@IsOptional()
+ticketLat! : number;
 
 @IsNumber()
 @IsNotEmpty()
-ticket_cost! : number;
+ticketCost! : number;
 
 @IsString()
 @IsNotEmpty()
-ticket_description! : string;
+ticketDescription! : string;
 
 @IsNumber()
 @IsOptional()
-ticket_repair_time! : number;
+ticketRepairTime! : number;
 
 @IsNumber()
 @IsNotEmpty()
-ticket_upvotes! : number;
+ticketUpvotes! : number;
 
 @IsNumber()
 @IsNotEmpty()
-ticket_id! : number;
+currentSubtask! : number;
+
+@IsNumber()
+@IsOptional()
+userId! : number;
 
 @IsString()
 @IsNotEmpty()
-ticket_img! : string;
+ticketImg! : string;
 }

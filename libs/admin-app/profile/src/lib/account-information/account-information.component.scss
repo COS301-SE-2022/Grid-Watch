@@ -1,0 +1,39 @@
+.avatar
+{
+    border: 1px solid black;
+    border-radius: 50px;
+    padding: 20px;
+}
+
+mat-card-header{
+    margin:10px 0;
+}
+
+mat-form-field{
+    width: 100%;
+}
+
+mat-card{
+    padding: 50px 50px;
+}
+
+span.avatar {
+    margin-right: 20px;
+}
+
+.changePassword{
+    margin-top: 20px;
+    
+}
+
+.changePassword:hover{
+    color: var(--primary);
+    text-decoration: underline;
+    font-style: oblique;
+    cursor: pointer;
+}
+
+.mat-chip.mat-standard-chip {
+    background-color: var(--primary);
+    color: rgba(0, 0, 0, 0.87);
+  }

@@ -1,0 +1,37 @@
+{
+  "root": "libs/api/ai/ticket/api/shared/api-ai-ticket-api-dto",
+  "sourceRoot": "libs/api/ai/ticket/api/shared/api-ai-ticket-api-dto/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/ai/ticket/api/shared/api-ai-ticket-api-dto",
+        "main": "libs/api/ai/ticket/api/shared/api-ai-ticket-api-dto/src/index.ts",
+        "tsConfig": "libs/api/ai/ticket/api/shared/api-ai-ticket-api-dto/tsconfig.lib.json",
+        "assets": ["libs/api/ai/ticket/api/shared/api-ai-ticket-api-dto/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/api/ai/ticket/api/shared/api-ai-ticket-api-dto/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/libs/api/ai/ticket/api/shared/api-ai-ticket-api-dto"
+      ],
+      "options": {
+        "jestConfig": "libs/api/ai/ticket/api/shared/api-ai-ticket-api-dto/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

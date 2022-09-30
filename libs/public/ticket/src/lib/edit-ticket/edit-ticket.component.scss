@@ -14,7 +14,61 @@ img#image_preview {
     border: 2px dotted grey
 }
 
-.btn-image {
-    background-image: url('https://localhost:4200/assets/map-location-solid.svg') !important;
-    background-size: contain; //or cover
+.imagePreviewContainer {
+    border: 2px dotted grey;
+    height: 250px;
+}
+
+
+.picture_text{
+    height: 250px;
+    line-height: 250px;
+}
+
+.centered_element{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.rounded-circle
+{
+    border: 1px solid black
+}
+
+#createTicket_button
+{
+    width: 100%;
+    margin-bottom: 50px;
+    margin-top: 10px;
+}
+
+.add_icon
+{
+    font-size: 75px;
+}
+
+#map{
+    width: 100%;
+    height: 100%;
+}
+
+.mapContainer{
+    width: 100%;
+    height: 500px;
+}
+
+mat-form-field{
+    width: 100%;
+    padding: 0 !important;
+}
+
+.locationPin
+{
+    margin-top: 10px;
+}
+
+.editContainer
+{
+    margin:10px 15px;
 }

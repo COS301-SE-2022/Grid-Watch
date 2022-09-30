@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/tech-team/general-ui",
+  "sourceRoot": "libs/tech-team/general-ui/src",
+  "prefix": "grid-watch",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/tech-team/general-ui"],
+      "options": {
+        "jestConfig": "libs/tech-team/general-ui/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/tech-team/general-ui/**/*.ts",
+          "libs/tech-team/general-ui/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,96 @@
+<div class="ticketContainer">
+  <mat-card class="mt-4 cards {{ ticketStatus }}">
+    <h1 class="ticketType">
+      {{ ticket.ticketType }}
+    </h1>
+    <div class="mt-3"></div>
+    <div class="issueImageContainer mt-3 mb-3">
+      <img
+        class="issueImage"
+        src="{{ ticket.ticketImg }}"
+        alt="issue_image"
+        onerror="this.src='assets/image-solid.svg'"
+      />
+    </div>
+    <div class="ticketInformation mt-3">
+      <div class="flexContainer container">
+        <div class="flexBox mb-3">
+          <div class="ticketStatus">
+            Status: <i>{{ ticket.ticketStatus }}</i>
+          </div>
+          <br />
+          <div class="ticketLocation">
+            <img
+              class="pin_location"
+              src="assets/location-pin-solid.svg"
+              alt=""
+            />
+            {{ ticket.ticketStreetAddress }}
+          </div>
+        </div>
+        <div class="flexBoxSettings">
+          <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
+          <mat-menu #menu="matMenu">
+            <button
+              mat-menu-item
+              *ngIf="user.id.toString() === userId"
+              [routerLink]="['/editTicket', { id: ticket.ticketId }]"
+            >
+              Edit
+            </button>
+            <button mat-menu-item *ngIf="user.id.toString() !== userId">
+              Report
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+      <mat-divider> </mat-divider>
+      <div class="container">
+        <h2 class="mt-3">Description</h2>
+        <div class="ticketDescription mb-4">
+          {{ ticket.ticketDescription }}
+        </div>
+        <span id="issue-container">
+          <mat-divider> </mat-divider>
+          <h2 class="mt-3">Issue steps</h2>
+          <mat-grid-list cols="16">
+            <mat-grid-tile colspan="2"><b>Steps</b></mat-grid-tile>
+            <mat-grid-tile colspan="7"><b>Step Description</b></mat-grid-tile>
+            <mat-grid-tile colspan="7"><b>Step Status</b></mat-grid-tile>
+          </mat-grid-list>
+          <div *ngFor="let subtask of subtaskSteps; index as i">
+            <mat-grid-list cols="16">
+              <mat-grid-tile rowspan="3" colspan="2">{{
+                subtaskSteps[i]
+              }}</mat-grid-tile>
+              <mat-grid-tile rowspan="3" colspan="7">{{
+                subtaskDescriptions[i]
+              }}</mat-grid-tile>
+              <mat-grid-tile rowspan="3" colspan="7">{{
+                subtaskStatus[i]
+              }}</mat-grid-tile>
+            </mat-grid-list>
+          </div>
+        </span>
+      </div>
+    </div>
+    <mat-divider> </mat-divider>
+    <div class="mt-5 container">
+      <mat-grid-list cols="15" rowHeight="40px">
+        <mat-grid-tile colspan="8"> Created By {{ user.name }} </mat-grid-tile>
+        <mat-grid-tile colspan="4">
+          {{ ticket.ticketCreateDate | date: 'dd/MM/yyyy hh:mm' }}
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1"> </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+          <img
+            class="ticketUpvoteImage"
+            src="assets/circle-up-solid.svg"
+            alt="upvoteIcon"
+          />
+          &nbsp;{{ ticket.ticketUpvotes }}
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </mat-card>
+</div>

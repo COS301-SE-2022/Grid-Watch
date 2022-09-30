@@ -4,14 +4,15 @@ import { RouterModule } from '@angular/router';
 import { HomePageBodyComponent } from './home-page-body/home-page-body.component';
 import { GoogleMapsModule } from '@angular/google-maps'
 import { BrowserModule } from '@angular/platform-browser';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 @NgModule({
   imports: [
     CommonModule,
-
     BrowserModule,
     GoogleMapsModule,
+    MatGridListModule,
     RouterModule.forChild([
        {path: 'home', pathMatch: 'full', component: HomePageBodyComponent} 
     ]),
@@ -19,5 +20,6 @@ import { BrowserModule } from '@angular/platform-browser';
   ],
   declarations: [HomePageBodyComponent],
   exports: [HomePageBodyComponent],
+  providers : []
 })
 export class PublicHomePageModule {}

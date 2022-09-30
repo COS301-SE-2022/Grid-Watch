@@ -1,0 +1,217 @@
+img.avatar {
+    height: 50px;
+    border: 2px solid black;
+    border-radius: 75px;
+    padding: 2px;
+}
+
+.userInformation{
+    // border: 1px solid black;
+    // border-radius: 10px;
+    display: flex;
+    padding: 5px;
+}
+
+.avatarContainer
+{
+    flex: 15%;
+}
+
+.userDetails
+{
+    flex: 75%;
+    margin: 0 10px;
+}
+
+.optionsButton
+{
+    flex: 10%;
+    position: relative;
+}
+
+.gridContainer
+{
+    margin: 10px 10px;
+}
+
+span.material-icons.settingsIcon {
+    /* top: 34px; */
+    position: absolute;
+    top: 30%;
+}
+img.upvote_img {
+    height: 100%;
+    width: 100%;
+}
+
+img.settings_icon 
+{
+    height: 25px;
+}
+
+img.pin_location
+{
+    height: 15px;
+}
+
+.cards
+{
+    margin-top: 2%;
+    margin-left: 5%; 
+    margin-right:5%;
+    filter: drop-shadow(0 0 0.3rem #adadad );
+    //box-shadow: 5px 5px #8ec63f;
+    //border: 2px solid;
+    
+}
+
+.ticketImg
+{
+    width:100%;
+    text-align: right;
+}
+
+.ticketEdit
+{
+    position:absolute;
+    right:0px;
+    text-decoration: none;
+    color:#8ec63f;    
+}
+
+.citizenName
+{
+    border-bottom: 1px solid #8ec63f;
+}
+
+.sidenav-container
+{
+    height:20px;
+}
+
+.sidenav-button
+{
+    float:right;
+}
+
+.truncate
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.redText
+{
+    border-color:#8ec63f;
+    box-shadow: inset 10px 0px 0px -1px red;
+    //border-right: -15px red solid;
+}
+
+.orangeText
+{
+    border-color:#8ec63f;
+    box-shadow: inset 10px 0px 0px -1px orange;
+    //border-right: -15px orange solid;
+}
+
+.yellowText
+{
+    border-color:#8ec63f;
+    box-shadow: inset 10px 0px 0px -1px #edcf18;
+    //border-right: -15px #edcf18 solid;
+}
+
+.greenText
+{
+    border-color:#8ec63f;
+    box-shadow: inset 10px 0px 0px -1px #8ec63f;
+    //border-right: -15px #8ec63f solid;
+}
+
+.smallInformation{
+    font-size: small;
+}
+
+
+.buttons{
+    display: flex;
+}
+
+.buttonsSort{
+    width: 100%;
+    height: 100%;
+    border-radius: 0px !important;
+}
+
+.buttonsFilter{
+    width: 100%;
+    height: 100%;
+    border-radius: 0px !important;
+}
+
+.buttonContainer{
+    padding-top: 40px;
+    flex: 50%;
+}
+
+mat-drawer{
+    width: 70%;
+}
+
+.sortContainer
+{    
+    padding: 1rem;
+    padding-top: 40px !important;
+}
+
+.filterContainer{
+    padding: 1rem;
+    padding-top: 40px;
+}
+
+.drawerContainer{
+    // overflow-y: scroll;
+    z-index: 0;
+}
+
+mat-drawer-content{
+    padding-bottom: 100px ;
+}
+
+span.upvoteContainer.liked {
+    // border-radius: 13px;
+    background: #8ec63f;
+    // height: 50%;
+    // width: 50%;
+}
+
+span.upvoteContainer {
+    border-radius: 13px;
+    background: white;
+    height: 100%;
+    width: 45%;
+    
+}
+
+.upvoteNumber {
+    max-width: 15px;
+    margin-right: 1rem;
+  }
+
+.filterOption
+{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.resetButtonContainer{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.resetButton{
+    width: 80%;
+}
+

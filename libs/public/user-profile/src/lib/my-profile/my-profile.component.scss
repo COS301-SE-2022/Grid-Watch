@@ -1,0 +1,81 @@
+img.avatar {
+    height: 50px;
+    border: 2px solid black;
+    border-radius: 75px;
+    padding: 2px;
+}
+
+.userInformation{
+    // border: 1px solid black;
+    // border-radius: 10px;
+    display: flex;
+    padding: 5px;
+}
+
+.avatarContainer
+{
+    flex: 15%;
+}
+
+.userDetails
+{
+    flex: 75%;
+    margin: 0 10px;
+    overflow: hidden;
+}
+
+.optionsButton
+{
+    flex: 10%;
+    position: relative;
+}
+
+.gridContainer
+{
+    margin: 10px 10px;
+}
+
+span.material-icons.settingsIcon {
+    /* top: 34px; */
+    position: absolute;
+    top: 30%;
+}
+
+
+.ticketImage{
+    height: 50px;
+}
+
+.ticket{
+  display: flex;  
+}
+
+.ticketInfo{
+    flex: 75%;
+}
+
+.ticketImage{
+    flex: 25%;
+}
+
+
+.viewSelector{
+    width: 100%;
+}
+
+.views{
+    width: 100%;
+    height: 40px;
+    position: relative;
+}
+
+span.material-icons.viewIcons {
+    position: absolute;
+    top: 7px;
+}
+
+.profileContainer
+{
+    // overflow: hidden;
+    // width: 100vw;
+}

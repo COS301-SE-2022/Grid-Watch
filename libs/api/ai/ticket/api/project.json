@@ -1,0 +1,33 @@
+{
+  "root": "libs/api/ai/ticket/api",
+  "sourceRoot": "libs/api/ai/ticket/api/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/ai/ticket/api",
+        "tsConfig": "libs/api/ai/ticket/api/tsconfig.lib.json",
+        "packageJson": "libs/api/ai/ticket/api/package.json",
+        "main": "libs/api/ai/ticket/api/src/index.ts",
+        "assets": ["libs/api/ai/ticket/api/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/ai/ticket/api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/ai/ticket/api"],
+      "options": {
+        "jestConfig": "libs/api/ai/ticket/api/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

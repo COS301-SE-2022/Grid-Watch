@@ -1,0 +1,57 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <span class="avatar">TM</span>
+        <span >{{admin.name}}</span>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="inputFields">
+          <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+              <mat-label>Email</mat-label>
+              <input type="email" [disabled]="emailStatus" matInput placeholder="Enter email" [(ngModel)]="admin.email"/>
+              <button mat-icon-button matSuffix  (click)="toggleEmail()">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </mat-form-field>
+      </div>
+      <div class="inputFields">
+          <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+              <mat-label>Contact Number</mat-label>
+              <input type="text" [disabled]="contactStatus" matInput placeholder="Enter contact number" [(ngModel)]="admin.contactNumber"/>
+              <button mat-icon-button matSuffix (click)="toggleContact()">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </mat-form-field>
+      </div>
+      <div class="inputFields">
+          <mat-form-field class="cityField" appearance="outline" [floatLabel]="getFloatLabelValue()">
+              <mat-label>Cities</mat-label>
+              <input type="text" id="pac-input" matInput placeholder="Add Cities" [(ngModel)]="city"/>
+              <button mat-icon-button matSuffix >
+                <mat-icon>add</mat-icon>
+              </button>
+            </mat-form-field>
+            <mat-chip-list aria-label="Fish selection" color="primary">
+              <mat-chip color="primary" *ngFor="let city of admin.cities, index as i" (click)="remove(i)">{{city}}</mat-chip>
+            </mat-chip-list>
+      </div>
+      <div class="inputFields changePassword">
+        <p (click)="togglePassword()">Change Password?</p>
+        <div *ngIf="changePassword">
+          <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput placeholder="Enter password" [(ngModel)]="admin.password"/>
+          </mat-form-field>
+          <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
+            <mat-label>Confirm Password</mat-label>
+            <input type="password" matInput placeholder="Confirm password" [(ngModel)]="confirmPassword"/>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button (click)="update()" color="primary">Update</button>
+    </mat-card-actions>
+  </mat-card>
+  

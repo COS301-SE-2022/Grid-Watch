@@ -1,63 +1,47 @@
-<div class="container">
-    <div class="card mt-4">
-        <div class="card-body">
-            <div class="row ">
-                <div class="col-12 col-lg-6">
-                    <div class="display-6 text-center">{{ticket.ticket_type}}</div>
-                    <div class="picturePreview ">
-                        <div class="centered_element d-flex justify-content-center" *ngIf="ticket.ticket_img === ''"> 
-                            <div class="spinner-border text-success text-center" >
-                            </div>
-                        </div>
-                        <div class="picturePreview border" *ngIf="ticket.ticket_img !== ''">
-                            <img src="assets/{{ticket.ticket_img}}" onerror="this.src='assets/solid_example.png'" alt="issue_image">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <div class="ticket_description">
-                        <b>
-                            Description : <br>
-                        </b>
-                        {{ticket.ticket_description}}
-                    </div>
-                    <div class="ticket_create_date mt-1">
-                        <b>Create date :</b>  {{ticket.ticket_create_date}}
-                    </div>
-                    <div class="ticket_address mt-1">
-                        <b>Address :</b> {{ticket.ticket_location}}
-                    </div>
-                    <div class="ticket_city mt-1">
-                        <b> City:</b> {{ticket.ticket_city}}
-                    </div>
-                    <div class="ticket_map">
-                        <div class="mt-2">
-                            <!-- <google-map
-                                height="250px"
-                                width="100%"
-                                [zoom]="zoom"
-                                [center]="center"
-                                [options]="options">
-                                <map-marker
-                                    [position]="marker_position"
-                                    [title]="ticket.ticket_type"
-                                >
-                                </map-marker>
-                            </google-map> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3 text-center">
-                    <button type="button" class="btn btn-outline-dark" (click)="accept()">Accept</button>
-                </div>
-                <div class="col-6">
-                </div>
-                <div class="col-3 text-center">
-                    <button type="button" class="btn btn-outline-dark" (click)="back()">Back</button>
-                </div>
-            </div>
+<div class="gridContainer">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ ticket.ticketType }}</mat-card-title>
+      <mat-card-subtitle>
+        <span class="material-icons">person_pin_circle</span>
+        {{ ticket.ticketStreetAddress }}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="imageContainer">
+        <img
+          src="{{ picture.pictureLink }}"
+          alt="IssueImage"
+          onerror=""
+          *ngIf="picture.pictureLink !== ''"
+        />
+        <div class="centeredElement" *ngIf="picture.pictureLink === ''">
+          <mat-spinner mode="indeterminate"> </mat-spinner>
         </div>
-    </div>
+      </div>
+      <div class="description">
+        {{ ticket.ticketDescription }}
+      </div>
+      <div class="ticketInformation">
+        <div class="status">
+          {{ ticket.ticketStatus }}
+        </div>
+        <div class="dateCreated" *ngIf="ticket.ticketCreateDate !== undefined">
+          <i>
+            {{ ticket.ticketCreateDate.toLocaleString() }}
+          </i>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="buttonContainer">
+        <div class="buttons">
+          <button mat-button (click)="accept()">Accept</button>
+        </div>
+        <div class="buttons">
+          <button mat-button (click)="reject()">Reject</button>
+        </div>
+      </div>
+    </mat-card-actions>
+  </mat-card>
 </div>

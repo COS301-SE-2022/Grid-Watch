@@ -1,8 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
+import {MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
+import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
+
 
 @Component({
   selector: 'grid-watch-ticket-view-details',
@@ -11,13 +15,11 @@ import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-pictu
 })
 export class TicketViewDetailsComponent implements OnInit {
 
-  getAllURL = "http://localhost:3333/api/ticket/"
-  UpdateStatusURL = "http://localhost:3333/api/ticket/update/status/";
-  getPictureURL = "http://localhost:3333/api/ticket/picture/";
 
 
   ticket! : TicketDto;
   issue_id! : string | null;
+  @Input() picture! : TicketPictureDto;
 
   zoom! : number;
   center! : Record<string, unknown>;
@@ -27,21 +29,28 @@ export class TicketViewDetailsComponent implements OnInit {
   constructor(
     private router : Router,
     private http : HttpClient,
-    private route : ActivatedRoute
+    private route : ActivatedRoute,
+    private dialog: MatDialog,
+    private ticketService : TicketService,
+    private googleMapsService : GoogleMapsService
   ) {}
 
   ngOnInit(): void {
     this.ticket = new TicketDto();
+    this.picture = new TicketPictureDto();
+    this.picture.pictureLink = "";
     
     this.issue_id = this.route.snapshot.paramMap.get('id');
-    this.getAllURL += this.issue_id;
-    this.http.get<TicketDto[]>(this.getAllURL).subscribe(
-      (data) => {
-        this.ticket = data[0];
-        this.ticket.ticket_img = "";
-        this.loadImage();
-      }
-      );
+    if (this.issue_id)
+      this.ticketService.getTicket(this.issue_id).subscribe(
+        async (data) => {
+          // console.log(data);
+          this.ticket = data[0];
+          this.ticket.ticketImg = "";
+          this.ticket.ticketCreateDate = new Date(this.ticket.ticketCreateDate);
+          this.loadImage();
+        }
+        );
 
     this.zoom = 5.5;
     this.center =  {
@@ -58,43 +67,46 @@ export class TicketViewDetailsComponent implements OnInit {
 
   async loadImage() : Promise<void> 
   {
-    await this.delay(3000)
-    this.getPictureURL += this.ticket.ticket_id;
-    this.http.get<TicketPictureDto[]>(this.getPictureURL).subscribe(
+    // await this.delay(3000)
+    // this.getPictureURL += ;
+    this.ticketService.getImages(this.ticket.ticketId).subscribe(
       (data) => {
-        console.log(data[0])
-        this.ticket.ticket_img = data[0].picture_link
+      console.log(data);
+      
+        if (data.length > 0)
+      {
+        this.picture = data[data.length - 1];
+      }
+      else
+      {
+        this.picture.pictureLink = "image-solid.svg";
+      }
     }
     );
   }
 
-  back() : void
+  reject() : void
   {
-    this.router.navigateByUrl("/tickets");
+    // console.log("Here")
+    const dialogRef = this.dialog.open(DialogComponent);
+
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result)
+      {
+        if (this.issue_id)
+        this.ticketService.updateTicketStatus(this.issue_id, "Rejected").subscribe(
+          (response) =>{
+            this.router.navigateByUrl("/tickets");
+            
+          }
+        );
+      }
+    });
   }
 
   accept() : void
   {
-    this.UpdateStatusURL += this.issue_id;
-    // console.log(this.UpdateStatusURL);
-    
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    };
-    const temp = {status: "Accepted"}
     this.router.navigate(["/editTicketDetails", {"id":this.issue_id}])
-    // this.http.put<string>(this.UpdateStatusURL, temp ,httpOptions).subscribe(
-    //   (data) => {
-    //     console.log(data);
-    //     this.showSuccessMessage();
-    // },
-    // () =>
-    // {
-    //   this.showErrorMessage()
-    // }
-    // );
   }
 
   

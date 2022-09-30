@@ -8,14 +8,14 @@ export class TicketPictureDto {
   
 @IsNumber()
 @IsNotEmpty()
-picture_id! : number;
+pictureId! : number;
 
 @IsString()
 @IsNotEmpty()
-picture_link! : string;
+pictureLink! : string;
 
 @IsNumber()
 @IsNotEmpty()
-ticket_id! : number;
+ticketId! : number;
 
 }

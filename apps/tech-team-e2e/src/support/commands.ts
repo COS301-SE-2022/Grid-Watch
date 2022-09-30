@@ -17,8 +17,13 @@ declare namespace Cypress {
 }
 //
 // -- This is a parent command --
-Cypress.Commands.add('login', (email, password) => {
-  console.log('Custom command example: Login', email, password);
+Cypress.Commands.add('login', () => {
+  const user ="patchers" + (Math.floor(Math.random() * (100000000 - 0 + 1)) + 0) +"@gmail.com";
+
+  cy.visit("/login")
+    cy.get('#mat-input-0').type(user);
+    cy.get('#mat-input-1').type("123456");
+    cy.get('.button > .mat-focus-indicator').click();
 });
 //
 // -- This is a child command --

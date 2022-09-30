@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://grid-watch-api.azurewebsites.net/",
+    "secure": true,
+    "changeOrigin": true
+
+  }
+}

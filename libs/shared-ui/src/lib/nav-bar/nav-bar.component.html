@@ -1,51 +1,49 @@
-
+<div class="navContainer">
 <nav id="generalNavbar" class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-        <a routerLink="/home" class="navbar-brand">Gridwatch</a>
+        <a routerLink="/" class="navbar-brand"><img id = "navImage" src="assets/logo-white.png"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse row" id="collapsibleNavbar">
             <div class="col-lg-10">
-                <ul class="navbar-nav" >
+                <!-- <ul class="navbar-nav" >
                     <li class="nav-item" *ngFor="let option of options, index as i">
                         <a class="nav-link" id="{{option}}" routerLink="{{router_options[i]}}">{{option}}</a>
                     </li>
-
-                </ul>
+                </ul> -->
+                
             </div>
-            <!--<div class="navbar-nav brand col ml-auto">
-                <a  class="nav-item nav-link notifications d-none d-lg-inline"  >
-                    <img class="notifications_icon" src="assets/bell-solid.svg" alt="bell-icon">
-                    <span class="position-relative top-0 start-0 translate-middle badge rounded-pill bg-danger">
-                        1
-                    </span>
-                </a>
-                <a  class="nav-item nav-link notifications d-inline d-lg-none" >
-                    <img class="notifications_icon" src="assets/bell-solid.svg" alt="bell-icon">
-                    Notifications
-                </a>
+            <div class="navbar-nav brand col ml-auto d-flex justify-content-center">
                 <div class="nav-item dropdown">
-                    <a data-bs-toggle="dropdown" aria-expanded="false" id="drop-down-toggle" (click)="dropdown()" class="nav-link dropdown-toggle user-action"><img src="assets/user-solid.svg" class="avatar" alt="Avatar"> John Doe <b class="caret"></b></a>
+                    <a data-bs-toggle="dropdown" aria-expanded="false" id="drop-down-toggle" (click)="dropdown()" class="nav-link dropdown-toggle user-action"><img src="assets/user-solid.svg" class="avatar" alt="Avatar"><b class="caret"></b></a>
                     <div class="dropdown-menu" id="profile_dropdown"  aria-labelledby="drop-down-toggle">
-                        <a class="dropdown-item" [routerLink]="['/login', {app:application_type}]">
+                        <a class="dropdown-item" [routerLink]="['/login']" *ngIf="logged === 'false'">
                             <img src="assets/user-solid.svg" class="profile_option_img" alt="profile_option_img"  > 
                             Login
                         </a>
-                        <a class="dropdown-item" [routerLink]="['/editUser', {id:1}]">
+                        <a class="dropdown-item" (click)="logout()" *ngIf="logged === 'true'">
+                            <img src="assets/user-solid.svg" class="profile_option_img" alt="profile_option_img"  > 
+                            Logout
+                        </a>
+                        <a class="dropdown-item" [routerLink]="['/profile']" *ngIf="logged">
                             <img src="assets/user-solid.svg" class="profile_option_img" alt="profile_option_img">
                              User Profile
                         </a>
-                        <a class="dropdown-item">
-                            <img src="assets/gear-solid.svg" class="profile_option_img" alt="settings_option_img"> 
-                            Settings
-                        </a>
                     </div>
                 </div>
-            </div>-->
-            <h2 id="classIdentifier" class="navbar-nav brand col ml-auto">
+            </div>
+            <!-- <h2 id="classIdentifier" class="navbar-nav brand col ml-auto">
 
-            </h2>
+            </h2> -->
         </div>
     </div>
 </nav>
+<nav mat-tab-nav-bar [tabPanel]="tabPanel">
+    <a mat-tab-link *ngFor="let link of links"
+        routerLink="{{link.link}}"
+       (click)="activeLink = link"
+       [active]="activeLink === link"> {{link.title}} </a>
+  </nav>
+  <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+</div>

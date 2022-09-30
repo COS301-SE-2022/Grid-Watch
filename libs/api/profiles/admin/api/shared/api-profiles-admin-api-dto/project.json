@@ -1,0 +1,39 @@
+{
+  "root": "libs/api/profiles/admin/api/shared/api-profiles-admin-api-dto",
+  "sourceRoot": "libs/api/profiles/admin/api/shared/api-profiles-admin-api-dto/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/profiles/admin/api/shared/api-profiles-admin-api-dto",
+        "main": "libs/api/profiles/admin/api/shared/api-profiles-admin-api-dto/src/index.ts",
+        "tsConfig": "libs/api/profiles/admin/api/shared/api-profiles-admin-api-dto/tsconfig.lib.json",
+        "assets": [
+          "libs/api/profiles/admin/api/shared/api-profiles-admin-api-dto/*.md"
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/api/profiles/admin/api/shared/api-profiles-admin-api-dto/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/libs/api/profiles/admin/api/shared/api-profiles-admin-api-dto"
+      ],
+      "options": {
+        "jestConfig": "libs/api/profiles/admin/api/shared/api-profiles-admin-api-dto/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

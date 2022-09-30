@@ -25,11 +25,22 @@ The system will also make use of predictive analytics powered by AI modules that
 
 [DeniedAccess-Demo2](https://youtu.be/uwl3Oaru-QY)
 
+[DeniedAccess-Demo3](https://youtu.be/zts5gdFLwAU)
+
+[DeniedAccess-Demo4](https://youtu.be/PgAlow2Jbnc)
+
 
 ### Specifications:
 [SRS Document Demo 1](https://github.com/COS301-SE-2022/Grid-Watch/wiki/SRS-Documentation)  
 
 [SRS Document Demo 2 (Including Architecturial Information)](https://github.com/COS301-SE-2022/Grid-Watch/wiki/SRS-Documentation-(Demo-2))
+
+[SRS Document Demo 3](https://github.com/COS301-SE-2022/Grid-Watch/wiki/SRS-Documentation-(Demo-3))
+
+[SRS Document Demo 3 (PDF).pdf](https://github.com/COS301-SE-2022/Grid-Watch/files/9212810/SRS.Requirements.Demo.3.pdf)
+
+[SRS Document Demo 4](https://github.com/COS301-SE-2022/Grid-Watch/wiki/SRS-Documentation-(Demo-4))
+
 
 ### Project Board
 [Our Teams Project Board](https://github.com/COS301-SE-2022/Grid-Watch/projects)
@@ -38,8 +49,17 @@ The system will also make use of predictive analytics powered by AI modules that
 
 [Coding Standards Document](https://docs.google.com/document/d/14ZgiOOHuGVIBg7ipPNieu8GqoA4tWqco2OpbXeJmOH0/edit?usp=sharing)
 
+### Technical Installation Guide
+
+[GridWatch Demo 3 Technical Installation Guide.pdf](https://github.com/COS301-SE-2022/Grid-Watch/files/9213024/GridWatch.Demo.3.Technical.Installation.Guide.pdf)
+
+
 ### User Manual
 [Grid Watch User Manual](https://drive.google.com/file/d/1Uv2K0BQI1hVqUTOibVpMgImo-9ssm-Sp/view?usp=sharing)
+
+### Testing Policy
+[Testing Policy.pdf](https://github.com/COS301-SE-2022/Grid-Watch/files/9682832/Testing.Policy.pdf)
+
 
 ### About Us
 #### Leonardo Wessels

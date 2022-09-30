@@ -1,0 +1,93 @@
+<mat-grid-list cols="12" rowHeight="40px" [ngClass]="'mt-4'">
+    <mat-grid-tile colspan="3">
+        <h3>Choose a Graph</h3>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="3">
+        <mat-form-field appearance="fill" id="chart-selector" style="padding-left:40px">
+            <mat-select (selectionChange)="toggleElement($event.value)" [(value)]="selected" placeholder="Line Chart">
+                <mat-option value="line-chart-container">Line Chart</mat-option>
+                <mat-option value="pie-chart-container">Polar Area Chart</mat-option>
+                <mat-option value="heat-map-container">Heat Map</mat-option>  
+                <mat-option value="sum-table-container">Summarised Statistics</mat-option>          
+            </mat-select>
+        </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="6">
+    </mat-grid-tile>
+</mat-grid-list>
+
+<div id="pie-chart-container" class="hidden container">
+    <div id="pie-chart-loading-container" class="hidden">
+        <mat-spinner value="accent"></mat-spinner>
+    </div>
+    <canvas id="pieChart" style="height:300px;max-height: 300px;"></canvas>
+</div>
+
+<div id="line-chart-container">
+    <mat-grid-list cols="12" rowHeight="100">
+        <mat-radio-group aria-label="Select an option">
+            <mat-grid-tile colspan="2">
+                <mat-slide-toggle color="primary" (change)="showLineGraph('Pothole', $event)">Potholes</mat-slide-toggle>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <mat-slide-toggle color="primary" (change)="showLineGraph('Water Outage', $event)">Water outages</mat-slide-toggle>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <mat-slide-toggle color="primary" (change)="showLineGraph('Electricity Outage', $event)">Electricity outages
+                </mat-slide-toggle>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <mat-slide-toggle color="primary" (change)="showLineGraph('Broken Traffic Light', $event)">Robot outages
+                </mat-slide-toggle>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <mat-slide-toggle color="primary" (change)="showLineGraph('Broken Street Light', $event)">Street light outages
+                </mat-slide-toggle>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <mat-slide-toggle color="primary" (change)="showLineGraph('Other', $event)">Miscellaneous</mat-slide-toggle>
+            </mat-grid-tile>
+        </mat-radio-group>
+        <mat-grid-tile colspan="1"></mat-grid-tile>
+        <mat-grid-tile colspan="10" rowspan="4">
+            <canvas id="lineChart" style="max-height: 400px;"></canvas>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1"></mat-grid-tile>
+    </mat-grid-list>
+</div>
+
+<div id="heat-map-container" class="hidden">
+    <div id="floating-panel">
+        <button id="all">All</button>
+        <button id="potholes">Pothole</button>
+        <button id="sinkholes">Sinkhole</button>
+        <button id="water">Water Outage</button>
+        <button id="electricity">Electricity Outage</button>
+        <button id="streetlight">Broken Street Light</button>
+        <button id="trafficlight">Broken Traffic Light</button>
+        <button id="other">Other</button>
+    </div>
+    <div id="heat-map-map-container" style="margin-bottom:40px;">
+        <div id="heatmap"></div>
+    </div>
+</div>
+
+<div id="sum-table-container" class="mt-4 container hidden">
+    <div id="sumtable"*ngIf="tableData" style = "overflow: auto;">
+        <table>
+            <tr>
+                <th *ngFor="let heading of colNames">
+                    {{heading}}
+                </th>
+            </tr>
+            <tr *ngFor="let row of tableData">
+                <td  *ngFor="let data of row">
+                    {{data}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+

@@ -1,49 +1,20 @@
-.uploaded_issue_image
+.buttonGroup
 {
-    height: max-content;
-    width: 250px;
+    width: 100%;
 }
 
-.issue_card
-{
-    width: 300px;
+mat-button-toggle{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
 }
 
-img.upvote_img
+.view-selector
 {
-    width: 20;
-}
-
-img.settings_icon 
-{
-    height: 25px;
-}
-
-
-
-.mat-card 
-{
-    display: flex;
-    flex-direction: column;
-}
-
-.mat-card-header 
-{
-    flex-shrink: 0;
-}
-
-.mat-card-content 
-{
-    flex-grow: 1;
-    overflow: auto;
-}
-
-img.pin_location
-{
-    height: 10px;
-}
-
-.location_heading
-{
-    font-size: 10px;
+    position:fixed !important;
+    top:0;
+    left:0;
+    width:100vw;
+    height:40px;
+    z-index: 100;
 }

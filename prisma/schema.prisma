@@ -16,64 +16,18 @@ datasource db {
 ///////////////////////////////////////////////////////////////////////
 
 model User{
-  id           Int          @id @default(autoincrement())
-  email        String       @unique
-  password     String
-  passwordSalt String?    
-  name         String
-  created      DateTime     @default(now())
+  id                  Int        @id @default(autoincrement())
+  email               String     @unique
+  password            String
+  passwordSalt        String?    
+  name                String
+  dateCreated         DateTime  @default(now())
+  userRating          Int       @default(50)   //scale 1 - 100
+
+  ticketsCreated      Ticket[]
+  ticketsUpvoted      Int[]
 
   @@map("user")
-}
-
-///////////////////////////////////////////////////////////////////////
-// AuthorizedOfficials
-///////////////////////////////////////////////////////////////////////
-
-model AuthorizedOfficials {
-  id              Int       @id @default(autoincrement())
-  name            String
-  email           String    @unique
-  contact_number  String    @unique @db.VarChar(10)
-  cities          String
-
-  password        String
-  passwordSalt    String?    
-  created         DateTime  @default(now())
-
-  @@map("authorizedofficials")
-}
-
-///////////////////////////////////////////////////////////////////////
-// TechTeam
-///////////////////////////////////////////////////////////////////////
-
-model TechTeam {
-  id                Int       @id @default(autoincrement())
-  name              String
-  email             String?   @unique
-  specialisation    String
-  contact_number    String    @unique @db.VarChar(10)
-  nr_jobs_completed Int?
-  rating_of_jobs    Float?
-
-  password          String
-  passwordSalt      String?    
-  created           DateTime  @default(now())
-
-  @@map("techteam")
-}
-
-///////////////////////////////////////////////////////////////////////
-// TechTeamTicket
-///////////////////////////////////////////////////////////////////////
-
-model TechTeamTicket {
-  id                Int       @id @default(autoincrement())
-  techteam_ID       Int
-  ticket_ID         Int     
-
-  @@map("techteamticket")
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -81,19 +35,32 @@ model TechTeamTicket {
 ///////////////////////////////////////////////////////////////////////
 
 model Ticket {
-  ticket_id           Int     @id @default(autoincrement())
-  ticket_status       String
-  ticket_create_date  DateTime    // @default(now())
-  ticket_close_date   DateTime?
-  ticket_type         String
-  ticket_city         String?
-  ticket_location     String    //place-id
-  ticket_cost         Float?
-  ticket_description  String
-  ticket_repair_time  Int?
-  ticket_upvotes      Int
+  ticketId            Int       @id @default(autoincrement())
+  ticketStatus        String
+  ticketCreateDate    DateTime  @default(now())
+  ticketCloseDate     DateTime?
+  ticketType          String
+  ticketStreetAddress String?
+  ticketCity          String
+  ticketLocation      String?   //place-id
+  ticketLong          Float?
+  ticketLat           Float?
+  ticketCost          Float?
+  ticketDescription   String
+  ticketRepairTime    Int?
+  ticketUpvotes       Int
 
+  currentSubtask      Int?      
+
+  techTeam            TechTeam? @relation(fields: [assignedTechTeam] , references: [id])
+  assignedTechTeam    Int?
+
+  user                User?     @relation(fields: [userId] , references: [id], onDelete: Cascade) // user who created ticket
+  userId              Int?
+
+  Subtasks            Subtasks[]
   Picture             Picture[]
+
   @@map("ticket")
   
 }
@@ -103,13 +70,80 @@ model Ticket {
 ///////////////////////////////////////////////////////////////////////
 
 model Picture {
-  picture_id      Int     @id @default(autoincrement())
-  picture_link    String
-  ticket          Ticket  @relation(fields: [ticket_id], references: [ticket_id], onDelete: Cascade)
-  ticket_id       Int
+  pictureId           Int       @id @default(autoincrement())
+  pictureLink         String
+  ticket              Ticket    @relation(fields: [ticketID], references: [ticketId], onDelete: Cascade)
+  ticketID            Int
 
   @@map("picture")
 }
 
+///////////////////////////////////////////////////////////////////////
+// Subtasks
+///////////////////////////////////////////////////////////////////////
 
+model Subtasks{
+  subtaskId           Int       @id @default(autoincrement())
+  tickets             Ticket    @relation(fields: [ticketID], references: [ticketId], onDelete: Cascade)
+  ticketID            Int
+  taskDescription     String
+  taskStep            Int
+  taskStatus          String
 
+  @@map("subtasks")
+}
+
+///////////////////////////////////////////////////////////////////////
+// TechTeam
+///////////////////////////////////////////////////////////////////////
+
+model TechTeam {
+  id                  Int       @id @default(autoincrement())
+  name                String
+  email               String?   @unique
+  specialisation      String[]
+  contactNumber       String    @unique @db.VarChar(10)
+  cities              String[]
+  nrJobsCompleted     Int?
+  ratingOfJobs        Float?
+
+  assignedTickets  Ticket[]
+
+  password            String
+  passwordSalt        String?    
+  dateCreated         DateTime  @default(now())
+
+  @@map("techteam")
+}
+
+///////////////////////////////////////////////////////////////////////
+// AuthorizedOfficials
+//////////////////////////////////////////////////////////////////////
+
+model AuthorizedOfficials {
+  id                  Int         @id @default(autoincrement())
+  name                String
+  email               String      @unique
+  contactNumber       String      @unique @db.VarChar(10)
+  cities              String[]
+
+  password            String
+  passwordSalt        String?    
+  dateCreated         DateTime    @default(now())
+  
+  @@map("authorizedofficials")
+}
+
+///////////////////////////////////////////////////////////////////////
+// AI model
+///////////////////////////////////////////////////////////////////////
+
+model AI{
+  id                  Int         @id @default(autoincrement())
+  dateCreated         DateTime    @default(now())
+  aiData              Json?
+  fitness             Float
+  ticketTypes         String[]
+  ticketCities        String[]
+  aiType              String
+}

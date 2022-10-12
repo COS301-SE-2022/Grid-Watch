@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import {PrismaClient} from '@prisma/client';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 
@@ -56,6 +56,13 @@ export class ApiTicketRepositoryDataAccess {
     
     async getAllTickets(){
         return await this.prisma.ticket.findMany()
+    }
+
+    async getAllTicketsFrom(skip : number, take : number){
+        return await this.prisma.ticket.findMany({
+            skip: skip,
+            take: take
+        })
     }
 
     async getAllTicketsDispatched(){

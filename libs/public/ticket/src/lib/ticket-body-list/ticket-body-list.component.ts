@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
@@ -61,6 +61,8 @@ export class TicketBodyListComponent implements OnInit {
   id!: string;
   user!: UserDto;
   filterChecked: FilterChecked[] = [];
+  skip = 0;
+  take = 25
 
   constructor(
     private http: HttpClient,
@@ -68,7 +70,8 @@ export class TicketBodyListComponent implements OnInit {
     private googleMapsService: GoogleMapsService,
     private router: Router,
     private sessionService: SessionManagerService,
-    private userService: PublicProfileService
+    private userService: PublicProfileService,
+    private cdref : ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -82,7 +85,8 @@ export class TicketBodyListComponent implements OnInit {
 
     loader.load().then(
       () => {
-        this.ticketService.getTickets().subscribe(async (response) => {
+        this.ticketService.getTicketsSome(this.skip,this.take).subscribe(async (response) => {
+          this.skip += this.take
           this.tickets = response;
           this.InitialiseTicket(response);
           this.ticketsPerm = response;
@@ -361,6 +365,20 @@ export class TicketBodyListComponent implements OnInit {
 
   onScroll(){
     console.log("NEED TO LOAD MOREEEEE BUDDY");
+    this.ticketService.getTicketsSome(this.skip,this.take).subscribe(async (response) => {
+      this.skip += this.take
+      this.tickets = [...this.tickets, ...response];
+      this.InitialiseTicket(this.tickets);
+      this.ticketsPerm = [...this.ticketsPerm, ...response];
+      this.loadFilterLabels();
+      this.loadSortLabels();
+      this.id = this.sessionService.getID() || '';
+      this.userService.getUser(this.id).subscribe((response) => {
+        this.user = response[0];
+        this.initialiseUpvotes();
+        this.cdref.detectChanges();
+      });
+    });
     
   }
 }

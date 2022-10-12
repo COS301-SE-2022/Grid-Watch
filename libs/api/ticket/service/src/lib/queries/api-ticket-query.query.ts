@@ -6,6 +6,10 @@ export class GetTicketsQuery{
 
 }
 
+export class GetTicketsFromQuery{
+    constructor(public readonly take, public readonly skip){}
+}
+
 export class GetTicketsSortByDateQuery{
 
 }

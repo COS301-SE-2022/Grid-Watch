@@ -202,7 +202,6 @@ export class ApiProfilesAdminRepositoryDataAccess {
         if (admin == null)
             return false;
 
-        // Logger.log(Password)
         
 
         const hash = await this.bcrypt.hash(Password, admin.passwordSalt); 

@@ -161,7 +161,6 @@ export class ApiProfilesPublicRepositoryDataAccess{
             },
         });
 
-        Logger.log(user)
 
         if (user == null)
             return false;

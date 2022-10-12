@@ -40,6 +40,7 @@ export class TicketService {
   private getAITicketCostURL = this.apiURL +  '/api/ticketAI/estimate/cost';
   private getAITicketTimeURL = this.apiURL +  '/api/ticketAI/estimate/time';
   private deleteURL = this.apiURL + "/api/ticket/delete/"; 
+  private getTicketsSomeURL =  "http://localhost:3333/api/ticket/some/tickets/"; 
 
   constructor(private http: HttpClient,  private storage : AngularFireStorage) {}
 
@@ -180,6 +181,17 @@ export class TicketService {
   public getTickets(): Observable<TicketDto[]> {
     return this.http
       .get<TicketDto[]>(this.getAllURL)
+      .pipe(catchError(this.handleError<TicketDto[]>('getTickets', [])));
+  }
+
+  public getTicketsSome(skip : number, take : number): Observable<TicketDto[]> {
+    const value = {
+      skip : skip, 
+      take : take
+    }
+    console.log(this.getTicketsSomeURL + skip + "/" + take);
+    return this.http
+      .get<TicketDto[]>(this.getTicketsSomeURL + skip + "/" + take)
       .pipe(catchError(this.handleError<TicketDto[]>('getTickets', [])));
   }
 

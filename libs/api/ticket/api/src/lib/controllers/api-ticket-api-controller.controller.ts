@@ -21,6 +21,7 @@ import { Helper } from './helper';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { HttpParams } from '@angular/common/http';
 import { JwtAuthGuard } from '@grid-watch/api/authentication';
+import { skip } from 'rxjs';
 
 // @UseGuards(JwtAuthGuard)
 @Controller('ticket')
@@ -68,6 +69,11 @@ export class TicketController {
     @Get('/all/tickets')
     async getAll(){
         return this.apiTicketService.getAll();
+    }
+
+    @Get('/some/tickets/:skip/:take')
+    async getAllFrom(@Param() value){
+        return this.apiTicketService.getAllFrom(parseInt(value.take), parseInt(value.skip));
     }
 
     //get endpint to return all tickets sort by Date
@@ -220,7 +226,6 @@ export class TicketController {
     @UseGuards(JwtAuthGuard)
     @Delete('/delete/:id')
     async deleteTicket(@Param() params):Promise<boolean> {
-        Logger.log(params);
         return this.apiTicketService.deleteTicket(parseInt(params.id));
     
     }

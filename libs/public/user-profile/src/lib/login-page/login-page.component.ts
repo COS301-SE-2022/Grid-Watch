@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormBuilder } from '@angular/forms';
+import { UntypedFormControl, UntypedFormBuilder } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
@@ -14,8 +14,8 @@ import { PublicProfileService, SessionManagerService } from '@grid-watch/shared-
 })
 export class LoginPageComponent implements OnInit {  
 
-  hideRequiredControl = new FormControl(false);
-  floatLabelControl = new FormControl('auto' as FloatLabelType);
+  hideRequiredControl = new UntypedFormControl(false);
+  floatLabelControl = new UntypedFormControl('auto' as FloatLabelType);
   formOptions = this.formBuilder.group({
     hideRequired: this.hideRequiredControl,
     floatLabel: this.floatLabelControl,
@@ -27,7 +27,7 @@ export class LoginPageComponent implements OnInit {
   
   constructor(private route : ActivatedRoute,
     private router : Router,
-    private formBuilder : FormBuilder,
+    private formBuilder : UntypedFormBuilder,
     private profileService : PublicProfileService,
     private sessionService : SessionManagerService) {}
 

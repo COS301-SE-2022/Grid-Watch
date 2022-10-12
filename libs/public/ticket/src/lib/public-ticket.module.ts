@@ -13,7 +13,7 @@ import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatIconModule } from '@angular/material/icon';
 // import { GoogleMapsService, LoggedInGuard } from '@grid-watch/shared-ui';
@@ -96,7 +96,7 @@ import { GoogleMapsService } from '@grid-watch/shared-ui';
     TicketBodyListComponent,
     TicketBodyMapComponent,
   ],
-  providers: [FormBuilder, LoggedInGuard, GoogleMapsService],
+  providers: [UntypedFormBuilder, LoggedInGuard, GoogleMapsService],
 
 })
 export class PublicTicketModule {}

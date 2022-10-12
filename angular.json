@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "projects": {
     "admin": "apps/admin",
     "admin-app-dashboard": "libs/admin-app/dashboard",

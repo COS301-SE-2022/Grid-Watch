@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AdminViewBodyComponent } from './admin-view-body/admin-view-body.component';
 import { ViewTicketDetailsComponent } from './view-ticket-details/view-ticket-details.component';
-import { FormBuilder, FormGroupDirective, FormsModule } from '@angular/forms';
+import { UntypedFormBuilder, FormGroupDirective, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -68,6 +68,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     AdminViewBodyComponent,
     ViewTicketDetailsComponent,
   ],
-  providers: [FormBuilder]
+  providers: [UntypedFormBuilder]
 })
 export class AdminAppTicketModule {}

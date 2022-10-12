@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
@@ -27,8 +27,8 @@ export class ProfileSettingsComponent implements OnInit {
   changePassword = false;
   city!: string;
 
-  hideRequiredControl = new FormControl(false);
-  floatLabelControl = new FormControl('auto' as FloatLabelType);
+  hideRequiredControl = new UntypedFormControl(false);
+  floatLabelControl = new UntypedFormControl('auto' as FloatLabelType);
   formOptions = this.formBuilder.group({
     hideRequired: this.hideRequiredControl,
     floatLabel: this.floatLabelControl,
@@ -46,7 +46,7 @@ export class ProfileSettingsComponent implements OnInit {
   specialisationSelected!: boolean[];
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private profileService: TechTeamProfileService,
     private sessionService: SessionManagerService,
     private googleMapsService: GoogleMapsService,

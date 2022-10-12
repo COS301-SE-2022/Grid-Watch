@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit} from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { TechTeamDto } from '@grid-watch/api/profiles/tech-team/api/shared/techteamdto';
@@ -25,8 +25,8 @@ export class RegisterTechTeamComponent implements OnInit{
       'Content-Type':  'application/json'
     })
   };
-  hideRequiredControl = new FormControl(false);
-  floatLabelControl = new FormControl('auto' as FloatLabelType);
+  hideRequiredControl = new UntypedFormControl(false);
+  floatLabelControl = new UntypedFormControl('auto' as FloatLabelType);
   formOptions = this.formBuilder.group({
     hideRequired: this.hideRequiredControl,
     floatLabel: this.floatLabelControl,
@@ -36,7 +36,7 @@ export class RegisterTechTeamComponent implements OnInit{
   constructor(
     private router : Router,
     private http : HttpClient,
-    private formBuilder : FormBuilder,
+    private formBuilder : UntypedFormBuilder,
     private profileService : TechTeamProfileService,
     private toastService : ToastService
   ) {}

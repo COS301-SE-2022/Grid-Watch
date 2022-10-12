@@ -1,5 +1,5 @@
 {
-  "root": "libs/api/profiles/tech-team/api",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/api/profiles/tech-team/api/src",
   "targets": {
     "lint": {

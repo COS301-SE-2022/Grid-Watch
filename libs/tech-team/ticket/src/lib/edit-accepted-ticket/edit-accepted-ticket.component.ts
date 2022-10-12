@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
-import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
+import { FormGroup, UntypedFormControl, FormArray, UntypedFormBuilder } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { Location } from '@angular/common';
 import { TicketService, GoogleMapsService, SessionManagerService, ToastService } from '@grid-watch/shared-ui';
@@ -16,8 +16,8 @@ import { TicketService, GoogleMapsService, SessionManagerService, ToastService }
 export class EditAcceptedTicketComponent implements OnInit
 {
 
-	hideRequiredControl = new FormControl(false);
-	floatLabelControl = new FormControl('auto' as FloatLabelType);
+	hideRequiredControl = new UntypedFormControl(false);
+	floatLabelControl = new UntypedFormControl('auto' as FloatLabelType);
 	formOptions = this.formBuilder.group({
 		hideRequired: this.hideRequiredControl,
 		floatLabel: this.floatLabelControl,
@@ -38,7 +38,7 @@ export class EditAcceptedTicketComponent implements OnInit
 		private router: Router,
 		private http: HttpClient,
 		private route: ActivatedRoute,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private ticketService: TicketService,
 		private sessionManager: SessionManagerService,
 		private toastService: ToastService,

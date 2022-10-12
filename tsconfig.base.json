@@ -18,9 +18,6 @@
       "@grid-watch/admin-app/dashboard": [
         "libs/admin-app/dashboard/src/index.ts"
       ],
-      "@grid-watch/environments" :[
-        "apps/public/src/environments/environment.ts"
-      ],
       "@grid-watch/admin-app/profile": ["libs/admin-app/profile/src/index.ts"],
       "@grid-watch/admin-app/tech-team": [
         "libs/admin-app/tech-team/src/index.ts"
@@ -90,6 +87,9 @@
       ],
       "@grid-watch/api/ticket/ticketDto": [
         "libs/api/ticket/api/src/lib/dto/ticket.dto.ts"
+      ],
+      "@grid-watch/environments": [
+        "apps/public/src/environments/environment.ts"
       ],
       "@grid-watch/public/home-page": ["libs/public/home-page/src/index.ts"],
       "@grid-watch/public/ticket": ["libs/public/ticket/src/index.ts"],

@@ -8,7 +8,7 @@ import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { TicketPictureDto } from '@grid-watch/api/ticket/api/shared/ticket-picture-dto';
 import { GoogleMapsService, TicketService } from '@grid-watch/shared-ui';
 import { Loader } from '@googlemaps/js-api-loader';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { log } from 'console';
 
@@ -20,8 +20,8 @@ import { log } from 'console';
 export class EditTicketComponent implements OnInit {
 
   
-  hideRequiredControl = new FormControl(false);
-  floatLabelControl = new FormControl('auto' as FloatLabelType);
+  hideRequiredControl = new UntypedFormControl(false);
+  floatLabelControl = new UntypedFormControl('auto' as FloatLabelType);
   formOptions = this.formBuilder.group({
     hideRequired: this.hideRequiredControl,
     floatLabel: this.floatLabelControl,
@@ -50,7 +50,7 @@ export class EditTicketComponent implements OnInit {
       private router : Router,
       private ticketService :TicketService, 
       private googleMapsService: GoogleMapsService, 
-      private formBuilder : FormBuilder) {
+      private formBuilder : UntypedFormBuilder) {
   }
 
 

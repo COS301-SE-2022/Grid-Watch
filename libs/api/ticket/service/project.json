@@ -1,5 +1,5 @@
 {
-  "root": "libs/api/ticket/service",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/api/ticket/service/src",
   "targets": {
     "build": {

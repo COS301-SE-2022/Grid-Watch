@@ -1,6 +1,7 @@
-module.exports = {
+/* eslint-disable */
+export default {
   displayName: 'api-profiles-public-api-shared-api-profiles-public-api-dto',
-  preset: '../../../../../../../jest.preset.ts',
+  preset: '../../../../../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',

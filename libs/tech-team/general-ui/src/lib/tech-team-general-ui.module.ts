@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { TechTeamNavbarComponent } from './tech-team-navbar/tech-team-navbar.component';
 
 @NgModule({
@@ -16,6 +16,6 @@ import { TechTeamNavbarComponent } from './tech-team-navbar/tech-team-navbar.com
   ],
   declarations: [MenuBarComponent, TechTeamNavbarComponent],
   exports: [MenuBarComponent, TechTeamNavbarComponent],
-  providers: [FormBuilder],
+  providers: [UntypedFormBuilder],
 })
 export class TechTeamGeneralUiModule {}

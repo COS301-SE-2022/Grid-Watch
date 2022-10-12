@@ -29,6 +29,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { LoggedInGuard } from 'libs/shared-ui/src/lib/guards/logged-in/logged-in.guard';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll'
+
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
@@ -56,6 +58,7 @@ import { GoogleMapsService } from '@grid-watch/shared-ui';
     MatRadioModule,
     NgbModule,
     MatButtonToggleModule,
+    InfiniteScrollModule,
     RouterModule.forChild([
       {
         path: 'createTicket',

@@ -358,4 +358,9 @@ export class TicketBodyListComponent implements OnInit {
     this.tickets = this.ticketsPerm;
     this.InitialiseTicket(this.tickets)
   }
+
+  onScroll(){
+    console.log("NEED TO LOAD MOREEEEE BUDDY");
+    
+  }
 }

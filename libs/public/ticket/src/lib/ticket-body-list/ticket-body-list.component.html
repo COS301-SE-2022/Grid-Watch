@@ -187,5 +187,16 @@
         </mat-grid-list>
       </mat-card>
     </div>
+    <div
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="1000"
+    (scrolled)="onScroll()"
+    infiniteScrollContainer="mat-drawer-content"
+    [fromRoot]="true"
+    class="border"
+    >
+      
+    </div>
   </mat-drawer-content>
 </mat-drawer-container>

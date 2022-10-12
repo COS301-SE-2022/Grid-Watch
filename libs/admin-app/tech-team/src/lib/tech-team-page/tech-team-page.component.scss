@@ -167,13 +167,13 @@ span.upvoteContainer {
 }
 
 .ticketsView{
-    overflow-y: scroll;
+    overflow-y: auto;
     margin-bottom: 5px;
     height: 44%;
 }
 
 .information{
     height: 45%;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }

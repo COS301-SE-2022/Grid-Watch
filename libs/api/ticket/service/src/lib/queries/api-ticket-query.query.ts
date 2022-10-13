@@ -6,6 +6,10 @@ export class GetTicketsQuery{
 
 }
 
+export class GetTicketsUserQuery{
+    constructor(public readonly id){}
+}
+
 export class GetTicketsFromQuery{
     constructor(public readonly take, public readonly skip){}
 }

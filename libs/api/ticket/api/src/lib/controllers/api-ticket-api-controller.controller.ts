@@ -71,6 +71,11 @@ export class TicketController {
         return this.apiTicketService.getAll();
     }
 
+    @Get('/all/tickets/:id')
+    async getAllUser(@Param() param){
+        return this.apiTicketService.getAllUser(parseInt(param.id));
+    }
+
     @Get('/some/tickets/:skip/:take')
     async getAllFrom(@Param() value){
         return this.apiTicketService.getAllFrom(parseInt(value.take), parseInt(value.skip));

@@ -58,6 +58,14 @@ export class ApiTicketRepositoryDataAccess {
         return await this.prisma.ticket.findMany()
     }
 
+    async getTicketUser(userId : number){
+        return await this.prisma.ticket.findMany({
+            where: {
+                userId: userId
+            }
+        })
+    }
+
     async getAllTicketsFrom(skip : number, take : number){
         return await this.prisma.ticket.findMany({
             skip: skip,

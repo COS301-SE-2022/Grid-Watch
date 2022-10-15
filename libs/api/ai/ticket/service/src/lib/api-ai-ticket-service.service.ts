@@ -319,6 +319,8 @@ export class ApiAiTicketServiceService {
 
         let estimateDto:AiDto;
 
+        let tickets:Ticket[] = [];
+        tickets = await this.queryBus.execute(new GetAllTicketsQuery());
 
         if(models.length ==0){
             bRetrain = true;
@@ -329,7 +331,7 @@ export class ApiAiTicketServiceService {
                 }
             }
 
-            if(typeModel.length == 0){
+            if(typeModel.length == 0 || tickets.length % 1000 == 0){
                 bRetrain = true;
             }else{
                 estimateDto = typeModel[typeModel.length-1];

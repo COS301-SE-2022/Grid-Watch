@@ -47,4 +47,9 @@ export class ApiAiTicketApiController {
         return this.apiAiTicketServiceService.getEstimateTime(ticket);
     }
 
+    @Post('estimate/priority')
+    async getEstimatePriority(@Body() ticket: TicketDto){
+        return this.apiAiTicketServiceService.getPriority(ticket);
+    }
+
 }

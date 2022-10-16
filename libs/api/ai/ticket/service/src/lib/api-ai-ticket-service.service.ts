@@ -10,6 +10,7 @@ import { SaveAICommand } from './commands/api-ai-ticket-command.command';
 import { AiDto } from '@grid-watch/api/ai/ticket/api/shared/api-ai-ticket-api-dto';
 import { Tree } from './ai/tree';
 import { DecisionTree } from './decision_tree/decision-tree';
+import { createInflate } from 'zlib';
 @Injectable()
 export class ApiAiTicketServiceService {
     constructor (private commandBus : CommandBus,
@@ -214,6 +215,69 @@ export class ApiAiTicketServiceService {
         return saveNode;
     }
 
+    async trainDecisionPriority(minSplit: number, depth: number){
+        const arrTicketType = await this.formatInput("ticketType");
+        const arrTicketCity = await this.formatInput("ticketCity");
+
+        let tickets:Ticket[] = [];
+        tickets = await this.queryBus.execute(new GetAllTicketsQuery());
+
+        const saveNode : AiDto = new AiDto();
+
+        const input: number[][] = [];
+
+        for(let i=0;i<tickets.length;i++){
+            if(tickets[i].ticketCloseDate != null && tickets[i].ticketPriority != null){
+                
+
+                const currInput:number[] = [];
+                if(tickets[i].assignedTechTeam == null){
+                    currInput.push(1);
+                }else{
+                    currInput.push(tickets[i].assignedTechTeam);
+                }
+                currInput.push(this.searchArray(tickets[i].ticketType,arrTicketType));
+                currInput.push(this.searchArray(tickets[i].ticketCity,arrTicketCity));
+                currInput.push(tickets[i].ticketUpvotes);
+
+                if(tickets[i].ticketPriority == "Low"){
+                    currInput.push(0);
+                }else if(tickets[i].ticketPriority == "Medium"){
+                    currInput.push(1);
+                }else{
+                    currInput.push(2);
+                }
+                saveNode.aiType = "priorityDecision";
+                input.push(currInput);
+            }
+        }
+
+        if(input.length==0){
+            return null;
+        }
+        const decisionTree: DecisionTree = new DecisionTree(minSplit,depth);
+        decisionTree.fit(input);
+        const bestNode: NodeDT = decisionTree.root;
+
+        const aiData =  await this.saveDecision(bestNode);
+        
+
+        saveNode.aiData = aiData;
+        saveNode.aiFitness = 0;
+        saveNode.aiTicketCities = arrTicketCity;
+        saveNode.aiTicketTypes = arrTicketType;
+
+        if(isNaN(saveNode.aiFitness)){
+            saveNode.aiFitness = 0;
+        }
+
+        if(saveNode.aiType == undefined){
+            saveNode.aiType = "ND";
+        }
+        
+        await this.commandBus.execute(new SaveAICommand(saveNode));
+        return saveNode;
+    }
 
     ///////////////////////////////////////////////////////////////
     ///////////          Helper Functions            //////////////
@@ -416,6 +480,73 @@ export class ApiAiTicketServiceService {
         }
     }
 
+    private async getEstimatePriorityAi(ticketDto: TicketDto,type:string){
+        let models:AiDto[] = [];
+        models = await this.queryBus.execute(new GetAllAIQuery());
+
+        let bRetrain:boolean;
+        bRetrain = false;
+
+        const typeModel:AiDto[] =[];
+
+        let estimateDto:AiDto;
+
+        let tickets:Ticket[] = [];
+        tickets = await this.queryBus.execute(new GetAllTicketsQuery());
+
+        if(models.length ==0){
+            bRetrain = true;
+        }else{
+            for(let i=0;i<models.length;i++){
+                if(models[i].aiType == type){
+                    typeModel.push(models[i]);
+                }
+            }
+
+            if(typeModel.length == 0 || tickets.length % 1000 == 0){
+                bRetrain = true;
+            }else{
+                estimateDto = typeModel[typeModel.length-1];
+            }
+        }
+
+        if(bRetrain){
+            
+            return await this.trainDecisionPriority(3,5);
+        }
+        const decisionTree = new DecisionTree(3,5);
+        
+        const rootNode:NodeDT = decisionTree.reconstruct(estimateDto.aiData);
+        
+        const ticketTypes: string[] = estimateDto["ticketTypes"];
+        const ticketCity: string[] = estimateDto["ticketCities"];
+        
+        const inputVals:number[] = [];
+        inputVals.push(ticketDto.assignedTechTeam);
+        inputVals.push(ticketDto.ticketUpvotes);
+        
+        for(let i=0;i<ticketTypes.length;i++){
+            if(ticketTypes[i]==ticketDto.ticketType){
+                inputVals.push(i);
+            }
+        }
+        
+        for(let i=0;i<ticketCity.length;i++){
+            if(ticketTypes[i]==ticketDto.ticketCity){
+                inputVals.push(i);
+            }
+        }
+
+        const prediction = Math.floor(decisionTree.make_prediction(inputVals,rootNode));
+        if(prediction==0){
+            return "Low"
+        }else if(prediction ==1){
+            return "Meduim"
+        }else{
+            return "High"
+        }
+    }
+
     
     ////////////////////////////////////////////////////////////////////
     ///////////////        Endpoint Functions        ///////////////////
@@ -456,6 +587,19 @@ export class ApiAiTicketServiceService {
             return estimate;
         } catch (error) {
             return await this.getAverageTime(ticketDto);
+        }
+        
+    }
+
+    async getPriority(ticketDto: TicketDto){
+        try {
+            const estimate  =  await this.getEstimatePriorityAi(ticketDto,"PriorityDecision");
+            if(estimate == null){
+                return "None";
+            }
+            return estimate;
+        } catch (error) {
+            return "None";
         }
         
     }

@@ -52,4 +52,9 @@ export class ApiAiTicketApiController {
         return this.apiAiTicketServiceService.getPriority(ticket);
     }
 
+    @Post('test/:min&:depth')
+    async test(@Param() par, @Body() arr){
+        return this.apiAiTicketServiceService.trainDecisionTemp(par.min,par.depth,arr.parameterArray)
+    }
+
 }

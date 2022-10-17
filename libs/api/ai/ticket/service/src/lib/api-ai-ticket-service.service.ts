@@ -10,7 +10,6 @@ import { SaveAICommand } from './commands/api-ai-ticket-command.command';
 import { AiDto } from '@grid-watch/api/ai/ticket/api/shared/api-ai-ticket-api-dto';
 import { Tree } from './ai/tree';
 import { DecisionTree } from './decision_tree/decision-tree';
-import { createInflate } from 'zlib';
 @Injectable()
 export class ApiAiTicketServiceService {
     constructor (private commandBus : CommandBus,
@@ -30,6 +29,7 @@ export class ApiAiTicketServiceService {
                 return s;
             }
         }
+        return -1;
     }
 
     //////////////////////////////////////////////////////////////////
@@ -210,8 +210,79 @@ export class ApiAiTicketServiceService {
         if(saveNode.aiType == undefined){
             saveNode.aiType = "ND";
         }
-        
         await this.commandBus.execute(new SaveAICommand(saveNode));
+        return saveNode;
+    }
+
+    async trainDecisionTemp(minSplit: number, depth: number,parameters: string[]){
+        //Get all tickets to be trained on
+        let tickets:Ticket[] = [];
+        tickets = await this.queryBus.execute(new GetAllTicketsQuery());
+
+        //Create empty dto to save to database
+        const saveNode : AiDto = new AiDto();
+
+        //Create input array to for training AI model
+        const input: number[][] = [];
+
+        //Arrays of string parameters to be saved
+        const saveArrays: string[][] = [];
+
+        //Instantiate a ticket to test the types of each attribute
+        const ticketAttr = this.instantiateTicket();
+
+        //Create arrays for different string parameters
+        for(let i=0;i<parameters.length;i++){
+            if(typeof ticketAttr[parameters[i]] === 'string'){
+                saveArrays.push(await this.formatInput(parameters[i]));
+            }
+        }
+
+        
+        //Populate input with training data
+        for(let i=0;i<tickets.length;i++){
+            let iparam = 0;
+            if(tickets[i].ticketCloseDate != null){
+                const currInput:number[] = [];
+                for(let p=0;p<parameters.length;p++){
+                    if(parameters[i] == "ticketTime"){
+                        const createDate: number = tickets[i].ticketCreateDate.getTime();
+                        const closeDate: number= tickets[i].ticketCloseDate.getTime();
+                        let diff = Math.abs(closeDate-createDate);
+                        diff = Math.ceil(diff/(1000*60*60));
+                        currInput.push(diff);
+                    }else if(typeof ticketAttr[parameters[p]] === 'string'){
+                        currInput.push(this.searchArray(tickets[i][parameters[p]],saveArrays[iparam]));
+                        iparam++;
+                    }else{
+                        currInput.push(tickets[i][parameters[p]]);
+                    }
+                }
+                input.push(currInput);
+            }
+        }
+
+        if(input.length==0){
+            return null;
+        }
+
+        const decisionTree: DecisionTree = new DecisionTree(minSplit,depth);
+        decisionTree.fit(input);
+        const bestNode: NodeDT = decisionTree.root;
+        const aiData =  await this.saveDecision(bestNode);
+
+        saveNode.aiData = aiData;
+        saveNode.aiFitness = 0;
+        saveNode.aiType = parameters[parameters.length-1] +"Decision";
+        if(isNaN(saveNode.aiFitness)){
+            saveNode.aiFitness = 0;
+        }
+
+        if(saveNode.aiType == undefined){
+            saveNode.aiType = "ND";
+        }
+        
+        //await this.commandBus.execute(new SaveAICommand(saveNode));
         return saveNode;
     }
 
@@ -282,6 +353,38 @@ export class ApiAiTicketServiceService {
     ///////////////////////////////////////////////////////////////
     ///////////          Helper Functions            //////////////
     ///////////////////////////////////////////////////////////////
+
+    private createJson(saveParams:string[][],params:string[]){
+        let outJson = '';
+        for(let i)
+
+
+    }
+
+    private instantiateTicket(){
+        const ticket : TicketDto = new TicketDto();
+        ticket.assignedTechTeam = 0;
+        ticket.currentSubtask = 1;
+        ticket.ticketCity = "Pretoria";
+        ticket.ticketCloseDate = new Date();
+        ticket.ticketCost = 1000.556;
+        ticket.ticketCreateDate = new Date();
+        ticket.ticketDescription = "Big pothole spotted near my house";
+        ticket.ticketId = 100;
+        ticket.ticketImg = "picture/path";
+        ticket.ticketLat = -27.3443;
+        ticket.ticketLocation = "ticketLocation";
+        ticket.ticketLong = 23.123123;
+        ticket.ticketPriority = "Low";
+        ticket.ticketRepairTime = 1000;
+        ticket.ticketStatus = "Accepted";
+        ticket.ticketStreetAddress = "28 Rooidooring Street";
+        ticket.ticketType = "Pothole";
+        ticket.ticketUpvotes = 100;
+        ticket.userId = 1;
+        return ticket;
+    }
+
     async formatInput(attribute : string){
         let tickets:Ticket[] = [];
         tickets = await this.queryBus.execute(new GetAllTicketsQuery());
@@ -307,8 +410,10 @@ export class ApiAiTicketServiceService {
                     for(const attr in tickets[i]){
                         if(attr == attribute){
                             const tickettemp: Ticket = tickets[i];
-                            newgroups[ncount] = tickettemp[attr as keyof typeof tickettemp].toString();
-                            ncount++; 
+                            if(tickettemp[attr as keyof typeof tickettemp] != null){
+                                newgroups[ncount] = tickettemp[attr as keyof typeof tickettemp].toString();
+                                ncount++; 
+                            }
                         }
                     }
                 }
@@ -316,7 +421,9 @@ export class ApiAiTicketServiceService {
                 for(const attr in tickets[i]){
                     if(attr == attribute){
                         const tickettemp: Ticket = tickets[i];
-                        newgroups[0] = tickettemp[attr as keyof typeof tickettemp].toString();
+                        if(tickettemp[attr as keyof typeof tickettemp] != null){
+                            newgroups[0] = tickettemp[attr as keyof typeof tickettemp].toString();
+                        }
                     }
                 }
             }

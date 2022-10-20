@@ -60,8 +60,10 @@ export class ViewTicketDetailsComponent implements OnInit {
     
     loader.load().then(
       () => {
-        if (this.issueId)
+        if (this.issueId){
           this.initialiseTicket(this.issueId);
+        }
+        
           
         
       },
@@ -181,5 +183,21 @@ export class ViewTicketDetailsComponent implements OnInit {
 
   getFloatLabelValue(): FloatLabelType {
     return this.floatLabelControl.value || 'auto';
+  }
+
+ async deleteTicket()
+  {
+    if(this.issueId)
+    this.ticketService.deleteTicket(this.issueId).subscribe(
+      (response) =>{
+        this.toastService.show('Ticket Deleted',{
+          classname: 'bg-info text-light',
+          delay: 5000,
+          autohide: true
+        })
+        this.router.navigateByUrl("/adminViewTicket");
+
+      }
+    )
   }
 }

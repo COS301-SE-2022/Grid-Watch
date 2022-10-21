@@ -13,7 +13,8 @@ export class ApiAiTicketRepositoryDataAccess {
             data: 
             {
                 aiData          :   AIdto.aiData,
-                aiParameters    :   AIdto.aiParamters,
+                aiParameters    :   AIdto.aiParameters,
+                aiArrays        :   AIdto.aiArrays,
                 fitness         :   AIdto.aiFitness,
                 ticketTypes     :   AIdto.aiTicketTypes,
                 ticketCities    :   AIdto.aiTicketCities,
@@ -52,7 +53,8 @@ export class ApiAiTicketRepositoryDataAccess {
             {
                 dateCreated     :   AIdto.dateCreated,
                 aiData          :   AIdto.aiData,
-                aiParameters    :   AIdto.aiParamters,
+                aiParameters    :   AIdto.aiParameters,
+                aiArrays        :   AIdto.aiArrays,
                 fitness         :   AIdto.aiFitness,
                 ticketTypes     :   AIdto.aiTicketTypes,
                 ticketCities    :   AIdto.aiTicketCities

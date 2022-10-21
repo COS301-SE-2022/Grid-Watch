@@ -21,17 +21,6 @@ export class ApiAiTicketServiceService {
         return techTeams;
     }
 
-
-
-    private searchArray(element : string, arr){
-        for(let s=0;s<arr.length;s++){
-            if(element == arr[s]){
-                return s;
-            }
-        }
-        return -1;
-    }
-
     //////////////////////////////////////////////////////////////////
     //////////               Genetic Programming                //////
     //////////////////////////////////////////////////////////////////
@@ -148,73 +137,7 @@ export class ApiAiTicketServiceService {
         }
     }
 
-    async trainDecision(minSplit: number, depth: number,bCost : boolean){
-        const arrTicketType = await this.formatInput("ticketType");
-        const arrTicketCity = await this.formatInput("ticketCity");
-
-        let tickets:Ticket[] = [];
-        tickets = await this.queryBus.execute(new GetAllTicketsQuery());
-
-        const saveNode : AiDto = new AiDto();
-
-        const input: number[][] = [];
-
-        for(let i=0;i<tickets.length;i++){
-            if(tickets[i].ticketCloseDate != null){
-                
-
-                const currInput:number[] = [];
-                if(tickets[i].assignedTechTeam == null){
-                    currInput.push(1);
-                }else{
-                    currInput.push(tickets[i].assignedTechTeam);
-                }
-                currInput.push(this.searchArray(tickets[i].ticketType,arrTicketType));
-                currInput.push(this.searchArray(tickets[i].ticketCity,arrTicketCity));
-                currInput.push(tickets[i].ticketUpvotes);
-
-                if(bCost){
-                    currInput.push(tickets[i].ticketCost);
-                    saveNode.aiType = "CostDecision";
-                }else{
-                    const createDate: number = tickets[i].ticketCreateDate.getTime();
-                    const closeDate: number= tickets[i].ticketCloseDate.getTime();
-                    let diff = Math.abs(closeDate-createDate);
-                    diff = Math.ceil(diff/(1000*60*60));
-                    currInput.push(diff);
-                    saveNode.aiType = "TimeDecision";
-                }
-                input.push(currInput);
-            }
-        }
-
-        if(input.length==0){
-            return null;
-        }
-        const decisionTree: DecisionTree = new DecisionTree(minSplit,depth);
-        decisionTree.fit(input);
-        const bestNode: NodeDT = decisionTree.root;
-
-        const aiData =  await this.saveDecision(bestNode);
-        
-
-        saveNode.aiData = aiData;
-        saveNode.aiFitness = 0;
-        saveNode.aiTicketCities = arrTicketCity;
-        saveNode.aiTicketTypes = arrTicketType;
-
-        if(isNaN(saveNode.aiFitness)){
-            saveNode.aiFitness = 0;
-        }
-
-        if(saveNode.aiType == undefined){
-            saveNode.aiType = "ND";
-        }
-        await this.commandBus.execute(new SaveAICommand(saveNode));
-        return saveNode;
-    }
-
-    async trainDecisionTemp(minSplit: number, depth: number,parameters: string[]){
+    async trainDecision(minSplit: number, depth: number,parameters: string[]){
         //Get all tickets to be trained on
         let tickets:Ticket[] = [];
         tickets = await this.queryBus.execute(new GetAllTicketsQuery());
@@ -230,22 +153,22 @@ export class ApiAiTicketServiceService {
 
         //Instantiate a ticket to test the types of each attribute
         const ticketAttr = this.instantiateTicket();
-
+        const params :string[] = [];
         //Create arrays for different string parameters
         for(let i=0;i<parameters.length;i++){
             if(typeof ticketAttr[parameters[i]] === 'string'){
                 saveArrays.push(await this.formatInput(parameters[i]));
+                params.push(parameters[i]);
             }
         }
 
-        
         //Populate input with training data
         for(let i=0;i<tickets.length;i++){
             let iparam = 0;
             if(tickets[i].ticketCloseDate != null){
                 const currInput:number[] = [];
                 for(let p=0;p<parameters.length;p++){
-                    if(parameters[i] == "ticketTime"){
+                    if(parameters[p] == "ticketTime"){
                         const createDate: number = tickets[i].ticketCreateDate.getTime();
                         const closeDate: number= tickets[i].ticketCloseDate.getTime();
                         let diff = Math.abs(closeDate-createDate);
@@ -261,10 +184,11 @@ export class ApiAiTicketServiceService {
                 input.push(currInput);
             }
         }
-
+        
         if(input.length==0){
             return null;
         }
+
 
         const decisionTree: DecisionTree = new DecisionTree(minSplit,depth);
         decisionTree.fit(input);
@@ -274,74 +198,9 @@ export class ApiAiTicketServiceService {
         saveNode.aiData = aiData;
         saveNode.aiFitness = 0;
         saveNode.aiType = parameters[parameters.length-1] +"Decision";
-        if(isNaN(saveNode.aiFitness)){
-            saveNode.aiFitness = 0;
-        }
 
-        if(saveNode.aiType == undefined){
-            saveNode.aiType = "ND";
-        }
-        
-        //await this.commandBus.execute(new SaveAICommand(saveNode));
-        return saveNode;
-    }
-
-    async trainDecisionPriority(minSplit: number, depth: number){
-        const arrTicketType = await this.formatInput("ticketType");
-        const arrTicketCity = await this.formatInput("ticketCity");
-
-        let tickets:Ticket[] = [];
-        tickets = await this.queryBus.execute(new GetAllTicketsQuery());
-
-        const saveNode : AiDto = new AiDto();
-
-        const input: number[][] = [];
-
-        for(let i=0;i<tickets.length;i++){
-            if(tickets[i].ticketCloseDate != null && tickets[i].ticketPriority != null){
-                
-
-                const currInput:number[] = [];
-                if(tickets[i].assignedTechTeam == null){
-                    currInput.push(1);
-                }else{
-                    currInput.push(tickets[i].assignedTechTeam);
-                }
-                currInput.push(this.searchArray(tickets[i].ticketType,arrTicketType));
-                currInput.push(this.searchArray(tickets[i].ticketCity,arrTicketCity));
-                currInput.push(tickets[i].ticketUpvotes);
-
-                if(tickets[i].ticketPriority == "Low"){
-                    currInput.push(0);
-                }else if(tickets[i].ticketPriority == "Medium"){
-                    currInput.push(1);
-                }else{
-                    currInput.push(2);
-                }
-                saveNode.aiType = "priorityDecision";
-                input.push(currInput);
-            }
-        }
-
-        if(input.length==0){
-            return null;
-        }
-        const decisionTree: DecisionTree = new DecisionTree(minSplit,depth);
-        decisionTree.fit(input);
-        const bestNode: NodeDT = decisionTree.root;
-
-        const aiData =  await this.saveDecision(bestNode);
-        
-
-        saveNode.aiData = aiData;
-        saveNode.aiFitness = 0;
-        saveNode.aiTicketCities = arrTicketCity;
-        saveNode.aiTicketTypes = arrTicketType;
-
-        if(isNaN(saveNode.aiFitness)){
-            saveNode.aiFitness = 0;
-        }
-
+        saveNode.aiParameters = parameters;
+        saveNode.aiArrays = JSON.parse(this.createJson(saveArrays,params));
         if(saveNode.aiType == undefined){
             saveNode.aiType = "ND";
         }
@@ -354,9 +213,44 @@ export class ApiAiTicketServiceService {
     ///////////          Helper Functions            //////////////
     ///////////////////////////////////////////////////////////////
 
+    private compareParameters(pList1:string[],pList2:string[]){
+        if(pList1.length!=pList2.length){
+            return false;
+        }else{
+            for(let i=0;i<pList1.length;i++){
+                if(pList1[i]!=pList2[i]){
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
+    private searchArray(element : string, arr){
+        for(let s=0;s<arr.length;s++){
+            if(element == arr[s]){
+                return s;
+            }
+        }
+        return -1;
+    }
+
     private createJson(saveParams:string[][],params:string[]){
-        let outJson = '';
-        for(let i)
+        let outJson = '{';
+        for(let i=0;i<params.length;i++){
+            outJson += '"'+params[i]+'": [';
+            for(let j=0;j<saveParams[i].length-1;j++){
+                outJson += '"'+saveParams[i][j]+'",';
+            }
+            if(saveParams[i][saveParams[i].length-1] == undefined){
+                outJson += '],'
+            }else{
+                outJson += '"'+saveParams[i][saveParams[i].length-1]+'"],';
+            }
+        }
+        outJson = outJson.substring(0,outJson.length-1);
+        outJson += '}';
+        return outJson;
 
 
     }
@@ -479,16 +373,22 @@ export class ApiAiTicketServiceService {
         return days;
     }
 
-    private async getEstimateAI(ticketDto: TicketDto,type:string){
+    async getEstimateAI(ticketDto: TicketDto,parameterList: string[]){
+        //Array that saves all previously trained models in database
         let models:AiDto[] = [];
         models = await this.queryBus.execute(new GetAllAIQuery());
 
+        //boolean for testing if model needs to be retrained
         let bRetrain:boolean;
         bRetrain = false;
 
+        //Array for correct type AImodels
         const typeModel:AiDto[] =[];
 
         let estimateDto:AiDto;
+
+        //type of AI model desired from database
+        const type = parameterList[parameterList.length-1]+"Decision";
 
         let tickets:Ticket[] = [];
         tickets = await this.queryBus.execute(new GetAllTicketsQuery());
@@ -497,161 +397,78 @@ export class ApiAiTicketServiceService {
             bRetrain = true;
         }else{
             for(let i=0;i<models.length;i++){
-                if(models[i].aiType == type){
+                if(models[i].aiType == type && this.compareParameters(models[i].aiParameters,parameterList)){
                     typeModel.push(models[i]);
                 }
             }
-
-            if(typeModel.length == 0 || tickets.length % 1000 == 0){
+            if(typeModel.length == 0 || tickets.length % 1000 <= 4){
                 bRetrain = true;
             }else{
                 estimateDto = typeModel[typeModel.length-1];
             }
         }
 
-        if(type == "CostDecision"||type=="TimeDecision"){
+        if(type.includes("Decision")){
             if(bRetrain){
-                if(type == "TimeDecision"){
-                    this.trainDecision(3,5,false);
-                    return await this.getAverageTime(ticketDto);
-                }else{
-                    this.trainDecision(3,5,true);
-                    return await this.getAverageCost(ticketDto);
-                }
+                estimateDto = await this.trainDecision(3,5,parameterList);
             }
 
             const decisionTree = new DecisionTree(3,5);
             
             const rootNode:NodeDT = decisionTree.reconstruct(estimateDto.aiData);
-            const ticketTypes: string[] = estimateDto["ticketTypes"];
-            const ticketCity: string[] = estimateDto["ticketCities"];
 
             const inputVals:number[] = [];
 
-            inputVals.push(ticketDto.assignedTechTeam);
-            inputVals.push(ticketDto.ticketUpvotes);
-            
-            for(let i=0;i<ticketTypes.length;i++){
-                if(ticketTypes[i]==ticketDto.ticketType){
-                    inputVals.push(i);
+            for(let i=0;i<parameterList.length-1;i++){
+                if(estimateDto.aiArrays[parameterList[i]]!=undefined){
+                    inputVals.push(await this.searchArray(ticketDto[parameterList[i]],estimateDto.aiArrays[parameterList[i]]));
+                }else{
+                    inputVals.push(ticketDto[parameterList[i]]);
                 }
             }
-            
-            for(let i=0;i<ticketCity.length;i++){
-                if(ticketTypes[i]==ticketDto.ticketCity){
-                    inputVals.push(i);
-                }
-            }
-
             const estimate = decisionTree.make_prediction(inputVals,rootNode);
             return estimate;
 
 
-        }else{
-            if(bRetrain){
-                if(type == "Time"){
-                    this.trainGP(200,7,10,false);
-                    return await this.getAverageTime(ticketDto);
-                }else{
-                    this.trainGP(200,7,10,true);
-                    return await this.getAverageCost(ticketDto);
-                }
-            }
+         }
+        //else{
+        //     if(bRetrain){
+        //         if(type == "Time"){
+        //             this.trainGP(200,7,10,false);
+        //             return await this.getAverageTime(ticketDto);
+        //         }else{
+        //             this.trainGP(200,7,10,true);
+        //             return await this.getAverageCost(ticketDto);
+        //         }
+        //     }
 
-            const tempTree: Tree = new Tree(0,null,null);
-            const rootNode : Node = await tempTree.reconstruct(estimateDto.aiData);
+        //     const tempTree: Tree = new Tree(0,null,null);
+        //     const rootNode : Node = await tempTree.reconstruct(estimateDto.aiData);
 
-            const ticketTypes: string[] = estimateDto["ticketTypes"];
-            const ticketCity: string[] = estimateDto["ticketCities"];
+        //     const ticketTypes: string[] = estimateDto["ticketTypes"];
+        //     const ticketCity: string[] = estimateDto["ticketCities"];
 
-            const inputVals:number[] = [];
+        //     const inputVals:number[] = [];
 
-            inputVals.push(ticketDto.assignedTechTeam);
-            inputVals.push(ticketDto.ticketUpvotes);
+        //     inputVals.push(ticketDto.assignedTechTeam);
+        //     inputVals.push(ticketDto.ticketUpvotes);
             
-            for(let i=0;i<ticketTypes.length;i++){
-                if(ticketTypes[i]==ticketDto.ticketType){
-                    inputVals.push(i);
-                }
-            }
+        //     for(let i=0;i<ticketTypes.length;i++){
+        //         if(ticketTypes[i]==ticketDto.ticketType){
+        //             inputVals.push(i);
+        //         }
+        //     }
 
-            for(let i=0;i<ticketCity.length;i++){
-                if(ticketTypes[i]==ticketDto.ticketCity){
-                    inputVals.push(i);
-                }
-            }
+        //     for(let i=0;i<ticketCity.length;i++){
+        //         if(ticketTypes[i]==ticketDto.ticketCity){
+        //             inputVals.push(i);
+        //         }
+        //     }
 
-            const estimate = await tempTree.getPrediction(rootNode,inputVals);
+        //     const estimate = await tempTree.getPrediction(rootNode,inputVals);
 
-            return estimate;
-        }
-    }
-
-    private async getEstimatePriorityAi(ticketDto: TicketDto,type:string){
-        let models:AiDto[] = [];
-        models = await this.queryBus.execute(new GetAllAIQuery());
-
-        let bRetrain:boolean;
-        bRetrain = false;
-
-        const typeModel:AiDto[] =[];
-
-        let estimateDto:AiDto;
-
-        let tickets:Ticket[] = [];
-        tickets = await this.queryBus.execute(new GetAllTicketsQuery());
-
-        if(models.length ==0){
-            bRetrain = true;
-        }else{
-            for(let i=0;i<models.length;i++){
-                if(models[i].aiType == type){
-                    typeModel.push(models[i]);
-                }
-            }
-
-            if(typeModel.length == 0 || tickets.length % 1000 == 0){
-                bRetrain = true;
-            }else{
-                estimateDto = typeModel[typeModel.length-1];
-            }
-        }
-
-        if(bRetrain){
-            
-            return await this.trainDecisionPriority(3,5);
-        }
-        const decisionTree = new DecisionTree(3,5);
-        
-        const rootNode:NodeDT = decisionTree.reconstruct(estimateDto.aiData);
-        
-        const ticketTypes: string[] = estimateDto["ticketTypes"];
-        const ticketCity: string[] = estimateDto["ticketCities"];
-        
-        const inputVals:number[] = [];
-        inputVals.push(ticketDto.assignedTechTeam);
-        inputVals.push(ticketDto.ticketUpvotes);
-        
-        for(let i=0;i<ticketTypes.length;i++){
-            if(ticketTypes[i]==ticketDto.ticketType){
-                inputVals.push(i);
-            }
-        }
-        
-        for(let i=0;i<ticketCity.length;i++){
-            if(ticketTypes[i]==ticketDto.ticketCity){
-                inputVals.push(i);
-            }
-        }
-
-        const prediction = Math.floor(decisionTree.make_prediction(inputVals,rootNode));
-        if(prediction==0){
-            return "Low"
-        }else if(prediction ==1){
-            return "Meduim"
-        }else{
-            return "High"
-        }
+        //     return estimate;
+        // }
     }
 
     
@@ -661,7 +478,7 @@ export class ApiAiTicketServiceService {
 
     async getEstimateCost(ticketDto: TicketDto){
         try {
-            const estimate  =  await this.getEstimateAI(ticketDto,"CostDecision");
+            const estimate  =  await this.getEstimateAI(ticketDto,["ticketCity","ticketUpvotes","ticketType","assignedTechTeam","ticketCost"]);
             let baverage = false;
             if(estimate == Infinity || estimate < 0 || estimate == -Infinity){
                 baverage = true;
@@ -681,7 +498,7 @@ export class ApiAiTicketServiceService {
 
     async getEstimateTime(ticketDto: TicketDto){
         try {
-            const estimate  =  await this.getEstimateAI(ticketDto,"TimeDecision");
+            const estimate  =  await this.getEstimateAI(ticketDto,["ticketCity","ticketUpvotes","ticketType","assignedTechTeam","ticketTime"]);
             let baverage = false;
             if(estimate == Infinity || estimate < 0 || estimate == -Infinity){
                 baverage = true;
@@ -700,7 +517,7 @@ export class ApiAiTicketServiceService {
 
     async getPriority(ticketDto: TicketDto){
         try {
-            const estimate  =  await this.getEstimatePriorityAi(ticketDto,"PriorityDecision");
+            const estimate  =  await this.getEstimateAI(ticketDto,["ticketCity","ticketUpvotes","ticketType","assignedTechTeam","ticketPriority"]);
             if(estimate == null){
                 return "None";
             }

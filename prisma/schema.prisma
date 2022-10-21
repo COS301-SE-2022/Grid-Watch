@@ -143,7 +143,8 @@ model AI{
   id                  Int         @id @default(autoincrement())
   dateCreated         DateTime    @default(now())
   aiData              Json?
-  aiParameters        Json?
+  aiParameters        String[]
+  aiArrays            Json?
   fitness             Float
   ticketTypes         String[]
   ticketCities        String[]

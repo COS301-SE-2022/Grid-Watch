@@ -23,9 +23,13 @@ dateCreated! : Date;
 @IsOptional()
 aiData! : JsonValue;
 
+@IsString()
+@IsNotEmpty()
+aiParameters! : string[];
+
 @IsJSON()
 @IsOptional()
-aiParamters! : JsonValue;
+aiArrays! : JsonValue;
 
 @IsArray()
 @IsNotEmpty()

@@ -3,16 +3,25 @@
     <h1 class="ticketType">
       {{ ticket.ticketType }}
     </h1>
+    <div class="d-flex justify-content-between">
+      <p>
+        {{ ticket.ticketCreateDate | date: 'longDate' }}
+      </p>
+      <p>
+        {{ ticket.ticketCreateDate | date: 'hh:mm' }}
+      </p>
+
+    </div>
     <div class="mt-3"></div>
-    <div class="issueImageContainer mt-3 mb-3">
+    <div class="issueImageContainer mt-3">
       <img
         class="issueImage"
         src="{{ ticket.ticketImg }}"
         alt="issue_image"
-        onerror="this.src='assets/image-solid.svg'"
+        onerror="this.src='assets/issue-maintenance.svg'"
       />
     </div>
-    <div class="ticketInformation mt-3">
+    <div class="ticketInformation mt-1">
       <div class="flexContainer container">
         <div class="flexBox mb-3">
           <div class="ticketStatus">
@@ -50,28 +59,30 @@
         <div class="ticketDescription mb-4">
           {{ ticket.ticketDescription }}
         </div>
-        <span id="issue-container">
+        <div id="issue-container">
           <mat-divider> </mat-divider>
           <h2 class="mt-3">Issue steps</h2>
-          <mat-grid-list cols="16">
-            <mat-grid-tile colspan="2"><b>Steps</b></mat-grid-tile>
-            <mat-grid-tile colspan="7"><b>Step Description</b></mat-grid-tile>
-            <mat-grid-tile colspan="7"><b>Step Status</b></mat-grid-tile>
+          <mat-grid-list cols="16" rowHeight="">
+            <mat-grid-tile colspan="2"><b></b></mat-grid-tile>
+            <mat-grid-tile colspan="7"><b>Description</b></mat-grid-tile>
+            <mat-grid-tile colspan="7"><b>Status</b></mat-grid-tile>
           </mat-grid-list>
           <div *ngFor="let subtask of subtaskSteps; index as i">
-            <mat-grid-list cols="16">
-              <mat-grid-tile rowspan="3" colspan="2">{{
+            <mat-grid-list cols="16" rowHeight="1:1">
+              <mat-grid-tile rowspan="4" colspan="2">{{
                 subtaskSteps[i]
               }}</mat-grid-tile>
-              <mat-grid-tile rowspan="3" colspan="7">{{
+              <mat-grid-tile rowspan="4" colspan="7">{{
                 subtaskDescriptions[i]
               }}</mat-grid-tile>
-              <mat-grid-tile rowspan="3" colspan="7">{{
+              <mat-grid-tile rowspan="4" colspan="7">{{
                 subtaskStatus[i]
               }}</mat-grid-tile>
             </mat-grid-list>
+            <mat-divider>
+            </mat-divider>
           </div>
-        </span>
+        </div>
       </div>
     </div>
     <mat-divider> </mat-divider>
@@ -79,15 +90,16 @@
       <mat-grid-list cols="15" rowHeight="40px">
         <mat-grid-tile colspan="8"> Created By {{ user.name }} </mat-grid-tile>
         <mat-grid-tile colspan="4">
-          {{ ticket.ticketCreateDate | date: 'dd/MM/yyyy hh:mm' }}
+          
         </mat-grid-tile>
-        <mat-grid-tile colspan="1"> </mat-grid-tile>
-        <mat-grid-tile colspan="2">
-          <img
+        <mat-grid-tile colspan="3">
+          <span class="upvoteContainer">
+            <img
             class="ticketUpvoteImage"
             src="assets/circle-up-solid.svg"
             alt="upvoteIcon"
-          />
+            />
+          </span>
           &nbsp;{{ ticket.ticketUpvotes }}
         </mat-grid-tile>
       </mat-grid-list>

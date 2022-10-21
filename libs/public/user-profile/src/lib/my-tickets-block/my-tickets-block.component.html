@@ -38,7 +38,7 @@
         mat-card-image
         class="uploaded_issue_image h-75"
         src="{{ ticket.ticketImg }}"
-        onerror="this.src='assets/solid_example.png'"
+        onerror="this.src='assets/issue-maintenance.svg'"
       />
     </div>
     <p class="mt-3">{{ ticket.ticketDescription }}</p>
@@ -49,17 +49,20 @@
     </div>
   </mat-card-content>
   <mat-card-footer>
-    <div class="row">
-      <div class="col-10">
-        <span class="">
-          <img
-            class="upvote_img m-2"
-            src="assets/circle-up-solid.svg"
-            alt="upvote icon"
-          />
-        </span>
-        {{ ticket.ticketUpvotes }}
+    <div class="row rowContainers">
+      <div class="col-3">
+        <div class="upVoteBigContainer">
+          <span class="upvoteContainer">
+            <img
+              class="upvote_img"
+              src="assets/circle-up-solid.svg"
+              alt="upvote icon"
+            />
+          </span>
+          {{ ticket.ticketUpvotes }}
+        </div>
       </div>
+      <div class="col-7"></div>
       <div class="col-1 ">
         <div class="settings_icon_container dropup">
           <button

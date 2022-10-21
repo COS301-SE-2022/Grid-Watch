@@ -64,7 +64,11 @@ export class ApiTicketRepositoryDataAccess {
                 userId: userId
             },
             skip : skip,
-            take : take
+            take : take,
+            orderBy: {
+                ticketUpvotes: "asc"
+            }
+            
         })
     }
 

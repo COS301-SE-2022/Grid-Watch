@@ -67,13 +67,17 @@ span.upvoteContainer.liked {
     // width: 50%;
 }
 
+
 span.upvoteContainer {
     border-radius: 13px;
     background: white;
-    height: 100%;
-    width: 45%;
+    height: 90%;
+    width: 90%;
+    border: 1px solid black;
     
 }
+
+
 
 
 .cardContainer{
@@ -131,4 +135,13 @@ span.upvoteContainer {
     // border: 2px solid var(--primary);
     // height: 90%;
     
+}
+
+.rowContainers{
+    display: flex;
+    align-items: center;
+}
+
+.upVoteBigContainer{
+    padding-left: 5px;
 }

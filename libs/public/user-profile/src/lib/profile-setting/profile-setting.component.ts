@@ -26,6 +26,7 @@ export class ProfileSettingComponent {//implements OnInit {
   updateEmail = true;
   updateUsername = true;
   updatePassword = false;
+  avatars: number[] = [];
   
   constructor(
     private formBuilder : UntypedFormBuilder,
@@ -43,6 +44,10 @@ export class ProfileSettingComponent {//implements OnInit {
         this.user = response[0];
       }
     )
+
+    for (let k = 0; k < 8; k++) {
+      this.avatars.push(k +1);
+    }
   }
 
   back() : void {

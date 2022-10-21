@@ -2,7 +2,7 @@
   <mat-drawer #drawer mode="over">
     <div class="sortContainer" *ngIf="type === 'sort'">
       <h4>Sort</h4>
-      <div *ngFor="let sortItem of sortLabels">
+      <div class="radioSortButton" *ngFor="let sortItem of sortLabels">
         <mat-radio-button
         color="primary"
           value="{{ sortItem }}"
@@ -11,8 +11,8 @@
           >{{ sortItem }}
         </mat-radio-button>
       </div>
-      <div>
-        <mat-select class="border" value="asc" [(ngModel)]="sortDirection">
+      <div class="directionContainer">
+        <mat-select value="asc" [(ngModel)]="sortDirection" color="primary">
           <mat-option value="asc"> Ascending </mat-option>
           <mat-option value="desc"> Descending </mat-option>
         </mat-select>

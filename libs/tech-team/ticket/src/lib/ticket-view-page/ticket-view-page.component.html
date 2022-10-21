@@ -128,12 +128,12 @@
             {{ ticket.ticketType }}
           </mat-grid-tile>
           <mat-grid-tile rowspan="1" colspan="2">
-            {{ ticket.ticketUpvotes }}
-            <img
-              class="upvote_img"
-              src="assets/circle-up-solid.svg"
-              alt="upvote icon"
-            />
+            <span class="upvoteNumber">
+              {{ticket.ticketUpvotes}}  
+            </span>
+             <span class="upvoteContainer" id="{{ticket.ticketId}}">
+                <img class="upvote_img" src="assets/circle-up-solid.svg" alt="upvote icon">      
+            </span>
           </mat-grid-tile>
           <mat-grid-tile
             (click)="goToTicket(ticket.ticketId.toString())"

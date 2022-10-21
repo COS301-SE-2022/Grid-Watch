@@ -40,8 +40,10 @@ export class TicketService {
   private getAITicketCostURL = this.apiURL +  '/api/ticketAI/estimate/cost';
   private getAITicketTimeURL = this.apiURL +  '/api/ticketAI/estimate/time';
   private deleteURL = this.apiURL + "/api/ticket/delete/"; 
-  private getTicketsSomeURL = this.apiURL + "/api/ticket/some/tickets/"; 
+  private getTicketsSomeURL = "http://localhost:3333" + "/api/ticket/some/tickets/"; 
+  // private getTicketsSomeURL = this.apiURL + "/api/ticket/some/tickets/"; 
   private getTicketUserURL = "http://localhost:3333/api/ticket/all/tickets/"
+  // private getTicketUserURL = this.apiURL +  "/api/ticket/all/tickets/"
   constructor(private http: HttpClient,  private storage : AngularFireStorage) {}
 
   public getUserTicket(userID : string, skip: number, take : number ){

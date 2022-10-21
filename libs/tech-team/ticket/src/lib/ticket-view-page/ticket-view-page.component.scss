@@ -148,13 +148,14 @@ span.upvoteContainer.liked {
 span.upvoteContainer {
     border-radius: 13px;
     background: white;
-    height: 100%;
-    width: 45%;
+    height: 90%;
+    width: 90%;
+    border: 1px solid black;
     
 }
 
 .upvoteNumber {
-    max-width: 15px;
+    max-width: 10px;
     margin-right: 1rem;
   }
 

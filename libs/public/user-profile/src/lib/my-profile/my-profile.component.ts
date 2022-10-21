@@ -22,7 +22,7 @@ export class MyProfileComponent implements OnInit
   ngOnInit(): void
   {
     this.user = new UserDto();
-    this.viewSelected = "grid"
+    this.viewSelected = "list"
     const id = this.sessionService.getID();
     if (id)
       this.profileService.getUser(id).subscribe(

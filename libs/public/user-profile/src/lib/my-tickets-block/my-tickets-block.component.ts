@@ -12,6 +12,7 @@ import { GoogleMapsService, SessionManagerService, TicketService } from '@grid-w
 export class MyTicketsBlockComponent implements OnInit {
 
   tickets!: TicketDto[];
+  ticketStatus: string[] = [];
   avatar! : string;
   skip = 0;
   take = 10;
@@ -40,6 +41,7 @@ export class MyTicketsBlockComponent implements OnInit {
           this.skip += this.take
           this.tickets = response;
           this.getImage(response);
+          this.initialiseTicket();
 
         }
       )
@@ -88,6 +90,30 @@ export class MyTicketsBlockComponent implements OnInit {
     }
     )
     
+  }
+
+  initialiseTicket(){
+    this.tickets.forEach((ticket) =>{
+
+      switch(ticket["ticketStatus"])
+        {
+          case "Created":
+            this.ticketStatus.push("redText");
+            break;
+          case "Dispatched":
+            this.ticketStatus.push("orangeText");
+            break;
+          case "In Progress":
+            this.ticketStatus.push("yellowText");
+            break;
+          case "Closed":
+            this.ticketStatus.push("greenText");
+            break;
+          default:
+            this.ticketStatus.push("yellowText");
+            break;
+        }
+    })
   }
     
   goToTicket(id : string)

@@ -1,6 +1,6 @@
 <div class="cardContainer style-1 row">
   <mat-card
-  class="issue_card cards redText col-8 offset-2 mt-4"
+  class="issue_card cards {{ticketStatus[i]}} col-8 offset-2 mt-4"
   *ngFor="let ticket of tickets; index as i"
 >
   <mat-card-header (click)="goToTicket(ticket.ticketId.toString())">
@@ -60,8 +60,8 @@
         </span>
         {{ ticket.ticketUpvotes }}
       </div>
-      <div class="col-1">
-        <div class="settings_icon_container">
+      <div class="col-1 ">
+        <div class="settings_icon_container dropup">
           <button
             class="btn"
             type="button"

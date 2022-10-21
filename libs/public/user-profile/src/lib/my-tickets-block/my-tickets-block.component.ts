@@ -39,7 +39,7 @@ export class MyTicketsBlockComponent implements OnInit {
         async (response) =>{
           this.skip += this.take
           this.tickets = response;
-          this.getImage();
+          this.getImage(response);
 
         }
       )
@@ -48,14 +48,40 @@ export class MyTicketsBlockComponent implements OnInit {
       
   }
 
-  getImage()
+  getImage(data : TicketDto[])
   {
-    this.tickets.forEach((ticket) =>{
+    data.forEach((ticket) =>{
       this.ticketService.getImages(ticket.ticketId).subscribe(
         (response) =>
         {
           if (response.length > 0)
             ticket.ticketImg = response[response.length -1].pictureLink;
+          else
+          {
+            switch (ticket.ticketType) {
+              case "Electricity Outage":
+                ticket.ticketImg ="assets/issue-brokenpower.svg";
+                break;
+              case "Water Outage":
+                ticket.ticketImg ="assets/issue-water.svg";
+                break;
+              case "Pothole":
+                ticket.ticketImg ="assets/issue-pothole.svg";
+                break;
+              case "Sinkhole":
+                ticket.ticketImg ="assets/issue-sinkhole.svg";
+                break;
+              case "Broken Traffic Light":
+                ticket.ticketImg ="assets/issue-brokenrobot.svg";
+                break;
+              case "Broken Street Light":
+                ticket.ticketImg ="assets/issue-brokenlight.svg";
+                break;
+              default:
+                ticket.ticketImg ="assets/issue-maintenance.svg";
+                break;
+                  }
+          }
         }
       );
     
@@ -84,8 +110,8 @@ export class MyTicketsBlockComponent implements OnInit {
     this.ticketService.getUserTicket(userId, this.skip, this.take).subscribe(
       async (response) =>{
         this.skip += this.take
+        this.getImage(response);
         this.tickets = [...this.tickets, ...response];
-        
       }
     )
     

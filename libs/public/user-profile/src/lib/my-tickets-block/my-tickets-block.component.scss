@@ -35,7 +35,8 @@ img.settings_icon
 .mat-card-content 
 {
     flex-grow: 1;
-    overflow: auto;
+    height: 100%;
+    overflow: none;
 }
 
 img.pin_location
@@ -83,4 +84,51 @@ span.upvoteContainer {
     // display: flex;
     // flex-direction: column;
     // align-items: center;
+}
+
+.imageContainer {
+    display: flex;
+    justify-content: center;
+}
+
+
+.redText
+{
+    border-color:#8ec63f;
+    box-shadow: inset 10px 0px 0px -1px red;
+    //border-right: -15px red solid;
+}
+
+.orangeText
+{
+    border-color:#8ec63f;
+    box-shadow: inset 10px 0px 0px -1px orange;
+    //border-right: -15px orange solid;
+}
+
+.yellowText
+{
+    border-color:#8ec63f;
+    box-shadow: inset 10px 0px 0px -1px #edcf18;
+    //border-right: -15px #edcf18 solid;
+}
+
+.greenText
+{
+    border-color:#8ec63f;
+    box-shadow: inset 10px 0px 0px -1px #8ec63f;
+    //border-right: -15px #8ec63f solid;
+}
+
+.cards
+{
+    // margin-top: 2%;
+    // margin-left: 2%; 
+    // margin-right:2%;
+    padding-left: 1rem;
+    filter: drop-shadow(0 0 0.3rem #adadad );
+    //box-shadow: 5px 5px #8ec63f;
+    // border: 2px solid var(--primary);
+    // height: 90%;
+    
 }

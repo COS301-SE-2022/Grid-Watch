@@ -39,8 +39,8 @@ export class ApiTicketService {
         return await this.queryBus.execute(new GetTicketsQuery())
     }
 
-    async getAllUser(id : number) {
-        return await this.queryBus.execute(new GetTicketsUserQuery(id))
+    async getAllUser(id : number, skip : number, take: number) {
+        return await this.queryBus.execute(new GetTicketsUserQuery(id, take, skip))
     }
 
 

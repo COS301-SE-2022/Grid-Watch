@@ -17,12 +17,13 @@ export class MyTicketsListComponent implements OnInit
   ticketImages: string[] = [];
   ticketDates: string[] = [];
   ticketStatus: string[] = [];
+  skip = 0;
+  take = 10;
   
   avatar!: string;
   user!: UserDto;
   constructor(
     private ticketService: TicketService,
-    private googleMapsService: GoogleMapsService,
     private router : Router,
     private sessionService : SessionManagerService,
     private profileService : PublicProfileService
@@ -41,19 +42,29 @@ export class MyTicketsListComponent implements OnInit
 
     loader.load().then(() =>
     {
-      this.ticketService.getTickets().subscribe(
-        async (response) => {
-          response = await response.filter((ticket) => {
-            const userId = this.sessionService.getID();
-            if (userId)
-              return ticket.userId === parseInt(userId);
-            else
-              return false;
-          });
+      const userId = this.sessionService.getID() || "";
+      this.ticketService.getUserTicket(userId, this.skip, this.take).subscribe(
+        async (response) =>{
+          this.skip += this.take
           this.InitialiseTicket(response);
           this.initaliseLikes();
+          
         }
       )
+      // this.ticketService.getTicketsSome(this.skip, this.take).subscribe(
+      //   async (response) => {
+      //     this.skip += this.take
+      //     response = await response.filter((ticket) => {
+      //       const userId = this.sessionService.getID();
+      //       if (userId)
+      //         return ticket.userId === parseInt(userId);
+      //       else
+      //         return false;
+      //     });
+      //     this.InitialiseTicket(response);
+      //     this.initaliseLikes();
+      //   }
+      // )
     }, (error) =>
     {
       console.log(error);
@@ -144,15 +155,7 @@ export class MyTicketsListComponent implements OnInit
             this.tickets[index].ticketImg = response[response.length - 1].pictureLink;
         }
       );
-      const place_id = this.tickets[index].ticketLocation;
-      this.googleMapsService.getLocation(place_id).then(
-        (response) => {
-          this.tickets[index].ticketLocation = response;
-        },
-        (error) => {
-          console.log(error);          
-        }
-      );
+      
     }
     // console.log(this.tickets);
   }
@@ -161,5 +164,19 @@ export class MyTicketsListComponent implements OnInit
   goToTicket(id : string)
   {
     this.router.navigate(['/viewTicket', {id:id}]) ;
+  }
+
+  onScroll(){
+    console.log("arrived");
+    const userId = this.sessionService.getID() || "";
+    this.ticketService.getUserTicket(userId, this.skip, this.take).subscribe(
+      async (response) =>{
+        this.skip += this.take
+        this.InitialiseTicket(response);
+        this.initaliseLikes();
+        
+      }
+    )
+   
   }
 }

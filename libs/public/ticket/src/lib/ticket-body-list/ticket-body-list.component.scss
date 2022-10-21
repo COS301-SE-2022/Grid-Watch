@@ -130,7 +130,7 @@ mat-drawer{
 }
 
 .drawerContainer{
-    // overflow-y: scroll;
+    overflow-y: auto;
     z-index: 0;
 }
 
@@ -149,7 +149,7 @@ span.upvoteContainer {
     border-radius: 13px;
     background: white;
     height: 100%;
-    width: 45%;
+    width: 100%;
     
 }
 

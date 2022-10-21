@@ -13,6 +13,9 @@ export class MyTicketsBlockComponent implements OnInit {
 
   tickets!: TicketDto[];
   avatar! : string;
+  skip = 0;
+  take = 10;
+
   constructor(
     private ticketService: TicketService,
     private googleMapsService: GoogleMapsService,
@@ -31,21 +34,15 @@ export class MyTicketsBlockComponent implements OnInit {
     });
     
     loader.load().then(() => {
-      this.ticketService.getTickets().subscribe(
-        (response) => {
+      const userId = this.sessionService.getID() || "";
+      this.ticketService.getUserTicket(userId, this.skip, this.take).subscribe(
+        async (response) =>{
+          this.skip += this.take
           this.tickets = response;
-          this.tickets = this.tickets.filter((ticket) => {
-            const userId = this.sessionService.getID();
-            if (userId)
-            return ticket.userId === parseInt(userId);
-            else
-            return false;
-            
-          });
           this.getImage();
+
         }
       )
-      
       }, (error) =>{console.log(error);
       });
       
@@ -57,7 +54,7 @@ export class MyTicketsBlockComponent implements OnInit {
       this.ticketService.getImages(ticket.ticketId).subscribe(
         (response) =>
         {
-          if (response[response.length -1].pictureLink)
+          if (response.length > 0)
             ticket.ticketImg = response[response.length -1].pictureLink;
         }
       );
@@ -78,6 +75,19 @@ export class MyTicketsBlockComponent implements OnInit {
       console.log(res);
       
     })
+    
+  }
+
+  onScroll(){
+    console.log("arrived");
+    const userId = this.sessionService.getID() || "";
+    this.ticketService.getUserTicket(userId, this.skip, this.take).subscribe(
+      async (response) =>{
+        this.skip += this.take
+        this.tickets = [...this.tickets, ...response];
+        
+      }
+    )
     
   }
 }

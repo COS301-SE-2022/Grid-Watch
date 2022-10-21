@@ -22,7 +22,9 @@ export class GetTicketUserHandler implements IQueryHandler<GetTicketsUserQuery>{
 
     async execute(query: GetTicketsUserQuery){
         const {id} = query;
-        return this.repository.getTicketUser(id);
+        const {skip} = query;
+        const {take} = query;
+        return this.repository.getTicketUser(id, skip, take);
 
     }
 

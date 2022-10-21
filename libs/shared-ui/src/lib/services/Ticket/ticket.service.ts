@@ -41,11 +41,12 @@ export class TicketService {
   private getAITicketTimeURL = this.apiURL +  '/api/ticketAI/estimate/time';
   private deleteURL = this.apiURL + "/api/ticket/delete/"; 
   private getTicketsSomeURL = this.apiURL + "/api/ticket/some/tickets/"; 
-  private getTicketUserURL = "api/ticket/all/tickets/"
+  private getTicketUserURL = "http://localhost:3333/api/ticket/all/tickets/"
   constructor(private http: HttpClient,  private storage : AngularFireStorage) {}
 
-  public getUserTicket(userID : string){
-    this.http.get<TicketDto[]>(this.getTicketUserURL)
+  public getUserTicket(userID : string, skip: number, take : number ){
+    
+    return this.http.get<TicketDto[]>(this.getTicketUserURL + userID + "/" + skip + "/" + take)
     .pipe(
       catchError(this.handleError<TicketDto[]>('getUserTicket', []))
     );

@@ -21,6 +21,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ProfileSettingComponent } from './profile-setting/profile-setting.component';
 import { LoggedInGuard } from '@grid-watch/shared-ui';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { LoggedInGuard } from '@grid-watch/shared-ui';
     MatButtonToggleModule,
     MatMenuModule,
     MatGridListModule,
+    InfiniteScrollModule,
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
       { path: 'editUser', pathMatch: 'full', component: EditUserComponent,

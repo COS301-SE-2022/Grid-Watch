@@ -13,11 +13,11 @@ export class TechTeamProfileService {
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      "Access-Control-Allow-Origin": "https://grid-watch-api.azurewebsites.net/"
+      "Access-Control-Allow-Origin": "https://grid-watch-api-2.azurewebsites.net/"
     }),
   };
 
-  private apiURL = "https://grid-watch-api.azurewebsites.net"
+  private apiURL = "https://grid-watch-api-2.azurewebsites.net"
   private createTechTeamURL = this.apiURL +  '/api/techteam/create';
   private getTechTeamURL = this.apiURL +  '/api/techteam/email/';
   private getTechTeamIDURL = this.apiURL +  '/api/techteam/';

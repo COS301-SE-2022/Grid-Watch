@@ -13,11 +13,11 @@ export class TicketService {
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      "Access-Control-Allow-Origin": "https://grid-watch-api.azurewebsites.net"
+      "Access-Control-Allow-Origin": "https://grid-watch-api-2.azurewebsites.net"
     }),
   };
 
-  private apiURL = "https://grid-watch-api.azurewebsites.net"
+  private apiURL = "https://grid-watch-api-2.azurewebsites.net"
   private getAllURL = this.apiURL +  '/api/ticket/all/tickets';
   private upvoteURL = this.apiURL +  '/api/ticket/update/upvotes/';
   private upvoteURLUser = this.apiURL +  '/api/public/add/upvote/';
@@ -40,10 +40,10 @@ export class TicketService {
   private getAITicketCostURL = this.apiURL +  '/api/ticketAI/estimate/cost';
   private getAITicketTimeURL = this.apiURL +  '/api/ticketAI/estimate/time';
   private deleteURL = this.apiURL + "/api/ticket/delete/"; 
-  private getTicketsSomeURL = "http://localhost:3333" + "/api/ticket/some/tickets/"; 
-  // private getTicketsSomeURL = this.apiURL + "/api/ticket/some/tickets/"; 
-  private getTicketUserURL = "http://localhost:3333/api/ticket/all/tickets/"
-  // private getTicketUserURL = this.apiURL +  "/api/ticket/all/tickets/"
+  // private getTicketsSomeURL = "http://localhost:3333" + "/api/ticket/some/tickets/"; 
+  private getTicketsSomeURL = this.apiURL + "/api/ticket/some/tickets/"; 
+  // private getTicketUserURL = "http://localhost:3333/api/ticket/all/tickets/"
+  private getTicketUserURL = this.apiURL +  "/api/ticket/all/tickets/"
   constructor(private http: HttpClient,  private storage : AngularFireStorage) {}
 
   public getUserTicket(userID : string, skip: number, take : number ){

@@ -8,7 +8,7 @@ import { catchError, Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class AdminProfileService {
-  private apiURL = "https://grid-watch-api.azurewebsites.net"
+  private apiURL = "https://grid-watch-api-2.azurewebsites.net"
   private createAdminURL = this.apiURL +  "/api/admin/create";
   private getAdminEmailURL = this.apiURL +  "/api/admin/email/";
   private getAdminContactURL = this.apiURL +  "/api/admin/cell/";

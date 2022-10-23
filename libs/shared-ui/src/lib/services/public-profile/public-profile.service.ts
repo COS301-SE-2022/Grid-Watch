@@ -14,11 +14,11 @@ export class PublicProfileService {
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      "Access-Control-Allow-Origin": "https://grid-watch-api.azurewebsites.net/"
+      "Access-Control-Allow-Origin": "https://grid-watch-api-2.azurewebsites.net/"
     }),
   };
 
-  private apiURL = "https://grid-watch-api.azurewebsites.net"
+  private apiURL = "https://grid-watch-api-2.azurewebsites.net"
   private createUserURL = this.apiURL +  '/api/public/create';
   private getUserEmailURL = this.apiURL +  '/api/public/email/';
   private verifyLoginURL = this.apiURL +  '/api/public/verify';

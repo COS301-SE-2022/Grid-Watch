@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, UntypedFormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
 
@@ -14,7 +14,7 @@ describe('ProfileSettingsComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ProfileSettingsComponent],
       imports : [HttpClientModule, RouterTestingModule],
-      providers: [FormBuilder, GoogleMapsService]
+      providers: [FormBuilder, GoogleMapsService, UntypedFormBuilder]
     }).compileComponents();
   });
 

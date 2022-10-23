@@ -4,7 +4,7 @@ import { ProfileSettingComponent } from './profile-setting.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
  '@grid-watch/environments';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, UntypedFormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -30,7 +30,7 @@ describe('ProfileSettingComponent', () => {
         RouterTestingModule,
         HttpClientModule
       ],
-      providers: [FormBuilder]
+      providers: [UntypedFormBuilder]
     }).compileComponents();
   });
 

@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, UntypedFormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -28,7 +28,7 @@ describe('ViewTicketDetailsComponent', () => {
     measurementId: "G-JW453VRZD1"
   }),
         AngularFirestoreModule,],
-      providers: [FormBuilder, GoogleMapsService]
+      providers: [UntypedFormBuilder, GoogleMapsService]
     }).compileComponents();
   });
 

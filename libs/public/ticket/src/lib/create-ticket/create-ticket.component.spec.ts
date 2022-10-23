@@ -6,7 +6,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 import { CreateTicketComponent } from './create-ticket.component';
 import {} from '@googlemaps/js-api-loader';
 import {} from '@angular/google-maps';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, UntypedFormBuilder } from '@angular/forms';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -39,7 +39,7 @@ describe('CreateTicketComponent', () => {
   }),
         AngularFirestoreModule,
       ],
-      providers: [FormBuilder, GoogleMapsService],
+      providers: [FormBuilder, GoogleMapsService, UntypedFormBuilder],
     }).compileComponents();
   });
 

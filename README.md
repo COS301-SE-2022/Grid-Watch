@@ -45,7 +45,7 @@
 #### Tutorial
 
 #### Technical Installation Guide
-[GridWatch Demo 3 Technical Installation Guide.pdf](https://github.com/COS301-SE-2022/Grid-Watch/files/9213024/GridWatch.Demo.3.Technical.Installation.Guide.pdf)  
+[GridWatch Demo Technical Installation Guide.pdf](https://github.com/COS301-SE-2022/Grid-Watch/files/9213024/GridWatch.Demo.3.Technical.Installation.Guide.pdf)  
 
 #### Help us!
 

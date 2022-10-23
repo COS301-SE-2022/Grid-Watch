@@ -1,7 +1,6 @@
-<img src="https://user-images.githubusercontent.com/100613227/197419799-23f118b7-a73f-4020-bde5-2200de822092.jpeg" alt="drawing" width="200"/>
+<p align="center"><img src="https://user-images.githubusercontent.com/100613227/197419799-23f118b7-a73f-4020-bde5-2200de822092.jpeg" alt="drawing" width="200"/></p>
 
-<img src="https://user-images.githubusercontent.com/100613227/197419768-b8bf7944-e587-428f-8c96-5b2c7b488474.jpg" alt="drawing" width="400"/>
-
+<p align="center"><img src="https://user-images.githubusercontent.com/100613227/197419914-13c1af51-110c-4857-b2db-4972c765c2c4.png" alt="drawing" width="400"/></p>
 
 
 ![Github CI](https://github.com/COS301-SE-2022/Grid-Watch/actions/workflows/ci.yml/badge.svg)

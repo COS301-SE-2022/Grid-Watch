@@ -28,7 +28,8 @@
 #### User Manual
 [Grid Watch User Manual](https://drive.google.com/file/d/1Uv2K0BQI1hVqUTOibVpMgImo-9ssm-Sp/view?usp=sharing)  
 
-#### [Github Profiles](https://github.com/COS301-SE-2022/Grid-Watch/wiki/Team-Members)
+#### Team Profiles  
+[Profiles](https://github.com/COS301-SE-2022/Grid-Watch/wiki/Team-Members)
 
 #### Video Demo
 

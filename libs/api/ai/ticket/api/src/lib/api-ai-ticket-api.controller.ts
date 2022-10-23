@@ -47,4 +47,19 @@ export class ApiAiTicketApiController {
         return this.apiAiTicketServiceService.getEstimateTime(ticket);
     }
 
+    @Post('estimate/priority')
+    async getEstimatePriority(@Body() ticket: TicketDto){
+        return this.apiAiTicketServiceService.getPriority(ticket);
+    }
+
+    @Post('estimate/AI')
+    async getEstimate(@Body() arr){
+        return this.apiAiTicketServiceService.getEstimateAI(arr.ticket,arr.parameters);
+    }
+
+    @Post('test/:min&:depth')
+    async test(@Param() par, @Body() arr){
+        return this.apiAiTicketServiceService.trainDecision(par.min,par.depth,arr.parameterArray)
+    }
+
 }

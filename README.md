@@ -38,7 +38,7 @@
 
 #### Deployment Links
 
-[Citizen Team](https://grid-watch-public-2.azurewebsites.net)
+[Citizen Team](https://grid-watch-public-2.azurewebsites.net)  
 [Adminstration Team](https://grid-watch-admin-2.azurewebsites.net) (Please use the following to login - Username : pieterkoen@gmail.com Password: i@mpieterk0en21)  
 [Technician Team](https://grid-watch-tech-team-2.azurewebsites.net) (Please use the following to login - Username : testtechteam@gmail.com Password: TechTeam#1234)
 

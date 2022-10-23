@@ -32,7 +32,7 @@
 [Profiles](https://github.com/COS301-SE-2022/Grid-Watch/wiki/Team-Members)
 
 #### Video Demo
-[Video Demo Of Applications]([pieterkoen@gmail.com](https://drive.google.com/file/d/1mXVwoM0Ec2QH6f70O4nL3uwBYktohNkv/view?usp=sharing))
+[Video Demo Of Applications](https://drive.google.com/file/d/1mXVwoM0Ec2QH6f70O4nL3uwBYktohNkv/view?usp=sharing)
 
 #### Slideshow summary
 [Denied Access 301 Grid Watch.pdf](https://github.com/COS301-SE-2022/Grid-Watch/files/9847455/Denied.Access.301.Grid.Watch.pdf)

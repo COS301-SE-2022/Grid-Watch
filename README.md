@@ -34,14 +34,13 @@
 #### Video Demo
 
 #### Slideshow summary
-
-#### Video Advertisement
+[Denied Access 301 Grid Watch.pdf](https://github.com/COS301-SE-2022/Grid-Watch/files/9847455/Denied.Access.301.Grid.Watch.pdf)
 
 #### Deployment Links
 
-[Citizen Team](https://grid-watch-public-2.azurewebsites.net)  
-[Adminstration Team](https://grid-watch-admin-2.azurewebsites.net) (Please use the following to login: )  
-[Technician Team](https://grid-watch-tech-team-2.azurewebsites.net) (Please use the following to login: )
+[Citizen Team](https://grid-watch-public-2.azurewebsites.net)
+[Adminstration Team](https://grid-watch-admin-2.azurewebsites.net) (Please use the following to login - Username : pieterkoen@gmail.com Password: i@mpieterk0en21)  
+[Technician Team](https://grid-watch-tech-team-2.azurewebsites.net) (Please use the following to login - Username : testtechteam@gmail.com Password: TechTeam#1234)
 
 #### Tutorial
 
@@ -50,7 +49,7 @@
 
 #### Help us!
 
- 
+Currently we are looking at building features, if you have ideas or are able to provide testing sets for our AI to train off of please send us an email at info@deniedaccess.co.za.
  
 ### Project Description
 The grid watch system will allow three core interfaces:

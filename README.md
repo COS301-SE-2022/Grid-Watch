@@ -32,6 +32,7 @@
 [Profiles](https://github.com/COS301-SE-2022/Grid-Watch/wiki/Team-Members)
 
 #### Video Demo
+[Video Demo Of Applications]([pieterkoen@gmail.com](https://drive.google.com/file/d/1mXVwoM0Ec2QH6f70O4nL3uwBYktohNkv/view?usp=sharing))
 
 #### Slideshow summary
 [Denied Access 301 Grid Watch.pdf](https://github.com/COS301-SE-2022/Grid-Watch/files/9847455/Denied.Access.301.Grid.Watch.pdf)
@@ -42,10 +43,14 @@
 [Adminstration Team](https://grid-watch-admin-2.azurewebsites.net) (Please use the following to login - Username : pieterkoen@gmail.com Password: i@mpieterk0en21)  
 [Technician Team](https://grid-watch-tech-team-2.azurewebsites.net) (Please use the following to login - Username : testtechteam@gmail.com Password: TechTeam#1234)
 
-#### Tutorial
+#### Tutorials
+
+[Our Tutorials For Our Separate Applications](https://drive.google.com/drive/folders/12zdPHsccSgzOo_SOY8lbdKc6c65OgVKP?usp=sharing)
 
 #### Technical Installation Guide
-[GridWatch Demo Technical Installation Guide.pdf](https://github.com/COS301-SE-2022/Grid-Watch/files/9213024/GridWatch.Demo.3.Technical.Installation.Guide.pdf)  
+[GridWatch Demo Technical Installation Guide.pdf](https://github.com/COS301-SE-2022/Grid-Watch/files/9213024/GridWatch.Demo.3.Technical.Installation.Guide.pdf) 
+
+PLEAES NOTE: For Citizen Team and Technician Teams these are designed for phone use. Please ensure you are using your phone when accessing them. These have been created to be PWA suitable and as such are able to be added as a home screen icon when opn in your browser. 
 
 #### Help us!
 

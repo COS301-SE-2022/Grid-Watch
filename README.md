@@ -61,8 +61,8 @@ Design Patterns, Methodologies and Software Architecture to solve given problems
 
 #### Deployment Links
 
-[Citizen Team](https://grid-watch-public-2.azurewebsites.net)
-[Adminstration Team](https://grid-watch-admin-2.azurewebsites.net) (Please use the following to login: )
+[Citizen Team](https://grid-watch-public-2.azurewebsites.net)  
+[Adminstration Team](https://grid-watch-admin-2.azurewebsites.net) (Please use the following to login: )  
 [Technician Team](https://grid-watch-tech-team-2.azurewebsites.net) (Please use the following to login: )
 
 #### Tutorial

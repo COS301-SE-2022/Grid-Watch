@@ -213,7 +213,7 @@ export class DecisionTree {
             return null;
         }else{
             const usableData = data[0];
-            const currNode = new Node(usableData["feature_index"],usableData["threhold"],this.reconstruct(usableData["left"]),this.reconstruct(usableData["right"]),usableData["var_red"],usableData["value"]);
+            const currNode = new Node(usableData["feature_index"],usableData["threshold"],this.reconstruct(usableData["left"]),this.reconstruct(usableData["right"]),usableData["var_red"],usableData["value"]);
 
             return currNode;
         }

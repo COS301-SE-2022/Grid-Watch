@@ -28,6 +28,10 @@ ticketCreateDate! : Date;
 ticketCloseDate! : Date;
 
 @IsString()
+@IsOptional()
+ticketPriority! : string;
+
+@IsString()
 @IsNotEmpty()
 ticketType! : string;
 

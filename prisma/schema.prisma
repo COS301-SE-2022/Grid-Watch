@@ -40,6 +40,7 @@ model Ticket {
   ticketCreateDate    DateTime  @default(now())
   ticketCloseDate     DateTime?
   ticketType          String
+  ticketPriority      String?
   ticketStreetAddress String?
   ticketCity          String
   ticketLocation      String?   //place-id
@@ -142,6 +143,8 @@ model AI{
   id                  Int         @id @default(autoincrement())
   dateCreated         DateTime    @default(now())
   aiData              Json?
+  aiParameters        String[]
+  aiArrays            Json?
   fitness             Float
   ticketTypes         String[]
   ticketCities        String[]

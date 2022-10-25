@@ -17,6 +17,7 @@ export class ApiTicketRepositoryDataAccess {
                     ticketCloseDate:        ticketDto.ticketCloseDate,   
                     ticketStreetAddress:    ticketDto.ticketStreetAddress, 
                     ticketCity :            ticketDto.ticketCity,   
+                    ticketPriority:         ticketDto.ticketPriority,
                     ticketLocation :        ticketDto.ticketLocation, 
                     ticketLong:             ticketDto.ticketLong,
                     ticketLat:              ticketDto.ticketLat,  
@@ -298,7 +299,8 @@ export class ApiTicketRepositoryDataAccess {
                 ticketStatus :          ticketDto.ticketStatus,    
                 ticketType :            ticketDto.ticketType,
                 ticketCreateDate:       ticketDto.ticketCreateDate, //has default
-                ticketCloseDate:        ticketDto.ticketCloseDate,   
+                ticketCloseDate:        ticketDto.ticketCloseDate, 
+                ticketPriority:         ticketDto.ticketPriority,  
                 ticketStreetAddress:    ticketDto.ticketStreetAddress, 
                 ticketCity :            ticketDto.ticketCity,   
                 ticketLocation :        ticketDto.ticketLocation,  

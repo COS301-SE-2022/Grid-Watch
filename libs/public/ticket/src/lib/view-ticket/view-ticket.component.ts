@@ -40,11 +40,13 @@ export class ViewTicketComponent implements OnInit
     this.ticketID = this.route.snapshot.paramMap.get('id') || "";
     if (this.ticketID)
     {
+      console.log(this.ticketID);
+      
       this.ticketService.getTicket(this.ticketID).subscribe(
         async (response) =>
         {
           this.ticket = response[0];
-          // console.log(response);
+          console.log(response);
           this.intialiseTicket();
           this.initialiseUser();
           this.initialiseImage();

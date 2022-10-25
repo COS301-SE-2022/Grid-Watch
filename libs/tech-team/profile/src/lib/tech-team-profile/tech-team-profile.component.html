@@ -54,7 +54,7 @@
     </mat-grid-tile>
     <mat-grid-tile
       (click)="goToTicket(ticket.ticketId.toString())"
-      colspan="8"
+      colspan="7"
       class="citizenName"
     >
       {{ ticket.ticketType }}
@@ -74,7 +74,7 @@
         />
       </span>
     </mat-grid-tile> -->
-    <mat-grid-tile rowspan = "1" colspan="2">
+    <mat-grid-tile rowspan = "1" colspan="3">
       <span class="upvoteNumber">
         {{ticket.ticketUpvotes}}  
       </span>

@@ -34,7 +34,7 @@
   </div> -->
   <!-- <mat-divider> </mat-divider> -->
   
-   
+<div class="cardContainer">
   <mat-card
   class="mt-4 cards {{ ticketStatus[i] }}"
   *ngFor="let ticket of tickets; index as i"
@@ -85,7 +85,7 @@
     
     <mat-grid-tile
       (click)="goToTicket(ticket.ticketId.toString())"
-      colspan="8"
+      colspan="7"
       class="ml-5 mr-5"
       style="text-align: center; font-size: small"
     >
@@ -98,7 +98,7 @@
     </mat-grid-tile>
     <mat-grid-tile
       rowspan="1"
-      colspan="2"
+      colspan="3"
       (click)="goToTicket(ticket.ticketId.toString())"
     >
     </mat-grid-tile>
@@ -123,4 +123,5 @@
     </mat-grid-tile>
     <!--<mat-grid-tile colspan="2"><a [ngClass] = "'ticketEdit'" [routerLink]="['/editTicket', {id:ticket.ticketId}]">Edit </a></mat-grid-tile>-->
   </mat-grid-list>
-</mat-card>
+  </mat-card>
+</div>

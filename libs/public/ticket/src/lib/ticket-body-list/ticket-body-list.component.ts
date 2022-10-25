@@ -283,59 +283,66 @@ export class TicketBodyListComponent implements OnInit {
   // }
 
   filter(event: string, category : string) {
-    const temp = {"name":event, "category" : category}
-    const isThere = this.filterChecked.filter((filter) =>{
-      return filter.category === temp.category
-    })
-    // console.log(isThere);
+
+    this.ticketService.getTickets().subscribe(
+      (response) =>{
+        this.tickets = response;
+        console.log(this.tickets);
+        
+        const temp = {"name":event, "category" : category}
+        const isThere = this.filterChecked.filter((filter) =>{
+          return filter.category === temp.category
+        })
+        // console.log(isThere);
+        
+        if (isThere.length === 0) {
+          this.filterChecked.push(temp);
+        } 
+        // else {
+        //   this.filterChecked = this.filterChecked.filter((val) => {
+        //     return val.category !== temp.category
+        //   });
+        //   this.filterChecked.push(temp);
+        // }
     
-    if (isThere.length === 0) {
-      this.filterChecked.push(temp);
-    } else {
-      this.filterChecked = this.filterChecked.filter((val) => {
-        return val.category !== temp.category
-      });
-      this.filterChecked.push(temp);
-    }
-
-    console.log(this.filterChecked);
-
+        console.log(this.filterChecked);
     
+        
+    
+        if (this.filterChecked.length > 0)
+        {
+          // const filterdTickets = this.tickets.filter((ticket) =>{
+          //   return ticket.
+          // })
+          this.tickets = this.ticketsPerm;
+          let filterdTickets = this.tickets;
+          this.filterChecked.forEach((filter) =>{
+            filterdTickets = [...filterdTickets.filter((ticket) =>{
+            const temp = ticket.ticketCreateDate.toString().split('T')[0].split("-")[1];
+            const num = parseInt(temp)
+            console.log(num);
+            console.log("this.months[" + num + "] " + this.months[num]);
+            
+            return (
+              this.months[num-1] === filter.name ||
+              ticket.ticketCity === filter.name ||
+              ticket.ticketType === filter.name
+              );
+          })]; 
+            
+    
+          })
+    
+          this.tickets = filterdTickets;
+          this.InitialiseTicket(this.tickets)
+        }
+        else
+        {
+          this.tickets = [...this.ticketsPerm];
+        }
+      }
+    )
 
-    if (this.filterChecked.length > 0)
-    {
-      // const filterdTickets = this.tickets.filter((ticket) =>{
-      //   return ticket.
-      // })
-      this.tickets = this.ticketsPerm;
-      let filterdTickets = this.tickets;
-      this.filterChecked.forEach((filter) =>{
-        
-        
-        console.log();
-      filterdTickets = [...filterdTickets.filter((ticket) =>{
-        const temp = ticket.ticketCreateDate.toString().split('T')[0].split("-")[1];
-        const num = parseInt(temp)
-        console.log(num);
-        console.log("this.months[" + num + "] " + this.months[num]);
-        
-        return (
-          this.months[num-1] === filter.name ||
-          ticket.ticketCity === filter.name ||
-          ticket.ticketType === filter.name
-          );
-      })]; 
-        
-
-      })
-
-      this.tickets = filterdTickets;
-      this.InitialiseTicket(this.tickets)
-    }
-    else
-    {
-      this.tickets = [...this.ticketsPerm];
-    }
 
 
   }
@@ -345,12 +352,16 @@ export class TicketBodyListComponent implements OnInit {
     // this.sortLabels.push("City")
     // this.sortLabels.push("Upvotes")
     // this.sortLabels.push("Date")
-    this.tickets = this.ticketService.sort(
-      sortType,
-      this.sortDirection,
-      this.tickets
-    );
-    this.InitialiseTicket(this.tickets)
+    this.ticketService.getTickets().subscribe(
+      (response) =>{
+        this.tickets = response;
+        this.tickets = this.ticketService.sort(
+          sortType,
+          this.sortDirection,
+          this.tickets
+        );
+        this.InitialiseTicket(this.tickets)
+      });
   }
 
   reset(){

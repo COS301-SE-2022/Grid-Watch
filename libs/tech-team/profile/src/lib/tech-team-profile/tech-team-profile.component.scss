@@ -189,15 +189,17 @@ span.upvoteContainer.liked {
 span.upvoteContainer {
     border-radius: 13px;
     background: white;
-    height: 100%;
-    width: 45%;
-    
+    height: 30px;
+    width: 30px;
+    margin-left: 0.5rem;
+    border: 1px solid black;
 }
 
 .upvoteNumber {
-    max-width: 15px;
+    max-width: 10px;
     margin-right: 1rem;
   }
+
 
 .filterOption
 {
@@ -215,3 +217,6 @@ span.upvoteContainer {
     width: 80%;
 }
 
+.cardContainer {
+    padding-bottom: 10vh;
+}

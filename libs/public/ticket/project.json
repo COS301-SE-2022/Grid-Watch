@@ -1,6 +1,6 @@
 {
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "root": "libs/public/ticket",
   "sourceRoot": "libs/public/ticket/src",
   "prefix": "grid-watch",
   "targets": {

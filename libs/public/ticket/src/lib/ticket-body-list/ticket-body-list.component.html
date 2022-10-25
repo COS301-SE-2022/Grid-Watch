@@ -2,7 +2,7 @@
   <mat-drawer #drawer mode="over">
     <div class="sortContainer" *ngIf="type === 'sort'">
       <h4>Sort</h4>
-      <div *ngFor="let sortItem of sortLabels">
+      <div class="radioSortButton" *ngFor="let sortItem of sortLabels">
         <mat-radio-button
         color="primary"
           value="{{ sortItem }}"
@@ -11,8 +11,8 @@
           >{{ sortItem }}
         </mat-radio-button>
       </div>
-      <div>
-        <mat-select class="border" value="asc" [(ngModel)]="sortDirection">
+      <div class="directionContainer">
+        <mat-select value="asc" [(ngModel)]="sortDirection" color="primary">
           <mat-option value="asc"> Ascending </mat-option>
           <mat-option value="desc"> Descending </mat-option>
         </mat-select>
@@ -75,7 +75,7 @@
       </div>
     </div>
   </mat-drawer>
-  <mat-drawer-content>
+  <mat-drawer-content class="style-1">
     <div>
       <div class="buttons border">
         <div class="buttonContainer">
@@ -116,7 +116,7 @@
           </mat-grid-tile>
           <mat-grid-tile
             (click)="goToTicket(ticket.ticketId.toString())"
-            colspan="8"
+            colspan="7"
             class="citizenName"
           >
             {{ ticket.ticketType }}
@@ -136,7 +136,7 @@
               />
             </span>
           </mat-grid-tile> -->
-          <mat-grid-tile rowspan = "1" colspan="2">
+          <mat-grid-tile rowspan = "1" colspan="3">
             <span class="upvoteNumber">
               {{ticket.ticketUpvotes}}  
             </span>
@@ -147,7 +147,7 @@
           
           <mat-grid-tile
             (click)="goToTicket(ticket.ticketId.toString())"
-            colspan="8"
+            colspan="7"
             class="ml-5 mr-5"
             style="text-align: center; font-size: small"
           >
@@ -160,7 +160,7 @@
           </mat-grid-tile>
           <mat-grid-tile
             rowspan="1"
-            colspan="2"
+            colspan="3"
             (click)="goToTicket(ticket.ticketId.toString())"
           >
           </mat-grid-tile>
@@ -186,6 +186,17 @@
           <!--<mat-grid-tile colspan="2"><a [ngClass] = "'ticketEdit'" [routerLink]="['/editTicket', {id:ticket.ticketId}]">Edit </a></mat-grid-tile>-->
         </mat-grid-list>
       </mat-card>
+    </div>
+    <div
+    infiniteScroll
+    [infiniteScrollDistance]="0"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+    infiniteScrollContainer="mat-drawer-content"
+    [fromRoot]="true"
+    class="border"
+    >
+      
     </div>
   </mat-drawer-content>
 </mat-drawer-container>

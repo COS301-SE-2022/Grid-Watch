@@ -1,5 +1,5 @@
 {
-  "root": "libs/api/profiles/admin/repository",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/api/profiles/admin/repository/src",
   "targets": {
     "lint": {

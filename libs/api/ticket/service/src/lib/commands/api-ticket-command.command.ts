@@ -8,7 +8,6 @@ export class CreateTicketCommand{
         
         
         ){
-            Logger.log("Part 2 passed");
         }
 
 }

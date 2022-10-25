@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
@@ -14,8 +14,8 @@ import { GoogleMapsService, AdminProfileService, ToastService } from '@grid-watc
 export class RegisterPageComponent implements OnInit {
 
   hide = true;
-  hideRequiredControl = new FormControl(false);
-  floatLabelControl = new FormControl('auto' as FloatLabelType);
+  hideRequiredControl = new UntypedFormControl(false);
+  floatLabelControl = new UntypedFormControl('auto' as FloatLabelType);
   formOptions = this.formBuilder.group({
     hideRequired: this.hideRequiredControl,
     floatLabel: this.floatLabelControl,
@@ -27,7 +27,7 @@ export class RegisterPageComponent implements OnInit {
   confirmPassword! : string;
 
   constructor(
-    private formBuilder : FormBuilder,
+    private formBuilder : UntypedFormBuilder,
     private googleMapsService : GoogleMapsService,
     private profileService : AdminProfileService,
     private router : Router,

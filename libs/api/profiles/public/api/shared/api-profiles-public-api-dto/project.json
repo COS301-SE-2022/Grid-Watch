@@ -1,5 +1,5 @@
 {
-  "root": "libs/api/profiles/public/api/shared/api-profiles-public-api-dto",
+  "$schema": "../../../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/api/profiles/public/api/shared/api-profiles-public-api-dto/src",
   "projectType": "library",
   "targets": {

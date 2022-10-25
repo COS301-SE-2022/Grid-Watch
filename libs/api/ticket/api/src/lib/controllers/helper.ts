@@ -10,9 +10,6 @@ export class Helper {
           fileExtension = "png";
       }
       const originalName = file.originalname.split(".")[0];
-      Logger.log("Original Name" + originalName);
-      Logger.log("Unique Suffix" + uniqueSuffix);
-      Logger.log("File Extension" + fileExtension);
       cb(null, originalName + '-' + uniqueSuffix+"."+fileExtension);
     }
    

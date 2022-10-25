@@ -22,6 +22,8 @@ img.avatarImage{
 
 .ticketContainer{
     margin: 10px 20px;
+    padding-bottom: 10vh;
+
 }
 
 img.pin_location
@@ -68,6 +70,7 @@ display: flex;
 
 .mat-grid-tile
 {
+    display: flex !important;
     justify-content: flex-start !important ;
     align-items: flex-start !important;
 }
@@ -78,10 +81,22 @@ span.upvoteContainer.liked {
     background: #8ec63f;
 }
 
+
 span.upvoteContainer {
     border-radius: 13px;
     background: white;
+    height: 30px;
+    width: 30px;
+    margin-left: 1.5rem;
+    border: 1px solid black;
+    
 }
+
+.upvoteNumber {
+    max-width: 10px;
+    margin-right: 1rem;
+  }
+
 
 img.upvote_img {
     height: 100%;
@@ -100,13 +115,11 @@ img.pin_location
 
 .cards
 {
-    margin-top: 2%;
-    margin-left: 2%; 
-    margin-right:2%;
+
     filter: drop-shadow(0 0 0.3rem #adadad );
     //box-shadow: 5px 5px #8ec63f;
     // border: 2px solid var(--primary);
-    height: 90%;
+    // height: 100%;
     
 }
 
@@ -234,8 +247,13 @@ span.upvoteContainer.liked {
 span.upvoteContainer {
     border-radius: 13px;
     background: white;
-    height: 100%;
-    width: 45%;
+    height: 30px;
+    width: 30px;
+    margin-left: 0.5rem;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     
 }
 

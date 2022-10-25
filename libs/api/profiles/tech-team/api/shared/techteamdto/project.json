@@ -1,5 +1,5 @@
 {
-  "root": "libs/api/profiles/tech-team/api/shared/techteamdto",
+  "$schema": "../../../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/api/profiles/tech-team/api/shared/techteamdto/src",
   "projectType": "library",
   "targets": {

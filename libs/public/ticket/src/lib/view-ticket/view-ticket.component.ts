@@ -4,7 +4,6 @@ import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { PublicProfileService, SessionManagerService, TicketService } from '@grid-watch/shared-ui';
-import { id } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'grid-watch-view-ticket',
@@ -40,11 +39,13 @@ export class ViewTicketComponent implements OnInit
     this.ticketID = this.route.snapshot.paramMap.get('id') || "";
     if (this.ticketID)
     {
+      console.log(this.ticketID);
+      
       this.ticketService.getTicket(this.ticketID).subscribe(
         async (response) =>
         {
           this.ticket = response[0];
-          // console.log(response);
+          console.log(response);
           this.intialiseTicket();
           this.initialiseUser();
           this.initialiseImage();
@@ -126,9 +127,35 @@ export class ViewTicketComponent implements OnInit
     this.ticketService.getImages(this.ticket.ticketId).subscribe(
       (response) =>
       {
-        if (response[response.length - 1].pictureLink)
+        if (response.length > 0)
           this.ticket.ticketImg = response[response.length - 1].pictureLink;
-      }
+        else
+        {
+          switch (this.ticket.ticketType) {
+            case "Electricity Outage":
+              this.ticket.ticketImg ="assets/issue-brokenpower.svg";
+              break;
+            case "Water Outage":
+              this.ticket.ticketImg ="assets/issue-water.svg";
+              break;
+            case "Pothole":
+              this.ticket.ticketImg ="assets/issue-pothole.svg";
+              break;
+            case "Sinkhole":
+              this.ticket.ticketImg ="assets/issue-sinkhole.svg";
+              break;
+            case "Broken Traffic Light":
+              this.ticket.ticketImg ="assets/issue-brokenrobot.svg";
+              break;
+            case "Broken Street Light":
+              this.ticket.ticketImg ="assets/issue-brokenlight.svg";
+              break;
+            default:
+              this.ticket.ticketImg ="assets/issue-maintenance.svg";
+              break;
+                }
+        }
+        }
     )
   }
 

@@ -12,7 +12,11 @@ import { GoogleMapsService, SessionManagerService, TicketService } from '@grid-w
 export class MyTicketsBlockComponent implements OnInit {
 
   tickets!: TicketDto[];
+  ticketStatus: string[] = [];
   avatar! : string;
+  skip = 0;
+  take = 10;
+
   constructor(
     private ticketService: TicketService,
     private googleMapsService: GoogleMapsService,
@@ -31,40 +35,85 @@ export class MyTicketsBlockComponent implements OnInit {
     });
     
     loader.load().then(() => {
-      this.ticketService.getTickets().subscribe(
-        (response) => {
+      const userId = this.sessionService.getID() || "";
+      this.ticketService.getUserTicket(userId, this.skip, this.take).subscribe(
+        async (response) =>{
+          this.skip += this.take
           this.tickets = response;
-          this.tickets = this.tickets.filter((ticket) => {
-            const userId = this.sessionService.getID();
-            if (userId)
-            return ticket.userId === parseInt(userId);
-            else
-            return false;
-            
-          });
-          this.getImage();
+          this.getImage(response);
+          this.initialiseTicket();
+
         }
       )
-      
       }, (error) =>{console.log(error);
       });
       
   }
 
-  getImage()
+  getImage(data : TicketDto[])
   {
-    this.tickets.forEach((ticket) =>{
+    data.forEach((ticket) =>{
       this.ticketService.getImages(ticket.ticketId).subscribe(
         (response) =>
         {
-          if (response[response.length -1].pictureLink)
+          if (response.length > 0)
             ticket.ticketImg = response[response.length -1].pictureLink;
+          else
+          {
+            switch (ticket.ticketType) {
+              case "Electricity Outage":
+                ticket.ticketImg ="assets/issue-brokenpower.svg";
+                break;
+              case "Water Outage":
+                ticket.ticketImg ="assets/issue-water.svg";
+                break;
+              case "Pothole":
+                ticket.ticketImg ="assets/issue-pothole.svg";
+                break;
+              case "Sinkhole":
+                ticket.ticketImg ="assets/issue-sinkhole.svg";
+                break;
+              case "Broken Traffic Light":
+                ticket.ticketImg ="assets/issue-brokenrobot.svg";
+                break;
+              case "Broken Street Light":
+                ticket.ticketImg ="assets/issue-brokenlight.svg";
+                break;
+              default:
+                ticket.ticketImg ="assets/issue-maintenance.svg";
+                break;
+                  }
+          }
         }
       );
     
     }
     )
     
+  }
+
+  initialiseTicket(){
+    this.tickets.forEach((ticket) =>{
+
+      switch(ticket["ticketStatus"])
+        {
+          case "Created":
+            this.ticketStatus.push("redText");
+            break;
+          case "Dispatched":
+            this.ticketStatus.push("orangeText");
+            break;
+          case "In Progress":
+            this.ticketStatus.push("yellowText");
+            break;
+          case "Closed":
+            this.ticketStatus.push("greenText");
+            break;
+          default:
+            this.ticketStatus.push("yellowText");
+            break;
+        }
+    })
   }
     
   goToTicket(id : string)
@@ -78,6 +127,19 @@ export class MyTicketsBlockComponent implements OnInit {
       console.log(res);
       
     })
+    
+  }
+
+  onScroll(){
+    console.log("arrived");
+    const userId = this.sessionService.getID() || "";
+    this.ticketService.getUserTicket(userId, this.skip, this.take).subscribe(
+      async (response) =>{
+        this.skip += this.take
+        this.getImage(response);
+        this.tickets = [...this.tickets, ...response];
+      }
+    )
     
   }
 }

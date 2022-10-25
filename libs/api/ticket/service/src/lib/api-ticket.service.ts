@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 //import {Ticket,PrismaClient} from '@prisma/client';
 import {QueryBus,CommandBus} from '@nestjs/cqrs';
-import { GetTicketQuery, GetIssueQuery, GetTicketsQuery,GetCityTicketQuery,GetStatusQuery,CloseTicketQuery, GetTicketsDispatchedQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery, GetAllPicturesQuery, GetPictureQuery, GetAllSubtasksQuery } from './queries/api-ticket-query.query';
+import { GetTicketQuery, GetIssueQuery, GetTicketsQuery,GetCityTicketQuery,GetStatusQuery,CloseTicketQuery, GetTicketsDispatchedQuery, GetTicketsSortByDateQuery, GetTicketsSortByIssueQuery, GetTicketsSortByCityQuery, GetTicketsSortByStatusQuery, GetTicketsSortByUpvotesQuery, GetAllPicturesQuery, GetPictureQuery, GetAllSubtasksQuery, GetTicketsFromQuery, GetTicketsUserQuery } from './queries/api-ticket-query.query';
 import { CreateTicketCommand,
     UpdateTicketCommand, 
     DeleteTicketCommand, 
@@ -37,6 +37,16 @@ export class ApiTicketService {
 
     async getAll() {
         return await this.queryBus.execute(new GetTicketsQuery())
+    }
+
+    async getAllUser(id : number, skip : number, take: number) {
+        return await this.queryBus.execute(new GetTicketsUserQuery(id, take, skip))
+    }
+
+
+
+    async getAllFrom(take: number, skip : number) {
+        return await this.queryBus.execute(new GetTicketsFromQuery(skip, take))
     }
 
     async getAllSortByDate() {

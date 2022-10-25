@@ -1,6 +1,6 @@
 {
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "root": "libs/tech-team/profile",
   "sourceRoot": "libs/tech-team/profile/src",
   "prefix": "grid-watch",
   "targets": {

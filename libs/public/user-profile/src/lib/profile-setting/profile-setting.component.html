@@ -6,6 +6,11 @@
                 <mat-card-title>Update Profile</mat-card-title>
             </mat-card-header>
             <mat-card-content>
+                <!-- <div class="avatarSelections row mb-3">
+                    <div class="col-3 avatars" *ngFor="let avatar of avatars">
+                        <img class="avatarImages" src="assets/avatar-{{avatar}}.png" alt="avatar-{{avatar}}" (click)="">
+                    </div>
+                </div> -->
                 <mat-form-field appearance="outline" [floatLabel]="getFloatLabelValue()">
                     <mat-label>Username</mat-label>
                     <input type="text" matInput placeholder="Enter user name"  [(ngModel)]="user.name" [disabled]="updateUsername">

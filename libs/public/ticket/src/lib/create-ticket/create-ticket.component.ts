@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 import { GoogleMapsService, SessionManagerService, MessageDialogComponent, PublicProfileService, TicketService, ToastService } from '@grid-watch/shared-ui';
 import { Loader } from '@googlemaps/js-api-loader';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles-public-api-dto';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -19,8 +19,8 @@ import { NoopScrollStrategy } from '@angular/cdk/overlay';
 export class CreateTicketComponent
 {
 
-  hideRequiredControl = new FormControl(false);
-  floatLabelControl = new FormControl('auto' as FloatLabelType);
+  hideRequiredControl = new UntypedFormControl(false);
+  floatLabelControl = new UntypedFormControl('auto' as FloatLabelType);
   formOptions = this.formBuilder.group({
     hideRequired: this.hideRequiredControl,
     floatLabel: this.floatLabelControl,
@@ -48,9 +48,9 @@ export class CreateTicketComponent
   issueOptions = ["Pothole", "Sinkhole", "Broken Street Light", "Broken Traffic Light", "Water Outage", "Electricity Outage", "Other"]
   dialogRef!: MatDialogRef<MessageDialogComponent>;
 
-  issue = new FormControl('', [Validators.required]);
-  location = new FormControl('', [Validators.required]);
-  description = new FormControl('', [Validators.required]);
+  issue = new UntypedFormControl('', [Validators.required]);
+  location = new UntypedFormControl('', [Validators.required]);
+  description = new UntypedFormControl('', [Validators.required]);
 
 
 
@@ -58,7 +58,7 @@ export class CreateTicketComponent
     private router: Router,
     private ticketService: TicketService,
     private googleMapsService: GoogleMapsService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private profileService: PublicProfileService,
     public dialog: MatDialog,
     private toast: ToastService,

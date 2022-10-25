@@ -7,6 +7,14 @@
     "inlineSources": true,
     "types": []
   },
-  "exclude": ["src/test-setup.ts", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts", "../../shared-ui/src/lib/services/Ticket/image-response.ts"]
+  "exclude": [
+    "src/test-setup.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "jest.config.ts"
+  ],
+  "include": [
+    "**/*.ts",
+    "../../shared-ui/src/lib/services/Ticket/image-response.ts"
+  ]
 }

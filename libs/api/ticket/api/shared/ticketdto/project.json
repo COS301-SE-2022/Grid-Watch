@@ -1,5 +1,5 @@
 {
-  "root": "libs/api/ticket/api/shared/ticketdto",
+  "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/api/ticket/api/shared/ticketdto/src",
   "projectType": "library",
   "targets": {

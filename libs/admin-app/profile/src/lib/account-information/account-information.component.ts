@@ -1,6 +1,6 @@
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FloatLabelType } from '@angular/material/form-field';
 import { Loader } from '@googlemaps/js-api-loader';
@@ -15,8 +15,8 @@ import { profile } from 'console';
 })
 export class AccountInformationComponent implements OnInit {
 
-  hideRequiredControl = new FormControl(false);
-  floatLabelControl = new FormControl('auto' as FloatLabelType);
+  hideRequiredControl = new UntypedFormControl(false);
+  floatLabelControl = new UntypedFormControl('auto' as FloatLabelType);
   formOptions = this.formBuilder.group({
     hideRequired: this.hideRequiredControl,
     floatLabel: this.floatLabelControl,
@@ -35,7 +35,7 @@ export class AccountInformationComponent implements OnInit {
   changePassword = false;
 
   constructor(
-    private formBuilder : FormBuilder,
+    private formBuilder : UntypedFormBuilder,
     private googleMapsService : GoogleMapsService, 
     private profileService : AdminProfileService,
     public dialog: MatDialog,

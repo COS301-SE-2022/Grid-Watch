@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { EditTicketComponent } from './edit-ticket.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { FormBuilder, FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, UntypedFormBuilder } from '@angular/forms';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -44,7 +44,7 @@ describe('EditTicketComponent', () => {
   }),
         AngularFirestoreModule,
       ],
-      providers: [FormBuilder, GoogleMapsService],
+      providers: [UntypedFormBuilder, GoogleMapsService],
     }).compileComponents();
   });
 

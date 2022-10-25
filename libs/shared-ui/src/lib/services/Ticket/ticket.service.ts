@@ -13,17 +13,18 @@ export class TicketService {
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      "Access-Control-Allow-Origin": "https://grid-watch-api.azurewebsites.net"
+      "Access-Control-Allow-Origin": "https://grid-watch-api-2.azurewebsites.net"
     }),
   };
 
-  private apiURL = "https://grid-watch-api.azurewebsites.net"
+  private apiURL = "https://grid-watch-api-2.azurewebsites.net"
   private getAllURL = this.apiURL +  '/api/ticket/all/tickets';
   private upvoteURL = this.apiURL +  '/api/ticket/update/upvotes/';
   private upvoteURLUser = this.apiURL +  '/api/public/add/upvote/';
   private getTicketIssue = this.apiURL +  '/api/ticket/issue/';
   private getPictureURL = this.apiURL +  '/api/ticket/picture/';
   private getTicketURL = this.apiURL +  '/api/ticket/';
+  // private getTicketURL = 'http://localhost:3333/api/ticket/';
   private getSubtaskURL = this.apiURL +  '/api/ticket/subtasks/';
   private createSubtaskURL = this.apiURL +  '/api/ticket/subtask/create/';
   private uploadURL = this.apiURL +  '/api/ticket/upload';
@@ -40,9 +41,20 @@ export class TicketService {
   private getAITicketCostURL = this.apiURL +  '/api/ticketAI/estimate/cost';
   private getAITicketTimeURL = this.apiURL +  '/api/ticketAI/estimate/time';
   private deleteURL = this.apiURL + "/api/ticket/delete/"; 
-
+  private getTicketsSomeURL = "http://localhost:3333" + "/api/ticket/some/tickets/"; 
+  // private getTicketsSomeURL = this.apiURL + "/api/ticket/some/tickets/"; 
+  private getTicketUserURL = "http://localhost:3333/api/ticket/all/tickets/"
+  // private getTicketUserURL = this.apiURL +  "/api/ticket/all/tickets/"
   constructor(private http: HttpClient,  private storage : AngularFireStorage) {}
 
+  public getUserTicket(userID : string, skip: number, take : number ){
+    
+    return this.http.get<TicketDto[]>(this.getTicketUserURL + userID + "/" + skip + "/" + take)
+    .pipe(
+      catchError(this.handleError<TicketDto[]>('getUserTicket', []))
+    );
+  }
+  
   public print(message: string) {
     // console.log(message);
   }
@@ -183,6 +195,17 @@ export class TicketService {
       .pipe(catchError(this.handleError<TicketDto[]>('getTickets', [])));
   }
 
+  public getTicketsSome(skip : number, take : number): Observable<TicketDto[]> {
+    const value = {
+      skip : skip, 
+      take : take
+    }
+    console.log(this.getTicketsSomeURL + skip + "/" + take);
+    return this.http
+      .get<TicketDto[]>(this.getTicketsSomeURL + skip + "/" + take)
+      .pipe(catchError(this.handleError<TicketDto[]>('getTickets', [])));
+  }
+
   public getTicketsType(status: string): Observable<TicketDto[]> {
     const tempURL = this.getTicketStatus + status;
     return this.http
@@ -199,6 +222,8 @@ export class TicketService {
 
   public getTicket(ticket_id: string): Observable<TicketDto[]> {
     const tempURL = this.getTicketURL + ticket_id;
+    console.log(tempURL);
+    
     return this.http
       .get<TicketDto[]>(tempURL)
       .pipe(catchError(this.handleError<TicketDto[]>('getTicket', [])));

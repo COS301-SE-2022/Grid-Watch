@@ -13,7 +13,7 @@ import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatIconModule } from '@angular/material/icon';
 // import { GoogleMapsService, LoggedInGuard } from '@grid-watch/shared-ui';
@@ -29,6 +29,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { LoggedInGuard } from 'libs/shared-ui/src/lib/guards/logged-in/logged-in.guard';
 import { GoogleMapsService } from '@grid-watch/shared-ui';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll'
+
 // import { ApiTicketService } from 'libs/api/ticket/service/src/lib/api-ticket.service';
 // import { MatDialog } from '@angular/material/dialog';
 // import {BrowserAnimationModule} from '@angular/material/';
@@ -56,6 +58,7 @@ import { GoogleMapsService } from '@grid-watch/shared-ui';
     MatRadioModule,
     NgbModule,
     MatButtonToggleModule,
+    InfiniteScrollModule,
     RouterModule.forChild([
       {
         path: 'createTicket',
@@ -96,7 +99,7 @@ import { GoogleMapsService } from '@grid-watch/shared-ui';
     TicketBodyListComponent,
     TicketBodyMapComponent,
   ],
-  providers: [FormBuilder, LoggedInGuard, GoogleMapsService],
+  providers: [UntypedFormBuilder, LoggedInGuard, GoogleMapsService],
 
 })
 export class PublicTicketModule {}

@@ -127,10 +127,13 @@ mat-drawer{
 .filterContainer{
     padding: 1rem;
     padding-top: 40px;
+    padding-bottom: 80px;
+    overflow: auto;
+
 }
 
 .drawerContainer{
-    // overflow-y: scroll;
+    overflow-y: auto;
     z-index: 0;
 }
 
@@ -148,13 +151,15 @@ span.upvoteContainer.liked {
 span.upvoteContainer {
     border-radius: 13px;
     background: white;
-    height: 100%;
-    width: 45%;
+    height: 30px;
+    width: 30px;
+    margin-left: 0.5rem;
+    border: 1px solid black;
     
 }
 
 .upvoteNumber {
-    max-width: 15px;
+    max-width: 10px;
     margin-right: 1rem;
   }
 
@@ -174,3 +179,13 @@ span.upvoteContainer {
     width: 80%;
 }
 
+.radioSortButton{
+    margin: 0.5rem 0;
+}
+
+.directionContainer {
+    margin-top: 1rem;
+    border: 1px solid black;
+    padding: 11px;
+    border-radius: 11px;
+}

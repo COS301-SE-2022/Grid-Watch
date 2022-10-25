@@ -4,7 +4,6 @@ import { UserDto } from '@grid-watch/api/profiles/public/api/shared/api-profiles
 import { TicketDto } from '@grid-watch/api/ticket/api/shared/ticketdto';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { PublicProfileService, SessionManagerService, TicketService } from '@grid-watch/shared-ui';
-import { id } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'grid-watch-view-ticket',
@@ -128,7 +127,7 @@ export class ViewTicketComponent implements OnInit
     this.ticketService.getImages(this.ticket.ticketId).subscribe(
       (response) =>
       {
-        if (response[response.length - 1].pictureLink)
+        if (response.length > 0)
           this.ticket.ticketImg = response[response.length - 1].pictureLink;
         else
         {

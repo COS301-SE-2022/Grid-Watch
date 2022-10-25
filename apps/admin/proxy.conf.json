@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://grid-watch-api-2.azurewebsites.net/",
+    "target": "http://localhost:3333/",
     "secure": true,
     "changeOrigin": true
 

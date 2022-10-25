@@ -24,6 +24,7 @@ export class TicketService {
   private getTicketIssue = this.apiURL +  '/api/ticket/issue/';
   private getPictureURL = this.apiURL +  '/api/ticket/picture/';
   private getTicketURL = this.apiURL +  '/api/ticket/';
+  // private getTicketURL = 'http://localhost:3333/api/ticket/';
   private getSubtaskURL = this.apiURL +  '/api/ticket/subtasks/';
   private createSubtaskURL = this.apiURL +  '/api/ticket/subtask/create/';
   private uploadURL = this.apiURL +  '/api/ticket/upload';

@@ -23,6 +23,14 @@ dateCreated! : Date;
 @IsOptional()
 aiData! : JsonValue;
 
+@IsString()
+@IsNotEmpty()
+aiParameters! : string[];
+
+@IsJSON()
+@IsOptional()
+aiArrays! : JsonValue;
+
 @IsArray()
 @IsNotEmpty()
 aiTicketTypes! : string[];
